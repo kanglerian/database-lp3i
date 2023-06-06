@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApplicantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('database', ApplicantController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
