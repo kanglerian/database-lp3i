@@ -88,10 +88,10 @@
                             case null:
                                 return 'Tidak diketahui'
                                 break;
-                            case 1:
+                            case "1":
                                 return 'Website'
                                 break;
-                            case 2:
+                            case "2":
                                 return 'Presenter'
                                 break;
                         }
@@ -101,19 +101,19 @@
                     data: 'status',
                     render: (data, type, row) => {
                         switch (data) {
-                            case 1:
+                            case "1":
                                 return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
                                 break;
-                            case 2:
+                            case "2":
                                 return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
                                 break;
-                            case 3:
+                            case "3":
                                 return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
                                 break;
-                            case 4:
+                            case "4":
                                 return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
                                 break;
-                            case 5:
+                            case "5":
                                 return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
                                 break;
                         }
@@ -168,7 +168,7 @@
 
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
-        var contentSchool = school == null ? 'Tidak diketahui' : school;
+        var contentSchool = school === null ? 'Tidak diketahui' : school;
         switch (source) {
             case "1":
                 contentSource = 'Website'
