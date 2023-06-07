@@ -8,7 +8,8 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                    role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('message') }}
@@ -87,10 +88,10 @@
                             case null:
                                 return 'Tidak diketahui'
                                 break;
-                            case "1":
+                            case 1:
                                 return 'Website'
                                 break;
-                            case "2":
+                            case 2:
                                 return 'Presenter'
                                 break;
                         }
@@ -100,29 +101,40 @@
                     data: 'status',
                     render: (data, type, row) => {
                         switch (data) {
-                            case "1":
+                            case 1:
                                 return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
                                 break;
-                            case "2":
+                            case 2:
                                 return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
                                 break;
-                            case "3":
+                            case 3:
                                 return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
                                 break;
-                            case "4":
+                            case 4:
                                 return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
                                 break;
-                            case "5":
+                            case 5:
                                 return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
                                 break;
                         }
                     }
                 },
                 {
-                    data: 'id',
+                    data: {
+                        id: 'id',
+                        name: 'name',
+                        phone: 'phone',
+                        school: 'school',
+                        year: 'year',
+                        source: 'source'
+                    },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('database.edit', ':id') }}".replace(':id', data);
+                        let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
+                            data);
                         return `
+                            <button class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
@@ -152,5 +164,27 @@
                 }
             })
         }
+    }
+
+    const copyRecord = (name, phone, school, year, source) => {
+        var contentSource = '';
+        switch (source) {
+            case "1":
+                contentSource = 'Website'
+                break;
+            case "2":
+                contentSource = 'Presenter'
+                break;
+            default:
+                break;
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year}) \nSumber: ${contentSource}`;
+        textarea.style.position = "fixed";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert('Link sudah disalin!');
     }
 </script>
