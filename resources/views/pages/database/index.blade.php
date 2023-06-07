@@ -168,14 +168,13 @@
 
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
+        console.log(typeof(source));
         switch (source) {
             case 1:
                 contentSource = 'Website'
                 break;
             case 2:
                 contentSource = 'Presenter'
-                break;
-            default:
                 break;
         }
         const textarea = document.createElement("textarea");
