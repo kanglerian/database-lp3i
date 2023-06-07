@@ -178,7 +178,7 @@
                 break;
         }
         const textarea = document.createElement("textarea");
-        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == null ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
+        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();
