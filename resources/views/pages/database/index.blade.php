@@ -168,7 +168,6 @@
 
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
-        var contentSchool = school == null ? 'Tidak diketahui' : data;
         switch (source) {
             case "1":
                 contentSource = 'Website'
@@ -178,7 +177,7 @@
                 break;
         }
         const textarea = document.createElement("textarea");
-        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${contentSchool} (${year}) \nSumber: ${contentSource}`;
+        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == null ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();
