@@ -167,7 +167,7 @@
     }
 
     const copyRecord = (name, phone, school, year, source) => {
-        alert(`${typeof(school) school}`);
+        alert(`${typeof(school)} ${school}`);
         var contentSource = '';
         switch (source) {
             case "1":
