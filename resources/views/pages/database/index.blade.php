@@ -130,7 +130,7 @@
                     },
                     render: (data, type, row) => {
                         let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
-                            data);
+                            data.id);
                         return `
                             <button class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
                                 <i class="fa-solid fa-copy"></i>
@@ -138,7 +138,7 @@
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>`
                     }
