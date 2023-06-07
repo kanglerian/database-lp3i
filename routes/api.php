@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
+use App\Http\Controllers\API\BaksoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/applicants', [ApplicantController::class, 'getAll'])->name('applicants.api.index');
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
+
+Route::resource('bakso', BaksoController::class);
