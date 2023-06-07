@@ -168,7 +168,7 @@
 
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
-        var contentSchool = school === null ? 'Tidak diketahui' : school;
+        var contentSchool = school == null ? 'Tidak diketahui' : data;
         switch (source) {
             case "1":
                 contentSource = 'Website'
