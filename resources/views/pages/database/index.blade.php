@@ -169,10 +169,10 @@
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
         switch (source) {
-            case "1":
+            case 1:
                 contentSource = 'Website'
                 break;
-            case "2":
+            case 2:
                 contentSource = 'Presenter'
                 break;
             default:
