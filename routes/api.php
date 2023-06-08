@@ -27,3 +27,5 @@ Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->nam
 
 Route::resource('bakso', BaksoController::class);
 Route::resource('klinik', KlinikController::class);
+
+Route::get('/poli', [KlinikController::class, 'poli'])->name('klinik.poli');
