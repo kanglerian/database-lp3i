@@ -47,7 +47,7 @@ class KlinikController extends Controller
                 'poli' => $request->input('poli'),
             ];
             
-            Bakso::create($data);
+            Klinik::create($data);
             return response()->json(['message' => 'Pasien telah ditambahkan']);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
