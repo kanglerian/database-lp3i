@@ -120,7 +120,26 @@ class KlinikController extends Controller
 
     public function poli()
     {
-        $polis = ['Poli Gigi', 'Poli Bedah', 'Poli Anak', 'Poli Kulit', 'Poli Orthopaedi', 'Poli Bedah Saraf'];
+        $polis = [
+            [
+                'nama' => 'Poli Gigi'
+            ],
+            [
+                'nama' => 'Poli Bedah'
+            ],
+            [
+                'nama' => 'Poli Anak'
+            ],
+            [
+                'nama' => 'Poli Kulit'
+            ],
+            [
+                'nama' => 'Poli Orthopaedi'
+            ],
+            [
+                'nama' => 'Poli Bedah Saraf'
+            ],
+        ]
 
         return response()->json([
             'polis' => $polis,
