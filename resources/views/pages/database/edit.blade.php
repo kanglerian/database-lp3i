@@ -4,11 +4,11 @@
             {{ __('Edit Database') }}
         </h2>
     </x-slot>
-
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                    role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('message') }}
@@ -49,7 +49,8 @@
                                     sekolah</label>
                             </div>
                             <div class="relative z-0 w-full mb-6 group">
-                                <input type="number" min="1945" max="3000" name="year" id="year" value="{{ $applicant->year }}"
+                                <input type="number" min="1945" max="3000" name="year" id="year"
+                                    value="{{ $applicant->year }}"
                                     class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" " required />
                                 {{ $errors->first('year') }}</small>
@@ -66,13 +67,15 @@
                                     @switch($applicant->source)
                                         @case(null)
                                             <option>Pilih sumber</option>
-                                            @break
+                                        @break
+
                                         @case(1)
                                             <option value="{{ $applicant->source }}">Website</option>
-                                            @break
+                                        @break
+
                                         @case(2)
                                             <option value="{{ $applicant->source }}">Presenter</option>
-                                            @break
+                                        @break
                                     @endswitch
                                     <option value="1">Tidak diketahui</option>
                                     <option value="2">Potensi</option>
@@ -88,22 +91,27 @@
                                     @switch($applicant->status)
                                         @case(null)
                                             <option>Pilih status</option>
-                                            @break
+                                        @break
+
                                         @case(1)
                                             <option value="{{ $applicant->status }}">Tidak diketahui</option>
-                                            @break
+                                        @break
+
                                         @case(2)
                                             <option value="{{ $applicant->status }}">Potensi</option>
-                                            @break
+                                        @break
+
                                         @case(3)
                                             <option value="{{ $applicant->status }}">Daftar</option>
-                                            @break
+                                        @break
+
                                         @case(4)
                                             <option value="{{ $applicant->status }}">Registrasi</option>
-                                            @break
+                                        @break
+
                                         @case(5)
                                             <option value="{{ $applicant->status }}">Batal</option>
-                                            @break
+                                        @break
                                     @endswitch
                                     <option value="1">Tidak diketahui</option>
                                     <option value="2">Potensi</option>
@@ -122,16 +130,20 @@
                                     @switch($applicant->program)
                                         @case(null)
                                             <option>Pilih program</option>
-                                            @break
+                                        @break
+
                                         @case(1)
                                             <option value="{{ $applicant->program }}">Manajemen Keuangan Perbankan</option>
-                                            @break
+                                        @break
+
                                         @case(2)
                                             <option value="{{ $applicant->program }}">Manajemen Pemasaran</option>
-                                            @break
+                                        @break
                                     @endswitch
-                                    <option value="1">Manajemen Keuangan Perbankan</option>
-                                    <option value="2">Manajemen Pemasaran</option>
+                                    @foreach ($programs as $prog)
+                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                    @endforeach
                                 </select>
                                 {{ $errors->first('program') }}</small>
                             </div>
@@ -142,13 +154,15 @@
                                     @switch($applicant->presenter)
                                         @case(null)
                                             <option>Pilih presenter</option>
-                                            @break
+                                        @break
+
                                         @case(1)
                                             <option value="{{ $applicant->presenter }}">Nurul Ahyar</option>
-                                            @break
+                                        @break
+
                                         @case(2)
                                             <option value="{{ $applicant->presenter }}">Harlip</option>
-                                            @break
+                                        @break
                                     @endswitch
                                     <option value="0">Nurul Ahyar</option>
                                     <option value="1">Harlip</option>

@@ -8,7 +8,8 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                    role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('message') }}
@@ -87,8 +88,9 @@
                                 <select id="program" name="program"
                                     class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                     <option selected>Pilih program</option>
-                                    <option value="0">Manajemen Keuangan Perbankan</option>
-                                    <option value="1">Manajemen Pemasaran</option>
+                                    @foreach ($programs as $prog)
+                                        <option value="{{ $prog['level'] }} {{$prog['title']}}">{{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                    @endforeach
                                 </select>
                                 {{ $errors->first('program') }}</small>
                             </div>
