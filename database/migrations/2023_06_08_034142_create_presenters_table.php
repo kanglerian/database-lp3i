@@ -15,15 +15,10 @@ class CreatePresentersTable extends Migration
     {
         Schema::create('presenters', function (Blueprint $table) {
             $table->id();
+            $table->string('nik');
             $table->string('name');
             $table->string('phone');
-            $table->string('school')->nullable();
-            $table->year('year');
-            $table->tinyInteger('source');
-            $table->tinyInteger('status');
-            $table->string('presenter')->nullable();
-            $table->string('program')->nullable();
-            $table->boolean('isread')->default(0);
+            $table->boolean('status');
             $table->timestamps();
         });
     }

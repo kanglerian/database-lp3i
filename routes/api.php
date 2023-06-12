@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
+use App\Http\Controllers\API\PresenterController;
 use App\Http\Controllers\API\BaksoController;
 use App\Http\Controllers\API\KlinikController;
 
@@ -24,6 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/applicants', [ApplicantController::class, 'getAll'])->name('applicants.api.index');
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
+
+
+Route::get('/presenters', [PresenterController::class, 'getAll'])->name('presenters.api.index');
 
 Route::resource('bakso', BaksoController::class);
 Route::resource('klinik', KlinikController::class);

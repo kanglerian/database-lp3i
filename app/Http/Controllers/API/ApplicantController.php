@@ -30,7 +30,6 @@ class ApplicantController extends Controller
             $request->validate([
                 'name' => ['string', 'max:255'],
                 'phone' => ['string', 'max:15', 'min:10'],
-                'year' => ['string', 'digits:4'],
                 'source' => ['integer', 'max:10', 'not_in:Pilih sumber'],
                 'status' => ['integer', 'max:10', 'not_in:Pilih status'],
                 'isread' => ['boolean'],
@@ -38,14 +37,13 @@ class ApplicantController extends Controller
             $data = [
                 'name' => $request->input('name'),
                 'phone' => $request->input('phone'),
-                'year' => $request->input('year'),
                 'source' => 1,
                 'status' => 1,
                 'isread' => 0,
             ];
             
             Applicant::create($data);
-            return response()->json(['message' => 'POST request handled successfully']);
+            return response()->json(['message' => 'Terima kasih telah mengisi form! tunggu sampai bidang terkait menghubungimu ya']);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }

@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('database.index')" :active="request()->routeIs('database.index')">
                         {{ __('Database') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter.index')">
+                        {{ __('Presenter') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs('database')">
                 {{ __('Database') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter')">
+                {{ __('Presenter') }}
             </x-responsive-nav-link>
         </div>
 

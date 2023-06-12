@@ -151,21 +151,16 @@
                                 <label for="presenter" class="sr-only">Presenter</label>
                                 <select id="presenter" name="presenter"
                                     class="@error('presenter') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                    @switch($applicant->presenter)
-                                        @case(null)
-                                            <option>Pilih presenter</option>
-                                        @break
-
-                                        @case(1)
-                                            <option value="{{ $applicant->presenter }}">Nurul Ahyar</option>
-                                        @break
-
-                                        @case(2)
-                                            <option value="{{ $applicant->presenter }}">Harlip</option>
-                                        @break
-                                    @endswitch
-                                    <option value="0">Nurul Ahyar</option>
-                                    <option value="1">Harlip</option>
+                                    @if ($applicant->presenter == null)
+                                        <option selected>Pilih presenter</option>
+                                        @foreach ($presenters as $presenter)
+                                            <option value="{{ $presenter->nik }}">{{ $presenter->name }}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($presenters as $presenter)
+                                            <option value="{{ $presenter->nik }}">{{ $presenter->name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 {{ $errors->first('presenter') }}</small>
                             </div>

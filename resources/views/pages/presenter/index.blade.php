@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Database') }}
+            {{ __('Presenter') }}
         </h2>
     </x-slot>
 
@@ -17,7 +17,7 @@
                 </div>
             @endif
             <div class="px-2 pb-4">
-                <a href="{{ route('database.create') }}"
+                <a href="{{ route('presenter.create') }}"
                     class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
             </div>
@@ -29,19 +29,13 @@
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Nama lengkap
+                                        Nomor Induk Karyawan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nama Lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         No. Telpon (Whatsapp)
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Asal sekolah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Tahun lulus
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Sumber
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Status
@@ -63,61 +57,28 @@
     $(document).ready(function() {
         $('#myTable').DataTable({
             ajax: {
-                url: 'api/applicants',
-                dataSrc: 'applicants'
+                url: 'api/presenters',
+                dataSrc: 'presenters'
             },
-            columns: [{
+            columns: [
+                {
+                    data: 'nik'
+                },
+                {
                     data: 'name'
                 },
                 {
                     data: 'phone'
                 },
                 {
-                    data: 'school',
-                    render: (data) => {
-                        return typeof(data) == 'object' ? 'Tidak diketahui' : data;
-                    }
-                },
-                {
-                    data: 'year',
-                    render: (data, row) => {
-                        return typeof(type) == 'number' ? row.year : 'Tidak diketahui';
-                    }
-                },
-                {
-                    data: 'source',
-                    render: (data, type, row) => {
-                        switch (data) {
-                            case null:
-                                return 'Tidak diketahui'
-                                break;
-                            case 0:
-                                return 'Website'
-                                break;
-                            case 1:
-                                return 'Presenter'
-                                break;
-                        }
-                    }
-                },
-                {
                     data: 'status',
                     render: (data, type, row) => {
                         switch (data) {
-                            case null:
-                                return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
+                            case 1:
+                                return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></span>'
                                 break;
                             case 0:
-                                return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
-                                break;
-                            case 1:
-                                return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
-                                break;
-                            case 2:
-                                return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
-                                break;
-                            case 3:
-                                return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
+                                return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></span>'
                                 break;
                         }
                     }
@@ -125,19 +86,15 @@
                 {
                     data: {
                         id: 'id',
+                        nik: 'nik',
                         name: 'name',
                         phone: 'phone',
-                        school: 'school',
-                        year: 'year',
-                        source: 'source'
+                        status: 'status',
                     },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
+                        let editUrl = "{{ route('presenter.edit', ':id') }}".replace(':id',
                             data.id);
                         return `
-                            <button class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
@@ -172,10 +129,10 @@
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
         switch (source) {
-            case "0":
+            case "1":
                 contentSource = 'Website'
                 break;
-            case "1":
+            case "2":
                 contentSource = 'Presenter'
                 break;
         }

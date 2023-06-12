@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Applicant;
+use App\Models\Presenter;
 
 class ApplicantController extends Controller
 {
@@ -17,7 +18,7 @@ class ApplicantController extends Controller
     {
         $applicants = Applicant::all();
         return view('pages.database.index')->with([
-            'applicants' => $applicants
+            'applicants' => $applicants,
         ]);
     }
 
@@ -30,12 +31,15 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
+        $presenters = Presenter::where('status', 1)->get();
+
         if($response->successful()){
             $programs = $response->json();
         }
 
         return view('pages.database.create')->with([
-            'programs' => $programs
+            'programs' => $programs,
+            'presenters' => $presenters,
         ]);
     }
 
@@ -95,13 +99,16 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
+        $presenters = Presenter::where('status', 1)->get();
+
         if($response->successful()){
             $programs = $response->json();
         }
         $applicant = Applicant::findOrFail($id);
         return view('pages.database.edit')->with([
             'applicant' => $applicant,
-            'programs' => $programs
+            'programs' => $programs,
+            'presenters' => $presenters,
         ]);
     }
 

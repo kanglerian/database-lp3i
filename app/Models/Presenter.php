@@ -5,25 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Applicant extends Model
+class Presenter extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'id',
+        'nik',
         'name',
         'phone',
-        'school',
-        'year',
-        'source',
         'status',
-        'presenter',
-        'program',
-        'isread',
     ];
 }

@@ -89,7 +89,8 @@
                                     class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                     <option selected>Pilih program</option>
                                     @foreach ($programs as $prog)
-                                        <option value="{{ $prog['level'] }} {{$prog['title']}}">{{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">{{ $prog['level'] }}
+                                            {{ $prog['title'] }}</option>
                                     @endforeach
                                 </select>
                                 {{ $errors->first('program') }}</small>
@@ -99,8 +100,9 @@
                                 <select id="presenter" name="presenter"
                                     class="@error('presenter') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                     <option selected>Pilih presenter</option>
-                                    <option value="0">Nurul Ahyar</option>
-                                    <option value="1">Harlip</option>
+                                    @foreach ($presenters as $presenter)
+                                        <option value="{{ $presenter->nik }}">{{ $presenter->name }}</option>
+                                    @endforeach
                                 </select>
                                 {{ $errors->first('presenter') }}</small>
                             </div>

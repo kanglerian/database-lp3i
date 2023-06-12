@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\PresenterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('database', ApplicantController::class)->middleware('auth');
+Route::resource('presenter', PresenterController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';
