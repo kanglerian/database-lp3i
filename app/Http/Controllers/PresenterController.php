@@ -52,8 +52,8 @@ class PresenterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'string', 'max:15'],
-            'role' => ['char', 'min:1'],
-            'status' => ['char', 'min:1'],
+            'role' => ['string'],
+            'status' => ['string'],
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
@@ -109,9 +109,9 @@ class PresenterController extends Controller
             'nik' => ['required', 'string', 'max:50'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'status' => ['char', 'min:1', 'not_in:Pilih status'],
+            'status' => ['string', 'not_in:Pilih status'],
             'phone' => ['required', 'string', 'max:15'],
-            'status' => ['char', 'min:1'],
+            'status' => ['string'],
         ]);
         $data = [
             'nik' => $request->input('nik'),
@@ -151,7 +151,7 @@ class PresenterController extends Controller
     {
         $presenter = User::findOrFail($id);
         $request->validate([
-            'status' => ['char', 'min:1'],
+            'status' => ['string'],
         ]);
         $data = [
             'status' => $presenter->status == "0" ? "1" : "0",

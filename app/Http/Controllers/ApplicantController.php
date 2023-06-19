@@ -79,11 +79,11 @@ class ApplicantController extends Controller
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'char', 'min:1', 'not_in:Pilih sumber'],
-            'status' => ['required', 'char', 'min:1', 'not_in:Pilih status'],
+            'source' => ['required', 'string', 'not_in:Pilih sumber'],
+            'status' => ['required', 'string', 'not_in:Pilih status'],
             'nik_user' => ['string', 'not_in:Pilih presenter'],
             'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['char'],
+            'isread' => ['string'],
         ]);
         $data = [
             'name' => $request->input('name'),
@@ -150,11 +150,11 @@ class ApplicantController extends Controller
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'char', 'min:1', 'not_in:Pilih sumber'],
-            'status' => ['required', 'char', 'min:1', 'not_in:Pilih status'],
+            'source' => ['required', 'string', 'not_in:Pilih sumber'],
+            'status' => ['required', 'string', 'not_in:Pilih status'],
             'nik_user' => ['string', 'not_in:Pilih presenter'],
             'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['char'],
+            'isread' => ['string'],
         ]);
         $data = [
             'name' => $request->input('name'),

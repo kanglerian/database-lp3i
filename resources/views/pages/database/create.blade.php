@@ -66,10 +66,10 @@
                                 <label for="source" class="sr-only">Sumber</label>
                                 <select id="source" name="source"
                                     class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                    <option value="0" {{ old('source') == 0 ? 'selected' : '' }}>Pilih sumber
+                                    <option value="0" {{ old('source') == "0" ? 'selected' : '' }}>Pilih sumber
                                     </option>
-                                    <option value="1" {{ old('source') == 1 ? 'selected' : '' }}>Website</option>
-                                    <option value="2" {{ old('source') == 2 ? 'selected' : '' }}>Presenter
+                                    <option value="1" {{ old('source') == "1" ? 'selected' : '' }}>Website</option>
+                                    <option value="2" {{ old('source') == "2" ? 'selected' : '' }}>Presenter
                                     </option>
                                 </select>
                                 {{ $errors->first('source') }}</small>
@@ -78,15 +78,15 @@
                                 <label for="status" class="sr-only">Status</label>
                                 <select id="status" name="status"
                                     class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Pilih status
+                                    <option value="0" {{ old('status') == "0" ? 'selected' : '' }}>Pilih status
                                     </option>
-                                    <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Tidak diketahui
+                                    <option value="1" {{ old('status') == "1" ? 'selected' : '' }}>Tidak diketahui
                                     </option>
-                                    <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>Potensi</option>
-                                    <option value="3" {{ old('status') == 3 ? 'selected' : '' }}>Daftar</option>
-                                    <option value="4" {{ old('status') == 4 ? 'selected' : '' }}>Registrasi
+                                    <option value="2" {{ old('status') == "2" ? 'selected' : '' }}>Potensi</option>
+                                    <option value="3" {{ old('status') == "3" ? 'selected' : '' }}>Daftar</option>
+                                    <option value="4" {{ old('status') == "4" ? 'selected' : '' }}>Registrasi
                                     </option>
-                                    <option value="5" {{ old('status') == 5 ? 'selected' : '' }}>Batal</option>
+                                    <option value="5" {{ old('status') == "5" ? 'selected' : '' }}>Batal</option>
                                 </select>
                                 {{ $errors->first('status') }}</small>
                             </div>
