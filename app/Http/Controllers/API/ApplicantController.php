@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ApplicantController extends Controller
@@ -12,10 +13,9 @@ class ApplicantController extends Controller
     public function getAll()
     {
         $applicants = Applicant::all();
-
         return response()->json([
             'applicants' => $applicants,
-        ])->header('Content-Type', 'application/json');;
+        ])->header('Content-Type', 'application/json');
     }
 
     /**

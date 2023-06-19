@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Applicant;
-use App\Models\Presenter;
+use App\Models\User;
 
 class ApplicantController extends Controller
 {
@@ -16,12 +17,27 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::all();
-        return view('pages.database.index')->with([
-            'applicants' => $applicants,
-        ]);
+        return view('pages.database.index');
     }
 
+    public function get_all()
+    {
+        if (Auth::check() && Auth::user()->role == 'P') {
+            $applicants = Applicant::where('nik_user', Auth::user()->nik)->get();
+            return response()
+                ->json([
+                    'applicants' => $applicants,
+                ])
+                ->header('Content-Type', 'application/json');
+        } elseif (Auth::check() && Auth::user()->role == 'A') {
+            $applicants = Applicant::all();
+            return response()
+                ->json([
+                    'applicants' => $applicants,
+                ])
+                ->header('Content-Type', 'application/json');
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -31,15 +47,15 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $presenters = Presenter::where('status', 1)->get();
+        $users = User::where(['status' => 1, 'role' => 'P'])->get();
 
-        if($response->successful()){
+        if ($response->successful()) {
             $programs = $response->json();
         }
 
         return view('pages.database.create')->with([
             'programs' => $programs,
-            'presenters' => $presenters,
+            'users' => $users,
         ]);
     }
 
@@ -56,10 +72,10 @@ class ApplicantController extends Controller
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'integer', 'max:10', 'not_in:Pilih sumber'],
-            'status' => ['required', 'integer', 'max:10', 'not_in:Pilih status'],
-            'presenter' => ['string', 'max:50', 'not_in:Pilih presenter'],
-            'program' => ['string', 'max:255','not_in:Pilih program'],
+            'source' => ['required', 'not_in:Pilih sumber'],
+            'status' => ['required', 'not_in:Pilih status'],
+            'nik_user' => ['string', 'not_in:Pilih presenter'],
+            'program' => ['string', 'not_in:Pilih program'],
             'isread' => ['boolean'],
         ]);
         $data = [
@@ -70,7 +86,7 @@ class ApplicantController extends Controller
             'source' => $request->input('source'),
             'source' => $request->input('source'),
             'status' => $request->input('status'),
-            'presenter' => $request->input('presenter'),
+            'nik_user' => $request->input('nik_user'),
             'program' => $request->input('program'),
             'isread' => 0,
         ];
@@ -99,9 +115,9 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $presenters = Presenter::where('status', 1)->get();
+        $presenters = User::where(['status' => 1, 'role' => 'P'])->get();
 
-        if($response->successful()){
+        if ($response->successful()) {
             $programs = $response->json();
         }
         $applicant = Applicant::findOrFail($id);
@@ -121,17 +137,16 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $applicant = Applicant::findOrFail($id);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'integer', 'max:10', 'not_in:Pilih sumber'],
-            'status' => ['required', 'integer', 'max:10', 'not_in:Pilih status'],
-            'presenter' => ['string', 'max:50', 'not_in:Pilih presenter'],
-            'program' => ['string', 'max:255','not_in:Pilih program'],
+            'source' => ['required', 'not_in:Pilih sumber'],
+            'status' => ['required', 'not_in:Pilih status'],
+            'nik_user' => ['string', 'not_in:Pilih presenter'],
+            'program' => ['string', 'not_in:Pilih program'],
             'isread' => ['boolean'],
         ]);
         $data = [
@@ -142,7 +157,7 @@ class ApplicantController extends Controller
             'source' => $request->input('source'),
             'source' => $request->input('source'),
             'status' => $request->input('status'),
-            'presenter' => $request->input('presenter'),
+            'nik_user' => $request->input('nik_user'),
             'program' => $request->input('program'),
         ];
         $applicant->update($data);

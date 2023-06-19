@@ -24,6 +24,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('database', ApplicantController::class)->middleware('auth');
-Route::resource('presenter', PresenterController::class)->middleware('auth');
+Route::get('get/database', [ApplicantController::class, 'get_all'])->name('database.get')->middleware('auth');
+
+Route::resource('presenter', PresenterController::class)->middleware(['auth','role:A']);
+
+Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change')->middleware('auth');
 
 require __DIR__.'/auth.php';

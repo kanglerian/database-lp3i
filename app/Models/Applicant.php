@@ -15,15 +15,19 @@ class Applicant extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'name',
+        'email',
         'phone',
         'school',
         'year',
         'source',
         'status',
-        'presenter',
+        'nik_user',
         'program',
         'isread',
     ];
+
+    public function presenter(){
+        return $this->belongsTo(User::class,'nik_user','nik');
+    }
 }

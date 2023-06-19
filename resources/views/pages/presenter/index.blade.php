@@ -68,37 +68,39 @@
                     data: 'name'
                 },
                 {
-                    data: 'phone'
-                },
-                {
-                    data: 'status',
-                    render: (data, type, row) => {
-                        switch (data) {
-                            case 1:
-                                return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></span>'
-                                break;
-                            case 0:
-                                return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></span>'
-                                break;
-                        }
+                    data: 'phone',
+                    render: (data, row) => {
+                        return typeof(data) == 'string' ? data : 'Tidak diketahui';
                     }
                 },
                 {
                     data: {
                         id: 'id',
-                        nik: 'nik',
-                        name: 'name',
-                        phone: 'phone',
-                        status: 'status',
+                        status: 'status'
                     },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('presenter.edit', ':id') }}".replace(':id',
+                        let editUrl = "{{ route('presenter.change', ':id') }}".replace(':id',
                             data.id);
+                        switch (data.status) {
+                            case 0:
+                                return `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
+                                break;
+                            case 1:
+                                return `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>`
+                                break;
+                        }
+                    }
+                },
+                {
+                    data: 'id',
+                    render: (data, type, row) => {
+                        let editUrl = "{{ route('presenter.edit', ':id') }}".replace(':id',
+                            data);
                         return `
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>`
                     }
@@ -110,10 +112,29 @@
     const deleteRecord = (id) => {
         if (confirm('Apakah kamu yakin akan menghapus data?')) {
             $.ajax({
-                url: `/database/${id}`,
+                url: `/presenter/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'DELETE',
+                    '_token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error deleting record');
+                }
+            })
+        }
+    }
+
+    const statusRecord = (id) => {
+        if (confirm('Apakah kamu yakin akan mengubah status data?')) {
+            $.ajax({
+                url: `/presenter/change/${id}`,
+                type: 'POST',
+                data: {
+                    '_method': 'PATCH',
                     '_token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {

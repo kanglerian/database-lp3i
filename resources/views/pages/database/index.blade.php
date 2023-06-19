@@ -63,7 +63,7 @@
     $(document).ready(function() {
         $('#myTable').DataTable({
             ajax: {
-                url: 'api/applicants',
+                url: 'get/database',
                 dataSrc: 'applicants'
             },
             columns: [{
@@ -81,20 +81,21 @@
                 {
                     data: 'year',
                     render: (data, row) => {
-                        return typeof(type) == 'number' ? row.year : 'Tidak diketahui';
+                        console.log(typeof(data));
+                        return typeof(data) == 'string' ? data : 'Tidak diketahui';
                     }
                 },
                 {
                     data: 'source',
                     render: (data, type, row) => {
                         switch (data) {
-                            case null:
+                            case 0:
                                 return 'Tidak diketahui'
                                 break;
-                            case 0:
+                            case 1:
                                 return 'Website'
                                 break;
-                            case 1:
+                            case 2:
                                 return 'Presenter'
                                 break;
                         }
@@ -104,19 +105,19 @@
                     data: 'status',
                     render: (data, type, row) => {
                         switch (data) {
-                            case null:
+                            case 1:
                                 return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
                                 break;
-                            case 0:
+                            case 2:
                                 return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
                                 break;
-                            case 1:
+                            case 3:
                                 return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
                                 break;
-                            case 2:
+                            case 4:
                                 return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
                                 break;
-                            case 3:
+                            case 5:
                                 return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
                                 break;
                         }
@@ -172,10 +173,10 @@
     const copyRecord = (name, phone, school, year, source) => {
         var contentSource = '';
         switch (source) {
-            case "0":
+            case "1":
                 contentSource = 'Website'
                 break;
-            case "1":
+            case "2":
                 contentSource = 'Presenter'
                 break;
         }
