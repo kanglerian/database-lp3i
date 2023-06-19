@@ -67,11 +67,11 @@
                                     class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                     required>
                                     @switch($presenter->status)
-                                        @case(0)
+                                        @case("0")
                                             <option value="0">Tidak aktif</option>
                                             <option value="1">Aktif</option>
                                         @break
-                                        @case(1)
+                                        @case("1")
                                             <option value="1">Aktif</option>
                                             <option value="0">Tidak aktif</option>
                                         @break
@@ -87,7 +87,7 @@
                     </form>
                 </div>
                 <div class="w-full md:w-1/3 p-6 bg-white border-b border-gray-200 rounded-xl">
-                    <form method="POST" action="{{ route('presenter.update', $presenter->id) }}">
+                    <form method="POST" action="{{ route('presenter.password', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
                         <div>
@@ -97,7 +97,7 @@
                                     placeholder=" " required />
                                 {{ $errors->first('password') }}</small>
                                 <label for="password"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password Baru</label>
                             </div>
                             <div class="relative z-0 w-full mb-6 group">
                                 <input type="password" name="password_confirmation" id="password_confirmation"

@@ -70,18 +70,18 @@
                                     class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                     required>
                                     @switch($applicant->source)
-                                        @case(0)
+                                        @case("0")
                                             <option value="0" selected>Pilih sumber</option>
                                         @break
 
-                                        @case(1)
+                                        @case("1")
                                             <option value="{{ $applicant->source }}"
                                                 {{ old('source') == 1 ? 'selected' : '' }}>Website</option>
                                             <option value="2" {{ old('source') == 2 ? 'selected' : '' }}>Presenter
                                             </option>
                                         @break
 
-                                        @case(2)
+                                        @case("2")
                                             <option value="{{ $applicant->source }}"
                                                 {{ old('source') == 2 ? 'selected' : '' }}>Presenter</option>
                                             <option value="1" {{ old('source') == 1 ? 'selected' : '' }}>Website</option>
@@ -95,7 +95,7 @@
                                     class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                     required>
                                     @switch($applicant->status)
-                                        @case(1)
+                                        @case("1")
                                             <option value="1">Tidak diketahui</option>
                                             <option value="2">Potensi</option>
                                             <option value="3">Daftar</option>
@@ -103,7 +103,7 @@
                                             <option value="5">Batal</option>
                                         @break
 
-                                        @case(2)
+                                        @case("2")
                                             <option value="2">Potensi</option>
                                             <option value="1">Tidak diketahui</option>
                                             <option value="3">Daftar</option>
@@ -111,7 +111,7 @@
                                             <option value="5">Batal</option>
                                         @break
 
-                                        @case(3)
+                                        @case("3")
                                             <option value="3">Daftar</option>
                                             <option value="1">Tidak diketahui</option>
                                             <option value="2">Potensi</option>
@@ -119,7 +119,7 @@
                                             <option value="5">Batal</option>
                                         @break
 
-                                        @case(4)
+                                        @case("4")
                                             <option value="4">Registrasi</option>
                                             <option value="1">Tidak diketahui</option>
                                             <option value="2">Potensi</option>
@@ -127,7 +127,7 @@
                                             <option value="5">Batal</option>
                                         @break
 
-                                        @case(5)
+                                        @case("5")
                                             <option value="5">Batal</option>
                                             <option value="1">Tidak diketahui</option>
                                             <option value="2">Potensi</option>

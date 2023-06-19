@@ -36,6 +36,13 @@ class ApplicantController extends Controller
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
+        } else {
+            $applicants = Applicant::all();
+            return response()
+                ->json([
+                    'applicants' => $applicants,
+                ])
+                ->header('Content-Type', 'application/json');
         }
     }
     /**
@@ -47,7 +54,7 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $users = User::where(['status' => 1, 'role' => 'P'])->get();
+        $users = User::where(['status' => '1', 'role' => 'P'])->get();
 
         if ($response->successful()) {
             $programs = $response->json();
@@ -72,11 +79,11 @@ class ApplicantController extends Controller
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'not_in:Pilih sumber'],
-            'status' => ['required', 'not_in:Pilih status'],
+            'source' => ['required', 'char', 'min:1', 'not_in:Pilih sumber'],
+            'status' => ['required', 'char', 'min:1', 'not_in:Pilih status'],
             'nik_user' => ['string', 'not_in:Pilih presenter'],
             'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['boolean'],
+            'isread' => ['char'],
         ]);
         $data = [
             'name' => $request->input('name'),
@@ -88,7 +95,7 @@ class ApplicantController extends Controller
             'status' => $request->input('status'),
             'nik_user' => $request->input('nik_user'),
             'program' => $request->input('program'),
-            'isread' => 0,
+            'isread' => '0',
         ];
         Applicant::create($data);
         return back()->with('message', 'Data aplikan berhasil ditambahkan!');
@@ -115,7 +122,7 @@ class ApplicantController extends Controller
     {
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $presenters = User::where(['status' => 1, 'role' => 'P'])->get();
+        $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
 
         if ($response->successful()) {
             $programs = $response->json();
@@ -143,11 +150,11 @@ class ApplicantController extends Controller
             'phone' => ['required', 'string', 'max:15', 'min:10'],
             'school' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'digits:4'],
-            'source' => ['required', 'not_in:Pilih sumber'],
-            'status' => ['required', 'not_in:Pilih status'],
+            'source' => ['required', 'char', 'min:1', 'not_in:Pilih sumber'],
+            'status' => ['required', 'char', 'min:1', 'not_in:Pilih status'],
             'nik_user' => ['string', 'not_in:Pilih presenter'],
             'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['boolean'],
+            'isread' => ['char'],
         ]);
         $data = [
             'name' => $request->input('name'),

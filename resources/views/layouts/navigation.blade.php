@@ -15,10 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (Auth::check() && Auth::user()->status == '1')
                     <x-nav-link :href="route('database.index')" :active="request()->routeIs('database.index')">
                         {{ __('Database') }}
                     </x-nav-link>
-                    @if (Auth::user()->role == 'A')
+                    @endif
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                         <x-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter.index')">
                             {{ __('Presenter') }}
                         </x-nav-link>

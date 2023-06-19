@@ -57,7 +57,7 @@
     $(document).ready(function() {
         $('#myTable').DataTable({
             ajax: {
-                url: 'api/presenters',
+                url: 'get/presenters',
                 dataSrc: 'presenters'
             },
             columns: [
@@ -82,10 +82,10 @@
                         let editUrl = "{{ route('presenter.change', ':id') }}".replace(':id',
                             data.id);
                         switch (data.status) {
-                            case 0:
+                            case "0":
                                 return `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
                                 break;
-                            case 1:
+                            case "1":
                                 return `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>`
                                 break;
                         }

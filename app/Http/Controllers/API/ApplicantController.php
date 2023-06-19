@@ -30,16 +30,15 @@ class ApplicantController extends Controller
             $request->validate([
                 'name' => ['string', 'max:255'],
                 'phone' => ['string', 'max:15', 'min:10'],
-                'source' => ['integer', 'max:10', 'not_in:Pilih sumber'],
-                'status' => ['integer', 'max:10', 'not_in:Pilih status'],
-                'isread' => ['boolean'],
+                'source' => ['char', 'max:10', 'not_in:Pilih sumber'],
+                'status' => ['char', 'max:10', 'not_in:Pilih status'],
             ]);
             $data = [
                 'name' => $request->input('name'),
                 'phone' => $request->input('phone'),
-                'source' => 1,
-                'status' => 1,
-                'isread' => 0,
+                'source' => '1',
+                'status' => '1',
+                'isread' => '0',
             ];
             
             Applicant::create($data);
