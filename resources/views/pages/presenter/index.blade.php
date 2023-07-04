@@ -1,14 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="flex items-center">
+            <h2 class="font-semibold text-md text-gray-800 leading-tight">
             {{ __('Presenter') }}
-        </h2>
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-medium">
@@ -16,7 +18,7 @@
                     </div>
                 </div>
             @endif
-            <div class="px-2 pb-4">
+            <div class="px-2">
                 <a href="{{ route('presenter.create') }}"
                     class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
@@ -29,7 +31,7 @@
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Nomor Induk Karyawan
+                                        NIP
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Nama Lengkap
@@ -62,7 +64,7 @@
             },
             columns: [
                 {
-                    data: 'nik'
+                    data: 'identity',
                 },
                 {
                     data: 'name'

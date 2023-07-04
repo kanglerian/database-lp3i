@@ -15,14 +15,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::check() && Auth::user()->status == '1')
-                    <x-nav-link :href="route('database.index')" :active="request()->routeIs('database.index')">
-                        {{ __('Database') }}
-                    </x-nav-link>
+                    @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
+                        <x-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit'])">
+                            {{ __('Database') }}
+                        </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter.index')">
+                        <x-nav-link :href="route('presenter.index')" :active="request()->routeIs(['presenter.index', 'presenter.create', 'presenter.edit'])">
                             {{ __('Presenter') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit','user.show'])">
+                            {{ __('Akun') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
+                        <x-nav-link :href="route('userupload.edit', Auth::user()->identity)" :active="request()->routeIs(['userupload.index', 'userupload.create', 'userupload.edit'])">
+                            {{ __('Upload') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -33,16 +43,30 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                            class="flex gap-3 bg-slate-50 px-3 py-1 rounded-lg items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            @if (Auth::user()->avatar)
+                                <img src="http://localhost:3033/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}" alt="Avatar" class="h-8 rounded-full">
+                            @else
+                                <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
+                            @endif
+                            <div class="flex flex-col items-start">
+                                <span class="font-bold">{{ Auth::user()->name }}</span>
+                                <span class="text-xs">
+                                    @switch(Auth::user()->role)
+                                        @case('A')
+                                            Administrator
+                                        @break
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                        @case('P')
+                                            Presenter
+                                        @break
+
+                                        @case('S')
+                                            Student
+                                        @break
+                                    @endswitch
+                                    ({{ Auth::user()->identity }})
+                                </span>
                             </div>
                         </button>
                     </x-slot>
@@ -51,7 +75,9 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
+                            <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
+                                {{ __('Edit Profile') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -84,12 +110,24 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs('database')">
-                {{ __('Database') }}
-            </x-responsive-nav-link>
-            @if (Auth::user()->role == 'A')
+            @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs('database')">
+                    {{ __('Database') }}
+                </x-responsive-nav-link>
+            @endif
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter')">
                     {{ __('Presenter') }}
+                </x-responsive-nav-link>
+            @endif
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user')">
+                    {{ __('Akun') }}
+                </x-responsive-nav-link>
+            @endif
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
+                <x-responsive-nav-link :href="route('userupload.index')" :active="request()->routeIs('userupload')">
+                    {{ __('Upload') }}
                 </x-responsive-nav-link>
             @endif
         </div>
@@ -98,7 +136,8 @@
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}
+                    ({{ Auth::user()->identity }})</div>
             </div>
 
             <div class="mt-3 space-y-1">

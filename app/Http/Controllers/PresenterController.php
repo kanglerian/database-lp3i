@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 
 class PresenterController extends Controller
@@ -21,7 +22,7 @@ class PresenterController extends Controller
 
     public function get_all()
     {
-        $presenters = User::where('role','P')->get();
+        $presenters = User::where('role', 'P')->get();
         return response()
             ->json([
                 'presenters' => $presenters,
@@ -48,23 +49,22 @@ class PresenterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => ['required', 'string', 'max:50'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:15'],
+            'email' => ['required', 'email', 'unique:users', 'max:255'],
+            'phone' => ['required', 'string', 'unique:users', 'max:15'],
             'role' => ['string'],
             'status' => ['string'],
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         $data = [
-            'nik' => $request->input('nik'),
+            'identity' => mt_rand(1,1000000000),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
+            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'password' => Hash::make($request->input('password')),
             'role' => 'P',
-            'status' => "1",
+            'status' => '1',
         ];
         User::create($data);
         return back()->with('message', 'Data presenter berhasil ditambahkan!');
@@ -104,25 +104,26 @@ class PresenterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $presenter = User::findOrFail($id);
-        $request->validate([
-            'nik' => ['required', 'string', 'max:50'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'status' => ['string', 'not_in:Pilih status'],
-            'phone' => ['required', 'string', 'max:15'],
-            'status' => ['string'],
-        ]);
-        $data = [
-            'nik' => $request->input('nik'),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'role' => 'P',
-            'status' => $request->input('status'),
-        ];
-        $presenter->update($data);
-        return back()->with('message', 'Data presenter berhasil diubah!');
+            $presenter = User::findOrFail($id);
+            $request->validate([
+                'identity' => ['required', 'string',  'max:50', Rule::unique('users')->ignore($id)],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+                'phone' => ['required', 'string', 'max:15', Rule::unique('users')->ignore($id)],
+                'role' => ['string'],
+                'status' => ['string', 'not_in:Pilih status'],
+            ]);
+            $data = [
+                'identity' => $request->input('identity'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'role' => 'P',
+                'status' => $request->input('status'),
+            ];
+            $presenter->update($data);
+            return back()->with('message', 'Data presenter berhasil diubah!');
+        
     }
 
     /**
@@ -154,7 +155,7 @@ class PresenterController extends Controller
             'status' => ['string'],
         ]);
         $data = [
-            'status' => $presenter->status == "0" ? "1" : "0",
+            'status' => $presenter->status == '0' ? '1' : '0',
         ];
         $presenter->update($data);
         return back()->with('message', 'Status presenter berhasil diubah!');

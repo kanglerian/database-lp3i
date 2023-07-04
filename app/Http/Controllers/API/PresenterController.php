@@ -8,12 +8,12 @@ use App\Models\User;
 
 class PresenterController extends Controller
 {
-    public function getAll()
-    {
-        $presenters = User::where('role', 'P')->get();
+    // public function getAll()
+    // {
+    //     $presenters = User::where('role', 'P')->get();
 
-        return response()->json([
-            'presenters' => $presenters,
-        ])->header('Content-Type', 'application/json');;
-    }
+    //     return response()->json([
+    //         'presenters' => $presenters,
+    //     ])->header('Content-Type', 'application/json');;
+    // }
 }

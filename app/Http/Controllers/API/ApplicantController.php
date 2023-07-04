@@ -35,7 +35,7 @@ class ApplicantController extends Controller
             ]);
             $data = [
                 'name' => $request->input('name'),
-                'phone' => $request->input('phone'),
+                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
                 'source' => '1',
                 'status' => '1',
                 'isread' => '0',

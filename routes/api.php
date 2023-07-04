@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\PresenterController;
 use App\Http\Controllers\API\BaksoController;
 use App\Http\Controllers\API\KlinikController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('/applicants', [ApplicantController::class, 'getAll'])->name('applicants.api.index');
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 
-
-Route::get('/presenters', [PresenterController::class, 'getAll'])->name('presenters.api.index');
-
-Route::resource('bakso', BaksoController::class);
-Route::resource('klinik', KlinikController::class);
-
-Route::get('/poli', [KlinikController::class, 'poli'])->name('klinik.poli');
+// Route::get('/applicants', [ApplicantController::class, 'getAll'])->name('applicants.api.index');
+// Route::get('/presenters', [PresenterController::class, 'getAll'])->name('presenters.api.index');
+// Route::get('/users', [UserController::class, 'getAll'])->name('users.api.index');

@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nik',
+        'identity',
+        'avatar',
         'name',
         'email',
         'phone',
@@ -48,6 +49,10 @@ class User extends Authenticatable
     ];
 
     public function applicant(){
-        return $this->hasMany(Applicant::class, 'nik_user');
+        return $this->hasMany(Applicant::class, 'identity_user');
+    }
+
+    public function userupload(){
+        return $this->hasMany(User::class, 'identity');
     }
 }

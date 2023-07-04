@@ -13,13 +13,6 @@
             @csrf
 
             <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Registration Number Employees')" />
-
-                <x-input id="nik" class="block mt-1 w-full" type="number" name="nik" :value="old('nik')" required autofocus />
-            </div>
-
-            <!-- Name -->
             <div class="mt-4">
                 <x-label for="name" :value="__('Name')" />
 
