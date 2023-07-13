@@ -75,7 +75,8 @@
                                 </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="place_of_birth" id="place_of_birth" value="{{ old('place_of_birth') }}"
+                                        <input type="text" name="place_of_birth" id="place_of_birth"
+                                            value="{{ old('place_of_birth') }}"
                                             class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -86,7 +87,8 @@
                                             Lahir</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth') }}"
+                                        <input type="date" name="date_of_birth" id="date_of_birth"
+                                            value="{{ old('date_of_birth') }}"
                                             class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -114,30 +116,42 @@
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="provinces" class="sr-only">Provinsi</label>
-                                        <select id="provinces" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                        <select id="provinces" name="provinces"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                                            <option value="">Pilih Provinsi</option>
                                         </select>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="regencies" class="sr-only">Kota</label>
-                                        <select id="regencies" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                        <select id="regencies" name="regencies"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            disabled>
+                                            <option value="">Pilih Kota / Kabupaten</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="districts" class="sr-only">Kecamatan</label>
-                                        <select id="districts" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                        <select id="districts" name="districts"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            disabled>
+                                            <option value="">Pilih Kecamatan</option>
                                         </select>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="villages" class="sr-only">Kelurahan</label>
-                                        <select id="villages" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                        <select id="villages" name="villages"
+                                            class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            disabled>
+                                            <option value="">Pilih Desa / Kelurahan</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="rt" id="rt" value="{{ old('rt') }}"
+                                        <input type="text" name="rt" id="rt"
+                                            value="{{ old('rt') }}"
                                             class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -147,7 +161,8 @@
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="rw" id="rw" value="{{ old('rw') }}"
+                                        <input type="text" name="rw" id="rw"
+                                            value="{{ old('rw') }}"
                                             class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -157,14 +172,16 @@
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="postal_code" id="postal_code" value="{{ old('postal_code') }}"
+                                        <input type="text" name="postal_code" id="postal_code"
+                                            value="{{ old('postal_code') }}"
                                             class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('postal_code') }}
                                         </div>
                                         <label for="postal_code"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                            Pos</label>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -194,17 +211,20 @@
                                 </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="education" id="education" value="{{ old('education') }}"
+                                        <input type="text" name="education" id="education"
+                                            value="{{ old('education') }}"
                                             class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('education') }}
                                         </div>
                                         <label for="education"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan Terakhir</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
+                                            Terakhir</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="major" id="major" value="{{ old('major') }}"
+                                        <input type="text" name="major" id="major"
+                                            value="{{ old('major') }}"
                                             class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -228,7 +248,8 @@
                                 </div>
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="school" id="school" value="{{ old('school') }}"
+                                        <input type="text" name="school" id="school"
+                                            value="{{ old('school') }}"
                                             class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -239,7 +260,8 @@
                                             sekolah</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="class" id="class" value="{{ old('class') }}"
+                                        <input type="text" name="class" id="class"
+                                            value="{{ old('class') }}"
                                             class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
@@ -257,7 +279,8 @@
                                             <option value="0" {{ old('source') == '0' ? 'selected' : '' }}>Pilih
                                                 sumber
                                             </option>
-                                            <option value="1" {{ old('source') == '1' ? 'selected' : '' }}>Website
+                                            <option value="1" {{ old('source') == '1' ? 'selected' : '' }}>
+                                                Website
                                             </option>
                                             <option value="2" {{ old('source') == '2' ? 'selected' : '' }}>
                                                 Presenter</option>
@@ -298,12 +321,17 @@
                                         <select id="program" name="program"
                                             class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                             <option>Pilih program</option>
-                                            <option value="Belum diketahui">Belum diketahui</option>
-                                            @foreach ($programs as $prog)
+                                            @if ($programs == null)
+                                            <option value="Belum diketahui">Belum diketahui</option> 
+                                            @else
+                                            @forelse ($programs as $prog)
                                                 <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
                                                     {{ $prog['level'] }}
                                                     {{ $prog['title'] }}</option>
-                                            @endforeach
+                                            @empty
+                                                <option value="Belum diketahui">Belum diketahui</option>
+                                            @endforelse
+                                            @endif
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('program') }}
@@ -333,7 +361,7 @@
                         </section>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-5">
+                {{-- <div class="flex flex-col md:flex-row gap-5">
                     <div class="w-full md:w-1/2 px-6 pt-6 bg-white shadow sm:rounded-lg">
                         <div class="w-full">
                             <section>
@@ -553,7 +581,7 @@
                             </section>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </form>
     </div>

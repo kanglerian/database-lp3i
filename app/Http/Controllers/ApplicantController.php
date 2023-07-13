@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -54,20 +55,26 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+        try {
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $users = User::where(['status' => '1', 'role' => 'P'])->get();
+            $users = User::where(['status' => '1', 'role' => 'P'])->get();
 
-        if ($response->successful()) {
-            $programs = $response->json();
+            if ($response->successful()) {
+                $programs = $response->json();
+            } else {
+                $programs = null;
+            }
+
+            return view('pages.database.create')->with([
+                'programs' => $programs,
+                'users' => $users,
+            ]);
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
         }
-
-        return view('pages.database.create')->with([
-            'programs' => $programs,
-            'users' => $users,
-        ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -85,19 +92,62 @@ class ApplicantController extends Controller
                 'program' => ['string', 'not_in:Pilih program'],
                 'isread' => ['string'],
             ]);
-            $data = [
-                'identity' => mt_rand(1,1000000000),
+
+            $numbers_unique = mt_rand(1, 1000000000);
+            $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
+            $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
+            $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
+            $kec = $request->input('districts') !== null ? 'Kec. ' . $request->input('districts') . ' ' : null;
+            $reg = $request->input('regencies') !== null ? 'Kota/Kab. ' . $request->input('regencies') . ' ' : null;
+            $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
+            $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+
+            $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+
+            $data_applicant = [
+                'identity' => $numbers_unique,
                 'name' => $request->input('name'),
+                'gender' => $request->input('gender'),
+                'place_of_birth' => $request->input('place_of_birth'),
+                'date_of_birth' => $request->input('date_of_birth'),
+                'religion' => $request->input('religion'),
+                'address' => $address_applicant,
+                'email' => $request->input('email'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-                'school' => $request->input('school'),
+                'education' => $request->input('education'),
+                'major' => $request->input('major'),
                 'year' => $request->input('year'),
+                'school' => $request->input('school'),
+                'class' => $request->input('class'),
                 'source' => $request->input('source'),
                 'status' => $request->input('status'),
-                'identity_user' => $request->input('identity_user'),
                 'program' => $request->input('program'),
+                'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
             ];
-            Applicant::create($data);
+
+            $data_father = [
+                'identity_user' => $numbers_unique,
+                'gender' => 1,
+            ];
+            $data_mother = [
+                'identity_user' => $numbers_unique,
+                'gender' => 0,
+            ];
+
+            $check = [
+                'rt' => $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null,
+                'rw' => $request->input('rw'),
+                'postal_code' => $request->input('postal_code'),
+                'villages' => $request->input('villages'),
+                'districts' => $request->input('districts'),
+                'regencies' => $request->input('regencies'),
+                'provincies' => $request->input('provincies'),
+            ];
+            Applicant::create($data_applicant);
+            ApplicantFamily::create($data_father);
+            ApplicantFamily::create($data_mother);
+
             return back()->with('message', 'Data aplikan berhasil ditambahkan!');
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
@@ -126,22 +176,34 @@ class ApplicantController extends Controller
      */
     public function edit($id)
     {
-        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+        try {
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
-        $applicant = Applicant::findOrFail($id);
-        $account = User::where('email', $applicant->email)->count();
+            $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+            $applicant = Applicant::findOrFail($id);
+            $account = User::where('email', $applicant->email)->count();
+            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
 
-        if ($response->successful()) {
-            $programs = $response->json();
+            if ($response->successful()) {
+                $programs = $response->json();
+            } else {
+                $programs = null;
+            }
+
+            $applicant = Applicant::findOrFail($id);
+            return view('pages.database.edit')->with([
+                'applicant' => $applicant,
+                'programs' => $programs,
+                'presenters' => $presenters,
+                'account' => $account,
+                'father' => $father,
+                'mother' => $mother
+            ]);
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
         }
-        $applicant = Applicant::findOrFail($id);
-        return view('pages.database.edit')->with([
-            'applicant' => $applicant,
-            'programs' => $programs,
-            'presenters' => $presenters,
-            'account' => $account
-        ]);
     }
 
     /**
@@ -153,65 +215,67 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $applicant = Applicant::findOrFail($id);
-        $user_detail = User::where('identity', $applicant->identity)->first();
+        try {
+            $applicant = Applicant::findOrFail($id);
+            $user_detail = User::where('identity', $applicant->identity)->first();
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required'],
-            'source' => ['required', 'string'],
-            'status' => ['required', 'string'],
-            'identity_user' => ['string'],
-            'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['string'],
-        ]);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required'],
+                'source' => ['required', 'string'],
+                'status' => ['required', 'string'],
+                'identity_user' => ['string'],
+                'program' => ['string', 'not_in:Pilih program'],
+                'isread' => ['string'],
+            ]);
 
-        if($user_detail !== null){
-            $data_user = [
-                'name' => $request->input('name'),
+            if ($user_detail !== null) {
+                $data_user = [
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                ];
+                $user = User::findOrFail($user_detail->id);
+                $user->update($data_user);
+            }
+
+            $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
+            $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
+            $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
+            $kec = $request->input('districts') !== null ? 'Kec. ' . $request->input('districts') . ' ' : null;
+            $reg = $request->input('regencies') !== null ? 'Kota/Kab. ' . $request->input('regencies') . ' ' : null;
+            $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
+            $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+
+            $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+
+            $data = [
+                'program' => $request->input('program'),
+                'identity_user' => $request->input('identity_user'),
+                'source' => $request->input('source'),
+                'status' => $request->input('status'),
                 'email' => $request->input('email'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'note' => $request->input('note'),
+                'name' => $request->input('name'),
+                'gender' => $request->input('gender'),
+                'place_of_birth' => $request->input('place_of_birth'),
+                'date_of_birth' => $request->input('date_of_birth'),
+                'religion' => $request->input('religion'),
+                'education' => $request->input('education'),
+                'major' => $request->input('major'),
+                'year' => $request->input('year'),
+                'school' => $request->input('school'),
+                'class' => $request->input('class'),
+                'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
             ];
-            $user = User::findOrFail($user_detail->id);
-            $user->update($data_user);
-        };
-
-        $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'religion' => $request->input('religion'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-            'education' => $request->input('education'),
-            'school' => $request->input('school'),
-            'major' => $request->input('major'),
-            'class' => $request->input('class'),
-            'year' => $request->input('year'),
-            'place_of_birth' => $request->input('place_of_birth'),
-            'date_of_birth' => $request->input('date_of_birth'),
-            'gender' => $request->input('gender'),
-            'address' => $request->input('address'),
-            'mother_name' => $request->input('mother_name'),
-            'mother_place_of_birth' => $request->input('mother_place_of_birth'),
-            'mother_date_of_birth' => $request->input('mother_date_of_birth'),
-            'mother_education' => $request->input('mother_education'),
-            'mother_phone' => $request->input('mother_phone'),
-            'mother_address' => $request->input('mother_address'),
-            'mother_job' => $request->input('mother_job'),
-            'father_name' => $request->input('father_name'),
-            'father_place_of_birth' => $request->input('father_place_of_birth'),
-            'father_date_of_birth' => $request->input('father_date_of_birth'),
-            'father_education' => $request->input('father_education'),
-            'father_phone' => $request->input('father_phone'),
-            'father_address' => $request->input('father_address'),
-            'father_job' => $request->input('father_job'),
-            'source' => $request->input('source'),
-            'note' => $request->input('note'),
-            'status' => $request->input('status'),
-            'identity_user' => $request->input('identity_user'),
-            'program' => $request->input('program'),
-        ];
-        $applicant->update($data);
-        return back()->with('message', 'Data aplikan berhasil diubah!');
+            $applicant->update($data);
+            return back()->with('message', 'Data aplikan berhasil diubah!');
+            
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 
     /**
@@ -222,9 +286,15 @@ class ApplicantController extends Controller
      */
     public function destroy($id)
     {
-        $applicant = Applicant::findOrFail($id);
-        $applicant->delete();
-
-        return session()->flash('message', 'Data aplikan berhasil dihapus!');
+        try {
+            $applicant = Applicant::findOrFail($id);
+            $family = ApplicantFamily::where('identity_user', $applicant->identity);
+            $family->delete();
+            $applicant->delete();
+            return session()->flash('message', 'Data aplikan berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 }

@@ -5,40 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Applicant extends Model
+class ApplicantFamily extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'identity',
+        'identity_user',
         'name',
-        'email',
+        'job',
         'phone',
-        'education',
-        'school',
-        'major',
-        'class',
-        'year',
+        'gender',
         'place_of_birth',
         'date_of_birth',
-        'gender',
-        'religion',
+        'education',
         'address',
-        'source',
-        'note',
-        'status',
-        'identity_user',
-        'program',
-        'isread',
     ];
 
 
-    protected $table = 'applicants';
+    protected $table = 'applicants_family';
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -49,7 +38,8 @@ class Applicant extends Model
         'updated_at',
     ];
 
-    public function presenter(){
-        return $this->belongsTo(User::class,'identity_user','identity');
+    public function families(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity');
     }
+
 }

@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
 Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
+Route::get('databases/{id?}/edit/family', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
 
 Route::resource('presenter', PresenterController::class)->middleware(['auth','role:A']);
 Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get')->middleware(['auth','status:1']);

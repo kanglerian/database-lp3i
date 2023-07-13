@@ -18,6 +18,15 @@
                     </div>
                 </div>
             @endif
+            @if (session('error'))
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-400 text-white rounded-lg"
+                    role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-medium">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
             <div class="px-2">
                 <a href="{{ route('database.create') }}"
                     class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-sm rounded-lg text-white"><i

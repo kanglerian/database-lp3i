@@ -1,9 +1,9 @@
-const selectProvinces = document.getElementById('provinces');
-const selectRegencies = document.getElementById('regencies');
-const selectDistricts = document.getElementById('districts');
-const selectVillages = document.getElementById('villages');
+const selectProvincesFather = document.getElementById('father_provinces');
+const selectRegenciesFather = document.getElementById('father_regencies');
+const selectDistrictsFather = document.getElementById('father_districts');
+const selectVillagesFather = document.getElementById('father_villages');
 
-const getProvinces = async () => {
+const getProvincesFather = async () => {
   await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces`)
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
@@ -12,34 +12,34 @@ const getProvinces = async () => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
     </option>`;
       }
-      selectProvinces.innerHTML = bucket;
-      if (selectProvinces.hasAttribute('disabled')) {
-        selectProvinces.removeAttribute('disabled');
+      selectProvincesFather.innerHTML = bucket;
+      if (selectProvincesFather.hasAttribute('disabled')) {
+        selectProvincesFather.removeAttribute('disabled');
       }
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
-      selectProvinces.value = '';
-      selectProvinces.innerHTML = bucket;
+      selectProvincesFather.value = '';
+      selectProvincesFather.innerHTML = bucket;
     });
 }
-getProvinces();
+getProvincesFather();
 
 
-selectProvinces.addEventListener('change', async (e) => {
+selectProvincesFather.addEventListener('change', async (e) => {
 
-  selectRegencies.removeAttribute('disabled');
+  selectRegenciesFather.removeAttribute('disabled');
 
-  if (!selectDistricts.hasAttribute('disabled')) {
-    selectDistricts.setAttribute('disabled', '');
+  if (!selectDistrictsFather.hasAttribute('disabled')) {
+    selectDistrictsFather.setAttribute('disabled', '');
   }
 
-  if (!selectVillages.hasAttribute('disabled')) {
-    selectVillages.setAttribute('disabled', '');
+  if (!selectVillagesFather.hasAttribute('disabled')) {
+    selectVillagesFather.setAttribute('disabled', '');
   }
 
-  selectDistricts.innerHTML = `<option>Pilih Kecamatan</option>`;
-  selectVillages.innerHTML = `<option>Pilih Desa / Kelurahan</option>`;
+  selectDistrictsFather.innerHTML = `<option>Pilih Kecamatan</option>`;
+  selectVillagesFather.innerHTML = `<option>Pilih Desa / Kelurahan</option>`;
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
   await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/regencies/${dataTarget}`)
@@ -50,22 +50,22 @@ selectProvinces.addEventListener('change', async (e) => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
         ${data[i].name}</option>`;
       }
-      selectRegencies.innerHTML = bucket;
+      selectRegenciesFather.innerHTML = bucket;
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
-      selectRegencies.value = '';
-      selectRegencies.innerHTML = bucket;
+      selectRegenciesFather.value = '';
+      selectRegenciesFather.innerHTML = bucket;
     });
 });
 
-selectRegencies.addEventListener('change', async (e) => {
+selectRegenciesFather.addEventListener('change', async (e) => {
 
-  selectDistricts.removeAttribute('disabled');
-  if (!selectVillages.hasAttribute('disabled')) {
-    selectVillages.setAttribute('disabled', '');
+  selectDistrictsFather.removeAttribute('disabled');
+  if (!selectVillagesFather.hasAttribute('disabled')) {
+    selectVillagesFather.setAttribute('disabled', '');
   }
-  selectVillages.innerHTML = `<option value="">Pilih Desa / Kelurahan</option>`;
+  selectVillagesFather.innerHTML = `<option value="">Pilih Desa / Kelurahan</option>`;
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
   await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/districts/${dataTarget}`)
@@ -76,18 +76,18 @@ selectRegencies.addEventListener('change', async (e) => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
             ${data[i].name}</option>`;
       }
-      selectDistricts.innerHTML = bucket;
+      selectDistrictsFather.innerHTML = bucket;
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
-      selectDistricts.value = '';
-      selectDistricts.innerHTML = bucket;
+      selectDistrictsFather.value = '';
+      selectDistrictsFather.innerHTML = bucket;
     });
 });
 
-selectDistricts.addEventListener('change', async (e) => {
+selectDistrictsFather.addEventListener('change', async (e) => {
 
-  selectVillages.removeAttribute('disabled');
+  selectVillagesFather.removeAttribute('disabled');
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
   await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/villages/${dataTarget}`)
@@ -98,11 +98,11 @@ selectDistricts.addEventListener('change', async (e) => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
                 ${data[i].name}</option>`;
       }
-      selectVillages.innerHTML = bucket;
+      selectVillagesFather.innerHTML = bucket;
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
-      selectVillages.value = '';
-      selectVillages.innerHTML = bucket;
+      selectVillagesFather.value = '';
+      selectVillagesFather.innerHTML = bucket;
     });
 });
