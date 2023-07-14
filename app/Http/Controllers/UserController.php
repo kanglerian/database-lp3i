@@ -12,7 +12,6 @@ use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Models\User;
 use App\Models\UserUpload;
-use App\Models\FileUpload;
 
 class UserController extends Controller
 {
@@ -273,7 +272,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $account = User::findOrFail($id);
+        $user_upload = UserUpload::where('identity_user', $account->identity)->get();
         $account->delete();
+        $user_upload->delete();
         return back()->with('message', 'Akun berhasil dihapus!');
     }
 
