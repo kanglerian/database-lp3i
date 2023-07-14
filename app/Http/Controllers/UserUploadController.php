@@ -134,26 +134,31 @@ class UserUploadController extends Controller
      */
     public function destroy($id)
     {
-        $user_upload = UserUpload::findOrFail($id);
-
-        $payload = [
-            'identity' => $user_upload->identity_user,
-            'namefile' => $user_upload->namefile,
-            'typefile' => $user_upload->typefile
-        ];
-
-        if($user_upload->namefile == 'foto'){
-            $dataku = [
-                'avatar' => null,
+        try {
+            $user_upload = UserUpload::findOrFail($id);
+    
+            $payload = [
+                'identity' => $user_upload->identity_user,
+                'namefile' => $user_upload->namefile,
+                'typefile' => $user_upload->typefile
             ];
-            $user = User::findOrFail(Auth::user()->id);
-            $user->update($dataku);
+    
+            if($user_upload->namefile == 'foto'){
+                $dataku = [
+                    'avatar' => null,
+                ];
+                $user = User::findOrFail(Auth::user()->id);
+                $user->update($dataku);
+            }
+    
+            $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
+            $responseData = $response->json();
+    
+            $user_upload->delete();
+            return back()->with('message', 'Data upload berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
         }
-
-        $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
-        $responseData = $response->json();
-
-        $user_upload->delete();
-        return back()->with('message', 'Data upload berhasil dihapus!');
     }
 }

@@ -57,9 +57,9 @@ class PresenterController extends Controller
                 'status' => ['string'],
                 'password' => ['required', 'min:8', 'confirmed'],
             ]);
-    
+
             $data = [
-                'identity' => mt_rand(1,1000000000),
+                'identity' => mt_rand(1, 1000000000),
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
@@ -67,14 +67,14 @@ class PresenterController extends Controller
                 'role' => 'P',
                 'status' => '1',
             ];
-    
+
             User::create($data);
-    
+
             return back()->with('message', 'Data presenter berhasil ditambahkan!');
         } catch (\Throwable $th) {
-            //throw $th;
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
         }
-        
     }
 
     /**
@@ -111,9 +111,10 @@ class PresenterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
             $presenter = User::findOrFail($id);
             $request->validate([
-                'identity' => ['required', 'string',  'max:50', Rule::unique('users')->ignore($id)],
+                'identity' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($id)],
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
                 'phone' => ['required', 'string', 'max:15', Rule::unique('users')->ignore($id)],
@@ -130,7 +131,10 @@ class PresenterController extends Controller
             ];
             $presenter->update($data);
             return back()->with('message', 'Data presenter berhasil diubah!');
-        
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 
     /**
@@ -142,10 +146,15 @@ class PresenterController extends Controller
 
     public function destroy($id)
     {
-        $presenter = User::findOrFail($id);
-        $presenter->delete();
-
-        return session()->flash('message', 'Data presenter berhasil dihapus!');
+        try {
+            $presenter = User::findOrFail($id);
+            $presenter->delete();
+    
+            return session()->flash('message', 'Data presenter berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 
     /**
@@ -157,15 +166,20 @@ class PresenterController extends Controller
      */
     public function status(Request $request, $id)
     {
-        $presenter = User::findOrFail($id);
-        $request->validate([
-            'status' => ['string'],
-        ]);
-        $data = [
-            'status' => $presenter->status == '0' ? '1' : '0',
-        ];
-        $presenter->update($data);
-        return back()->with('message', 'Status presenter berhasil diubah!');
+        try {
+            $presenter = User::findOrFail($id);
+            $request->validate([
+                'status' => ['string'],
+            ]);
+            $data = [
+                'status' => $presenter->status == '0' ? '1' : '0',
+            ];
+            $presenter->update($data);
+            return back()->with('message', 'Status presenter berhasil diubah!');.
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 
     /**
@@ -177,14 +191,19 @@ class PresenterController extends Controller
      */
     public function change_password(Request $request, $id)
     {
-        $presenter = User::findOrFail($id);
-        $request->validate([
-            'password' => ['required', 'min:8', 'confirmed'],
-        ]);
-        $data = [
-            'password' => Hash::make($request->input('password')),
-        ];
-        $presenter->update($data);
-        return back()->with('message', 'Password berhasil diubah!');
+        try {
+            $presenter = User::findOrFail($id);
+            $request->validate([
+                'password' => ['required', 'min:8', 'confirmed'],
+            ]);
+            $data = [
+                'password' => Hash::make($request->input('password')),
+            ];
+            $presenter->update($data);
+            return back()->with('message', 'Password berhasil diubah!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 }
