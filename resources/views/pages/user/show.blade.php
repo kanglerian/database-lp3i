@@ -71,35 +71,73 @@
                                 <ul class="text-sm space-y-1 text-gray-800">
                                     <li class="space-x-2">
                                         <span>Nama Lengkap:</span>
-                                        <span class="border-b">{{ $applicant->father_name == null ? '___' : $applicant->father_name }}</span>
+                                        <span class="border-b">{{ $father->name == null ? '___' : $father->name }}</span>
                                     </li>
                                     <li class="space-x-2">
-                                        <span>Program Studi:</span>
-                                        <span class="border-b">{{ $applicant->program == null ? '___' : $applicant->program }}</span>
+                                        <span>Pekerjaan:</span>
+                                        <span class="border-b">{{ $father->job == null ? '___' : $father->job }}</span>
                                     </li>
                                     <li class="space-x-2">
                                         <span>Tempat / Tanggal Lahir:</span>
                                         <span class="border-b">
-                                            {{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}
+                                            {{ $father->place_of_birth == null ? '___' : $father->place_of_birth }}
                                             /
-                                            {{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}
+                                            {{ $father->date_of_birth == null ? '___' : $father->date_of_birth }}
                                     </li>
                                     <li class="space-x-2">
                                         <span>Pendidikan Terakhir:</span>
                                         <span class="border-b">
-                                            {{ $applicant->school == null ? '___' : $applicant->school }}
+                                            {{ $father->education == null ? '___' : $father->education }}
                                         </span>
                                     </li>
                                     <li class="space-x-2">
                                         <span>Alamat:</span>
                                         <span class="border-b">
-                                            {{ $applicant->address == null ? '___' : $applicant->address }}
+                                            {{ $father->address == null ? '___' : $father->address }}
                                         </span>
                                     </li>
                                     <li class="space-x-2">
                                         <span>No. Telpon:</span>
                                         <span class="border-b">
-                                            {{ $applicant->phone == null ? '___' : $applicant->phone }}
+                                            {{ $father->phone == null ? '___' : $father->phone }}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="space-y-1">
+                                <h2 class="text-lg font-bold text-gray-900">Biodata Ibu</h2>
+                                <ul class="text-sm space-y-1 text-gray-800">
+                                    <li class="space-x-2">
+                                        <span>Nama Lengkap:</span>
+                                        <span class="border-b">{{ $mother->name == null ? '___' : $mother->name }}</span>
+                                    </li>
+                                    <li class="space-x-2">
+                                        <span>Pekerjaan:</span>
+                                        <span class="border-b">{{ $mother->job == null ? '___' : $mother->job }}</span>
+                                    </li>
+                                    <li class="space-x-2">
+                                        <span>Tempat / Tanggal Lahir:</span>
+                                        <span class="border-b">
+                                            {{ $mother->place_of_birth == null ? '___' : $mother->place_of_birth }}
+                                            /
+                                            {{ $mother->date_of_birth == null ? '___' : $mother->date_of_birth }}
+                                    </li>
+                                    <li class="space-x-2">
+                                        <span>Pendidikan Terakhir:</span>
+                                        <span class="border-b">
+                                            {{ $mother->education == null ? '___' : $mother->education }}
+                                        </span>
+                                    </li>
+                                    <li class="space-x-2">
+                                        <span>Alamat:</span>
+                                        <span class="border-b">
+                                            {{ $mother->address == null ? '___' : $mother->address }}
+                                        </span>
+                                    </li>
+                                    <li class="space-x-2">
+                                        <span>No. Telpon:</span>
+                                        <span class="border-b">
+                                            {{ $mother->phone == null ? '___' : $mother->phone }}
                                         </span>
                                     </li>
                                 </ul>
@@ -167,7 +205,7 @@
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="px-6 py-4">{{ $suc->name }}</td>
                                         <td class="px-6 py-4">
-                                            <a href="http://localhost:3033/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->namefile }}.{{ $suc->typefile }}"
+                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button

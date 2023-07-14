@@ -57,7 +57,6 @@ class ApplicantController extends Controller
     {
         try {
             $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
-
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
 
             if ($response->successful()) {
@@ -144,6 +143,7 @@ class ApplicantController extends Controller
                 'regencies' => $request->input('regencies'),
                 'provincies' => $request->input('provincies'),
             ];
+
             Applicant::create($data_applicant);
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
@@ -217,6 +217,8 @@ class ApplicantController extends Controller
     {
         try {
             $applicant = Applicant::findOrFail($id);
+            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
             $user_detail = User::where('identity', $applicant->identity)->first();
 
             $request->validate([
@@ -269,7 +271,51 @@ class ApplicantController extends Controller
                 'class' => $request->input('class'),
                 'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
             ];
+
+            $father_rt = $request->input('father_rt') !== null ? 'RT. ' . $request->input('father_rt') . ' ' : null;
+            $father_rw = $request->input('father_rw') !== null ? 'RW. ' . $request->input('father_rw') . ' ' : null;
+            $father_kel = $request->input('father_villages') !== null ? 'Desa/Kel. ' . $request->input('father_villages') . ' ' : null;
+            $father_kec = $request->input('father_districts') !== null ? 'Kec. ' . $request->input('father_districts') . ' ' : null;
+            $father_reg = $request->input('father_regencies') !== null ? 'Kota/Kab. ' . $request->input('father_regencies') . ' ' : null;
+            $father_prov = $request->input('father_provinces') !== null ? 'Provinsi ' . $request->input('father_provinces') . ' ' : null;
+            $father_postal = $request->input('father_postal_code') !== null ? 'Kode Pos ' . $request->input('father_postal_code') : null;
+
+            $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
+
+            $data_father = [
+                'name' => $request->input('father_name'),
+                'job' => $request->input('father_job'),
+                'place_of_birth' => $request->input('father_place_of_birth'),
+                'date_of_birth' => $request->input('father_date_of_birth'),
+                'education' => $request->input('father_education'),
+                'phone' => $request->input('father_phone'),
+                'address' => $request->input('father_address') == null ? $address_father : $request->input('father_address'),
+            ];
+
+            $mother_rt = $request->input('mother_rt') !== null ? 'RT. ' . $request->input('mother_rt') . ' ' : null;
+            $mother_rw = $request->input('mother_rw') !== null ? 'RW. ' . $request->input('mother_rw') . ' ' : null;
+            $mother_kel = $request->input('mother_villages') !== null ? 'Desa/Kel. ' . $request->input('mother_villages') . ' ' : null;
+            $mother_kec = $request->input('mother_districts') !== null ? 'Kec. ' . $request->input('mother_districts') . ' ' : null;
+            $mother_reg = $request->input('mother_regencies') !== null ? 'Kota/Kab. ' . $request->input('mother_regencies') . ' ' : null;
+            $mother_prov = $request->input('mother_provinces') !== null ? 'Provinsi ' . $request->input('mother_provinces') . ' ' : null;
+            $mother_postal = $request->input('mother_postal_code') !== null ? 'Kode Pos ' . $request->input('mother_postal_code') : null;
+
+            $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
+
+            $data_mother = [
+                'name' => $request->input('mother_name'),
+                'job' => $request->input('mother_job'),
+                'place_of_birth' => $request->input('mother_place_of_birth'),
+                'date_of_birth' => $request->input('mother_date_of_birth'),
+                'education' => $request->input('mother_education'),
+                'phone' => $request->input('mother_phone'),
+                'address' => $request->input('mother_address') == null ? $address_father : $request->input('mother_address'),
+            ];
+
             $applicant->update($data);
+            $father->update($data_father);
+            $mother->update($data_mother);
+
             return back()->with('message', 'Data aplikan berhasil diubah!');
             
         } catch (\Throwable $th) {

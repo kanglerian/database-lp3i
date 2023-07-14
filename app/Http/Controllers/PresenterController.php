@@ -48,26 +48,33 @@ class PresenterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:users', 'max:255'],
-            'phone' => ['required', 'string', 'unique:users', 'max:15'],
-            'role' => ['string'],
-            'status' => ['string'],
-            'password' => ['required', 'min:8', 'confirmed'],
-        ]);
-
-        $data = [
-            'identity' => mt_rand(1,1000000000),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-            'password' => Hash::make($request->input('password')),
-            'role' => 'P',
-            'status' => '1',
-        ];
-        User::create($data);
-        return back()->with('message', 'Data presenter berhasil ditambahkan!');
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email', 'unique:users', 'max:255'],
+                'phone' => ['required', 'string', 'unique:users', 'max:15'],
+                'role' => ['string'],
+                'status' => ['string'],
+                'password' => ['required', 'min:8', 'confirmed'],
+            ]);
+    
+            $data = [
+                'identity' => mt_rand(1,1000000000),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'password' => Hash::make($request->input('password')),
+                'role' => 'P',
+                'status' => '1',
+            ];
+    
+            User::create($data);
+    
+            return back()->with('message', 'Data presenter berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
 
     /**

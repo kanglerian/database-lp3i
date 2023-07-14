@@ -53,17 +53,17 @@ class UserUploadController extends Controller
             'typefile' => $request->berkas->extension(),
         ];
 
-        $file = $request->berkas;
-        $encodedFile = base64_encode(file_get_contents($file->getPathName()));
+        $file = $request->berkas->extension();
+        $encodedFile = base64_encode(file_get_contents($request->berkas->getPathName()));
 
         $payload = [
             'identity' => Auth::user()->identity,
-            'namefile' => $request->input('namefile'),
-            'typefile' => $request->berkas->extension(),
+            'filename' => $request->input('namefile'),
+            'filetype' => $request->berkas->extension(),
             'image' => $encodedFile
         ];
         
-        if($payload['namefile'] === "foto"){
+        if($payload['filename'] === "foto"){
             $dataku = [
                 'avatar' => $request->input('namefile') . "." . $request->berkas->extension(),
             ];
@@ -72,14 +72,13 @@ class UserUploadController extends Controller
         }
 
         try {
-            $response = Http::post('http://localhost:3033/pmbupload', $payload);
+            $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
             $responseData = $response->json();
             UserUpload::create($data);
             return back()->with('message', 'Berkas berhasil ditambahkan!');
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi kesalahan saat mengirim permintaan ke server.');
         }
-
     }
 
     /**
@@ -151,7 +150,7 @@ class UserUploadController extends Controller
             $user->update($dataku);
         }
 
-        $response = Http::delete('http://localhost:3033/pmbupload', $payload);
+        $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
         $responseData = $response->json();
 
         $user_upload->delete();
