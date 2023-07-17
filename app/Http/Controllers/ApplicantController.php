@@ -288,7 +288,7 @@ class ApplicantController extends Controller
                 'place_of_birth' => $request->input('father_place_of_birth'),
                 'date_of_birth' => $request->input('father_date_of_birth'),
                 'education' => $request->input('father_education'),
-                'phone' => $request->input('father_phone'),
+                'phone' => strpos($request->input('father_phone'), '0') === 0 ? '62' . substr($request->input('father_phone'), 1) : $request->input('father_phone'),
                 'address' => $request->input('father_address') == null ? $address_father : $request->input('father_address'),
             ];
 
@@ -308,7 +308,7 @@ class ApplicantController extends Controller
                 'place_of_birth' => $request->input('mother_place_of_birth'),
                 'date_of_birth' => $request->input('mother_date_of_birth'),
                 'education' => $request->input('mother_education'),
-                'phone' => $request->input('mother_phone'),
+                'phone' => strpos($request->input('mother_phone'), '0') === 0 ? '62' . substr($request->input('mother_phone'), 1) : $request->input('mother_phone'),
                 'address' => $request->input('mother_address') == null ? $address_father : $request->input('mother_address'),
             ];
 

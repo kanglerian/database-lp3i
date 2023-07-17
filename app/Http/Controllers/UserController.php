@@ -355,4 +355,22 @@ class UserController extends Controller
             return back()->with('error', $errorMessage);
         }
     }
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id)
+    {
+        $applicant = Applicant::where('identity', $id)->firstOrFail();
+        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+        return view('pages.user.print')->with([
+            'applicant' => $applicant,
+            'father' => $father,
+            'mother' => $mother
+        ]);
+    }
 }

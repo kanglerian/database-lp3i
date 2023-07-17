@@ -38,13 +38,14 @@ Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->n
 Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account')->middleware(['auth','status:1']);
 Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password')->middleware(['auth','status:1']);
 
+Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print')->middleware(['auth']);
+
 Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change')->middleware(['auth','status:1']);
 Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password')->middleware(['auth','status:1']);
 
 Route::resource('profile', ProfileController::class)->middleware(['auth']);
 Route::patch('profile/update_account/{id}', [ProfileController::class, 'update_account'])->name('profile.update_account')->middleware(['auth','status:1']);
 Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_password'])->name('profile.change_password')->middleware(['auth','status:1']);
-
 
 Route::resource('userupload', UserUploadController::class)->middleware(['auth','role:S']);
 
