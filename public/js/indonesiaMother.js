@@ -3,6 +3,8 @@ const selectRegenciesMother = document.getElementById('mother_regencies');
 const selectDistrictsMother = document.getElementById('mother_districts');
 const selectVillagesMother = document.getElementById('mother_villages');
 
+const addressMotherContainer = document.getElementById('address-mother-container');
+
 const getProvincesMother = async () => {
   await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces`)
     .then((response) => {
@@ -12,6 +14,7 @@ const getProvincesMother = async () => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
     </option>`;
       }
+      addressMotherContainer.classList.remove('hidden');
       selectProvincesMother.innerHTML = bucket;
       if (selectProvincesMother.hasAttribute('disabled')) {
         selectProvincesMother.removeAttribute('disabled');

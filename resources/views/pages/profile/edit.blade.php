@@ -190,75 +190,77 @@
                                     </div>
                                 </div>
                                 @if ($applicant->address == null)
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="provinces" class="sr-only">Provinsi</label>
-                                            <select id="provinces" name="provinces"
-                                                class="@error('provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                                <option value="">Pilih Provinsi</option>
-                                            </select>
-                                        </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="regencies" class="sr-only">Kota / Kabupaten</label>
-                                            <select id="regencies" name="regencies"
-                                                class="@error('regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                disabled>
-                                                <option value="">Pilih Kota / Kabupaten</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="districts" class="sr-only">Kecamatan</label>
-                                            <select id="districts" name="districts"
-                                                class="@error('districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                disabled>
-                                                <option value="">Pilih Kecamatan</option>
-                                            </select>
-                                        </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="villages" class="sr-only">Desa / Kelurahan</label>
-                                            <select id="villages" name="villages"
-                                                class="@error('villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                disabled>
-                                                <option value="">Pilih Desa / Kelurahan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="grid md:grid-cols-3 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="rt" id="rt"
-                                                value="{{ old('rt') }}"
-                                                class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('rt') }}
+                                    <div id="address-container" class="hidden">
+                                        <div class="grid md:grid-cols-2 md:gap-6">
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="provinces" class="sr-only">Provinsi</label>
+                                                <select id="provinces" name="provinces"
+                                                    class="@error('provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                    <option value="">Pilih Provinsi</option>
+                                                </select>
                                             </div>
-                                            <label for="rt"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                                        </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="rw" id="rw"
-                                                value="{{ old('rw') }}"
-                                                class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('rw') }}
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="regencies" class="sr-only">Kota / Kabupaten</label>
+                                                <select id="regencies" name="regencies"
+                                                    class="@error('regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    disabled>
+                                                    <option value="">Pilih Kota / Kabupaten</option>
+                                                </select>
                                             </div>
-                                            <label for="rw"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                         </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="postal_code" id="postal_code"
-                                                value="{{ old('postal_code') }}"
-                                                class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('postal_code') }}
+                                        <div class="grid md:grid-cols-2 md:gap-6">
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="districts" class="sr-only">Kecamatan</label>
+                                                <select id="districts" name="districts"
+                                                    class="@error('districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    disabled>
+                                                    <option value="">Pilih Kecamatan</option>
+                                                </select>
                                             </div>
-                                            <label for="postal_code"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                Pos</label>
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="villages" class="sr-only">Desa / Kelurahan</label>
+                                                <select id="villages" name="villages"
+                                                    class="@error('villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    disabled>
+                                                    <option value="">Pilih Desa / Kelurahan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="grid md:grid-cols-3 md:gap-6">
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <input type="text" name="rt" id="rt"
+                                                    value="{{ old('rt') }}"
+                                                    class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " />
+                                                <div class="text-sm text-gray-700 mt-3">
+                                                    {{ $errors->first('rt') }}
+                                                </div>
+                                                <label for="rt"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                            </div>
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <input type="text" name="rw" id="rw"
+                                                    value="{{ old('rw') }}"
+                                                    class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " />
+                                                <div class="text-sm text-gray-700 mt-3">
+                                                    {{ $errors->first('rw') }}
+                                                </div>
+                                                <label for="rw"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                            </div>
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <input type="text" name="postal_code" id="postal_code"
+                                                    value="{{ old('postal_code') }}"
+                                                    class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " />
+                                                <div class="text-sm text-gray-700 mt-3">
+                                                    {{ $errors->first('postal_code') }}
+                                                </div>
+                                                <label for="postal_code"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                    Pos</label>
+                                            </div>
                                         </div>
                                     </div>
                                 @else
@@ -372,89 +374,92 @@
                                         </div>
                                     </div>
                                 @else
-                                    @if ($applicant->address !== null)
-                                        <div class="flex mb-3">
-                                            <input id="father-checkbox" onclick="fatherAddress()" type="checkbox"
-                                                value=""
-                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                            <label for="default-checkbox"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
-                                                sama dengan
-                                                aplikan?</label>
-                                        </div>
-                                    @endif
-                                    <div id="father_address_container">
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="father_provinces" class="sr-only">Provinsi</label>
-                                                <select id="father_provinces" name="father_provinces"
-                                                    class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                                    <option value="">Pilih Provinsi</option>
-                                                </select>
+                                    <div id="father-address-container" class="hidden">
+                                        @if ($applicant->address !== null)
+                                            <div class="flex mb-3">
+                                                <input id="father-checkbox" onclick="fatherAddress()" type="checkbox"
+                                                    value=""
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                                <label for="default-checkbox"
+                                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
+                                                    sama dengan
+                                                    aplikan?</label>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="father_regencies" class="sr-only">Kota /
-                                                    Kabupaten</label>
-                                                <select id="father_regencies" name="father_regencies"
-                                                    class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option value="">Pilih Kota / Kabupaten</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="father_districts" class="sr-only">Kecamatan</label>
-                                                <select id="father_districts" name="father_districts"
-                                                    class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option value="">Pilih Kecamatan</option>
-                                                </select>
-                                            </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="father_villages" class="sr-only">Desa /
-                                                    Kelurahan</label>
-                                                <select id="father_villages" name="father_villages"
-                                                    class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option value="">Pilih Desa / Kelurahan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="grid md:grid-cols-3 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="father_rt" id="father_rt"
-                                                    value="{{ old('father_rt') }}"
-                                                    class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('father_rt') }}
+                                        @endif
+                                        <div id="father_address_container">
+                                            <div class="grid md:grid-cols-2 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="father_provinces" class="sr-only">Provinsi</label>
+                                                    <select id="father_provinces" name="father_provinces"
+                                                        class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                        <option value="">Pilih Provinsi</option>
+                                                    </select>
                                                 </div>
-                                                <label for="father_rt"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                                            </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="father_rw" id="father_rw"
-                                                    value="{{ old('father_rw') }}"
-                                                    class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('father_rw') }}
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="father_regencies" class="sr-only">Kota /
+                                                        Kabupaten</label>
+                                                    <select id="father_regencies" name="father_regencies"
+                                                        class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option value="">Pilih Kota / Kabupaten</option>
+                                                    </select>
                                                 </div>
-                                                <label for="father_rw"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                             </div>
-                                            <div class="relative z-0 w-full group">
-                                                <input type="text" name="father_postal_code"
-                                                    id="father_postal_code" value="{{ old('father_postal_code') }}"
-                                                    class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('father_postal_code') }}
+                                            <div class="grid md:grid-cols-2 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="father_districts" class="sr-only">Kecamatan</label>
+                                                    <select id="father_districts" name="father_districts"
+                                                        class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option value="">Pilih Kecamatan</option>
+                                                    </select>
                                                 </div>
-                                                <label for="father_postal_code"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                    Pos</label>
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="father_villages" class="sr-only">Desa /
+                                                        Kelurahan</label>
+                                                    <select id="father_villages" name="father_villages"
+                                                        class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option value="">Pilih Desa / Kelurahan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="grid md:grid-cols-3 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <input type="text" name="father_rt" id="father_rt"
+                                                        value="{{ old('father_rt') }}"
+                                                        class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('father_rt') }}
+                                                    </div>
+                                                    <label for="father_rt"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                                </div>
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <input type="text" name="father_rw" id="father_rw"
+                                                        value="{{ old('father_rw') }}"
+                                                        class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('father_rw') }}
+                                                    </div>
+                                                    <label for="father_rw"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                                </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <input type="text" name="father_postal_code"
+                                                        id="father_postal_code"
+                                                        value="{{ old('father_postal_code') }}"
+                                                        class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('father_postal_code') }}
+                                                    </div>
+                                                    <label for="father_postal_code"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                        Pos</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -555,89 +560,92 @@
                                         </div>
                                     </div>
                                 @else
-                                    @if ($applicant->address !== null)
-                                        <div class="flex mb-3">
-                                            <input id="mother-checkbox" onclick="motherAddress()" type="checkbox"
-                                                value=""
-                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                            <label for="default-checkbox"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
-                                                sama dengan
-                                                aplikan?</label>
-                                        </div>
-                                    @endif
-                                    <div id="mother_address_container">
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="mother_provinces" class="sr-only">Provinsi</label>
-                                                <select id="mother_provinces" name="mother_provinces"
-                                                    class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                                    <option value="">Pilih Provinsi</option>
-                                                </select>
+                                    <div id="mother-address-container" class="hidden">
+                                        @if ($applicant->address !== null)
+                                            <div class="flex mb-3">
+                                                <input id="mother-checkbox" onclick="motherAddress()" type="checkbox"
+                                                    value=""
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                                <label for="default-checkbox"
+                                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
+                                                    sama dengan
+                                                    aplikan?</label>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="mother_regencies" class="sr-only">Kota /
-                                                    Kabupaten</label>
-                                                <select id="mother_regencies" name="mother_regencies"
-                                                    class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option>Pilih Kota / Kabupaten</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="mother_districts" class="sr-only">Kecamatan</label>
-                                                <select id="mother_districts" name="mother_districts"
-                                                    class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option>Pilih Kecamatan</option>
-                                                </select>
-                                            </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="mother_villages" class="sr-only">Desa /
-                                                    Kelurahan</label>
-                                                <select id="mother_villages" name="mother_villages"
-                                                    class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
-                                                    <option>Pilih Desa / Kelurahan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="grid md:grid-cols-3 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="mother_rt" id="mother_rt"
-                                                    value="{{ old('mother_rt') }}"
-                                                    class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('mother_rt') }}
+                                        @endif
+                                        <div id="mother_address_container">
+                                            <div class="grid md:grid-cols-2 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="mother_provinces" class="sr-only">Provinsi</label>
+                                                    <select id="mother_provinces" name="mother_provinces"
+                                                        class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                        <option value="">Pilih Provinsi</option>
+                                                    </select>
                                                 </div>
-                                                <label for="mother_rt"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                                            </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="mother_rw" id="mother_rw"
-                                                    value="{{ old('mother_rw') }}"
-                                                    class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('mother_rw') }}
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="mother_regencies" class="sr-only">Kota /
+                                                        Kabupaten</label>
+                                                    <select id="mother_regencies" name="mother_regencies"
+                                                        class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option>Pilih Kota / Kabupaten</option>
+                                                    </select>
                                                 </div>
-                                                <label for="mother_rw"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                             </div>
-                                            <div class="relative z-0 w-full group">
-                                                <input type="text" name="mother_postal_code"
-                                                    id="mother_postal_code" value="{{ old('mother_postal_code') }}"
-                                                    class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
-                                                    {{ $errors->first('mother_postal_code') }}
+                                            <div class="grid md:grid-cols-2 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="mother_districts" class="sr-only">Kecamatan</label>
+                                                    <select id="mother_districts" name="mother_districts"
+                                                        class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option>Pilih Kecamatan</option>
+                                                    </select>
                                                 </div>
-                                                <label for="mother_postal_code"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                    Pos</label>
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <label for="mother_villages" class="sr-only">Desa /
+                                                        Kelurahan</label>
+                                                    <select id="mother_villages" name="mother_villages"
+                                                        class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                        disabled>
+                                                        <option>Pilih Desa / Kelurahan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="grid md:grid-cols-3 md:gap-6">
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <input type="text" name="mother_rt" id="mother_rt"
+                                                        value="{{ old('mother_rt') }}"
+                                                        class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('mother_rt') }}
+                                                    </div>
+                                                    <label for="mother_rt"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                                </div>
+                                                <div class="relative z-0 w-full mb-6 group">
+                                                    <input type="text" name="mother_rw" id="mother_rw"
+                                                        value="{{ old('mother_rw') }}"
+                                                        class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('mother_rw') }}
+                                                    </div>
+                                                    <label for="mother_rw"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                                </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <input type="text" name="mother_postal_code"
+                                                        id="mother_postal_code"
+                                                        value="{{ old('mother_postal_code') }}"
+                                                        class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " />
+                                                    <div class="text-sm text-gray-700 mt-3">
+                                                        {{ $errors->first('mother_postal_code') }}
+                                                    </div>
+                                                    <label for="mother_postal_code"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                        Pos</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
