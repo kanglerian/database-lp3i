@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center">
-            <h2 class="font-semibold text-md text-gray-800 leading-tight">
+            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ __('Tambah Presenter Baru') }}
             </h2>
         </div>
@@ -22,7 +22,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('presenter.store') }}">
                         @csrf
-                        <div class="grid md:grid-cols-2 md:gap-6">
+                        <div class="grid md:grid-cols-1 md:gap-6">
                             <div class="relative z-0 w-full mb-6 group">
                                 <input type="text" name="name" id="name"
                                     class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"

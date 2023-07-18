@@ -9,7 +9,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -17,28 +20,36 @@
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
 
     <style>
-        .dataTables_length > label {
-            font-size: 14px!important;
-            color: #6b7280!important;
+        body {
+            font-family: 'Roboto Mono', monospace;
+            font-family: 'Source Code Pro', monospace;
         }
 
-        .dataTables_info, .paginate_button {
-            font-size: 14px!important;
-            color: #6b7280!important;
+        .dataTables_length>label {
+            font-size: 14px !important;
+            color: #6b7280 !important;
         }
 
-        .dataTables_length > label > select {
-            font-size: 14px!important;
+        .dataTables_info,
+        .paginate_button {
+            font-size: 14px !important;
+            color: #6b7280 !important;
+        }
+
+        .dataTables_length>label>select {
+            font-size: 14px !important;
             padding: 3px 20px 3px 15px !important;
-            border-radius: 10px!important;
-            margin: 5px!important;
+            border-radius: 10px !important;
+            margin: 5px !important;
         }
-        .dataTables_filter > label {
-            font-size: 14px!important;
+
+        .dataTables_filter>label {
+            font-size: 14px !important;
         }
-        .dataTables_filter > label > input {
-            margin: 5px!important;
-            border-radius: 10px!important;
+
+        .dataTables_filter>label>input {
+            margin: 5px !important;
+            border-radius: 10px !important;
         }
     </style>
 

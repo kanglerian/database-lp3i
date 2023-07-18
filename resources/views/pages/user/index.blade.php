@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center">
-            <h2 class="font-semibold text-md text-gray-800 leading-tight">
+            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ __('Daftar akun') }}
             </h2>
         </div>
@@ -30,7 +30,7 @@
             <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                 <div class="flex items-center gap-5">
                     <a href="{{ route('user.create') }}"
-                        class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-sm rounded-lg text-white"><i
+                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                             class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                     <div class="flex items-center text-gray-600 gap-3">
                         <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">

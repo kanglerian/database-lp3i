@@ -1,12 +1,13 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 py-2">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-16 py-3">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <img src="{{ asset('img/lp3i-logo.svg') }}" alt="Politeknik LP3I Kampus Tasikmalaya"
+                            class="w-40 text-center">
                     </a>
                 </div>
 
@@ -26,7 +27,7 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit','user.show'])">
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
                             {{ __('Akun') }}
                         </x-nav-link>
                     @endif
@@ -43,9 +44,10 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex gap-3 bg-slate-50 px-3 py-1 rounded-lg items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            class="flex gap-3 bg-slate-50 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="http://localhost:3033/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}" alt="Avatar" class="h-8 rounded-full">
+                                <img src="http://localhost:3033/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
+                                    alt="Avatar" class="h-8 rounded-full">
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
                             @endif
@@ -75,10 +77,10 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
-                            <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
-                                {{ __('Edit Profile') }}
-                            </x-dropdown-link>
+                            @if (Auth::check() && Auth::user()->status == '1')
+                                <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
+                                    {{ __('Edit Profile') }}
+                                </x-dropdown-link>
                             @endif
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
