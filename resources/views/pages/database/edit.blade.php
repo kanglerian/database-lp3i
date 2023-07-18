@@ -65,31 +65,37 @@
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
-                                <div class="grid md:grid-cols-2 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <label for="program" class="sr-only">Program</label>
-                                        <select id="program" name="program"
-                                            class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
-                                            @if ($applicant->program == null)
-                                                <option value="Pilih program">Pilih program</option>
-                                                @foreach ($programs as $prog)
-                                                    <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                                        {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                                @endforeach
-                                            @else
-                                                <option value="{{ $applicant->program }}">{{ $applicant->program }}
-                                                </option>
-                                                @foreach ($programs as $prog)
-                                                    <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                                        {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('program') }}
+                                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6">
+                                    @if ($programs !== null)
+                                        <div class="relative z-0 w-full mb-6 group">
+                                            <label for="program" class="sr-only">Program</label>
+                                            <select id="program" name="program"
+                                                class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                required>
+                                                @if ($applicant->program == null)
+                                                    <option value="Pilih program">Pilih program</option>
+                                                    <option value="Belum diketahui">Belum diketahui</option>
+                                                    @foreach ($programs as $prog)
+                                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option value="{{ $applicant->program }}">
+                                                        {{ $applicant->program }}
+                                                    </option>
+                                                    @foreach ($programs as $prog)
+                                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <div class="text-sm text-gray-700 mt-3">
+                                                {{ $errors->first('program') }}
+                                            </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <input type="hidden" name="program" id="program" value="{{ $applicant->program }}">
+                                    @endif
                                     @if (Auth::check() && Auth::user()->role == 'P')
                                         <input type="hidden" value="{{ $applicant->identity_user }}"
                                             name="identity_user">
@@ -97,7 +103,7 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <label for="identity_user" class="sr-only">Presenter</label>
                                             <select id="identity_user" name="identity_user"
-                                                class="@error('identity_user') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                class="@error('identity_user') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                 required>
                                                 @if ($applicant->identity_user == null)
                                                     <option value="Pilih presenter">Pilih presenter</option>
@@ -128,7 +134,7 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="source" class="sr-only">Sumber</label>
                                         <select id="source" name="source"
-                                            class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
                                             @switch($applicant->source)
                                                 @case('0')
@@ -157,7 +163,7 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="status" class="sr-only">Status</label>
                                         <select id="status" name="status"
-                                            class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
                                             @switch($applicant->status)
                                                 @case('1')
@@ -210,37 +216,37 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="email" name="email" id="email"
                                             value="{{ $applicant->email }}"
-                                            class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " required />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('email') }}
                                         </div>
                                         <label for="email"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="number" name="phone" id="phone"
                                             value="{{ $applicant->phone }}"
-                                            class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="" required />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('phone') }}
                                         </div>
                                         <label for="phone"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                             Telpon (Whatsapp)</label>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-1 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <textarea name="note" id="note" value="{{ old('note', $applicant->note) }}"
-                                            class="@error('note') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('note') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" ">{{ old('note', $applicant->note) }}</textarea>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('note') }}
                                         </div>
                                         <label for="note"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Catatan</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Catatan</label>
                                     </div>
                                 </div>
 
@@ -266,19 +272,19 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="name" id="name"
                                             value="{{ old('name', $applicant->name) }}"
-                                            class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " required />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('name') }}
                                         </div>
                                         <label for="name"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                             lengkap</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="gender" class="sr-only">Jenis Kelamin</label>
                                         <select id="gender" name="gender"
-                                            class="@error('gender') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            class="@error('gender') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
                                             @switch($applicant->gender)
                                                 @case('0')
@@ -306,31 +312,31 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="place_of_birth" id="place_of_birth"
                                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
-                                            class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('place_of_birth') }}
                                         </div>
                                         <label for="place_of_birth"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                             Lahir</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="date" name="date_of_birth" id="date_of_birth"
                                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
-                                            class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('date_of_birth') }}
                                         </div>
                                         <label for="date_of_birth"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                             Lahir</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="religion" class="sr-only">Agama</label>
                                         <select id="religion" name="religion"
-                                            class="@error('religion') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            class="@error('religion') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
                                             <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
                                             </option>
@@ -380,36 +386,36 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="education" id="education"
                                             value="{{ old('education', $applicant->education) }}"
-                                            class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('education') }}
                                         </div>
                                         <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                             Terakhir</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="major" id="major"
                                             value="{{ old('major', $applicant->major) }}"
-                                            class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('major') }}
                                         </div>
                                         <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jurusan</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jurusan</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="number" min="1945" max="3000" name="year"
                                             id="year" value="{{ old('year', $applicant->year) }}"
-                                            class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('year') }}
                                         </div>
                                         <label for="year"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
                                             lulus</label>
                                     </div>
                                 </div>
@@ -417,25 +423,25 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="school" id="school"
                                             value="{{ old('school', $applicant->school) }}"
-                                            class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('school') }}
                                         </div>
                                         <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Asal
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Asal
                                             Sekolah</label>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="class" id="class"
                                             value="{{ old('class', $applicant->class) }}"
-                                            class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('class') }}
                                         </div>
                                         <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kelas</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kelas</label>
                                     </div>
                                 </div>
                                 @if ($applicant->address == null)
@@ -444,14 +450,14 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <label for="provinces" class="sr-only">Provinsi</label>
                                                 <select id="provinces" name="provinces"
-                                                    class="@error('provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                    class="@error('provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                                     <option value="">Pilih Provinsi</option>
                                                 </select>
                                             </div>
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <label for="regencies" class="sr-only">Kota / Kabupaten</label>
                                                 <select id="regencies" name="regencies"
-                                                    class="@error('regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    class="@error('regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                     disabled>
                                                     <option value="">Pilih Kota / Kabupaten</option>
                                                 </select>
@@ -461,7 +467,7 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <label for="districts" class="sr-only">Kecamatan</label>
                                                 <select id="districts" name="districts"
-                                                    class="@error('districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    class="@error('districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                     disabled>
                                                     <option value="">Pilih Kecamatan</option>
                                                 </select>
@@ -469,7 +475,7 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <label for="villages" class="sr-only">Desa / Kelurahan</label>
                                                 <select id="villages" name="villages"
-                                                    class="@error('villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    class="@error('villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                     disabled>
                                                     <option value="">Pilih Desa / Kelurahan</option>
                                                 </select>
@@ -479,35 +485,35 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <input type="text" name="rt" id="rt"
                                                     value="{{ old('rt') }}"
-                                                    class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
                                                 <div class="text-sm text-gray-700 mt-3">
                                                     {{ $errors->first('rt') }}
                                                 </div>
                                                 <label for="rt"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                             </div>
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <input type="text" name="rw" id="rw"
                                                     value="{{ old('rw') }}"
-                                                    class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
                                                 <div class="text-sm text-gray-700 mt-3">
                                                     {{ $errors->first('rw') }}
                                                 </div>
                                                 <label for="rw"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                             </div>
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <input type="text" name="postal_code" id="postal_code"
                                                     value="{{ old('postal_code') }}"
-                                                    class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
                                                 <div class="text-sm text-gray-700 mt-3">
                                                     {{ $errors->first('postal_code') }}
                                                 </div>
                                                 <label for="postal_code"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
                                                     Pos</label>
                                             </div>
                                         </div>
@@ -517,13 +523,13 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <textarea name="address" id="address" cols="30" rows="2"
                                                 value="{{ old('address', $applicant->address) }}"
-                                                class="@error('address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" ">{{ $applicant->address }}</textarea>
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('address') }}
                                             </div>
                                             <label for="address"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                         </div>
                                     </div>
                                 @endif
@@ -550,25 +556,25 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="father_name" id="father_name"
                                                 value="{{ old('father_name', $father->name) }}"
-                                                class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_name') }}
                                             </div>
                                             <label for="father_name"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                                 lengkap</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="father_job" id="father_job"
                                                 value="{{ old('father_job', $father->job) }}"
-                                                class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_job') }}
                                             </div>
                                             <label for="father_job"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
                                     </div>
                                     <div class="grid md:grid-cols-2 md:gap-6">
@@ -576,26 +582,26 @@
                                             <input type="text" name="father_place_of_birth"
                                                 id="father_place_of_birth"
                                                 value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
-                                                class="@error('father_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_place_of_birth') }}
                                             </div>
                                             <label for="father_place_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                                 Lahir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="date" name="father_date_of_birth"
                                                 id="father_date_of_birth"
                                                 value="{{ old('father_date_of_birth', $father->date_of_birth) }}"
-                                                class="@error('father_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_date_of_birth') }}
                                             </div>
                                             <label for="father_date_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                                 Lahir</label>
                                         </div>
                                     </div>
@@ -603,25 +609,25 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="father_education" id="father_education"
                                                 value="{{ old('father_education', $father->education) }}"
-                                                class="@error('father_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_education') }}
                                             </div>
                                             <label for="father_education"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                                 Terakhir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="number" name="father_phone" id="father_phone"
                                                 value="{{ $father->phone }}"
-                                                class="@error('father_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('father_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="" required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('father_phone') }}
                                             </div>
                                             <label for="father_phone"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                                 Telpon (Whatsapp)</label>
                                         </div>
                                     </div>
@@ -630,13 +636,13 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <textarea name="father_address" rows="2" id="father_address"
                                                     value="{{ old('father_address', $father->address) }}"
-                                                    class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" ">{{ old('father_address', $father->address) }}</textarea>
                                                 <div class="text-sm text-gray-700 mt-3">
                                                     {{ $errors->first('father_address') }}
                                                 </div>
                                                 <label for="father_address"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
                                         </div>
                                     @else
@@ -647,7 +653,7 @@
                                                         type="checkbox" value=""
                                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                                                     <label for="default-checkbox"
-                                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
+                                                        class="ml-2 text-sm font-medium text-gray-900">Alamat
                                                         sama dengan
                                                         aplikan?</label>
                                                 </div>
@@ -657,7 +663,7 @@
                                                     <div class="relative z-0 w-full mb-6 group">
                                                         <label for="father_provinces" class="sr-only">Provinsi</label>
                                                         <select id="father_provinces" name="father_provinces"
-                                                            class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                            class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                                             <option value="">Pilih Provinsi</option>
                                                         </select>
                                                     </div>
@@ -665,7 +671,7 @@
                                                         <label for="father_regencies" class="sr-only">Kota /
                                                             Kabupaten</label>
                                                         <select id="father_regencies" name="father_regencies"
-                                                            class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                             disabled>
                                                             <option value="">Pilih Kota / Kabupaten</option>
                                                         </select>
@@ -676,7 +682,7 @@
                                                         <label for="father_districts"
                                                             class="sr-only">Kecamatan</label>
                                                         <select id="father_districts" name="father_districts"
-                                                            class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                             disabled>
                                                             <option value="">Pilih Kecamatan</option>
                                                         </select>
@@ -685,7 +691,7 @@
                                                         <label for="father_villages" class="sr-only">Desa /
                                                             Kelurahan</label>
                                                         <select id="father_villages" name="father_villages"
-                                                            class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                                             disabled>
                                                             <option value="">Pilih Desa / Kelurahan</option>
                                                         </select>
@@ -695,36 +701,36 @@
                                                     <div class="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="father_rt" id="father_rt"
                                                             value="{{ old('father_rt') }}"
-                                                            class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <div class="text-sm text-gray-700 mt-3">
                                                             {{ $errors->first('father_rt') }}
                                                         </div>
                                                         <label for="father_rt"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                                     </div>
                                                     <div class="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="father_rw" id="father_rw"
                                                             value="{{ old('father_rw') }}"
-                                                            class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <div class="text-sm text-gray-700 mt-3">
                                                             {{ $errors->first('father_rw') }}
                                                         </div>
                                                         <label for="father_rw"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                                     </div>
                                                     <div class="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="father_postal_code"
                                                             id="father_postal_code"
                                                             value="{{ old('father_postal_code') }}"
-                                                            class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <div class="text-sm text-gray-700 mt-3">
                                                             {{ $errors->first('father_postal_code') }}
                                                         </div>
                                                         <label for="father_postal_code"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
                                                             Pos</label>
                                                     </div>
                                                 </div>
@@ -753,25 +759,25 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="mother_name" id="mother_name"
                                                 value="{{ old('mother_name', $mother->name) }}"
-                                                class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_name') }}
                                             </div>
                                             <label for="mother_name"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                                 lengkap</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="mother_job" id="mother_job"
                                                 value="{{ old('mother_job', $mother->job) }}"
-                                                class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_job') }}
                                             </div>
                                             <label for="mother_job"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
                                     </div>
                                     <div class="grid md:grid-cols-2 md:gap-6">
@@ -779,26 +785,26 @@
                                             <input type="text" name="mother_place_of_birth"
                                                 id="mother_place_of_birth"
                                                 value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
-                                                class="@error('mother_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_place_of_birth') }}
                                             </div>
                                             <label for="mother_place_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                                 Lahir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="date" name="mother_date_of_birth"
                                                 id="mother_date_of_birth"
                                                 value="{{ old('mother_date_of_birth', $mother->date_of_birth) }}"
-                                                class="@error('mother_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_date_of_birth') }}
                                             </div>
                                             <label for="mother_date_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                                 Lahir</label>
                                         </div>
                                     </div>
@@ -806,25 +812,25 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="text" name="mother_education" id="mother_education"
                                                 value="{{ old('mother_education', $mother->education) }}"
-                                                class="@error('mother_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_education') }}
                                             </div>
                                             <label for="mother_education"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                                 Terakhir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
                                             <input type="number" name="mother_phone" id="mother_phone"
                                                 value="{{ $mother->phone }}"
-                                                class="@error('mother_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                class="@error('mother_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="" required />
                                             <div class="text-sm text-gray-700 mt-3">
                                                 {{ $errors->first('mother_phone') }}
                                             </div>
                                             <label for="mother_phone"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                                 Telpon (Whatsapp)</label>
                                         </div>
                                     </div>
@@ -833,105 +839,106 @@
                                             <div class="relative z-0 w-full mb-6 group">
                                                 <textarea name="mother_address" id="mother_address" rows="2"
                                                     value="{{ old('mother_address', $mother->address) }}"
-                                                    class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" ">{{ old('mother_address', $mother->address) }}</textarea>
                                                 <div class="text-sm text-gray-700 mt-3">
                                                     {{ $errors->first('mother_address') }}
                                                 </div>
                                                 <label for="mother_address"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
                                         </div>
                                     @else
-                                    <div id="address-mother-container" class="hidden">
-                                        @if ($applicant->address !== null)
-                                            <div class="flex mb-3">
-                                                <input id="mother-checkbox" onclick="motherAddress()" type="checkbox"
-                                                    value=""
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                                <label for="default-checkbox"
-                                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Alamat
-                                                    sama dengan
-                                                    aplikan?</label>
-                                            </div>
-                                        @endif
-                                        <div id="mother_address_container">
-                                            <div class="grid md:grid-cols-2 md:gap-6">
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <label for="mother_provinces" class="sr-only">Provinsi</label>
-                                                    <select id="mother_provinces" name="mother_provinces"
-                                                        class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                                        <option value="">Pilih Provinsi</option>
-                                                    </select>
+                                        <div id="address-mother-container" class="hidden">
+                                            @if ($applicant->address !== null)
+                                                <div class="flex mb-3">
+                                                    <input id="mother-checkbox" onclick="motherAddress()"
+                                                        type="checkbox" value=""
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                                    <label for="default-checkbox"
+                                                        class="ml-2 text-sm font-medium text-gray-900">Alamat
+                                                        sama dengan
+                                                        aplikan?</label>
                                                 </div>
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <label for="mother_regencies" class="sr-only">Kota /
-                                                        Kabupaten</label>
-                                                    <select id="mother_regencies" name="mother_regencies"
-                                                        class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                        disabled>
-                                                        <option>Pilih Kota / Kabupaten</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="grid md:grid-cols-2 md:gap-6">
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <label for="mother_districts" class="sr-only">Kecamatan</label>
-                                                    <select id="mother_districts" name="mother_districts"
-                                                        class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                        disabled>
-                                                        <option>Pilih Kecamatan</option>
-                                                    </select>
-                                                </div>
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <label for="mother_villages" class="sr-only">Desa /
-                                                        Kelurahan</label>
-                                                    <select id="mother_villages" name="mother_villages"
-                                                        class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                        disabled>
-                                                        <option>Pilih Desa / Kelurahan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="grid md:grid-cols-3 md:gap-6">
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <input type="text" name="mother_rt" id="mother_rt"
-                                                        value="{{ old('mother_rt') }}"
-                                                        class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " />
-                                                    <div class="text-sm text-gray-700 mt-3">
-                                                        {{ $errors->first('mother_rt') }}
+                                            @endif
+                                            <div id="mother_address_container">
+                                                <div class="grid md:grid-cols-2 md:gap-6">
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <label for="mother_provinces" class="sr-only">Provinsi</label>
+                                                        <select id="mother_provinces" name="mother_provinces"
+                                                            class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                            <option value="">Pilih Provinsi</option>
+                                                        </select>
                                                     </div>
-                                                    <label for="mother_rt"
-                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                                                </div>
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <input type="text" name="mother_rw" id="mother_rw"
-                                                        value="{{ old('mother_rw') }}"
-                                                        class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " />
-                                                    <div class="text-sm text-gray-700 mt-3">
-                                                        {{ $errors->first('mother_rw') }}
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <label for="mother_regencies" class="sr-only">Kota /
+                                                            Kabupaten</label>
+                                                        <select id="mother_regencies" name="mother_regencies"
+                                                            class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            disabled>
+                                                            <option>Pilih Kota / Kabupaten</option>
+                                                        </select>
                                                     </div>
-                                                    <label for="mother_rw"
-                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                                 </div>
-                                                <div class="relative z-0 w-full mb-6 group">
-                                                    <input type="text" name="mother_postal_code"
-                                                        id="mother_postal_code"
-                                                        value="{{ old('mother_postal_code') }}"
-                                                        class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " />
-                                                    <div class="text-sm text-gray-700 mt-3">
-                                                        {{ $errors->first('mother_postal_code') }}
+                                                <div class="grid md:grid-cols-2 md:gap-6">
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <label for="mother_districts"
+                                                            class="sr-only">Kecamatan</label>
+                                                        <select id="mother_districts" name="mother_districts"
+                                                            class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            disabled>
+                                                            <option>Pilih Kecamatan</option>
+                                                        </select>
                                                     </div>
-                                                    <label for="mother_postal_code"
-                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                        Pos</label>
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <label for="mother_villages" class="sr-only">Desa /
+                                                            Kelurahan</label>
+                                                        <select id="mother_villages" name="mother_villages"
+                                                            class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                            disabled>
+                                                            <option>Pilih Desa / Kelurahan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="grid md:grid-cols-3 md:gap-6">
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="mother_rt" id="mother_rt"
+                                                            value="{{ old('mother_rt') }}"
+                                                            class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            placeholder=" " />
+                                                        <div class="text-sm text-gray-700 mt-3">
+                                                            {{ $errors->first('mother_rt') }}
+                                                        </div>
+                                                        <label for="mother_rt"
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                                                    </div>
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="mother_rw" id="mother_rw"
+                                                            value="{{ old('mother_rw') }}"
+                                                            class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            placeholder=" " />
+                                                        <div class="text-sm text-gray-700 mt-3">
+                                                            {{ $errors->first('mother_rw') }}
+                                                        </div>
+                                                        <label for="mother_rw"
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                                                    </div>
+                                                    <div class="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="mother_postal_code"
+                                                            id="mother_postal_code"
+                                                            value="{{ old('mother_postal_code') }}"
+                                                            class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            placeholder=" " />
+                                                        <div class="text-sm text-gray-700 mt-3">
+                                                            {{ $errors->first('mother_postal_code') }}
+                                                        </div>
+                                                        <label for="mother_postal_code"
+                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
+                                                            Pos</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endif
                                 </section>
                             </section>
@@ -967,11 +974,11 @@
             content = `
             <div class="grid md:grid-cols-1 md:gap-6">
                 <div class="relative z-0 w-full mb-6 group">
-                    <textarea name="mother_address" id="mother_address" rows="2" value="{{ $applicant->address }}" class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
+                    <textarea name="mother_address" id="mother_address" rows="2" value="{{ $applicant->address }}" class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
                     <div class="text-sm text-gray-700 mt-3">
                         {{ $errors->first('mother_address') }}
                     </div>
-                    <label for="mother_address" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+                    <label for="mother_address" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                 </div>
             </div>
             `;
@@ -980,13 +987,13 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="mother_provinces" class="sr-only">Provinsi</label>
-                        <select id="mother_provinces" name="mother_provinces"class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <select id="mother_provinces" name="mother_provinces"class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option value="">Pilih Provinsi</option>
                         </select>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="mother_regencies" class="sr-only">Kota/Kabupaten</label>
-                        <select id="mother_regencies" name="mother_regencies" class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="mother_regencies" name="mother_regencies" class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Kota / Kabupaten</option>
                         </select>
                     </div>
@@ -994,38 +1001,38 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="mother_districts" class="sr-only">Kecamatan</label>
-                        <select id="mother_districts" name="mother_districts" class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="mother_districts" name="mother_districts" class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Kecamatan</option>
                         </select>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="mother_villages" class="sr-only">Desa/Kelurahan</label>
-                        <select id="mother_villages" name="mother_villages" class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="mother_villages" name="mother_villages" class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Desa / Kelurahan</option>
                         </select>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_rt" id="mother_rt" value="{{ old('mother_rt') }}" class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="mother_rt" id="mother_rt" value="{{ old('mother_rt') }}" class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('mother_rt') }}
                         </div>
-                        <label for="mother_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                        <label for="mother_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_rw" id="mother_rw" value="{{ old('mother_rw') }}" class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="mother_rw" id="mother_rw" value="{{ old('mother_rw') }}" class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('mother_rw') }}
                         </div>
-                        <label for="mother_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                        <label for="mother_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_postal_code" id="mother_postal_code" value="{{ old('mother_postal_code') }}" class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="mother_postal_code" id="mother_postal_code" value="{{ old('mother_postal_code') }}" class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('mother_postal_code') }}
                         </div>
-                        <label for="mother_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
+                        <label for="mother_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
                     </div>
                 </div>
             `;
@@ -1041,11 +1048,11 @@
             content = `
             <div class="grid md:grid-cols-1 md:gap-6">
                 <div class="relative z-0 w-full mb-6 group">
-                    <textarea name="father_address" id="father_address" rows="2" value="{{ $applicant->address }}" class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
+                    <textarea name="father_address" id="father_address" rows="2" value="{{ $applicant->address }}" class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
                     <div class="text-sm text-gray-700 mt-3">
                         {{ $errors->first('father_address') }}
                     </div>
-                    <label for="father_address" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+                    <label for="father_address" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                 </div>
             </div>
             `;
@@ -1054,13 +1061,13 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="father_provinces" class="sr-only">Provinsi</label>
-                        <select id="father_provinces" name="father_provinces"class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <select id="father_provinces" name="father_provinces"class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                             <option value="">Pilih Provinsi</option>
                         </select>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="father_regencies" class="sr-only">Kota/Kabupaten</label>
-                        <select id="father_regencies" name="father_regencies" class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="father_regencies" name="father_regencies" class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Kota / Kabupaten</option>
                         </select>
                     </div>
@@ -1068,38 +1075,38 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="father_districts" class="sr-only">Kecamatan</label>
-                        <select id="father_districts" name="father_districts" class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="father_districts" name="father_districts" class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Kecamatan</option>
                         </select>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <label for="father_villages" class="sr-only">Desa/Kelurahan</label>
-                        <select id="father_villages" name="father_villages" class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
+                        <select id="father_villages" name="father_villages" class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
                             <option>Pilih Desa / Kelurahan</option>
                         </select>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_rt" id="father_rt" value="{{ old('father_rt') }}" class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="father_rt" id="father_rt" value="{{ old('father_rt') }}" class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('father_rt') }}
                         </div>
-                        <label for="father_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
+                        <label for="father_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_rw" id="father_rw" value="{{ old('father_rw') }}" class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="father_rw" id="father_rw" value="{{ old('father_rw') }}" class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('father_rw') }}
                         </div>
-                        <label for="father_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
+                        <label for="father_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_postal_code" id="father_postal_code" value="{{ old('father_postal_code') }}" class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="father_postal_code" id="father_postal_code" value="{{ old('father_postal_code') }}" class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <div class="text-sm text-gray-700 mt-3">
                             {{ $errors->first('father_postal_code') }}
                         </div>
-                        <label for="father_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
+                        <label for="father_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
                     </div>
                 </div>
             `;

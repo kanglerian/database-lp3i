@@ -35,11 +35,11 @@
             <div class="bg-white overflow-hidden border md:rounded-xl">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
-                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500 dark:text-gray-400">
+                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-tl-lg">
                                         Nama lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -57,7 +57,7 @@
                                     <th scope="col" class="px-6 py-3">
                                         Status
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-tr-lg">
                                         Action
                                     </th>
                             </thead>

@@ -75,9 +75,11 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
+                            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
                             <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
                                 {{ __('Edit Profile') }}
                             </x-dropdown-link>
+                            @endif
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
