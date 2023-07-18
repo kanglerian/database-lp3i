@@ -26,21 +26,21 @@ class ApplicantController extends Controller
     public function get_all()
     {
         if (Auth::check() && Auth::user()->role == 'P') {
-            $applicants = Applicant::where('identity_user', Auth::user()->identity)->get();
+            $applicants = Applicant::where('identity_user', Auth::user()->identity)->orderBy('created_at', 'desc')->get();
             return response()
                 ->json([
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
         } elseif (Auth::check() && Auth::user()->role == 'A') {
-            $applicants = Applicant::all();
+            $applicants = Applicant::orderBy('created_at', 'desc')->get();
             return response()
                 ->json([
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
         } else {
-            $applicants = Applicant::all();
+            $applicants = Applicant::orderBy('created_at', 'desc')->get();
             return response()
                 ->json([
                     'applicants' => $applicants,

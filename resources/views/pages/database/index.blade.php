@@ -77,6 +77,7 @@
                 url: 'get/databases',
                 dataSrc: 'applicants'
             },
+            order:[ [6, 'desc'] ],
             columns: [{
                     data: 'name'
                 },
