@@ -14,7 +14,7 @@ const getProvinces = async () => {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
     </option>`;
       }
-      // addressContainer.classList.remove('hidden');
+      addressContainer.classList.remove('hidden');
       selectProvinces.innerHTML = bucket;
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');

@@ -279,14 +279,10 @@
                                         <label for="source" class="sr-only">Sumber</label>
                                         <select id="source" name="source"
                                             class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                            <option value="0" {{ old('source') == '0' ? 'selected' : '' }}>Pilih
-                                                sumber
-                                            </option>
-                                            <option value="1" {{ old('source') == '1' ? 'selected' : '' }}>
-                                                Website
-                                            </option>
-                                            <option value="2" {{ old('source') == '2' ? 'selected' : '' }}>
-                                                Presenter</option>
+                                            <option value="0">Pilih sumber</option>
+                                            @foreach ($sources as $source)
+                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                            @endforeach
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('source') }}

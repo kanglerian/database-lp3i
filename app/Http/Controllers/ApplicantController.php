@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantFamily;
 use App\Models\Applicant;
+use App\Models\SourceSetting;
+use App\Models\ApplicantDatabase;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 
@@ -20,27 +22,60 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        return view('pages.database.index');
+        $sources = SourceSetting::all();
+        $databases = ApplicantDatabase::all();
+        $total = Applicant::count();
+        return view('pages.database.index')->with([
+            'total' => $total,
+            'databases' => $databases,
+            'sources' => $sources,
+        ]);
     }
 
-    public function get_all()
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_all($type = 'all')
     {
         if (Auth::check() && Auth::user()->role == 'P') {
-            $applicants = Applicant::where('identity_user', Auth::user()->identity)->orderBy('created_at', 'desc')->get();
+            if ($type == 'all') {
+                $applicants = Applicant::with('sourceSetting')->where('identity_user', Auth::user()->identity)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            } else {
+                $applicants = Applicant::with('sourceSetting')->where(['identity_user' => Auth::user()->identity, 'source' => $type])
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            }
             return response()
                 ->json([
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
         } elseif (Auth::check() && Auth::user()->role == 'A') {
-            $applicants = Applicant::orderBy('created_at', 'desc')->get();
+            if ($type == 'all') {
+                $applicants = Applicant::with('sourceSetting')->orderBy('created_at', 'desc')->get();
+            } else {
+                $applicants = Applicant::with('sourceSetting')->where('source', $type)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            }
             return response()
                 ->json([
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
         } else {
-            $applicants = Applicant::orderBy('created_at', 'desc')->get();
+            if ($type == 'all') {
+                $applicants = Applicant::with('sourceSetting')->orderBy('created_at', 'desc')->get();
+            } else {
+                $applicants = Applicant::with('sourceSetting')->where('source', $type)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            }
             return response()
                 ->json([
                     'applicants' => $applicants,
@@ -58,6 +93,7 @@ class ApplicantController extends Controller
         try {
             $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
+            $sources = SourceSetting::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -67,6 +103,7 @@ class ApplicantController extends Controller
 
             return view('pages.database.create')->with([
                 'programs' => $programs,
+                'sources' => $sources,
                 'users' => $users,
             ]);
         } catch (\Throwable $th) {
@@ -180,6 +217,7 @@ class ApplicantController extends Controller
 
         $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
         $applicant = Applicant::findOrFail($id);
+        $sources = SourceSetting::all();
         $account = User::where('email', $applicant->email)->count();
         $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
         $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -198,6 +236,7 @@ class ApplicantController extends Controller
             'account' => $account,
             'father' => $father,
             'mother' => $mother,
+            'sources' => $sources
         ]);
     }
 

@@ -136,25 +136,14 @@
                                         <select id="source" name="source"
                                             class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
-                                            @switch($applicant->source)
-                                                @case('0')
-                                                    <option value="0" selected>Pilih sumber</option>
-                                                @break
-
-                                                @case('1')
-                                                    <option value="{{ $applicant->source }}"
-                                                        {{ old('source') == 1 ? 'selected' : '' }}>Website</option>
-                                                    <option value="2" {{ old('source') == 2 ? 'selected' : '' }}>Presenter
-                                                    </option>
-                                                @break
-
-                                                @case('2')
-                                                    <option value="{{ $applicant->source }}"
-                                                        {{ old('source') == 2 ? 'selected' : '' }}>Presenter</option>
-                                                    <option value="1" {{ old('source') == 1 ? 'selected' : '' }}>Website
-                                                    </option>
-                                                @break
-                                            @endswitch
+                                            <option value="{{ $applicant->source }}" selected>
+                                                {{ $applicant->sourceSetting->name }}
+                                            </option>
+                                            @foreach ($sources as $source)
+                                            <option value="{{ $source->id }}">
+                                                {{ $source->name }}
+                                            </option>
+                                            @endforeach
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('source') }}

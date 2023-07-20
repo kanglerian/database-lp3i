@@ -50,6 +50,10 @@ class Applicant extends Model
     ];
 
     public function presenter(){
-        return $this->belongsTo(User::class,'identity_user','identity');
+        return $this->belongsTo(User::class,'identity_user', 'identity');
+    }
+
+    public function sourceSetting(){
+        return $this->belongsTo(SourceSetting::class, 'source', 'id');
     }
 }

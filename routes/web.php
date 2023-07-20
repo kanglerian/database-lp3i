@@ -6,6 +6,7 @@ use App\Http\Controllers\PresenterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserUploadController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
+Route::get('get/databases/{type?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
 Route::get('databases/{id?}/edit/family', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
 
 Route::resource('presenter', PresenterController::class)->middleware(['auth','role:A']);
@@ -48,5 +49,7 @@ Route::patch('profile/update_account/{id}', [ProfileController::class, 'update_a
 Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_password'])->name('profile.change_password')->middleware(['auth','status:1']);
 
 Route::resource('userupload', UserUploadController::class)->middleware(['auth','role:S']);
+
+Route::resource('setting', SettingController::class)->middleware(['auth','role:A']);
 
 require __DIR__.'/auth.php';

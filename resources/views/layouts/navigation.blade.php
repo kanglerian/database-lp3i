@@ -31,6 +31,11 @@
                             {{ __('Akun') }}
                         </x-nav-link>
                     @endif
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs(['setting.index', 'setting.create', 'setting.edit', 'setting.show'])">
+                            {{ __('Pengaturan') }}
+                        </x-nav-link>
+                    @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
                         <x-nav-link :href="route('userupload.edit', Auth::user()->identity)" :active="request()->routeIs(['userupload.index', 'userupload.create', 'userupload.edit'])">
                             {{ __('Upload') }}
@@ -127,6 +132,11 @@
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user')">
                     {{ __('Akun') }}
+                </x-responsive-nav-link>
+            @endif
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs('setting')">
+                    {{ __('Pengaturan') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')

@@ -1,9 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
-            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+            <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Database') }}
             </h2>
+            <div class="flex flex-wrap items-center gap-3 px-2 text-gray-600">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-solid fa-users"></i>
+                    <h2>Total: {{ $total }}</h2>
+                </div>
+                @foreach ($databases as $database)
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-solid fa-database"></i>
+                    <h2>{{ $database->name }}: {{ $database->count }}</h2>
+                </div>
+                @endforeach
+            </div>
         </div>
     </x-slot>
 
@@ -27,17 +39,31 @@
                     </div>
                 </div>
             @endif
-            <div class="px-2">
+            <div class="flex justify-between items-center gap-4 md:gap-0 px-2">
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+                <div class="flex items-center gap-3 text-gray-500">
+                    <i class="fa-solid fa-filter"></i>
+                    <div class="flex items-center gap-2">
+                        <select name="role" id="change_type"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Semua</option>
+                            <option value="1">Website</option>
+                            <option value="2">Presenter</option>
+                        </select>
+                        <button type="button" onclick="changeFilter()"
+                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">Filter</button>
+                        <button type="button" onclick="resetFilter()"
+                            class="bg-amber-500 hover:bg-amber-600 px-3 py-2 text-xs rounded-lg text-white">Reset</button>
+                    </div>
+                </div>
             </div>
             <div class="bg-white overflow-hidden border md:rounded-xl">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
                                         Nama lengkap
@@ -71,13 +97,40 @@
 </x-app-layout>
 
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
+    var urlData = 'get/databases';
+    var dataTableInitialized = false;
+    var dataTableInstance;
+
+    const changeFilter = () => {
+        let typeVal = document.getElementById('change_type').value;
+        urlData = `get/databases/${typeVal}`;
+
+        if (dataTableInitialized) {
+            dataTableInstance.ajax.url(urlData).load();
+        } else {
+            getDataTable();
+        }
+    }
+
+    const resetFilter = () => {
+        document.getElementById('change_type').value = 'all';
+        urlData = `get/databases`;
+        if (dataTableInitialized) {
+            dataTableInstance.ajax.url(urlData).load();
+        } else {
+            getDataTable();
+        }
+    }
+
+    const getDataTable = async () => {
+        dataTableInstance = $('#myTable').DataTable({
             ajax: {
-                url: 'get/databases',
+                url: urlData,
                 dataSrc: 'applicants'
             },
-            order:[ [6, 'desc'] ],
+            order: [
+                [6, 'desc']
+            ],
             columns: [{
                     data: 'name'
                 },
@@ -96,24 +149,13 @@
                 {
                     data: 'year',
                     render: (data, row) => {
-                        console.log(typeof(data));
                         return typeof(data) == 'string' ? data : 'Tidak diketahui';
                     }
                 },
                 {
-                    data: 'source',
+                    data: 'source_setting',
                     render: (data, type, row) => {
-                        switch (data) {
-                            case "0":
-                                return 'Tidak diketahui'
-                                break;
-                            case "1":
-                                return 'Website'
-                                break;
-                            case "2":
-                                return 'Presenter'
-                                break;
-                        }
+                        return data.name;
                     }
                 },
                 {
@@ -164,7 +206,10 @@
                 },
             ],
         });
-    });
+        dataTableInitialized = true;
+    }
+
+    getDataTable();
 
     const deleteRecord = (id) => {
         if (confirm('Apakah kamu yakin akan menghapus data?')) {
@@ -196,7 +241,8 @@
                 break;
         }
         const textarea = document.createElement("textarea");
-        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
+        textarea.value =
+            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();

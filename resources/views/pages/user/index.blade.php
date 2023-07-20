@@ -1,9 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
+        <div class="flex justify-between items-center">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ __('Daftar akun') }}
             </h2>
+
+            <div class="flex items-center text-gray-600 gap-3">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-solid fa-users"></i>
+                    <h2>{{ $users }}</h2>
+                </div>
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-green-500"></i>
+                    <h2>{{ $active }}</h2>
+                </div>
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                    <h2>{{ $deactive }}</h2>
+                </div>
+            </div>
         </div>
     </x-slot>
 
@@ -28,25 +43,9 @@
                 </div>
             @endif
             <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
-                <div class="flex items-center gap-5">
-                    <a href="{{ route('user.create') }}"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                            class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-                    <div class="flex items-center text-gray-600 gap-3">
-                        <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                            <i class="fa-solid fa-users"></i>
-                            <h2>{{ $users }}</h2>
-                        </div>
-                        <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-green-500"></i>
-                            <h2>{{ $active }}</h2>
-                        </div>
-                        <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                            <i class="fa-solid fa-circle-xmark text-red-500"></i>
-                            <h2>{{ $deactive }}</h2>
-                        </div>
-                    </div>
-                </div>
+                <a href="{{ route('user.create') }}"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                        class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex items-center gap-3 text-gray-500">
                     <i class="fa-solid fa-filter"></i>
                     <div class="flex items-center gap-2">
@@ -74,8 +73,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
                                         <i class="fa-solid fa-user"></i>
@@ -194,7 +192,9 @@
                     render: (data, type, row) => {
                         let editUrl = "{{ route('user.edit', ':id') }}".replace(':id', data.id);
                         let showUrl = "{{ route('user.show', ':id') }}".replace(':id', data.id);
-                        let folder = data.role === 'S' ? `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` : `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
+                        let folder = data.role === 'S' ?
+                            `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
+                            `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
                         return `
                             ${folder}
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
