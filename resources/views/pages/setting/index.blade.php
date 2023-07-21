@@ -132,21 +132,25 @@
 
     const deleteSource = (item) => {
         let id = item.dataset.source;
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
-            $.ajax({
-                url: `/setting/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Kategori dipakai, tidak bisa dihapus.');
-                }
-            })
+        if (id =class= 1) {
+            alert('Kategori Website tidak bisa dihapus!');
+        } else {
+            if (confirm('Apakah kamu yakin akan menghapus data?')) {
+                $.ajax({
+                    url: `/setting/${id}`,
+                    type: 'POST',
+                    data: {
+                        '_method': 'DELETE',
+                        '_token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Kategori dipakai, tidak bisa dihapus.');
+                    }
+                })
+            }
         }
     }
 </script>
