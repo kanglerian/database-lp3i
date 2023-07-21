@@ -31,16 +31,12 @@ class ApplicantController extends Controller
             $request->validate([
                 'name' => ['string', 'max:255'],
                 'phone' => ['string', 'max:15', 'min:10'],
-                'school' => ['string'],
-                'source' => ['char', 'max:10', 'not_in:Pilih sumber'],
-                'status' => ['char', 'max:10', 'not_in:Pilih status'],
             ]);
             $numbers_unique = mt_rand(1, 1000000000);
 
             $data = [
                 'identity' => $numbers_unique,
                 'name' => $request->input('name'),
-                'school' => $request->input('school'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
                 'source' => 1,
                 'status' => '1',
