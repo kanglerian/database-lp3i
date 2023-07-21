@@ -132,7 +132,7 @@
 
     const deleteSource = (item) => {
         let id = item.dataset.source;
-        if (id =class= 1) {
+        if (id == 1) {
             alert('Kategori Website tidak bisa dihapus!');
         } else {
             if (confirm('Apakah kamu yakin akan menghapus data?')) {
