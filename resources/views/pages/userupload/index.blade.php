@@ -81,7 +81,7 @@
                                                     <input type="hidden" name="namefile"
                                                         value="{{ $upload->namefile }}">
                                                     <input type="file" name="berkas" id="berkas" class="text-sm"
-                                                        accept="{{ $upload->accept }}" style="width:90px">
+                                                        accept="{{ $upload->accept }}" style="width:95px">
                                                     <button type="submit"
                                                         class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-upload"></i>

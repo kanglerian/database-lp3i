@@ -280,9 +280,11 @@
                                         <select id="source" name="source"
                                             class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                             <option value="0">Pilih sumber</option>
-                                            @foreach ($sources as $source)
-                                            <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                            @endforeach
+                                            @if (sizeof($sources) > 0)
+                                                @foreach ($sources as $source)
+                                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('source') }}

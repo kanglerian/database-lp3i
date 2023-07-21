@@ -9,12 +9,14 @@
                     <i class="fa-solid fa-users"></i>
                     <h2>Total: {{ $total }}</h2>
                 </div>
-                @foreach ($databases as $database)
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-database"></i>
-                    <h2>{{ $database->name }}: {{ $database->count }}</h2>
-                </div>
-                @endforeach
+                @if (Auth::user()->role == 'A')
+                    @foreach ($databases as $database)
+                        <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                            <i class="fa-solid fa-database"></i>
+                            <h2>{{ $database->name }}: {{ $database->count }}</h2>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </x-slot>

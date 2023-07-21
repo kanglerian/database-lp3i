@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="w-full md:w-2/6 mx-auto space-y-5">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 @if (session('error'))

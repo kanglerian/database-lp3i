@@ -77,6 +77,70 @@
                         </div>
                     </div>
                 </div>
+                <div class="w-full md:w-1/2 space-y-5">
+                    <div class="px-2">
+                        <button type="button" data-modal-target="fileModal" onclick="changeFileModal(this)"
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
+                            <i class="fa-solid fa-circle-plus"></i> Tambah Data</button>
+                    </div>
+                    <div class="bg-white overflow-hidden border md:rounded-xl">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <h2 class="font-bold text-lg mb-5">Data File Upload</h2>
+                            <div class="relative overflow-x-auto md:rounded-xl">
+                                <table class="w-full text-sm text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                                No
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Nama
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Accept
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                                Action
+                                            </th>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($files as $no => $file)
+                                            <tr class="bg-white border-b">
+                                                <th class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                                    {{ $no + 1 }}
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    {{ $file->name }}
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    {{ $file->accept }}
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    <button type="button" data-file="{{ $file->id }}"
+                                                        data-modal-target="fileModal" data-name="{{ $file->name }}" data-accept="{{ $file->accept }}"
+                                                        onclick="editFileModal(this)"
+                                                        class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        <i class="fa-solid fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" data-file="{{ $file->id }}"
+                                                        onclick="deleteFile(this)"
+                                                        class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="bg-white border-b">
+                                                <td class="px-6 py-3 text-center" colspan="4">Data sumber belum ada.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -176,7 +240,7 @@
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
                             Database</label>
-                        <input type="text" id="name_source" name="name"
+                        <input type="text" id="name_source" name="name" placeholder="Isi nama database disini.."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                     </div>
@@ -185,6 +249,122 @@
                     <button type="submit" id="formSourceButton"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
                     <button type="button" data-modal-target="sourceModal" onclick="changeSourceModal(this)"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{-- Script File --}}
+<script>
+    const changeFileModal = (button) => {
+        const modalTarget = button.dataset.modalTarget;
+        let status = document.getElementById(modalTarget);
+        let url = "{{ route('fileupload.store') }}";
+        document.getElementById('title_file').innerText = `Tambah File Upload`;
+        document.getElementById('name_file').value = '';
+        document.getElementById('accept_file').value = '';
+        document.getElementById('formFileButton').innerText = 'Simpan';
+        document.getElementById('formFileModal').setAttribute('action', url);
+
+        const elementsToRemove = document.querySelectorAll('[name="_method"]');
+        if (elementsToRemove.length > 0) {
+            elementsToRemove.forEach((element) => {
+                element.remove();
+            });
+        } else {
+            console.log("No elements found with the specified name.");
+        }
+        status.classList.toggle('hidden');
+    }
+
+    const editFileModal = (button) => {
+        const formModal = document.getElementById('formFileModal');
+        const modalTarget = button.dataset.modalTarget;
+        const id = button.dataset.file;
+        const name = button.dataset.name;
+        const accept = button.dataset.accept;
+        let url = "{{ route('fileupload.update', ':id') }}".replace(':id', id);
+        let status = document.getElementById(modalTarget);
+        document.getElementById('title_file').innerText = `Edit File Upload ${name}`;
+        document.getElementById('name_file').value = name;
+        document.getElementById('accept_file').value = accept;
+        document.getElementById('formFileButton').innerText = 'Simpan perubahan';
+        document.getElementById('formFileModal').setAttribute('action', url);
+        let csrfToken = document.createElement('input');
+        csrfToken.setAttribute('type', 'hidden');
+        csrfToken.setAttribute('name', '_token');
+        csrfToken.setAttribute('value', '{{ csrf_token() }}');
+        formModal.appendChild(csrfToken);
+
+        let methodInput = document.createElement('input');
+        methodInput.setAttribute('type', 'hidden');
+        methodInput.setAttribute('name', '_method');
+        methodInput.setAttribute('value', 'PATCH');
+        formModal.appendChild(methodInput);
+
+        status.classList.toggle('hidden');
+    }
+
+    const deleteFile = (item) => {
+        let id = item.dataset.file;
+        if (confirm('Apakah kamu yakin akan menghapus data?')) {
+            $.ajax({
+                url: `/fileupload/${id}`,
+                type: 'POST',
+                data: {
+                    '_method': 'DELETE',
+                    '_token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('File upload dipakai, tidak bisa dihapus.');
+                }
+            })
+        }
+    }
+</script>
+
+{{-- Modal File --}}
+<div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="fileModal">
+    <div class="fixed inset-0 bg-black opacity-50"></div>
+    <div class="fixed inset-0 flex items-center justify-center">
+        <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
+            <div class="flex items-start justify-between p-4 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900" id="title_file">
+                    Tambah File Upload
+                </h3>
+                <button type="button" onclick="changeFileModal(this)" data-modal-target="fileModal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                    data-modal-hide="defaultModal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('fileupload.store') }}" id="formFileModal">
+                @csrf
+                <div class="p-4 space-y-6">
+                    <div>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
+                            File</label>
+                        <input type="text" id="name_file" name="name" placeholder="Isi nama berkas disini.."
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
+                    <div>
+                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Accept</label>
+                        <input type="text" id="accept_file" name="accept" placeholder="Isi file accept disini.."
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
+                    <button type="submit" id="formFileButton"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                    <button type="button" data-modal-target="fileModal" onclick="changeFileModal(this)"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
                 </div>
             </form>

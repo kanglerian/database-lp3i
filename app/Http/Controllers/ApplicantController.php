@@ -24,7 +24,11 @@ class ApplicantController extends Controller
     {
         $sources = SourceSetting::all();
         $databases = ApplicantDatabase::all();
-        $total = Applicant::count();
+        if (Auth::user()->role == 'A') {
+            $total = Applicant::count();
+        } else {
+            $total = Applicant::where('identity_user', Auth::user()->identity)->count();
+        }
         return view('pages.database.index')->with([
             'total' => $total,
             'databases' => $databases,
@@ -42,11 +46,13 @@ class ApplicantController extends Controller
     {
         if (Auth::check() && Auth::user()->role == 'P') {
             if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')->where('identity_user', Auth::user()->identity)
+                $applicants = Applicant::with('sourceSetting')
+                    ->where('identity_user', Auth::user()->identity)
                     ->orderBy('created_at', 'desc')
                     ->get();
             } else {
-                $applicants = Applicant::with('sourceSetting')->where(['identity_user' => Auth::user()->identity, 'source' => $type])
+                $applicants = Applicant::with('sourceSetting')
+                    ->where(['identity_user' => Auth::user()->identity, 'source' => $type])
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
@@ -57,9 +63,12 @@ class ApplicantController extends Controller
                 ->header('Content-Type', 'application/json');
         } elseif (Auth::check() && Auth::user()->role == 'A') {
             if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')->orderBy('created_at', 'desc')->get();
+                $applicants = Applicant::with('sourceSetting')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
             } else {
-                $applicants = Applicant::with('sourceSetting')->where('source', $type)
+                $applicants = Applicant::with('sourceSetting')
+                    ->where('source', $type)
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
@@ -70,9 +79,12 @@ class ApplicantController extends Controller
                 ->header('Content-Type', 'application/json');
         } else {
             if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')->orderBy('created_at', 'desc')->get();
+                $applicants = Applicant::with('sourceSetting')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
             } else {
-                $applicants = Applicant::with('sourceSetting')->where('source', $type)
+                $applicants = Applicant::with('sourceSetting')
+                    ->where('source', $type)
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
@@ -236,7 +248,7 @@ class ApplicantController extends Controller
             'account' => $account,
             'father' => $father,
             'mother' => $mother,
-            'sources' => $sources
+            'sources' => $sources,
         ]);
     }
 
@@ -362,8 +374,10 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::findOrFail($id);
         $family = ApplicantFamily::where('identity_user', $applicant->identity);
+        $user = User::where('identity', $applicant->identity);
         $family->delete();
         $applicant->delete();
+        $user->delete();
         return session()->flash('message', 'Data aplikan berhasil dihapus!');
     }
 }

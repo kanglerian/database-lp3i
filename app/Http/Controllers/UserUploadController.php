@@ -21,7 +21,6 @@ class UserUploadController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -58,14 +57,14 @@ class UserUploadController extends Controller
 
         $payload = [
             'identity' => Auth::user()->identity,
-            'filename' => $request->input('namefile'),
-            'filetype' => $request->berkas->extension(),
-            'image' => $encodedFile
+            'namefile' => $request->input('namefile'),
+            'typefile' => $request->berkas->extension(),
+            'image' => $encodedFile,
         ];
-        
-        if($payload['filename'] === "foto"){
+
+        if ($payload['namefile'] === 'foto') {
             $dataku = [
-                'avatar' => $request->input('namefile') . "." . $request->berkas->extension(),
+                'avatar' => $request->input('namefile') . '.' . $request->berkas->extension(),
             ];
             $user = User::findOrFail(Auth::user()->id);
             $user->update($dataku);
@@ -89,7 +88,6 @@ class UserUploadController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -104,13 +102,13 @@ class UserUploadController extends Controller
         $data = [];
         foreach ($userupload as $key => $upload) {
             $data[] = $upload->namefile;
-        };
+        }
         $success = FileUpload::whereIn('namefile', $data)->get();
         $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
         return view('pages.userupload.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
-            'success' => $success
+            'success' => $success,
         ]);
     }
 
@@ -134,26 +132,25 @@ class UserUploadController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $user_upload = UserUpload::findOrFail($id);
-    
-            $payload = [
-                'identity' => $user_upload->identity_user,
-                'namefile' => $user_upload->namefile,
-                'typefile' => $user_upload->typefile
+        $user_upload = UserUpload::findOrFail($id);
+
+        $payload = [
+            'identity' => $user_upload->identity_user,
+            'namefile' => $user_upload->namefile,
+            'typefile' => $user_upload->typefile,
+        ];
+
+        if ($user_upload->namefile == 'foto') {
+            $dataku = [
+                'avatar' => null,
             ];
-    
-            if($user_upload->namefile == 'foto'){
-                $dataku = [
-                    'avatar' => null,
-                ];
-                $user = User::findOrFail(Auth::user()->id);
-                $user->update($dataku);
-            }
-    
-            $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
+            $user = User::findOrFail(Auth::user()->id);
+            $user->update($dataku);
+        }
+
+        try {
+            $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/remove', $payload);
             $responseData = $response->json();
-    
             $user_upload->delete();
             return back()->with('message', 'Data upload berhasil dihapus!');
         } catch (\Throwable $th) {

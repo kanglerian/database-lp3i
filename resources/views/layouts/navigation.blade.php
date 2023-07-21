@@ -51,7 +51,7 @@
                         <button
                             class="flex gap-3 bg-slate-50 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="http://localhost:3033/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
+                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
                                     alt="Avatar" class="h-8 rounded-full">
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
