@@ -338,7 +338,7 @@
                                         </div>
                                     </div>
                                     @if (Auth::check() && Auth::user()->role == 'P')
-                                        <input type="text" value="{{ Auth::user()->identity }}"
+                                        <input type="hidden" value="{{ Auth::user()->identity }}"
                                             name="identity_user">
                                     @else
                                         <div class="relative z-0 w-full mb-6 group">

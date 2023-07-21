@@ -10,6 +10,8 @@ use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Models\SourceSetting;
 use App\Models\ApplicantDatabase;
+use App\Models\UserUpload;
+use App\Models\FileUpload;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 
@@ -212,9 +214,25 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($identity)
     {
-        //
+        $user = User::where('identity', $identity)->firstOrFail();
+        $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
+        $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
+        $userupload = UserUpload::where('identity_user', $identity)->get();
+        $data = [];
+        foreach ($userupload as $key => $upload) {
+            $data[] = $upload->namefile;
+        }
+        $success = FileUpload::whereIn('namefile', $data)->get();
+        $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+        return view('pages.database.show')->with([
+            'userupload' => $userupload,
+            'fileupload' => $fileupload,
+            'user' => $user,
+            'father' => $father,
+            'mother' => $mother,
+        ]);
     }
 
     /**
@@ -379,5 +397,24 @@ class ApplicantController extends Controller
         $applicant->delete();
         $user->delete();
         return session()->flash('message', 'Data aplikan berhasil dihapus!');
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id)
+    {
+        $applicant = Applicant::where('identity', $id)->firstOrFail();
+        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+        return view('pages.user.print')->with([
+            'applicant' => $applicant,
+            'father' => $father,
+            'mother' => $mother,
+        ]);
     }
 }

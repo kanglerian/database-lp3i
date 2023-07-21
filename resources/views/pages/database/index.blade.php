@@ -185,16 +185,24 @@
                 {
                     data: {
                         id: 'id',
+                        identity: 'identity',
                         name: 'name',
                         phone: 'phone',
                         school: 'school',
                         year: 'year',
-                        source: 'source'
+                        source: 'source',
+                        status: 'status'
                     },
                     render: (data, type, row) => {
+                        let showUrl = "{{ route('database.show', ':identity') }}".replace(':identity',
+                            data.identity);
                         let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
                             data.id);
+                        let folder = data.status == 4 || data.status == 3 ?
+                            `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
+                            `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
                         return `
+                            ${folder}
                             <button class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>

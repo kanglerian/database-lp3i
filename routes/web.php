@@ -42,6 +42,8 @@ Route::patch('user/change_password/{id}', [UserController::class, 'change_passwo
 
 Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print')->middleware(['auth','role:A']);
 
+Route::get('print/database/{id}', [ApplicantController::class, 'print'])->name('database.print')->middleware(['auth','role:P']);
+
 Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change')->middleware(['auth','status:1','role:A']);
 Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password')->middleware(['auth','status:1','role:A']);
 
