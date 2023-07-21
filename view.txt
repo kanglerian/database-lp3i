@@ -1,0 +1,14 @@
+CREATE VIEW `applicants_databases` AS
+SELECT
+    `source_setting`.`id` AS `id`,
+    `source_setting`.`name` AS `name`,
+    COUNT(`applicants`.`source`) AS `count`
+FROM
+    `source_setting`
+LEFT JOIN
+    `applicants`
+ON
+    `source_setting`.`id` = `applicants`.`source`
+GROUP BY
+    `source_setting`.`id`,
+    `source_setting`.`name`;
