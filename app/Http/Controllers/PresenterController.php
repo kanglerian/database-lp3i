@@ -108,7 +108,6 @@ class PresenterController extends Controller
     {
         $presenter = User::findOrFail($id);
         $request->validate([
-            'identity' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($id)],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'phone' => ['required', 'string', 'max:15', Rule::unique('users')->ignore($id)],
@@ -116,7 +115,6 @@ class PresenterController extends Controller
             'status' => ['string', 'not_in:Pilih status'],
         ]);
         $data = [
-            'identity' => $request->input('identity'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
