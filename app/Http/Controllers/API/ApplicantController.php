@@ -42,7 +42,7 @@ class ApplicantController extends Controller
                 'name' => $request->input('name'),
                 'school' => $request->input('school'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-                'source' => '1',
+                'source' => 1,
                 'status' => '1',
                 'isread' => '0',
             ];
