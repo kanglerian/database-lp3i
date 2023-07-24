@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantFamily;
+use App\Models\ApplicantHistory;
 use App\Models\Applicant;
 use App\Models\SourceSetting;
 use App\Models\ApplicantDatabase;
@@ -216,7 +217,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = User::where('identity', $identity)->firstOrFail();
+        $user = Applicant::where('identity', $identity)->firstOrFail();
         $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
         $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
         $userupload = UserUpload::where('identity_user', $identity)->get();
@@ -398,7 +399,6 @@ class ApplicantController extends Controller
         $user->delete();
         return session()->flash('message', 'Data aplikan berhasil dihapus!');
     }
-
 
     /**
      * Show the form for editing the specified resource.

@@ -4,7 +4,7 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Database') }}
             </h2>
-            <div class="flex flex-wrap items-center gap-3 px-2 text-gray-600">
+            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-users"></i>
                     <h2>Total: {{ $total }}</h2>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             @endif
-            <div class="flex justify-between items-center gap-4 md:gap-0 px-2">
+            <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
@@ -133,8 +133,17 @@
             order: [
                 [6, 'desc']
             ],
-            columns: [{
-                    data: 'name'
+            columns: [
+                {
+                    data: {
+                        identity: 'identity',
+                        name: 'name',
+                    },
+                    render: (data, type, row) => {
+                        let editUrl = "{{ route('histories.show', ':identity') }}".replace(':identity',
+                            data.identity);
+                        return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                    }
                 },
                 {
                     data: 'phone',

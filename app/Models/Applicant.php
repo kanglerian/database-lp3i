@@ -56,4 +56,8 @@ class Applicant extends Model
     public function sourceSetting(){
         return $this->belongsTo(SourceSetting::class, 'source', 'id');
     }
+
+    public function histories(){
+        return $this->belongsTo(ApplicantHistory::class,'identity_user', 'identity');
+    }
 }
