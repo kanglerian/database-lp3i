@@ -15,7 +15,7 @@ class ApplicantHistory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'identity_user',
+        'phone',
         'title',
         'date',
         'result',

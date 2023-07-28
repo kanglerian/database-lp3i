@@ -175,7 +175,7 @@
                         <input type="text" id="title" name="title" placeholder="Isi judul riwayat disini.."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
-                        <input type="hidden" name="identity_user" value="{{ $user->identity }}">
+                        <input type="hidden" name="phone" value="{{ $user->phone }}">
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal</label>

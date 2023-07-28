@@ -38,7 +38,7 @@ class ApplicantHistoryController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'identity_user' => $request->input('identity_user'),
+            'phone' => $request->input('phone'),
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
@@ -61,7 +61,7 @@ class ApplicantHistoryController extends Controller
         } elseif (Auth::user()->role == 'A') {
             $user = Applicant::where(['identity' => $id])->firstOrFail();
         }
-        $histories = ApplicantHistory::where(['identity_user' => $id])->orderBy('date','desc')->get();
+        $histories = ApplicantHistory::where(['phone' => $user->phone])->orderBy('created_at','desc')->get();
         return view('pages.database.history')->with([
             'user' => $user,
             'histories' => $histories,
@@ -91,7 +91,7 @@ class ApplicantHistoryController extends Controller
         $history = ApplicantHistory::findOrFail($id);
 
         $data = [
-            'identity_user' => $request->input('identity_user'),
+            'phone' => $request->input('phone'),
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
