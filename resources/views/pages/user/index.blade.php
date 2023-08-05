@@ -47,7 +47,6 @@
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex items-center gap-3 text-gray-500">
-                    <i class="fa-solid fa-filter"></i>
                     <div class="flex items-center gap-2">
                         <select name="role" id="change_role"
                             class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
@@ -63,9 +62,13 @@
                             <option value="0">Tidak Aktif</option>
                         </select>
                         <button type="button" onclick="changeFilter()"
-                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">Filter</button>
+                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
+                            <i class="fa-solid fa-filter"></i>
+                        </button>
                         <button type="button" onclick="resetFilter()"
-                            class="bg-amber-500 hover:bg-amber-600 px-3 py-2 text-xs rounded-lg text-white">Reset</button>
+                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -187,7 +190,8 @@
                 {
                     data: {
                         id: 'id',
-                        role: 'role'
+                        role: 'role',
+                        status: 'status'
                     },
                     render: (data, type, row) => {
                         let editUrl = "{{ route('user.edit', ':id') }}".replace(':id', data.id);
@@ -195,7 +199,11 @@
                         let folder = data.role === 'S' ?
                             `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
                             `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
+                        let status = data.status === "1" ?
+                            `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
+                            `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
                         return `
+                            ${status}
                             ${folder}
                             <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
@@ -237,7 +245,7 @@
     const statusRecord = (id) => {
         if (confirm('Apakah kamu yakin akan mengubah status data?')) {
             $.ajax({
-                url: `/presenter/change/${id}`,
+                url: `/user/change/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'PATCH',

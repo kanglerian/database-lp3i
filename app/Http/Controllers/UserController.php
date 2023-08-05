@@ -352,4 +352,24 @@ class UserController extends Controller
             'mother' => $mother,
         ]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $request->validate([
+            'status' => ['string'],
+        ]);
+        $data = [
+            'status' => $user->status == '0' ? '1' : '0',
+        ];
+        $user->update($data);
+        return back()->with('message', 'Status berhasil diubah!');
+    }
 }

@@ -38,13 +38,22 @@
                 <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
-                            <header>
-                                <h2 class="text-xl font-bold text-gray-900">
-                                    Informasi Aplikan
-                                </h2>
-                                <p class="mt-1 text-sm text-gray-600">
-                                    Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
-                                </p>
+                            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+                                <div class="w-full md:w-auto">
+                                    <h2 class="text-xl font-bold text-gray-900">
+                                        Informasi Aplikan
+                                    </h2>
+                                    <p class="mt-1 text-sm text-gray-600">
+                                        Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-1/5">
+                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
+                                        PMB</label>
+                                    <input type="number" id="pmb" name="pmb"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        placeholder="Tahun Penerimaan Mahasiswa Baru" required>
+                                </div>
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
@@ -294,22 +303,10 @@
                                         <label for="status" class="sr-only">Status</label>
                                         <select id="status" name="status"
                                             class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Pilih
-                                                status
-                                            </option>
-                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Tidak
-                                                diketahui
-                                            </option>
-                                            <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>
-                                                Potensi
-                                            </option>
-                                            <option value="3" {{ old('status') == '3' ? 'selected' : '' }}>Daftar
-                                            </option>
-                                            <option value="4" {{ old('status') == '4' ? 'selected' : '' }}>
-                                                Registrasi
-                                            </option>
-                                            <option value="5" {{ old('status') == '5' ? 'selected' : '' }}>Batal
-                                            </option>
+                                            <option value="non">Pilih status</option>
+                                            @foreach ($statuses as $status)
+                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                            @endforeach
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('status') }}
@@ -372,4 +369,7 @@
         const form = document.getElementById('formDatabase');
         form.submit();
     }
+
+    const currentYear = new Date().getFullYear();
+    document.getElementById('pmb').value = currentYear;
 </script>

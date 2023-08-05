@@ -32,6 +32,7 @@ class Applicant extends Model
         'source',
         'note',
         'status',
+        'pmb',
         'identity_user',
         'program',
         'isread',

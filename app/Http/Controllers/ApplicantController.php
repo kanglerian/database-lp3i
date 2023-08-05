@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantFamily;
 use App\Models\ApplicantHistory;
+use App\Models\ApplicantStatus;
 use App\Models\Applicant;
 use App\Models\SourceSetting;
 use App\Models\ApplicantDatabase;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
+use App\Models\AcademicYear;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 
@@ -26,7 +28,7 @@ class ApplicantController extends Controller
     public function index()
     {
         $sources = SourceSetting::all();
-        $databases = ApplicantDatabase::all();
+        $academics = AcademicYear::all();
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
         } else {
@@ -34,8 +36,8 @@ class ApplicantController extends Controller
         }
         return view('pages.database.index')->with([
             'total' => $total,
-            'databases' => $databases,
             'sources' => $sources,
+            'academics' => $academics,
         ]);
     }
 
@@ -45,58 +47,29 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($type = 'all')
+    public function get_all($type = null, $year = null)
     {
-        if (Auth::check() && Auth::user()->role == 'P') {
-            if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')
-                    ->where('identity_user', Auth::user()->identity)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            } else {
-                $applicants = Applicant::with('sourceSetting')
-                    ->where(['identity_user' => Auth::user()->identity, 'source' => $type])
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+            $applicantsQuery = Applicant::with('sourceSetting');
+            if ($type !== 'all' && $type !== null) {
+                $applicantsQuery->where('source', $type);
             }
+
+            if (Auth::check() && Auth::user()->role == 'P') {
+                $applicantsQuery->where('identity_user', Auth::user()->identity);
+            }
+
+            if ($year !== 'all' && $year !== null) {
+                $applicantsQuery->where('pmb', $year);
+            }
+
+            $applicants = $applicantsQuery->get();
+
             return response()
                 ->json([
                     'applicants' => $applicants,
                 ])
                 ->header('Content-Type', 'application/json');
-        } elseif (Auth::check() && Auth::user()->role == 'A') {
-            if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            } else {
-                $applicants = Applicant::with('sourceSetting')
-                    ->where('source', $type)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            }
-            return response()
-                ->json([
-                    'applicants' => $applicants,
-                ])
-                ->header('Content-Type', 'application/json');
-        } else {
-            if ($type == 'all') {
-                $applicants = Applicant::with('sourceSetting')
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            } else {
-                $applicants = Applicant::with('sourceSetting')
-                    ->where('source', $type)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-            }
-            return response()
-                ->json([
-                    'applicants' => $applicants,
-                ])
-                ->header('Content-Type', 'application/json');
-        }
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -109,6 +82,7 @@ class ApplicantController extends Controller
             $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
+            $statuses = ApplicantStatus::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -118,6 +92,7 @@ class ApplicantController extends Controller
 
             return view('pages.database.create')->with([
                 'programs' => $programs,
+                'statuses' => $statuses,
                 'sources' => $sources,
                 'users' => $users,
             ]);
@@ -172,6 +147,7 @@ class ApplicantController extends Controller
                 'class' => $request->input('class'),
                 'source' => $request->input('source'),
                 'status' => $request->input('status'),
+                'pmb' => '2023',
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
@@ -320,6 +296,7 @@ class ApplicantController extends Controller
             'identity_user' => $request->input('identity_user'),
             'source' => $request->input('source'),
             'status' => $request->input('status'),
+            'pmb' => '2023',
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'note' => $request->input('note'),

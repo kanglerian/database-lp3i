@@ -41,25 +41,22 @@
                     <li class="mb-10 ml-4">
                         <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
                         </div>
-                        @php
-                            $formattedDate = \Carbon\Carbon::parse($history->date)->format('d F Y');
-                        @endphp
                         <div class="flex gap-5 mb-2">
                             <time
-                                class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ $formattedDate }}</time>
+                                class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ $history['date'] }}</time>
                             <div class="flex gap-3">
-                                <button type="button" data-id="{{ $history->id }}" data-modal-target="dataModal"
-                                    data-title="{{ $history->title }}" data-date="{{ $history->date }}"
-                                    data-title="{{ $history->title }}" data-result="{{ $history->result }}"
+                                <button type="button" data-id="{{ $history['id'] }}" data-modal-target="dataModal"
+                                    data-title="{{ $history['title'] }}" data-date="{{ $history['date'] }}"
+                                    data-title="{{ $history['title'] }}" data-result="{{ $history['result'] }}"
                                     onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
                                         class="fa-regular fa-pen-to-square"></i></button>
-                                <button type="button" data-id="{{ $history->id }}"
-                                    onclick="deleteModal(this)" class="text-xs text-gray-600 hover:text-red-600"><i
+                                <button type="button" data-id="{{ $history['id'] }}" onclick="deleteModal(this)"
+                                    class="text-xs text-gray-600 hover:text-red-600"><i
                                         class="fa-regular fa-trash-can"></i></button>
                             </div>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $history->title }}</h3>
-                        <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">{{ $history->result }}
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $history['title'] }}</h3>
+                        <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">{{ $history['result'] }}
                         </p>
                     </li>
                 @empty
@@ -133,19 +130,15 @@
 
     const deleteModal = (item) => {
         let id = item.dataset.id;
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
+        if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
             $.ajax({
-                url: `/histories/${id}`,
+                url: `https://api.politekniklp3i-tasikmalaya.ac.id/history/delete/${id}`,
                 type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
                 success: function(response) {
                     location.reload();
                 },
                 error: function(xhr, status, error) {
-                    alert('Tidak bisa dihapus.');
+                    alert('Error deleting record');
                 }
             })
         }

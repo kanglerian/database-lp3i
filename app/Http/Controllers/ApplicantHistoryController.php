@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use App\Models\ApplicantHistory;
 use App\Models\Applicant;
 
@@ -42,10 +43,14 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
-        ];
+        ]; 
+        $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', $data);
 
-        ApplicantHistory::create($data);
-        return back()->with('message', 'Data riwayat berhasil ditambahkan!');
+        if ($response->successful()) {
+            return back()->with('message', 'Data riwayat berhasil ditambahkan!');
+        } else {
+            return back()->with('error', 'Data riwayat gagal ditambahkan');
+        }
     }
 
     /**
@@ -56,16 +61,29 @@ class ApplicantHistoryController extends Controller
      */
     public function show($id)
     {
-        if(Auth::user()->role == 'P'){
-            $user = Applicant::where(['identity' => $id, 'identity_user' => Auth::user()->identity])->firstOrFail();
-        } elseif (Auth::user()->role == 'A') {
-            $user = Applicant::where(['identity' => $id])->firstOrFail();
+        try {
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $id, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $id])->firstOrFail();
+            }
+
+            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+
+            if ($response->successful()) {
+                $histories = $response->json();
+            } else {
+                $histories = null;
+            }
+
+            return view('pages.database.history')->with([
+                'user' => $user,
+                'histories' => $histories,
+            ]);
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
         }
-        $histories = ApplicantHistory::where(['phone' => $user->phone])->orderBy('created_at','desc')->get();
-        return view('pages.database.history')->with([
-            'user' => $user,
-            'histories' => $histories,
-        ]);
     }
 
     /**
@@ -88,17 +106,19 @@ class ApplicantHistoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $history = ApplicantHistory::findOrFail($id);
-
         $data = [
             'phone' => $request->input('phone'),
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
-        ];
+        ]; 
+        $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/update/' . $id, $data);
 
-        $history->update($data);
-        return back()->with('message', 'Data riwayat berhasil diubah!');
+        if ($response->successful()) {
+            return back()->with('message', 'Data riwayat berhasil diupdate!');
+        } else {
+            return back()->with('error', 'Data riwayat gagal diupdate');
+        }
     }
 
     /**
@@ -109,8 +129,6 @@ class ApplicantHistoryController extends Controller
      */
     public function destroy($id)
     {
-        $history = ApplicantHistory::findOrFail($id);
-        $history->delete();
-        return back()->with('message', 'Data riwayat berhasil dihapus!');
+        
     }
 }

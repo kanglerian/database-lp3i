@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ApplicantHistoryController;
 use App\Http\Controllers\PresenterController;
@@ -25,12 +26,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
+Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::get('get/databases/{type?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+Route::get('get/databases/{type?}/{year?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 
 Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);
 
@@ -41,6 +41,8 @@ Route::resource('user', UserController::class)->middleware(['auth','role:A']);
 Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get')->middleware(['auth','role:A']);
 Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account')->middleware(['auth','role:A','status:1']);
 Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password')->middleware(['auth','status:1','role:A']);
+
+Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change')->middleware(['auth','status:1','role:A']);
 
 Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print')->middleware(['auth','role:A']);
 

@@ -54,7 +54,7 @@ class ProfileController extends Controller
             'password' => Hash::make(strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone')),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'role' => 'S',
-            'status' => 1,
+            'status' => 0,
         ];
         User::create($data);
         return back()->with('message', 'Akun berhasil ditambahkan!');

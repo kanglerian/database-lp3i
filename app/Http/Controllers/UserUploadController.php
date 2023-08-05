@@ -158,4 +158,43 @@ class UserUploadController extends Controller
             return back()->with('error', $errorMessage);
         }
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upload_pembayaran(Request $request)
+    {
+        $request->validate([
+            'berkas' => 'required|max:1024',
+        ]);
+
+        $data = [
+            'identity_user' => Auth::user()->identity,
+            'name' => $request->input('name'),
+            'namefile' => $request->input('namefile'),
+            'typefile' => $request->berkas->extension(),
+        ];
+
+        $file = $request->berkas->extension();
+        $encodedFile = base64_encode(file_get_contents($request->berkas->getPathName()));
+
+        $payload = [
+            'identity' => Auth::user()->identity,
+            'namefile' => $request->input('namefile'),
+            'typefile' => $request->berkas->extension(),
+            'image' => $encodedFile,
+        ];
+
+        try {
+            $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
+            $responseData = $response->json();
+            UserUpload::create($data);
+            return back()->with('message', 'Berkas berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Terjadi kesalahan saat mengirim permintaan ke server.');
+        }
+    }
 }

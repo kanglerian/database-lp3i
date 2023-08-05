@@ -6,17 +6,9 @@
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-users"></i>
-                    <h2>Total: {{ $total }}</h2>
+                    <i class="fa-solid fa-database"></i>
+                    <h2 id="count_filter">{{ $total }}</h2>
                 </div>
-                @if (Auth::user()->role == 'A')
-                    @foreach ($databases as $database)
-                        <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                            <i class="fa-solid fa-database"></i>
-                            <h2>{{ $database->name }}: {{ $database->count }}</h2>
-                        </div>
-                    @endforeach
-                @endif
             </div>
         </div>
     </x-slot>
@@ -42,22 +34,34 @@
                 </div>
             @endif
             <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
-                <a href="{{ route('database.create') }}"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                        class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('database.create') }}"
+                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                            class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+                </div>
                 <div class="flex items-center gap-3 text-gray-500">
-                    <i class="fa-solid fa-filter"></i>
                     <div class="flex items-center gap-2">
-                        <select name="role" id="change_type"
+                        <select id="change_type"
                             class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Semua</option>
-                            <option value="1">Website</option>
-                            <option value="2">Presenter</option>
+                            <option value="all">PMB</option>
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">{{ $source->name }}</option>
+                            @endforeach
                         </select>
-                        <button type="button" onclick="changeFilter()"
-                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">Filter</button>
+                        <select id="change_year"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Sumber</option>
+                            @foreach ($academics as $academic)
+                                <option value="{{ $academic->year }}">{{ $academic->year }}</option>
+                            @endforeach
+                        </select>
+                        <button type="button" onclick="changeFilter()" class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
+                            <i class="fa-solid fa-filter"></i>
+                        </button>
                         <button type="button" onclick="resetFilter()"
-                            class="bg-amber-500 hover:bg-amber-600 px-3 py-2 text-xs rounded-lg text-white">Reset</button>
+                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -103,29 +107,49 @@
     var dataTableInitialized = false;
     var dataTableInstance;
 
+    const getAPI = () => {
+        fetch(urlData)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data dari server:', data.applicants);
+                const count = data.applicants.length;
+                document.getElementById('count_filter').innerText = count;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
     const changeFilter = () => {
         let typeVal = document.getElementById('change_type').value;
-        urlData = `get/databases/${typeVal}`;
+        let yearVal = document.getElementById('change_year').value;
+        urlData = `get/databases/${typeVal}/${yearVal}`;
 
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            getAPI();
         } else {
             getDataTable();
         }
     }
 
     const resetFilter = () => {
-        document.getElementById('change_type').value = 'all';
         urlData = `get/databases`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            getAPI();
         } else {
             getDataTable();
         }
     }
 
     const getDataTable = async () => {
-        dataTableInstance = $('#myTable').DataTable({
+        const dataTableConfig = {
             ajax: {
                 url: urlData,
                 dataSrc: 'applicants'
@@ -133,14 +157,14 @@
             order: [
                 [6, 'desc']
             ],
-            columns: [
-                {
+            columns: [{
                     data: {
                         identity: 'identity',
                         name: 'name',
                     },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('histories.show', ':identity') }}".replace(':identity',
+                        let editUrl = "{{ route('histories.show', ':identity') }}".replace(
+                            ':identity',
                             data.identity);
                         return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
                     }
@@ -172,23 +196,24 @@
                 {
                     data: 'status',
                     render: (data, type, row) => {
-                        switch (data) {
-                            case "1":
-                                return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
-                                break;
-                            case "2":
-                                return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
-                                break;
-                            case "3":
-                                return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
-                                break;
-                            case "4":
-                                return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
-                                break;
-                            case "5":
-                                return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
-                                break;
-                        }
+                        return data;
+                        // switch (data) {
+                        //     case "1":
+                        //         return '<span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-xs">Tidak diketahui</span>'
+                        //         break;
+                        //     case "2":
+                        //         return '<span class="bg-amber-500 px-3 py-1 rounded-md text-xs text-white">Potensi</span>'
+                        //         break;
+                        //     case "3":
+                        //         return '<span class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white">Daftar</span>'
+                        //         break;
+                        //     case "4":
+                        //         return '<span class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white">Registrasi</span>'
+                        //         break;
+                        //     case "5":
+                        //         return '<span class="bg-red-500 px-3 py-1 rounded-md text-xs text-white">Batal</span>'
+                        //         break;
+                        // }
                     }
                 },
                 {
@@ -203,7 +228,8 @@
                         status: 'status'
                     },
                     render: (data, type, row) => {
-                        let showUrl = "{{ route('database.show', ':identity') }}".replace(':identity',
+                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
                             data.identity);
                         let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
                             data.id);
@@ -224,10 +250,11 @@
                     }
                 },
             ],
-        });
+        }
+        dataTableInstance = $('#myTable').DataTable(dataTableConfig);
         dataTableInitialized = true;
     }
-
+    getAPI();
     getDataTable();
 
     const deleteRecord = (id) => {

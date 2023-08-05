@@ -55,13 +55,19 @@
                 <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
-                            <header>
-                                <h2 class="text-xl font-bold text-gray-900">
-                                    Informasi Aplikan
-                                </h2>
-                                <p class="mt-1 text-sm text-gray-600">
-                                    Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
-                                </p>
+                            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+                                <div class="w-full md:w-auto">
+                                    <h2 class="text-xl font-bold text-gray-900">
+                                        Informasi Aplikan
+                                    </h2>
+                                    <p class="mt-1 text-sm text-gray-600">
+                                        Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
+                                    </p>
+                                </div>
+                                <div class="w-full md:w-1/5">
+                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun PMB</label>
+                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Tahun Penerimaan Mahasiswa Baru" required>
+                                  </div>
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
