@@ -43,18 +43,18 @@
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr class="flex justify-between items-center">
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="w-[300px] md:w-full px-6 py-3 rounded-t-lg">
                                         Nama Berkas
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="w-1/2 md:w-1/3 px-6 py-3 rounded-t-lg">
                                         Action
                                     </th>
                             </thead>
                             <tbody>
                                 @foreach ($userupload as $suc)
                                     <tr class="bg-white border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $suc->name }}</td>
-                                        <td class="px-6 py-4">
+                                        <td class="w-[300px] md:w-full px-6 py-4">{{ $suc->name }}</td>
+                                        <td class="w-1/2 md:w-1/3 px-6 py-4">
                                             <button
                                                 class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
                                                     class="fa-solid fa-circle-check"></i></button>
@@ -71,8 +71,8 @@
 
                                 @foreach ($fileupload as $upload)
                                     <tr class="bg-white border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $upload->name }}</td>
-                                        <td class="px-6 py-4">
+                                        <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
+                                        <td class="w-1/2 md:w-1/3 px-6 py-4" colspan="2">
                                             <form action="{{ route('userupload.store') }}"
                                                 enctype="multipart/form-data" class="inline-block" method="POST">
                                                 @csrf

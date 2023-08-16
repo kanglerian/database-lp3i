@@ -999,6 +999,26 @@ select {
   width: 100%;
 }
 
+.w-52 {
+  width: 13rem;
+}
+
+.w-\[500px\] {
+  width: 500px;
+}
+
+.w-\[400px\] {
+  width: 400px;
+}
+
+.w-\[200px\] {
+  width: 200px;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -2282,6 +2302,10 @@ select {
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-full {
+    width: 100%;
   }
 
   .md\:grid-cols-1 {
