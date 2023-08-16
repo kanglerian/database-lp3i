@@ -38,7 +38,7 @@
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
                         <x-nav-link :href="route('userupload.edit', Auth::user()->identity)" :active="request()->routeIs(['userupload.index', 'userupload.create', 'userupload.edit'])">
-                            {{ __('Upload') }}
+                            {{ __('Upload Berkas') }}
                         </x-nav-link>
                     @endif
                 </div>

@@ -2,7 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-                {{ __('Dashboard') }}
+                @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
+                    Registrasi Pembayaran
+                @else
+                    Dashboard
+                @endif
             </h2>
             @if (Auth::user()->status != 1)
                 <div class="px-6 py-2 rounded-lg bg-red-500 text-white text-sm">
@@ -25,8 +29,7 @@
                 <div class="w-full md:w-6/12 space-y-5 order-2 md:order-none">
                     <div class="space-y-1">
                         <h3 class="text-2xl font-bold text-gray-800">Silahkan untuk lakukan Transfer!</h3>
-                        <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
-                            architecto eum enim incidunt eos inventore fugit optio a iure blanditiis!</p>
+                        <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di depan mata.</p>
                     </div>
                     <div class="flex flex-wrap items-end">
                         <div class="w-1/2 md:w-1/3 space-y-3 p-4">

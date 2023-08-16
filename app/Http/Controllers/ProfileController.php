@@ -80,37 +80,43 @@ class ProfileController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
-        $applicant = Applicant::where('identity', $user->identity)->first();
 
-        if ($user->role == 'S') {
-            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-        }
-        $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+        if ($user->id == Auth::user()->id || Auth::user()->role == 'A') {
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+            $applicant = Applicant::where('identity', $user->identity)->first();
 
-        if ($response->successful()) {
-            $programs = $response->json();
+            if ($user->role == 'S') {
+                $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+                $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+            }
+
+            $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+
+            if ($response->successful()) {
+                $programs = $response->json();
+            } else {
+                $programs = null;
+            }
+
+            if ($user->role == 'S') {
+                $data = [
+                    'user' => $user,
+                    'applicant' => $applicant,
+                    'presenters' => $presenters,
+                    'programs' => $programs,
+                    'father' => $father,
+                    'mother' => $mother,
+                ];
+            } else {
+                $data = [
+                    'user' => $user,
+                ];
+            }
+            return view('pages.profile.edit')->with($data);
         } else {
-            $programs = null;
+            return redirect('dashboard');
         }
 
-        if ($user->role == 'S') {
-            $data = [
-                'user' => $user,
-                'applicant' => $applicant,
-                'presenters' => $presenters,
-                'programs' => $programs,
-                'father' => $father,
-                'mother' => $mother,
-            ];
-        } else {
-            $data = [
-                'user' => $user,
-            ];
-        }
-
-        return view('pages.profile.edit')->with($data);
     }
 
     /**

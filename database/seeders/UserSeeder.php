@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -17,11 +17,15 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'nik' => '201702102',
-            'name' => 'Lerian Febriana',
-            'email' => 'kanglerian.lp3i@gmail.com',
+            'identity' => mt_rand(1, 1000000000),
+            'name' => 'Administrator',
+            'email' => 'lp3itasik@gmail.com',
+            'password' => Hash::make('mimin311'),
+            'phone' => '6281313608558',
             'role' => 'A',
-            'password' => Hash::make('lerian'),
+            'status' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
     }
 }

@@ -66,7 +66,10 @@
                                 </div>
                                 <div class="w-full md:w-1/5">
                                     <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun PMB</label>
-                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Tahun Penerimaan Mahasiswa Baru" required>
+                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}" class="@error('pmb') border-red-500 @enderror w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Tahun Penerimaan Mahasiswa Baru" required>
+                                    <div class="text-sm text-gray-700 mt-3">
+                                        {{ $errors->first('pmb') }}
+                                    </div>
                                   </div>
                             </header>
                             <hr class="mt-2 mb-8">

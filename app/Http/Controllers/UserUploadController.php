@@ -99,17 +99,22 @@ class UserUploadController extends Controller
     public function edit($identity)
     {
         $userupload = UserUpload::where('identity_user', $identity)->get();
-        $data = [];
-        foreach ($userupload as $key => $upload) {
-            $data[] = $upload->namefile;
+        if (Auth::user()->identity == $identity) {
+            $data = [];
+            foreach ($userupload as $upload) {
+                $data[] = $upload->namefile;
+            }
+            $success = FileUpload::whereIn('namefile', $data)->get();
+            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+            return view('pages.userupload.index')->with([
+                'userupload' => $userupload,
+                'fileupload' => $fileupload,
+                'success' => $success,
+            ]);
+        }else{
+            return redirect('dashboard');
         }
-        $success = FileUpload::whereIn('namefile', $data)->get();
-        $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
-        return view('pages.userupload.index')->with([
-            'userupload' => $userupload,
-            'fileupload' => $fileupload,
-            'success' => $success,
-        ]);
+
     }
 
     /**

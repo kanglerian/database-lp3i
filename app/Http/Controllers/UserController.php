@@ -45,7 +45,7 @@ class UserController extends Controller
             $usersQuery->where('status', $status);
         }
 
-        $users = $usersQuery->get();
+        $users = $usersQuery->orderByDesc('created_at')->get();
 
         return response()
             ->json([

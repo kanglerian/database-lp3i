@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use App\Rules\PhoneValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Carbon\Carbon;
 
 class RegisteredUserController extends Controller
 {
@@ -37,18 +38,27 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'role' => ['string'],
-            'status' => ['string'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'phone' => [
+                'required',
+                'string',
+                new PhoneValidation,
+                Rule::unique('users')->where(function ($query) {
+                    $formattedPhone = '62' . substr(request()->input('phone'), 1);
+                    return $query->where('phone', $formattedPhone);
+                })
+            ],
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         $numbers_unique = mt_rand(1, 1000000000);
+        $phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
         $data = [
             'identity' => $numbers_unique,
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'password' => Hash::make($request->input('password')),
             'role' => 'S',
             'status' => '0',
@@ -60,7 +70,7 @@ class RegisteredUserController extends Controller
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'source' => '1',
-            'status' => '1',
+            'status' => '3',
             'isread' => '0',
         ];
 
@@ -77,8 +87,6 @@ class RegisteredUserController extends Controller
         Applicant::create($data_applicant);
         ApplicantFamily::create($data_father);
         ApplicantFamily::create($data_mother);
-
-        // event(new Registered($user));
 
         Auth::login($user);
 

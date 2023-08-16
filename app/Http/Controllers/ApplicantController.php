@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantFamily;
-use App\Models\ApplicantHistory;
 use App\Models\ApplicantStatus;
 use App\Models\Applicant;
 use App\Models\SourceSetting;
-use App\Models\ApplicantDatabase;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
 use App\Models\AcademicYear;
@@ -49,27 +46,27 @@ class ApplicantController extends Controller
      */
     public function get_all($type = null, $year = null)
     {
-            $applicantsQuery = Applicant::with('sourceSetting');
-            if ($type !== 'all' && $type !== null) {
-                $applicantsQuery->where('source', $type);
-            }
+        $applicantsQuery = Applicant::with('sourceSetting');
+        if ($type !== 'all' && $type !== null) {
+            $applicantsQuery->where('source', $type);
+        }
 
-            if (Auth::check() && Auth::user()->role == 'P') {
-                $applicantsQuery->where('identity_user', Auth::user()->identity);
-            }
+        if (Auth::check() && Auth::user()->role == 'P') {
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
 
-            if ($year !== 'all' && $year !== null) {
-                $applicantsQuery->where('pmb', $year);
-            }
+        if ($year !== 'all' && $year !== null) {
+            $applicantsQuery->where('pmb', $year);
+        }
 
-            $applicants = $applicantsQuery->get();
+        $applicants = $applicantsQuery->get();
 
-            return response()
-                ->json([
-                    'applicants' => $applicants,
-                ])
-                ->header('Content-Type', 'application/json');
-        
+        return response()
+            ->json([
+                'applicants' => $applicants,
+            ])
+            ->header('Content-Type', 'application/json');
+
     }
     /**
      * Show the form for creating a new resource.
@@ -114,6 +111,7 @@ class ApplicantController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'source' => ['required', 'string', 'not_in:0'],
                 'status' => ['required', 'string', 'not_in:0'],
+                'pmb' => ['required', 'integer'],
                 'identity_user' => ['string', 'not_in:Pilih presenter'],
                 'program' => ['string', 'not_in:Pilih program'],
                 'isread' => ['string'],
@@ -162,16 +160,6 @@ class ApplicantController extends Controller
                 'gender' => 0,
             ];
 
-            $check = [
-                'rt' => $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null,
-                'rw' => $request->input('rw'),
-                'postal_code' => $request->input('postal_code'),
-                'villages' => $request->input('villages'),
-                'districts' => $request->input('districts'),
-                'regencies' => $request->input('regencies'),
-                'provincies' => $request->input('provincies'),
-            ];
-
             Applicant::create($data_applicant);
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
@@ -194,22 +182,26 @@ class ApplicantController extends Controller
     public function show($identity)
     {
         $user = Applicant::where('identity', $identity)->firstOrFail();
-        $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
-        $userupload = UserUpload::where('identity_user', $identity)->get();
-        $data = [];
-        foreach ($userupload as $key => $upload) {
-            $data[] = $upload->namefile;
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+            $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
+            $userupload = UserUpload::where('identity_user', $identity)->get();
+            $data = [];
+            foreach ($userupload as $key => $upload) {
+                $data[] = $upload->namefile;
+            }
+            $success = FileUpload::whereIn('namefile', $data)->get();
+            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+            return view('pages.database.show')->with([
+                'userupload' => $userupload,
+                'fileupload' => $fileupload,
+                'user' => $user,
+                'father' => $father,
+                'mother' => $mother,
+            ]);
+        } else {
+            return redirect('dashboard');
         }
-        $success = FileUpload::whereIn('namefile', $data)->get();
-        $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
-        return view('pages.database.show')->with([
-            'userupload' => $userupload,
-            'fileupload' => $fileupload,
-            'user' => $user,
-            'father' => $father,
-            'mother' => $mother,
-        ]);
     }
 
     /**
@@ -220,31 +212,37 @@ class ApplicantController extends Controller
      */
     public function edit($id)
     {
-        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
         $applicant = Applicant::findOrFail($id);
-        $sources = SourceSetting::all();
-        $account = User::where('email', $applicant->email)->count();
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+        if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-        if ($response->successful()) {
-            $programs = $response->json();
+            $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+            $sources = SourceSetting::all();
+            $account = User::where('email', $applicant->email)->count();
+            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+
+            if ($response->successful()) {
+                $programs = $response->json();
+            } else {
+                $programs = null;
+            }
+
+            $applicant = Applicant::findOrFail($id);
+            return view('pages.database.edit')->with([
+                'applicant' => $applicant,
+                'programs' => $programs,
+                'presenters' => $presenters,
+                'account' => $account,
+                'father' => $father,
+                'mother' => $mother,
+                'sources' => $sources,
+            ]);
         } else {
-            $programs = null;
+            return redirect('database');
         }
 
-        $applicant = Applicant::findOrFail($id);
-        return view('pages.database.edit')->with([
-            'applicant' => $applicant,
-            'programs' => $programs,
-            'presenters' => $presenters,
-            'account' => $account,
-            'father' => $father,
-            'mother' => $mother,
-            'sources' => $sources,
-        ]);
     }
 
     /**
@@ -264,6 +262,7 @@ class ApplicantController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required'],
+            'pmb' => ['required', 'integer'],
             'source' => ['required', 'string'],
             'status' => ['required', 'string'],
             'identity_user' => ['string', 'not_in:Pilih presenter'],
@@ -369,12 +368,16 @@ class ApplicantController extends Controller
     public function destroy($id)
     {
         $applicant = Applicant::findOrFail($id);
-        $family = ApplicantFamily::where('identity_user', $applicant->identity);
-        $user = User::where('identity', $applicant->identity);
-        $family->delete();
-        $applicant->delete();
-        $user->delete();
-        return session()->flash('message', 'Data aplikan berhasil dihapus!');
+        if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
+            $family = ApplicantFamily::where('identity_user', $applicant->identity);
+            $user = User::where('identity', $applicant->identity);
+            $family->delete();
+            $applicant->delete();
+            $user->delete();
+            return session()->flash('message', 'Data aplikan berhasil dihapus!');
+        } else {
+            return redirect('database');
+        }
     }
 
     /**
@@ -386,12 +389,16 @@ class ApplicantController extends Controller
     public function print($id)
     {
         $applicant = Applicant::where('identity', $id)->firstOrFail();
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-        return view('pages.user.print')->with([
-            'applicant' => $applicant,
-            'father' => $father,
-            'mother' => $mother,
-        ]);
+        if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
+            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+            return view('pages.user.print')->with([
+                'applicant' => $applicant,
+                'father' => $father,
+                'mother' => $mother,
+            ]);
+        }else{
+            return redirect('database');
+        }
     }
 }

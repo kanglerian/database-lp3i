@@ -18,7 +18,6 @@ class DashboardController extends Controller
     {
         $userupload = UserUpload::where(['identity_user' => Auth::user()->identity, 'namefile' => 'bukti-pembayaran'])->get();
         $fileupload = FileUpload::where('namefile', 'bukti-pembayaran')->get();
-        // dd(count($userupload));
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,

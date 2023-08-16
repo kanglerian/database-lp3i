@@ -26,37 +26,6 @@
                             @csrf
                             @method('PATCH')
                             <div class="w-full p-6 bg-white border-b border-gray-200 rounded-xl">
-                                <div class="grid md:grid-cols-1 md:gap-6">
-                                    @if ($programs !== null)
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="program" class="sr-only">Program</label>
-                                            <select id="program" name="program"
-                                                class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                required>
-                                                @if ($applicant->program == null)
-                                                    <option value="Pilih program">Pilih program</option>
-                                                    @foreach ($programs as $prog)
-                                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option value="{{ $applicant->program }}">
-                                                        {{ $applicant->program }}
-                                                    </option>
-                                                    @foreach ($programs as $prog)
-                                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('program') }}
-                                            </div>
-                                        </div>
-                                    @else
-                                        <input type="hidden" name="program" id="program" value="{{ $applicant->program }}">
-                                    @endif
-                                </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="education" id="education"
@@ -176,9 +145,10 @@
                                         <select id="religion" name="religion"
                                             class="@error('religion') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
-                                            <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
-                                            </option>
-                                            @switch($applicant->religion)
+                                            @if ($applicant->religion)
+                                                <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
+                                                </option>
+                                                @switch($applicant->religion)
                                                 @case('Islam')
                                                     <option value="Kristen">Kristen</option>
                                                     <option value="Hindu">Hindu</option>
@@ -214,6 +184,14 @@
                                                     <option value="Buddha">Buddha</option>
                                                 @break
                                             @endswitch
+                                            @else
+                                                <option value="null">Pilih Agama</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Buddha">Buddha</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                            @endif
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
                                             {{ $errors->first('religion') }}
