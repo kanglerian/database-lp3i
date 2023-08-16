@@ -140,8 +140,8 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
-                <x-responsive-nav-link :href="route('userupload.index')" :active="request()->routeIs('userupload')">
-                    {{ __('Upload') }}
+                <x-responsive-nav-link :href="route('userupload.edit', Auth::user()->identity)" :active="request()->routeIs(['userupload.index', 'userupload.create', 'userupload.edit'])">
+                    {{ __('Upload Berkas') }}
                 </x-responsive-nav-link>
             @endif
         </div>

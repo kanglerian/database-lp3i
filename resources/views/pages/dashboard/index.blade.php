@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col md:flex-row justify-between items-center">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
                     Registrasi Pembayaran
@@ -103,7 +103,7 @@
                             </div>
                         @empty
                             @foreach ($fileupload as $upload)
-                                <div class="flex items-center gap-5">
+                                <div class="flex flex-col md:flex-row md:items-center gap-5">
                                     <h2 class="font-bold text-gray-800">Upload Bukti Pembayaran:</h2>
                                     <form action="{{ route('upload.payment') }}" enctype="multipart/form-data"
                                         class="flex gap-2 items-center" method="POST">

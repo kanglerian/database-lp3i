@@ -59,7 +59,7 @@ class ApplicantController extends Controller
             $applicantsQuery->where('pmb', $year);
         }
 
-        $applicants = $applicantsQuery->get();
+        $applicants = $applicantsQuery->orderByDesc('created_at')->get();
 
         return response()
             ->json([
