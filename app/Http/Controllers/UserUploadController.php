@@ -47,24 +47,23 @@ class UserUploadController extends Controller
 
         $data = [
             'identity_user' => Auth::user()->identity,
-            'name' => $request->input('name'),
-            'namefile' => $request->input('namefile'),
+            'fileupload_id' => $request->input('fileupload_id'),
             'typefile' => $request->berkas->extension(),
         ];
 
-        $file = $request->berkas->extension();
+        $file = FileUpload::findOrFail($request->input('fileupload_id'));
         $encodedFile = base64_encode(file_get_contents($request->berkas->getPathName()));
 
         $payload = [
             'identity' => Auth::user()->identity,
-            'namefile' => $request->input('namefile'),
+            'namefile' => $file->namefile,
             'typefile' => $request->berkas->extension(),
             'image' => $encodedFile,
         ];
 
         if ($payload['namefile'] === 'foto') {
             $dataku = [
-                'avatar' => $request->input('namefile') . '.' . $request->berkas->extension(),
+                'avatar' => $file->namefile . '.' . $request->berkas->extension(),
             ];
             $user = User::findOrFail(Auth::user()->id);
             $user->update($dataku);
@@ -73,11 +72,18 @@ class UserUploadController extends Controller
         try {
             $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
             $responseData = $response->json();
+            
+            // Assuming $data is an array containing the data for UserUpload
             UserUpload::create($data);
+            
             return back()->with('message', 'Berkas berhasil ditambahkan!');
         } catch (\Throwable $th) {
+            // Log the exception message for debugging purposes
+            \Log::error('API Request Error: ' . $th->getMessage());
+            
             return back()->with('error', 'Terjadi kesalahan saat mengirim permintaan ke server.');
         }
+        
     }
 
     /**
@@ -98,14 +104,14 @@ class UserUploadController extends Controller
      */
     public function edit($identity)
     {
-        $userupload = UserUpload::where('identity_user', $identity)->get();
+        $userupload = UserUpload::with('fileupload')->where('identity_user', $identity)->get();
         if (Auth::user()->identity == $identity) {
             $data = [];
             foreach ($userupload as $upload) {
-                $data[] = $upload->namefile;
+                $data[] = $upload->fileupload_id;
             }
-            $success = FileUpload::whereIn('namefile', $data)->get();
-            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+            $success = FileUpload::whereIn('id', $data)->get();
+            $fileupload = FileUpload::whereNotIn('id', $data)->get();
             return view('pages.userupload.index')->with([
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
@@ -137,15 +143,15 @@ class UserUploadController extends Controller
      */
     public function destroy($id)
     {
-        $user_upload = UserUpload::findOrFail($id);
+        $user_upload = UserUpload::with('fileupload')->findOrFail($id);
 
         $payload = [
             'identity' => $user_upload->identity_user,
-            'namefile' => $user_upload->namefile,
+            'namefile' => $user_upload->fileupload->namefile,
             'typefile' => $user_upload->typefile,
         ];
 
-        if ($user_upload->namefile == 'foto') {
+        if ($user_upload->fileupload->namefile == 'foto') {
             $dataku = [
                 'avatar' => null,
             ];
@@ -159,9 +165,9 @@ class UserUploadController extends Controller
             $user_upload->delete();
             return back()->with('message', 'Data upload berhasil dihapus!');
         } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            $errorMessage = 'Terjadi sebuah kesalahan. Periksa koneksi Anda.';
             return back()->with('error', $errorMessage);
-        }
+        }        
     }
 
     /**

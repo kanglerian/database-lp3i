@@ -29,4 +29,8 @@ class ApplicantStatus extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function applicant(){
+        return $this->hasMany(Applicant::class, 'status_id');
+    }
 }

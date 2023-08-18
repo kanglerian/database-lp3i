@@ -16,9 +16,8 @@ class CreateUsersUploadTable extends Migration
         Schema::create('users_upload', function (Blueprint $table) {
             $table->id();
             $table->string('identity_user', 30)->nullable();
-            $table->string('name', 150);
-            $table->string('namefile', 150);
-            $table->string('typefile', 50);
+            $table->unsignedBigInteger('fileupload_id');
+            $table->string('typefile', 10)->nullable();
             $table->timestamps();
         });
     }

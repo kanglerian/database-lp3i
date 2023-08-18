@@ -30,6 +30,6 @@ class SourceSetting extends Model
     ];
 
     public function applicant(){
-        return $this->hasMany(Applicant::class, 'source');
+        return $this->hasMany(Applicant::class, 'source_id');
     }
 }

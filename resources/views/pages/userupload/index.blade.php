@@ -53,12 +53,12 @@
                             <tbody>
                                 @foreach ($userupload as $suc)
                                     <tr class="bg-white border-b flex justify-between items-center">
-                                        <td class="w-[300px] md:w-full px-6 py-4">{{ $suc->name }}</td>
+                                        <td class="w-[300px] md:w-full px-6 py-4">{{ $suc->fileupload->name }}</td>
                                         <td class="w-1/2 md:w-1/3 px-6 py-4">
                                             <button
                                                 class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
                                                     class="fa-solid fa-circle-check"></i></button>
-                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->namefile }}.{{ $suc->typefile }}"
+                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button onclick="event.preventDefault(); deleteRecord('{{ $suc->id }}')"
@@ -77,9 +77,7 @@
                                                 enctype="multipart/form-data" class="inline-block" method="POST">
                                                 @csrf
                                                 <div>
-                                                    <input type="hidden" name="name" value="{{ $upload->name }}">
-                                                    <input type="hidden" name="namefile"
-                                                        value="{{ $upload->namefile }}">
+                                                    <input type="hidden" name="fileupload_id" value="{{ $upload->id }}">
                                                     <input type="file" name="berkas" id="berkas" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
                                                     <button type="submit"

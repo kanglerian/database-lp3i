@@ -69,8 +69,8 @@ class RegisteredUserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-            'source' => '1',
-            'status' => '3',
+            'source_id' => 1,
+            'status' => 3,
             'isread' => '0',
         ];
 

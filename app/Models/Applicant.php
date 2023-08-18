@@ -29,9 +29,9 @@ class Applicant extends Model
         'gender',
         'religion',
         'address',
-        'source',
+        'source_id',
         'note',
-        'status',
+        'status_id',
         'pmb',
         'identity_user',
         'program',
@@ -55,7 +55,11 @@ class Applicant extends Model
     }
 
     public function sourceSetting(){
-        return $this->belongsTo(SourceSetting::class, 'source', 'id');
+        return $this->belongsTo(SourceSetting::class, 'source_id', 'id');
+    }
+
+    public function applicantStatus(){
+        return $this->belongsTo(ApplicantStatus::class, 'status_id', 'id');
     }
 
     public function histories(){

@@ -19,13 +19,13 @@ class CreateApplicantsDatabasesTable extends Migration
             SELECT
                 source_setting.id AS id,
                 source_setting.name AS name,
-                COUNT(applicants.source) AS count
+                COUNT(applicants.source_id) AS count
             FROM
                 source_setting
             LEFT JOIN
                 applicants
             ON
-                source_setting.id = applicants.source
+                source_setting.id = applicants.source_id
             GROUP BY
                 source_setting.id,
                 source_setting.name;

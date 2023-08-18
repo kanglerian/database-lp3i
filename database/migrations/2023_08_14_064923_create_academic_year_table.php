@@ -14,9 +14,9 @@ class CreateAcademicYearTable extends Migration
     public function up()
     {
         Schema::create('academic_year', function (Blueprint $table) {
-            $table->id(); // Creates an auto-incrementing primary key 'id' column
-            $table->year('year'); // Creates a 'year' column
-            $table->timestamps(); // Creates 'created_at' and 'updated_at' columns
+            $table->id();
+            $table->year('year');
+            $table->timestamps();
         });
     }
 

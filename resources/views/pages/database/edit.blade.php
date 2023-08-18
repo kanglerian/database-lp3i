@@ -5,7 +5,7 @@
                 {{ $applicant->name }}
             </h2>
             <div class="flex items-center gap-3">
-                @if ($account == 0 && ($applicant->status == '3' || $applicant->status == '4'))
+                @if ($account == 0 && ($applicant->status_id == 3 || $applicant->status_id == 4))
                     <form action="{{ route('profile.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="identity" value="{{ $applicant->identity }}">
@@ -141,11 +141,11 @@
 
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <label for="source" class="sr-only">Sumber</label>
-                                        <select id="source" name="source"
-                                            class="@error('source') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                        <label for="source_id" class="sr-only">Sumber</label>
+                                        <select id="source_id" name="source_id"
+                                            class="@error('source_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
-                                            <option value="{{ $applicant->source }}" selected>
+                                            <option value="{{ $applicant->source_id }}" selected>
                                                 {{ $applicant->sourceSetting->name }}
                                             </option>
                                             @foreach ($sources as $source)
@@ -155,58 +155,25 @@
                                             @endforeach
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('source') }}
+                                            {{ $errors->first('source_id') }}
                                         </div>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <label for="status" class="sr-only">Status</label>
-                                        <select id="status" name="status"
-                                            class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                        <label for="status_id" class="sr-only">Status</label>
+                                        <select id="status_id" name="status_id"
+                                            class="@error('status_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
-                                            @switch($applicant->status)
-                                                @case('1')
-                                                    <option value="1">Tidak diketahui</option>
-                                                    <option value="2">Potensi</option>
-                                                    <option value="3">Daftar</option>
-                                                    <option value="4">Registrasi</option>
-                                                    <option value="5">Batal</option>
-                                                @break
-
-                                                @case('2')
-                                                    <option value="2">Potensi</option>
-                                                    <option value="1">Tidak diketahui</option>
-                                                    <option value="3">Daftar</option>
-                                                    <option value="4">Registrasi</option>
-                                                    <option value="5">Batal</option>
-                                                @break
-
-                                                @case('3')
-                                                    <option value="3">Daftar</option>
-                                                    <option value="1">Tidak diketahui</option>
-                                                    <option value="2">Potensi</option>
-                                                    <option value="4">Registrasi</option>
-                                                    <option value="5">Batal</option>
-                                                @break
-
-                                                @case('4')
-                                                    <option value="4">Registrasi</option>
-                                                    <option value="1">Tidak diketahui</option>
-                                                    <option value="2">Potensi</option>
-                                                    <option value="3">Daftar</option>
-                                                    <option value="5">Batal</option>
-                                                @break
-
-                                                @case('5')
-                                                    <option value="5">Batal</option>
-                                                    <option value="1">Tidak diketahui</option>
-                                                    <option value="2">Potensi</option>
-                                                    <option value="3">Daftar</option>
-                                                    <option value="4">Registrasi</option>
-                                                @break
-                                            @endswitch
+                                            <option value="{{ $applicant->status_id }}" selected>
+                                                {{ $applicant->applicantStatus->name }}
+                                            </option>
+                                            @foreach ($statuses as $status)
+                                            <option value="{{ $status->id }}">
+                                                {{ $status->name }}
+                                            </option>
+                                            @endforeach
                                         </select>
                                         <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('status') }}
+                                            {{ $errors->first('status_id') }}
                                         </div>
                                     </div>
                                 </div>

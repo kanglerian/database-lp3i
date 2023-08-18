@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SourceSetting;
+use App\Models\ApplicantStatus;
 use App\Models\FileUpload;
 
 class SettingController extends Controller
@@ -15,11 +16,13 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $statuses = ApplicantStatus::all();
         $sources = SourceSetting::all();
         $files = FileUpload::all();
         return view('pages.setting.index')->with([
             'sources' => $sources,
-            'files' => $files
+            'files' => $files,
+            'statuses' => $statuses
         ]);
     }
 

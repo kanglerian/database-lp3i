@@ -38,8 +38,8 @@ class ApplicantController extends Controller
                 'identity' => $numbers_unique,
                 'name' => $request->input('name'),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-                'source' => 1,
-                'status' => '1',
+                'source_id' => 1,
+                'status' => 1,
                 'isread' => '0',
             ];
 

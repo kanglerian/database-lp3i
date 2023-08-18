@@ -46,9 +46,10 @@ class ApplicantController extends Controller
      */
     public function get_all($type = null, $year = null)
     {
-        $applicantsQuery = Applicant::with('sourceSetting');
+        $applicantsQuery = Applicant::with(['SourceSetting','ApplicantStatus']);
+
         if ($type !== 'all' && $type !== null) {
-            $applicantsQuery->where('source', $type);
+            $applicantsQuery->where('source_id', $type);
         }
 
         if (Auth::check() && Auth::user()->role == 'P') {
@@ -109,8 +110,8 @@ class ApplicantController extends Controller
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'source' => ['required', 'string', 'not_in:0'],
-                'status' => ['required', 'string', 'not_in:0'],
+                'source_id' => ['required', 'not_in:0'],
+                'status_id' => ['required', 'not_in:0'],
                 'pmb' => ['required', 'integer'],
                 'identity_user' => ['string', 'not_in:Pilih presenter'],
                 'program' => ['string', 'not_in:Pilih program'],
@@ -143,8 +144,8 @@ class ApplicantController extends Controller
                 'year' => $request->input('year'),
                 'school' => $request->input('school'),
                 'class' => $request->input('class'),
-                'source' => $request->input('source'),
-                'status' => $request->input('status'),
+                'source_id' => $request->input('source_id'),
+                'status_id' => $request->input('status_id'),
                 'pmb' => '2023',
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
@@ -219,6 +220,7 @@ class ApplicantController extends Controller
 
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
+            $statuses = ApplicantStatus::all();
             $account = User::where('email', $applicant->email)->count();
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -238,6 +240,7 @@ class ApplicantController extends Controller
                 'father' => $father,
                 'mother' => $mother,
                 'sources' => $sources,
+                'statuses' => $statuses,
             ]);
         } else {
             return redirect('database');
@@ -263,8 +266,8 @@ class ApplicantController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required'],
             'pmb' => ['required', 'integer'],
-            'source' => ['required', 'string'],
-            'status' => ['required', 'string'],
+            'source_id' => ['required'],
+            'status_id' => ['required'],
             'identity_user' => ['string', 'not_in:Pilih presenter'],
             'program' => ['string', 'not_in:Pilih program'],
             'isread' => ['string'],
@@ -293,8 +296,8 @@ class ApplicantController extends Controller
         $data = [
             'program' => $request->input('program'),
             'identity_user' => $request->input('identity_user'),
-            'source' => $request->input('source'),
-            'status' => $request->input('status'),
+            'source_id' => $request->input('source_id'),
+            'status_id' => $request->input('status_id'),
             'pmb' => '2023',
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),

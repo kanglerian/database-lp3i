@@ -113,10 +113,9 @@ class UserController extends Controller
         $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
         $userupload = UserUpload::where('identity_user', $user->identity)->get();
         $data = [];
-        foreach ($userupload as $key => $upload) {
+        foreach ($userupload as $upload) {
             $data[] = $upload->namefile;
         }
-        $success = FileUpload::whereIn('namefile', $data)->get();
         $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
         return view('pages.user.show')->with([
             'userupload' => $userupload,

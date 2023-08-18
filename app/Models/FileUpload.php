@@ -15,4 +15,8 @@ class FileUpload extends Model
         'namefile',
         'accept',
     ];
+
+    public function fileupload(){
+        return $this->hasMany(UserUpload::class, 'fileupload_id');
+    }
 }

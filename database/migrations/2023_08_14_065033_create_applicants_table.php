@@ -29,14 +29,18 @@ class CreateApplicantsTable extends Migration
             $table->tinyInteger('gender')->nullable();
             $table->string('religion', 100)->nullable();
             $table->text('address')->nullable();
-            $table->integer('source')->nullable();
             $table->text('note')->nullable();
-            $table->char('status', 1)->default('0');
             $table->year('pmb')->nullable();
             $table->string('identity_user', 30)->nullable();
             $table->string('program', 255)->nullable();
             $table->char('isread', 1)->default('0');
+            
+            $table->unsignedBigInteger('source_id')->nullable();
+            $table->unsignedBigInteger('status_id')->default(1);
+
             $table->timestamps();
+
+
         });
     }
 

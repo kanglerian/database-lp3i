@@ -18,12 +18,15 @@ class UserUpload extends Model
     protected $table = 'users_upload';
     protected $fillable = [
         'identity_user',
-        'name',
-        'namefile',
-        'typefile',
+        'fileupload_id',
+        'typefile'
     ];
 
     public function userupload(){
         return $this->belongsTo(User::class,'identity_user','identity');
+    }
+
+    public function fileupload(){
+        return $this->belongsTo(FileUpload::class,'fileupload_id','id');
     }
 }
