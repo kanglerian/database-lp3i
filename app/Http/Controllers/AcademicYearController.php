@@ -36,7 +36,7 @@ class AcademicYearController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'year' => ['required', 'string'],
+            'year' => ['required', 'string','min:4'],
         ]);
 
         $data = [
@@ -81,7 +81,7 @@ class AcademicYearController extends Controller
         $year = AcademicYear::findOrFail($id);
 
         $request->validate([
-            'year' => ['required', 'string'],
+            'year' => ['required', 'string','min:4'],
         ]);
 
         $data = [
