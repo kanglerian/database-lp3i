@@ -44,24 +44,21 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($type = null, $year = null)
+    public function get_all($pmb = null, $source = null)
     {
         $applicantsQuery = Applicant::with(['SourceSetting','ApplicantStatus']);
 
-        if ($type !== 'all' && $type !== null) {
-            $applicantsQuery->where('source_id', $type);
+        if($pmb !== 'all' && $source !== null){
+            $applicantsQuery->where('pmb', $pmb);
         }
 
-        if (Auth::check() && Auth::user()->role == 'P') {
-            $applicantsQuery->where('identity_user', Auth::user()->identity);
-        }
-
-        if ($year !== 'all' && $year !== null) {
-            $applicantsQuery->where('pmb', $year);
+        if($source !== 'all' && $source !== null){
+            $applicantsQuery->where('source_id', $source);
         }
 
         $applicants = $applicantsQuery->orderByDesc('created_at')->get();
 
+        // dd($applicants);
         return response()
             ->json([
                 'applicants' => $applicants,
@@ -146,7 +143,7 @@ class ApplicantController extends Controller
                 'class' => $request->input('class'),
                 'source_id' => $request->input('source_id'),
                 'status_id' => $request->input('status_id'),
-                'pmb' => '2023',
+                'pmb' => $request->input('pmb'),
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
@@ -298,7 +295,7 @@ class ApplicantController extends Controller
             'identity_user' => $request->input('identity_user'),
             'source_id' => $request->input('source_id'),
             'status_id' => $request->input('status_id'),
-            'pmb' => '2023',
+            'pmb' => $request->input('pmb'),
             'email' => $request->input('email'),
             'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
             'note' => $request->input('note'),

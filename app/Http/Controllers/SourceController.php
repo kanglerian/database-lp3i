@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\AcademicYear;
+use App\Models\SourceSetting;
 
-class AcademicYearController extends Controller
+class SourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class AcademicYearController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -36,15 +36,15 @@ class AcademicYearController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'year' => ['required', 'string'],
+            'name' => ['required', 'string'],
         ]);
 
         $data = [
-            'year' => $request->input('year'),
+            'name' => $request->input('name'),
         ];
 
-        AcademicYear::create($data);
-        return back()->with('message', 'Data tahun PMB berhasil ditambahkan!');
+        SourceSetting::create($data);
+        return back()->with('message', 'Data sumber database berhasil ditambahkan!');
     }
 
     /**
@@ -78,18 +78,18 @@ class AcademicYearController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $year = AcademicYear::findOrFail($id);
+        $source = SourceSetting::findOrFail($id);
 
         $request->validate([
-            'year' => ['required', 'string'],
+            'name' => ['required', 'string'],
         ]);
 
         $data = [
-            'year' => $request->input('year'),
+            'name' => $request->input('name'),
         ];
 
-        $year->update($data);
-        return back()->with('message', 'Data tahun PMB berhasil diubah!');
+        $source->update($data);
+        return back()->with('message', 'Data sumber database berhasil diubah!');
     }
 
     /**
@@ -100,8 +100,8 @@ class AcademicYearController extends Controller
      */
     public function destroy($id)
     {
-        $year = AcademicYear::findOrFail($id);
-        $year->delete();
-        return back()->with('message', 'Data tahun PMB berhasil dihapus!');
+        $source = SourceSetting::findOrFail($id);
+        $source->delete();
+        return back()->with('message', 'Data sumber database berhasil dihapus!');
     }
 }

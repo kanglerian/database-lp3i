@@ -65,12 +65,20 @@
                                     </p>
                                 </div>
                                 <div class="w-full md:w-1/5">
-                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun PMB</label>
-                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}" class="@error('pmb') border-red-500 @enderror w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Tahun Penerimaan Mahasiswa Baru" required>
-                                    <div class="text-sm text-gray-700 mt-3">
-                                        {{ $errors->first('pmb') }}
-                                    </div>
-                                  </div>
+                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
+                                        PMB</label>
+                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}"
+                                        class="@error('pmb') border-red-500 @enderror w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        placeholder="Tahun Penerimaan Mahasiswa Baru" required>
+
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        @if ($errors->has('pmb'))
+                                            {{ $errors->first('pmb') }}
+                                        @else
+                                            <span class="text-red-500">*Wajib diisi.</span>
+                                        @endif
+                                    </p>
+                                </div>
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
@@ -98,12 +106,17 @@
                                                     @endforeach
                                                 @endif
                                             </select>
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('program') }}
-                                            </div>
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                @if ($errors->has('program'))
+                                                    {{ $errors->first('program') }}
+                                                @else
+                                                    <span class="text-red-500">*Wajib diisi.</span>
+                                                @endif
+                                            </p>
                                         </div>
                                     @else
-                                        <input type="hidden" name="program" id="program" value="{{ $applicant->program }}">
+                                        <input type="hidden" name="program" id="program"
+                                            value="{{ $applicant->program }}">
                                     @endif
                                     @if (Auth::check() && Auth::user()->role == 'P')
                                         <input type="hidden" value="{{ $applicant->identity_user }}"
@@ -132,9 +145,13 @@
                                                     @endforeach
                                                 @endif
                                             </select>
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('identity_user') }}
-                                            </div>
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                @if ($errors->has('identity_user'))
+                                                    {{ $errors->first('identity_user') }}
+                                                @else
+                                                    <span class="text-red-500">*Wajib diisi.</span>
+                                                @endif
+                                            </p>
                                         </div>
                                     @endif
                                 </div>
@@ -149,14 +166,18 @@
                                                 {{ $applicant->sourceSetting->name }}
                                             </option>
                                             @foreach ($sources as $source)
-                                            <option value="{{ $source->id }}">
-                                                {{ $source->name }}
-                                            </option>
+                                                <option value="{{ $source->id }}">
+                                                    {{ $source->name }}
+                                                </option>
                                             @endforeach
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('source_id') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('source_id'))
+                                                {{ $errors->first('source_id') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="status_id" class="sr-only">Status</label>
@@ -167,14 +188,18 @@
                                                 {{ $applicant->applicantStatus->name }}
                                             </option>
                                             @foreach ($statuses as $status)
-                                            <option value="{{ $status->id }}">
-                                                {{ $status->name }}
-                                            </option>
+                                                <option value="{{ $status->id }}">
+                                                    {{ $status->name }}
+                                                </option>
                                             @endforeach
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('status_id') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('status_id'))
+                                                {{ $errors->first('status_id') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -183,9 +208,13 @@
                                             value="{{ $applicant->email }}"
                                             class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('email') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('email'))
+                                                {{ $errors->first('email') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                         <label for="email"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                                     </div>
@@ -194,9 +223,13 @@
                                             value="{{ $applicant->phone }}"
                                             class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="" required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('phone') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('phone'))
+                                                {{ $errors->first('phone') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                         <label for="phone"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                             Telpon (Whatsapp)</label>
@@ -207,9 +240,9 @@
                                         <textarea name="note" id="note" value="{{ old('note', $applicant->note) }}"
                                             class="@error('note') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" ">{{ old('note', $applicant->note) }}</textarea>
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('note') }}
-                                        </div>
+                                        </p>
                                         <label for="note"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Catatan</label>
                                     </div>
@@ -239,9 +272,14 @@
                                             value="{{ old('name', $applicant->name) }}"
                                             class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('name') }}
-                                        </div>
+
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('name'))
+                                                {{ $errors->first('name') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                         <label for="name"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                             lengkap</label>
@@ -268,9 +306,9 @@
                                                 @break
                                             @endswitch
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('gender') }}
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
@@ -279,9 +317,9 @@
                                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
                                             class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('place_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="place_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                             Lahir</label>
@@ -291,9 +329,9 @@
                                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
                                             class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('date_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="date_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                             Lahir</label>
@@ -342,9 +380,9 @@
                                                 @break
                                             @endswitch
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('religion') }}
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-3 md:gap-6">
@@ -353,9 +391,9 @@
                                             value="{{ old('education', $applicant->education) }}"
                                             class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('education') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                             Terakhir</label>
@@ -365,9 +403,9 @@
                                             value="{{ old('major', $applicant->major) }}"
                                             class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('major') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jurusan</label>
                                     </div>
@@ -376,9 +414,9 @@
                                             id="year" value="{{ old('year', $applicant->year) }}"
                                             class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('year') }}
-                                        </div>
+                                        </p>
                                         <label for="year"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
                                             lulus</label>
@@ -390,9 +428,9 @@
                                             value="{{ old('school', $applicant->school) }}"
                                             class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('school') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Asal
                                             Sekolah</label>
@@ -402,9 +440,9 @@
                                             value="{{ old('class', $applicant->class) }}"
                                             class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('class') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kelas</label>
                                     </div>
@@ -452,9 +490,9 @@
                                                     value="{{ old('rt') }}"
                                                     class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
+                                                <p class="mt-2 text-xs text-gray-500">
                                                     {{ $errors->first('rt') }}
-                                                </div>
+                                                </p>
                                                 <label for="rt"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                             </div>
@@ -463,9 +501,9 @@
                                                     value="{{ old('rw') }}"
                                                     class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
+                                                <p class="mt-2 text-xs text-gray-500">
                                                     {{ $errors->first('rw') }}
-                                                </div>
+                                                </p>
                                                 <label for="rw"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                             </div>
@@ -474,9 +512,9 @@
                                                     value="{{ old('postal_code') }}"
                                                     class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
-                                                <div class="text-sm text-gray-700 mt-3">
+                                                <p class="mt-2 text-xs text-gray-500">
                                                     {{ $errors->first('postal_code') }}
-                                                </div>
+                                                </p>
                                                 <label for="postal_code"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
                                                     Pos</label>
@@ -490,9 +528,9 @@
                                                 value="{{ old('address', $applicant->address) }}"
                                                 class="@error('address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" ">{{ $applicant->address }}</textarea>
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('address') }}
-                                            </div>
+                                            </p>
                                             <label for="address"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                         </div>
@@ -523,9 +561,9 @@
                                                 value="{{ old('father_name', $father->name) }}"
                                                 class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_name') }}
-                                            </div>
+                                            </p>
                                             <label for="father_name"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                                 lengkap</label>
@@ -535,9 +573,9 @@
                                                 value="{{ old('father_job', $father->job) }}"
                                                 class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_job') }}
-                                            </div>
+                                            </p>
                                             <label for="father_job"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
@@ -549,9 +587,9 @@
                                                 value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
                                                 class="@error('father_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_place_of_birth') }}
-                                            </div>
+                                            </p>
                                             <label for="father_place_of_birth"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                                 Lahir</label>
@@ -562,9 +600,9 @@
                                                 value="{{ old('father_date_of_birth', $father->date_of_birth) }}"
                                                 class="@error('father_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_date_of_birth') }}
-                                            </div>
+                                            </p>
                                             <label for="father_date_of_birth"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                                 Lahir</label>
@@ -576,9 +614,9 @@
                                                 value="{{ old('father_education', $father->education) }}"
                                                 class="@error('father_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_education') }}
-                                            </div>
+                                            </p>
                                             <label for="father_education"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                                 Terakhir</label>
@@ -588,9 +626,9 @@
                                                 value="{{ $father->phone }}"
                                                 class="@error('father_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="" required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('father_phone') }}
-                                            </div>
+                                            </p>
                                             <label for="father_phone"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                                 Telpon (Whatsapp)</label>
@@ -603,9 +641,9 @@
                                                     value="{{ old('father_address', $father->address) }}"
                                                     class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" ">{{ old('father_address', $father->address) }}</textarea>
-                                                <div class="text-sm text-gray-700 mt-3">
+                                                <p class="mt-2 text-xs text-gray-500">
                                                     {{ $errors->first('father_address') }}
-                                                </div>
+                                                </p>
                                                 <label for="father_address"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
@@ -668,9 +706,9 @@
                                                             value="{{ old('father_rt') }}"
                                                             class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('father_rt') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="father_rt"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                                     </div>
@@ -679,9 +717,9 @@
                                                             value="{{ old('father_rw') }}"
                                                             class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('father_rw') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="father_rw"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                                     </div>
@@ -691,9 +729,9 @@
                                                             value="{{ old('father_postal_code') }}"
                                                             class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('father_postal_code') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="father_postal_code"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
                                                             Pos</label>
@@ -726,9 +764,9 @@
                                                 value="{{ old('mother_name', $mother->name) }}"
                                                 class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_name') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_name"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                                 lengkap</label>
@@ -738,9 +776,9 @@
                                                 value="{{ old('mother_job', $mother->job) }}"
                                                 class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_job') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_job"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
@@ -752,9 +790,9 @@
                                                 value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
                                                 class="@error('mother_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_place_of_birth') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_place_of_birth"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                                 Lahir</label>
@@ -765,9 +803,9 @@
                                                 value="{{ old('mother_date_of_birth', $mother->date_of_birth) }}"
                                                 class="@error('mother_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_date_of_birth') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_date_of_birth"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                                 Lahir</label>
@@ -779,9 +817,9 @@
                                                 value="{{ old('mother_education', $mother->education) }}"
                                                 class="@error('mother_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder=" " />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_education') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_education"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                                 Terakhir</label>
@@ -791,9 +829,9 @@
                                                 value="{{ $mother->phone }}"
                                                 class="@error('mother_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="" required />
-                                            <div class="text-sm text-gray-700 mt-3">
+                                            <p class="mt-2 text-xs text-gray-500">
                                                 {{ $errors->first('mother_phone') }}
-                                            </div>
+                                            </p>
                                             <label for="mother_phone"
                                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                                 Telpon (Whatsapp)</label>
@@ -806,9 +844,9 @@
                                                     value="{{ old('mother_address', $mother->address) }}"
                                                     class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" ">{{ old('mother_address', $mother->address) }}</textarea>
-                                                <div class="text-sm text-gray-700 mt-3">
+                                                <p class="mt-2 text-xs text-gray-500">
                                                     {{ $errors->first('mother_address') }}
-                                                </div>
+                                                </p>
                                                 <label for="mother_address"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
@@ -871,9 +909,9 @@
                                                             value="{{ old('mother_rt') }}"
                                                             class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('mother_rt') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="mother_rt"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                                     </div>
@@ -882,9 +920,9 @@
                                                             value="{{ old('mother_rw') }}"
                                                             class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('mother_rw') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="mother_rw"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                                     </div>
@@ -894,9 +932,9 @@
                                                             value="{{ old('mother_postal_code') }}"
                                                             class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
-                                                        <div class="text-sm text-gray-700 mt-3">
+                                                        <p class="mt-2 text-xs text-gray-500">
                                                             {{ $errors->first('mother_postal_code') }}
-                                                        </div>
+                                                        </p>
                                                         <label for="mother_postal_code"
                                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
                                                             Pos</label>

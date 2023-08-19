@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SourceSetting;
 use App\Models\ApplicantStatus;
 use App\Models\FileUpload;
+use App\Models\AcademicYear;
 
 class SettingController extends Controller
 {
@@ -19,10 +20,12 @@ class SettingController extends Controller
         $statuses = ApplicantStatus::all();
         $sources = SourceSetting::all();
         $files = FileUpload::all();
+        $pmbs = AcademicYear::all();
         return view('pages.setting.index')->with([
             'sources' => $sources,
             'files' => $files,
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'pmbs' => $pmbs
         ]);
     }
 
@@ -44,16 +47,7 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-        ]);
-
-        $data = [
-            'name' => $request->input('name'),
-        ];
-
-        SourceSetting::create($data);
-        return back()->with('message', 'Data sumber database berhasil ditambahkan!');
+        
     }
 
     /**
@@ -87,18 +81,7 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $source = SourceSetting::findOrFail($id);
-
-        $request->validate([
-            'name' => ['required', 'string'],
-        ]);
-
-        $data = [
-            'name' => $request->input('name'),
-        ];
-
-        $source->update($data);
-        return back()->with('message', 'Data sumber database berhasil diubah!');
+       
     }
 
     /**
@@ -109,8 +92,6 @@ class SettingController extends Controller
      */
     public function destroy($id)
     {
-        $source = SourceSetting::findOrFail($id);
-        $source->delete();
-        return back()->with('message', 'Data sumber database berhasil dihapus!');
+        
     }
 }

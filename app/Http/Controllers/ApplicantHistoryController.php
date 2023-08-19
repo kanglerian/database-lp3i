@@ -43,7 +43,7 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
-        ]; 
+        ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', $data);
 
         if ($response->successful()) {
@@ -72,14 +72,15 @@ class ApplicantHistoryController extends Controller
 
             if ($response->successful()) {
                 $histories = $response->json();
+                return view('pages.database.history')->with([
+                    'user' => $user,
+                    'histories' => $histories,
+                ]);
             } else {
                 $histories = null;
+                return back()->with('error', 'Nomor telpon belum dicantumkan!');
             }
 
-            return view('pages.database.history')->with([
-                'user' => $user,
-                'histories' => $histories,
-            ]);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
             return back()->with('error', $errorMessage);
@@ -111,7 +112,7 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
-        ]; 
+        ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/update/' . $id, $data);
 
         if ($response->successful()) {
@@ -129,6 +130,6 @@ class ApplicantHistoryController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 }

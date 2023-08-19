@@ -13,7 +13,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <form method="POST" action="{{ route('setting.store') }}" id="formSourceModal">
+            <form method="POST" action="{{ route('source.store') }}" id="formSourceModal">
                 @csrf
                 <div class="p-4 space-y-6">
                     <div>
@@ -39,7 +39,7 @@
     const changeSourceModal = (button) => {
         const modalTarget = button.dataset.modalTarget;
         let status = document.getElementById(modalTarget);
-        let url = "{{ route('setting.store') }}";
+        let url = "{{ route('source.store') }}";
         document.getElementById('title_source').innerText = `Tambah Sumber Database`;
         document.getElementById('name_source').value = '';
         document.getElementById('formSourceButton').innerText = 'Simpan';
@@ -59,9 +59,9 @@
     const editSourceModal = (button) => {
         const formModal = document.getElementById('formSourceModal');
         const modalTarget = button.dataset.modalTarget;
-        const id = button.dataset.source;
+        const id = button.dataset.id;
         const name = button.dataset.name;
-        let url = "{{ route('setting.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('source.update', ':id') }}".replace(':id', id);
         let status = document.getElementById(modalTarget);
         document.getElementById('title_source').innerText = `Edit Sumber Database ${name}`;
         document.getElementById('name_source').value = name;
@@ -83,10 +83,10 @@
     }
 
     const deleteSource = (item) => {
-        let id = item.dataset.source;
+        let id = item.dataset.id;
         if (confirm('Apakah kamu yakin akan menghapus data?')) {
             $.ajax({
-                url: `/setting/${id}`,
+                url: `/source/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'DELETE',

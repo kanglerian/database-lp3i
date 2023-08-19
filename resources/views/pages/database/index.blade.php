@@ -41,18 +41,18 @@
                 </div>
                 <div class="flex items-center gap-3 text-gray-500">
                     <div class="flex items-center gap-2">
-                        <select id="change_type"
+                        <select id="change_pmb"
                             class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">PMB</option>
-                            @foreach ($sources as $source)
-                                <option value="{{ $source->id }}">{{ $source->name }}</option>
-                            @endforeach
-                        </select>
-                        <select id="change_year"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Sumber</option>
                             @foreach ($academics as $academic)
                                 <option value="{{ $academic->year }}">{{ $academic->year }}</option>
+                            @endforeach
+                        </select>
+                        <select id="change_source"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Sumber</option>
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">{{ $source->name }}</option>
                             @endforeach
                         </select>
                         <button type="button" onclick="changeFilter()" class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
@@ -113,11 +113,10 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                console.log(response.json);
                 return response.json();
             })
             .then(data => {
-                console.log('Data dari server:', data.applicants);
+                // console.log('Data dari server:', data.applicants);
                 const count = data.applicants.length;
                 document.getElementById('count_filter').innerText = count;
             })
@@ -127,10 +126,10 @@
     }
 
     const changeFilter = () => {
-        let typeVal = document.getElementById('change_type').value;
-        let yearVal = document.getElementById('change_year').value;
-        urlData = `get/databases/${typeVal}/${yearVal}`;
-
+        let pmbVal = document.getElementById('change_pmb').value;
+        let sourceVal = document.getElementById('change_source').value;
+        urlData = `get/databases/${pmbVal}/${sourceVal}`;
+        console.log(urlData);
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();

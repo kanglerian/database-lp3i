@@ -66,7 +66,7 @@
   const editFileModal = (button) => {
       const formModal = document.getElementById('formFileModal');
       const modalTarget = button.dataset.modalTarget;
-      const id = button.dataset.file;
+      const id = button.dataset.id;
       const name = button.dataset.name;
       const accept = button.dataset.accept;
       let url = "{{ route('fileupload.update', ':id') }}".replace(':id', id);
@@ -92,7 +92,7 @@
   }
 
   const deleteFile = (item) => {
-      let id = item.dataset.file;
+      let id = item.dataset.id;
       if (confirm('Apakah kamu yakin akan menghapus data?')) {
           $.ajax({
               url: `/fileupload/${id}`,

@@ -32,9 +32,9 @@
                                             value="{{ old('education', $applicant->education) }}"
                                             class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('education') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                             Terakhir</label>
@@ -44,9 +44,9 @@
                                             value="{{ old('major', $applicant->major) }}"
                                             class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('major') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jurusan</label>
                                     </div>
@@ -55,9 +55,9 @@
                                             id="year" value="{{ old('year', $applicant->year) }}"
                                             class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('year') }}
-                                        </div>
+                                        </p>
                                         <label for="year"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
                                             lulus</label>
@@ -69,9 +69,9 @@
                                             value="{{ old('school', $applicant->school) }}"
                                             class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('school') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Asal
                                             Sekolah</label>
@@ -81,9 +81,9 @@
                                             value="{{ old('class', $applicant->class) }}"
                                             class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('class') }}
-                                        </div>
+                                        </p>
                                         <label for="school"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kelas</label>
                                     </div>
@@ -94,9 +94,9 @@
                                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
                                             class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('place_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="place_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                             Lahir</label>
@@ -106,9 +106,9 @@
                                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
                                             class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('date_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="date_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                             Lahir</label>
@@ -136,9 +136,9 @@
                                                 @break
                                             @endswitch
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('gender') }}
-                                        </div>
+                                        </p>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="religion" class="sr-only">Agama</label>
@@ -149,41 +149,41 @@
                                                 <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
                                                 </option>
                                                 @switch($applicant->religion)
-                                                @case('Islam')
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Buddha">Buddha</option>
-                                                    <option value="Konghucu">Konghucu</option>
-                                                @break
+                                                    @case('Islam')
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    @break
 
-                                                @case('Kristen')
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Buddha">Buddha</option>
-                                                    <option value="Konghucu">Konghucu</option>
-                                                @break
+                                                    @case('Kristen')
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    @break
 
-                                                @case('Hindu')
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Buddha">Buddha</option>
-                                                    <option value="Konghucu">Konghucu</option>
-                                                @break
+                                                    @case('Hindu')
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    @break
 
-                                                @case('Buddha')
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Konghucu">Konghucu</option>
-                                                @break
+                                                    @case('Buddha')
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    @break
 
-                                                @case('Konghucu')
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Buddha">Buddha</option>
-                                                @break
-                                            @endswitch
+                                                    @case('Konghucu')
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                    @break
+                                                @endswitch
                                             @else
                                                 <option value="null">Pilih Agama</option>
                                                 <option value="Islam">Islam</option>
@@ -193,9 +193,9 @@
                                                 <option value="Konghucu">Konghucu</option>
                                             @endif
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('religion') }}
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                                 @if ($applicant->address == null)
@@ -295,9 +295,9 @@
                                             value="{{ old('father_name', $father->name) }}"
                                             class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_name') }}
-                                        </div>
+                                        </p>
                                         <label for="father_name"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                             Lengkap Ayah</label>
@@ -307,9 +307,9 @@
                                             value="{{ old('father_job', $father->job) }}"
                                             class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_job') }}
-                                        </div>
+                                        </p>
                                         <label for="father_job"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan
                                             Ayah</label>
@@ -321,9 +321,9 @@
                                             value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
                                             class="@error('father_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_place_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="father_place_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                             Lahir Ayah</label>
@@ -333,9 +333,9 @@
                                             value="{{ old('father_date_of_birth', $father->date_of_birth) }}"
                                             class="@error('father_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_date_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="father_date_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                             Lahir Ayah</label>
@@ -347,9 +347,9 @@
                                             value="{{ old('father_education', $father->education) }}"
                                             class="@error('father_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_education') }}
-                                        </div>
+                                        </p>
                                         <label for="father_education"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                             Terakhir Ayah</label>
@@ -359,9 +359,9 @@
                                             value="{{ $father->phone }}"
                                             class="@error('father_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="" />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('father_phone') }}
-                                        </div>
+                                        </p>
                                         <label for="father_phone"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                             Telpon Ayah (Whatsapp)</label>
@@ -481,9 +481,9 @@
                                             value="{{ old('mother_name', $mother->name) }}"
                                             class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_name') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_name"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                             Lengkap Ibu</label>
@@ -493,9 +493,9 @@
                                             value="{{ old('mother_job', $mother->job) }}"
                                             class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_job') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_job"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan
                                             Ibu</label>
@@ -507,9 +507,9 @@
                                             value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
                                             class="@error('mother_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_place_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_place_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
                                             Lahir Ibu</label>
@@ -519,9 +519,9 @@
                                             value="{{ old('mother_date_of_birth', $mother->date_of_birth) }}"
                                             class="@error('mother_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_date_of_birth') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_date_of_birth"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
                                             Lahir Ibu</label>
@@ -533,9 +533,9 @@
                                             value="{{ old('mother_education', $mother->education) }}"
                                             class="@error('mother_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_education') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_education"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
                                             Terakhir Ibu</label>
@@ -545,9 +545,9 @@
                                             value="{{ $mother->phone }}"
                                             class="@error('mother_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="" />
-                                        <div class="text-sm text-gray-700 mt-3">
+                                        <p class="mt-2 text-xs text-gray-500">
                                             {{ $errors->first('mother_phone') }}
-                                        </div>
+                                        </p>
                                         <label for="mother_phone"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                             Telpon Ibu (Whatsapp)</label>

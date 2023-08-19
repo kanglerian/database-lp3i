@@ -27,9 +27,9 @@
                                     <input type="text" name="name" id="name" value="{{ $presenter->name }}"
                                         class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('name') }}
-                                        </div>
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        {{ $errors->first('name') }}
+                                    </p>
                                     <label for="name"
                                         class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                         lengkap</label>
@@ -39,9 +39,9 @@
                                     <input type="number" name="phone" id="phone" value="{{ $presenter->phone }}"
                                         class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('phone') }}
-                                        </div>
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        {{ $errors->first('phone') }}
+                                    </p>
                                     <label for="phone"
                                         class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
                                         Telpon (Whatsapp)</label>
@@ -51,9 +51,9 @@
                                     <input type="email" name="email" id="email" value="{{ $presenter->email }}"
                                         class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('email') }}
-                                        </div>
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        {{ $errors->first('email') }}
+                                    </p>
                                     <label for="email"
                                         class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                                 </div>
@@ -61,22 +61,23 @@
                                 <div class="relative z-0 w-full mb-6 group">
                                     <label for="status" class="sr-only">Status</label>
                                     <select id="status" name="status"
-                                    class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                    required>
-                                    @switch($presenter->status)
-                                        @case("0")
-                                            <option value="0">Tidak aktif</option>
-                                            <option value="1">Aktif</option>
-                                        @break
-                                        @case("1")
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Tidak aktif</option>
-                                        @break
-                                    @endswitch
-                                </select>
-                                <div class="text-sm text-gray-700 mt-3">
-                                    {{ $errors->first('status') }}
-                                </div>
+                                        class="@error('status') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                        required>
+                                        @switch($presenter->status)
+                                            @case('0')
+                                                <option value="0">Tidak aktif</option>
+                                                <option value="1">Aktif</option>
+                                            @break
+
+                                            @case('1')
+                                                <option value="1">Aktif</option>
+                                                <option value="0">Tidak aktif</option>
+                                            @break
+                                        @endswitch
+                                    </select>
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        {{ $errors->first('status') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -94,19 +95,20 @@
                                 <input type="password" name="password" id="password"
                                     class="@error('password') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" " required />
-                                <div class="text-sm text-gray-700 mt-3">
-                                    {{ $errors->first('password') }}
-                                </div>
+                                    <p class="mt-2 text-xs text-gray-500">
+                                        {{ $errors->first('password') }}
+                                    </p>
                                 <label for="password"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password Baru</label>
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password
+                                    Baru</label>
                             </div>
                             <div class="relative z-0 w-full mb-6 group">
                                 <input type="password" name="password_confirmation" id="password_confirmation"
                                     class="@error('password_confirmation') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" " required />
-                                    <div class="text-sm text-gray-700 mt-3">
+                                    <p class="mt-2 text-xs text-gray-500">
                                         {{ $errors->first('password_confirmation') }}
-                                    </div>
+                                    </p>
                                 <label for="password_confirmation"
                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Konfirmasi
                                     Password</label>

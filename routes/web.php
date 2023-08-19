@@ -3,12 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ApplicantStatusController;
 use App\Http\Controllers\ApplicantHistoryController;
 use App\Http\Controllers\PresenterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserUploadController;
+use App\Http\Controllers\SourceController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\FileUploadController;
 
 /*
@@ -58,7 +61,11 @@ Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_
 
 Route::resource('userupload', UserUploadController::class)->middleware(['auth','role:S']);
 
+
 Route::resource('setting', SettingController::class)->middleware(['auth','role:A']);
+Route::resource('academicyear', AcademicYearController::class)->middleware(['auth','role:A']);
+Route::resource('source', SourceController::class)->middleware(['auth','role:A']);
 Route::resource('fileupload', FileUploadController::class)->middleware(['auth','role:A']);
+Route::resource('applicantstatus', ApplicantStatusController::class)->middleware(['auth','role:A']);
 
 require __DIR__.'/auth.php';

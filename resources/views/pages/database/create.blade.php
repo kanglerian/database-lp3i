@@ -48,13 +48,21 @@
                                     </p>
                                 </div>
                                 <div class="w-full md:w-1/5">
-                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
-                                        PMB</label>
-                                    <input type="number" id="pmb" name="pmb"
-                                        class="@error('pmb') border-red-500 @enderror w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        placeholder="Tahun Penerimaan Mahasiswa Baru" required>
-                                    <div class="text-sm text-gray-700 mt-3">
-                                        {{ $errors->first('pmb') }}
+
+                                    <div class="relative z-0 w-full mb-6 group">
+                                        <input type="number" name="pmb" id="pmb" value="{{ old('pmb') }}"
+                                            class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" " required />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('pmb'))
+                                                {{ $errors->first('pmb') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
+                                        <label for="pmb"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
+                                            PMB</label>
                                     </div>
                                 </div>
                             </header>
@@ -65,9 +73,13 @@
                                         <input type="text" name="name" id="name" value="{{ old('name') }}"
                                             class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder=" " required />
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('name') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('name'))
+                                                {{ $errors->first('name') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                         <label for="name"
                                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
                                             lengkap</label>
@@ -290,7 +302,8 @@
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="source_id" class="sr-only">Sumber</label>
                                         <select id="source_id" name="source_id"
-                                            class="@error('source_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                            class="@error('source_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            required>
                                             <option value="0">Pilih sumber</option>
                                             @if (sizeof($sources) > 0)
                                                 @foreach ($sources as $source)
@@ -298,29 +311,39 @@
                                                 @endforeach
                                             @endif
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('source_id') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('source_id'))
+                                                {{ $errors->first('source_id') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="status_id" class="sr-only">Status</label>
                                         <select id="status_id" name="status_id"
-                                            class="@error('status_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                            <option value="non">Pilih status</option>
+                                            class="@error('status_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            required>
+                                            <option value="0">Pilih status</option>
                                             @foreach ($statuses as $status)
                                                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                                             @endforeach
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('status_id') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('status_id'))
+                                                {{ $errors->first('status_id') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <label for="program" class="sr-only">Program</label>
                                         <select id="program" name="program"
-                                            class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                            class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            required>
                                             <option>Pilih program</option>
                                             @if ($programs == null)
                                                 <option value="Belum diketahui">Belum diketahui</option>
@@ -333,9 +356,13 @@
                                                 @endforeach
                                             @endif
                                         </select>
-                                        <div class="text-sm text-gray-700 mt-3">
-                                            {{ $errors->first('program') }}
-                                        </div>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('program'))
+                                                {{ $errors->first('program') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
                                     </div>
                                     @if (Auth::check() && Auth::user()->role == 'P')
                                         <input type="hidden" value="{{ Auth::user()->identity }}"
@@ -344,16 +371,21 @@
                                         <div class="relative z-0 w-full mb-6 group">
                                             <label for="identity_user" class="sr-only">Presenter</label>
                                             <select id="identity_user" name="identity_user"
-                                                class="@error('identity_user') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                class="@error('identity_user') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                required>
                                                 <option>Pilih presenter</option>
                                                 @foreach ($users as $presenter)
                                                     <option value="{{ $presenter->identity }}">{{ $presenter->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <div class="text-sm text-gray-700 mt-3">
-                                                {{ $errors->first('identity_user') }}
-                                            </div>
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                @if ($errors->has('identity_user'))
+                                                    {{ $errors->first('identity_user') }}
+                                                @else
+                                                    <span class="text-red-500">*Wajib diisi.</span>
+                                                @endif
+                                            </p>
                                         </div>
                                     @endif
                                 </div>

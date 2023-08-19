@@ -927,10 +927,6 @@ select {
   height: 0.75rem;
 }
 
-.h-32 {
-  height: 8rem;
-}
-
 .h-4 {
   height: 1rem;
 }
@@ -945,14 +941,6 @@ select {
 
 .h-8 {
   height: 2rem;
-}
-
-.h-52 {
-  height: 13rem;
-}
-
-.h-60 {
-  height: 15rem;
 }
 
 .h-80 {
