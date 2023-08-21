@@ -34,34 +34,34 @@
                     <div class="flex flex-wrap items-end">
                         <div class="w-1/2 md:w-1/3 space-y-3 p-4">
                             <img src="{{ asset('logo/btn.png') }}" alt="">
-                            <div class="flex justify-between items-center border px-3 py-1 rounded-lg">
+                            <div onclick="copyRecord('32902384901')" class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                 <div>
                                     <h1 class="font-bold text-gray-800">BANK BTN</h1>
-                                    <p class="text-sm text-gray-700">32902384902</p>
+                                    <p class="text-sm text-gray-700">32902384901</p>
                                 </div>
-                                <button class="" onclick="alert('Copy to clipboard!')"><i
+                                <button onclick="copyRecord('32902384901')"><i
                                         class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                             </div>
                         </div>
                         <div class="w-1/2 md:w-1/3 space-y-3 p-4">
                             <img src="{{ asset('logo/bni.png') }}" alt="">
-                            <div class="flex justify-between items-center border px-3 py-1 rounded-lg">
+                            <div onclick="copyRecord('32902384902')" class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                 <div>
                                     <h1 class="font-bold text-gray-800">BANK BNI</h1>
                                     <p class="text-sm text-gray-700">32902384902</p>
                                 </div>
-                                <button class="" onclick="alert('Copy to clipboard!')"><i
+                                <button onclick="copyRecord('32902384902')"><i
                                         class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                             </div>
                         </div>
                         <div class="w-1/2 md:w-1/3 space-y-3 p-4">
                             <img src="{{ asset('logo/bsi.png') }}" alt="">
-                            <div class="flex justify-between items-center border px-3 py-1 rounded-lg">
+                            <div onclick="copyRecord('32902384903')" class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                 <div>
                                     <h1 class="font-bold text-gray-800">BANK BSI</h1>
-                                    <p class="text-sm text-gray-700">32902384902</p>
+                                    <p class="text-sm text-gray-700">32902384903</p>
                                 </div>
-                                <button class="" onclick="alert('Copy to clipboard!')"><i
+                                <button onclick="copyRecord('32902384903')"><i
                                         class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                             </div>
                         </div>
@@ -103,16 +103,16 @@
                             </div>
                         @empty
                             @foreach ($fileupload as $upload)
-                                <div class="flex flex-col md:flex-row md:items-center gap-5">
-                                    <h2 class="font-bold text-gray-800">Upload Bukti Pembayaran:</h2>
+                                <div class="flex flex-wrap md:items-center gap-2">
+                                    <h2 class="w-full font-bold text-gray-800">Upload Bukti Pembayaran:</h2>
                                     <form action="{{ route('upload.payment') }}" enctype="multipart/form-data"
-                                        class="flex gap-2 items-center" method="POST">
+                                        class="w-full flex flex-wrap gap-2 items-center" method="POST">
                                         @csrf
-                                        <div>
+                                        <div class="flex items-center gap-2">
                                             <input type="hidden" name="name" value="{{ $upload->name }}">
                                             <input type="hidden" name="namefile" value="{{ $upload->namefile }}">
-                                            <input type="file" name="berkas" id="berkas" class="text-sm"
-                                                accept="{{ $upload->accept }}" style="width:95px">
+                                            <input type="file" name="berkas" id="berkas" class="text-sm border border-gray-200 bg-white px-2 py-2 rounded-md"
+                                                accept="{{ $upload->accept }}">
                                             <button type="submit"
                                                 class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                 <i class="fa-solid fa-upload"></i>
@@ -133,3 +133,16 @@
     </div>
     @endif
 </x-app-layout>
+
+<script>
+    const copyRecord = (number) => {
+        const textarea = document.createElement("textarea");
+        textarea.value = number;
+        textarea.style.position = "fixed";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert('Nomor rekening sudah disalin!');
+    }
+</script>

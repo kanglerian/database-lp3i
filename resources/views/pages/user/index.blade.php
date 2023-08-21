@@ -203,14 +203,16 @@
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
                         return `
+                        <div class="flex items-center gap-1">
                             ${status}
                             ${folder}
-                            <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
-                            </button>`
+                            </button>
+                        </div>`
                     }
                 },
             ],

@@ -55,7 +55,8 @@
                                 <option value="{{ $source->id }}">{{ $source->name }}</option>
                             @endforeach
                         </select>
-                        <button type="button" onclick="changeFilter()" class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
+                        <button type="button" onclick="changeFilter()"
+                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
                             <i class="fa-solid fa-filter"></i>
                         </button>
                         <button type="button" onclick="resetFilter()"
@@ -207,8 +208,8 @@
                         phone: 'phone',
                         school: 'school',
                         year: 'year',
-                        source: 'source',
-                        status: 'status'
+                        source_id: 'source_id',
+                        status_id: 'status_id'
                     },
                     render: (data, type, row) => {
                         let showUrl = "{{ route('database.show', ':identity') }}".replace(
@@ -216,20 +217,22 @@
                             data.identity);
                         let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
                             data.id);
-                        let folder = data.status == 4 || data.status == 3 ?
+                        let folder = data.status_id == 4 || data.status_id == 3 ?
                             `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
                             `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
                         return `
+                        <div class="flex items-center gap-1">
                             ${folder}
-                            <button class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source_id}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
-                            <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
-                            </button>`
+                            </button>
+                        </div>`
                     }
                 },
             ],
@@ -267,7 +270,10 @@
                 contentSource = 'Website'
                 break;
             case "2":
-                contentSource = 'Presenter'
+                contentSource = 'MGM'
+                break;
+            case "3":
+                contentSource = 'Sosial Media'
                 break;
         }
         const textarea = document.createElement("textarea");

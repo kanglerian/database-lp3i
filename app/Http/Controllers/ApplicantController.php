@@ -48,6 +48,10 @@ class ApplicantController extends Controller
     {
         $applicantsQuery = Applicant::with(['SourceSetting','ApplicantStatus']);
 
+        if(Auth::user()->role == 'P'){
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
+
         if($pmb !== 'all' && $source !== null){
             $applicantsQuery->where('pmb', $pmb);
         }
@@ -78,6 +82,7 @@ class ApplicantController extends Controller
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
+            $academics = AcademicYear::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -87,6 +92,7 @@ class ApplicantController extends Controller
 
             return view('pages.database.create')->with([
                 'programs' => $programs,
+                'academics' => $academics,
                 'statuses' => $statuses,
                 'sources' => $sources,
                 'users' => $users,

@@ -52,16 +52,16 @@
                                                 <td class="px-6 py-3">
                                                     {{ $source->name }}
                                                 </td>
-                                                <td class="px-6 py-3">
+                                                <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $source->id }}"
                                                         data-modal-target="sourceModal" data-name="{{ $source->name }}"
                                                         onclick="editSourceModal(this)"
-                                                        class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
                                                     </button>
                                                     <button type="button" data-id="{{ $source->id }}"
                                                         onclick="deleteSource(this)"
-                                                        class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -117,16 +117,16 @@
                                                 <td class="px-6 py-3">
                                                     {{ $file->accept }}
                                                 </td>
-                                                <td class="px-6 py-3">
+                                                <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $file->id }}"
                                                         data-modal-target="fileModal" data-name="{{ $file->name }}" data-accept="{{ $file->accept }}"
                                                         onclick="editFileModal(this)"
-                                                        class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
                                                     </button>
                                                     <button type="button" data-id="{{ $file->id }}"
                                                         onclick="deleteFile(this)"
-                                                        class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -176,16 +176,16 @@
                                                 <td class="px-6 py-3">
                                                     {{ $status->name }}
                                                 </td>
-                                                <td class="px-6 py-3">
+                                                <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $status->id }}"
                                                         data-modal-target="statusModal" data-name="{{ $status->name }}" 
                                                         onclick="editStatusModal(this)"
-                                                        class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
                                                     </button>
                                                     <button type="button" data-id="{{ $status->id }}"
                                                         onclick="deleteStatus(this)"
-                                                        class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
@@ -235,16 +235,16 @@
                                                 <td class="px-6 py-3">
                                                     {{ $pmb->year }}
                                                 </td>
-                                                <td class="px-6 py-3">
+                                                <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $pmb->id }}"
                                                         data-modal-target="pmbModal" data-name="{{ $pmb->year }}" 
                                                         onclick="editPMBModal(this)"
-                                                        class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
                                                     </button>
                                                     <button type="button" data-id="{{ $pmb->id }}"
                                                         onclick="deletePMB(this)"
-                                                        class="mt-1 md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>

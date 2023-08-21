@@ -45,8 +45,8 @@
                                             @endif
                                         </select>
                                        <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('program') }}
-                                        </div>
+                                            {{ $errors->first('program') }}
+                                       </p>
                                     </div>
                                 @else
                                     <input type="hidden" name="program" id="program"

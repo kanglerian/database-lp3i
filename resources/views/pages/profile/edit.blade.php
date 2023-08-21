@@ -26,6 +26,74 @@
                             @csrf
                             @method('PATCH')
                             <div class="w-full p-6 bg-white border-b border-gray-200 rounded-xl">
+                                @if (Auth::user()->role == 'S')
+                                    @if ($applicant->program !== null)
+                                        <div class="relative z-0 w-full mb-6 group">
+                                            <input type="text" value="{{ $applicant->program }}"
+                                                class="block py-2.5 disabled px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " disabled />
+                                            <label
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Program
+                                                Studi</label>
+                                        </div>
+                                    @else
+                                        @if ($programs !== null)
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="program" class="sr-only">Program</label>
+                                                <select id="program" name="program"
+                                                    class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    required>
+                                                    <option value="Pilih program">Pilih program</option>
+                                                    @foreach ($programs as $prog)
+                                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <p class="mt-2 text-xs text-gray-500">
+                                                    @if ($errors->has('status_id'))
+                                                        {{ $errors->first('status_id') }}
+                                                    @else
+                                                        <span class="text-red-500">*Wajib diisi. Pilih satu prodi. Kontak panitia PMB untuk perubahan.</span>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                        @endif
+                                    @endif
+                                @else
+                                    <div class="grid md:grid-cols-1 md:gap-6">
+                                        @if ($programs !== null)
+                                            <div class="relative z-0 w-full mb-6 group">
+                                                <label for="program" class="sr-only">Program</label>
+                                                <select id="program" name="program"
+                                                    class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                                    required>
+                                                    @if ($applicant->program == null)
+                                                        <option value="Pilih program">Pilih program</option>
+                                                        @foreach ($programs as $prog)
+                                                            <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                                                {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                                        @endforeach
+                                                    @else
+                                                        <option value="{{ $applicant->program }}">
+                                                            {{ $applicant->program }}
+                                                        </option>
+                                                        @foreach ($programs as $prog)
+                                                            <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                                                {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                <p class="mt-2 text-xs text-gray-500">
+                                                    {{ $errors->first('program') }}
+                                                </p>
+                                            </div>
+                                        @else
+                                            <input type="hidden" name="program" id="program"
+                                                value="{{ $applicant->program }}">
+                                        @endif
+                                    </div>
+                                @endif
+
                                 <div class="grid md:grid-cols-3 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
                                         <input type="text" name="education" id="education"

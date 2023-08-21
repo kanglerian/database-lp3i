@@ -41,7 +41,7 @@ Route::resource('presenter', PresenterController::class)->middleware(['auth','ro
 Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get')->middleware(['auth','status:1','role:A']);
 
 Route::resource('user', UserController::class)->middleware(['auth','role:A']);
-Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get')->middleware(['auth','role:A']);
+Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get')->middleware(['auth','role:P']);
 Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account')->middleware(['auth','role:A','status:1']);
 Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password')->middleware(['auth','status:1','role:A']);
 

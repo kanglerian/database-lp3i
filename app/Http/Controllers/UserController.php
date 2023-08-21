@@ -37,6 +37,10 @@ class UserController extends Controller
     {
         $usersQuery = User::query();
 
+        if(Auth::user()->role == 'P'){
+            $usersQuery->where('role', 'S');
+        }
+
         if ($role !== 'all' && $role !== null) {
             $usersQuery->where('role', $role);
         }

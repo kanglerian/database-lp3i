@@ -4,11 +4,6 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 Tambah Database Baru
             </h2>
-            <div class="flex items-center gap-3">
-                <button onclick="saveDatabase()"
-                    class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
-                        class="fa-solid fa-floppy-disk mr-1"></i> Simpan</button>
-            </div>
         </div>
     </x-slot>
     <div class="py-4">
@@ -38,7 +33,7 @@
                 <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
-                            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+                            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5 py-3">
                                 <div class="w-full md:w-auto">
                                     <h2 class="text-xl font-bold text-gray-900">
                                         Informasi Aplikan
@@ -48,11 +43,15 @@
                                     </p>
                                 </div>
                                 <div class="w-full md:w-1/5">
-
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="number" name="pmb" id="pmb" value="{{ old('pmb') }}"
+                                        <select type="number" name="pmb" id="pmb"
                                             class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required />
+                                            placeholder=" " required>
+                                            <option value="0">Pilih Tahun Akademik</option>
+                                            @foreach ($academics as $academic)
+                                                <option value="{{ $academic->year }}">{{ $academic->year }}</option>
+                                            @endforeach
+                                        </select>
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('pmb'))
                                                 {{ $errors->first('pmb') }}
@@ -61,8 +60,7 @@
                                             @endif
                                         </p>
                                         <label for="pmb"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
-                                            PMB</label>
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun Akademik</label>
                                     </div>
                                 </div>
                             </header>
@@ -389,6 +387,9 @@
                                         </div>
                                     @endif
                                 </div>
+                                <button type="button" onclick="saveDatabase()"
+                                    class="text-white bg-lp3i-100 my-5 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                                        class="fa-solid fa-floppy-disk mr-1"></i> Simpan</button>
                             </section>
                         </section>
                     </div>

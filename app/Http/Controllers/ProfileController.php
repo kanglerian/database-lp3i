@@ -137,6 +137,8 @@ class ProfileController extends Controller
 
         $request->validate([
             'gender' => ['required', 'not_in:Pilih gender'],
+            'program' => ['string', 'not_in:Pilih program'],
+            'religion' => ['string', 'not_in:null'],
         ]);
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
@@ -154,6 +156,7 @@ class ProfileController extends Controller
             'year' => $request->input('year'),
             'school' => $request->input('school'),
             'class' => $request->input('class'),
+            'program' => $request->input('program'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),
             'gender' => $request->input('gender'),

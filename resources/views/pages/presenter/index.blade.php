@@ -99,12 +99,14 @@
                         let editUrl = "{{ route('presenter.edit', ':id') }}".replace(':id',
                             data);
                         return `
-                            <a href="${editUrl}" class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                        <div class="flex items-center gap-1">
+                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
-                            </button>`
+                            </button>
+                        </div>`
                     }
                 },
             ],

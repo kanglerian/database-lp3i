@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center gap-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-3">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ $applicant->name }}
             </h2>
-            <div class="flex items-center gap-3">
+            <div class="flex flex-col md:flex-row items-center gap-2">
                 @if ($account == 0 && ($applicant->status_id == 3 || $applicant->status_id == 4))
                     <form action="{{ route('profile.store') }}" method="POST">
                         @csrf
@@ -65,12 +65,9 @@
                                     </p>
                                 </div>
                                 <div class="w-full md:w-1/5">
-                                    <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
-                                        PMB</label>
-                                    <input type="number" id="pmb" name="pmb" value="{{ $applicant->pmb }}"
-                                        class="@error('pmb') border-red-500 @enderror w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        placeholder="Tahun Penerimaan Mahasiswa Baru" required>
-
+                                    <input type="number" name="pmb" id="pmb" value="{{ $applicant->pmb }}"
+                                        class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " required />
                                     <p class="mt-2 text-xs text-gray-500">
                                         @if ($errors->has('pmb'))
                                             {{ $errors->first('pmb') }}
@@ -78,6 +75,9 @@
                                             <span class="text-red-500">*Wajib diisi.</span>
                                         @endif
                                     </p>
+                                    <label for="pmb"
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
+                                        Akademik</label>
                                 </div>
                             </header>
                             <hr class="mt-2 mb-8">

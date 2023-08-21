@@ -28,6 +28,18 @@ class SourceSeeder extends Seeder
                 'name' => 'Sosial Media',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Sekolah',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Jadwal Datang',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Guru BK',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
     }
