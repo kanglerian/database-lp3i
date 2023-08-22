@@ -26,6 +26,7 @@ class ApplicantController extends Controller
     {
         $sources = SourceSetting::all();
         $academics = AcademicYear::all();
+        $statuses = ApplicantStatus::all();
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
         } else {
@@ -35,6 +36,7 @@ class ApplicantController extends Controller
             'total' => $total,
             'sources' => $sources,
             'academics' => $academics,
+            'statuses' => $statuses
         ]);
     }
 
@@ -44,7 +46,7 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($pmb = null, $source = null)
+    public function get_all($pmb = null, $source = null, $dateStart = null, $dateEnd = null, $yearGrad = null, $status = null)
     {
         $applicantsQuery = Applicant::with(['SourceSetting','ApplicantStatus']);
 
@@ -60,9 +62,20 @@ class ApplicantController extends Controller
             $applicantsQuery->where('source_id', $source);
         }
 
+        if($dateStart !== null && $dateStart !== 'all' && $dateEnd !== null && $dateEnd !== 'all'){
+            $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
+        }
+
+        if($status !== 'all' && $status !== null){
+            $applicantsQuery->where('status_id', $status);
+        }
+
+        if($yearGrad !== 'all' && $yearGrad !== null){
+            $applicantsQuery->where('year', $yearGrad);
+        }
+
         $applicants = $applicantsQuery->orderByDesc('created_at')->get();
 
-        // dd($applicants);
         return response()
             ->json([
                 'applicants' => $applicants,

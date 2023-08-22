@@ -33,7 +33,7 @@ Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::get('get/databases/{type?}/{year?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+Route::get('get/databases/{type?}/{year?}/{dateStart?}/{dateEnd?}/{yearGrad?}/{status?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 
 Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);
 

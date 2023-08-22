@@ -33,17 +33,24 @@
                     </div>
                 </div>
             @endif
-            <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
-                <div class="flex items-center gap-3">
+            <div class="flex flex-col gap-4 md:gap-0 px-2">
+                <div class="flex items-center gap-3 md:pb-4">
                     <a href="{{ route('database.create') }}"
                         class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                             class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 </div>
-                <div class="flex items-center gap-3 text-gray-500">
-                    <div class="flex items-center gap-2">
+                <div class="flex items-center gap-3 text-gray-500 overflow-x-auto pb-3 pt-1">
+                    <div class="flex items-center gap-2 ">
+                        <input type="date" id="date_start"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        <input type="date" id="date_end"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        <input type="number" id="year_grad"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun lulus">
                         <select id="change_pmb"
                             class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">PMB</option>
+                            <option value="all">Tahun PMB</option>
                             @foreach ($academics as $academic)
                                 <option value="{{ $academic->year }}">{{ $academic->year }}</option>
                             @endforeach
@@ -53,6 +60,13 @@
                             <option value="all">Sumber</option>
                             @foreach ($sources as $source)
                                 <option value="{{ $source->id }}">{{ $source->name }}</option>
+                            @endforeach
+                        </select>
+                        <select id="change_status"
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Status</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
                             @endforeach
                         </select>
                         <button type="button" onclick="changeFilter()"
@@ -73,6 +87,9 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
+                                        Tanggal
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Nama lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -103,6 +120,8 @@
     </div>
 </x-app-layout>
 
+<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script>
     var urlData = 'get/databases';
     var dataTableInitialized = false;
@@ -127,9 +146,26 @@
     }
 
     const changeFilter = () => {
+        let dateStart = document.getElementById('date_start').value;
+        let dateEnd = document.getElementById('date_end').value;
+        let yearGrad = document.getElementById('year_grad').value;
         let pmbVal = document.getElementById('change_pmb').value;
         let sourceVal = document.getElementById('change_source').value;
-        urlData = `get/databases/${pmbVal}/${sourceVal}`;
+        let statusVal = document.getElementById('change_status').value;
+
+        if (dateStart.length == 0) {
+            dateStart = 'all'
+        }
+
+        if (dateEnd.length == 0) {
+            dateEnd = 'all'
+        }
+
+        if (yearGrad.length == 0) {
+            yearGrad = 'all'
+        };
+
+        urlData = `get/databases/${pmbVal}/${sourceVal}/${dateStart}/${dateEnd}/${yearGrad}/${statusVal}`;
         console.log(urlData);
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
@@ -156,9 +192,15 @@
                 dataSrc: 'applicants'
             },
             order: [
-                [6, 'desc']
+                [0, 'desc']
             ],
             columns: [{
+                    data: 'created_at',
+                    render: (data) => {
+                        return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
+                    }
+                },
+                {
                     data: {
                         identity: 'identity',
                         name: 'name',
@@ -185,7 +227,7 @@
                 {
                     data: 'year',
                     render: (data, row) => {
-                        return typeof(data) == 'string' ? data : 'Tidak diketahui';
+                        return typeof(data) == 'number' ? data : 'Tidak diketahui';
                     }
                 },
                 {
