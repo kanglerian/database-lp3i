@@ -116,26 +116,26 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+            <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'histories.show'])">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs('database')">
+                <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'histories.show'])">
                     {{ __('Database') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs('presenter')">
+                <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs(['presenter.index', 'presenter.create', 'presenter.edit'])">
                     {{ __('Presenter') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user')">
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
                     {{ __('Akun') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs('setting')">
+                <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs(['setting.index', 'setting.create', 'setting.edit', 'setting.show'])">
                     {{ __('Pengaturan') }}
                 </x-responsive-nav-link>
             @endif

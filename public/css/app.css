@@ -1413,6 +1413,11 @@ select {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.border-lp3i-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 77 126 / var(--tw-border-opacity));
+}
+
 .bg-amber-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(245 158 11 / var(--tw-bg-opacity));
@@ -1505,6 +1510,11 @@ select {
 .bg-lp3i-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(0 95 156 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -1848,6 +1858,11 @@ select {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-lp3i-700 {
+  --tw-text-opacity: 1;
+  color: rgb(0 51 84 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2141,6 +2156,11 @@ select {
   border-color: rgb(0 86 141 / var(--tw-border-opacity));
 }
 
+.focus\:border-lp3i-700:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 51 84 / var(--tw-border-opacity));
+}
+
 .focus\:bg-gray-100:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -2154,6 +2174,11 @@ select {
 .focus\:bg-indigo-100:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(224 231 255 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-lp3i-100:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 108 178 / var(--tw-bg-opacity));
 }
 
 .focus\:text-gray-500:focus {
@@ -2174,6 +2199,11 @@ select {
 .focus\:text-indigo-800:focus {
   --tw-text-opacity: 1;
   color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.focus\:text-lp3i-800:focus {
+  --tw-text-opacity: 1;
+  color: rgb(0 42 69 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {

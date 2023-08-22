@@ -1,9 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
+        <div class="flex justify-between items-center">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 Riwayat Follow Up - {{ $user->name }} ({{ $user->identity }})
             </h2>
+            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <i class="fa-regular fa-comments"></i>
+                    <h2 id="count_filter">{{ count($histories) }}</h2>
+                </div>
+            </div>
         </div>
     </x-slot>
 

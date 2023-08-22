@@ -221,6 +221,7 @@ class ApplicantController extends Controller
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
+            $academics = AcademicYear::all();
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
@@ -239,6 +240,7 @@ class ApplicantController extends Controller
                 'applicant' => $applicant,
                 'programs' => $programs,
                 'presenters' => $presenters,
+                'academics' => $academics,
                 'account' => $account,
                 'father' => $father,
                 'mother' => $mother,

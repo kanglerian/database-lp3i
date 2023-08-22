@@ -1,24 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+            <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
                     Registrasi Pembayaran
                 @else
                     Dashboard
                 @endif
             </h2>
-            @if (Auth::user()->status != 1)
-                <div class="px-6 py-2 rounded-lg bg-red-500 text-white text-sm">
-                    <p><i class="fa-solid fa-lock mr-1"></i> Akun anda belum di aktifkan.</p>
-                </div>
-            @else
-                <div class="px-6 py-2 rounded-lg text-sm bg-white">
-                    <p><i class="fa-regular fa-face-smile-beam mr-1"></i> Selamat datang,
-                        {{ Auth::user()->name }}
-                    </p>
-                </div>
-            @endif
+            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
+                @if (Auth::user()->status != 1)
+                    <div class="px-6 py-2 rounded-lg bg-red-500 text-white text-sm">
+                        <p><i class="fa-solid fa-lock mr-1"></i> Akun anda belum di aktifkan.</p>
+                    </div>
+                @else
+                    <div class="px-6 py-2 rounded-lg text-sm bg-white">
+                        <p><i class="fa-regular fa-face-smile-beam mr-1"></i> Selamat datang,
+                            {{ Auth::user()->name }}
+                        </p>
+                    </div>
+                @endif
+            </div>
         </div>
     </x-slot>
 
