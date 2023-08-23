@@ -64,37 +64,50 @@
                                         Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
                                     </p>
                                 </div>
-                                <div class="w-full md:w-1/5">
-                                    @if ($applicant->pmb)
-                                        <input type="number" name="pmb" id="pmb"
-                                            value="{{ $applicant->pmb }}"
-                                            class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required />
-                                    @else
-                                        <select type="number" name="pmb" id="pmb"
-                                            class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required>
-                                            <option value="0">Pilih Tahun Akademik</option>
-                                            @foreach ($academics as $academic)
-                                                <option value="{{ $academic->year }}">{{ $academic->year }}</option>
-                                            @endforeach
-                                        </select>
-                                    @endif
-                                    <p class="mt-2 text-xs text-gray-500">
-                                        @if ($errors->has('pmb'))
-                                            {{ $errors->first('pmb') }}
-                                        @endif
-                                        @if ($applicant->pmb == null)
-                                            <span class="text-red-500">*Wajib diisi.</span>
-                                        @endif
-                                    </p>
-                                    <label for="pmb"
-                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
-                                        Akademik</label>
-                                </div>
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
+                                <div class="grid md:grid-cols-2 md:gap-6">
+                                    <div class="relative z-0 w-full mb-6 group">
+                                        <input type="text" name="pmb" id="pmb" value="{{ $applicant->pmb }}"
+                                            class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" " required />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('pmb'))
+                                                {{ $errors->first('pmb') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
+                                        <label for="pmb"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
+                                            Akademik</label>
+                                    </div>
+                                    <div class="relative z-0 w-full mb-6 group">
+                                        <select name="programtype_id" id="programtype_id"
+                                            class="@error('programtype_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                            required>
+                                            <option value="{{ $applicant->programtype_id }}" selected>
+                                                {{ $applicant->programType->name }}
+                                            </option>
+                                            @foreach ($programtypes as $programtype)
+                                                <option value="{{ $programtype->id }}">
+                                                    {{ $programtype->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            @if ($errors->has('programtype_id'))
+                                                {{ $errors->first('programtype_id') }}
+                                            @else
+                                                <span class="text-red-500">*Wajib diisi.</span>
+                                            @endif
+                                        </p>
+                                        <label for="pmb"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Program
+                                            Kuliah</label>
+                                    </div>
+                                </div>
                                 <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6">
                                     @if ($programs !== null)
                                         <div class="relative z-0 w-full mb-6 group">

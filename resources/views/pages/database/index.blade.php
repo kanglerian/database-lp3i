@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="py-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-3">
             @if (session('message'))
                 <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                     role="alert">
@@ -33,51 +33,58 @@
                     </div>
                 </div>
             @endif
-            <div class="flex flex-col gap-4 md:gap-0 px-2">
-                <div class="flex items-center gap-3 md:pb-4">
-                    <a href="{{ route('database.create') }}"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                            class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-                </div>
-                <div class="flex items-center gap-3 text-gray-500 overflow-x-auto pb-3 pt-1">
-                    <div class="flex items-center gap-2 ">
-                        <input type="date" id="date_start"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                        <input type="date" id="date_end"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                        <input type="number" id="year_grad"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                            placeholder="Tahun lulus">
-                        <select id="change_pmb"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Tahun PMB</option>
-                            @foreach ($academics as $academic)
-                                <option value="{{ $academic->year }}">{{ $academic->year }}</option>
-                            @endforeach
-                        </select>
-                        <select id="change_source"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Sumber</option>
-                            @foreach ($sources as $source)
-                                <option value="{{ $source->id }}">{{ $source->name }}</option>
-                            @endforeach
-                        </select>
-                        <select id="change_status"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Status</option>
-                            @foreach ($statuses as $status)
-                                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="button" onclick="changeFilter()"
-                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
-                            <i class="fa-solid fa-filter"></i>
-                        </button>
-                        <button type="button" onclick="resetFilter()"
-                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
-                            <i class="fa-solid fa-filter-circle-xmark"></i>
-                        </button>
-                    </div>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('database.create') }}"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                        class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+            </div>  
+            <div class="flex items-center gap-3 text-gray-500 overflow-x-auto pb-4">
+                <div class="flex items-center gap-2">
+                    <input type="date" id="date_start"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                    <input type="date" id="date_end"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                        placeholder="Tahun lulus">
+                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                        placeholder="Asal Sekolah">
+                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                        placeholder="Tanggal Lahir">
+                    <input type="number" id="change_pmb" onkeypress="handleEnterKeyPress(event)"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                        placeholder="Tahun PMB">
+                    <select id="change_source"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        <option value="all">Sumber</option>
+                        @foreach ($sources as $source)
+                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                        @endforeach
+                    </select>
+                    <select id="change_source"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        <option value="all">Sumber</option>
+                        @foreach ($sources as $source)
+                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                        @endforeach
+                    </select>
+                    <select id="change_status"
+                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        <option value="all">Status</option>
+                        @foreach ($statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" onclick="changeFilter()"
+                        class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <button type="button" onclick="resetFilter()"
+                        class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                    </button>
                 </div>
             </div>
             <div class="bg-white overflow-hidden border md:rounded-xl">
@@ -146,27 +153,14 @@
     }
 
     const changeFilter = () => {
-        let dateStart = document.getElementById('date_start').value;
-        let dateEnd = document.getElementById('date_end').value;
-        let yearGrad = document.getElementById('year_grad').value;
+        let dateStart = document.getElementById('date_start').value || 'all';
+        let dateEnd = document.getElementById('date_end').value || 'all';
+        let yearGrad = document.getElementById('year_grad').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value;
         let sourceVal = document.getElementById('change_source').value;
         let statusVal = document.getElementById('change_status').value;
 
-        if (dateStart.length == 0) {
-            dateStart = 'all'
-        }
-
-        if (dateEnd.length == 0) {
-            dateEnd = 'all'
-        }
-
-        if (yearGrad.length == 0) {
-            yearGrad = 'all'
-        };
-
         urlData = `get/databases/${pmbVal}/${sourceVal}/${dateStart}/${dateEnd}/${yearGrad}/${statusVal}`;
-        console.log(urlData);
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
@@ -175,11 +169,19 @@
         }
     }
 
+    const handleEnterKeyPress = (event) => {
+        if (event.keyCode == 13) {
+            changeFilter();
+        }
+    }
+
     const resetFilter = () => {
         urlData = `get/databases`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
+            document.getElementById('year_grad').value = '';
+            document.getElementById('change_pmb').value = '';
         } else {
             getDataTable();
         }

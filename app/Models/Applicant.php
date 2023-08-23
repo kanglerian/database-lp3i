@@ -32,6 +32,7 @@ class Applicant extends Model
         'source_id',
         'note',
         'status_id',
+        'programtype_id',
         'pmb',
         'identity_user',
         'program',
@@ -55,6 +56,10 @@ class Applicant extends Model
 
     public function sourceSetting(){
         return $this->belongsTo(SourceSetting::class, 'source_id', 'id');
+    }
+
+    public function programType(){
+        return $this->belongsTo(ProgramType::class, 'programtype_id', 'id');
     }
 
     public function applicantStatus(){

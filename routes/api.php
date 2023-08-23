@@ -26,7 +26,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
-
-// Route::get('/applicants', [ApplicantController::class, 'getAll'])->name('applicants.api.index');
-// Route::get('/presenters', [PresenterController::class, 'getAll'])->name('presenters.api.index');
-// Route::get('/users', [UserController::class, 'getAll'])->name('users.api.index');

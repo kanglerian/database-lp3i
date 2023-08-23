@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgramType;
 use Illuminate\Http\Request;
-use App\Models\AcademicYear;
 
-class AcademicYearController extends Controller
+class ProgramTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class AcademicYearController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -36,15 +36,16 @@ class AcademicYearController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'year' => ['required', 'string','min:4'],
+            'name' => ['required', 'string'],
         ]);
 
         $data = [
-            'year' => $request->input('year'),
+            'name' => $request->input('name'),
+            'status' => 1,
         ];
 
-        AcademicYear::create($data);
-        return back()->with('message', 'Data tahun PMB berhasil ditambahkan!');
+        ProgramType::create($data);
+        return back()->with('message', 'Data tipe program berhasil ditambahkan!');
     }
 
     /**
@@ -78,18 +79,19 @@ class AcademicYearController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $year = AcademicYear::findOrFail($id);
+        $programtype = ProgramType::findOrFail($id);
 
         $request->validate([
-            'year' => ['required', 'string','min:4'],
+            'name' => ['required', 'string'],
         ]);
 
         $data = [
-            'year' => $request->input('year'),
+            'name' => $request->input('name'),
+            'status' => 1,
         ];
 
-        $year->update($data);
-        return back()->with('message', 'Data tahun PMB berhasil diubah!');
+        $programtype->update($data);
+        return back()->with('message', 'Data tipe program berhasil diubah!');
     }
 
     /**
@@ -100,8 +102,8 @@ class AcademicYearController extends Controller
      */
     public function destroy($id)
     {
-        $year = AcademicYear::findOrFail($id);
-        $year->delete();
-        return back()->with('message', 'Data tahun PMB berhasil dihapus!');
+        $programtype = ProgramType::findOrFail($id);
+        $programtype->delete();
+        return back()->with('message', 'Data tipe program berhasil dihapus!');
     }
 }

@@ -35,6 +35,7 @@ class CreateApplicantsTable extends Migration
             $table->string('program', 255)->nullable();
             $table->char('isread', 1)->default('0');
             
+            $table->unsignedBigInteger('programtype_id')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
 

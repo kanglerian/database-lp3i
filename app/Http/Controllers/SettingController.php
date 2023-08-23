@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SourceSetting;
 use App\Models\ApplicantStatus;
 use App\Models\FileUpload;
-use App\Models\AcademicYear;
+use App\Models\ProgramType;
 
 class SettingController extends Controller
 {
@@ -18,14 +18,14 @@ class SettingController extends Controller
     public function index()
     {
         $statuses = ApplicantStatus::all();
+        $programtypes = ProgramType::all();
         $sources = SourceSetting::all();
         $files = FileUpload::all();
-        $pmbs = AcademicYear::all();
         return view('pages.setting.index')->with([
             'sources' => $sources,
             'files' => $files,
             'statuses' => $statuses,
-            'pmbs' => $pmbs
+            'programtypes' => $programtypes
         ]);
     }
 

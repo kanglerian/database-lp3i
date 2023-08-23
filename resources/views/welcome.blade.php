@@ -55,7 +55,7 @@
         </nav>
         <div class="flex flex-col md:flex-row items-center justify-center py-10">
             <div class="w-full md:w-4/6 space-y-3 text-center md:text-left">
-                <h1 class="font-bold text-2xl md:text-4xl">Pendaftaran Online Mahasiswa Baru</h1>
+                <h1 class="font-bold text-2xl md:text-4xl">Pendaftaran Online Mahasiswa</h1>
                 <p class="text-gray-700">Kami menyambut Anda untuk mengakses layanan pendaftaran kami. Untuk mendapatkan informasi terkait persyaratan, upload berkas, dan berbagai informasi lainnya, silakan masuk ke akun Anda. Jika Anda belum memiliki akun, jangan ragu untuk menggunakan tombol "Daftar" di bawah ini untuk mendaftar sebagai calon mahasiswa baru di LP3I. Kami siap membantu Anda memulai langkah menuju kesuksesan akademik.</p>
                 @if (Route::has('login'))
                     <div class="flex justify-center md:justify-start items-center gap-2">

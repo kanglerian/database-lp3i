@@ -9,9 +9,9 @@ use App\Models\ApplicantFamily;
 use App\Models\ApplicantStatus;
 use App\Models\Applicant;
 use App\Models\SourceSetting;
+use App\Models\ProgramType;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
-use App\Models\AcademicYear;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 
@@ -25,7 +25,6 @@ class ApplicantController extends Controller
     public function index()
     {
         $sources = SourceSetting::all();
-        $academics = AcademicYear::all();
         $statuses = ApplicantStatus::all();
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
@@ -35,7 +34,6 @@ class ApplicantController extends Controller
         return view('pages.database.index')->with([
             'total' => $total,
             'sources' => $sources,
-            'academics' => $academics,
             'statuses' => $statuses
         ]);
     }
@@ -48,9 +46,9 @@ class ApplicantController extends Controller
      */
     public function get_all($pmb = null, $source = null, $dateStart = null, $dateEnd = null, $yearGrad = null, $status = null)
     {
-        $applicantsQuery = Applicant::with(['SourceSetting','ApplicantStatus']);
+        $applicantsQuery = Applicant::query();
 
-        if(Auth::user()->role == 'P'){
+        if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
@@ -74,14 +72,11 @@ class ApplicantController extends Controller
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        $applicants = $applicantsQuery->orderByDesc('created_at')->get();
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType'])
+            ->orderByDesc('created_at')
+            ->get();
 
-        return response()
-            ->json([
-                'applicants' => $applicants,
-            ])
-            ->header('Content-Type', 'application/json');
-
+        return response()->json(['applicants' => $applicants]);
     }
     /**
      * Show the form for creating a new resource.
@@ -95,7 +90,7 @@ class ApplicantController extends Controller
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
-            $academics = AcademicYear::all();
+            $programtypes = ProgramType::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -105,8 +100,8 @@ class ApplicantController extends Controller
 
             return view('pages.database.create')->with([
                 'programs' => $programs,
-                'academics' => $academics,
                 'statuses' => $statuses,
+                'programtypes' => $programtypes,
                 'sources' => $sources,
                 'users' => $users,
             ]);
@@ -162,6 +157,7 @@ class ApplicantController extends Controller
                 'class' => $request->input('class'),
                 'source_id' => $request->input('source_id'),
                 'status_id' => $request->input('status_id'),
+                'programtype_id' => $request->input('programtype_id'),
                 'pmb' => $request->input('pmb'),
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
@@ -234,10 +230,10 @@ class ApplicantController extends Controller
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
-            $academics = AcademicYear::all();
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
+            $programtypes = ProgramType::all();
             $account = User::where('email', $applicant->email)->count();
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -253,7 +249,7 @@ class ApplicantController extends Controller
                 'applicant' => $applicant,
                 'programs' => $programs,
                 'presenters' => $presenters,
-                'academics' => $academics,
+                'programtypes' => $programtypes,
                 'account' => $account,
                 'father' => $father,
                 'mother' => $mother,
@@ -330,6 +326,7 @@ class ApplicantController extends Controller
             'year' => $request->input('year'),
             'school' => $request->input('school'),
             'class' => $request->input('class'),
+            'programtype_id' => $request->input('programtype_id'),
             'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
         ];
 
@@ -418,7 +415,7 @@ class ApplicantController extends Controller
                 'father' => $father,
                 'mother' => $mother,
             ]);
-        }else{
+        } else {
             return redirect('database');
         }
     }
