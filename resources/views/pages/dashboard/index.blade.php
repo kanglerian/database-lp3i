@@ -143,13 +143,20 @@
     @endif
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-5 px-5 md:px-0">
+            <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
                 <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200" id="chartSourceContainer">
                     <div class="text-center py-3">
                         <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
                     </div>
                     <hr>
                     <canvas id="chartSource" class="py-3"></canvas>
+                </div>
+                <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200" id="chartPresenterContainer">
+                    <div class="text-center py-3">
+                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Presenter</h3>
+                    </div>
+                    <hr>
+                    <canvas id="chartPresenter" class="py-3"></canvas>
                 </div>
             </div>
         </div>
@@ -160,10 +167,10 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const getSource = async () => {
-        var data;
+        let data;
         const chartSource = document.getElementById('chartSource');
         const chartSourceContainer = document.getElementById('chartSourceContainer');
-        await axios.get('get/sources')
+        await axios.get('get/dashboard/sources')
             .then(async (res) => {
                 data = res.data.sources;
                 if (data.length > 0) {
@@ -202,6 +209,51 @@
             });
     }
     getSource();
+</script>
+<script>
+    const getPresenter = async () => {
+        let data;
+        const chartPresenter = document.getElementById('chartPresenter');
+        const chartPresenterContainer = document.getElementById('chartPresenterContainer');
+        await axios.get('get/dashboard/presenters')
+            .then(async (res) => {
+                data = res.data.presenters;
+                if (data.length > 0) {
+                    let labels = data.map(element => element.name);
+                    let dataPresenter = data.map(element => element.count);
+                    await new Chart(chartPresenter, {
+                        type: 'doughnut',
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Hasil',
+                                data: dataPresenter,
+                            }]
+                        }
+                    });
+                } else {
+                    let content =
+                    `<div class="text-center py-3">
+                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+                    </div>
+                    <hr>
+                    <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
+                    chartPresenterContainer.innerHTML = content;
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+    getPresenter();
 </script>
 <script>
     const copyRecord = (number) => {

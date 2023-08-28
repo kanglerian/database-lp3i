@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SourceSetting;
-use App\Models\Applicant;
+use App\Models\User;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +48,22 @@ class DashboardController extends Controller
         $sources = $sourcesQuery->get();
 
         return response()->json(['sources' => $sources]);
+    }
+
+    public function get_presenters($pmb = null)
+    {
+        $presentersQuery = User::select('users.identity', 'users.name', DB::raw('COUNT(applicants.identity_user) as count'))
+            ->leftJoin('applicants', 'users.identity', '=', 'applicants.identity_user')
+            ->where('users.role', 'P');
+
+        if ($pmb !== 'all' && $pmb !== null) {
+            $presentersQuery->where('applicants.pmb', $pmb);
+        }
+
+        $presentersQuery->groupBy('users.identity', 'users.name');
+        $presenters = $presentersQuery->get();
+
+        return response()->json(['presenters' => $presenters]);
     }
 
     /**

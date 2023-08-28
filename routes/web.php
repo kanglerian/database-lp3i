@@ -31,7 +31,8 @@ Route::get('/', function () {
 
 Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
 
-Route::get('get/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
+Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
+Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget')->middleware(['auth','status:1']);
 
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
