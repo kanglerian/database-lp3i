@@ -4,11 +4,18 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Database') }}
             </h2>
-            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
+            <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
+                <button class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-file-excel"></i>
+                </button>
+                <a id="downloadBlast" onclick="downloadBlast()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-download"></i>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -33,54 +40,68 @@
                     </div>
                 </div>
             @endif
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 mx-2">
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-            </div>  
-            <div class="flex items-center gap-3 text-gray-500 overflow-x-auto pb-4">
-                <div class="flex items-center gap-2">
-                    <input type="date" id="date_start"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                    <input type="date" id="date_end"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                        placeholder="Tahun lulus">
-                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                        placeholder="Asal Sekolah">
-                    <input type="number" id="year_grad" onkeypress="handleEnterKeyPress(event)"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                        placeholder="Tanggal Lahir">
-                    <input type="number" id="change_pmb" onkeypress="handleEnterKeyPress(event)"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                        placeholder="Tahun PMB">
-                    <select id="change_source"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                        <option value="all">Sumber</option>
-                        @foreach ($sources as $source)
-                            <option value="{{ $source->id }}">{{ $source->name }}</option>
-                        @endforeach
-                    </select>
-                    <select id="change_source"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                        <option value="all">Sumber</option>
-                        @foreach ($sources as $source)
-                            <option value="{{ $source->id }}">{{ $source->name }}</option>
-                        @endforeach
-                    </select>
-                    <select id="change_status"
-                        class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                        <option value="all">Status</option>
-                        @foreach ($statuses as $status)
-                            <option value="{{ $status->id }}">{{ $status->name }}</option>
-                        @endforeach
-                    </select>
-                    <button type="button" onclick="changeFilter()"
-                        class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
-                        <i class="fa-solid fa-filter"></i>
-                    </button>
+            </div>
+            <div
+                class="bg-white rounded-xl border border-gray-200 flex items-center gap-3 text-gray-500 overflow-x-auto pb-4 px-4 py-2 mx-2">
+                <div class="flex items-end gap-3">
+                    <div class="w-32 space-y-1">
+                        <label for="date_start" class="text-xs">Tanggal awal:</label>
+                        <input type="date" id="date_start" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Tanggal akhir:</label>
+                        <input type="date" id="date_end" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Tahun lulus:</label>
+                        <input type="number" id="year_grad" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun lulus">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Asal sekolah:</label>
+                        <input type="text" id="school" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Asal Sekolah">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Tanggal lahir:</label>
+                        <input type="date" id="birthday" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tanggal Lahir">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Periode PMB:</label>
+                        <input type="number" id="change_pmb" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun PMB">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Sumber database:</label>
+                        <select id="change_source" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Sumber</option>
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">{{ $source->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Status:</label>
+                        <select id="change_status" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Status</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button type="button" onclick="resetFilter()"
                         class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
@@ -134,6 +155,8 @@
     var dataTableInitialized = false;
     var dataTableInstance;
 
+    var dataApplicants;
+
     const getAPI = () => {
         fetch(urlData)
             .then(response => {
@@ -143,8 +166,8 @@
                 return response.json();
             })
             .then(data => {
-                // console.log('Data dari server:', data.applicants);
                 const count = data.applicants.length;
+                dataApplicants = data.applicants;
                 document.getElementById('count_filter').innerText = count;
             })
             .catch(error => {
@@ -156,11 +179,14 @@
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';
-        let pmbVal = document.getElementById('change_pmb').value;
-        let sourceVal = document.getElementById('change_source').value;
-        let statusVal = document.getElementById('change_status').value;
+        let schoolVal = document.getElementById('school').value || 'all';
+        let birthdayVal = document.getElementById('birthday').value || 'all';
+        let pmbVal = document.getElementById('change_pmb').value || 'all';
+        let sourceVal = document.getElementById('change_source').value || 'all';
+        let statusVal = document.getElementById('change_status').value || 'all';
 
-        urlData = `get/databases/${pmbVal}/${sourceVal}/${dateStart}/${dateEnd}/${yearGrad}/${statusVal}`;
+        urlData =
+            `get/databases/${dateStart}/${dateEnd}/${yearGrad}/${schoolVal}/${birthdayVal}/${pmbVal}/${sourceVal}/${statusVal}`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
@@ -169,19 +195,19 @@
         }
     }
 
-    const handleEnterKeyPress = (event) => {
-        if (event.keyCode == 13) {
-            changeFilter();
-        }
-    }
-
     const resetFilter = () => {
         urlData = `get/databases`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
+            document.getElementById('date_start').value = '';
+            document.getElementById('date_end').value = '';
             document.getElementById('year_grad').value = '';
+            document.getElementById('school').value = '';
+            document.getElementById('birthday').value = '';
             document.getElementById('change_pmb').value = '';
+            document.getElementById('change_source').value = 'all';
+            document.getElementById('change_status').value = 'all';
         } else {
             getDataTable();
         }
@@ -281,8 +307,17 @@
                 },
             ],
         }
-        dataTableInstance = $('#myTable').DataTable(dataTableConfig);
-        dataTableInitialized = true;
+        try {
+            const response = await fetch(urlData);
+            const data = await response.json();
+            // Tampilkan data applicants di console
+            dataApplicants = data.applicants;
+            console.log(dataApplicants);
+            dataTableInstance = $('#myTable').DataTable(dataTableConfig);
+            dataTableInitialized = true;
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     }
     getAPI();
     getDataTable();
@@ -305,6 +340,17 @@
                 }
             })
         }
+    }
+
+    const downloadBlast = () => {
+        var content = '';
+        dataApplicants.forEach(applicant => {
+            content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
+        });
+        var downloadBlast = document.getElementById('downloadBlast');
+        var blob = new Blob([content], { type: "text/plain" });
+        downloadBlast.href = URL.createObjectURL(blob);
+        downloadBlast.download = `file-blast-applicant.txt`;
     }
 
     const copyRecord = (name, phone, school, year, source) => {

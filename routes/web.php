@@ -30,10 +30,14 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
+
+Route::get('get/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
+
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::get('get/databases/{type?}/{year?}/{dateStart?}/{dateEnd?}/{yearGrad?}/{status?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+
+Route::get('get/databases/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 
 Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);
 

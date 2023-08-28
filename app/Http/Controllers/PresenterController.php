@@ -17,7 +17,10 @@ class PresenterController extends Controller
      */
     public function index()
     {
-        return view('pages.presenter.index');
+        $total = User::where('role','P')->count();
+        return view('pages.presenter.index')->with([
+            'total' => $total,
+        ]);
     }
 
     public function get_all()

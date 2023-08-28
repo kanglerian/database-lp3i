@@ -26,11 +26,13 @@ class ApplicantController extends Controller
     {
         $sources = SourceSetting::all();
         $statuses = ApplicantStatus::all();
+
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
         } else {
             $total = Applicant::where('identity_user', Auth::user()->identity)->count();
         }
+        
         return view('pages.database.index')->with([
             'total' => $total,
             'sources' => $sources,
@@ -44,7 +46,7 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($pmb = null, $source = null, $dateStart = null, $dateEnd = null, $yearGrad = null, $status = null)
+    public function get_all($dateStart = null, $dateEnd = null, $yearGrad = null, $schoolVal = null, $birthdayVal = null, $pmbVal = null, $sourceVal = null, $statusVal = null)
     {
         $applicantsQuery = Applicant::query();
 
@@ -52,26 +54,34 @@ class ApplicantController extends Controller
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
-        if($pmb !== 'all' && $source !== null){
-            $applicantsQuery->where('pmb', $pmb);
-        }
-
-        if($source !== 'all' && $source !== null){
-            $applicantsQuery->where('source_id', $source);
-        }
-
         if($dateStart !== null && $dateStart !== 'all' && $dateEnd !== null && $dateEnd !== 'all'){
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
-        }
-
-        if($status !== 'all' && $status !== null){
-            $applicantsQuery->where('status_id', $status);
         }
 
         if($yearGrad !== 'all' && $yearGrad !== null){
             $applicantsQuery->where('year', $yearGrad);
         }
 
+        if($schoolVal !== 'all' && $schoolVal !== null){
+            $applicantsQuery->where('school', $schoolVal);
+        }
+
+        if($birthdayVal !== 'all' && $birthdayVal !== null){
+            $applicantsQuery->where('date_of_birth', $birthdayVal);
+        }
+
+        if($pmbVal !== 'all' && $pmbVal !== null){
+            $applicantsQuery->where('pmb', $pmbVal);
+        }
+
+        if($sourceVal !== 'all' && $sourceVal !== null){
+            $applicantsQuery->where('source_id', $sourceVal);
+        }
+
+        if($statusVal !== 'all' && $statusVal !== null){
+            $applicantsQuery->where('status_id', $statusVal);
+        }
+        
         $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType'])
             ->orderByDesc('created_at')
             ->get();

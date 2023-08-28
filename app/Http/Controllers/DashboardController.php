@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SourceSetting;
+use App\Models\Applicant;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -22,6 +25,29 @@ class DashboardController extends Controller
             'userupload' => $userupload,
             'fileupload' => $fileupload,
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_sources($pmb = null)
+    {
+        $sourcesQuery = SourceSetting::select('source_setting.id', 'source_setting.name', DB::raw('COUNT(applicants.source_id) as count'));
+
+        if ($pmb !== 'all' && $pmb !== null) {
+            $sourcesQuery->where('applicants.pmb', $pmb);
+        }
+
+        $sourcesQuery->leftJoin('applicants', 'source_setting.id', '=', 'applicants.source_id');
+
+        $sourcesQuery->groupBy('source_setting.id', 'source_setting.name');
+
+        $sources = $sourcesQuery->get();
+
+        return response()->json(['sources' => $sources]);
     }
 
     /**
