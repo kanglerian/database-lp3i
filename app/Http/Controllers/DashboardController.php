@@ -54,7 +54,8 @@ class DashboardController extends Controller
     {
         $presentersQuery = User::select('users.identity', 'users.name', DB::raw('COUNT(applicants.identity_user) as count'))
             ->leftJoin('applicants', 'users.identity', '=', 'applicants.identity_user')
-            ->where('users.role', 'P');
+            ->where('users.role', 'P')
+            ->where('users.status', '1');
 
         if ($pmb !== 'all' && $pmb !== null) {
             $presentersQuery->where('applicants.pmb', $pmb);
