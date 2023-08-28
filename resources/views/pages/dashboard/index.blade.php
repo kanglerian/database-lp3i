@@ -141,26 +141,30 @@
             </div>
         </div>
     @endif
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
-                <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200" id="chartSourceContainer">
-                    <div class="text-center py-3">
-                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+    @if (Auth::user()->role !== 'S')
+        <div class="py-10">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
+                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                        id="chartSourceContainer">
+                        <div class="text-center py-3">
+                            <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+                        </div>
+                        <hr>
+                        <canvas id="chartSource" class="py-3"></canvas>
                     </div>
-                    <hr>
-                    <canvas id="chartSource" class="py-3"></canvas>
-                </div>
-                <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200" id="chartPresenterContainer">
-                    <div class="text-center py-3">
-                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Presenter</h3>
+                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                        id="chartPresenterContainer">
+                        <div class="text-center py-3">
+                            <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Presenter</h3>
+                        </div>
+                        <hr>
+                        <canvas id="chartPresenter" class="py-3"></canvas>
                     </div>
-                    <hr>
-                    <canvas id="chartPresenter" class="py-3"></canvas>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 </x-app-layout>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
@@ -196,7 +200,7 @@
                     });
                 } else {
                     let content =
-                    `<div class="text-center py-3">
+                        `<div class="text-center py-3">
                         <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
                     </div>
                     <hr>
@@ -241,7 +245,7 @@
                     });
                 } else {
                     let content =
-                    `<div class="text-center py-3">
+                        `<div class="text-center py-3">
                         <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
                     </div>
                     <hr>
