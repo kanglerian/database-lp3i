@@ -87,9 +87,11 @@
                                         <select name="programtype_id" id="programtype_id"
                                             class="@error('programtype_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                                             required>
+                                            @if ($applicant->programtype_id !== NULL)
                                             <option value="{{ $applicant->programtype_id }}" selected>
                                                 {{ $applicant->programType->name }}
                                             </option>
+                                            @endif
                                             @foreach ($programtypes as $programtype)
                                                 <option value="{{ $programtype->id }}">
                                                     {{ $programtype->name }}
