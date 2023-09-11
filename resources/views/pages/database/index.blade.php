@@ -115,7 +115,7 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
-                                        Tanggal
+                                        <i class="fa-solid fa-user"></i>
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Tanggal
@@ -229,7 +229,7 @@
                 {
                     data: 'id',
                     render: (data) => {
-                        return data % 2 == 0 ? "Genap" : "Ganjil";
+                        return `<i class="fa-regular fa-circle-dot"></i>`;
                     }
                 },
                 {
