@@ -225,6 +225,16 @@
             order: [
                 [0, 'desc']
             ],
+            columnDefs: [
+                { width: 10, target: 0 },
+                { width: 150, target: 1 },
+                { width: 200, target: 2 },
+                { width: 100, target: 3 },
+                { width: 150, target: 4 },
+                { width: 150, target: 5 },
+                { width: 100, target: 6 },
+                { width: 50, target: 7 },
+            ],
             columns: [
                 {
                     data: 'id',
