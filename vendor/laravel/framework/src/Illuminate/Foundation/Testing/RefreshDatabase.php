@@ -102,7 +102,7 @@ trait RefreshDatabase
                 $dispatcher = $connection->getEventDispatcher();
 
                 $connection->unsetEventDispatcher();
-                $connection->rollBack();
+                $connection->rollback();
                 $connection->setEventDispatcher($dispatcher);
                 $connection->disconnect();
             }

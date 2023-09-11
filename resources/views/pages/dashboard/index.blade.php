@@ -118,6 +118,7 @@
                                             @csrf
                                             <div class="flex items-center gap-2">
                                                 <input type="hidden" name="name" value="{{ $upload->name }}">
+                                                <input type="hidden" name="fileupload_id" value="11">
                                                 <input type="hidden" name="namefile" value="{{ $upload->namefile }}">
                                                 <input type="file" name="berkas" id="berkas"
                                                     class="text-sm border border-gray-200 bg-white px-2 py-2 rounded-md"

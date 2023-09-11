@@ -96,10 +96,10 @@ class UserController extends Controller
                 'status' => $request->input('status'),
             ];
             User::create($data);
-            return back()->with('message', 'Akun berhasil ditambahkan!');
+            return redirect('user')->with('message', 'Akun berhasil ditambahkan!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+            return redirect('user')->with('error', $errorMessage);
         }
     }
 
@@ -268,7 +268,7 @@ class UserController extends Controller
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return back()->with('message', 'Data berhasil diubah!');
+        return redirect('user')->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -282,7 +282,7 @@ class UserController extends Controller
         $account = User::findOrFail($id);
         UserUpload::where('identity_user', $account->identity)->delete();
         $account->delete();
-        return back()->with('message', 'Akun berhasil dihapus!');
+        return redirect('user')->with('message', 'Akun berhasil dihapus!');
     }
 
     /**
@@ -315,7 +315,7 @@ class UserController extends Controller
         }
 
         $user->update($data);
-        return back()->with('message', 'Data berhasil diubah!');
+        return redirect('user')->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -335,7 +335,7 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ];
         $account->update($data);
-        return back()->with('message', 'Password berhasil diubah!');
+        return redirect('user')->with('message', 'Password berhasil diubah!');
     }
 
     /**
@@ -373,6 +373,6 @@ class UserController extends Controller
             'status' => $user->status == '0' ? '1' : '0',
         ];
         $user->update($data);
-        return back()->with('message', 'Status berhasil diubah!');
+        return redirect('user')->with('message', 'Status berhasil diubah!');
     }
 }

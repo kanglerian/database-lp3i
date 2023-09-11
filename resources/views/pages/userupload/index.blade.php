@@ -40,8 +40,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table class="w-full text-sm text-sm text-left text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr class="flex justify-between items-center">
                                     <th scope="col" class="w-[300px] md:w-full px-6 py-3 rounded-t-lg">
                                         Nama Berkas
@@ -61,7 +60,8 @@
                                             <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
-                                            <button onclick="event.preventDefault(); deleteRecord('{{ $suc->id }}')"
+                                            <button
+                                                onclick="event.preventDefault(); deleteRecord('{{ $suc->id }}')"
                                                 class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -77,7 +77,10 @@
                                                 enctype="multipart/form-data" class="inline-block" method="POST">
                                                 @csrf
                                                 <div>
-                                                    <input type="hidden" name="fileupload_id" value="{{ $upload->id }}">
+                                                    <input type="hidden" name="fileupload_id"
+                                                        value="{{ $upload->id }}">
+                                                    <input type="hidden" name="namefile"
+                                                        value="{{ $upload->namefile }}">
                                                     <input type="file" name="berkas" id="berkas" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
                                                     <button type="submit"
@@ -101,7 +104,7 @@
 
 <script>
     const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
+        if (confirm(`Apakah kamu yakin akan menghapus data? ${id}`)) {
             $.ajax({
                 url: `/userupload/${id}`,
                 type: 'POST',
@@ -110,10 +113,14 @@
                     '_token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    location.reload();
+                    if (response.status === 'success') {
+                        location.reload();
+                    } else {
+                        console.log('Ada kesalahan dalam permintaan.');
+                    }
                 },
                 error: function(xhr, status, error) {
-                    alert('Error deleting record');
+                    console.log(error);
                 }
             })
         }

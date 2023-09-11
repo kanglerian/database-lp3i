@@ -117,7 +117,7 @@ class ApplicantController extends Controller
             ]);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+            return redirect('database')->with('error', $errorMessage);
         }
     }
     /**
@@ -187,11 +187,11 @@ class ApplicantController extends Controller
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
 
-            return back()->with('message', 'Data aplikan berhasil ditambahkan!');
+            return redirect('database')->with('message', 'Data aplikan berhasil ditambahkan!');
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
                 $errorMessage = 'Terjadi duplikat data.';
-                return back()->with('error', $errorMessage);
+                return redirect('database')->with('error', $errorMessage);
             }
         }
     }
@@ -210,10 +210,9 @@ class ApplicantController extends Controller
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
             $userupload = UserUpload::where('identity_user', $identity)->get();
             $data = [];
-            foreach ($userupload as $key => $upload) {
+            foreach ($userupload as $upload) {
                 $data[] = $upload->namefile;
             }
-            $success = FileUpload::whereIn('namefile', $data)->get();
             $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
             return view('pages.database.show')->with([
                 'userupload' => $userupload,
@@ -223,7 +222,7 @@ class ApplicantController extends Controller
                 'mother' => $mother,
             ]);
         } else {
-            return redirect('dashboard');
+            return redirect('database')->with('error', 'Tidak diizinkan.');
         }
     }
 
@@ -267,7 +266,7 @@ class ApplicantController extends Controller
                 'statuses' => $statuses,
             ]);
         } else {
-            return redirect('database');
+            return redirect('database')->with('error', 'Tidak diizinkan.');
         }
 
     }
@@ -384,7 +383,7 @@ class ApplicantController extends Controller
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return back()->with('message', 'Data aplikan berhasil diubah!');
+        return redirect('database')->with('message', 'Data aplikan berhasil diubah!');
     }
 
     /**
@@ -404,7 +403,7 @@ class ApplicantController extends Controller
             $user->delete();
             return session()->flash('message', 'Data aplikan berhasil dihapus!');
         } else {
-            return redirect('database');
+            return redirect('database')->with('error', 'Tidak diizinkan.');
         }
     }
 
@@ -426,7 +425,7 @@ class ApplicantController extends Controller
                 'mother' => $mother,
             ]);
         } else {
-            return redirect('database');
+            return redirect('database')->with('error', 'Tidak diizinkan.');
         }
     }
 }

@@ -93,7 +93,7 @@ trait ManagesTransactions
         // If there was an exception we will rollback this transaction and then we
         // can check if we have exceeded the maximum attempt count for this and
         // if we haven't we will return and try this query again in our loop.
-        $this->rollBack();
+        $this->rollback();
 
         if ($this->causedByConcurrencyError($e) &&
             $currentAttempt < $maxAttempts) {
@@ -276,7 +276,7 @@ trait ManagesTransactions
     protected function performRollBack($toLevel)
     {
         if ($toLevel == 0) {
-            $this->getPdo()->rollBack();
+            $this->getPdo()->rollback();
         } elseif ($this->queryGrammar->supportsSavepoints()) {
             $this->getPdo()->exec(
                 $this->queryGrammar->compileSavepointRollBack('trans'.($toLevel + 1))

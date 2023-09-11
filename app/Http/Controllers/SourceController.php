@@ -44,7 +44,7 @@ class SourceController extends Controller
         ];
 
         SourceSetting::create($data);
-        return back()->with('message', 'Data sumber database berhasil ditambahkan!');
+        return redirect('setting')->with('message', 'Data sumber database berhasil ditambahkan!');
     }
 
     /**
@@ -89,7 +89,7 @@ class SourceController extends Controller
         ];
 
         $source->update($data);
-        return back()->with('message', 'Data sumber database berhasil diubah!');
+        return redirect('setting')->with('message', 'Data sumber database berhasil diubah!');
     }
 
     /**
@@ -102,6 +102,6 @@ class SourceController extends Controller
     {
         $source = SourceSetting::findOrFail($id);
         $source->delete();
-        return back()->with('message', 'Data sumber database berhasil dihapus!');
+        return redirect('setting')->with('message', 'Data sumber database berhasil dihapus!');
     }
 }

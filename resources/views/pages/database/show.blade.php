@@ -208,9 +208,9 @@
                         <tbody>
                             @foreach ($userupload as $suc)
                                 <tr class="bg-white border-b flex justify-between items-center">
-                                    <td class="px-6 py-4">{{ $suc->name }}</td>
+                                    <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
                                     <td class="px-6 py-4">
-                                        <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->namefile }}.{{ $suc->typefile }}"
+                                        <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                             class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                 class="fa-solid fa-download"></i></a>
                                         <button
@@ -240,7 +240,7 @@
 
 <script>
     const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
+        if (confirm(`Apakah kamu yakin akan menghapus data? ${id}`)) {
             $.ajax({
                 url: `/userupload/${id}`,
                 type: 'POST',
@@ -252,7 +252,7 @@
                     location.reload();
                 },
                 error: function(xhr, status, error) {
-                    alert('Error deleting record');
+                    alert(status);
                 }
             })
         }

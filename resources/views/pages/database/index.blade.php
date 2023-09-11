@@ -220,7 +220,7 @@
                 dataSrc: 'applicants'
             },
             order: [
-                [0, 'desc']
+                [0, 'asc']
             ],
             columns: [{
                     data: 'created_at',

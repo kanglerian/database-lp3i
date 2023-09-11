@@ -638,7 +638,7 @@ class PdoSessionHandler extends AbstractSessionHandler
             if ('sqlite' === $this->driver) {
                 $this->pdo->exec('ROLLBACK');
             } else {
-                $this->pdo->rollBack();
+                $this->pdo->rollback();
             }
             $this->inTransaction = false;
         }

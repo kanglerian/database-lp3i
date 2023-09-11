@@ -106,9 +106,9 @@ class SqlServerConnection implements ServerInfoAwareConnection
      *
      * @return void
      */
-    public function rollBack()
+    public function rollback()
     {
-        return $this->connection->rollBack();
+        return $this->connection->rollback();
     }
 
     /**

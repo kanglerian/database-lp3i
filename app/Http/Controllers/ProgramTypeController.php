@@ -45,7 +45,7 @@ class ProgramTypeController extends Controller
         ];
 
         ProgramType::create($data);
-        return back()->with('message', 'Data tipe program berhasil ditambahkan!');
+        return redirect('setting')->with('message', 'Data tipe program berhasil ditambahkan!');
     }
 
     /**
@@ -91,7 +91,7 @@ class ProgramTypeController extends Controller
         ];
 
         $programtype->update($data);
-        return back()->with('message', 'Data tipe program berhasil diubah!');
+        return redirect('setting')->with('message', 'Data tipe program berhasil diubah!');
     }
 
     /**
@@ -104,6 +104,6 @@ class ProgramTypeController extends Controller
     {
         $programtype = ProgramType::findOrFail($id);
         $programtype->delete();
-        return back()->with('message', 'Data tipe program berhasil dihapus!');
+        return redirect('setting')->with('message', 'Data tipe program berhasil dihapus!');
     }
 }

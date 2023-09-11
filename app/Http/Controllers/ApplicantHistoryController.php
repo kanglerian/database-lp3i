@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use App\Models\ApplicantHistory;
 use App\Models\Applicant;
 
 class ApplicantHistoryController extends Controller
@@ -47,9 +46,9 @@ class ApplicantHistoryController extends Controller
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', $data);
 
         if ($response->successful()) {
-            return back()->with('message', 'Data riwayat berhasil ditambahkan!');
+            return redirect('histories')->with('message', 'Data riwayat berhasil ditambahkan!');
         } else {
-            return back()->with('error', 'Data riwayat gagal ditambahkan');
+            return redirect('histories')->with('error', 'Data riwayat gagal ditambahkan');
         }
     }
 
@@ -61,30 +60,31 @@ class ApplicantHistoryController extends Controller
      */
     public function show($id)
     {
-        try {
-            if (Auth::user()->role == 'P') {
-                $user = Applicant::where(['identity' => $id, 'identity_user' => Auth::user()->identity])->firstOrFail();
-            } elseif (Auth::user()->role == 'A') {
-                $user = Applicant::where(['identity' => $id])->firstOrFail();
-            }
-
-            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
-
-            if ($response->successful()) {
-                $histories = $response->json();
-                return view('pages.database.history')->with([
-                    'user' => $user,
-                    'histories' => $histories,
-                ]);
-            } else {
-                $histories = null;
-                return back()->with('error', 'Nomor telpon belum dicantumkan!');
-            }
-
-        } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+        if (Auth::user()->role == 'P') {
+            $user = Applicant::where(['identity' => $id, 'identity_user' => Auth::user()->identity])->firstOrFail();
+        } elseif (Auth::user()->role == 'A') {
+            $user = Applicant::where(['identity' => $id])->firstOrFail();
         }
+
+        if ($user->phone == null) {
+            return redirect('histories')->with('error', 'Nomor telpon belum dicantumkan');
+        }
+
+        $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+
+        $status = $response->status();
+        switch ($status) {
+            case 200:
+                $histories = $response->json();
+                break;
+            case 500:
+                return redirect('histories')->with('error', 'Server belum dijalankan');
+
+        }
+        return view('pages.database.history')->with([
+            'user' => $user,
+            'histories' => $histories,
+        ]);
     }
 
     /**
@@ -116,9 +116,9 @@ class ApplicantHistoryController extends Controller
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/update/' . $id, $data);
 
         if ($response->successful()) {
-            return back()->with('message', 'Data riwayat berhasil diupdate!');
+            return redirect('histories')->with('message', 'Data riwayat berhasil diupdate!');
         } else {
-            return back()->with('error', 'Data riwayat gagal diupdate');
+            return redirect('histories')->with('error', 'Data riwayat gagal diupdate');
         }
     }
 
