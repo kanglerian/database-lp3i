@@ -219,9 +219,6 @@
                 url: urlData,
                 dataSrc: 'applicants'
             },
-            order: [
-                [0, 'asc']
-            ],
             columns: [{
                     data: 'created_at',
                     render: (data) => {
