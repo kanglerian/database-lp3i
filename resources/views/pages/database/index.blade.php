@@ -115,6 +115,9 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
+                                        ID
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -219,7 +222,11 @@
                 url: urlData,
                 dataSrc: 'applicants'
             },
-            columns: [{
+            columns: [
+                {
+                    data: 'id',
+                },
+                {
                     data: 'created_at',
                     render: (data) => {
                         return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
