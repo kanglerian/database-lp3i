@@ -15,6 +15,9 @@ use App\Models\FileUpload;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 
+use App\Exports\ApplicantsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ApplicantController extends Controller
 {
     /**
@@ -427,5 +430,16 @@ class ApplicantController extends Controller
         } else {
             return redirect('database')->with('error', 'Tidak diizinkan.');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        return Excel::download(new ApplicantsExport, 'applicants.xlsx');
     }
 }
