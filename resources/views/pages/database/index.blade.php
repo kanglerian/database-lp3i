@@ -228,6 +228,9 @@
             columns: [
                 {
                     data: 'id',
+                    render: (data) => {
+                        return data % 2 == 0 ? "Genap" : "Ganjil";
+                    }
                 },
                 {
                     data: 'created_at',
