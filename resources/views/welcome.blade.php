@@ -75,7 +75,7 @@
             </div>
             <div class="w-full md:w-3/6">
                 <div class="flex items-center justify-center">
-                    <lottie-player src="{{ asset('img/education.json') }}" background="Transparent" speed="1"
+                    <lottie-player src="{{ asset('animations/education.json') }}" background="Transparent" speed="1"
                         style="width: 500px; height: 500px" direction="1" mode="normal" loop autoplay></lottie-player>
                 </div>
             </div>
@@ -113,7 +113,7 @@
     </div>
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="{{ asset('js/lottie.js') }}"></script>"></script>
 </body>
 
 </html>

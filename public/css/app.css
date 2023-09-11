@@ -773,6 +773,10 @@ select {
   top: 0.75rem;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -928,6 +932,10 @@ select {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .block {
@@ -2254,6 +2262,10 @@ select {
 }
 
 @media (min-width: 640px) {
+  .sm\:left-0 {
+    left: 0px;
+  }
+
   .sm\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -2318,6 +2330,10 @@ select {
 }
 
 @media (min-width: 768px) {
+  .md\:right-0 {
+    right: 0px;
+  }
+
   .md\:order-none {
     order: 0;
   }

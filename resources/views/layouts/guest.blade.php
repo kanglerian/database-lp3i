@@ -8,7 +8,7 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon/favicon.png') }}">
     <title>{{ config('app.name', 'Politeknik LP3I Kampus Tasikmalaya') }}</title>
-    
+
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
@@ -33,9 +33,33 @@
         {{ $slot }}
     </div>
 
+    <div class="absolute bottom-0 right-0">
+        <a href="https://politekniklp3i-tasikmalaya.ac.id/conflict-register"><lottie-player src="{{ asset('animations/whatsapp.json') }}" background="Transparent" speed="1"
+            style="width: 100px; height: 100px" direction="1" mode="normal" loop autoplay></lottie-player>
+        </a>
+    </div>
+
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="{{ asset('js/lottie.js') }}"></script>
+
+    <script>
+        let phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function() {
+            let phone = phoneInput.value;
+
+            if (phone.startsWith('62')) {
+                // Biarkan jika sudah dimulai dengan '62'
+            } else if (phone.startsWith('0')) {
+                // Ubah '0' menjadi '62' jika dimulai dengan '0'
+                phoneInput.value = '62' + phone.substring(1);
+            } else {
+                // Ubah angka selain '0' dan '62' menjadi '62'
+                phoneInput.value = '62';
+            }
+        });
+    </script>
+
 </body>
 
 </html>

@@ -51,8 +51,8 @@ class ProfileController extends Controller
             'identity' => $request->input('identity'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make(strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone')),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'password' => Hash::make($request->input('phone')),
+            'phone' => $request->input('phone'),
             'role' => 'S',
             'status' => 0,
         ];
@@ -241,7 +241,7 @@ class ProfileController extends Controller
         $data = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
         ];
 
         if ($user_detail !== null) {

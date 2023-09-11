@@ -64,7 +64,7 @@ class PresenterController extends Controller
             'identity' => mt_rand(1, 1000000000),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
             'role' => 'P',
             'status' => '1',
@@ -120,7 +120,7 @@ class PresenterController extends Controller
         $data = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'role' => 'P',
             'status' => $request->input('status'),
         ];

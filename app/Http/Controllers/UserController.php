@@ -90,7 +90,7 @@ class UserController extends Controller
                 'identity' => mt_rand(1, 1000000000),
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
                 'role' => $request->input('role'),
                 'status' => $request->input('status'),
@@ -213,7 +213,7 @@ class UserController extends Controller
         $data = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
@@ -306,7 +306,7 @@ class UserController extends Controller
         $data = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
         ];
 
         if ($user_detail !== null) {

@@ -12,7 +12,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro:wght@400;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro:wght@400;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Styles -->
@@ -26,7 +27,8 @@
             font-family: 'Source Code Pro', monospace;
         }
 
-        td, th {
+        td,
+        th {
             white-space: nowrap;
         }
 
@@ -81,6 +83,25 @@
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/datatables.min.js') }}"></script>
+
+    <script>
+        let phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function() {
+            let phone = phoneInput.value;
+
+            if (phone.startsWith('62')) {
+                // Biarkan jika sudah dimulai dengan '62'
+            } else if (phone.startsWith('0')) {
+                // Ubah '0' menjadi '62' jika dimulai dengan '0'
+                phoneInput.value = '62' + phone.substring(1);
+            } else {
+                // Ubah angka selain '0' dan '62' menjadi '62'
+                phoneInput.value = '62';
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>

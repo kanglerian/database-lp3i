@@ -38,27 +38,23 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'email', 'max:255', 'unique:users','unique:applicants'],
             'phone' => [
                 'required',
                 'string',
-                new PhoneValidation,
-                Rule::unique('users')->where(function ($query) {
-                    $formattedPhone = '62' . substr(request()->input('phone'), 1);
-                    return $query->where('phone', $formattedPhone);
-                })
+                'unique:users',
+                'unique:applicants'
             ],
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         $numbers_unique = mt_rand(1, 1000000000);
-        $phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
         $data = [
             'identity' => $numbers_unique,
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
             'role' => 'S',
             'status' => '0',
@@ -68,7 +64,7 @@ class RegisteredUserController extends Controller
             'identity' => $numbers_unique,
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'source_id' => 1,
             'status' => 3,
             'isread' => '0',

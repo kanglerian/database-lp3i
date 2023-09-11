@@ -159,7 +159,7 @@ class ApplicantController extends Controller
                 'religion' => $request->input('religion'),
                 'address' => $address_applicant,
                 'email' => $request->input('email'),
-                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'phone' => $request->input('phone'),
                 'education' => $request->input('education'),
                 'major' => $request->input('major'),
                 'year' => $request->input('year'),
@@ -300,7 +300,7 @@ class ApplicantController extends Controller
             $data_user = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+                'phone' => $request->input('phone'),
             ];
             $user = User::findOrFail($user_detail->id);
             $user->update($data_user);
@@ -323,7 +323,7 @@ class ApplicantController extends Controller
             'status_id' => $request->input('status_id'),
             'pmb' => $request->input('pmb'),
             'email' => $request->input('email'),
-            'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
+            'phone' => $request->input('phone'),
             'note' => $request->input('note'),
             'name' => $request->input('name'),
             'gender' => $request->input('gender'),
