@@ -65,7 +65,7 @@ class ApplicantsExport implements FromQuery, WithMapping, WithHeadings
         // Kolom-kolom dari relasi SourceSetting, ApplicantStatus, ProgramType
         $sourceName = $applicant->SourceSetting->name;
         $statusName = $applicant->ApplicantStatus->name;
-        $programType = $applicant->ProgramType->name;
+        // $programType = $applicant->ProgramType->name;
 
         // Kolom-kolom yang sudah Anda atur sebelumnya
         $gender = ($applicant->gender == 1) ? 'Laki-laki' : 'Perempuan';
@@ -87,7 +87,7 @@ class ApplicantsExport implements FromQuery, WithMapping, WithHeadings
             'religion' => $applicant->religion,
             'email' => $applicant->email,
             'phone' => $applicant->phone,
-            'program_type' => $programType,
+            // 'program_type' => $programType,
             'program' => $applicant->program,
             'source_name' => $sourceName,
             'status_name' => $statusName,
