@@ -117,25 +117,25 @@
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
                                         <i class="fa-solid fa-user"></i>
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Tanggal
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Nama lengkap
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         No. Telpon (Whatsapp)
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Asal sekolah
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Tahun lulus
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Sumber
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Status
                                     </th>
                                     <th scope="col" class="px-6 py-3 rounded-tr-lg">

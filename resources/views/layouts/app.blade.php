@@ -26,6 +26,10 @@
             font-family: 'Source Code Pro', monospace;
         }
 
+        td, th {
+            white-space: nowrap;
+        }
+
         .dataTables_length>label {
             font-size: 14px !important;
             color: #6b7280 !important;
