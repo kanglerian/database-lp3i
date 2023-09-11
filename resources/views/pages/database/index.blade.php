@@ -223,7 +223,7 @@
                 dataSrc: 'applicants'
             },
             order: [
-                [0, 'asc']
+                [0, 'desc']
             ],
             columns: [
                 {
