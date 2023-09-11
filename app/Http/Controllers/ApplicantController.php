@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantFamily;
-use App\Models\ApplicantStatus;
 use App\Models\Applicant;
+use App\Models\ApplicantStatus;
 use App\Models\SourceSetting;
 use App\Models\ProgramType;
 use App\Models\UserUpload;
@@ -438,8 +438,8 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function export()
+    public function export($dateStart = null, $dateEnd = null, $yearGrad = null, $schoolVal = null, $birthdayVal = null, $pmbVal = null, $sourceVal = null, $statusVal = null)
     {
-        return Excel::download(new ApplicantsExport, 'applicants.xlsx');
+        return (new ApplicantsExport($dateStart, $dateEnd, $yearGrad, $schoolVal, $birthdayVal, $pmbVal, $sourceVal, $statusVal))->download('applicants.xlsx');
     }
 }

@@ -1152,3 +1152,52 @@
         fatherAddressContainer.innerHTML = content;
     }
 </script>
+
+<script>
+    let phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function() {
+        let phone = phoneInput.value;
+
+        if (phone.startsWith('62')) {
+            // Biarkan jika sudah dimulai dengan '62'
+        } else if (phone.startsWith('0')) {
+            // Ubah '0' menjadi '62' jika dimulai dengan '0'
+            phoneInput.value = '62' + phone.substring(1);
+        } else {
+            // Ubah angka selain '0' dan '62' menjadi '62'
+            phoneInput.value = '62';
+        }
+    });
+</script>
+<script>
+    let phoneMotherInput = document.getElementById('mother_phone');
+    phoneMotherInput.addEventListener('input', function() {
+        let phone = phoneMotherInput.value;
+
+        if (phone.startsWith('62')) {
+            // Biarkan jika sudah dimulai dengan '62'
+        } else if (phone.startsWith('0')) {
+            // Ubah '0' menjadi '62' jika dimulai dengan '0'
+            phoneMotherInput.value = '62' + phone.substring(1);
+        } else {
+            // Ubah angka selain '0' dan '62' menjadi '62'
+            phoneMotherInput.value = '62';
+        }
+    });
+</script>
+<script>
+    let phoneFatherInput = document.getElementById('father_phone');
+    phoneFatherInput.addEventListener('input', function() {
+        let phone = phoneFatherInput.value;
+
+        if (phone.startsWith('62')) {
+            // Biarkan jika sudah dimulai dengan '62'
+        } else if (phone.startsWith('0')) {
+            // Ubah '0' menjadi '62' jika dimulai dengan '0'
+            phoneFatherInput.value = '62' + phone.substring(1);
+        } else {
+            // Ubah angka selain '0' dan '62' menjadi '62'
+            phoneFatherInput.value = '62';
+        }
+    });
+</script>

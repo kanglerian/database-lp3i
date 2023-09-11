@@ -43,23 +43,6 @@
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/lottie.js') }}"></script>
 
-    <script>
-        let phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('input', function() {
-            let phone = phoneInput.value;
-
-            if (phone.startsWith('62')) {
-                // Biarkan jika sudah dimulai dengan '62'
-            } else if (phone.startsWith('0')) {
-                // Ubah '0' menjadi '62' jika dimulai dengan '0'
-                phoneInput.value = '62' + phone.substring(1);
-            } else {
-                // Ubah angka selain '0' dan '62' menjadi '62'
-                phoneInput.value = '62';
-            }
-        });
-    </script>
-
 </body>
 
 </html>

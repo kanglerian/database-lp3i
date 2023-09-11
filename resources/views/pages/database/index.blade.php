@@ -9,9 +9,10 @@
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
-                <a href="{{ route('applicants.export') }}" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                <button onclick="exportExcel()"
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
-                </a>
+                </button>
                 <a id="downloadBlast" onclick="downloadBlast()"
                     class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
@@ -155,6 +156,8 @@
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script>
     var urlData = 'get/databases';
+    var urlExcel = 'applicants/export';
+
     var dataTableInitialized = false;
     var dataTableInstance;
 
@@ -190,6 +193,9 @@
 
         urlData =
             `get/databases/${dateStart}/${dateEnd}/${yearGrad}/${schoolVal}/${birthdayVal}/${pmbVal}/${sourceVal}/${statusVal}`;
+        urlExcel =
+            `applicants/export/${dateStart}/${dateEnd}/${yearGrad}/${schoolVal}/${birthdayVal}/${pmbVal}/${sourceVal}/${statusVal}`;
+        console.log(urlExcel);
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
@@ -200,6 +206,7 @@
 
     const resetFilter = () => {
         urlData = `get/databases`;
+        urlExcel = 'applicants/export';
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             getAPI();
@@ -225,18 +232,40 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [
-                { width: 10, target: 0 },
-                { width: 150, target: 1 },
-                { width: 200, target: 2 },
-                { width: 100, target: 3 },
-                { width: 150, target: 4 },
-                { width: 150, target: 5 },
-                { width: 100, target: 6 },
-                { width: 50, target: 7 },
-            ],
-            columns: [
+            columnDefs: [{
+                    width: 10,
+                    target: 0
+                },
                 {
+                    width: 150,
+                    target: 1
+                },
+                {
+                    width: 200,
+                    target: 2
+                },
+                {
+                    width: 100,
+                    target: 3
+                },
+                {
+                    width: 150,
+                    target: 4
+                },
+                {
+                    width: 150,
+                    target: 5
+                },
+                {
+                    width: 100,
+                    target: 6
+                },
+                {
+                    width: 50,
+                    target: 7
+                },
+            ],
+            columns: [{
                     data: 'id',
                     render: (data) => {
                         return `<i class="fa-regular fa-circle-dot"></i>`;
@@ -258,7 +287,8 @@
                         let editUrl = "{{ route('histories.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.phone == null ? `<span class="font-bold">${data.name}</span>` : `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` ; 
+                        return data.phone == null ? `<span class="font-bold">${data.name}</span>` :
+                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`;
                     }
                 },
                 {
@@ -333,7 +363,6 @@
             const data = await response.json();
             // Tampilkan data applicants di console
             dataApplicants = data.applicants;
-            console.log(dataApplicants);
             dataTableInstance = $('#myTable').DataTable(dataTableConfig);
             dataTableInitialized = true;
         } catch (error) {
@@ -369,7 +398,9 @@
             content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
         });
         var downloadBlast = document.getElementById('downloadBlast');
-        var blob = new Blob([content], { type: "text/plain" });
+        var blob = new Blob([content], {
+            type: "text/plain"
+        });
         downloadBlast.href = URL.createObjectURL(blob);
         downloadBlast.download = `file-blast-applicant.txt`;
     }
@@ -396,5 +427,35 @@
         document.execCommand("copy");
         document.body.removeChild(textarea);
         alert('Link sudah disalin!');
+    }
+
+    const exportExcel = () => {
+        $.ajax({
+            url: urlExcel,
+            method: 'GET',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: (response, status, xhr) => {
+                console.log('Berhasil!');
+                const filename = xhr.getResponseHeader('Content-Disposition')
+                    .split(';')[1]
+                    .trim()
+                    .split('=')[1];
+                const blob = new Blob([response], {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            },
+            error: () => {
+                console.log('Terjadi kesalahan saat melakukan eksport');
+            }
+        });
     }
 </script>
