@@ -115,7 +115,7 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-tl-lg">
-                                        ID
+                                        Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Tanggal
