@@ -16,7 +16,6 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 
 use App\Exports\ApplicantsExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicantController extends Controller
 {

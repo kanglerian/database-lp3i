@@ -560,6 +560,7 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Exports\\ApplicantsExport' => __DIR__ . '/../..' . '/app/Exports/ApplicantsExport.php',
         'App\\Http\\Controllers\\API\\ApplicantController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApplicantController.php',
         'App\\Http\\Controllers\\API\\ApplicantHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApplicantHistoryController.php',
         'App\\Http\\Controllers\\API\\PresenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/PresenterController.php',
@@ -581,6 +582,7 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
         'App\\Http\\Controllers\\PresenterController' => __DIR__ . '/../..' . '/app/Http/Controllers/PresenterController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\ProgramTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProgramTypeController.php',
+        'App\\Http\\Controllers\\SchoolController' => __DIR__ . '/../..' . '/app/Http/Controllers/SchoolController.php',
         'App\\Http\\Controllers\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/SettingController.php',
         'App\\Http\\Controllers\\SourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/SourceController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
@@ -604,6 +606,7 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
         'App\\Models\\ApplicantStatus' => __DIR__ . '/../..' . '/app/Models/ApplicantStatus.php',
         'App\\Models\\FileUpload' => __DIR__ . '/../..' . '/app/Models/FileUpload.php',
         'App\\Models\\ProgramType' => __DIR__ . '/../..' . '/app/Models/ProgramType.php',
+        'App\\Models\\School' => __DIR__ . '/../..' . '/app/Models/School.php',
         'App\\Models\\SourceSetting' => __DIR__ . '/../..' . '/app/Models/SourceSetting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserUpload' => __DIR__ . '/../..' . '/app/Models/UserUpload.php',

@@ -10,6 +10,7 @@ const getProvinces = async () => {
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
       let data = response.data.provinces;
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
     </option>`;

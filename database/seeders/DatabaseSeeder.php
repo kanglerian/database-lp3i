@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SourceSeeder::class,
             StatusSeeder::class,
             UserSeeder::class,
+            // SchoolSeeder::class,
         ]);
     }
 }

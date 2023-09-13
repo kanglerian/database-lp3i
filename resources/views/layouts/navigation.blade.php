@@ -21,6 +21,11 @@
                             {{ __('Database') }}
                         </x-nav-link>
                     @endif
+                    @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
+                        <x-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
+                            {{ __('Sekolah') }}
+                        </x-nav-link>
+                    @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                         <x-nav-link :href="route('presenter.index')" :active="request()->routeIs(['presenter.index', 'presenter.create', 'presenter.edit'])">
                             {{ __('Presenter') }}
@@ -122,6 +127,11 @@
             @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'histories.show'])">
                     {{ __('Database') }}
+                </x-responsive-nav-link>
+            @endif
+            @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
+                    {{ __('Sekolah') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')

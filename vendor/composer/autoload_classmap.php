@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Exports\\ApplicantsExport' => $baseDir . '/app/Exports/ApplicantsExport.php',
     'App\\Http\\Controllers\\API\\ApplicantController' => $baseDir . '/app/Http/Controllers/API/ApplicantController.php',
     'App\\Http\\Controllers\\API\\ApplicantHistoryController' => $baseDir . '/app/Http/Controllers/API/ApplicantHistoryController.php',
     'App\\Http\\Controllers\\API\\PresenterController' => $baseDir . '/app/Http/Controllers/API/PresenterController.php',
@@ -29,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\PresenterController' => $baseDir . '/app/Http/Controllers/PresenterController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\ProgramTypeController' => $baseDir . '/app/Http/Controllers/ProgramTypeController.php',
+    'App\\Http\\Controllers\\SchoolController' => $baseDir . '/app/Http/Controllers/SchoolController.php',
     'App\\Http\\Controllers\\SettingController' => $baseDir . '/app/Http/Controllers/SettingController.php',
     'App\\Http\\Controllers\\SourceController' => $baseDir . '/app/Http/Controllers/SourceController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
@@ -52,6 +54,7 @@ return array(
     'App\\Models\\ApplicantStatus' => $baseDir . '/app/Models/ApplicantStatus.php',
     'App\\Models\\FileUpload' => $baseDir . '/app/Models/FileUpload.php',
     'App\\Models\\ProgramType' => $baseDir . '/app/Models/ProgramType.php',
+    'App\\Models\\School' => $baseDir . '/app/Models/School.php',
     'App\\Models\\SourceSetting' => $baseDir . '/app/Models/SourceSetting.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserUpload' => $baseDir . '/app/Models/UserUpload.php',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
 use App\Http\Controllers\DashboardController;
@@ -30,6 +31,10 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
+
+Route::resource('school', SchoolController::class)->middleware(['auth']);
+Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get')->middleware(['auth','status:1','role:A']);
+Route::post('import/schools', [SchoolController::class, 'import'])->middleware(['auth'])->name('school.import');
 
 Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
 Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget')->middleware(['auth','status:1']);
