@@ -945,10 +945,7 @@
             <div class="grid md:grid-cols-1 md:gap-6 mb-5">
                 <div class="relative z-0 w-full group">
                     <x-label for="mother_address" :value="__('Alamat')" />
-                    <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ $applicant->address }}"
-                        placeholder="Tulis alamat disini...">
-                        {{ $applicant->address }}
-                    </x-textarea>
+                    <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ $applicant->address }}" placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                     <p class="mt-2 text-xs text-gray-500">
                         <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
                     </p>
@@ -1025,10 +1022,7 @@
             <div class="grid md:grid-cols-1 md:gap-6 mb-5">
                 <div class="relative z-0 w-full group">
                     <x-label for="father_address" :value="__('Alamat')" />
-                    <x-textarea id="father_address" type="father_address" name="father_address" value="{{ $applicant->address }}"
-                        placeholder="Tulis alamat disini...">
-                        {{ $applicant->address }}
-                    </x-textarea>
+                    <x-textarea id="father_address" type="father_address" name="father_address" value="{{ $applicant->address }}"placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                     <p class="mt-2 text-xs text-gray-500">
                         <span class="text-red-500">{{ $errors->first('father_address') }}</span>
                     </p>
