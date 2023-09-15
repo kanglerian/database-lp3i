@@ -147,9 +147,9 @@
                                     </div>
                                 </div>
 
-                                <div id="address-container" class="hidden">
+                                <div id="address-container" class="hidden mb-5">
 
-                                    <div class="grid md:grid-cols-2 md:gap-6">
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="provinces" :value="__('Provinsi')" />
                                             <x-select id="provinces" name="provinces">
@@ -164,7 +164,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid md:grid-cols-2 md:gap-6">
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="districts" :value="__('Kecamatan')" />
                                             <x-select id="districts" name="districts">
@@ -179,8 +179,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid md:grid-cols-3 md:gap-6">
-
+                                    <div class="grid md:grid-cols-3 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="rt" :value="__('RT')" />
                                             <x-input id="rt" type="number" name="rt"
@@ -189,7 +188,6 @@
                                                 <span class="text-red-500">{{ $errors->first('rt') }}</span>
                                             </p>
                                         </div>
-
                                         <div class="relative z-0 w-full group">
                                             <x-label for="rw" :value="__('RW')" />
                                             <x-input id="rw" type="number" name="rw"
@@ -198,7 +196,6 @@
                                                 <span class="text-red-500">{{ $errors->first('rw') }}</span>
                                             </p>
                                         </div>
-
                                         <div class="relative z-0 w-full group">
                                             <x-label for="postal_code" :value="__('Kode Pos')" />
                                             <x-input id="postal_code" type="number" name="postal_code"
@@ -207,8 +204,8 @@
                                                 <span class="text-red-500">{{ $errors->first('postal_code') }}</span>
                                             </p>
                                         </div>
-
                                     </div>
+
                                 </div>
 
                                 <div class="grid md:grid-cols-2 md:gap-6">
