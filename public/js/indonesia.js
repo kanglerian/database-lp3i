@@ -3,6 +3,8 @@ const selectRegencies = document.getElementById('regencies');
 const selectDistricts = document.getElementById('districts');
 const selectVillages = document.getElementById('villages');
 
+const wilayah = document.getElementById('wilayah');
+
 const addressContainer = document.getElementById('address-container');
 
 const getProvinces = async () => {
@@ -20,11 +22,13 @@ const getProvinces = async () => {
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
       }
+      wilayah.innerText = 'connect';
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
       selectProvinces.value = '';
       selectProvinces.innerHTML = bucket;
+      wilayah.innerText = 'tidak connect';
     });
 }
 getProvinces();
