@@ -280,7 +280,7 @@
                     </div>
                 </div>
 
-                <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
+                <div class="px-6 py-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
                             <header>
@@ -548,7 +548,7 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row items-start gap-5">
-                    <div class="w-full md:w-1/2 px-6 pt-6 bg-white shadow sm:rounded-lg">
+                    <div class="w-full md:w-1/2 px-6 py-6 bg-white shadow sm:rounded-lg">
                         <div class="w-full">
                             <section>
                                 <header>
@@ -836,7 +836,19 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div id="mother_address_container" class="hidden">
+                                    <div id="address-mother-container" class="hidden">
+                                        @if ($applicant->address !== null)
+                                            <div class="flex mb-3">
+                                                <input id="mother-checkbox" onclick="motherAddress()"
+                                                    type="checkbox" value=""
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                                <label for="default-checkbox"
+                                                    class="ml-2 text-sm font-medium text-gray-900">Alamat
+                                                    sama dengan
+                                                    aplikan?</label>
+                                            </div>
+                                        @endif
+                                        <div id="mother_address_container">
                                             <div class="grid md:grid-cols-2 md:gap-6 mb-5">
                                                 <div class="relative z-0 w-full group">
                                                     <x-label for="mother_provinces" :value="__('Provinsi')" />
@@ -896,6 +908,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     @endif
                                 </section>
                             </section>
