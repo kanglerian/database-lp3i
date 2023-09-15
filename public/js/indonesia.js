@@ -22,13 +22,13 @@ const getProvinces = async () => {
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
       }
-      wilayah.innerText = 'connect';
+      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
       selectProvinces.value = '';
       selectProvinces.innerHTML = bucket;
-      wilayah.innerText = 'tidak connect';
+      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-red-500"></i>';
     });
 }
 getProvinces();

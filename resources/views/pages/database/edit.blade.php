@@ -1,3 +1,6 @@
+@push('styles')
+    <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet" />
+@endpush
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center gap-3">
@@ -5,6 +8,22 @@
                 {{ $applicant->name }}
             </h2>
             <div class="flex flex-col md:flex-row items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-map-location-dot text-gray-700"></i>
+                        <span class="text-sm" id="wilayah"></span>
+                    </div>
+                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-rectangle-list text-gray-700"></i>
+                        <span class="text-sm">
+                            @if ($programs == null)
+                                <i class="fa-solid fa-wifi text-red-500"></i>
+                            @else
+                                <i class="fa-solid fa-wifi text-green-500"></i>
+                            @endif
+                        </span>
+                    </div>
+                </div>
                 @if ($account == 0 && ($applicant->status_id == 3 || $applicant->status_id == 4))
                     <form action="{{ route('profile.store') }}" method="POST">
                         @csrf
@@ -52,7 +71,7 @@
             @csrf
             @method('PATCH')
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
+                <div class="px-6 py-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
                             <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
@@ -67,56 +86,49 @@
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
-                                <div class="grid md:grid-cols-2 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="pmb" id="pmb" value="{{ $applicant->pmb }}"
-                                            class="@error('pmb') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required />
+                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="pmb" :value="__('Tahun Akademik')" />
+                                        <x-input id="pmb" type="number" name="pmb"
+                                            value="{{ $applicant->pmb }}" placeholder="Tahun Akademik" required />
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('pmb'))
-                                                {{ $errors->first('pmb') }}
+                                                <span class="text-red-500">{{ $errors->first('pmb') }}</span>
                                             @else
                                                 <span class="text-red-500">*Wajib diisi.</span>
                                             @endif
                                         </p>
-                                        <label for="pmb"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
-                                            Akademik</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <select name="programtype_id" id="programtype_id"
-                                            class="@error('programtype_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
-                                            @if ($applicant->programtype_id !== NULL)
-                                            <option value="{{ $applicant->programtype_id }}" selected>
-                                                {{ $applicant->programType->name }}
-                                            </option>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="programtype_id" :value="__('Program Kuliah')" />
+                                        <x-select id="programtype_id" name="programtype_id" required>
+                                            @if ($applicant->programtype_id !== null)
+                                                <option value="{{ $applicant->programtype_id }}" selected>
+                                                    {{ $applicant->programType->name }}
+                                                </option>
                                             @endif
                                             @foreach ($programtypes as $programtype)
                                                 <option value="{{ $programtype->id }}">
                                                     {{ $programtype->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('programtype_id'))
-                                                {{ $errors->first('programtype_id') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('programtype_id') }}</span>
                                             @else
                                                 <span class="text-red-500">*Wajib diisi.</span>
                                             @endif
                                         </p>
-                                        <label for="pmb"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Program
-                                            Kuliah</label>
                                     </div>
                                 </div>
-                                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6">
+
+                                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6 mb-5">
                                     @if ($programs !== null)
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="program" class="sr-only">Program</label>
-                                            <select id="program" name="program"
-                                                class="@error('program') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                required>
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="program" :value="__('Program')" />
+                                            <x-select id="program" name="program" required>
                                                 @if ($applicant->program == null)
                                                     <option value="Pilih program">Pilih program</option>
                                                     <option value="Belum diketahui">Belum diketahui</option>
@@ -133,12 +145,11 @@
                                                             {{ $prog['level'] }} {{ $prog['title'] }}</option>
                                                     @endforeach
                                                 @endif
-                                            </select>
+                                            </x-select>
                                             <p class="mt-2 text-xs text-gray-500">
                                                 @if ($errors->has('program'))
-                                                    {{ $errors->first('program') }}
-                                                @endif
-                                                @if ($applicant->program == null)
+                                                    <span class="text-red-500">{{ $errors->first('program') }}</span>
+                                                @else
                                                     <span class="text-red-500">*Wajib diisi.</span>
                                                 @endif
                                             </p>
@@ -151,11 +162,9 @@
                                         <input type="hidden" value="{{ $applicant->identity_user }}"
                                             name="identity_user">
                                     @else
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <label for="identity_user" class="sr-only">Presenter</label>
-                                            <select id="identity_user" name="identity_user"
-                                                class="@error('identity_user') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                required>
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="identity_user" :value="__('Presenter')" />
+                                            <x-select id="identity_user" name="identity_user" required>
                                                 @if ($applicant->identity_user == null)
                                                     <option value="Pilih presenter">Pilih presenter</option>
                                                     @foreach ($presenters as $presenter)
@@ -173,7 +182,7 @@
                                                         </option>
                                                     @endforeach
                                                 @endif
-                                            </select>
+                                            </x-select>
                                             <p class="mt-2 text-xs text-gray-500">
                                                 @if ($errors->has('identity_user'))
                                                     {{ $errors->first('identity_user') }}
@@ -186,12 +195,10 @@
                                     @endif
                                 </div>
 
-                                <div class="grid md:grid-cols-2 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <label for="source_id" class="sr-only">Sumber</label>
-                                        <select id="source_id" name="source_id"
-                                            class="@error('source_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
+                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="source_id" :value="__('Sumber')" />
+                                        <x-select id="source_id" name="source_id" required>
                                             <option value="{{ $applicant->source_id }}" selected>
                                                 {{ $applicant->sourceSetting->name }}
                                             </option>
@@ -200,21 +207,18 @@
                                                     {{ $source->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('source_id'))
-                                                {{ $errors->first('source_id') }}
-                                            @endif
-                                            @if ($applicant->source_id == null)
+                                                <span class="text-red-500">{{ $errors->first('source_id') }}</span>
+                                            @else
                                                 <span class="text-red-500">*Wajib diisi.</span>
                                             @endif
                                         </p>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <label for="status_id" class="sr-only">Status</label>
-                                        <select id="status_id" name="status_id"
-                                            class="@error('status_id') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="status_id" :value="__('Status')" />
+                                        <x-select id="status_id" name="status_id" required>
                                             <option value="{{ $applicant->status_id }}" selected>
                                                 {{ $applicant->applicantStatus->name }}
                                             </option>
@@ -223,62 +227,51 @@
                                                     {{ $status->name }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('status_id'))
-                                                {{ $errors->first('status_id') }}
-                                            @endif
-                                            @if ($applicant->status_id == null)
+                                                <span class="text-red-500">{{ $errors->first('status_id') }}</span>
+                                            @else
                                                 <span class="text-red-500">*Wajib diisi.</span>
                                             @endif
                                         </p>
                                     </div>
                                 </div>
+
                                 <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="email" name="email" id="email"
-                                            value="{{ $applicant->email }}"
-                                            class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required />
-                                        <p class="mt-2 text-xs text-gray-500">
-                                            @if ($errors->has('email'))
-                                                {{ $errors->first('email') }}
-                                            @endif
-                                            @if ($applicant->email == null)
-                                                <span class="text-red-500">*Wajib diisi.</span>
-                                            @endif
-                                        </p>
-                                        <label for="email"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="email" :value="__('Email')" />
+                                            <x-input id="email" type="email" name="email"
+                                                value="{{ $applicant->email }}" placeholder="Email" />
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                <span class="text-red-500">{{ $errors->first('email') }}</span>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="number" name="phone" id="phone"
-                                            value="{{ $applicant->phone }}"
-                                            class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder="" required />
-                                        <p class="mt-2 text-xs text-gray-500">
-                                            @if ($errors->has('phone'))
-                                                {{ $errors->first('phone') }}
-                                            @endif
-                                            @if ($applicant->phone == null)
-                                                <span class="text-red-500">*Wajib diisi.</span>
-                                            @endif
-                                        </p>
-                                        <label for="phone"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
-                                            Telpon (Whatsapp)</label>
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="phone" :value="__('No. Whatsapp')" />
+                                            <x-input id="phone" type="number" name="phone"
+                                                value="{{ $applicant->phone }}"
+                                                placeholder="Tulis no. Whatsapp disini..." />
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="grid md:grid-cols-1 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <textarea name="note" id="note" value="{{ old('note', $applicant->note) }}"
-                                            class="@error('note') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" ">{{ old('note', $applicant->note) }}</textarea>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="note" :value="__('Catatan')" />
+                                        <x-textarea id="note" type="note" name="note"
+                                            value="{{ $applicant->note }}" placeholder="Catatan">
+                                            {{ $applicant->note }}
+                                        </x-textarea>
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('note') }}
+                                            <span class="text-red-500">{{ $errors->first('note') }}</span>
                                         </p>
-                                        <label for="note"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Catatan</label>
                                     </div>
                                 </div>
 
@@ -300,30 +293,24 @@
                             </header>
                             <hr class="mt-2 mb-8">
                             <section>
-                                <div class="grid md:grid-cols-2 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="name" id="name"
-                                            value="{{ old('name', $applicant->name) }}"
-                                            class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required />
 
+                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="name" :value="__('Nama Lengkap')" />
+                                        <x-input id="name" type="text" name="name"
+                                            value="{{ old('name', $applicant->name) }}"
+                                            placeholder="Nama lengkap disini.." required />
                                         <p class="mt-2 text-xs text-gray-500">
                                             @if ($errors->has('name'))
-                                                {{ $errors->first('name') }}
-                                            @endif
-                                            @if ($applicant->name == null)
+                                                <span class="text-red-500">{{ $errors->first('name') }}</span>
+                                            @else
                                                 <span class="text-red-500">*Wajib diisi.</span>
                                             @endif
                                         </p>
-                                        <label for="name"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
-                                            lengkap</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <label for="gender" class="sr-only">Jenis Kelamin</label>
-                                        <select id="gender" name="gender"
-                                            class="@error('gender') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="gender" :value="__('Jenis Kelamin')" />
+                                        <x-select id="gender" name="gender" required>
                                             @switch($applicant->gender)
                                                 @case('0')
                                                     <option value="0">Perempuan</option>
@@ -340,42 +327,35 @@
                                                     <option value="0">Perempuan</option>
                                                 @break
                                             @endswitch
-                                        </select>
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('gender') }}
+                                            <span class="text-red-500">{{ $errors->first('gender') }}</span>
                                         </p>
                                     </div>
                                 </div>
-                                <div class="grid md:grid-cols-3 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="place_of_birth" id="place_of_birth"
+
+                                <div class="grid md:grid-cols-3 md:gap-6 mb-5">
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
+                                        <x-input id="place_of_birth" type="text" name="place_of_birth"
                                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
-                                            class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder="Tulis tempat lahir disini..." />
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('place_of_birth') }}
+                                            <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
                                         </p>
-                                        <label for="place_of_birth"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
-                                            Lahir</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="date" name="date_of_birth" id="date_of_birth"
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
+                                        <x-input id="date_of_birth" type="date" name="date_of_birth"
                                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
-                                            class="@error('date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder="Tulis tempat lahir disini..." />
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('date_of_birth') }}
+                                            <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
                                         </p>
-                                        <label for="date_of_birth"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
-                                            Lahir</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <label for="religion" class="sr-only">Agama</label>
-                                        <select id="religion" name="religion"
-                                            class="@error('religion') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                            required>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="religion" :value="__('Agama')" />
+                                        <x-select id="religion" name="religion" required>
                                             <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
                                             </option>
                                             @switch($applicant->religion)
@@ -414,160 +394,142 @@
                                                     <option value="Buddha">Buddha</option>
                                                 @break
                                             @endswitch
-                                        </select>
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('religion') }}
+                                            <span class="text-red-500">{{ $errors->first('religion') }}</span>
                                         </p>
                                     </div>
                                 </div>
-                                <div class="grid md:grid-cols-3 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="education" id="education"
+
+                                <div class="grid md:grid-cols-3 md:gap-6 mb-5">
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="education" :value="__('Pendidikan Terakhir')" />
+                                        <x-input id="education" type="text" name="education"
                                             value="{{ old('education', $applicant->education) }}"
-                                            class="@error('education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder="Tulis pendidikan terakhir disini..." />
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('education') }}
+                                            <span class="text-red-500">{{ $errors->first('education') }}</span>
                                         </p>
-                                        <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
-                                            Terakhir</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="major" id="major"
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="major" :value="__('Jurusan')" />
+                                        <x-input id="major" type="text" name="major"
                                             value="{{ old('major', $applicant->major) }}"
-                                            class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder="Tulis jurusan disini..." />
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('major') }}
+                                            <span class="text-red-500">{{ $errors->first('major') }}</span>
                                         </p>
-                                        <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Jurusan</label>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="number" min="1945" max="3000" name="year"
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="year" :value="__('Tahun Lulus')" />
+                                        <x-input type="number" min="1945" max="3000" name="year"
                                             id="year" value="{{ old('year', $applicant->year) }}"
-                                            class="@error('year') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder="Tulis tahun lulus disini..." />
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('year') }}
+                                            <span class="text-red-500">{{ $errors->first('year') }}</span>
                                         </p>
-                                        <label for="year"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tahun
-                                            lulus</label>
                                     </div>
                                 </div>
+
                                 <div class="grid md:grid-cols-2 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="school" id="school"
-                                            value="{{ old('school', $applicant->school) }}"
-                                            class="@error('school') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="school" :value="__('Sekolah')" />
+                                        <x-select id="school" name="school" class="js-example-input-single">
+                                            <option value="0">Pilih Sekolah</option>
+                                            @foreach ($schools as $school)
+                                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                                            @endforeach
+                                        </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('school') }}
+                                            <span class="text-red-500">{{ $errors->first('school') }}</span>
                                         </p>
-                                        <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Asal
-                                            Sekolah</label>
                                     </div>
+
                                     <div class="relative z-0 w-full mb-6 group">
-                                        <input type="text" name="class" id="class"
-                                            value="{{ old('class', $applicant->class) }}"
-                                            class="@error('class') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
-                                        <p class="mt-2 text-xs text-gray-500">
-                                            {{ $errors->first('class') }}
-                                        </p>
-                                        <label for="school"
-                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kelas</label>
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="class" :value="__('Kelas')" />
+                                            <x-input id="class" type="text" name="class"
+                                                value="{{ old('class', $applicant->class) }}"
+                                                placeholder="Tulis kelas disini..." />
+                                            <p class="mt-2 text-xs text-gray-500">
+                                                <span class="text-red-500">{{ $errors->first('class') }}</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 @if ($applicant->address == null)
-                                    <div id="address-container" class="hidden">
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="provinces" class="sr-only">Provinsi</label>
-                                                <select id="provinces" name="provinces"
-                                                    class="@error('provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                    <div id="address-container" class="hidden mb-5">
+                                        <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="provinces" :value="__('Provinsi')" />
+                                                <x-select id="provinces" name="provinces">
                                                     <option value="">Pilih Provinsi</option>
-                                                </select>
+                                                </x-select>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="regencies" class="sr-only">Kota / Kabupaten</label>
-                                                <select id="regencies" name="regencies"
-                                                    class="@error('regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="regencies" :value="__('Kota')" />
+                                                <x-select id="regencies" name="regencies">
                                                     <option value="">Pilih Kota / Kabupaten</option>
-                                                </select>
+                                                </x-select>
                                             </div>
                                         </div>
-                                        <div class="grid md:grid-cols-2 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="districts" class="sr-only">Kecamatan</label>
-                                                <select id="districts" name="districts"
-                                                    class="@error('districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
+
+                                        <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="districts" :value="__('Kecamatan')" />
+                                                <x-select id="districts" name="districts">
                                                     <option value="">Pilih Kecamatan</option>
-                                                </select>
+                                                </x-select>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <label for="villages" class="sr-only">Desa / Kelurahan</label>
-                                                <select id="villages" name="villages"
-                                                    class="@error('villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                    disabled>
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="villages" :value="__('Kelurahan')" />
+                                                <x-select id="villages" name="villages">
                                                     <option value="">Pilih Desa / Kelurahan</option>
-                                                </select>
+                                                </x-select>
                                             </div>
                                         </div>
+
                                         <div class="grid md:grid-cols-3 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="rt" id="rt"
-                                                    value="{{ old('rt') }}"
-                                                    class="@error('rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="rt" :value="__('RT')" />
+                                                <x-input id="rt" type="number" name="rt"
+                                                    :value="old('rt')" placeholder="Tulis RT disini..." />
                                                 <p class="mt-2 text-xs text-gray-500">
-                                                    {{ $errors->first('rt') }}
+                                                    <span class="text-red-500">{{ $errors->first('rt') }}</span>
                                                 </p>
-                                                <label for="rt"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="rw" id="rw"
-                                                    value="{{ old('rw') }}"
-                                                    class="@error('rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="rw" :value="__('RW')" />
+                                                <x-input id="rw" type="number" name="rw"
+                                                    :value="old('rw')" placeholder="Tulis RW disini..." />
                                                 <p class="mt-2 text-xs text-gray-500">
-                                                    {{ $errors->first('rw') }}
+                                                    <span class="text-red-500">{{ $errors->first('rw') }}</span>
                                                 </p>
-                                                <label for="rw"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                             </div>
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <input type="text" name="postal_code" id="postal_code"
-                                                    value="{{ old('postal_code') }}"
-                                                    class="@error('postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " />
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="postal_code" :value="__('Kode Pos')" />
+                                                <x-input id="postal_code" type="number" name="postal_code"
+                                                    :value="old('postal_code')" placeholder="Tulis kode pos disini..." />
                                                 <p class="mt-2 text-xs text-gray-500">
-                                                    {{ $errors->first('postal_code') }}
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('postal_code') }}</span>
                                                 </p>
-                                                <label for="postal_code"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                    Pos</label>
                                             </div>
                                         </div>
                                     </div>
                                 @else
-                                    <div class="grid md:grid-cols-1 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <textarea name="address" id="address" cols="30" rows="2"
-                                                value="{{ old('address', $applicant->address) }}"
-                                                class="@error('address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" ">{{ $applicant->address }}</textarea>
+                                    <div class="grid md:grid-cols-1 md:gap-6 mb-5">
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="address" :value="__('Alamat')" />
+                                            <x-textarea id="address" type="address" name="address"
+                                                value="{{ $applicant->address }}"
+                                                placeholder="Tulis alamat disini...">
+                                                {{ $applicant->address }}
+                                            </x-textarea>
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('address') }}
+                                                <span class="text-red-500">{{ $errors->first('address') }}</span>
                                             </p>
-                                            <label for="address"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                         </div>
                                     </div>
                                 @endif
@@ -590,97 +552,96 @@
                                 </header>
                                 <hr class="mt-2 mb-8">
                                 <section>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="father_name" id="father_name"
+
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="father_name" :value="__('Nama Lengkap')" />
+                                            <x-input id="father_name" type="text" name="father_name"
                                                 value="{{ old('father_name', $father->name) }}"
-                                                class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " required />
+                                                placeholder="Nama lengkap disini.." required />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_name') }}
+                                                @if ($errors->has('father_name'))
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('father_name') }}</span>
+                                                @else
+                                                    <span class="text-red-500">*Wajib diisi.</span>
+                                                @endif
                                             </p>
-                                            <label for="father_name"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
-                                                lengkap</label>
                                         </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="father_job" id="father_job"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="father_job" :value="__('Pekerjaan')" />
+                                            <x-input id="father_job" type="text" name="father_job"
                                                 value="{{ old('father_job', $father->job) }}"
-                                                class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " required />
+                                                placeholder="Nama lengkap disini.." required />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_job') }}
+                                                <span class="text-red-500">{{ $errors->first('father_job') }}</span>
                                             </p>
-                                            <label for="father_job"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
                                     </div>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="father_place_of_birth"
-                                                id="father_place_of_birth"
+
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="father_place_of_birth" :value="__('Tempat Lahir')" />
+                                            <x-input id="father_place_of_birth" type="text"
+                                                name="father_place_of_birth"
                                                 value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
-                                                class="@error('father_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis tempat lahir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_place_of_birth') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('father_place_of_birth') }}</span>
                                             </p>
-                                            <label for="father_place_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
-                                                Lahir</label>
                                         </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="date" name="father_date_of_birth"
-                                                id="father_date_of_birth"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="father_date_of_birth" :value="__('Tanggal Lahir')" />
+                                            <x-input id="father_date_of_birth" type="date"
+                                                name="father_date_of_birth"
                                                 value="{{ old('father_date_of_birth', $father->date_of_birth) }}"
-                                                class="@error('father_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis tempat lahir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_date_of_birth') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('father_date_of_birth') }}</span>
                                             </p>
-                                            <label for="father_date_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
-                                                Lahir</label>
                                         </div>
                                     </div>
+
                                     <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="father_education" id="father_education"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="father_education" :value="__('Pendidikan Terakhir')" />
+                                            <x-input id="father_education" type="text" name="father_education"
                                                 value="{{ old('father_education', $father->education) }}"
-                                                class="@error('father_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis pendidikan terakhir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_education') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('father_education') }}</span>
                                             </p>
-                                            <label for="father_education"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
-                                                Terakhir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
-                                            <input type="number" name="father_phone" id="father_phone"
-                                                value="{{ $father->phone }}"
-                                                class="@error('father_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="" required />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('father_phone') }}
-                                            </p>
-                                            <label for="father_phone"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
-                                                Telpon (Whatsapp)</label>
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="father_phone" :value="__('No. Whatsapp')" />
+                                                <x-input id="father_phone" type="number" name="father_phone"
+                                                    value="{{ $father->phone }}"
+                                                    placeholder="Tulis no. Whatsapp disini..." />
+                                                <p class="mt-2 text-xs text-gray-500">
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('father_phone') }}</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     @if ($father->address != null)
                                         <div class="grid md:grid-cols-1 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <textarea name="father_address" rows="2" id="father_address"
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="father_address" :value="__('Alamat')" />
+                                                <x-textarea id="father_address" type="father_address"
+                                                    name="father_address"
                                                     value="{{ old('father_address', $father->address) }}"
-                                                    class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" ">{{ old('father_address', $father->address) }}</textarea>
+                                                    placeholder="Tulis alamat disini...">
+                                                    {{ $father->address }}
+                                                </x-textarea>
                                                 <p class="mt-2 text-xs text-gray-500">
-                                                    {{ $errors->first('father_address') }}
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('father_address') }}</span>
                                                 </p>
-                                                <label for="father_address"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
                                         </div>
                                     @else
@@ -697,79 +658,62 @@
                                                 </div>
                                             @endif
                                             <div id="father_address_container">
-                                                <div class="grid md:grid-cols-2 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="father_provinces" class="sr-only">Provinsi</label>
-                                                        <select id="father_provinces" name="father_provinces"
-                                                            class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_provinces" :value="__('Provinsi')" />
+                                                        <x-select id="father_provinces" name="father_provinces">
                                                             <option value="">Pilih Provinsi</option>
-                                                        </select>
+                                                        </x-select>
                                                     </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="father_regencies" class="sr-only">Kota /
-                                                            Kabupaten</label>
-                                                        <select id="father_regencies" name="father_regencies"
-                                                            class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_regencies" :value="__('Kota')" />
+                                                        <x-select id="father_regencies" name="father_regencies">
                                                             <option value="">Pilih Kota / Kabupaten</option>
-                                                        </select>
+                                                        </x-select>
                                                     </div>
                                                 </div>
-                                                <div class="grid md:grid-cols-2 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="father_districts"
-                                                            class="sr-only">Kecamatan</label>
-                                                        <select id="father_districts" name="father_districts"
-                                                            class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
+                                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_districts" :value="__('Kecamatan')" />
+                                                        <x-select id="father_districts" name="father_districts">
                                                             <option value="">Pilih Kecamatan</option>
-                                                        </select>
+                                                        </x-select>
                                                     </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="father_villages" class="sr-only">Desa /
-                                                            Kelurahan</label>
-                                                        <select id="father_villages" name="father_villages"
-                                                            class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_villages" :value="__('Kelurahan')" />
+                                                        <x-select id="father_villages" name="father_villages">
                                                             <option value="">Pilih Desa / Kelurahan</option>
-                                                        </select>
+                                                        </x-select>
                                                     </div>
                                                 </div>
                                                 <div class="grid md:grid-cols-3 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="father_rt" id="father_rt"
-                                                            value="{{ old('father_rt') }}"
-                                                            class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_rt" :value="__('RT')" />
+                                                        <x-input id="father_rt" type="number" name="father_rt"
+                                                            :value="old('father_rt')" placeholder="Tulis RT disini..." />
                                                         <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('father_rt') }}
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_rt') }}</span>
                                                         </p>
-                                                        <label for="father_rt"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
                                                     </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="father_rw" id="father_rw"
-                                                            value="{{ old('father_rw') }}"
-                                                            class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_rw" :value="__('RW')" />
+                                                        <x-input id="father_rw" type="number" name="father_rw"
+                                                            :value="old('father_rw')" placeholder="Tulis RW disini..." />
                                                         <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('father_rw') }}
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_rw') }}</span>
                                                         </p>
-                                                        <label for="father_rw"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
                                                     </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="father_postal_code"
-                                                            id="father_postal_code"
-                                                            value="{{ old('father_postal_code') }}"
-                                                            class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_postal_code" :value="__('Kode Pos')" />
+                                                        <x-input id="father_postal_code" type="number"
+                                                            name="father_postal_code" :value="old('father_postal_code')"
+                                                            placeholder="Tulis kode pos disini..." />
                                                         <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('father_postal_code') }}
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_postal_code') }}</span>
                                                         </p>
-                                                        <label for="father_postal_code"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                            Pos</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -793,187 +737,153 @@
                                 </header>
                                 <hr class="mt-2 mb-8">
                                 <section>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="mother_name" id="mother_name"
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="mother_name" :value="__('Nama Lengkap')" />
+                                            <x-input id="mother_name" type="text" name="mother_name"
                                                 value="{{ old('mother_name', $mother->name) }}"
-                                                class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " required />
+                                                placeholder="Nama lengkap disini.." required />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_name') }}
+                                                @if ($errors->has('mother_name'))
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('mother_name') }}</span>
+                                                @else
+                                                    <span class="text-red-500">*Wajib diisi.</span>
+                                                @endif
                                             </p>
-                                            <label for="mother_name"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
-                                                lengkap</label>
                                         </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="mother_job" id="mother_job"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="mother_job" :value="__('Pekerjaan')" />
+                                            <x-input id="mother_job" type="text" name="mother_job"
                                                 value="{{ old('mother_job', $mother->job) }}"
-                                                class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " required />
+                                                placeholder="Nama lengkap disini.." required />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_job') }}
+                                                <span class="text-red-500">{{ $errors->first('mother_job') }}</span>
                                             </p>
-                                            <label for="mother_job"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pekerjaan</label>
                                         </div>
                                     </div>
-                                    <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="mother_place_of_birth"
-                                                id="mother_place_of_birth"
+                                    <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="mother_place_of_birth" :value="__('Tempat Lahir')" />
+                                            <x-input id="mother_place_of_birth" type="text"
+                                                name="mother_place_of_birth"
                                                 value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
-                                                class="@error('mother_place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis tempat lahir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_place_of_birth') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('mother_place_of_birth') }}</span>
                                             </p>
-                                            <label for="mother_place_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat
-                                                Lahir</label>
                                         </div>
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="date" name="mother_date_of_birth"
-                                                id="mother_date_of_birth"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="mother_date_of_birth" :value="__('Tanggal Lahir')" />
+                                            <x-input id="mother_date_of_birth" type="date"
+                                                name="mother_date_of_birth"
                                                 value="{{ old('mother_date_of_birth', $mother->date_of_birth) }}"
-                                                class="@error('mother_date_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis tempat lahir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_date_of_birth') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('mother_date_of_birth') }}</span>
                                             </p>
-                                            <label for="mother_date_of_birth"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tanggal
-                                                Lahir</label>
                                         </div>
                                     </div>
                                     <div class="grid md:grid-cols-2 md:gap-6">
-                                        <div class="relative z-0 w-full mb-6 group">
-                                            <input type="text" name="mother_education" id="mother_education"
+                                        <div class="relative z-0 w-full group">
+                                            <x-label for="mother_education" :value="__('Pendidikan Terakhir')" />
+                                            <x-input id="mother_education" type="text" name="mother_education"
                                                 value="{{ old('mother_education', $mother->education) }}"
-                                                class="@error('mother_education') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder="Tulis pendidikan terakhir disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_education') }}
+                                                <span
+                                                    class="text-red-500">{{ $errors->first('mother_education') }}</span>
                                             </p>
-                                            <label for="mother_education"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pendidikan
-                                                Terakhir</label>
                                         </div>
                                         <div class="relative z-0 w-full mb-6 group">
-                                            <input type="number" name="mother_phone" id="mother_phone"
-                                                value="{{ $mother->phone }}"
-                                                class="@error('mother_phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="" required />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                {{ $errors->first('mother_phone') }}
-                                            </p>
-                                            <label for="mother_phone"
-                                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
-                                                Telpon (Whatsapp)</label>
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="mother_phone" :value="__('No. Whatsapp')" />
+                                                <x-input id="mother_phone" type="number" name="mother_phone"
+                                                    value="{{ $mother->phone }}"
+                                                    placeholder="Tulis no. Whatsapp disini..." />
+                                                <p class="mt-2 text-xs text-gray-500">
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('mother_phone') }}</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     @if ($mother->address != null)
                                         <div class="grid md:grid-cols-1 md:gap-6">
-                                            <div class="relative z-0 w-full mb-6 group">
-                                                <textarea name="mother_address" id="mother_address" rows="2"
+                                            <div class="relative z-0 w-full group">
+                                                <x-label for="mother_address" :value="__('Alamat')" />
+                                                <x-textarea id="mother_address" type="mother_address"
+                                                    name="mother_address"
                                                     value="{{ old('mother_address', $mother->address) }}"
-                                                    class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" ">{{ old('mother_address', $mother->address) }}</textarea>
+                                                    placeholder="Tulis alamat disini...">
+                                                    {{ $father->address }}
+                                                </x-textarea>
                                                 <p class="mt-2 text-xs text-gray-500">
-                                                    {{ $errors->first('mother_address') }}
+                                                    <span
+                                                        class="text-red-500">{{ $errors->first('mother_address') }}</span>
                                                 </p>
-                                                <label for="mother_address"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
                                             </div>
                                         </div>
                                     @else
-                                        <div id="address-mother-container" class="hidden">
-                                            @if ($applicant->address !== null)
-                                                <div class="flex mb-3">
-                                                    <input id="mother-checkbox" onclick="motherAddress()"
-                                                        type="checkbox" value=""
-                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                                    <label for="default-checkbox"
-                                                        class="ml-2 text-sm font-medium text-gray-900">Alamat
-                                                        sama dengan
-                                                        aplikan?</label>
+                                        <div id="mother_address_container" class="hidden">
+                                            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_provinces" :value="__('Provinsi')" />
+                                                    <x-select id="mother_provinces" name="mother_provinces">
+                                                        <option value="">Pilih Provinsi</option>
+                                                    </x-select>
                                                 </div>
-                                            @endif
-                                            <div id="mother_address_container">
-                                                <div class="grid md:grid-cols-2 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="mother_provinces" class="sr-only">Provinsi</label>
-                                                        <select id="mother_provinces" name="mother_provinces"
-                                                            class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                                            <option value="">Pilih Provinsi</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="mother_regencies" class="sr-only">Kota /
-                                                            Kabupaten</label>
-                                                        <select id="mother_regencies" name="mother_regencies"
-                                                            class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
-                                                            <option>Pilih Kota / Kabupaten</option>
-                                                        </select>
-                                                    </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_regencies" :value="__('Kota')" />
+                                                    <x-select id="mother_regencies" name="mother_regencies">
+                                                        <option value="">Pilih Kota / Kabupaten</option>
+                                                    </x-select>
                                                 </div>
-                                                <div class="grid md:grid-cols-2 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="mother_districts"
-                                                            class="sr-only">Kecamatan</label>
-                                                        <select id="mother_districts" name="mother_districts"
-                                                            class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
-                                                            <option>Pilih Kecamatan</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <label for="mother_villages" class="sr-only">Desa /
-                                                            Kelurahan</label>
-                                                        <select id="mother_villages" name="mother_villages"
-                                                            class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-                                                            disabled>
-                                                            <option>Pilih Desa / Kelurahan</option>
-                                                        </select>
-                                                    </div>
+                                            </div>
+                                            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_districts" :value="__('Kecamatan')" />
+                                                    <x-select id="mother_districts" name="mother_districts">
+                                                        <option value="">Pilih Kecamatan</option>
+                                                    </x-select>
                                                 </div>
-                                                <div class="grid md:grid-cols-3 md:gap-6">
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="mother_rt" id="mother_rt"
-                                                            value="{{ old('mother_rt') }}"
-                                                            class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
-                                                        <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('mother_rt') }}
-                                                        </p>
-                                                        <label for="mother_rt"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                                                    </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="mother_rw" id="mother_rw"
-                                                            value="{{ old('mother_rw') }}"
-                                                            class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
-                                                        <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('mother_rw') }}
-                                                        </p>
-                                                        <label for="mother_rw"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
-                                                    </div>
-                                                    <div class="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="mother_postal_code"
-                                                            id="mother_postal_code"
-                                                            value="{{ old('mother_postal_code') }}"
-                                                            class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " />
-                                                        <p class="mt-2 text-xs text-gray-500">
-                                                            {{ $errors->first('mother_postal_code') }}
-                                                        </p>
-                                                        <label for="mother_postal_code"
-                                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode
-                                                            Pos</label>
-                                                    </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_villages" :value="__('Kelurahan')" />
+                                                    <x-select id="mother_villages" name="mother_villages">
+                                                        <option value="">Pilih Desa / Kelurahan</option>
+                                                    </x-select>
+                                                </div>
+                                            </div>
+                                            <div class="grid md:grid-cols-3 md:gap-6">
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_rt" :value="__('RT')" />
+                                                    <x-input id="mother_rt" type="number" name="mother_rt"
+                                                        :value="old('mother_rt')" placeholder="Tulis RT disini..." />
+                                                    <p class="mt-2 text-xs text-gray-500">
+                                                        <span
+                                                            class="text-red-500">{{ $errors->first('mother_rt') }}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_rw" :value="__('RW')" />
+                                                    <x-input id="mother_rw" type="number" name="mother_rw"
+                                                        :value="old('mother_rw')" placeholder="Tulis RW disini..." />
+                                                    <p class="mt-2 text-xs text-gray-500">
+                                                        <span
+                                                            class="text-red-500">{{ $errors->first('mother_rw') }}</span>
+                                                    </p>
+                                                </div>
+                                                <div class="relative z-0 w-full group">
+                                                    <x-label for="mother_postal_code" :value="__('Kode Pos')" />
+                                                    <x-input id="mother_postal_code" type="number"
+                                                        name="mother_postal_code" :value="old('mother_postal_code')"
+                                                        placeholder="Tulis kode pos disini..." />
+                                                    <p class="mt-2 text-xs text-gray-500">
+                                                        <span
+                                                            class="text-red-500">{{ $errors->first('mother_postal_code') }}</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1010,69 +920,75 @@
         let content;
         if (checkboxMother == true) {
             content = `
-            <div class="grid md:grid-cols-1 md:gap-6">
-                <div class="relative z-0 w-full mb-6 group">
-                    <textarea name="mother_address" id="mother_address" rows="2" value="{{ $applicant->address }}" class="@error('mother_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
-                    <div class="text-sm text-gray-700 mt-3">
-                        {{ $errors->first('mother_address') }}
-                    </div>
-                    <label for="mother_address" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+            <div class="grid md:grid-cols-1 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_address" :value="__('Alamat')" />
+                    <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ $applicant->address }}"
+                        placeholder="Tulis alamat disini...">
+                        {{ $applicant->address }}
+                    </x-textarea>
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
+                    </p>
                 </div>
             </div>
             `;
         } else {
             content = `
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="mother_provinces" class="sr-only">Provinsi</label>
-                        <select id="mother_provinces" name="mother_provinces"class="@error('mother_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="">Pilih Provinsi</option>
-                        </select>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="mother_regencies" class="sr-only">Kota/Kabupaten</label>
-                        <select id="mother_regencies" name="mother_regencies" class="@error('mother_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Kota / Kabupaten</option>
-                        </select>
-                    </div>
+            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_provinces" :value="__('Provinsi')" />
+                    <x-select id="mother_provinces" name="mother_provinces">
+                        <option value="">Pilih Provinsi</option>
+                    </x-select>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="mother_districts" class="sr-only">Kecamatan</label>
-                        <select id="mother_districts" name="mother_districts" class="@error('mother_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Kecamatan</option>
-                        </select>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="mother_villages" class="sr-only">Desa/Kelurahan</label>
-                        <select id="mother_villages" name="mother_villages" class="@error('mother_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Desa / Kelurahan</option>
-                        </select>
-                    </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_regencies" :value="__('Kota')" />
+                    <x-select id="mother_regencies" name="mother_regencies">
+                        <option value="">Pilih Kota / Kabupaten</option>
+                    </x-select>
                 </div>
-                <div class="grid md:grid-cols-3 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_rt" id="mother_rt" value="{{ old('mother_rt') }}" class="@error('mother_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('mother_rt') }}
-                        </div>
-                        <label for="mother_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_rw" id="mother_rw" value="{{ old('mother_rw') }}" class="@error('mother_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('mother_rw') }}
-                        </div>
-                        <label for="mother_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="mother_postal_code" id="mother_postal_code" value="{{ old('mother_postal_code') }}" class="@error('mother_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('mother_postal_code') }}
-                        </div>
-                        <label for="mother_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
-                    </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_districts" :value="__('Kecamatan')" />
+                    <x-select id="mother_districts" name="mother_districts">
+                        <option value="">Pilih Kecamatan</option>
+                    </x-select>
                 </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_villages" :value="__('Kelurahan')" />
+                    <x-select id="mother_villages" name="mother_villages">
+                        <option value="">Pilih Desa / Kelurahan</option>
+                    </x-select>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 md:gap-6">
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_rt" :value="__('RT')" />
+                    <x-input id="mother_rt" type="number" name="mother_rt" :value="old('mother_rt')"
+                        placeholder="Tulis RT disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('mother_rt') }}</span>
+                    </p>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_rw" :value="__('RW')" />
+                    <x-input id="mother_rw" type="number" name="mother_rw" :value="old('mother_rw')"
+                        placeholder="Tulis RW disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('mother_rw') }}</span>
+                    </p>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="mother_postal_code" :value="__('Kode Pos')" />
+                    <x-input id="mother_postal_code" type="number" name="mother_postal_code" :value="old('mother_postal_code')"
+                        placeholder="Tulis kode pos disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('mother_postal_code') }}</span>
+                    </p>
+                </div>
+            </div>
             `;
         }
         motherAddressContainer.innerHTML = content;
@@ -1084,69 +1000,75 @@
         let content;
         if (checkboxFather == true) {
             content = `
-            <div class="grid md:grid-cols-1 md:gap-6">
-                <div class="relative z-0 w-full mb-6 group">
-                    <textarea name="father_address" id="father_address" rows="2" value="{{ $applicant->address }}" class="@error('father_address') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" ">{{ $applicant->address }}</textarea>
-                    <div class="text-sm text-gray-700 mt-3">
-                        {{ $errors->first('father_address') }}
-                    </div>
-                    <label for="father_address" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
+            <div class="grid md:grid-cols-1 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_address" :value="__('Alamat')" />
+                    <x-textarea id="father_address" type="father_address" name="father_address" value="{{ $applicant->address }}"
+                        placeholder="Tulis alamat disini...">
+                        {{ $applicant->address }}
+                    </x-textarea>
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('father_address') }}</span>
+                    </p>
                 </div>
             </div>
             `;
         } else {
             content = `
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="father_provinces" class="sr-only">Provinsi</label>
-                        <select id="father_provinces" name="father_provinces"class="@error('father_provinces') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option value="">Pilih Provinsi</option>
-                        </select>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="father_regencies" class="sr-only">Kota/Kabupaten</label>
-                        <select id="father_regencies" name="father_regencies" class="@error('father_regencies') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Kota / Kabupaten</option>
-                        </select>
-                    </div>
+            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_provinces" :value="__('Provinsi')" />
+                    <x-select id="father_provinces" name="father_provinces">
+                        <option value="">Pilih Provinsi</option>
+                    </x-select>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="father_districts" class="sr-only">Kecamatan</label>
-                        <select id="father_districts" name="father_districts" class="@error('father_districts') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Kecamatan</option>
-                        </select>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="father_villages" class="sr-only">Desa/Kelurahan</label>
-                        <select id="father_villages" name="father_villages" class="@error('father_villages') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer" disabled>
-                            <option>Pilih Desa / Kelurahan</option>
-                        </select>
-                    </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_regencies" :value="__('Kota')" />
+                    <x-select id="father_regencies" name="father_regencies">
+                        <option value="">Pilih Kota / Kabupaten</option>
+                    </x-select>
                 </div>
-                <div class="grid md:grid-cols-3 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_rt" id="father_rt" value="{{ old('father_rt') }}" class="@error('father_rt') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('father_rt') }}
-                        </div>
-                        <label for="father_rt" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RT</label>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_rw" id="father_rw" value="{{ old('father_rw') }}" class="@error('father_rw') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('father_rw') }}
-                        </div>
-                        <label for="father_rw" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">RW</label>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <input type="text" name="father_postal_code" id="father_postal_code" value="{{ old('father_postal_code') }}" class="@error('father_postal_code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                        <div class="text-sm text-gray-700 mt-3">
-                            {{ $errors->first('father_postal_code') }}
-                        </div>
-                        <label for="father_postal_code" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kode Pos</label>
-                    </div>
+            </div>
+            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_districts" :value="__('Kecamatan')" />
+                    <x-select id="father_districts" name="father_districts">
+                        <option value="">Pilih Kecamatan</option>
+                    </x-select>
                 </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_villages" :value="__('Kelurahan')" />
+                    <x-select id="father_villages" name="father_villages">
+                        <option value="">Pilih Desa / Kelurahan</option>
+                    </x-select>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 md:gap-6">
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_rt" :value="__('RT')" />
+                    <x-input id="father_rt" type="number" name="father_rt" :value="old('father_rt')"
+                        placeholder="Tulis RT disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('father_rt') }}</span>
+                    </p>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_rw" :value="__('RW')" />
+                    <x-input id="father_rw" type="number" name="father_rw" :value="old('father_rw')"
+                        placeholder="Tulis RW disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('father_rw') }}</span>
+                    </p>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <x-label for="father_postal_code" :value="__('Kode Pos')" />
+                    <x-input id="father_postal_code" type="number" name="father_postal_code" :value="old('father_postal_code')"
+                        placeholder="Tulis kode pos disini..." />
+                    <p class="mt-2 text-xs text-gray-500">
+                        <span class="text-red-500">{{ $errors->first('father_postal_code') }}</span>
+                    </p>
+                </div>
+            </div>
             `;
         }
         fatherAddressContainer.innerHTML = content;
@@ -1199,5 +1121,11 @@
             // Ubah angka selain '0' dan '62' menjadi '62'
             phoneFatherInput.value = '62';
         }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-input-single').select2();
     });
 </script>

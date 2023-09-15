@@ -101,7 +101,7 @@ class ApplicantController extends Controller
     public function create()
     {
         try {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/program');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
@@ -250,6 +250,7 @@ class ApplicantController extends Controller
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
+            $schools = School::all();
             $account = User::where('email', $applicant->email)->count();
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -271,6 +272,7 @@ class ApplicantController extends Controller
                 'mother' => $mother,
                 'sources' => $sources,
                 'statuses' => $statuses,
+                'schools' => $schools,
             ]);
         } else {
             return redirect('database')->with('error', 'Tidak diizinkan.');

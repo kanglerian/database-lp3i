@@ -7,8 +7,23 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 Tambah Database Baru
             </h2>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-map-location-dot text-gray-700"></i>
+                    <span class="text-sm" id="wilayah"></span>
+                </div>
+                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-rectangle-list text-gray-700"></i>
+                    <span class="text-sm">
+                        @if ($programs == null)
+                            <i class="fa-solid fa-wifi text-red-500"></i>
+                        @else
+                            <i class="fa-solid fa-wifi text-green-500"></i>
+                        @endif
+                    </span>
+                </div>
+            </div>
         </div>
-        <span id="wilayah"></span>
     </x-slot>
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -49,8 +64,8 @@
                             </header>
                             <hr class="mt-2 mb-5">
                             <section>
-                                <div class="grid md:grid-cols-2 md:gap-6">
 
+                                <div class="grid md:grid-cols-2 md:gap-6">
                                     <div class="relative z-0 w-full group">
                                         <x-label for="pmb" :value="__('Tahun Akademik')" />
                                         <x-input id="pmb" type="number" name="pmb" :value="old('pmb')"
@@ -63,7 +78,6 @@
                                             @endif
                                         </p>
                                     </div>
-
                                     <div class="relative z-0 w-full group">
                                         <x-label for="programtype_id" :value="__('Program Kuliah')" />
                                         <x-select id="programtype_id" name="programtype_id" required>
@@ -81,7 +95,6 @@
                                             @endif
                                         </p>
                                     </div>
-
                                 </div>
 
                                 <hr class="my-5">
@@ -112,26 +125,21 @@
                                 </div>
 
                                 <div class="grid md:grid-cols-3 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <div class="relative z-0 w-full group">
-                                            <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
-                                            <x-input id="place_of_birth" type="text" name="place_of_birth"
-                                                :value="old('place_of_birth')" placeholder="Tulis tempat lahir disini..." />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                <span
-                                                    class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
-                                            </p>
-                                        </div>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
+                                        <x-input id="place_of_birth" type="text" name="place_of_birth"
+                                            :value="old('place_of_birth')" placeholder="Tulis tempat lahir disini..." />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
+                                        </p>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <div class="relative z-0 w-full group">
-                                            <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
-                                            <x-input id="date_of_birth" type="date" name="date_of_birth"
-                                                :value="old('date_of_birth')" placeholder="Tulis tempat lahir disini..." />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
-                                            </p>
-                                        </div>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
+                                        <x-input id="date_of_birth" type="date" name="date_of_birth"
+                                            :value="old('date_of_birth')" placeholder="Tulis tempat lahir disini..." />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
+                                        </p>
                                     </div>
                                     <div class="relative z-0 w-full group">
                                         <x-label for="religion" :value="__('Agama')" />
@@ -149,7 +157,6 @@
                                 </div>
 
                                 <div id="address-container" class="hidden mb-5">
-
                                     <div class="grid md:grid-cols-2 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="provinces" :value="__('Provinsi')" />
@@ -164,7 +171,6 @@
                                             </x-select>
                                         </div>
                                     </div>
-
                                     <div class="grid md:grid-cols-2 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="districts" :value="__('Kecamatan')" />
@@ -179,20 +185,19 @@
                                             </x-select>
                                         </div>
                                     </div>
-
                                     <div class="grid md:grid-cols-3 md:gap-6 mb-5">
                                         <div class="relative z-0 w-full group">
                                             <x-label for="rt" :value="__('RT')" />
-                                            <x-input id="rt" type="number" name="rt"
-                                                :value="old('rt')" placeholder="Tulis RT disini..." />
+                                            <x-input id="rt" type="number" name="rt" :value="old('rt')"
+                                                placeholder="Tulis RT disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
                                                 <span class="text-red-500">{{ $errors->first('rt') }}</span>
                                             </p>
                                         </div>
                                         <div class="relative z-0 w-full group">
                                             <x-label for="rw" :value="__('RW')" />
-                                            <x-input id="rw" type="number" name="rw"
-                                                :value="old('rw')" placeholder="Tulis RW disini..." />
+                                            <x-input id="rw" type="number" name="rw" :value="old('rw')"
+                                                placeholder="Tulis RW disini..." />
                                             <p class="mt-2 text-xs text-gray-500">
                                                 <span class="text-red-500">{{ $errors->first('rw') }}</span>
                                             </p>
@@ -206,7 +211,6 @@
                                             </p>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -233,36 +237,30 @@
                                 </div>
 
                                 <div class="grid md:grid-cols-3 md:gap-6">
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <div class="relative z-0 w-full group">
-                                            <x-label for="education" :value="__('Pendidikan Terakhir')" />
-                                            <x-input id="education" type="text" name="education"
-                                                :value="old('education')" placeholder="Tulis pendidikan terakhir disini..." />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                <span class="text-red-500">{{ $errors->first('education') }}</span>
-                                            </p>
-                                        </div>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="education" :value="__('Pendidikan Terakhir')" />
+                                        <x-input id="education" type="text" name="education" :value="old('education')"
+                                            placeholder="Tulis pendidikan terakhir disini..." />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            <span class="text-red-500">{{ $errors->first('education') }}</span>
+                                        </p>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <div class="relative z-0 w-full group">
-                                            <x-label for="major" :value="__('Jurusan')" />
-                                            <x-input id="major" type="text" name="major" :value="old('major')"
-                                                placeholder="Tulis jurusan disini..." />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                <span class="text-red-500">{{ $errors->first('major') }}</span>
-                                            </p>
-                                        </div>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="major" :value="__('Jurusan')" />
+                                        <x-input id="major" type="text" name="major" :value="old('major')"
+                                            placeholder="Tulis jurusan disini..." />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            <span class="text-red-500">{{ $errors->first('major') }}</span>
+                                        </p>
                                     </div>
-                                    <div class="relative z-0 w-full mb-6 group">
-                                        <div class="relative z-0 w-full group">
-                                            <x-label for="year" :value="__('Tahun Lulus')" />
-                                            <x-input type="number" min="1945" max="3000" name="year"
-                                                id="year" :value="old('year')"
-                                                placeholder="Tulis tahun lulus disini..." />
-                                            <p class="mt-2 text-xs text-gray-500">
-                                                <span class="text-red-500">{{ $errors->first('year') }}</span>
-                                            </p>
-                                        </div>
+                                    <div class="relative z-0 w-full group">
+                                        <x-label for="year" :value="__('Tahun Lulus')" />
+                                        <x-input type="number" min="1945" max="3000" name="year"
+                                            id="year" :value="old('year')"
+                                            placeholder="Tulis tahun lulus disini..." />
+                                        <p class="mt-2 text-xs text-gray-500">
+                                            <span class="text-red-500">{{ $errors->first('year') }}</span>
+                                        </p>
                                     </div>
                                 </div>
 
