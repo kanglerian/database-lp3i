@@ -1134,7 +1134,7 @@
             // Ubah '0' menjadi '62' jika dimulai dengan '0'
             phoneFatherInput.value = '62' + phone.substring(1);
         } else {
-            // Ubah angka selain '0' dan '62' menjadi '62'
+            // Ubah angka selain '0' dan '62' menjadi '62's
             phoneFatherInput.value = '62';
         }
     });
