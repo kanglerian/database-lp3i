@@ -101,7 +101,7 @@ class ApplicantController extends Controller
     public function create()
     {
         try {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/program');
+            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
