@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class ApplicantController extends Controller
     {
         $sources = SourceSetting::all();
         $statuses = ApplicantStatus::all();
+        $schools = School::all();
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
@@ -38,7 +40,8 @@ class ApplicantController extends Controller
         return view('pages.database.index')->with([
             'total' => $total,
             'sources' => $sources,
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'schools' => $schools,
         ]);
     }
 
@@ -84,7 +87,7 @@ class ApplicantController extends Controller
             $applicantsQuery->where('status_id', $statusVal);
         }
         
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'Schools'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -103,6 +106,7 @@ class ApplicantController extends Controller
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
+            $schools = School::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -116,6 +120,7 @@ class ApplicantController extends Controller
                 'programtypes' => $programtypes,
                 'sources' => $sources,
                 'users' => $users,
+                'schools' => $schools,
             ]);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';

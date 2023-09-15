@@ -1,3 +1,6 @@
+@push('styles')
+    <link href="{{ asset('css/select2-custom.css') }}" rel="stylesheet" />
+@endpush
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
@@ -67,9 +70,13 @@
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Asal sekolah:</label>
-                        <input type="text" id="school" onkeyup="changeFilter()"
-                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                            placeholder="Asal Sekolah">
+                        <select id="school" onchange="changeFilter()"
+                            class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih sekolah</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Tanggal lahir:</label>
@@ -155,6 +162,10 @@
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+
     var urlData = 'get/databases';
     var urlExcel = 'applicants/export';
 
@@ -300,7 +311,7 @@
                 {
                     data: 'school',
                     render: (data) => {
-                        return typeof(data) == 'object' ? 'Tidak diketahui' : data;
+                        return data == 0 ? 'Tidak diketahui' : data;
                     }
                 },
                 {
@@ -459,3 +470,11 @@
         });
     }
 </script>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            $('.js-example-input-single').select2();
+        });
+    </script>
+@endpush

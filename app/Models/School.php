@@ -30,4 +30,8 @@ class School extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function applicant(){
+        return $this->hasMany(Applicant::class, 'school_id');
+    }
 }

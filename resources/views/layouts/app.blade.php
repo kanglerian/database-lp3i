@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
-
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
+    @stack('styles')
     <style>
         body {
             font-family: 'Roboto Mono', monospace;
@@ -83,7 +84,8 @@
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/datatables.min.js') }}"></script>
-
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

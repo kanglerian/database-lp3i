@@ -20,7 +20,7 @@ class CreateApplicantsTable extends Migration
             $table->string('email', 100)->nullable()->unique();
             $table->string('phone', 20)->nullable()->unique();
             $table->string('education', 255)->nullable();
-            $table->string('school', 255)->nullable();
+            $table->integer('school')->nullable();
             $table->string('major', 100)->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
@@ -40,7 +40,6 @@ class CreateApplicantsTable extends Migration
             $table->unsignedBigInteger('status_id')->default(1);
 
             $table->timestamps();
-
 
         });
     }

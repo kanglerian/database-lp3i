@@ -66,6 +66,10 @@ class Applicant extends Model
         return $this->belongsTo(ApplicantStatus::class, 'status_id', 'id');
     }
 
+    public function schools(){
+        return $this->belongsTo(School::class, 'school_id', 'id');
+    }
+
     public function histories(){
         return $this->belongsTo(ApplicantHistory::class,'identity_user', 'identity');
     }
