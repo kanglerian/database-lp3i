@@ -356,8 +356,17 @@
                                     <div class="relative z-0 w-full group">
                                         <x-label for="religion" :value="__('Agama')" />
                                         <x-select id="religion" name="religion" required>
-                                            <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
-                                            </option>
+                                            @if ($applicant->religion)
+                                                <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
+                                                </option>
+                                            @else
+                                                <option value="0">Pilih Agama</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Buddha">Buddha</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                            @endif
                                             @switch($applicant->religion)
                                                 @case('Islam')
                                                     <option value="Kristen">Kristen</option>
