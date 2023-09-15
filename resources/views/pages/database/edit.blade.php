@@ -733,7 +733,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full md:w-1/2 px-6 pt-6 bg-white shadow sm:rounded-lg">
+                    <div class="w-full md:w-1/2 px-6 py-6 bg-white shadow sm:rounded-lg">
                         <div class="w-full">
                             <section>
                                 <header>
