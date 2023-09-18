@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -142,6 +143,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
         $applicant = Applicant::where('identity', $user->identity)->first();
+        $schools = School::all();
 
         if ($user->role == 'S') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
@@ -164,6 +166,7 @@ class UserController extends Controller
                 'presenters' => $presenters,
                 'father' => $father,
                 'mother' => $mother,
+                'schools' => $schools,
             ];
         } else {
             $data = [

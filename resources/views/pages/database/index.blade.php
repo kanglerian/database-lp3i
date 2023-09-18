@@ -73,6 +73,7 @@
                         <select id="school" onchange="changeFilter()"
                             class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">Pilih sekolah</option>
+                            <option value="0">Tidak diketahui</option>
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
@@ -309,9 +310,9 @@
                     }
                 },
                 {
-                    data: 'school',
+                    data: 'school_applicant',
                     render: (data) => {
-                        return data == 0 ? 'Tidak diketahui' : data;
+                        return data.name;
                     }
                 },
                 {

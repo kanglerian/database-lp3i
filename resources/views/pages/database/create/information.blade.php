@@ -162,24 +162,20 @@
 
                     <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full mb-6 group mb-4">
-                            <div class="relative z-0 w-full group">
-                                <x-label for="email" :value="__('Email')" />
-                                <x-input id="email" type="email" name="email" :value="old('email')"
-                                    placeholder="Tulis tempat lahir disini..." />
-                                <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('email') }}</span>
-                                </p>
-                            </div>
+                            <x-label for="email" :value="__('Email')" />
+                            <x-input id="email" type="email" name="email" :value="old('email')"
+                                placeholder="Tulis tempat lahir disini..." />
+                            <p class="mt-2 text-xs text-gray-500">
+                                <span class="text-red-500">{{ $errors->first('email') }}</span>
+                            </p>
                         </div>
-                        <div class="relative z-0 w-full mb-6 group">
-                            <div class="relative z-0 w-full group">
-                                <x-label for="phone" :value="__('No. Whatsapp')" />
-                                <x-input id="phone" type="number" name="phone" :value="old('phone')"
-                                    placeholder="Tulis no. Whatsapp disini..." />
-                                <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('phone') }}</span>
-                                </p>
-                            </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="phone" :value="__('No. Whatsapp')" />
+                            <x-input id="phone" type="number" name="phone" :value="old('phone')"
+                                placeholder="Tulis no. Whatsapp disini..." />
+                            <p class="mt-2 text-xs text-gray-500">
+                                <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                            </p>
                         </div>
                     </div>
 
@@ -192,10 +188,7 @@
                                 <span class="text-red-500">{{ $errors->first('education') }}</span>
                             </p>
                         </div>
-                        <div class="relative z-0 w-full group mb-4">
-                            <x-label for="major" :value="__('Jurusan')" />
-                            <x-input id="major" type="text" name="major" :value="old('major')"
-                                placeholder="Tulis jurusan disini..." />
+                        <div class="relative z-0 w-full group mb-4">xf
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('major') }}</span>
                             </p>
@@ -223,7 +216,7 @@
                                 <span class="text-red-500">{{ $errors->first('school') }}</span>
                             </p>
                         </div>
-                        <div class="relative z-0 w-full mb-6 group">
+                        <div class="relative z-0 w-full group">
                             <div class="relative z-0 w-full group">
                                 <x-label for="class" :value="__('Kelas')" />
                                 <x-input id="class" type="text" name="class" :value="old('class')"

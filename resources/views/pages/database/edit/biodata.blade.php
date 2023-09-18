@@ -1,9 +1,9 @@
-<div class="px-6 py-6 bg-white shadow sm:rounded-lg">
+<div class="w-full px-6 py-6 bg-white shadow sm:rounded-lg">
     <div class="w-full">
         <section>
             <header>
                 <h2 class="text-xl font-bold text-gray-900">
-                    Biodata Aplikan
+                    Biodata Mahasiswa
                 </h2>
                 <p class="mt-1 text-sm text-gray-600">
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
@@ -11,7 +11,6 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
-
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="name" :value="__('Nama Lengkap')" />
@@ -46,7 +45,11 @@
                             @endswitch
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                            @if ($errors->has('name'))
+                                <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -72,7 +75,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="religion" :value="__('Agama')" />
-                        <x-select id="religion" name="religion" required>
+                        <x-select id="religion" name="religion">
                             @if ($applicant->religion)
                                 <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
                                 </option>
@@ -159,7 +162,11 @@
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
+                            @if ($applicant->school)
+                            <option value="{{ $applicant->SchoolApplicant->id }}">{{ $applicant->SchoolApplicant->name }}</option>
+                            @else
                             <option value="0">Pilih Sekolah</option>
+                            @endif
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
@@ -168,15 +175,13 @@
                             <span class="text-red-500">{{ $errors->first('school') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <div class="relative z-0 w-full group">
-                            <x-label for="class" :value="__('Kelas')" />
-                            <x-input id="class" type="text" name="class"
-                                value="{{ old('class', $applicant->class) }}" placeholder="Tulis kelas disini..." />
-                            <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('class') }}</span>
-                            </p>
-                        </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="class" :value="__('Kelas')" />
+                        <x-input id="class" type="text" name="class"
+                            value="{{ old('class', $applicant->class) }}" placeholder="Tulis kelas disini..." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('class') }}</span>
+                        </p>
                     </div>
                 </div>
                 @if ($applicant->address == null)
@@ -242,7 +247,9 @@
                     <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
-                            <x-textarea id="address" type="address" name="address" value="{{ $applicant->address }}" placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
+                            <x-textarea id="address" type="address" name="address"
+                                value="{{ $applicant->address }}"
+                                placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('address') }}</span>
                             </p>
@@ -258,6 +265,11 @@
     @if ($applicant->address == null)
         <script src="{{ asset('js/indonesia.js') }}"></script>
     @endif
+    <script>
+        $(document).ready(function() {
+            $('.js-example-input-single').select2();
+        });
+    </script>
     <script>
         let phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', function() {

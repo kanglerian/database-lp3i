@@ -32,6 +32,6 @@ class School extends Model
     ];
 
     public function applicant(){
-        return $this->hasMany(Applicant::class, 'school_id');
+        return $this->hasMany(Applicant::class, 'school');
     }
 }

@@ -87,7 +87,7 @@ class ApplicantController extends Controller
             $applicantsQuery->where('status_id', $statusVal);
         }
         
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'Schools'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -261,7 +261,7 @@ class ApplicantController extends Controller
                 $programs = null;
             }
 
-            $applicant = Applicant::findOrFail($id);
+            $applicant = Applicant::with('SchoolApplicant')->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
                 'programs' => $programs,
