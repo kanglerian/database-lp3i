@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 @if ($mother->address != null)
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-1 md:gap-6">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
                         <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
