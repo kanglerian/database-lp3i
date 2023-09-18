@@ -191,7 +191,7 @@
             } else {
                 content = `
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_provinces" :value="__('Provinsi')" />
                         <x-select id="father_provinces" name="father_provinces">
                             <option value="">Pilih Provinsi</option>
@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_districts" :value="__('Kecamatan')" />
                         <x-select id="father_districts" name="father_districts">
                             <option value="">Pilih Kecamatan</option>
@@ -219,14 +219,14 @@
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_rt" :value="__('RT')" />
                         <x-input id="father_rt" type="number" name="father_rt" :value="old('father_rt')" placeholder="Tulis RT disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('father_rt') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_rw" :value="__('RW')" />
                         <x-input id="father_rw" type="number" name="father_rw" :value="old('father_rw')" placeholder="Tulis RW disini..." />
                         <p class="mt-2 text-xs text-gray-500">
