@@ -188,7 +188,10 @@
                                 <span class="text-red-500">{{ $errors->first('education') }}</span>
                             </p>
                         </div>
-                        <div class="relative z-0 w-full group mb-4">xf
+                        <div class="relative z-0 w-full group mb-4">
+                            <x-label for="major" :value="__('Jurusan')" />
+                            <x-input id="major" type="text" name="major" :value="old('major')"
+                                placeholder="Tulis jurusan disini..." />
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('major') }}</span>
                             </p>
