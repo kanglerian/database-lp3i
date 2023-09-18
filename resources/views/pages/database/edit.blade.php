@@ -9,7 +9,10 @@
             </h2>
             <div class="flex flex-col md:flex-row items-center gap-2">
                 <div class="flex items-center gap-2">
-                    @include('atoms.infoapi')
+                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-map-location-dot text-gray-700"></i>
+                        <span class="text-sm" id="wilayah"></span>
+                    </div>                    
                     <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
                         <i class="fa-solid fa-rectangle-list text-gray-700"></i>
                         <span class="text-sm">

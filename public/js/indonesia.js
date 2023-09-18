@@ -4,7 +4,6 @@ const selectDistricts = document.getElementById('districts');
 const selectVillages = document.getElementById('villages');
 
 const wilayah = document.getElementById('wilayah');
-const wilayahEdit = document.getElementById('wilayahEdit');
 
 const addressContainer = document.getElementById('address-container');
 
@@ -24,7 +23,6 @@ const getProvinces = async () => {
         selectProvinces.removeAttribute('disabled');
       }
       wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
-      wilayahEdit.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
