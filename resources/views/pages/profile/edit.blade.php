@@ -3,10 +3,26 @@
 @endpush
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-3">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 Edit Profil
             </h2>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-map-location-dot text-gray-700"></i>
+                    <span class="text-sm" id="wilayah"></span>
+                </div>
+                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-rectangle-list text-gray-700"></i>
+                    <span class="text-sm">
+                        @if ($programs == null)
+                            <i class="fa-solid fa-wifi text-red-500"></i>
+                        @else
+                            <i class="fa-solid fa-wifi text-green-500"></i>
+                        @endif
+                    </span>
+                </div>
+            </div>
         </div>
     </x-slot>
     {{--  --}}
@@ -23,20 +39,21 @@
             @endif
             <div class="flex flex-col md:flex-row justify-start gap-5 p-4 md:p-0">
                 @if ($user->role == 'S')
-                <div class="w-full md:w-2/3 flex flex-col gap-3">
-                    <form action="{{ route('profile.update', $user->id) }}" class="flex flex-col items-start gap-5" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        {{-- Biodata Aplikan --}}
-                        @include('pages.database.edit.biodata')
-                        @include('pages.database.edit.father')
-                        @include('pages.database.edit.mother')
+                    <div class="w-full md:w-2/3 flex flex-col gap-3">
+                        <form action="{{ route('profile.update', $user->id) }}" class="flex flex-col items-start gap-5"
+                            method="POST">
+                            @csrf
+                            @method('PATCH')
+                            {{-- Biodata Aplikan --}}
+                            @include('pages.database.edit.biodata')
+                            @include('pages.database.edit.father')
+                            @include('pages.database.edit.mother')
 
-                        <button type="submit"
-                        class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/3 sm:w-auto px-5 py-2 text-center"><i
-                            class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>
-                    </form>
-                </div>
+                            <button type="submit"
+                                class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/3 sm:w-auto px-5 py-2 text-center"><i
+                                    class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>
+                        </form>
+                    </div>
                 @endif
                 <div class="w-full md:w-1/3 flex flex-col gap-3">
                     <form method="POST" class="p-6 bg-white border-b border-gray-200 rounded-xl"
@@ -125,9 +142,10 @@
 </x-app-layout>
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $('.js-example-input-single').select2();
-    });
-</script>
+    <script src="{{ asset('js/api-notif.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-input-single').select2();
+        });
+    </script>
 @endpush
