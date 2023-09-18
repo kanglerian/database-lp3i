@@ -312,7 +312,7 @@
                 {
                     data: 'school_applicant',
                     render: (data) => {
-                        return data;
+                        return data == null ? 'Tidak diketahui' : data.name;
                     }
                 },
                 {
