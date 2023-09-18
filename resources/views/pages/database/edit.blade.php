@@ -919,6 +919,7 @@
 </x-app-layout>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 
+<script src="{{ asset('js/indonesia.js') }}"></script>
 @if ($applicant->address == null)
     <script src="{{ asset('js/indonesia.js') }}"></script>
 @endif
