@@ -12,8 +12,8 @@
             <hr class="mt-2 mb-8">
             <section>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name" value="{{ old('name', $applicant->name) }}"
                             placeholder="Nama lengkap disini.." required />
@@ -51,8 +51,8 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-5">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="place_of_birth" type="text" name="place_of_birth"
                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
@@ -61,7 +61,7 @@
                             <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
                         <x-input id="date_of_birth" type="date" name="date_of_birth"
                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
@@ -127,8 +127,8 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-5">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="education" type="text" name="education"
                             value="{{ old('education', $applicant->education) }}"
@@ -137,7 +137,7 @@
                             <span class="text-red-500">{{ $errors->first('education') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="major" :value="__('Jurusan')" />
                         <x-input id="major" type="text" name="major"
                             value="{{ old('major', $applicant->major) }}" placeholder="Tulis jurusan disini..." />
@@ -156,8 +156,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
-
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full grou mb-4">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             <option value="0">Pilih Sekolah</option>
@@ -169,7 +168,6 @@
                             <span class="text-red-500">{{ $errors->first('school') }}</span>
                         </p>
                     </div>
-
                     <div class="relative z-0 w-full mb-6 group">
                         <div class="relative z-0 w-full group">
                             <x-label for="class" :value="__('Kelas')" />
@@ -181,10 +179,10 @@
                         </div>
                     </div>
                 </div>
-                @if ($applicant->address == null)
-                    <div id="address-container" class="hidden mb-5">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-5">
-                            <div class="relative z-0 w-full group">
+                {{-- @if ($applicant->address == null) --}}
+                    <div id="address-container" class="">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="provinces" :value="__('Provinsi')" />
                                 <x-select id="provinces" name="provinces">
                                     <option value="">Pilih Provinsi</option>
@@ -198,8 +196,8 @@
                             </div>
                         </div>
 
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-5">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="districts" :value="__('Kecamatan')" />
                                 <x-select id="districts" name="districts">
                                     <option value="">Pilih Kecamatan</option>
@@ -213,8 +211,8 @@
                             </div>
                         </div>
 
-                        <div class="grid md:grid-cols-3 md:gap-6">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="rt" :value="__('RT')" />
                                 <x-input id="rt" type="number" name="rt" :value="old('rt')"
                                     placeholder="Tulis RT disini..." />
@@ -222,7 +220,7 @@
                                     <span class="text-red-500">{{ $errors->first('rt') }}</span>
                                 </p>
                             </div>
-                            <div class="relative z-0 w-full group">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="rw" :value="__('RW')" />
                                 <x-input id="rw" type="number" name="rw" :value="old('rw')"
                                     placeholder="Tulis RW disini..." />
@@ -240,8 +238,8 @@
                             </div>
                         </div>
                     </div>
-                @else
-                    <div class="grid md:grid-cols-1 md:gap-6 mb-5">
+                {{-- @else --}}
+                    <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
                             <x-textarea id="address" type="address" name="address"
@@ -253,7 +251,7 @@
                             </p>
                         </div>
                     </div>
-                @endif
+                {{-- @endif --}}
             </section>
         </section>
     </div>
