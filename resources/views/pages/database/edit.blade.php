@@ -280,7 +280,7 @@
                     </div>
                 </div>
 
-                <div class="px-6 pt-6 bg-white shadow sm:rounded-lg">
+                <div class="px-6 py-6 bg-white shadow sm:rounded-lg">
                     <div class="w-full">
                         <section>
                             <header>
@@ -548,7 +548,7 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row items-start gap-5">
-                    <div class="w-full md:w-1/2 px-6 pt-6 bg-white shadow sm:rounded-lg">
+                    <div class="w-full md:w-1/2 px-6 py-6 bg-white shadow sm:rounded-lg">
                         <div class="w-full">
                             <section>
                                 <header>
@@ -734,7 +734,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full md:w-1/2 px-6 pt-6 bg-white shadow sm:rounded-lg">
+                    <div class="w-full md:w-1/2 px-6 py-6 bg-white shadow sm:rounded-lg">
                         <div class="w-full">
                             <section>
                                 <header>
