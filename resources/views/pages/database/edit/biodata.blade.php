@@ -248,9 +248,11 @@
                     <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
+                            <x-input id="postal_code" type="number" name="postal_code" value="{{ $applicant->address }}"
+                            placeholder="Tulis kode pos disini..." />
                             <x-textarea id="address" type="address" name="address"
-                                value="{{ trim($applicant->address) }}"
-                                placeholder="Tulis alamat disini...">{{ trim($applicant->address) }}</x-textarea>
+                                value="{{ $applicant->address }}"
+                                placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('address') }}</span>
                             </p>
