@@ -181,7 +181,7 @@
                 <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_address" :value="__('Alamat')" />
-                        <x-textarea id="father_address" type="father_address" name="father_address" value="{{ old('father_address', $father->address) }}" placeholder="Tulis alamat disini...">{{ $father->address }}</x-textarea>
+                        <x-textarea id="father_address" type="father_address" name="father_address" value="{{ old('father_address', $applicant->address) }}" placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('father_address') }}</span>
                         </p>
