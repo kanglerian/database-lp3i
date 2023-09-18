@@ -321,7 +321,7 @@
     </div>
 </div>
 @push('scripts')
-    <script src="{{ asset('js/indonesia.js') }}"></script>
+    <script src="{{ asset('js/api-notif.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2();
