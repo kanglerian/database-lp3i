@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 @else
-                <div id="address-mother-container" class="">
+                <div id="address-mother-container" class="hidden">
                     @if ($applicant->address !== null)
                     <div class="flex mb-3">
                         <input id="mother-checkbox" onclick="motherAddress()" type="checkbox" value=""

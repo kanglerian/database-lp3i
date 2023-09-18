@@ -179,8 +179,8 @@
                         </div>
                     </div>
                 </div>
-                {{-- @if ($applicant->address == null) --}}
-                    <div id="address-container" class="">
+                @if ($applicant->address == null)
+                    <div id="address-container" class="hidden">
                         <div class="grid md:grid-cols-2 md:gap-6 mb-4">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="provinces" :value="__('Provinsi')" />
@@ -238,7 +238,7 @@
                             </div>
                         </div>
                     </div>
-                {{-- @else --}}
+                @else
                     <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
@@ -251,7 +251,7 @@
                             </p>
                         </div>
                     </div>
-                {{-- @endif --}}
+                @endif
             </section>
         </section>
     </div>
