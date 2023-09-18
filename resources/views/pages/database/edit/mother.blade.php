@@ -23,7 +23,7 @@
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_job" :value="__('Pekerjaan')" />
                         <x-input id="mother_job" type="text" name="mother_job"
-                            value="{{ old('mother_job', $mother->job) }}" placeholder="Nama lengkap disini.." />
+                            value="{{ old('mother_job', $mother->job) }}" placeholder="Tulis pekerjaan ibu disini.." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('mother_job') }}</span>
                         </p>
