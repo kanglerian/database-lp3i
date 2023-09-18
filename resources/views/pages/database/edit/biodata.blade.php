@@ -263,8 +263,8 @@
 </div>
 
 @push('scripts')
+    <script src="{{ asset('js/api-notif.js') }}"></script>
     @if ($applicant->address == null)
-        <script src="{{ asset('js/api-notif.js') }}"></script>
         <script src="{{ asset('js/indonesia.js') }}"></script>
     @endif
     <script>
