@@ -64,3 +64,6 @@
         </form>
     </div>
 </x-app-layout>
+@push('scripts')
+    <script src="{{ asset('js/api-notif.js') }}"></script>
+@endpush
