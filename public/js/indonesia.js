@@ -3,8 +3,6 @@ const selectRegencies = document.getElementById('regencies');
 const selectDistricts = document.getElementById('districts');
 const selectVillages = document.getElementById('villages');
 
-const wilayah = document.getElementById('wilayah');
-
 const addressContainer = document.getElementById('address-container');
 
 const getProvinces = async () => {
@@ -21,7 +19,6 @@ const getProvinces = async () => {
         selectProvinces.removeAttribute('disabled');
       }
       console.log(bucket);
-      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
