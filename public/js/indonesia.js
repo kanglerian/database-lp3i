@@ -18,13 +18,11 @@ const getProvinces = async () => {
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
       }
-      console.log(bucket);
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
       selectProvinces.value = '';
       selectProvinces.innerHTML = bucket;
-      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-red-500"></i>';
     });
 }
 getProvinces();
