@@ -80,10 +80,7 @@
                 <div class="grid md:grid-cols-1 md:gap-6 mb-4">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
-                        <x-textarea id="mother_address" type="mother_address" name="mother_address"
-                            value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">
-                            {{ $mother->address }}
-                        </x-textarea>
+                        <x-textarea id="mother_address" type="mother_address" name="mother_address"value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
                         </p>
@@ -189,10 +186,7 @@
                 <div class="grid md:grid-cols-1 md:gap-6 mb-4">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
-                        <x-textarea id="mother_address" type="mother_address" name="mother_address"
-                            value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">
-                            {{ $mother->address }}
-                        </x-textarea>
+                        <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
                         </p>
