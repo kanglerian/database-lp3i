@@ -12,16 +12,15 @@ const getProvinces = async () => {
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
       let data = response.data.provinces;
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
-    </option>`;
+        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}</option>`;
       }
       addressContainer.classList.remove('hidden');
       selectProvinces.innerHTML = bucket;
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
       }
+      console.log(bucket);
       wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })
     .catch((err) => {
