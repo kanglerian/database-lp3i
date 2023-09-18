@@ -249,8 +249,8 @@
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
                             <x-textarea id="address" type="address" name="address"
-                                value="{{ $applicant->address }}"
-                                placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
+                                value="{{ trim($applicant->address) }}"
+                                placeholder="Tulis alamat disini...">{{ trim($applicant->address) }}</x-textarea>
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('address') }}</span>
                             </p>
