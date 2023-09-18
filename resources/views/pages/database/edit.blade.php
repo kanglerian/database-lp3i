@@ -637,6 +637,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     @if ($father->address != null)
                                         <div class="grid md:grid-cols-1 md:gap-6">
                                             <div class="relative z-0 w-full group">
@@ -819,80 +820,93 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($mother->address != null)
+                                    @if ($father->address != null)
                                         <div class="grid md:grid-cols-1 md:gap-6">
                                             <div class="relative z-0 w-full group">
-                                                <x-label for="mother_address" :value="__('Alamat')" />
-                                                <x-textarea id="mother_address" type="mother_address"
-                                                    name="mother_address"
-                                                    value="{{ old('mother_address', $mother->address) }}"
+                                                <x-label for="father_address" :value="__('Alamat')" />
+                                                <x-textarea id="father_address" type="father_address"
+                                                    name="father_address"
+                                                    value="{{ old('father_address', $father->address) }}"
                                                     placeholder="Tulis alamat disini...">
                                                     {{ $father->address }}
                                                 </x-textarea>
                                                 <p class="mt-2 text-xs text-gray-500">
                                                     <span
-                                                        class="text-red-500">{{ $errors->first('mother_address') }}</span>
+                                                        class="text-red-500">{{ $errors->first('father_address') }}</span>
                                                 </p>
                                             </div>
                                         </div>
                                     @else
-                                        <div id="mother_address_container" class="hidden">
-                                            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_provinces" :value="__('Provinsi')" />
-                                                    <x-select id="mother_provinces" name="mother_provinces">
-                                                        <option value="">Pilih Provinsi</option>
-                                                    </x-select>
+                                        <div id="address-father-container" class="hidden">
+                                            @if ($applicant->address !== null)
+                                                <div class="flex mb-3">
+                                                    <input id="father-checkbox" onclick="fatherAddress()"
+                                                        type="checkbox" value=""
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                                    <label for="default-checkbox"
+                                                        class="ml-2 text-sm font-medium text-gray-900">Alamat
+                                                        sama dengan
+                                                        aplikan?</label>
                                                 </div>
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_regencies" :value="__('Kota')" />
-                                                    <x-select id="mother_regencies" name="mother_regencies">
-                                                        <option value="">Pilih Kota / Kabupaten</option>
-                                                    </x-select>
+                                            @endif
+                                            <div id="father_address_container">
+                                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_provinces" :value="__('Provinsi')" />
+                                                        <x-select id="father_provinces" name="father_provinces">
+                                                            <option value="">Pilih Provinsi</option>
+                                                        </x-select>
+                                                    </div>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_regencies" :value="__('Kota')" />
+                                                        <x-select id="father_regencies" name="father_regencies">
+                                                            <option value="">Pilih Kota / Kabupaten</option>
+                                                        </x-select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="grid md:grid-cols-2 md:gap-6 mb-5">
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_districts" :value="__('Kecamatan')" />
-                                                    <x-select id="mother_districts" name="mother_districts">
-                                                        <option value="">Pilih Kecamatan</option>
-                                                    </x-select>
+                                                <div class="grid md:grid-cols-2 md:gap-6 mb-5">
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_districts" :value="__('Kecamatan')" />
+                                                        <x-select id="father_districts" name="father_districts">
+                                                            <option value="">Pilih Kecamatan</option>
+                                                        </x-select>
+                                                    </div>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_villages" :value="__('Kelurahan')" />
+                                                        <x-select id="father_villages" name="father_villages">
+                                                            <option value="">Pilih Desa / Kelurahan</option>
+                                                        </x-select>
+                                                    </div>
                                                 </div>
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_villages" :value="__('Kelurahan')" />
-                                                    <x-select id="mother_villages" name="mother_villages">
-                                                        <option value="">Pilih Desa / Kelurahan</option>
-                                                    </x-select>
-                                                </div>
-                                            </div>
-                                            <div class="grid md:grid-cols-3 md:gap-6">
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_rt" :value="__('RT')" />
-                                                    <x-input id="mother_rt" type="number" name="mother_rt"
-                                                        :value="old('mother_rt')" placeholder="Tulis RT disini..." />
-                                                    <p class="mt-2 text-xs text-gray-500">
-                                                        <span
-                                                            class="text-red-500">{{ $errors->first('mother_rt') }}</span>
-                                                    </p>
-                                                </div>
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_rw" :value="__('RW')" />
-                                                    <x-input id="mother_rw" type="number" name="mother_rw"
-                                                        :value="old('mother_rw')" placeholder="Tulis RW disini..." />
-                                                    <p class="mt-2 text-xs text-gray-500">
-                                                        <span
-                                                            class="text-red-500">{{ $errors->first('mother_rw') }}</span>
-                                                    </p>
-                                                </div>
-                                                <div class="relative z-0 w-full group">
-                                                    <x-label for="mother_postal_code" :value="__('Kode Pos')" />
-                                                    <x-input id="mother_postal_code" type="number"
-                                                        name="mother_postal_code" :value="old('mother_postal_code')"
-                                                        placeholder="Tulis kode pos disini..." />
-                                                    <p class="mt-2 text-xs text-gray-500">
-                                                        <span
-                                                            class="text-red-500">{{ $errors->first('mother_postal_code') }}</span>
-                                                    </p>
+                                                <div class="grid md:grid-cols-3 md:gap-6">
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_rt" :value="__('RT')" />
+                                                        <x-input id="father_rt" type="number" name="father_rt"
+                                                            :value="old('father_rt')" placeholder="Tulis RT disini..." />
+                                                        <p class="mt-2 text-xs text-gray-500">
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_rt') }}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_rw" :value="__('RW')" />
+                                                        <x-input id="father_rw" type="number" name="father_rw"
+                                                            :value="old('father_rw')" placeholder="Tulis RW disini..." />
+                                                        <p class="mt-2 text-xs text-gray-500">
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_rw') }}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="relative z-0 w-full group">
+                                                        <x-label for="father_postal_code" :value="__('Kode Pos')" />
+                                                        <x-input id="father_postal_code" type="number"
+                                                            name="father_postal_code" :value="old('father_postal_code')"
+                                                            placeholder="Tulis kode pos disini..." />
+                                                        <p class="mt-2 text-xs text-gray-500">
+                                                            <span
+                                                                class="text-red-500">{{ $errors->first('father_postal_code') }}</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
