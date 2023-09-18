@@ -7,6 +7,7 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 Edit Profil
             </h2>
+            @if ($user->role == 'S')
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
                     <i class="fa-solid fa-map-location-dot text-gray-700"></i>
@@ -23,6 +24,7 @@
                     </span>
                 </div>
             </div>
+            @endif
         </div>
     </x-slot>
     {{--  --}}
