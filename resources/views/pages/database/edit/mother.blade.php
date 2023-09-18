@@ -98,7 +98,7 @@
                     </div>
                     @endif
                     <div id="mother_address_container">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                        <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="mother_provinces" :value="__('Provinsi')" />
                                 <x-select id="mother_provinces" name="mother_provinces">
