@@ -126,7 +126,7 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
+                        <div class="grid md:grid-cols-3 md:gap-6">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="father_rt" :value="__('RT')" />
                                 <x-input id="father_rt" type="number" name="father_rt" :value="old('father_rt')"
