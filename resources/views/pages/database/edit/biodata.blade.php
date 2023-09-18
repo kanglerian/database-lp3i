@@ -163,9 +163,10 @@
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             @if ($applicant->school)
-                            <option value="{{ $applicant->SchoolApplicant->id }}">{{ $applicant->SchoolApplicant->name }}</option>
+                                <option value="{{ $applicant->SchoolApplicant->id }}">
+                                    {{ $applicant->SchoolApplicant->name }}</option>
                             @else
-                            <option value="0">Pilih Sekolah</option>
+                                <option value="0">Pilih Sekolah</option>
                             @endif
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
@@ -261,10 +262,11 @@
     </div>
 </div>
 
-@if ($applicant->address == null)
-<script src="{{ asset('js/indonesia.js') }}"></script>
-@endif
 @push('scripts')
+    @if ($applicant->address == null)
+        <script src="{{ asset('js/axios.min.js') }}"></script>
+        <script src="{{ asset('js/indonesia.js') }}"></script>
+    @endif
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2();
