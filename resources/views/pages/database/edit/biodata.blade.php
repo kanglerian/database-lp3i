@@ -248,8 +248,6 @@
                     <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="address" :value="__('Alamat')" />
-                            <x-input type="text" value="{{ $applicant->address }}"
-                            placeholder="Tulis kode pos disini..." />
                             <x-textarea id="address" type="address" name="address"
                                 value="{{ $applicant->address }}"
                                 placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
