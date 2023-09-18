@@ -263,4 +263,20 @@
     @if ($applicant->address == null)
         <script src="{{ asset('js/indonesia.js') }}"></script>
     @endif
+    <script>
+        let phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function() {
+            let phone = phoneInput.value;
+            if (phone.startsWith('62')) {} else if (phone.startsWith('0')) {
+                phoneInput.value = '62' + phone.substring(1);
+            } else {
+                phoneInput.value = '62';
+            }
+        });
+
+        const saveChanges = () => {
+            const form = document.getElementById('formChanges');
+            form.submit();
+        }
+    </script>
 @endpush
