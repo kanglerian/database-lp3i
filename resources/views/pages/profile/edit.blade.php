@@ -22,6 +22,7 @@
                 </div>
             @endif
             <div class="flex flex-col md:flex-row justify-start gap-5 p-4 md:p-0">
+                @if ($user->role == 'S')
                 <div class="w-full md:w-2/3 flex flex-col gap-3">
                     <form action="{{ route('profile.update', $user->id) }}" class="flex flex-col items-start gap-5" method="POST">
                         @csrf
@@ -36,9 +37,8 @@
                             class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>
                     </form>
                 </div>
-
+                @endif
                 <div class="w-full md:w-1/3 flex flex-col gap-3">
-
                     <form method="POST" class="p-6 bg-white border-b border-gray-200 rounded-xl"
                         action="{{ route('profile.update_account', $user->id) }}">
                         @csrf
