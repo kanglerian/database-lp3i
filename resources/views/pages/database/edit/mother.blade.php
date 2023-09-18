@@ -3,7 +3,7 @@
         <section>
             <header>
                 <h2 class="text-xl font-bold text-gray-900">
-                    Biodata Ibu
+                    Biodata Ayah
                 </h2>
                 <p class="mt-1 text-sm text-gray-600">
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
@@ -80,7 +80,7 @@
                 <div class="grid md:grid-cols-1 md:gap-6 mb-4">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
-                        <x-textarea id="mother_address" type="mother_address" name="mother_address"value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
+                        <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
                         </p>
