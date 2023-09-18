@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -91,6 +92,7 @@ class ProfileController extends Controller
             }
 
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+            $schools = School::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -106,6 +108,7 @@ class ProfileController extends Controller
                     'programs' => $programs,
                     'father' => $father,
                     'mother' => $mother,
+                    'schools' => $schools
                 ];
             } else {
                 $data = [
