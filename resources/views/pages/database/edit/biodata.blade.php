@@ -261,10 +261,10 @@
     </div>
 </div>
 
+@if ($applicant->address == null)
+<script src="{{ asset('js/indonesia.js') }}"></script>
+@endif
 @push('scripts')
-    @if ($applicant->address == null)
-        <script src="{{ asset('js/indonesia.js') }}"></script>
-    @endif
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2();
