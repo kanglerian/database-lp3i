@@ -3,7 +3,7 @@
         <section>
             <header>
                 <h2 class="text-xl font-bold text-gray-900">
-                    Biodata Ayah
+                    Biodata Ibu
                 </h2>
                 <p class="mt-1 text-sm text-gray-600">
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
@@ -11,8 +11,8 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="mother_name" :value="__('Nama Lengkap')" />
                         <x-input id="mother_name" type="text" name="mother_name"
                             value="{{ old('mother_name', $mother->name) }}" placeholder="Nama lengkap disini.."
@@ -35,8 +35,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="mother_place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="mother_place_of_birth" type="text" name="mother_place_of_birth"
                             value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="mother_education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="mother_education" type="text" name="mother_education"
                             value="{{ old('mother_education', $mother->education) }}"
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 @if ($mother->address != null)
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
                         <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
@@ -98,8 +98,8 @@
                     </div>
                     @endif
                     <div id="mother_address_container">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="mother_provinces" :value="__('Provinsi')" />
                                 <x-select id="mother_provinces" name="mother_provinces">
                                     <option value="">Pilih Provinsi</option>
@@ -112,8 +112,8 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="mother_districts" :value="__('Kecamatan')" />
                                 <x-select id="mother_districts" name="mother_districts">
                                     <option value="">Pilih Kecamatan</option>
@@ -126,8 +126,8 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-3 md:gap-6">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="mother_rt" :value="__('RT')" />
                                 <x-input id="mother_rt" type="number" name="mother_rt" :value="old('mother_rt')"
                                     placeholder="Tulis RT disini..." />
@@ -135,7 +135,7 @@
                                     <span class="text-red-500">{{ $errors->first('mother_rt') }}</span>
                                 </p>
                             </div>
-                            <div class="relative z-0 w-full group">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="mother_rw" :value="__('RW')" />
                                 <x-input id="mother_rw" type="number" name="mother_rw" :value="old('mother_rw')"
                                     placeholder="Tulis RW disini..." />
@@ -183,7 +183,7 @@
             let content;
             if (checkboxMother == true) {
                 content = `
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_address" :value="__('Alamat')" />
                         <x-textarea id="mother_address" type="mother_address" name="mother_address" value="{{ old('mother_address', $mother->address) }}" placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
@@ -195,7 +195,7 @@
             `;
             } else {
                 content = `
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_provinces" :value="__('Provinsi')" />
                         <x-select id="mother_provinces" name="mother_provinces">
@@ -209,7 +209,7 @@
                         </x-select>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_districts" :value="__('Kecamatan')" />
                         <x-select id="mother_districts" name="mother_districts">
@@ -223,7 +223,7 @@
                         </x-select>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-3 md:gap-6">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_rt" :value="__('RT')" />
                         <x-input id="mother_rt" type="number" name="mother_rt" :value="old('mother_rt')" placeholder="Tulis RT disini..." />

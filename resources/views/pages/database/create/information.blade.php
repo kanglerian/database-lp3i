@@ -12,9 +12,9 @@
                         </p>
                     </div>
                 </header>
-                <hr class="mt-2 mb-4">
+                <hr class="my-2">
                 <section>
-                    <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="pmb" :value="__('Tahun Akademik')" />
                             <x-input id="pmb" type="number" name="pmb" :value="old('pmb')"
@@ -46,9 +46,7 @@
                         </div>
                     </div>
 
-                    <hr class="my-5">
-
-                    <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="name" :value="__('Nama Lengkap')" />
                             <x-input id="name" type="text" name="name" :value="old('name')"
@@ -73,7 +71,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
                             <x-input id="place_of_birth" type="text" name="place_of_birth" :value="old('place_of_birth')"
@@ -106,7 +104,7 @@
                     </div>
 
                     <div id="address-container" class="hidden">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="provinces" :value="__('Provinsi')" />
                                 <x-select id="provinces" name="provinces">
@@ -120,7 +118,7 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="districts" :value="__('Kecamatan')" />
                                 <x-select id="districts" name="districts">
@@ -134,7 +132,7 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="rt" :value="__('RT')" />
                                 <x-input id="rt" type="number" name="rt" :value="old('rt')"
@@ -162,7 +160,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full mb-6 group mb-4">
                             <div class="relative z-0 w-full group">
                                 <x-label for="email" :value="__('Email')" />
@@ -185,7 +183,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="education" :value="__('Pendidikan Terakhir')" />
                             <x-input id="education" type="text" name="education" :value="old('education')"
@@ -212,7 +210,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="school" :value="__('Sekolah')" />
                             <x-select id="school" name="school" class="js-example-input-single">
@@ -237,7 +235,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="source_id" :value="__('Sumber')" />
                             <x-select id="source_id" name="source_id" required>
@@ -274,7 +272,7 @@
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program" :value="__('Program')" />
                             <x-select id="program" name="program" required>

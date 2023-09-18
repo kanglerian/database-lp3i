@@ -11,8 +11,8 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_name" :value="__('Nama Lengkap')" />
                         <x-input id="father_name" type="text" name="father_name"
                             value="{{ old('father_name', $father->name) }}" placeholder="Nama lengkap disini.."
@@ -35,8 +35,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                    <div class="relative z-0 w-full group">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="father_place_of_birth" type="text" name="father_place_of_birth"
                             value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="father_education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="father_education" type="text" name="father_education"
                             value="{{ old('father_education', $father->education) }}"
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 @if ($father->address != null)
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_address" :value="__('Alamat')" />
                         <x-textarea id="father_address" type="father_address" name="father_address" value="{{ old('father_address', $father->address) }}" placeholder="Tulis alamat disini...">{{ $father->address }}</x-textarea>
@@ -98,8 +98,8 @@
                     </div>
                     @endif
                     <div id="father_address_container">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="father_provinces" :value="__('Provinsi')" />
                                 <x-select id="father_provinces" name="father_provinces">
                                     <option value="">Pilih Provinsi</option>
@@ -112,8 +112,8 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="father_districts" :value="__('Kecamatan')" />
                                 <x-select id="father_districts" name="father_districts">
                                     <option value="">Pilih Kecamatan</option>
@@ -126,8 +126,8 @@
                                 </x-select>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-3 md:gap-6">
-                            <div class="relative z-0 w-full group">
+                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="father_rt" :value="__('RT')" />
                                 <x-input id="father_rt" type="number" name="father_rt" :value="old('father_rt')"
                                     placeholder="Tulis RT disini..." />
@@ -135,7 +135,7 @@
                                     <span class="text-red-500">{{ $errors->first('father_rt') }}</span>
                                 </p>
                             </div>
-                            <div class="relative z-0 w-full group">
+                            <div class="relative z-0 w-full group mb-4">
                                 <x-label for="father_rw" :value="__('RW')" />
                                 <x-input id="father_rw" type="number" name="father_rw" :value="old('father_rw')"
                                     placeholder="Tulis RW disini..." />
@@ -183,7 +183,7 @@
             let content;
             if (checkboxFather == true) {
                 content = `
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_address" :value="__('Alamat')" />
                         <x-textarea id="father_address" type="father_address" name="father_address" value="{{ old('father_address', $father->address) }}" placeholder="Tulis alamat disini...">{{ $father->address }}</x-textarea>
@@ -195,7 +195,7 @@
             `;
             } else {
                 content = `
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_provinces" :value="__('Provinsi')" />
                         <x-select id="father_provinces" name="father_provinces">
@@ -209,7 +209,7 @@
                         </x-select>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_districts" :value="__('Kecamatan')" />
                         <x-select id="father_districts" name="father_districts">
@@ -223,7 +223,7 @@
                         </x-select>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-3 md:gap-6">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_rt" :value="__('RT')" />
                         <x-input id="father_rt" type="number" name="father_rt" :value="old('father_rt')" placeholder="Tulis RT disini..." />

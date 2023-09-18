@@ -12,7 +12,7 @@
             <hr class="mt-2 mb-8">
             <section>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name" value="{{ old('name', $applicant->name) }}"
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="place_of_birth" type="text" name="place_of_birth"
@@ -127,7 +127,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="education" type="text" name="education"
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full grou mb-4">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             <option value="0">Pilih Sekolah</option>
@@ -181,7 +181,7 @@
                 </div>
                 @if ($applicant->address == null)
                     <div id="address-container" class="hidden">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="provinces" :value="__('Provinsi')" />
                                 <x-select id="provinces" name="provinces">
@@ -196,7 +196,7 @@
                             </div>
                         </div>
 
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="districts" :value="__('Kecamatan')" />
                                 <x-select id="districts" name="districts">
@@ -211,7 +211,7 @@
                             </div>
                         </div>
 
-                        <div class="grid md:grid-cols-3 md:gap-6 mb-4">
+                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="rt" :value="__('RT')" />
                                 <x-input id="rt" type="number" name="rt" :value="old('rt')"

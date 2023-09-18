@@ -13,7 +13,7 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 md:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
                         <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6 mb-4">
+                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
                     @if ($programs !== null)
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program" :value="__('Program')" />
@@ -119,7 +119,7 @@
                     @endif
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="source_id" :value="__('Sumber')" />
                         <x-select id="source_id" name="source_id" required>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <div class="relative z-0 w-full group">
                             <x-label for="email" :value="__('Email')" />
