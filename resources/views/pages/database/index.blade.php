@@ -312,7 +312,7 @@
                 {
                     data: 'school_applicant',
                     render: (data) => {
-                        return data.name;
+                        return data;
                     }
                 },
                 {
