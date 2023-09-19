@@ -71,7 +71,7 @@ class PresenterController extends Controller
 
         User::create($data);
 
-        return redirect('presenter')->with('message', 'Data presenter berhasil ditambahkan!');
+        return back()->with('message', 'Data presenter berhasil ditambahkan!');
     }
 
     /**
@@ -124,7 +124,7 @@ class PresenterController extends Controller
             'status' => $request->input('status'),
         ];
         $presenter->update($data);
-        return redirect('presenter')->with('message', 'Data presenter berhasil diubah!');
+        return back()->with('message', 'Data presenter berhasil diubah!');
     }
 
     /**
@@ -142,7 +142,7 @@ class PresenterController extends Controller
             return session()->flash('message', 'Data presenter berhasil dihapus!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return redirect('presenter')->with('error', $errorMessage);
+            return back()->with('error', $errorMessage);
         }
     }
 
@@ -163,7 +163,7 @@ class PresenterController extends Controller
             'status' => $presenter->status == '0' ? '1' : '0',
         ];
         $presenter->update($data);
-        return redirect('presenter')->with('message', 'Status presenter berhasil diubah!');
+        return back()->with('message', 'Status presenter berhasil diubah!');
     }
 
     /**
@@ -183,6 +183,6 @@ class PresenterController extends Controller
             'password' => Hash::make($request->input('password')),
         ];
         $presenter->update($data);
-        return redirect('presenter')->with('message', 'Password berhasil diubah!');
+        return back()->with('message', 'Password berhasil diubah!');
     }
 }

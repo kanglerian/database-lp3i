@@ -57,14 +57,23 @@ class UserUploadController extends Controller
             'image' => $encodedFile,
         ];
 
+        if ($data['fileupload_id'] == 1) {
+            $file = FileUpload::findOrFail($request->input('fileupload_id'));
+            $dataku = [
+                'avatar' => $file->namefile . '.' . $request->berkas->extension(),
+            ];
+            $user = User::findOrFail(Auth::user()->id);
+            $user->update($dataku);
+        }
+
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
         $status = $response->status();
         switch ($status) {
             case 200:
                 UserUpload::create($data);
-                return redirect('userupload')->with('message', 'Berkas berhasil ditambahkan!');
+                return back()->with('message', 'Berkas berhasil ditambahkan!');
             case 500:
-                return redirect('userupload')->with('error', 'Server belum dijalankan');
+                return back()->with('error', 'Server belum dijalankan');
         }
 
     }
@@ -101,7 +110,7 @@ class UserUploadController extends Controller
                 'success' => $success,
             ]);
         } else {
-            return redirect('dashboard');
+            return back();
         }
 
     }
@@ -186,9 +195,9 @@ class UserUploadController extends Controller
         switch ($status) {
             case 200:
                 UserUpload::create($data);
-                return redirect('userupload')->with('message', 'Berkas berhasil ditambahkan!');
+                return back()->with('message', 'Berkas berhasil ditambahkan!');
             case 500:
-                return redirect('userupload')->with('error', 'Server belum dijalankan');
+                return back()->with('error', 'Server belum dijalankan');
         }
     }
 }

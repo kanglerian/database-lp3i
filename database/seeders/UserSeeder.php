@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'identity' => mt_rand(1, 1000000000),
+                'identity' => 6281313608558,
                 'name' => 'Administrator',
                 'email' => 'lp3itasik@gmail.com',
                 'password' => Hash::make('mimin311'),

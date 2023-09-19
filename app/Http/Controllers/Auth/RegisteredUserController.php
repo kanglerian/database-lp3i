@@ -96,6 +96,16 @@ class RegisteredUserController extends Controller
             'status' => '0',
         ];
 
+        $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
+        $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
+        $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
+        $kec = $request->input('districts') !== null ? 'Kec. ' . $request->input('districts') . ' ' : null;
+        $reg = $request->input('regencies') !== null ? 'Kota/Kab. ' . $request->input('regencies') . ' ' : null;
+        $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
+        $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+
+        $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+
         $data_applicant = [
             'identity' => $numbers_unique,
             'programtype_id' => $request->input('programtype_id'),
@@ -110,11 +120,13 @@ class RegisteredUserController extends Controller
             'year' => $request->input('year'),
             'school' => $request->input('school'),
             'class' => $request->input('class'),
+            'address' => $address_applicant,
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'pmb' => $request->input('pmb'),
+            'identity_user' => 6281313608558,
             'source_id' => 1,
-            'status' => 3,
+            'status_id' => 3,
             'isread' => '0',
         ];
 

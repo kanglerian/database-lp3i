@@ -58,7 +58,7 @@ class ProfileController extends Controller
             'status' => 0,
         ];
         User::create($data);
-        return redirect('profile')->with('message', 'Akun berhasil ditambahkan!');
+        return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**
@@ -117,7 +117,7 @@ class ProfileController extends Controller
             }
             return view('pages.profile.edit')->with($data);
         } else {
-            return redirect('dashboard');
+            return back();
         }
 
     }
@@ -259,7 +259,7 @@ class ProfileController extends Controller
         }
 
         $user->update($data);
-        return redirect('profile')->with('message', 'Data berhasil diubah!');
+        return back()->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -279,6 +279,6 @@ class ProfileController extends Controller
             'password' => Hash::make($request->input('password')),
         ];
         $account->update($data);
-        return redirect('profile')->with('message', 'Password berhasil diubah!');
+        return back()->with('message', 'Password berhasil diubah!');
     }
 }

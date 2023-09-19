@@ -47,7 +47,7 @@ class FileUploadController extends Controller
         ];
 
         FileUpload::create($data);
-        return redirect('setting')->with('message', 'Data file berhasil ditambahkan!');
+        return back()->with('message', 'Data file berhasil ditambahkan!');
     }
 
     /**
@@ -95,7 +95,7 @@ class FileUploadController extends Controller
         ];
 
         $fileupload->update($data);
-        return redirect('setting')->with('message', 'Data file upload berhasil diubah!');
+        return back()->with('message', 'Data file upload berhasil diubah!');
     }
 
     /**
@@ -108,6 +108,6 @@ class FileUploadController extends Controller
     {
         $fileupload = FileUpload::findOrFail($id);
         $fileupload->delete();
-        return redirect('setting')->with('message', 'Data file upload berhasil dihapus!');
+        return back()->with('message', 'Data file upload berhasil dihapus!');
     }
 }
