@@ -30,6 +30,7 @@
                         <div class="relative z-0 w-full group">
                             <x-label for="programtype_id" :value="__('Program Kuliah')" />
                             <x-select id="programtype_id" name="programtype_id" required>
+                                <option value="0">Pilih program</option>
                                 @forelse ($programtypes as $programtype)
                                     <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
                                 @empty
@@ -62,11 +63,16 @@
                         <div class="relative z-0 w-full group">
                             <x-label for="gender" :value="__('Jenis Kelamin')" />
                             <x-select id="gender" name="gender" required>
+                                <option value="null">Pilih jenis kelamin</option>
                                 <option value="1">Laki-laki</option>
                                 <option value="0">Perempuan</option>
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                                @if ($errors->has('gender'))
+                                    <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -90,7 +96,7 @@
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="religion" :value="__('Agama')" />
-                            <x-select id="religion" name="religion" required>
+                            <x-select id="religion" name="religion">
                                 <option value="Islam">Islam</option>
                                 <option value="Kristen">Kristen</option>
                                 <option value="Hindu">Hindu</option>
@@ -272,7 +278,7 @@
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program" :value="__('Program')" />
                             <x-select id="program" name="program" required>
-                                <option>Pilih program</option>
+                                <option value="0">Pilih program</option>
                                 @if ($programs == null)
                                     <option value="Belum diketahui">Belum diketahui</option>
                                 @else
@@ -298,7 +304,7 @@
                             <div class="relative z-0 w-full group">
                                 <x-label for="identity_user" :value="__('Presenter')" />
                                 <x-select id="identity_user" name="identity_user" required>
-                                    <option>Pilih presenter</option>
+                                    <option value="0">Pilih presenter</option>
                                     @foreach ($users as $presenter)
                                         <option value="{{ $presenter->identity }}">{{ $presenter->name }}
                                         </option>
@@ -343,9 +349,7 @@
             document.getElementById('pmb').value = startYear;
         }
         getYearPMB();
-    </script>
 
-    <script>
         let phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', function() {
             let phone = phoneInput.value;

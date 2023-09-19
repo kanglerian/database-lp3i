@@ -30,6 +30,7 @@ class CreateApplicantsTable extends Migration
             $table->string('religion', 100)->nullable();
             $table->text('address')->nullable();
             $table->text('note')->nullable();
+            $table->text('kip')->nullable();
             $table->year('pmb')->nullable();
             $table->string('identity_user', 30)->nullable();
             $table->string('program', 255)->nullable();

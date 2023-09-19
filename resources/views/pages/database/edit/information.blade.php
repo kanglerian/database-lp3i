@@ -109,9 +109,8 @@
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
                                 @if ($errors->has('identity_user'))
-                                    {{ $errors->first('identity_user') }}
-                                @endif
-                                @if ($applicant->identity_user == null)
+                                    <span class="text-red-500">{{ $errors->first('identity_user') }}</span>
+                                @else
                                     <span class="text-red-500">*Wajib diisi.</span>
                                 @endif
                             </p>
@@ -169,7 +168,11 @@
                             <x-input id="email" type="email" name="email" value="{{ $applicant->email }}"
                                 placeholder="Email" />
                             <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('email') }}</span>
+                                @if ($errors->has('email'))
+                                    <span class="text-red-500">{{ $errors->first('email') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -179,7 +182,11 @@
                             <x-input id="phone" type="number" name="phone" value="{{ $applicant->phone }}"
                                 placeholder="Tulis no. Whatsapp disini..." />
                             <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                                @if ($errors->has('phone'))
+                                    <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
                             </p>
                         </div>
                     </div>

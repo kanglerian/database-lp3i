@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-auth-card>
+    <x-auth-card-login>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -36,5 +36,5 @@
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
+    </x-auth-card-login>
 </x-guest-layout>

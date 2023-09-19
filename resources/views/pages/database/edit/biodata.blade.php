@@ -11,6 +11,15 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
+                <div class="grid md:grid-cols-1 md:gap-6 mb-7 lg:mb-0">
+                    @if ($applicant->program)
+                    <div class="relative z-0 w-full group lg:mb-7">
+                        <h4 class="text-sm text-gray-700 mb-1">Program Studi:</h4>
+                        <h2 class="text-lg font-bold text-gray-900">{{ $applicant->program }}</h2>
+                    </div>
+                    @endif
+                </div>
+
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="name" :value="__('Nama Lengkap')" />
@@ -158,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="grid md:grid-cols-3 md:gap-6">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
@@ -182,6 +191,14 @@
                             value="{{ old('class', $applicant->class) }}" placeholder="Tulis kelas disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('class') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="kip" :value="__('Nomor KIP')" />
+                        <x-input id="kip" type="number" name="kip"
+                            value="{{ old('kip', $applicant->kip) }}" placeholder="Tulis nomor KIP disini..." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('kip') }}</span>
                         </p>
                     </div>
                 </div>

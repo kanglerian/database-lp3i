@@ -31,6 +31,7 @@ class Applicant extends Model
         'address',
         'source_id',
         'note',
+        'kip',
         'status_id',
         'programtype_id',
         'pmb',

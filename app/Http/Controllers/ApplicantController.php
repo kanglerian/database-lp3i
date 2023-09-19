@@ -137,13 +137,14 @@ class ApplicantController extends Controller
     {
         try {
             $request->validate([
+                'pmb' => ['required', 'integer'],
+                'programtype_id' => ['required', 'not_in:0'],
                 'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string', 'not_in:null'],
                 'source_id' => ['required', 'not_in:0'],
                 'status_id' => ['required', 'not_in:0'],
-                'pmb' => ['required', 'integer'],
-                'identity_user' => ['string', 'not_in:Pilih presenter'],
-                'program' => ['string', 'not_in:Pilih program'],
-                'isread' => ['string'],
+                'program' => ['required', 'string', 'not_in:0'],
+                'identity_user' => ['required', 'string', 'not_in:0'],
             ]);
 
             $numbers_unique = mt_rand(1, 1000000000);
@@ -176,6 +177,7 @@ class ApplicantController extends Controller
                 'status_id' => $request->input('status_id'),
                 'programtype_id' => $request->input('programtype_id'),
                 'pmb' => $request->input('pmb'),
+                'kip' => $request->input('kip'),
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
@@ -295,14 +297,14 @@ class ApplicantController extends Controller
         $user_detail = User::where('identity', $applicant->identity)->first();
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required'],
             'pmb' => ['required', 'integer'],
-            'source_id' => ['required'],
-            'status_id' => ['required'],
-            'identity_user' => ['string', 'not_in:Pilih presenter'],
-            'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['string'],
+            'programtype_id' => ['required', 'not_in:0'],
+            'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'not_in:null'],
+            'source_id' => ['required', 'not_in:0'],
+            'status_id' => ['required', 'not_in:0'],
+            'program' => ['required', 'string', 'not_in:0'],
+            'identity_user' => ['required', 'string', 'not_in:0'],
         ]);
 
         if ($user_detail !== null) {
@@ -331,6 +333,7 @@ class ApplicantController extends Controller
             'source_id' => $request->input('source_id'),
             'status_id' => $request->input('status_id'),
             'pmb' => $request->input('pmb'),
+            'kip' => $request->input('kip'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'note' => $request->input('note'),
