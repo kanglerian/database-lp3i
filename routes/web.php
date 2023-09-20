@@ -43,7 +43,8 @@ Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->midd
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
 
-Route::get('get/databases/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+
 Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
 
 Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);

@@ -31,18 +31,20 @@ class ApplicantController extends Controller
         $sources = SourceSetting::all();
         $statuses = ApplicantStatus::all();
         $schools = School::all();
+        $follows = FollowUp::all();
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
         } else {
             $total = Applicant::where('identity_user', Auth::user()->identity)->count();
         }
-        
+
         return view('pages.database.index')->with([
             'total' => $total,
             'sources' => $sources,
             'statuses' => $statuses,
             'schools' => $schools,
+            'follows' => $follows,
         ]);
     }
 
@@ -52,7 +54,7 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($dateStart = null, $dateEnd = null, $yearGrad = null, $schoolVal = null, $birthdayVal = null, $pmbVal = null, $sourceVal = null, $statusVal = null)
+    public function get_all()
     {
         $applicantsQuery = Applicant::query();
 
@@ -60,35 +62,65 @@ class ApplicantController extends Controller
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
-        if($dateStart !== null && $dateStart !== 'all' && $dateEnd !== null && $dateEnd !== 'all'){
+        $dateStart = request('dateStart', 'all');
+        $dateEnd = request('dateEnd', 'all');
+        $yearGrad = request('yearGrad', 'all');
+        $schoolVal = request('schoolVal', 'all');
+        $birthdayVal = request('birthdayVal', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $followVal = request('followVal', 'all');
+        $comeVal = request('comeVal', 'all');
+        $sourceVal = request('sourceVal', 'all');
+        $statusVal = request('statusVal', 'all');
+        $achievementVal = request('achievementVal', 'all');
+        $kipVal = request('kipVal', 'all');
+        $relationVal = request('relationVal', 'all');
+
+        if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
         }
 
-        if($yearGrad !== 'all' && $yearGrad !== null){
+        if ($yearGrad !== 'all') {
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        if($schoolVal !== 'all' && $schoolVal !== null){
+        if ($schoolVal !== 'all') {
             $applicantsQuery->where('school', $schoolVal);
         }
 
-        if($birthdayVal !== 'all' && $birthdayVal !== null){
+        if ($birthdayVal !== 'all') {
             $applicantsQuery->where('date_of_birth', $birthdayVal);
         }
 
-        if($pmbVal !== 'all' && $pmbVal !== null){
+        if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
         }
 
-        if($sourceVal !== 'all' && $sourceVal !== null){
+        if ($followVal !== 'all') {
+            $applicantsQuery->where('followup_id', $followVal);
+        }
+        if ($sourceVal !== 'all') {
             $applicantsQuery->where('source_id', $sourceVal);
         }
-
-        if($statusVal !== 'all' && $statusVal !== null){
+        if ($statusVal !== 'all') {
             $applicantsQuery->where('status_id', $statusVal);
         }
-        
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant'])
+        if ($comeVal !== 'all') {
+            $applicantsQuery->where('come', $comeVal);
+        }
+        if ($achievementVal !== 'all') {
+            $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
+        }
+        if ($relationVal !== 'all') {
+            $applicantsQuery->where('relation', 'LIKE', '%' . $relationVal . '%');
+        }
+        if ($kipVal === '1') {
+            $applicantsQuery->where('kip', '<>', null);
+        } elseif ($kipVal === '0') {
+            $applicantsQuery->whereNull('kip');
+        }
+
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -361,7 +393,6 @@ class ApplicantController extends Controller
             'come' => $request->input('come'),
             'followup_id' => $request->input('followup_id'),
             'relation' => $request->input('relation'),
-            'relation' => $request->input('achievement'),
             'programtype_id' => $request->input('programtype_id'),
             'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
         ];
