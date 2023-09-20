@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FollowUp;
 use App\Models\SourceSetting;
 use App\Models\ApplicantStatus;
 use App\Models\FileUpload;
@@ -21,11 +22,13 @@ class SettingController extends Controller
         $programtypes = ProgramType::all();
         $sources = SourceSetting::all();
         $files = FileUpload::all();
+        $follows = FollowUp::all();
         return view('pages.setting.index')->with([
             'sources' => $sources,
             'files' => $files,
             'statuses' => $statuses,
-            'programtypes' => $programtypes
+            'programtypes' => $programtypes,
+            'follows' => $follows,
         ]);
     }
 

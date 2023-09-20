@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
@@ -79,5 +80,6 @@ Route::resource('programtype', ProgramTypeController::class)->middleware(['auth'
 Route::resource('source', SourceController::class)->middleware(['auth','role:A']);
 Route::resource('fileupload', FileUploadController::class)->middleware(['auth','role:A']);
 Route::resource('applicantstatus', ApplicantStatusController::class)->middleware(['auth','role:A']);
+Route::resource('followup', FollowUpController::class)->middleware(['auth','role:A']);
 
 require __DIR__.'/auth.php';

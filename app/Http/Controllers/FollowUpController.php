@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FollowUp;
 
 class FollowUpController extends Controller
 {
@@ -34,7 +35,16 @@ class FollowUpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+        ];
+
+        FollowUp::create($data);
+        return back()->with('message', 'Data follow up berhasil ditambahkan!');
     }
 
     /**
@@ -68,7 +78,18 @@ class FollowUpController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $followup = FollowUp::findOrFail($id);
+
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+        ];
+
+        $followup->update($data);
+        return back()->with('message', 'Data follow up berhasil diubah!');
     }
 
     /**
@@ -79,6 +100,8 @@ class FollowUpController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $followup = FollowUp::findOrFail($id);
+        $followup->delete();
+        return back()->with('message', 'Data follow up berhasil dihapus!');
     }
 }
