@@ -29,15 +29,19 @@ class Applicant extends Model
         'gender',
         'religion',
         'address',
-        'source_id',
         'note',
+        'achievement',
+        'relation',
         'kip',
-        'status_id',
-        'programtype_id',
         'pmb',
         'identity_user',
         'program',
         'isread',
+        'come',
+        'followup_id',
+        'programtype_id',
+        'source_id',
+        'status_id',
     ];
 
 
@@ -73,5 +77,9 @@ class Applicant extends Model
 
     public function histories(){
         return $this->belongsTo(ApplicantHistory::class,'identity_user', 'identity');
+    }
+
+    public function FollowUp(){
+        return $this->belongsTo(FollowUp::class, 'followup_id', 'id');
     }
 }

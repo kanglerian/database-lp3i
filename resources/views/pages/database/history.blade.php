@@ -53,7 +53,7 @@
                             <div class="flex gap-3">
                                 <button type="button" data-id="{{ $history['id'] }}" data-modal-target="dataModal"
                                     data-title="{{ $history['title'] }}" data-date="{{ $history['date'] }}"
-                                    data-title="{{ $history['title'] }}" data-result="{{ $history['result'] }}"
+                                    data-title="{{ $history['title'] }}" data-result="{{ $history['result'] }}" data-report="{{ $history['report'] }}"
                                     onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
                                         class="fa-regular fa-pen-to-square"></i></button>
                                 <button type="button" data-id="{{ $history['id'] }}" onclick="deleteModal(this)"
@@ -63,6 +63,7 @@
                         </div>
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $history['title'] }}</h3>
                         <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">{{ $history['result'] }}
+                        <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400"><span class="font-bold">Hasil:</span> {{ $history['report'] == null ? 'Belum diisi' : $history['report'] }}
                         </p>
                     </li>
                 @empty
@@ -91,6 +92,7 @@
         document.getElementById('title').value = '';
         document.getElementById('date').value = '';
         document.getElementById('result').value = '';
+        document.getElementById('report').value = '';
         document.getElementById('formButton').innerText = 'Simpan';
         document.getElementById('formModal').setAttribute('action', url);
 
@@ -111,12 +113,14 @@
         const title = button.dataset.title;
         const date = button.dataset.date;
         const result = button.dataset.result;
+        const report = button.dataset.report;
         let url = "{{ route('histories.update', ':id') }}".replace(':id', id);
         let status = document.getElementById(modalTarget);
         document.getElementById('title_form').innerText = `Edit Data Riwayat ${title}`;
         document.getElementById('title').value = title;
         document.getElementById('date').value = date;
         document.getElementById('result').value = result;
+        document.getElementById('report').value = report;
         document.getElementById('formButton').innerText = 'Simpan perubahan';
         document.getElementById('formModal').setAttribute('action', url);
         let csrfToken = document.createElement('input');
@@ -187,6 +191,11 @@
                         <textarea name="result" id="result" cols="30" rows="5" placeholder="Isi pesan disini..."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required></textarea>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Hasil</label>
+                        <input type="text" id="report" name="report" placeholder="Tulis hasilnya disini"
+                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500">
                     </div>
                 </div>
                 <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">

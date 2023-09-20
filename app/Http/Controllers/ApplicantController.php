@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FollowUp;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -107,6 +108,7 @@ class ApplicantController extends Controller
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
             $schools = School::all();
+            $follows = FollowUp::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -121,6 +123,7 @@ class ApplicantController extends Controller
                 'sources' => $sources,
                 'users' => $users,
                 'schools' => $schools,
+                'follows' => $follows,
             ]);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
@@ -145,6 +148,7 @@ class ApplicantController extends Controller
                 'status_id' => ['required', 'not_in:0'],
                 'program' => ['required', 'string', 'not_in:0'],
                 'identity_user' => ['required', 'string', 'not_in:0'],
+                'come' => ['not_in:null']
             ]);
 
             $numbers_unique = mt_rand(1, 1000000000);
@@ -178,6 +182,10 @@ class ApplicantController extends Controller
                 'programtype_id' => $request->input('programtype_id'),
                 'pmb' => $request->input('pmb'),
                 'kip' => $request->input('kip'),
+                'come' => $request->input('come'),
+                'followup_id' => $request->input('followup_id'),
+                'relation' => $request->input('relation'),
+                'achievement' => $request->input('achievement'),
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
@@ -213,7 +221,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::where('identity', $identity)->firstOrFail();
+        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
@@ -253,6 +261,7 @@ class ApplicantController extends Controller
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
             $schools = School::all();
+            $follows = FollowUp::all();
             $account = User::where('email', $applicant->email)->count();
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -275,6 +284,7 @@ class ApplicantController extends Controller
                 'sources' => $sources,
                 'statuses' => $statuses,
                 'schools' => $schools,
+                'follows' => $follows,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
@@ -305,6 +315,7 @@ class ApplicantController extends Controller
             'status_id' => ['required', 'not_in:0'],
             'program' => ['required', 'string', 'not_in:0'],
             'identity_user' => ['required', 'string', 'not_in:0'],
+            'come' => ['not_in:null']
         ]);
 
         if ($user_detail !== null) {
@@ -347,6 +358,10 @@ class ApplicantController extends Controller
             'year' => $request->input('year'),
             'school' => $request->input('school'),
             'class' => $request->input('class'),
+            'come' => $request->input('come'),
+            'followup_id' => $request->input('followup_id'),
+            'relation' => $request->input('relation'),
+            'relation' => $request->input('achievement'),
             'programtype_id' => $request->input('programtype_id'),
             'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
         ];

@@ -8,16 +8,13 @@ use App\Models\ProgramType;
 use App\Models\School;
 use App\Models\SourceSetting;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Providers\RouteServiceProvider;
-use App\Rules\PhoneValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class RegisteredUserController extends Controller
 {
@@ -126,7 +123,7 @@ class RegisteredUserController extends Controller
             'pmb' => $request->input('pmb'),
             'identity_user' => 6281313608558,
             'source_id' => 1,
-            'status_id' => 3,
+            'status_id' => 4,
             'isread' => '0',
         ];
 

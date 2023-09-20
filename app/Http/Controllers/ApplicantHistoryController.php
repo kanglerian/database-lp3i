@@ -42,6 +42,7 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
+            'report' => $request->input('report'),
         ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', $data);
 
@@ -112,6 +113,7 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
+            'report' => $request->input('report'),
         ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/update/' . $id, $data);
 

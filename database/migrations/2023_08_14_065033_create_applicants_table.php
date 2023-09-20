@@ -30,12 +30,16 @@ class CreateApplicantsTable extends Migration
             $table->string('religion', 100)->nullable();
             $table->text('address')->nullable();
             $table->text('note')->nullable();
+            $table->text('achievement')->nullable();
+            $table->text('relation')->nullable();
             $table->text('kip')->nullable();
             $table->year('pmb')->nullable();
             $table->string('identity_user', 30)->nullable();
             $table->string('program', 255)->nullable();
             $table->char('isread', 1)->default('0');
+            $table->boolean('come')->nullable();
             
+            $table->unsignedBigInteger('followup_id')->nullable();
             $table->unsignedBigInteger('programtype_id')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
