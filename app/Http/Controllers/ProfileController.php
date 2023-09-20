@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
-            'phone' => ['string', 'unique:users', 'max:15'],
+            'phone' => ['required', 'string', 'unique:users', 'max:15'],
         ]);
 
         $data = [
@@ -57,7 +58,7 @@ class ProfileController extends Controller
             'status' => 0,
         ];
         User::create($data);
-        return redirect('profile')->with('message', 'Akun berhasil ditambahkan!');
+        return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**
@@ -91,6 +92,7 @@ class ProfileController extends Controller
             }
 
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
+            $schools = School::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -106,6 +108,7 @@ class ProfileController extends Controller
                     'programs' => $programs,
                     'father' => $father,
                     'mother' => $mother,
+                    'schools' => $schools
                 ];
             } else {
                 $data = [
@@ -114,7 +117,7 @@ class ProfileController extends Controller
             }
             return view('pages.profile.edit')->with($data);
         } else {
-            return redirect('dashboard');
+            return back();
         }
 
     }
@@ -151,6 +154,7 @@ class ProfileController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
+            'name' => $request->input('name'),
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
@@ -202,11 +206,16 @@ class ProfileController extends Controller
             'address' => $request->input('mother_address') == null ? $address_father : $request->input('mother_address'),
         ];
 
+        $dataUser = [
+            'name' => $request->input('name'),
+        ];
+
+        $user->update($dataUser);
         $applicant->update($data);
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return redirect('profile')->with('message', 'Data berhasil diubah!');
+        return back()->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -250,7 +259,7 @@ class ProfileController extends Controller
         }
 
         $user->update($data);
-        return redirect('profile')->with('message', 'Data berhasil diubah!');
+        return back()->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -270,6 +279,6 @@ class ProfileController extends Controller
             'password' => Hash::make($request->input('password')),
         ];
         $account->update($data);
-        return redirect('profile')->with('message', 'Password berhasil diubah!');
+        return back()->with('message', 'Password berhasil diubah!');
     }
 }

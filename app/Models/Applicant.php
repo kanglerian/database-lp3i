@@ -29,14 +29,19 @@ class Applicant extends Model
         'gender',
         'religion',
         'address',
-        'source_id',
         'note',
-        'status_id',
-        'programtype_id',
+        'achievement',
+        'relation',
+        'kip',
         'pmb',
         'identity_user',
         'program',
         'isread',
+        'come',
+        'followup_id',
+        'programtype_id',
+        'source_id',
+        'status_id',
     ];
 
 
@@ -66,11 +71,15 @@ class Applicant extends Model
         return $this->belongsTo(ApplicantStatus::class, 'status_id', 'id');
     }
 
-    public function schools(){
-        return $this->belongsTo(School::class, 'school_id', 'id');
+    public function SchoolApplicant(){
+        return $this->belongsTo(School::class, 'school', 'id');
     }
 
     public function histories(){
         return $this->belongsTo(ApplicantHistory::class,'identity_user', 'identity');
+    }
+
+    public function FollowUp(){
+        return $this->belongsTo(FollowUp::class, 'followup_id', 'id');
     }
 }

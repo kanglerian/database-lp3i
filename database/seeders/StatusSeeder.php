@@ -21,7 +21,11 @@ class StatusSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],[
-                'name' => 'Potensi',
+                'name' => 'Prospek',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Hot Prospek',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],[

@@ -267,6 +267,65 @@
                         </div>
                     </div>
                 </div>
+                {{-- Follow Up --}}
+                <div class="w-full md:w-1/2 space-y-5 p-2">
+                    <div class="px-2">
+                        <button type="button" data-modal-target="followModal" onclick="changeFollowModal(this)"
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
+                            <i class="fa-solid fa-circle-plus"></i> Tambah Data</button>
+                    </div>
+                    <div class="bg-white overflow-y-auto h-80 border md:rounded-xl">
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <h2 class="font-bold text-lg mb-5">Daftar Follow Up</h2>
+                            <div class="relative overflow-x-auto md:rounded-xl">
+                                <table class="w-full text-sm text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                                No
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Nama
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                                Action
+                                            </th>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($follows as $no => $follow)
+                                            <tr class="bg-white border-b">
+                                                <th class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                                    {{ $no + 1 }}
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    {{ $follow->name }}
+                                                </td>
+                                                <td class="flex gap-1 items-center px-6 py-3">
+                                                    <button type="button" data-id="{{ $follow->id }}"
+                                                        data-modal-target="FollowModal" data-name="{{ $follow->name }}" 
+                                                        onclick="editFollowModal(this)"
+                                                        class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        <i class="fa-solid fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" data-id="{{ $follow->id }}"
+                                                        onclick="deleteFollow(this)"
+                                                        class="md:mt-0 inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="bg-white border-b">
+                                                <td class="px-6 py-3 text-center" colspan="4">Data follow up belum ada.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -276,3 +335,4 @@
 @include('pages.setting.modals.file')
 @include('pages.setting.modals.status')
 @include('pages.setting.modals.programtype')
+@include('pages.setting.modals.followup')

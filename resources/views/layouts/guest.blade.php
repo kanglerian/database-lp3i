@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Politeknik LP3I Kampus Tasikmalaya') }}</title>
 
     <!-- Fonts -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@
             font-family: 'Source Code Pro', monospace;
         }
     </style>
-
+    @stack('styles')
 </head>
 
 <body class="bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
@@ -33,16 +34,19 @@
         {{ $slot }}
     </div>
 
-    <div class="absolute bottom-0 right-0">
-        <a href="https://politekniklp3i-tasikmalaya.ac.id/conflict-register"><lottie-player src="{{ asset('animations/whatsapp.json') }}" background="Transparent" speed="1"
-            style="width: 100px; height: 100px" direction="1" mode="normal" loop autoplay></lottie-player>
+    <div class="fixed bottom-0 right-0">
+        <a href="https://politekniklp3i-tasikmalaya.ac.id/conflict-register"><lottie-player
+                src="{{ asset('animations/whatsapp.json') }}" background="Transparent" speed="1"
+                style="width: 100px; height: 100px" direction="1" mode="normal" loop autoplay></lottie-player>
         </a>
     </div>
 
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/lottie.js') }}"></script>
-
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

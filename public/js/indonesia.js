@@ -3,8 +3,6 @@ const selectRegencies = document.getElementById('regencies');
 const selectDistricts = document.getElementById('districts');
 const selectVillages = document.getElementById('villages');
 
-const wilayah = document.getElementById('wilayah');
-
 const addressContainer = document.getElementById('address-container');
 
 const getProvinces = async () => {
@@ -12,23 +10,19 @@ const getProvinces = async () => {
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
       let data = response.data.provinces;
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}
-    </option>`;
+        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}</option>`;
       }
       addressContainer.classList.remove('hidden');
       selectProvinces.innerHTML = bucket;
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
       }
-      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })
     .catch((err) => {
       let bucket = `<option value="">${err.message}</option>`;
       selectProvinces.value = '';
       selectProvinces.innerHTML = bucket;
-      wilayah.innerHTML = '<i class="fa-solid fa-wifi text-red-500"></i>';
     });
 }
 getProvinces();

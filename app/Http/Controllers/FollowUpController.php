@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FollowUp;
-use App\Models\SourceSetting;
-use App\Models\ApplicantStatus;
-use App\Models\FileUpload;
-use App\Models\ProgramType;
 
-class SettingController extends Controller
+class FollowUpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +14,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $statuses = ApplicantStatus::all();
-        $programtypes = ProgramType::all();
-        $sources = SourceSetting::all();
-        $files = FileUpload::all();
-        $follows = FollowUp::all();
-        return view('pages.setting.index')->with([
-            'sources' => $sources,
-            'files' => $files,
-            'statuses' => $statuses,
-            'programtypes' => $programtypes,
-            'follows' => $follows,
-        ]);
+        //
     }
 
     /**
@@ -50,7 +35,16 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+        ];
+
+        FollowUp::create($data);
+        return back()->with('message', 'Data follow up berhasil ditambahkan!');
     }
 
     /**
@@ -84,7 +78,18 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $followup = FollowUp::findOrFail($id);
+
+        $request->validate([
+            'name' => ['required', 'string'],
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+        ];
+
+        $followup->update($data);
+        return back()->with('message', 'Data follow up berhasil diubah!');
     }
 
     /**
@@ -95,6 +100,8 @@ class SettingController extends Controller
      */
     public function destroy($id)
     {
-        
+        $followup = FollowUp::findOrFail($id);
+        $followup->delete();
+        return back()->with('message', 'Data follow up berhasil dihapus!');
     }
 }

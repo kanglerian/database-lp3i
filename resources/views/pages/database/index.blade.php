@@ -73,6 +73,7 @@
                         <select id="school" onchange="changeFilter()"
                             class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">Pilih sekolah</option>
+                            <option value="0">Tidak diketahui</option>
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
@@ -91,7 +92,47 @@
                             placeholder="Tahun PMB">
                     </div>
                     <div class="w-32 space-y-1">
-                        <label for="" class="text-xs">Sumber database:</label>
+                        <label for="" class="text-xs">Prestasi:</label>
+                        <input type="text" id="change_achievement" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Prestasi">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Relasi:</label>
+                        <input type="text" id="change_relation" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Relasi">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Ket. Follow Up:</label>
+                        <select id="change_follow" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Keterangan</option>
+                            @foreach ($follows as $follow)
+                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Datang ke LP3I</label>
+                        <select id="change_come" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">KIP</label>
+                        <select id="change_kip" onchange="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Sumber:</label>
                         <select id="change_source" onchange="changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">Sumber</option>
@@ -161,79 +202,12 @@
 
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
+@include('pages.database.database.filter')
 <script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });
-
-    var urlData = 'get/databases';
-    var urlExcel = 'applicants/export';
-
-    var dataTableInitialized = false;
-    var dataTableInstance;
-
-    var dataApplicants;
-
-    const getAPI = () => {
-        fetch(urlData)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const count = data.applicants.length;
-                dataApplicants = data.applicants;
-                document.getElementById('count_filter').innerText = count;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }
-
-    const changeFilter = () => {
-        let dateStart = document.getElementById('date_start').value || 'all';
-        let dateEnd = document.getElementById('date_end').value || 'all';
-        let yearGrad = document.getElementById('year_grad').value || 'all';
-        let schoolVal = document.getElementById('school').value || 'all';
-        let birthdayVal = document.getElementById('birthday').value || 'all';
-        let pmbVal = document.getElementById('change_pmb').value || 'all';
-        let sourceVal = document.getElementById('change_source').value || 'all';
-        let statusVal = document.getElementById('change_status').value || 'all';
-
-        urlData =
-            `get/databases/${dateStart}/${dateEnd}/${yearGrad}/${schoolVal}/${birthdayVal}/${pmbVal}/${sourceVal}/${statusVal}`;
-        urlExcel =
-            `applicants/export/${dateStart}/${dateEnd}/${yearGrad}/${schoolVal}/${birthdayVal}/${pmbVal}/${sourceVal}/${statusVal}`;
-        console.log(urlExcel);
-        if (dataTableInitialized) {
-            dataTableInstance.ajax.url(urlData).load();
-            getAPI();
-        } else {
-            getDataTable();
-        }
-    }
-
-    const resetFilter = () => {
-        urlData = `get/databases`;
-        urlExcel = 'applicants/export';
-        if (dataTableInitialized) {
-            dataTableInstance.ajax.url(urlData).load();
-            getAPI();
-            document.getElementById('date_start').value = '';
-            document.getElementById('date_end').value = '';
-            document.getElementById('year_grad').value = '';
-            document.getElementById('school').value = '';
-            document.getElementById('birthday').value = '';
-            document.getElementById('change_pmb').value = '';
-            document.getElementById('change_source').value = 'all';
-            document.getElementById('change_status').value = 'all';
-        } else {
-            getDataTable();
-        }
-    }
-
+    
     const getDataTable = async () => {
         const dataTableConfig = {
             ajax: {
@@ -309,9 +283,9 @@
                     }
                 },
                 {
-                    data: 'school',
+                    data: 'school_applicant',
                     render: (data) => {
-                        return data == 0 ? 'Tidak diketahui' : data;
+                        return data == null ? 'Tidak diketahui' : data.name;
                     }
                 },
                 {

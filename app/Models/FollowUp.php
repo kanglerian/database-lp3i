@@ -5,22 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class FollowUp extends Model
 {
     use HasFactory;
-
-    /**
+     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'region',
+        'name'
     ];
 
 
-    protected $table = 'schools';
+    protected $table = 'followup';
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -32,6 +30,6 @@ class School extends Model
     ];
 
     public function applicant(){
-        return $this->hasMany(Applicant::class, 'school');
+        return $this->hasMany(Applicant::class, 'followup_id');
     }
 }

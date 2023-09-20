@@ -54,7 +54,7 @@
                                     <li class="space-x-2">
                                         <span>Pendidikan Terakhir:</span>
                                         <span class="border-b">
-                                            {{ $user->school == null ? '___' : $user->school }}
+                                            {{ $user->SchoolApplicant->name == null ? '___' : $user->SchoolApplicant->name }}
                                         </span>
                                     </li>
                                     <li class="space-x-2">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FollowUp;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -30,18 +31,20 @@ class ApplicantController extends Controller
         $sources = SourceSetting::all();
         $statuses = ApplicantStatus::all();
         $schools = School::all();
+        $follows = FollowUp::all();
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
         } else {
             $total = Applicant::where('identity_user', Auth::user()->identity)->count();
         }
-        
+
         return view('pages.database.index')->with([
             'total' => $total,
             'sources' => $sources,
             'statuses' => $statuses,
             'schools' => $schools,
+            'follows' => $follows,
         ]);
     }
 
@@ -51,7 +54,7 @@ class ApplicantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function get_all($dateStart = null, $dateEnd = null, $yearGrad = null, $schoolVal = null, $birthdayVal = null, $pmbVal = null, $sourceVal = null, $statusVal = null)
+    public function get_all()
     {
         $applicantsQuery = Applicant::query();
 
@@ -59,35 +62,65 @@ class ApplicantController extends Controller
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
-        if($dateStart !== null && $dateStart !== 'all' && $dateEnd !== null && $dateEnd !== 'all'){
+        $dateStart = request('dateStart', 'all');
+        $dateEnd = request('dateEnd', 'all');
+        $yearGrad = request('yearGrad', 'all');
+        $schoolVal = request('schoolVal', 'all');
+        $birthdayVal = request('birthdayVal', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $followVal = request('followVal', 'all');
+        $comeVal = request('comeVal', 'all');
+        $sourceVal = request('sourceVal', 'all');
+        $statusVal = request('statusVal', 'all');
+        $achievementVal = request('achievementVal', 'all');
+        $kipVal = request('kipVal', 'all');
+        $relationVal = request('relationVal', 'all');
+
+        if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
         }
 
-        if($yearGrad !== 'all' && $yearGrad !== null){
+        if ($yearGrad !== 'all') {
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        if($schoolVal !== 'all' && $schoolVal !== null){
+        if ($schoolVal !== 'all') {
             $applicantsQuery->where('school', $schoolVal);
         }
 
-        if($birthdayVal !== 'all' && $birthdayVal !== null){
+        if ($birthdayVal !== 'all') {
             $applicantsQuery->where('date_of_birth', $birthdayVal);
         }
 
-        if($pmbVal !== 'all' && $pmbVal !== null){
+        if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
         }
 
-        if($sourceVal !== 'all' && $sourceVal !== null){
+        if ($followVal !== 'all') {
+            $applicantsQuery->where('followup_id', $followVal);
+        }
+        if ($sourceVal !== 'all') {
             $applicantsQuery->where('source_id', $sourceVal);
         }
-
-        if($statusVal !== 'all' && $statusVal !== null){
+        if ($statusVal !== 'all') {
             $applicantsQuery->where('status_id', $statusVal);
         }
-        
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'Schools'])
+        if ($comeVal !== 'all') {
+            $applicantsQuery->where('come', $comeVal);
+        }
+        if ($achievementVal !== 'all') {
+            $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
+        }
+        if ($relationVal !== 'all') {
+            $applicantsQuery->where('relation', 'LIKE', '%' . $relationVal . '%');
+        }
+        if ($kipVal === '1') {
+            $applicantsQuery->where('kip', '<>', null);
+        } elseif ($kipVal === '0') {
+            $applicantsQuery->whereNull('kip');
+        }
+
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -107,6 +140,7 @@ class ApplicantController extends Controller
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
             $schools = School::all();
+            $follows = FollowUp::all();
 
             if ($response->successful()) {
                 $programs = $response->json();
@@ -121,10 +155,11 @@ class ApplicantController extends Controller
                 'sources' => $sources,
                 'users' => $users,
                 'schools' => $schools,
+                'follows' => $follows,
             ]);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return redirect('database')->with('error', $errorMessage);
+            return back()->with('error', $errorMessage);
         }
     }
     /**
@@ -137,13 +172,15 @@ class ApplicantController extends Controller
     {
         try {
             $request->validate([
+                'pmb' => ['required', 'integer'],
+                'programtype_id' => ['required', 'not_in:0'],
                 'name' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string', 'not_in:null'],
                 'source_id' => ['required', 'not_in:0'],
                 'status_id' => ['required', 'not_in:0'],
-                'pmb' => ['required', 'integer'],
-                'identity_user' => ['string', 'not_in:Pilih presenter'],
-                'program' => ['string', 'not_in:Pilih program'],
-                'isread' => ['string'],
+                'program' => ['required', 'string', 'not_in:0'],
+                'identity_user' => ['required', 'string', 'not_in:0'],
+                'come' => ['not_in:null']
             ]);
 
             $numbers_unique = mt_rand(1, 1000000000);
@@ -176,6 +213,11 @@ class ApplicantController extends Controller
                 'status_id' => $request->input('status_id'),
                 'programtype_id' => $request->input('programtype_id'),
                 'pmb' => $request->input('pmb'),
+                'kip' => $request->input('kip'),
+                'come' => $request->input('come'),
+                'followup_id' => $request->input('followup_id'),
+                'relation' => $request->input('relation'),
+                'achievement' => $request->input('achievement'),
                 'program' => $request->input('program'),
                 'identity_user' => $request->input('identity_user'),
                 'isread' => '0',
@@ -194,11 +236,11 @@ class ApplicantController extends Controller
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
 
-            return redirect('database')->with('message', 'Data aplikan berhasil ditambahkan!');
+            return back()->with('message', 'Data aplikan berhasil ditambahkan!');
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
                 $errorMessage = 'Terjadi duplikat data.';
-                return redirect('database')->with('error', $errorMessage);
+                return back()->with('error', $errorMessage);
             }
         }
     }
@@ -211,7 +253,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::where('identity', $identity)->firstOrFail();
+        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
@@ -229,7 +271,7 @@ class ApplicantController extends Controller
                 'mother' => $mother,
             ]);
         } else {
-            return redirect('database')->with('error', 'Tidak diizinkan.');
+            return back()->with('error', 'Tidak diizinkan.');
         }
     }
 
@@ -251,6 +293,7 @@ class ApplicantController extends Controller
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::all();
             $schools = School::all();
+            $follows = FollowUp::all();
             $account = User::where('email', $applicant->email)->count();
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -261,7 +304,7 @@ class ApplicantController extends Controller
                 $programs = null;
             }
 
-            $applicant = Applicant::findOrFail($id);
+            $applicant = Applicant::with('SchoolApplicant')->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
                 'programs' => $programs,
@@ -273,9 +316,10 @@ class ApplicantController extends Controller
                 'sources' => $sources,
                 'statuses' => $statuses,
                 'schools' => $schools,
+                'follows' => $follows,
             ]);
         } else {
-            return redirect('database')->with('error', 'Tidak diizinkan.');
+            return back()->with('error', 'Tidak diizinkan.');
         }
 
     }
@@ -295,14 +339,15 @@ class ApplicantController extends Controller
         $user_detail = User::where('identity', $applicant->identity)->first();
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required'],
             'pmb' => ['required', 'integer'],
-            'source_id' => ['required'],
-            'status_id' => ['required'],
-            'identity_user' => ['string', 'not_in:Pilih presenter'],
-            'program' => ['string', 'not_in:Pilih program'],
-            'isread' => ['string'],
+            'programtype_id' => ['required', 'not_in:0'],
+            'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'not_in:null'],
+            'source_id' => ['required', 'not_in:0'],
+            'status_id' => ['required', 'not_in:0'],
+            'program' => ['required', 'string', 'not_in:0'],
+            'identity_user' => ['required', 'string', 'not_in:0'],
+            'come' => ['not_in:null']
         ]);
 
         if ($user_detail !== null) {
@@ -331,6 +376,7 @@ class ApplicantController extends Controller
             'source_id' => $request->input('source_id'),
             'status_id' => $request->input('status_id'),
             'pmb' => $request->input('pmb'),
+            'kip' => $request->input('kip'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'note' => $request->input('note'),
@@ -344,6 +390,9 @@ class ApplicantController extends Controller
             'year' => $request->input('year'),
             'school' => $request->input('school'),
             'class' => $request->input('class'),
+            'come' => $request->input('come'),
+            'followup_id' => $request->input('followup_id'),
+            'relation' => $request->input('relation'),
             'programtype_id' => $request->input('programtype_id'),
             'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
         ];
@@ -392,7 +441,7 @@ class ApplicantController extends Controller
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return redirect('database')->with('message', 'Data aplikan berhasil diubah!');
+        return back()->with('message', 'Data aplikan berhasil diubah!');
     }
 
     /**
@@ -412,7 +461,7 @@ class ApplicantController extends Controller
             $user->delete();
             return session()->flash('message', 'Data aplikan berhasil dihapus!');
         } else {
-            return redirect('database')->with('error', 'Tidak diizinkan.');
+            return back()->with('error', 'Tidak diizinkan.');
         }
     }
 
@@ -425,6 +474,7 @@ class ApplicantController extends Controller
     public function print($id)
     {
         $applicant = Applicant::where('identity', $id)->firstOrFail();
+        $user = User::where('identity', $id)->firstOrFail();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -432,9 +482,10 @@ class ApplicantController extends Controller
                 'applicant' => $applicant,
                 'father' => $father,
                 'mother' => $mother,
+                'user' => $user,
             ]);
         } else {
-            return redirect('database')->with('error', 'Tidak diizinkan.');
+            return back()->with('error', 'Tidak diizinkan.');
         }
     }
 

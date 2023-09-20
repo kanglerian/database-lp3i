@@ -62,7 +62,7 @@ class SchoolController extends Controller
         ];
 
         School::create($data);
-        return redirect('school')->with('message', 'Data sekolah berhasil ditambahkan!');
+        return back()->with('message', 'Data sekolah berhasil ditambahkan!');
     }
 
     /**
@@ -116,7 +116,7 @@ class SchoolController extends Controller
             return session()->flash('message', 'Data sekolah berhasil dihapus!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return redirect('school')->with('error', $errorMessage);
+            return back()->with('error', $errorMessage);
         }
     }
 
@@ -130,6 +130,6 @@ class SchoolController extends Controller
     {
         Excel::import(new SchoolsImport, $request->file('berkas'));
         
-        return redirect('school')->with('message', 'Data sekolah berhasil diimport');
+        return back()->with('message', 'Data sekolah berhasil diimport');
     }
 }

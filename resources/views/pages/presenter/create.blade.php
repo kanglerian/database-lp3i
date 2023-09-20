@@ -22,63 +22,50 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('presenter.store') }}">
                         @csrf
-                        <div class="grid md:grid-cols-1 md:gap-6">
-                            <div class="relative z-0 w-full mb-6 group">
-                                <input type="text" name="name" id="name"
-                                    class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group lg:mb-4">
+                                <x-label for="name" :value="__('Nama lengkap')" />
+                                <x-input id="name" type="text" name="name" :value="old('name')"
+                                    placeholder="Tulis nama lengkap disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('name') }}
+                                    <span class="text-red-500">{{ $errors->first('name') }}</span>
                                 </p>
-                                <label for="name"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama
-                                    lengkap</label>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6">
-                            <div class="relative z-0 w-full mb-6 group">
-                                <input type="number" name="phone" id="phone"
-                                    class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
+                                <x-label for="phone" :value="__('No. Telpon (Whatsapp)')" />
+                                <x-input id="phone" type="number" name="phone" :value="old('phone')"
+                                    placeholder="Tulis no. telpon / whatsapp disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('phone') }}
+                                    <span class="text-red-500">{{ $errors->first('phone') }}</span>
                                 </p>
-                                <label for="phone"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">No.
-                                    Telpon (Whatsapp)</label>
                             </div>
-                            <div class="relative z-0 w-full mb-6 group">
-                                <input type="email" name="email" id="email"
-                                    class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                            <div class="relative z-0 w-full group">
+                                <x-label for="email" :value="__('Email')" />
+                                <x-input id="email" type="email" name="email" :value="old('email')"
+                                    placeholder="Tulis email disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('email') }}
+                                    <span class="text-red-500">{{ $errors->first('email') }}</span>
                                 </p>
-                                <label for="email"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 md:gap-6">
-                            <div class="relative z-0 w-full mb-6 group">
-                                <input type="password" name="password" id="password"
-                                    class="@error('password') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                            <div class="relative z-0 w-full group mb-4">
+                                <x-label for="password" :value="__('Password')" />
+                                <x-input id="password" type="password" name="password" :value="old('password')"
+                                    placeholder="Tulis password disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('password') }}
+                                    <span class="text-red-500">{{ $errors->first('password') }}</span>
                                 </p>
-                                <label for="password"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                             </div>
-                            <div class="relative z-0 w-full mb-6 group">
-                                <input type="password" name="password_confirmation" id="password_confirmation"
-                                    class="@error('password_confirmation') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                            <div class="relative z-0 w-full group">
+                                <x-label for="password_confirmation" :value="__('Konfirmasi Password')" />
+                                <x-input id="password_confirmation" type="password" name="password_confirmation"
+                                    :value="old('password_confirmation')" placeholder="Tulis konfirmasi password disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    {{ $errors->first('password_confirmation') }}
+                                    <span class="text-red-500">{{ $errors->first('password_confirmation') }}</span>
                                 </p>
-                                <label for="password_confirmation"
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Konfirmasi
-                                    Password</label>
                             </div>
                         </div>
                         <button type="submit"
@@ -91,19 +78,18 @@
     </div>
 </x-app-layout>
 
+@push('scripts')
 <script>
     let phoneInput = document.getElementById('phone');
     phoneInput.addEventListener('input', function() {
         let phone = phoneInput.value;
 
         if (phone.startsWith('62')) {
-            // Biarkan jika sudah dimulai dengan '62'
         } else if (phone.startsWith('0')) {
-            // Ubah '0' menjadi '62' jika dimulai dengan '0'
             phoneInput.value = '62' + phone.substring(1);
         } else {
-            // Ubah angka selain '0' dan '62' menjadi '62'
             phoneInput.value = '62';
         }
     });
 </script>
+@endpush

@@ -42,13 +42,14 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
+            'report' => $request->input('report'),
         ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', $data);
 
         if ($response->successful()) {
-            return redirect('histories')->with('message', 'Data riwayat berhasil ditambahkan!');
+            return back()->with('message', 'Data riwayat berhasil ditambahkan!');
         } else {
-            return redirect('histories')->with('error', 'Data riwayat gagal ditambahkan');
+            return back()->with('error', 'Data riwayat gagal ditambahkan');
         }
     }
 
@@ -67,7 +68,7 @@ class ApplicantHistoryController extends Controller
         }
 
         if ($user->phone == null) {
-            return redirect('histories')->with('error', 'Nomor telpon belum dicantumkan');
+            return back()->with('error', 'Nomor telpon belum dicantumkan');
         }
 
         $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
@@ -78,7 +79,7 @@ class ApplicantHistoryController extends Controller
                 $histories = $response->json();
                 break;
             case 500:
-                return redirect('histories')->with('error', 'Server belum dijalankan');
+                return back()->with('error', 'Server belum dijalankan');
 
         }
         return view('pages.database.history')->with([
@@ -112,13 +113,14 @@ class ApplicantHistoryController extends Controller
             'title' => $request->input('title'),
             'date' => $request->input('date'),
             'result' => $request->input('result'),
+            'report' => $request->input('report'),
         ];
         $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/history/update/' . $id, $data);
 
         if ($response->successful()) {
-            return redirect('histories')->with('message', 'Data riwayat berhasil diupdate!');
+            return back()->with('message', 'Data riwayat berhasil diupdate!');
         } else {
-            return redirect('histories')->with('error', 'Data riwayat gagal diupdate');
+            return back()->with('error', 'Data riwayat gagal diupdate');
         }
     }
 

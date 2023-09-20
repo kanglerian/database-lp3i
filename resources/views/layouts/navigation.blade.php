@@ -54,7 +54,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex gap-3 border border-gray-200 hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
+                            class="flex gap-3 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
                                 <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
                                     alt="Avatar" class="h-8 rounded-full">

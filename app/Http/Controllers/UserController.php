@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -96,10 +97,10 @@ class UserController extends Controller
                 'status' => $request->input('status'),
             ];
             User::create($data);
-            return redirect('user')->with('message', 'Akun berhasil ditambahkan!');
+            return back()->with('message', 'Akun berhasil ditambahkan!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return redirect('user')->with('error', $errorMessage);
+            return back()->with('error', $errorMessage);
         }
     }
 
@@ -142,6 +143,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
         $applicant = Applicant::where('identity', $user->identity)->first();
+        $schools = School::all();
 
         if ($user->role == 'S') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
@@ -164,6 +166,7 @@ class UserController extends Controller
                 'presenters' => $presenters,
                 'father' => $father,
                 'mother' => $mother,
+                'schools' => $schools,
             ];
         } else {
             $data = [
@@ -268,7 +271,7 @@ class UserController extends Controller
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return redirect('user')->with('message', 'Data berhasil diubah!');
+        return back()->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -282,7 +285,7 @@ class UserController extends Controller
         $account = User::findOrFail($id);
         UserUpload::where('identity_user', $account->identity)->delete();
         $account->delete();
-        return redirect('user')->with('message', 'Akun berhasil dihapus!');
+        return back()->with('message', 'Akun berhasil dihapus!');
     }
 
     /**
@@ -315,7 +318,7 @@ class UserController extends Controller
         }
 
         $user->update($data);
-        return redirect('user')->with('message', 'Data berhasil diubah!');
+        return back()->with('message', 'Data berhasil diubah!');
     }
 
     /**
@@ -335,7 +338,7 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ];
         $account->update($data);
-        return redirect('user')->with('message', 'Password berhasil diubah!');
+        return back()->with('message', 'Password berhasil diubah!');
     }
 
     /**
@@ -347,12 +350,14 @@ class UserController extends Controller
     public function print($id)
     {
         $applicant = Applicant::where('identity', $id)->firstOrFail();
+        $user = User::where('identity', $id)->firstOrFail();
         $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
         $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
         return view('pages.user.print')->with([
             'applicant' => $applicant,
             'father' => $father,
             'mother' => $mother,
+            'user' => $user
         ]);
     }
 
@@ -373,6 +378,6 @@ class UserController extends Controller
             'status' => $user->status == '0' ? '1' : '0',
         ];
         $user->update($data);
-        return redirect('user')->with('message', 'Status berhasil diubah!');
+        return back()->with('message', 'Status berhasil diubah!');
     }
 }

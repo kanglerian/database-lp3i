@@ -44,7 +44,7 @@ class ApplicantStatusController extends Controller
         ];
 
         ApplicantStatus::create($data);
-        return redirect('setting')->with('message', 'Data status berhasil ditambahkan!');
+        return back()->with('message', 'Data status berhasil ditambahkan!');
     }
 
     /**
@@ -89,7 +89,7 @@ class ApplicantStatusController extends Controller
         ];
 
         $status->update($data);
-        return redirect('setting')->with('message', 'Data status berhasil diubah!');
+        return back()->with('message', 'Data status berhasil diubah!');
     }
 
     /**
@@ -102,6 +102,6 @@ class ApplicantStatusController extends Controller
     {
         $status = ApplicantStatus::findOrFail($id);
         $status->delete();
-        return redirect('setting')->with('message', 'Data status berhasil dihapus!');
+        return back()->with('message', 'Data status berhasil dihapus!');
     }
 }

@@ -85,6 +85,7 @@
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
     @stack('scripts')
 </body>
 

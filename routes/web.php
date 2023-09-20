@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
@@ -43,7 +44,8 @@ Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->midd
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
 
-Route::get('get/databases/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+
 Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
 
 Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);
@@ -78,5 +80,6 @@ Route::resource('programtype', ProgramTypeController::class)->middleware(['auth'
 Route::resource('source', SourceController::class)->middleware(['auth','role:A']);
 Route::resource('fileupload', FileUploadController::class)->middleware(['auth','role:A']);
 Route::resource('applicantstatus', ApplicantStatusController::class)->middleware(['auth','role:A']);
+Route::resource('followup', FollowUpController::class)->middleware(['auth','role:A']);
 
 require __DIR__.'/auth.php';
