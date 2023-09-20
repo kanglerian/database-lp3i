@@ -3,7 +3,7 @@
     <div class="fixed inset-0 bg-black opacity-50"></div>
     <div class="fixed inset-0 flex items-center justify-center">
         <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
-            <div class="flex items-start justify-between p-4 border-b rounded-t">
+        <div class="flex items-start justify-between p-4 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900" id="title_follow">
                     Tambah Data Follow Up
                 </h3>
