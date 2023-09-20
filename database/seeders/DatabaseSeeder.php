@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             UserSeeder::class,
             FollowUpSeeder::class,
-            // SchoolSeeder::class,
         ]);
     }
 }
