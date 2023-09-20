@@ -40,6 +40,10 @@ class SourceSeeder extends Seeder
                 'name' => 'Guru BK',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Presentasi',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
     }

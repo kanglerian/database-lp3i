@@ -8,6 +8,14 @@
                 {{ __('Database') }}
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
+                <form action="{{ route('applicant.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="berkas" id="berkas" class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
+                    <button type="submit"
+                        class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                        <i class="fa-solid fa-file-import"></i>
+                    </button>
+                </form>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>

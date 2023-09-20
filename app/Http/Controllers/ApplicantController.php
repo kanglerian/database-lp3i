@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ApplicantsImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Models\FollowUp;
 use App\Models\School;
 use Illuminate\Http\Request;
@@ -498,5 +501,12 @@ class ApplicantController extends Controller
     public function export($dateStart = null, $dateEnd = null, $yearGrad = null, $schoolVal = null, $birthdayVal = null, $pmbVal = null, $sourceVal = null, $statusVal = null)
     {
         return (new ApplicantsExport($dateStart, $dateEnd, $yearGrad, $schoolVal, $birthdayVal, $pmbVal, $sourceVal, $statusVal))->download('applicants.xlsx');
+    }
+
+    public function import(Request $request) 
+    {
+        Excel::import(new ApplicantsImport, $request->file('berkas'));
+        
+        return back()->with('message', 'Data applicant berhasil diimport');
     }
 }

@@ -302,7 +302,7 @@
                                                 </td>
                                                 <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $follow->id }}"
-                                                        data-modal-target="FollowModal" data-name="{{ $follow->name }}" 
+                                                        data-modal-target="followModal" data-name="{{ $follow->name }}" 
                                                         onclick="editFollowModal(this)"
                                                         class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>

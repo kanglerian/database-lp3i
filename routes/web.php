@@ -35,6 +35,7 @@ Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
 
 Route::resource('school', SchoolController::class)->middleware(['auth','status:1','role:A']);
 Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get')->middleware(['auth','status:1','role:A']);
+
 Route::post('import/schools', [SchoolController::class, 'import'])->middleware(['auth','status:1','role:A'])->name('school.import');
 
 Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
@@ -43,6 +44,7 @@ Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
+Route::post('import/applicants', [ApplicantController::class, 'import'])->middleware(['auth','status:1','role:A'])->name('applicant.import');
 
 Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 
