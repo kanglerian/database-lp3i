@@ -52,7 +52,7 @@ class ApplicantsImport implements ToModel
                 'date_of_birth' => !empty($row[11]) ? Date::excelToDateTimeObject($row[11])->format('Y-m-d') : null,
                 'gender' => ($row[12] === 'WANITA' || $row[12] === 'PEREMPUAN') ? 0 : 1,
                 'religion' => $row[13],
-                'identity_user' => '6282127356645',
+                'identity_user' => '6282127951392',
                 'source_id' => 7,
                 'status_id' => !empty($row[16]) ?
                     (ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1) :
