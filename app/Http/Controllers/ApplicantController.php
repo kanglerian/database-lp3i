@@ -31,6 +31,7 @@ class ApplicantController extends Controller
      */
     public function index()
     {
+        $users = User::where(['status' => '1', 'role' => 'P'])->get();
         $sources = SourceSetting::all();
         $statuses = ApplicantStatus::all();
         $schools = School::all();
@@ -48,6 +49,7 @@ class ApplicantController extends Controller
             'statuses' => $statuses,
             'schools' => $schools,
             'follows' => $follows,
+            'users' => $users
         ]);
     }
 
@@ -68,6 +70,7 @@ class ApplicantController extends Controller
         $dateStart = request('dateStart', 'all');
         $dateEnd = request('dateEnd', 'all');
         $yearGrad = request('yearGrad', 'all');
+        $presenterVal = request('presenterVal', 'all');
         $schoolVal = request('schoolVal', 'all');
         $birthdayVal = request('birthdayVal', 'all');
         $pmbVal = request('pmbVal', 'all');
@@ -85,6 +88,10 @@ class ApplicantController extends Controller
 
         if ($yearGrad !== 'all') {
             $applicantsQuery->where('year', $yearGrad);
+        }
+
+        if ($presenterVal !== 'all') {
+            $applicantsQuery->where('identity_user', $presenterVal);
         }
 
         if ($schoolVal !== 'all') {
@@ -503,10 +510,15 @@ class ApplicantController extends Controller
         return (new ApplicantsExport($dateStart, $dateEnd, $yearGrad, $schoolVal, $birthdayVal, $pmbVal, $sourceVal, $statusVal))->download('applicants.xlsx');
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
-        Excel::import(new ApplicantsImport, $request->file('berkas'));
+        $request->validate([
+            'identity_user' => ['required', 'string', 'not_in:0'],
+        ]);
         
+        $identityUser = $request->input('identity_user');
+        Excel::import(new ApplicantsImport($identityUser), $request->file('berkas'));
+
         return back()->with('message', 'Data applicant berhasil diimport');
     }
 }

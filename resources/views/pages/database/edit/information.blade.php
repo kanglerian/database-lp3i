@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-{{ $programs == null ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-{{ $programs == null || Auth::user()->role == 'P' ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
                     @if ($programs !== null)
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program" :value="__('Program')" />

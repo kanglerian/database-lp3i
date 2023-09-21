@@ -17,6 +17,12 @@ class ApplicantsImport implements ToModel
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
+    private $identityUser;
+
+    public function __construct($identityUser)
+    {
+        $this->identityUser = $identityUser;
+    }
 
     public function model(array $row)
     {
@@ -52,7 +58,7 @@ class ApplicantsImport implements ToModel
                 'date_of_birth' => !empty($row[11]) ? Date::excelToDateTimeObject($row[11])->format('Y-m-d') : null,
                 'gender' => ($row[12] === 'WANITA' || $row[12] === 'PEREMPUAN') ? 0 : 1,
                 'religion' => $row[13],
-                'identity_user' => '6282127951392',
+                'identity_user' => $this->identityUser,
                 'source_id' => 7,
                 'status_id' => !empty($row[16]) ?
                     (ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1) :

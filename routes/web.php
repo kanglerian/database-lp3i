@@ -44,7 +44,7 @@ Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::post('import/applicants', [ApplicantController::class, 'import'])->middleware(['auth','status:1','role:A'])->name('applicant.import');
+Route::post('import/applicants', [ApplicantController::class, 'import'])->middleware(['auth','status:1'])->name('applicant.import');
 
 Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 
