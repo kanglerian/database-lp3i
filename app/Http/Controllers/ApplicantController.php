@@ -64,18 +64,10 @@ class ApplicantController extends Controller
     {
         $applicantsQuery = Applicant::query();
 
-        if (Auth::user()->role === 'P') {
-            $applicantsQuery->where('identity_user', Auth::user()->identity);
-        }
-
         $dateStart = request('dateStart', 'all');
         $dateEnd = request('dateEnd', 'all');
         $yearGrad = request('yearGrad', 'all');
-
-        if (Auth::user()->role === 'A') {
-            $presenterVal = request('presenterVal', 'all');
-        }
-
+        $presenterVal = request('presenterVal', 'all');
         $schoolVal = request('schoolVal', 'all');
         $majorVal = request('majorVal', 'all');
         $birthdayVal = request('birthdayVal', 'all');
@@ -90,6 +82,10 @@ class ApplicantController extends Controller
         $jobFatherVal = request('jobFatherVal', 'all');
         $jobMotherVal = request('jobMotherVal', 'all');
 
+        if (Auth::user()->role === 'P') {
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
+
         if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
         }
@@ -98,8 +94,10 @@ class ApplicantController extends Controller
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        if ($presenterVal !== 'all' && Auth::user()->role == 'A') {
-            $applicantsQuery->where('identity_user', $presenterVal);
+        if (Auth::user()->role === 'A') {
+            if ($presenterVal !== 'all') {
+                $applicantsQuery->where('identity_user', $presenterVal);
+            }
         }
 
         if ($schoolVal !== 'all') {
