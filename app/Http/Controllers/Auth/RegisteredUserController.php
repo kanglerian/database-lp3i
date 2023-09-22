@@ -121,9 +121,10 @@ class RegisteredUserController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'pmb' => $request->input('pmb'),
-            'identity_user' => 6281313608558,
+            'identity_user' => '6281313608558',
             'source_id' => 8,
             'status_id' => 4,
+            'come' => 0,
             'isread' => '0',
         ];
 

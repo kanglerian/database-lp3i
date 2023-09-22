@@ -44,6 +44,10 @@ class SourceSeeder extends Seeder
                 'name' => 'Presentasi',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Daftar Online',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
     }
