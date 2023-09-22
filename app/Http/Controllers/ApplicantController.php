@@ -71,7 +71,11 @@ class ApplicantController extends Controller
         $dateStart = request('dateStart', 'all');
         $dateEnd = request('dateEnd', 'all');
         $yearGrad = request('yearGrad', 'all');
-        $presenterVal = request('presenterVal', 'all');
+
+        if (Auth::user()->role === 'A') {
+            $presenterVal = request('presenterVal', 'all');
+        }
+
         $schoolVal = request('schoolVal', 'all');
         $majorVal = request('majorVal', 'all');
         $birthdayVal = request('birthdayVal', 'all');
@@ -94,7 +98,7 @@ class ApplicantController extends Controller
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        if ($presenterVal !== 'all') {
+        if ($presenterVal !== 'all' && Auth::user()->role == 'A') {
             $applicantsQuery->where('identity_user', $presenterVal);
         }
 

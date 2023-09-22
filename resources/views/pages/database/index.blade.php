@@ -97,18 +97,16 @@
                             placeholder="Tahun lulus">
                     </div>
                     @if (Auth::user()->role == 'A')
-                        <div class="w-32 space-y-1">
-                            <label for="" class="text-xs">Presenter:</label>
-                            <select id="identity_user" onchange="changeFilter()"
-                                class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                                <option value="all">Pilih presenter</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->identity }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @else
-                        <input type="hidden" id="identity_user" value="{{ Auth::user()->role }}">
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Presenter:</label>
+                        <select id="identity_user" onchange="changeFilter()"
+                            class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih presenter</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->identity }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @endif
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Asal sekolah:</label>
@@ -141,8 +139,7 @@
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Prestasi:</label>
-                        <input type="text" id="change_achievement"
-                            onkeyup="if (event.keyCode === 13) changeFilter()"
+                        <input type="text" id="change_achievement" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Prestasi">
                     </div>
@@ -154,15 +151,13 @@
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Pekerjaan Ayah:</label>
-                        <input type="text" id="change_jobfather"
-                            onkeyup="if (event.keyCode === 13) changeFilter()"
+                        <input type="text" id="change_jobfather" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Pekerjaan Ayah">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Pekerjaan Ibu:</label>
-                        <input type="text" id="change_jobmother"
-                            onkeyup="if (event.keyCode === 13) changeFilter()"
+                        <input type="text" id="change_jobmother" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Pekerjaan Ibu">
                     </div>
