@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ApplicantsImport;
+use App\Imports\ApplicantUpdateImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\FollowUp;
@@ -520,5 +521,17 @@ class ApplicantController extends Controller
         Excel::import(new ApplicantsImport($identityUser), $request->file('berkas'));
 
         return back()->with('message', 'Data applicant berhasil diimport');
+    }
+
+    public function import_update(Request $request)
+    {
+        $request->validate([
+            'identity_user' => ['required', 'string', 'not_in:0'],
+        ]);
+        
+        $identityUser = $request->input('identity_user');
+        Excel::import(new ApplicantUpdateImport($identityUser), $request->file('berkas'));
+
+        return back()->with('message', 'Data applicant berhasil diupdate');
     }
 }

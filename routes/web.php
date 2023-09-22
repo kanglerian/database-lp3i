@@ -45,6 +45,8 @@ Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->midd
 
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
 Route::post('import/applicants', [ApplicantController::class, 'import'])->middleware(['auth','status:1'])->name('applicant.import');
+Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
+Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->middleware(['auth','status:1'])->name('applicant.importupdate');
 
 Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
 

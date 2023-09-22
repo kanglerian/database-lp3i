@@ -8,29 +8,34 @@
                 {{ __('Database') }}
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <form action="{{ route('applicant.import') }}" method="post" enctype="multipart/form-data"
-                    class="flex items-center gap-2">
-                    @csrf
-                    @if (Auth::user()->role == 'P')
-                        <input type="hidden" name="identity_user" value="{{ Auth::user()->identity }}" placeholder="Nomor presenter">
-                    @else
-                        <div>
-                            <x-select name="identity_user" class="w-52 {{ $errors->first('identity_user') ? 'border border-red-500' : '' }} text-xs mt-[0]" required>
-                                <option value="0">Pilih presenter</option>
-                                @foreach ($users as $presenter)
-                                    <option value="{{ $presenter->identity }}">{{ $presenter->name }}
-                                    </option>
-                                @endforeach
-                            </x-select>
-                        </div>
-                    @endif
-                    <input type="file" name="berkas" id="berkas"
-                        class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
-                    <button type="submit"
-                        class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
-                        <i class="fa-solid fa-file-import"></i>
-                    </button>
-                </form>
+                <div>
+                    <form action="{{ route('applicant.importupdate') }}" method="post" enctype="multipart/form-data"
+                        class="flex items-center gap-2">
+                        @csrf
+                        @if (Auth::user()->role == 'P')
+                            <input type="hidden" name="identity_user" value="{{ Auth::user()->identity }}"
+                                placeholder="Nomor presenter">
+                        @else
+                            <div>
+                                <x-select name="identity_user"
+                                    class="w-52 {{ $errors->first('identity_user') ? 'border border-red-500' : '' }} text-xs mt-[0]"
+                                    required>
+                                    <option value="0">Pilih presenter</option>
+                                    @foreach ($users as $presenter)
+                                        <option value="{{ $presenter->identity }}">{{ $presenter->name }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                            </div>
+                        @endif
+                        <input type="file" name="berkas" id="berkas"
+                            class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
+                        <button type="submit"
+                            class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                            <i class="fa-solid fa-file-import"></i>
+                        </button>
+                    </form>
+                </div>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
@@ -92,16 +97,16 @@
                             placeholder="Tahun lulus">
                     </div>
                     @if (Auth::user()->role == 'A')
-                    <div class="w-32 space-y-1">
-                        <label for="" class="text-xs">Presenter:</label>
-                        <select id="identity_user" onchange="changeFilter()"
-                            class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Pilih presenter</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->identity }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="w-32 space-y-1">
+                            <label for="" class="text-xs">Presenter:</label>
+                            <select id="identity_user" onchange="changeFilter()"
+                                class="js-example-basic-single w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                                <option value="all">Pilih presenter</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->identity }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     @endif
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Asal sekolah:</label>
