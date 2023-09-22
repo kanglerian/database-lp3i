@@ -131,7 +131,7 @@ class ApplicantController extends Controller
             $applicantsQuery->whereNull('kip');
         }
 
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp','families'])
             ->orderByDesc('created_at')
             ->get();
 

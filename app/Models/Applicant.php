@@ -79,6 +79,9 @@ class Applicant extends Model
         return $this->belongsTo(ApplicantHistory::class,'identity_user', 'identity');
     }
 
+    public function families(){
+        return $this->hasMany(ApplicantFamily::class, 'identity_user','identity');
+    }
     public function FollowUp(){
         return $this->belongsTo(FollowUp::class, 'followup_id', 'id');
     }
