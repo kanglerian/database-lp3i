@@ -92,7 +92,7 @@
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Tahun lulus:</label>
-                        <input type="number" id="year_grad" onkeyup="changeFilter()"
+                        <input type="number" id="year_grad" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Tahun lulus">
                     </div>
@@ -121,43 +121,43 @@
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Jurusan:</label>
-                        <input type="text" id="change_major" onkeyup="changeFilter()"
+                        <input type="text" id="change_major" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Jurusan">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Tanggal lahir:</label>
-                        <input type="date" id="birthday" onkeyup="changeFilter()"
+                        <input type="date" id="birthday" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Tanggal Lahir">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onkeyup="changeFilter()"
+                        <input type="number" id="change_pmb" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Prestasi:</label>
-                        <input type="text" id="change_achievement" onkeyup="changeFilter()"
+                        <input type="text" id="change_achievement" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Prestasi">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Relasi:</label>
-                        <input type="text" id="change_relation" onkeyup="changeFilter()"
+                        <input type="text" id="change_relation" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Relasi">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Pekerjaan Ayah:</label>
-                        <input type="text" id="change_jobfather" onkeyup="changeFilter()"
+                        <input type="text" id="change_jobfather" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Pekerjaan Ayah">
                     </div>
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Pekerjaan Ibu:</label>
-                        <input type="text" id="change_jobmother" onkeyup="changeFilter()"
+                        <input type="text" id="change_jobmother" onkeyup="if (event.keyCode === 13) changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Pekerjaan Ibu">
                     </div>
