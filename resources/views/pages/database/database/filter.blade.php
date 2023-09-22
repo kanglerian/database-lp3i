@@ -42,6 +42,8 @@
         let statusVal = document.getElementById('change_status').value || 'all';
         let kipVal = document.getElementById('change_kip').value || 'all';
         let relationVal = document.getElementById('change_relation').value || 'all';
+        let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
+        let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
 
         if (dateStart !== 'all') {
             queryParams.push(`dateStart=${dateStart}`);
@@ -84,6 +86,12 @@
         }
         if (relationVal !== 'all') {
             queryParams.push(`relationVal=${relationVal}`);
+        }
+        if (jobFatherVal !== 'all') {
+            queryParams.push(`jobFatherVal=${jobFatherVal}`);
+        }
+        if (jobMotherVal !== 'all') {
+            queryParams.push(`jobMotherVal=${jobMotherVal}`);
         }
 
         let queryString = queryParams.join('&');

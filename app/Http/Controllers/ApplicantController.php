@@ -82,6 +82,8 @@ class ApplicantController extends Controller
         $achievementVal = request('achievementVal', 'all');
         $kipVal = request('kipVal', 'all');
         $relationVal = request('relationVal', 'all');
+        $jobFatherVal = request('jobFatherVal', 'all');
+        $jobMotherVal = request('jobMotherVal', 'all');
 
         if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
@@ -131,7 +133,19 @@ class ApplicantController extends Controller
             $applicantsQuery->whereNull('kip');
         }
 
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp','families'])
+        if ($jobFatherVal !== 'all') {
+            $applicantsQuery->whereHas('father', function ($query) use ($jobFatherVal) {
+                $query->where('job', 'LIKE', '%' . $jobFatherVal . '%');
+            });
+        }
+
+        if ($jobMotherVal !== 'all') {
+            $applicantsQuery->whereHas('mother', function ($query) use ($jobMotherVal) {
+                $query->where('job', 'LIKE', '%' . $jobMotherVal . '%');
+            });
+        }
+
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -516,7 +530,7 @@ class ApplicantController extends Controller
         $request->validate([
             'identity_user' => ['required', 'string', 'not_in:0'],
         ]);
-        
+
         $identityUser = $request->input('identity_user');
         Excel::import(new ApplicantsImport($identityUser), $request->file('berkas'));
 
@@ -528,7 +542,7 @@ class ApplicantController extends Controller
         $request->validate([
             'identity_user' => ['required', 'string', 'not_in:0'],
         ]);
-        
+
         $identityUser = $request->input('identity_user');
         Excel::import(new ApplicantUpdateImport($identityUser), $request->file('berkas'));
 

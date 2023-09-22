@@ -38,8 +38,12 @@ class ApplicantFamily extends Model
         'updated_at',
     ];
 
-    public function families(){
-        return $this->belongsTo(Applicant::class,'identity_user','identity');
+    public function father(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity')->where('gender', 1);
+    }
+
+    public function mother(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity')->where('gender', 0);
     }
 
 }

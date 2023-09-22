@@ -144,6 +144,18 @@
                             placeholder="Relasi">
                     </div>
                     <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Pekerjaan Ayah:</label>
+                        <input type="text" id="change_jobfather" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Pekerjaan Ayah">
+                    </div>
+                    <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Pekerjaan Ibu:</label>
+                        <input type="text" id="change_jobmother" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Pekerjaan Ibu">
+                    </div>
+                    <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Ket. Follow Up:</label>
                         <select id="change_follow" onchange="changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
