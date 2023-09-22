@@ -120,6 +120,12 @@
                         </select>
                     </div>
                     <div class="w-32 space-y-1">
+                        <label for="" class="text-xs">Jurusan:</label>
+                        <input type="text" id="change_major" onkeyup="changeFilter()"
+                            class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Jurusan">
+                    </div>
+                    <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Tanggal lahir:</label>
                         <input type="date" id="birthday" onkeyup="changeFilter()"
                             class="w-full bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"

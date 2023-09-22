@@ -33,6 +33,7 @@
         let yearGrad = document.getElementById('year_grad').value || 'all';
         let presenterVal = document.getElementById('identity_user').value || 'all';
         let schoolVal = document.getElementById('school').value || 'all';
+        let majorVal = document.getElementById('change_major').value || 'all';
         let birthdayVal = document.getElementById('birthday').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let comeVal = document.getElementById('change_come').value || 'all';
@@ -92,6 +93,9 @@
         }
         if (jobMotherVal !== 'all') {
             queryParams.push(`jobMotherVal=${jobMotherVal}`);
+        }
+        if (majorVal !== 'all') {
+            queryParams.push(`majorVal=${majorVal}`);
         }
 
         let queryString = queryParams.join('&');

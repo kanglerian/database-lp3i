@@ -73,6 +73,7 @@ class ApplicantController extends Controller
         $yearGrad = request('yearGrad', 'all');
         $presenterVal = request('presenterVal', 'all');
         $schoolVal = request('schoolVal', 'all');
+        $majorVal = request('majorVal', 'all');
         $birthdayVal = request('birthdayVal', 'all');
         $pmbVal = request('pmbVal', 'all');
         $followVal = request('followVal', 'all');
@@ -99,6 +100,10 @@ class ApplicantController extends Controller
 
         if ($schoolVal !== 'all') {
             $applicantsQuery->where('school', $schoolVal);
+        }
+
+        if ($majorVal !== 'all') {
+            $applicantsQuery->where('major', $majorVal);
         }
 
         if ($birthdayVal !== 'all') {
