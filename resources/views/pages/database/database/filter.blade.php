@@ -31,7 +31,9 @@
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';
+        
         let presenterVal = document.getElementById('identity_user').value || 'all';
+
         let schoolVal = document.getElementById('school').value || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
         let birthdayVal = document.getElementById('birthday').value || 'all';

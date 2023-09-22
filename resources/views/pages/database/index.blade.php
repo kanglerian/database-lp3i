@@ -107,6 +107,8 @@
                             @endforeach
                         </select>
                     </div>
+                    @else
+                    <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
                     @endif
                     <div class="w-32 space-y-1">
                         <label for="" class="text-xs">Asal sekolah:</label>

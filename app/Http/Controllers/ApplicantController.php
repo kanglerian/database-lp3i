@@ -94,10 +94,8 @@ class ApplicantController extends Controller
             $applicantsQuery->where('year', $yearGrad);
         }
 
-        if (Auth::user()->role === 'A') {
-            if ($presenterVal !== 'all') {
-                $applicantsQuery->where('identity_user', $presenterVal);
-            }
+        if ($presenterVal !== 'all') {
+            $applicantsQuery->where('identity_user', $presenterVal);
         }
 
         if ($schoolVal !== 'all') {
