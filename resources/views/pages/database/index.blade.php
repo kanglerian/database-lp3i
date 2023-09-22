@@ -236,6 +236,9 @@
                                         No. Telpon (Whatsapp)
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Presenter
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Asal sekolah
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -340,6 +343,12 @@
                     data: 'phone',
                     render: (data) => {
                         return typeof(data) == 'object' ? 'Tidak diketahui' : data;
+                    }
+                },
+                {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
                     }
                 },
                 {

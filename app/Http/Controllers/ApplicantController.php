@@ -150,7 +150,7 @@ class ApplicantController extends Controller
             });
         }
 
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother','presenter'])
             ->orderByDesc('created_at')
             ->get();
 
