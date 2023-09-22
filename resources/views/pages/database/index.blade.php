@@ -76,10 +76,13 @@
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-                {{-- <a href="" class="relative">
-                    <i class="fa-solid fa-2x fa-person-circle-plus"></i>
-                    <span class="left-[20px] top-[-10px] absolute bg-red-500 text-white px-1.5 py-1 rounded-xl text-[10px]">10</span>
-                </a> --}}
+                @if ($nopresenter > 0)
+                    <a class="relative">
+                        <i class="fa-solid fa-2x fa-person-circle-plus text-gray-500"></i>
+                        <span
+                            class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
+                    </a>
+                @endif
             </div>
             @include('pages.database.database.filter')
             <div class="bg-white overflow-hidden border md:rounded-xl">
@@ -145,6 +148,15 @@
             order: [
                 [0, 'desc']
             ],
+            rowCallback: function(row, data, index) {
+                console.log(data.presenter.phone);
+                if (data.presenter.phone == '6281313608558') {
+                    $(row).css('background-color', 'red');
+                    $(row).css('color', 'white');
+                } else {
+                    console.log(false);
+                }
+            },
             columnDefs: [{
                     width: 10,
                     target: 0

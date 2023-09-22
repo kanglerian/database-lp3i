@@ -1057,6 +1057,10 @@ select {
   height: 1px;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1139,6 +1143,10 @@ select {
 
 .w-\[150px\] {
   width: 150px;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .max-w-6xl {
