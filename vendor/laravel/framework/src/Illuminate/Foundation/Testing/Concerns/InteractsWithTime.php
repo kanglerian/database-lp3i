@@ -42,7 +42,7 @@ trait InteractsWithTime
      *
      * @return \DateTimeInterface
      */
-    public function travelback()
+    public function travelBack()
     {
         return Wormhole::back();
     }

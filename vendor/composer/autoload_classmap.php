@@ -48,6 +48,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
+    'App\\Imports\\ApplicantUpdateImport' => $baseDir . '/app/Imports/ApplicantUpdateImport.php',
     'App\\Imports\\ApplicantsImport' => $baseDir . '/app/Imports/ApplicantsImport.php',
     'App\\Imports\\SchoolsImport' => $baseDir . '/app/Imports/SchoolsImport.php',
     'App\\Models\\Applicant' => $baseDir . '/app/Models/Applicant.php',

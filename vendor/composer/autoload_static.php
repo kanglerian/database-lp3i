@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
+class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -343,8 +343,8 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -465,9 +465,9 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/barryvdh/laravel-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
-            2 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/barryvdh/laravel-cors/src',
+            2 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Faker\\' => 
         array (
@@ -600,6 +600,7 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Imports\\ApplicantUpdateImport' => __DIR__ . '/../..' . '/app/Imports/ApplicantUpdateImport.php',
         'App\\Imports\\ApplicantsImport' => __DIR__ . '/../..' . '/app/Imports/ApplicantsImport.php',
         'App\\Imports\\SchoolsImport' => __DIR__ . '/../..' . '/app/Imports/SchoolsImport.php',
         'App\\Models\\Applicant' => __DIR__ . '/../..' . '/app/Models/Applicant.php',
@@ -6532,10 +6533,10 @@ class ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbafea8a7d99069a4e6a367768187b5f2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340::$classMap;
 
         }, null, ClassLoader::class);
     }

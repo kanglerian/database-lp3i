@@ -151,7 +151,7 @@
             rowCallback: function(row, data, index) {
                 console.log(data.presenter.phone);
                 if (data.presenter.phone == '6281313608558') {
-                    $(row).css('background-color', 'red');
+                    $(row).css('background-color', '#dc2626');
                     $(row).css('color', 'white');
                 } else {
                     console.log(false);

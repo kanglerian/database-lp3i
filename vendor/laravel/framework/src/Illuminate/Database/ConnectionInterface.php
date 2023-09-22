@@ -144,7 +144,7 @@ interface ConnectionInterface
      *
      * @return void
      */
-    public function rollback();
+    public function rollBack();
 
     /**
      * Get the number of active transactions.
