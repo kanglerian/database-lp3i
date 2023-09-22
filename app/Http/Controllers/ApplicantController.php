@@ -103,7 +103,7 @@ class ApplicantController extends Controller
         }
 
         if ($majorVal !== 'all') {
-            $applicantsQuery->where('major', $majorVal);
+            $applicantsQuery->where('major', 'LIKE', '%' . $majorVal . '%');
         }
 
         if ($birthdayVal !== 'all') {
