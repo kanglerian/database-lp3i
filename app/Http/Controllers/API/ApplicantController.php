@@ -40,8 +40,10 @@ class ApplicantController extends Controller
                 'phone' => $request->input('phone'),
                 'pmb' => $request->input('pmb'),
                 'programtype_id' => $request->input('programtype_id'),
+                'identity_user' => '6281313608558',
                 'source_id' => 1,
-                'status' => 1,
+                'status_id' => 4,
+                'come' => 0,
                 'isread' => '0',
             ];
 
