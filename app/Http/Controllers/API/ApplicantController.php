@@ -42,7 +42,7 @@ class ApplicantController extends Controller
                 'programtype_id' => $request->input('programtype_id'),
                 'identity_user' => '6281313608558',
                 'source_id' => 1,
-                'status_id' => 4,
+                'status_id' => 1,
                 'come' => 0,
                 'isread' => '0',
             ];
