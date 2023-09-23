@@ -31,9 +31,7 @@
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';
-        
         let presenterVal = document.getElementById('identity_user').value || 'all';
-
         let schoolVal = document.getElementById('school').value || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
         let birthdayVal = document.getElementById('birthday').value || 'all';
@@ -47,6 +45,8 @@
         let relationVal = document.getElementById('change_relation').value || 'all';
         let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
         let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
+
+        let databaseOnline = document.getElementById('database_online').value || 'all';
 
         if (dateStart !== 'all') {
             queryParams.push(`dateStart=${dateStart}`);
@@ -98,6 +98,9 @@
         }
         if (majorVal !== 'all') {
             queryParams.push(`majorVal=${majorVal}`);
+        }
+        if (databaseOnline !== 'all') {
+            queryParams.push(`databaseOnline=${databaseOnline}`);
         }
 
         let queryString = queryParams.join('&');

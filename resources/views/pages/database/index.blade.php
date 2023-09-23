@@ -76,13 +76,18 @@
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+
                 @if ($nopresenter > 0)
-                    <a class="relative">
-                        <i class="fa-solid fa-2x fa-person-circle-plus text-gray-500"></i>
-                        <span
-                            class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
-                    </a>
+                    <button class="relative" onclick="changeFilter()">
+                        <input type="hidden" id="database_online" value="6281313608558">
+                        @if (Auth::user()->role == 'A')
+                            <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
+                            <span
+                                class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
+                        @endif
+                    </button>
                 @endif
+
             </div>
             @include('pages.database.database.filter')
             <div class="bg-white overflow-hidden border md:rounded-xl">

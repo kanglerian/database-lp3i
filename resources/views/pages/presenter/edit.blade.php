@@ -40,7 +40,7 @@
 
                             <div class="relative z-0 w-full mb-4 group">
                                 <x-label for="email" :value="__('Email')" />
-                                <x-input id="email" type="email" email="email" value="{{ $presenter->email }}"
+                                <x-input id="email" type="email" name="email" value="{{ $presenter->email }}"
                                     placeholder="Tulis email disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500">{{ $errors->first('email') }}</span>

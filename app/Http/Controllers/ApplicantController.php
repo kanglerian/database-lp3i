@@ -84,6 +84,8 @@ class ApplicantController extends Controller
         $jobFatherVal = request('jobFatherVal', 'all');
         $jobMotherVal = request('jobMotherVal', 'all');
 
+        $databaseOnline = request('databaseOnline', 'all');
+
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
@@ -127,6 +129,9 @@ class ApplicantController extends Controller
         }
         if ($comeVal !== 'all') {
             $applicantsQuery->where('come', $comeVal);
+        }
+        if ($databaseOnline !== 'all') {
+            $applicantsQuery->where('identity_user', $databaseOnline);
         }
         if ($achievementVal !== 'all') {
             $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
