@@ -288,9 +288,10 @@
                         school: 'school_applicant',
                         year: 'year',
                         source: 'source_setting',
-                        status_id: 'status_id'
+                        status: 'applicant_status'
                     },
                     render: (data, type, row) => {
+                        console.log(data);
                         let showUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
