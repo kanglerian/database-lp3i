@@ -132,11 +132,5 @@
                 @endforeach
             </select>
         </div>
-        <div class="w-1/2 space-y-1 p-1 md:p-0">
-            <button type="button" onclick="resetFilter()"
-                class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
-                <i class="fa-solid fa-filter-circle-xmark"></i>
-            </button>
-        </div>
     </div>
 </div>

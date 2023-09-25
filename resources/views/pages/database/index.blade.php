@@ -56,6 +56,10 @@
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
+                <button type="button" onclick="resetFilter()"
+                    class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
+                    <i class="fa-solid fa-filter-circle-xmark"></i>
+                </button>
                 <button onclick="exportExcel()"
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
