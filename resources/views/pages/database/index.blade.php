@@ -8,6 +8,7 @@
                 <h2 class="font-bold text-xl text-gray-800 leading-tight">
                     {{ __('Database') }}
                 </h2>
+                {{-- Loading animation --}}
                 <div role="status" class="hidden" id="data-loading">
                     <svg aria-hidden="true"
                         class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
