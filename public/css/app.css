@@ -1700,10 +1700,6 @@ select {
   padding-top: 2rem;
 }
 
-.pb-5 {
-  padding-bottom: 1.25rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1723,6 +1719,10 @@ select {
 
 .text-\[10px\] {
   font-size: 10px;
+}
+
+.text-\[25px\] {
+  font-size: 25px;
 }
 
 .text-base {
@@ -1748,22 +1748,6 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-\[9px\] {
-  font-size: 9px;
-}
-
-.text-\[20px\] {
-  font-size: 20px;
-}
-
-.text-\[25px\] {
-  font-size: 25px;
-}
-
-.text-\[23px\] {
-  font-size: 23px;
 }
 
 .font-bold {
@@ -1883,10 +1867,6 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-\[\] {
-  color: ;
 }
 
 .underline {

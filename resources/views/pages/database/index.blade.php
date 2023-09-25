@@ -86,6 +86,8 @@
                                 class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
                         @endif
                     </button>
+                @else
+                    <input type="hidden" id="database_online" value="6281313608558">
                 @endif
 
             </div>
