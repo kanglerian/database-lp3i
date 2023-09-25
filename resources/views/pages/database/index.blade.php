@@ -264,7 +264,7 @@
                 {
                     data: 'year',
                     render: (data, row) => {
-                        return typeof(data) == 'number' ? data : 'Tidak diketahui';
+                        return data != null ? data : 'Tidak diketahui';
                     }
                 },
                 {
