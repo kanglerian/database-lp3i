@@ -1,5 +1,5 @@
 <script>
-  var urlData = 'get/databases';
+    var urlData = 'get/databases';
     var urlExcel = 'applicants/export';
 
     var dataTableInitialized = false;
@@ -8,8 +8,10 @@
     var dataApplicants;
 
     const getAPI = () => {
+        showLoadingAnimation();
         fetch(urlData)
             .then(response => {
+                hideLoadingAnimation();
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -26,8 +28,10 @@
     }
 
     const changeFilter = () => {
+        showLoadingAnimation();
+
         let queryParams = [];
-        
+
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';
@@ -110,10 +114,11 @@
 
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            hideLoadingAnimation();
             getAPI();
         } else {
             getDataTable();
-        }   
+        }
     }
 
     const resetFilter = () => {
@@ -121,6 +126,7 @@
         urlExcel = 'applicants/export';
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            hideLoadingAnimation();
             getAPI();
             document.getElementById('date_start').value = '';
             document.getElementById('date_end').value = '';
@@ -138,5 +144,15 @@
         } else {
             getDataTable();
         }
+    }
+</script>
+
+<script>
+    const showLoadingAnimation = () => {
+        document.getElementById('data-loading').style.display = 'block';
+    }
+
+    const hideLoadingAnimation = () => {
+        document.getElementById('data-loading').style.display = 'none';
     }
 </script>
