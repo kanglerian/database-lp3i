@@ -285,9 +285,9 @@
                         identity: 'identity',
                         name: 'name',
                         phone: 'phone',
-                        school: 'school',
+                        school: 'school_applicant',
                         year: 'year',
-                        source_id: 'source_id',
+                        source: 'source_setting',
                         status_id: 'status_id'
                     },
                     render: (data, type, row) => {
@@ -302,7 +302,7 @@
                         return `
                         <div class="flex items-center gap-1">
                             ${folder}
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source_id}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school.name}','${data.year}','${data.source.name}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                             <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
