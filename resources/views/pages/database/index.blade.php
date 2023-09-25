@@ -176,12 +176,9 @@
                 [0, 'desc']
             ],
             rowCallback: function(row, data, index) {
-                console.log(data.presenter.phone);
                 if (data.presenter.phone == '6281313608558') {
                     $(row).css('background-color', '#dc2626');
                     $(row).css('color', 'white');
-                } else {
-                    console.log(false);
                 }
             },
             columnDefs: [{
@@ -291,7 +288,6 @@
                         status: 'applicant_status'
                     },
                     render: (data, type, row) => {
-                        console.log(data.source_setting.name);
                         let showUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
