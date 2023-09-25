@@ -291,7 +291,7 @@
                         status: 'applicant_status'
                     },
                     render: (data, type, row) => {
-                        console.log(data);
+                        console.log(data.source_setting.name);
                         let showUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
@@ -303,7 +303,7 @@
                         return `
                         <div class="flex items-center gap-1">
                             ${folder}
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school == null ? 'Tidak diketahui' : data.school.name}','${data.year}','${data.source}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                             <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
@@ -365,21 +365,9 @@
     }
 
     const copyRecord = (name, phone, school, year, source) => {
-        var contentSource = '';
-        switch (source) {
-            case "1":
-                contentSource = 'Website'
-                break;
-            case "2":
-                contentSource = 'MGM'
-                break;
-            case "3":
-                contentSource = 'Sosial Media'
-                break;
-        }
         const textarea = document.createElement("textarea");
         textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
+            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${source}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();
