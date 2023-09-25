@@ -302,7 +302,7 @@
                         return `
                         <div class="flex items-center gap-1">
                             ${folder}
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school}','${data.year}','${data.source}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school == null ? 'Tidak diketahui' : data.school.name}','${data.year}','${data.source}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                             <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
