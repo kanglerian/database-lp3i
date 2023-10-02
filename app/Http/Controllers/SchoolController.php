@@ -57,7 +57,7 @@ class SchoolController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => strtoupper(strtoupper($request->input('name'))),
             'region' => strtoupper($request->input('region')),
         ];
 
@@ -126,10 +126,10 @@ class SchoolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         Excel::import(new SchoolsImport, $request->file('berkas'));
-        
+
         return back()->with('message', 'Data sekolah berhasil diimport');
     }
 }

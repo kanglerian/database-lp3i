@@ -50,7 +50,7 @@ class ProfileController extends Controller
 
         $data = [
             'identity' => $request->input('identity'),
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('phone')),
             'phone' => $request->input('phone'),
@@ -154,7 +154,7 @@ class ProfileController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
@@ -178,7 +178,7 @@ class ProfileController extends Controller
         $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
 
         $data_father = [
-            'name' => $request->input('father_name'),
+            'name' => strtoupper($request->input('father_name')),
             'job' => $request->input('father_job'),
             'place_of_birth' => $request->input('father_place_of_birth'),
             'date_of_birth' => $request->input('father_date_of_birth'),
@@ -197,7 +197,7 @@ class ProfileController extends Controller
         $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
 
         $data_mother = [
-            'name' => $request->input('mother_name'),
+            'name' => strtoupper($request->input('mother_name')),
             'job' => $request->input('mother_job'),
             'place_of_birth' => $request->input('mother_place_of_birth'),
             'date_of_birth' => $request->input('mother_date_of_birth'),
@@ -207,7 +207,7 @@ class ProfileController extends Controller
         ];
 
         $dataUser = [
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
         ];
 
         $user->update($dataUser);
@@ -248,7 +248,7 @@ class ProfileController extends Controller
         ]);
 
         $data = [
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
         ];

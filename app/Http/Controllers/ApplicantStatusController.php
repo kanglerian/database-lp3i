@@ -40,7 +40,7 @@ class ApplicantStatusController extends Controller
         ]);
 
         $data = [
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
         ];
 
         ApplicantStatus::create($data);
@@ -85,7 +85,7 @@ class ApplicantStatusController extends Controller
         ]);
 
         $data = [
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
         ];
 
         $status->update($data);

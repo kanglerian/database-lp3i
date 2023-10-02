@@ -234,7 +234,7 @@ class ApplicantController extends Controller
 
             $data_applicant = [
                 'identity' => $numbers_unique,
-                'name' => $request->input('name'),
+                'name' => strtoupper(strtoupper($request->input('name'))),
                 'gender' => $request->input('gender'),
                 'place_of_birth' => $request->input('place_of_birth'),
                 'date_of_birth' => $request->input('date_of_birth'),
@@ -397,7 +397,7 @@ class ApplicantController extends Controller
 
         if ($user_detail !== null) {
             $data_user = [
-                'name' => $request->input('name'),
+                'name' => strtoupper(strtoupper($request->input('name'))),
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
             ];
@@ -425,7 +425,7 @@ class ApplicantController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'note' => $request->input('note'),
-            'name' => $request->input('name'),
+            'name' => strtoupper($request->input('name')),
             'gender' => $request->input('gender'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),
@@ -453,7 +453,7 @@ class ApplicantController extends Controller
         $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
 
         $data_father = [
-            'name' => $request->input('father_name'),
+            'name' => strtoupper($request->input('father_name')),
             'job' => $request->input('father_job'),
             'place_of_birth' => $request->input('father_place_of_birth'),
             'date_of_birth' => $request->input('father_date_of_birth'),
@@ -473,7 +473,7 @@ class ApplicantController extends Controller
         $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
 
         $data_mother = [
-            'name' => $request->input('mother_name'),
+            'name' => strtoupper($request->input('mother_name')),
             'job' => $request->input('mother_job'),
             'place_of_birth' => $request->input('mother_place_of_birth'),
             'date_of_birth' => $request->input('mother_date_of_birth'),

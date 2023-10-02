@@ -36,7 +36,7 @@ class ApplicantController extends Controller
 
             $data = [
                 'identity' => $numbers_unique,
-                'name' => $request->input('name'),
+                'name' => strtoupper($request->input('name')),
                 'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
                 'pmb' => $request->input('pmb'),
                 'programtype_id' => $request->input('programtype_id'),
