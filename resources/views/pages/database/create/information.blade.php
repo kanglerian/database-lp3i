@@ -48,43 +48,6 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
-                        <x-label for="source_id" :value="__('Sumber')" />
-                        <x-select id="source_id" name="source_id" required>
-                            <option value="0">Pilih sumber</option>
-                            @if (sizeof($sources) > 0)
-                                @foreach ($sources as $source)
-                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                @endforeach
-                            @endif
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('source_id'))
-                                <span class="text-red-500">{{ $errors->first('source_id') }}</span>
-                            @else
-                                <span class="text-red-500">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="status_id" :value="__('Status')" />
-                        <x-select id="status_id" name="status_id" required>
-                            <option value="0">Pilih status</option>
-                            @foreach ($statuses as $status)
-                                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                            @endforeach
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('status_id'))
-                                <span class="text-red-500">{{ $errors->first('status_id') }}</span>
-                            @else
-                                <span class="text-red-500">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="program" :value="__('Program')" />
                         <x-select id="program" name="program" required>
                             <option value="0">Pilih program</option>
@@ -132,15 +95,14 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
-                        <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
-                        <x-select id="followup_id" name="followup_id">
-                            <option value="null">Pilih keterangan</option>
-                            @foreach ($follows as $follow)
-                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
-                            @endforeach
+                        <x-label for="known" :value="__('Mengetahui LP3I')" />
+                        <x-select id="known" name="known">
+                            <option value="null">Pilih</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            <span class="text-red-500">{{ $errors->first('known') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -155,6 +117,80 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="planning" :value="__('Rencana Setelah Lulus')" />
+                        <x-select id="planning" name="planning">
+                                <option value="null">Pilih</option>
+                            <option value="Kuliah">Kuliah</option>
+                            <option value="Kerja">Kerja</option>
+                            <option value="Bisnis">Bisnis</option>
+                            <option value="Nikah">Nikah</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('planning') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="other_campus" :value="__('Pilihan Kampus Selain LP3I')" />
+                        <x-input id="other_campus" type="text" name="other_campus" placeholder="Kampus Pilihan Lain" />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('other_campus') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="source_id" :value="__('Sumber')" />
+                        <x-select id="source_id" name="source_id" required>
+                            <option value="0">Pilih sumber</option>
+                            @if (sizeof($sources) > 0)
+                                @foreach ($sources as $source)
+                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                @endforeach
+                            @endif
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('source_id'))
+                                <span class="text-red-500">{{ $errors->first('source_id') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
+                        <x-select id="followup_id" name="followup_id">
+                            <option value="null">Pilih keterangan</option>
+                            @foreach ($follows as $follow)
+                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="status_id" :value="__('Status')" />
+                        <x-select id="status_id" name="status_id" required>
+                            <option value="0">Pilih status</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('status_id'))
+                                <span class="text-red-500">{{ $errors->first('status_id') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
             </section>
         </section>
     </div>

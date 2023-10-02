@@ -50,7 +50,8 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-{{ $programs == null || Auth::user()->role == 'P' ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
+                <div
+                    class="grid md:grid-cols-{{ $programs == null || Auth::user()->role == 'P' ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
                     @if ($programs !== null)
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program" :value="__('Program')" />
@@ -118,7 +119,7 @@
                     @endif
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="source_id" :value="__('Sumber')" />
                         <x-select id="source_id" name="source_id" required>
@@ -137,6 +138,23 @@
                             @else
                                 <span class="text-red-500">*Wajib diisi.</span>
                             @endif
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="c" :value="__('Keterangan Follow Up')" />
+                        <x-select id="followup_id" name="followup_id">
+                            @if ($applicant->followup_id)
+                                <option value="{{ $applicant->followup_id }}">{{ $applicant->FollowUp->name }}
+                                </option>
+                            @else
+                                <option value="null">Pilih keterangan</option>
+                            @endif
+                            @foreach ($follows as $follow)
+                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -194,26 +212,32 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
-                        <x-label for="c" :value="__('Keterangan Follow Up')" />
-                        <x-select id="followup_id" name="followup_id">
-                            @if ($applicant->followup_id)
-                                <option value="{{ $applicant->followup_id }}">{{ $applicant->FollowUp->name }}
-                                </option>
+                        <x-label for="known" :value="__('Mengetahui LP3I?')" />
+                        <x-select id="known" name="known">
+                            @if ($applicant->known != null)
+                                @switch($applicant->known)
+                                    @case(1)
+                                        <option value="1">Ya</option>
+                                    @break
+
+                                    @case(0)
+                                        <option value="0">Tidak</option>
+                                    @break
+                                @endswitch
                             @else
-                                <option value="null">Pilih keterangan</option>
+                                <option value="null">Pilih</option>
                             @endif
-                            @foreach ($follows as $follow)
-                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
-                            @endforeach
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            <span class="text-red-500">{{ $errors->first('known') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="come" :value="__('Datang Ke Kampus?')" />
                         <x-select id="come" name="come">
-                            @if ($applicant->come == null)
+                            @if ($applicant->come != null)
                                 @switch($applicant->come)
                                     @case(1)
                                         <option value="1">Ya</option>
@@ -223,7 +247,6 @@
                                         <option value="0">Tidak</option>
                                     @break
                                 @endswitch
-                                <option value="{{ $applicant->come }}">{{ $applicant->come }}</option>
                             @else
                                 <option value="null">Pilih</option>
                             @endif
@@ -232,6 +255,34 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('come') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="planning" :value="__('Rencana Setelah Lulus')" />
+                        <x-select id="planning" name="planning">
+                            @if ($applicant->planning != null)
+                            <option value="{{$applicant->planning}}">{{$applicant->planning}}</option>
+                            @else
+                                <option value="null">Pilih</option>
+                            @endif
+                            <option value="Kuliah">Kuliah</option>
+                            <option value="Kerja">Kerja</option>
+                            <option value="Bisnis">Bisnis</option>
+                            <option value="Nikah">Nikah</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('planning') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="other_campus" :value="__('Pilihan Kampus Selain LP3I')" />
+                        <x-input id="other_campus" type="text" name="other_campus" value="{{ $applicant->other_campus }}"
+                            placeholder="Kampus Pilihan Lain" />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('other_campus') }}</span>
                         </p>
                     </div>
                 </div>

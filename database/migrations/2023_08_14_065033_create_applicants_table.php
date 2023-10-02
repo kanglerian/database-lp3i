@@ -15,30 +15,42 @@ class CreateApplicantsTable extends Migration
     {
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
+
             $table->string('identity', 30)->nullable();
+            $table->year('pmb')->nullable();
+
             $table->string('name', 150);
+            $table->tinyInteger('gender')->nullable();
+            $table->string('religion', 100)->nullable();
+            $table->text('place_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->text('address')->nullable();
+            $table->string('social_media')->nullable();
+
             $table->string('email', 100)->nullable()->unique();
             $table->string('phone', 20)->nullable()->unique();
+
             $table->string('education', 255)->nullable();
             $table->integer('school')->nullable();
             $table->string('major', 100)->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
-            $table->text('place_of_birth')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->tinyInteger('gender')->nullable();
-            $table->string('religion', 100)->nullable();
-            $table->text('address')->nullable();
-            $table->text('note')->nullable();
             $table->text('achievement')->nullable();
-            $table->text('relation')->nullable();
             $table->text('kip')->nullable();
-            $table->year('pmb')->nullable();
+
+            $table->text('note')->nullable();
+            $table->text('relation')->nullable();
+
             $table->string('identity_user', 30)->nullable();
             $table->string('program', 255)->nullable();
             $table->char('isread', 1)->default('0');
-            $table->boolean('come')->nullable();
-            
+            $table->char('come', 1)->nullable();
+
+            $table->char('known', 1)->nullable();
+            $table->string('planning')->nullable();
+            $table->text('other_campus')->nullable();
+            $table->string('income_parent')->nullable();
+
             $table->unsignedBigInteger('followup_id')->nullable();
             $table->unsignedBigInteger('programtype_id')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();

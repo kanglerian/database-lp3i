@@ -206,17 +206,52 @@
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <div class="relative z-0 w-full group">
+                            <x-label for="social_media" :value="__('Sosial Media')" />
+                            <x-input id="social_media" type="text" name="social_media"
+                                value="{{ old('social_media', $applicant->social_media) }}"
+                                placeholder="Tulis username sosial media disini..." />
+                            <p class="mt-2 text-xs text-gray-500">
+                                <span class="text-red-500">{{ $errors->first('social_media') }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <div class="relative z-0 w-full group">
                             <x-label for="achievement" :value="__('Prestasi')" />
-                            <x-input id="achievement" type="text" name="achievement" value="{{ old('achievement', $applicant->achievement) }}"
+                            <x-input id="achievement" type="text" name="achievement"
+                                value="{{ old('achievement', $applicant->achievement) }}"
                                 placeholder="Tulis prestasi disini..." />
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('achievement') }}</span>
                             </p>
                         </div>
                     </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="income_parent" :value="__('Penghasilan Orang Tua')" />
+                        <x-select id="income_parent" name="income_parent">
+                            @if ($applicant->income_parent == null)
+                                <option value="{{ $applicant->income_parent }}">{{ $applicant->income_parent }}
+                                </option>
+                            @else
+                                <option value="null">Pilih</option>
+                            @endif
+                            <option value="< 1.000.000">
+                                < 1.000.000</option>
+                            <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+                            <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
+                            <option value="> 5.000.000">> 5.000.000</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('income_parent') }}</span>
+                        </p>
+                    </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="relation" :value="__('Relasi')" />
-                        <x-input id="relation" type="text" name="relation" value="{{ old('relation', $applicant->relation) }}"
+                        <x-input id="relation" type="text" name="relation"
+                            value="{{ old('relation', $applicant->relation) }}"
                             placeholder="Tulis relasi disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('relation') }}</span>

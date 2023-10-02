@@ -32,6 +32,36 @@ class ApplicantUpdateImport implements ToModel
         $schoolName = $row[6];
         $school = School::where('name', $schoolName)->first();
 
+        $program = null;
+
+        if (!empty($row[26])) {
+            switch ($row[26]) {
+                case 'AB':
+                    $program = 'D3 Administrasi Bisnis';
+                    break;
+                case 'MI':
+                    $program = 'D3 Manajemen Informatika';
+                    break;
+                case 'MKP':
+                    $program = 'D3 Manajemen Keuangan Perbankan';
+                    break;
+                case 'MP':
+                    $program = 'D3 Manajemen Pemasaran';
+                    break;
+                case 'TO':
+                    $program = 'Teknik Otomotif Vokasi 2 Tahun';
+                    break;
+                default:
+                    $program = null;
+            }
+        }
+
+        $dusun = !empty($row[30]) ? strtoupper($row[30]) : null;
+        $rtrw = !empty($row[31]) ? strtoupper($row[31]) : null;
+        $kelurahan = !empty($row[32]) ? strtoupper($row[32]) : null;
+        $kecamatan = !empty($row[33]) ? strtoupper($row[33]) : null;
+        $kotakab = !empty($row[34]) ? strtoupper($row[34]) : null;
+
         $create_father = [
             'identity_user' => $numbers_unique,
             'gender' => 1,
@@ -55,20 +85,23 @@ class ApplicantUpdateImport implements ToModel
                     'year' => !empty($row[9]) ? $row[9] : null,
                     'place_of_birth' => !empty($row[10]) ? $row[10] : null,
                     'date_of_birth' => !empty($row[11]) ? Date::excelToDateTimeObject($row[11])->format('Y-m-d') : null,
-                    'gender' => ($row[12] === 'WANITA' || $row[12] === 'PEREMPUAN') ? 0 : ($row[12] === null ? null : 1),
+                    'gender' => $row[12] === 'WANITA' || $row[12] === 'PEREMPUAN' ? 0 : ($row[12] === null ? null : 1),
                     'religion' => !empty($row[13]) ? $row[13] : null,
                     'identity_user' => $this->identityUser,
                     'source_id' => 7,
-                    'status_id' => !empty($row[16]) ?
-                        (ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1) :
-                        1,
-                    'followup_id' => $row[17] ?
-                        (FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1) :
-                        1,
-                    'come' => strcasecmp($row[18], 'SUDAH') === 0 ? 1 : 0,
+                    'status_id' => !empty($row[16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1 : 1,
+                    'followup_id' => $row[17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1 : 1,
+                    'come' => strcasecmp($row[18], 'SUDAH') === 0 ? 1 : (strcasecmp($row[18], 'BELUM') === 0 ? 0 : null),
                     'achievement' => !empty($row[19]) ? $row[19] : null,
                     'kip' => !empty($row[22]) ? (strcasecmp($row[22], 'YA') === 0 ? 1 : 0) : null,
                     'relation' => !empty($row[23]) ? $row[23] : null,
+                    'known' => strcasecmp($row[24], 'YA') === 0 ? 1 : (strcasecmp($row[24], 'TIDAK') === 0 ? 0 : null),
+                    'planning' => !empty($row[25]) ? $row[25] : null,
+                    'program' => $program,
+                    'other_campus' => !empty($row[27]) ? $row[27] : null,
+                    'income_parent' => !empty($row[28]) ? $row[28] : null,
+                    'social_media' => !empty($row[29]) ? $row[29] : null,
+                    'address' => $dusun . ' ' . 'RT/RW. ' . $rtrw . ' ' . 'DESA/KEL. ' . $kelurahan . ' ' . 'KEC. ' . $kecamatan . ' ' . 'KOTA/KAB. ' . $kotakab,
                 ];
 
                 $data_father = [
@@ -100,21 +133,23 @@ class ApplicantUpdateImport implements ToModel
                     'year' => !empty($row[9]) ? $row[9] : null,
                     'place_of_birth' => !empty($row[10]) ? $row[10] : null,
                     'date_of_birth' => !empty($row[11]) ? Date::excelToDateTimeObject($row[11])->format('Y-m-d') : null,
-                    'gender' => ($row[12] === 'WANITA' || $row[12] === 'PEREMPUAN') ? 0 : ($row[12] === null ? null : 1)
-                    ,
+                    'gender' => $row[12] === 'WANITA' || $row[12] === 'PEREMPUAN' ? 0 : ($row[12] === null ? null : 1),
                     'religion' => !empty($row[13]) ? $row[13] : null,
                     'identity_user' => $this->identityUser,
                     'source_id' => 7,
-                    'status_id' => !empty($row[16]) ?
-                        (ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1) :
-                        1,
-                    'followup_id' => $row[17] ?
-                        (FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1) :
-                        1,
-                    'come' => strcasecmp($row[18], 'SUDAH') === 0 ? 1 : 0,
+                    'status_id' => !empty($row[16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1 : 1,
+                    'followup_id' => $row[17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1 : 1,
+                    'come' => strcasecmp($row[18], 'SUDAH') === 0 ? 1 : (strcasecmp($row[18], 'BELUM') === 0 ? 0 : null),
                     'achievement' => !empty($row[19]) ? $row[19] : null,
                     'kip' => !empty($row[22]) ? (strcasecmp($row[22], 'YA') === 0 ? 1 : 0) : null,
                     'relation' => !empty($row[23]) ? $row[23] : null,
+                    'known' => strcasecmp($row[24], 'YA') === 0 ? 1 : (strcasecmp($row[24], 'TIDAK') === 0 ? 0 : null),
+                    'planning' => !empty($row[25]) ? $row[25] : null,
+                    'program' => $program,
+                    'other_campus' => !empty($row[27]) ? $row[27] : null,
+                    'income_parent' => !empty($row[28]) ? $row[28] : null,
+                    'social_media' => !empty($row[29]) ? $row[29] : null,
+                    'address' => $dusun . ' ' . 'RT/RW. ' . $rtrw . ' ' . 'DESA/KEL. ' . $kelurahan . ' ' . 'KEC. ' . $kecamatan . ' ' . 'KOTA/KAB. ' . $kotakab,
                 ]);
             }
         }

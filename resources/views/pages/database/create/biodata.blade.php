@@ -132,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full mb-6 group mb-4">
                         <x-label for="email" :value="__('Email')" />
                         <x-input id="email" type="email" name="email" :value="old('email')"
@@ -141,12 +141,20 @@
                             <span class="text-red-500">{{ $errors->first('email') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="phone" :value="__('No. Whatsapp')" />
                         <x-input id="phone" type="number" name="phone" :value="old('phone')"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="social_media" :value="__('Sosial Media')" />
+                        <x-input id="social_media" type="text" name="social_media" :value="old('social_media')"
+                            placeholder="Tulis username disini..." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('social_media') }}</span>
                         </p>
                     </div>
                 </div>
@@ -213,13 +221,27 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="kip" :value="__('Nomor KIP')" />
                         <x-input id="kip" type="number" name="kip" value="{{ old('kip') }}"
                             placeholder="Tulis nomor KIP disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500">{{ $errors->first('kip') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="income_parent" :value="__('Penghasilan Orang Tua')" />
+                        <x-select id="income_parent" name="income_parent">
+                            <option value="null">Pilih</option>
+                            <option value="< 1.000.000">
+                                < 1.000.000</option>
+                            <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+                            <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
+                            <option value="> 5.000.000">> 5.000.000</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('income_parent') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">

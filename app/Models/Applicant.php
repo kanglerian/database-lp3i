@@ -16,28 +16,40 @@ class Applicant extends Model
      */
     protected $fillable = [
         'identity',
+        'pmb',
+
         'name',
+        'gender',
+        'place_of_birth',
+        'date_of_birth',
+        'religion',
+        'address',
+        'social_media',
+
         'email',
         'phone',
+
         'education',
         'school',
         'major',
         'class',
         'year',
-        'place_of_birth',
-        'date_of_birth',
-        'gender',
-        'religion',
-        'address',
-        'note',
         'achievement',
-        'relation',
         'kip',
-        'pmb',
+
+        'note',
+        'relation',
+
         'identity_user',
         'program',
         'isread',
         'come',
+
+        'known',
+        'planning',
+        'other_campus',
+        'income_parent',
+
         'followup_id',
         'programtype_id',
         'source_id',
