@@ -43,6 +43,7 @@ class ApplicantController extends Controller
                 'identity_user' => '6281313608558',
                 'source_id' => 1,
                 'status_id' => 1,
+                'followup_id' => 1,
                 'come' => 0,
                 'isread' => '0',
             ];
@@ -55,7 +56,7 @@ class ApplicantController extends Controller
                 'identity_user' => $numbers_unique,
                 'gender' => 0,
             ];
-            
+
             Applicant::create($data);
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
