@@ -60,7 +60,7 @@ class StringHelper
     {
         for ($i = 0; $i <= 31; ++$i) {
             if ($i != 9 && $i != 10 && $i != 13) {
-                $find = '_x' . sprintf('%04s', strtoupper(dechex($i))) . '_';
+                $find = '_x' . sprintf('%04s', ucwords(dechex($i))) . '_';
                 $replace = chr($i);
                 self::$controlCharacters[$find] = $replace;
             }
@@ -480,7 +480,7 @@ class StringHelper
      *
      * @param string $textValue UTF-8 encoded string
      */
-    public static function strToUpper(string $textValue): string
+    public static function ucwords(string $textValue): string
     {
         return mb_convert_case($textValue, MB_CASE_UPPER, 'UTF-8');
     }
@@ -536,7 +536,7 @@ class StringHelper
             if (self::mbIsUpper($character)) {
                 $character = mb_strtolower($character, 'UTF-8');
             } else {
-                $character = mb_strtoupper($character, 'UTF-8');
+                $character = mb_ucwords($character, 'UTF-8');
             }
         }
 

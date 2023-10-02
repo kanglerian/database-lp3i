@@ -94,7 +94,7 @@ class XliffFileLoader implements LoaderInterface
     private function extractXliff1(\DOMDocument $dom, MessageCatalogue $catalogue, string $domain)
     {
         $xml = simplexml_import_dom($dom);
-        $encoding = $dom->encoding ? strtoupper($dom->encoding) : null;
+        $encoding = $dom->encoding ? ucwords($dom->encoding) : null;
 
         $namespace = 'urn:oasis:names:tc:xliff:document:1.2';
         $xml->registerXPathNamespace('xliff', $namespace);
@@ -147,7 +147,7 @@ class XliffFileLoader implements LoaderInterface
     private function extractXliff2(\DOMDocument $dom, MessageCatalogue $catalogue, string $domain)
     {
         $xml = simplexml_import_dom($dom);
-        $encoding = $dom->encoding ? strtoupper($dom->encoding) : null;
+        $encoding = $dom->encoding ? ucwords($dom->encoding) : null;
 
         $xml->registerXPathNamespace('xliff', 'urn:oasis:names:tc:xliff:document:2.0');
 

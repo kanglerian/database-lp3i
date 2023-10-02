@@ -758,7 +758,7 @@ trait Creator
                 function ($code) {
                     return mb_substr($code[0], 1);
                 },
-                $formats[strtoupper($code)] ?? ''
+                $formats[ucwords($code)] ?? ''
             );
         }, $format);
 

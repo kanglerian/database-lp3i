@@ -61,7 +61,7 @@ abstract class NumberBase
         // Set case and separator to match standardised locale case
         $language = strtolower($language ?? '');
         $script = ($script === null) ? null : ucfirst(strtolower($script));
-        $country = ($country === null) ? null : strtoupper($country);
+        $country = ($country === null) ? null : ucwords($country);
 
         $this->fullLocale = implode('-', array_filter([$language, $script, $country]));
 

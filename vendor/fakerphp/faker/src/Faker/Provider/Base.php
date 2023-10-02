@@ -624,7 +624,7 @@ class Base
      */
     public static function toUpper($string = '')
     {
-        return extension_loaded('mbstring') ? mb_strtoupper($string, 'UTF-8') : strtoupper($string);
+        return extension_loaded('mbstring') ? mb_ucwords($string, 'UTF-8') : ucwords($string);
     }
 
     /**

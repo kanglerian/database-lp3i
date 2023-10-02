@@ -1227,7 +1227,7 @@ class Shell extends Application
                 ? \sprintf('%s in %s on line %d', $e->getRawMessage(), $e->getFile(), $e->getLine())
                 : \sprintf('%s in %s', $e->getRawMessage(), $e->getFile());
 
-            $messageLabel = \strtoupper($this->getMessageLabel($e));
+            $messageLabel = \ucwords($this->getMessageLabel($e));
         } else {
             $message = $e->getMessage();
             $messageLabel = $this->getMessageLabel($e);
@@ -1324,7 +1324,7 @@ class Shell extends Application
             $typeParts = \preg_split('/(?=[A-Z])/', $exceptionShortName);
             \array_pop($typeParts); // Removes "Exception"
 
-            return \trim(\strtoupper(\implode(' ', $typeParts)));
+            return \trim(\ucwords(\implode(' ', $typeParts)));
         }
 
         return \get_class($e);

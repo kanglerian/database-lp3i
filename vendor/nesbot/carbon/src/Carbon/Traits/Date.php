@@ -1885,7 +1885,7 @@ trait Date
     public function formatLocalized($format)
     {
         // Check for Windows to find and replace the %e modifier correctly.
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if (ucwords(substr(PHP_OS, 0, 3)) === 'WIN') {
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
@@ -2217,7 +2217,7 @@ trait Date
                     function ($code) {
                         return mb_substr($code[0], 1);
                     },
-                    $formats[strtoupper($code)] ?? ''
+                    $formats[ucwords($code)] ?? ''
                 );
                 $rest = mb_substr($format, $i + mb_strlen($code));
                 $format = mb_substr($format, 0, $i).$sequence.$rest;

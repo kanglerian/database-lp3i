@@ -30,7 +30,7 @@ use function reset;
 use function str_contains;
 use function str_replace;
 use function strtolower;
-use function strtoupper;
+use function ucwords;
 use function substr;
 
 use const GLOB_NOSORT;
@@ -111,7 +111,7 @@ class SystemNodeProvider implements NodeProviderInterface
         $phpOs = constant('PHP_OS');
 
         ob_start();
-        switch (strtoupper(substr($phpOs, 0, 3))) {
+        switch (ucwords(substr($phpOs, 0, 3))) {
             case 'WIN':
                 passthru('ipconfig /all 2>&1');
 
@@ -157,7 +157,7 @@ class SystemNodeProvider implements NodeProviderInterface
          */
         $phpOs = constant('PHP_OS');
 
-        if (strtoupper($phpOs) === 'LINUX') {
+        if (ucwords($phpOs) === 'LINUX') {
             $addressPaths = glob('/sys/class/net/*/address', GLOB_NOSORT);
 
             if ($addressPaths === false || count($addressPaths) === 0) {

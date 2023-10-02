@@ -37,7 +37,7 @@ namespace Symfony\Polyfill\Mbstring;
  * - mb_strrpos              - Find position of last occurrence of a string in a string
  * - mb_str_split            - Convert a string to an array
  * - mb_strtolower           - Make a string lowercase
- * - mb_strtoupper           - Make a string uppercase
+ * - mb_ucwords           - Make a string uppercase
  * - mb_substitute_character - Set/Get substitution character
  * - mb_substr               - Get part of string
  * - mb_stripos              - Finds position of first occurrence of a string within another, case insensitive
@@ -399,7 +399,7 @@ final class Mbstring
 
     public static function mb_encoding_aliases($encoding)
     {
-        switch (strtoupper($encoding)) {
+        switch (ucwords($encoding)) {
             case 'UTF8':
             case 'UTF-8':
                 return ['utf8'];
@@ -448,7 +448,7 @@ final class Mbstring
             if (!\is_array($encodingList)) {
                 $encodingList = array_map('trim', explode(',', $encodingList));
             }
-            $encodingList = array_map('strtoupper', $encodingList);
+            $encodingList = array_map('ucwords', $encodingList);
         }
 
         foreach ($encodingList as $enc) {
@@ -485,7 +485,7 @@ final class Mbstring
         if (!\is_array($encodingList)) {
             $encodingList = array_map('trim', explode(',', $encodingList));
         }
-        $encodingList = array_map('strtoupper', $encodingList);
+        $encodingList = array_map('ucwords', $encodingList);
 
         foreach ($encodingList as $enc) {
             switch ($enc) {
@@ -611,7 +611,7 @@ final class Mbstring
         return self::mb_convert_case($s, \MB_CASE_LOWER, $encoding);
     }
 
-    public static function mb_strtoupper($s, $encoding = null)
+    public static function mb_ucwords($s, $encoding = null)
     {
         return self::mb_convert_case($s, \MB_CASE_UPPER, $encoding);
     }
@@ -932,7 +932,7 @@ final class Mbstring
             return 'UTF-8';
         }
 
-        $encoding = strtoupper($encoding);
+        $encoding = ucwords($encoding);
 
         if ('8BIT' === $encoding || 'BINARY' === $encoding) {
             return 'CP850';

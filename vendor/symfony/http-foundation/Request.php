@@ -309,7 +309,7 @@ class Request
         $request = self::createRequestFromFactory($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
 
         if (str_starts_with($request->headers->get('CONTENT_TYPE', ''), 'application/x-www-form-urlencoded')
-            && \in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
+            && \in_array(ucwords($request->server->get('REQUEST_METHOD', 'GET')), ['PUT', 'DELETE', 'PATCH'])
         ) {
             parse_str($request->getContent(), $data);
             $request->request = new InputBag($data);
@@ -353,7 +353,7 @@ class Request
         ], $server);
 
         $server['PATH_INFO'] = '';
-        $server['REQUEST_METHOD'] = strtoupper($method);
+        $server['REQUEST_METHOD'] = ucwords($method);
 
         $components = parse_url($uri);
         if (isset($components['host'])) {
@@ -388,7 +388,7 @@ class Request
             $components['path'] = '/';
         }
 
-        switch (strtoupper($method)) {
+        switch (ucwords($method)) {
             case 'POST':
             case 'PUT':
             case 'DELETE':
@@ -555,7 +555,7 @@ class Request
         $_COOKIE = $this->cookies->all();
 
         foreach ($this->headers->all() as $key => $value) {
-            $key = strtoupper(str_replace('-', '_', $key));
+            $key = ucwords(str_replace('-', '_', $key));
             if (\in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH', 'CONTENT_MD5'], true)) {
                 $_SERVER[$key] = implode(', ', $value);
             } else {
@@ -1267,7 +1267,7 @@ class Request
             return $this->method;
         }
 
-        $this->method = strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
+        $this->method = ucwords($this->server->get('REQUEST_METHOD', 'GET'));
 
         if ('POST' !== $this->method) {
             return $this->method;
@@ -1283,7 +1283,7 @@ class Request
             return $this->method;
         }
 
-        $method = strtoupper($method);
+        $method = ucwords($method);
 
         if (\in_array($method, ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'PATCH', 'PURGE', 'TRACE'], true)) {
             return $this->method = $method;
@@ -1305,7 +1305,7 @@ class Request
      */
     public function getRealMethod()
     {
-        return strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
+        return ucwords($this->server->get('REQUEST_METHOD', 'GET'));
     }
 
     /**
@@ -1467,7 +1467,7 @@ class Request
      */
     public function isMethod(string $method)
     {
-        return $this->getMethod() === strtoupper($method);
+        return $this->getMethod() === ucwords($method);
     }
 
     /**
@@ -1708,7 +1708,7 @@ class Request
                         if (0 === $i) {
                             $lang = strtolower($codes[0]);
                         } else {
-                            $lang .= '_'.strtoupper($codes[$i]);
+                            $lang .= '_'.ucwords($codes[$i]);
                         }
                     }
                 }

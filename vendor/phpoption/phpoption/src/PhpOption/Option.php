@@ -310,7 +310,7 @@ abstract class Option implements IteratorAggregate
      * If the option is empty, then the callable is not applied.
      *
      * ```php
-     *     (new Some("foo"))->map('strtoupper')->get(); // "FOO"
+     *     (new Some("foo"))->map('ucwords')->get(); // "FOO"
      * ```
      *
      * @template S

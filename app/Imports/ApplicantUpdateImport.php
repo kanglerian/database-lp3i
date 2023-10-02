@@ -56,11 +56,11 @@ class ApplicantUpdateImport implements ToModel
             }
         }
 
-        $dusun = !empty($row[30]) ? strtoupper($row[30]) : null;
-        $rtrw = !empty($row[31]) ? strtoupper($row[31]) : null;
-        $kelurahan = !empty($row[32]) ? strtoupper($row[32]) : null;
-        $kecamatan = !empty($row[33]) ? strtoupper($row[33]) : null;
-        $kotakab = !empty($row[34]) ? strtoupper($row[34]) : null;
+        $dusun = !empty($row[30]) ? ucwords($row[30]) : null;
+        $rtrw = !empty($row[31]) ? ucwords($row[31]) : null;
+        $kelurahan = !empty($row[32]) ? ucwords($row[32]) : null;
+        $kecamatan = !empty($row[33]) ? ucwords($row[33]) : null;
+        $kotakab = !empty($row[34]) ? ucwords($row[34]) : null;
 
         $create_father = [
             'identity_user' => $numbers_unique,
@@ -77,7 +77,7 @@ class ApplicantUpdateImport implements ToModel
             if ($applicant) {
                 $data_applicant = [
                     'pmb' => $row[1],
-                    'name' => !empty($row[2]) ? strtoupper($row[2]) : null,
+                    'name' => !empty($row[2]) ? ucwords($row[2]) : null,
                     'education' => !empty($row[5]) ? $row[5] : null,
                     'school' => $school ? $school->id : null,
                     'major' => !empty($row[7]) ? $row[7] : null,
@@ -124,7 +124,7 @@ class ApplicantUpdateImport implements ToModel
                 return new Applicant([
                     'identity' => $numbers_unique,
                     'pmb' => $row[1],
-                    'name' => !empty($row[2]) ? strtoupper($row[2]) : null,
+                    'name' => !empty($row[2]) ? ucwords($row[2]) : null,
                     'phone' => !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null,
                     'education' => !empty($row[5]) ? $row[5] : null,
                     'school' => $school ? $school->id : null,

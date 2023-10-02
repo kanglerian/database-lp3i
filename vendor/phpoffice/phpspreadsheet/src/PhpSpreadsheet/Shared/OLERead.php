@@ -290,7 +290,7 @@ class OLERead
             ];
 
             // tmp helper to simplify checks
-            $upName = strtoupper($name);
+            $upName = ucwords($name);
 
             // Workbook directory entry (BIFF5 uses Book, BIFF8 uses Workbook)
             if (($upName === 'WORKBOOK') || ($upName === 'BOOK')) {

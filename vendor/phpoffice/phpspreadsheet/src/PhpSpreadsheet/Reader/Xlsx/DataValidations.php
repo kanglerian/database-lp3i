@@ -24,7 +24,7 @@ class DataValidations
     {
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
-            $range = strtoupper((string) $dataValidation['sqref']);
+            $range = ucwords((string) $dataValidation['sqref']);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
                 if (preg_match('/^[A-Z]{1,3}\\d{1,7}/', $range, $matches) === 1) {
@@ -36,7 +36,7 @@ class DataValidations
         }
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
-            $range = strtoupper((string) $dataValidation['sqref']);
+            $range = ucwords((string) $dataValidation['sqref']);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
                 $stRange = $this->worksheet->shrinkRangeToFit($range);

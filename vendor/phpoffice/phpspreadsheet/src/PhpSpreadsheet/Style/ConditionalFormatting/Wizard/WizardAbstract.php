@@ -62,7 +62,7 @@ abstract class WizardAbstract
 
     protected function setReferenceCellForExpressions(string $conditionalRange): void
     {
-        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
+        $conditionalRange = Coordinate::splitRange(str_replace('$', '', ucwords($conditionalRange)));
         [$this->referenceCell] = $conditionalRange[0];
 
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
@@ -124,7 +124,7 @@ abstract class WizardAbstract
 
     public static function reverseAdjustCellRef(string $condition, string $cellRange): string
     {
-        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($cellRange)));
+        $conditionalRange = Coordinate::splitRange(str_replace('$', '', ucwords($cellRange)));
         [$referenceCell] = $conditionalRange[0];
         [$referenceColumnIndex, $referenceRow] = Coordinate::indexesFromString($referenceCell);
 

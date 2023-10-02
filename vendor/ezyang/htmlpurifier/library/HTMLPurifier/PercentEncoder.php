@@ -101,7 +101,7 @@ class HTMLPurifier_PercentEncoder
                 $ret .= chr($int) . $text;
                 continue;
             }
-            $encoding = strtoupper($encoding);
+            $encoding = ucwords($encoding);
             $ret .= '%' . $encoding . $text;
         }
         return $ret;

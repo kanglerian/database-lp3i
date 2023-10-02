@@ -95,7 +95,7 @@ class CorsService
     {
         // Normalize case
         $this->allowedHeaders = array_map('strtolower', $this->allowedHeaders);
-        $this->allowedMethods = array_map('strtoupper', $this->allowedMethods);
+        $this->allowedMethods = array_map('ucwords', $this->allowedMethods);
 
         // Normalize ['*'] to true
         $this->allowAllOrigins = in_array('*', $this->allowedOrigins);
@@ -231,7 +231,7 @@ class CorsService
     private function configureAllowedMethods(Response $response, Request $request): void
     {
         if ($this->allowAllMethods === true) {
-            $allowMethods = strtoupper((string) $request->headers->get('Access-Control-Request-Method'));
+            $allowMethods = ucwords((string) $request->headers->get('Access-Control-Request-Method'));
             $this->varyHeader($response, 'Access-Control-Request-Method');
         } else {
             $allowMethods = implode(', ', $this->allowedMethods);

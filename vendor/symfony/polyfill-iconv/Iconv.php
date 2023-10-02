@@ -294,7 +294,7 @@ final class Iconv
               && !isset(self::$alias[$c])
               && !self::loadMap('from.', $c, $d)) {
                 $d = false;
-            } elseif ('B' === strtoupper($str[$i + 1])) {
+            } elseif ('B' === ucwords($str[$i + 1])) {
                 $d = base64_decode($str[$i + 2]);
             } else {
                 $d = rawurldecode(strtr(str_replace('%', '%25', $str[$i + 2]), '=_', '% '));
@@ -370,7 +370,7 @@ final class Iconv
             $fieldName = '';
         }
 
-        $scheme = strtoupper(substr($pref['scheme'], 0, 1));
+        $scheme = ucwords(substr($pref['scheme'], 0, 1));
         $in = strtolower($pref['input-charset']);
         $out = strtolower($pref['output-charset']);
 
@@ -717,7 +717,7 @@ final class Iconv
 
     private static function qpByteCallback(array $m)
     {
-        return '='.strtoupper(dechex(\ord($m[0])));
+        return '='.ucwords(dechex(\ord($m[0])));
     }
 
     private static function pregOffset($offset)

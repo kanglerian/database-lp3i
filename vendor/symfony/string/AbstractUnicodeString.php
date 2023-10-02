@@ -457,7 +457,7 @@ abstract class AbstractUnicodeString extends AbstractString
     public function upper(): static
     {
         $str = clone $this;
-        $str->string = mb_strtoupper($str->string, 'UTF-8');
+        $str->string = mb_ucwords($str->string, 'UTF-8');
 
         return $str;
     }

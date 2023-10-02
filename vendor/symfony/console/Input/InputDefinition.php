@@ -389,7 +389,7 @@ class InputDefinition
                     $value = sprintf(
                         ' %s%s%s',
                         $option->isValueOptional() ? '[' : '',
-                        strtoupper($option->getName()),
+                        ucwords($option->getName()),
                         $option->isValueOptional() ? ']' : ''
                     );
                 }

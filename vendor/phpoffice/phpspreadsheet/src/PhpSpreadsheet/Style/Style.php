@@ -207,13 +207,13 @@ class Style extends Supervisor
             $pRange = $this->getSelectedCells();
 
             // Uppercase coordinate and strip any Worksheet reference from the selected range
-            $pRange = strtoupper($pRange);
+            $pRange = ucwords($pRange);
             if (strpos($pRange, '!') !== false) {
-                $pRangeWorksheet = StringHelper::strToUpper(trim(substr($pRange, 0, (int) strrpos($pRange, '!')), "'"));
-                if ($pRangeWorksheet !== '' && StringHelper::strToUpper($this->getActiveSheet()->getTitle()) !== $pRangeWorksheet) {
+                $pRangeWorksheet = StringHelper::ucwords(trim(substr($pRange, 0, (int) strrpos($pRange, '!')), "'"));
+                if ($pRangeWorksheet !== '' && StringHelper::ucwords($this->getActiveSheet()->getTitle()) !== $pRangeWorksheet) {
                     throw new Exception('Invalid Worksheet for specified Range');
                 }
-                $pRange = strtoupper(Functions::trimSheetFromCellReference($pRange));
+                $pRange = ucwords(Functions::trimSheetFromCellReference($pRange));
             }
 
             // Is it a cell range or a single cell?

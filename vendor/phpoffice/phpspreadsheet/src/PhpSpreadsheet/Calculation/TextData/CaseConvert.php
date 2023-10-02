@@ -52,7 +52,7 @@ class CaseConvert
 
         $mixedCaseValue = Helpers::extractString($mixedCaseValue);
 
-        return StringHelper::strToUpper($mixedCaseValue);
+        return StringHelper::ucwords($mixedCaseValue);
     }
 
     /**

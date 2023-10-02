@@ -23,7 +23,7 @@ use function preg_split;
 use function str_getcsv;
 use function strrpos;
 use function strtolower;
-use function strtoupper;
+use function ucwords;
 use function substr;
 use function trim;
 
@@ -147,7 +147,7 @@ class SystemDceSecurityProvider implements DceSecurityProviderInterface
          */
         $phpOs = constant('PHP_OS');
 
-        return strtoupper(substr($phpOs, 0, 3));
+        return ucwords(substr($phpOs, 0, 3));
     }
 
     /**

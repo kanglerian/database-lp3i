@@ -35,7 +35,7 @@ class MethodNotAllowedHttpException extends HttpException
             $code = 0;
         }
 
-        $headers['Allow'] = strtoupper(implode(', ', $allow));
+        $headers['Allow'] = ucwords(implode(', ', $allow));
 
         parent::__construct(405, $message, $previous, $headers, $code);
     }

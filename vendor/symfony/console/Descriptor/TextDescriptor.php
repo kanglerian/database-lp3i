@@ -64,7 +64,7 @@ class TextDescriptor extends Descriptor
 
         $value = '';
         if ($option->acceptValue()) {
-            $value = '='.strtoupper($option->getName());
+            $value = '='.ucwords($option->getName());
 
             if ($option->isValueOptional()) {
                 $value = '['.$value.']';

@@ -66,8 +66,8 @@ if (!function_exists('mb_strpos')) {
 if (!function_exists('mb_strtolower')) {
     function mb_strtolower($string, $encoding = null) { return p\Mbstring::mb_strtolower($string, $encoding); }
 }
-if (!function_exists('mb_strtoupper')) {
-    function mb_strtoupper($string, $encoding = null) { return p\Mbstring::mb_strtoupper($string, $encoding); }
+if (!function_exists('mb_ucwords')) {
+    function mb_ucwords($string, $encoding = null) { return p\Mbstring::mb_ucwords($string, $encoding); }
 }
 if (!function_exists('mb_substitute_character')) {
     function mb_substitute_character($substitute_character = null) { return p\Mbstring::mb_substitute_character($substitute_character); }

@@ -310,7 +310,7 @@ abstract class AbstractTranslator extends Translation\Translator
     {
         $locale = preg_replace_callback('/[-_]([a-z]{2,}|\d{2,})/', function ($matches) {
             // _2-letters or YUE is a region, _3+-letters is a variant
-            $upper = strtoupper($matches[1]);
+            $upper = ucwords($matches[1]);
 
             if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) < 3) {
                 return "_$upper";

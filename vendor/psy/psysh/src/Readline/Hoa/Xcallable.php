@@ -69,7 +69,7 @@ class Xcallable
      * # Examples
      *
      * ```php
-     * $toUpper = new Hoa\Consistency\Xcallable('strtoupper');
+     * $toUpper = new Hoa\Consistency\Xcallable('ucwords');
      * assert('FOO' === $toUpper('foo'));
      * ```
      *

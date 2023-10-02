@@ -113,7 +113,7 @@ class Pluralizer
      */
     protected static function matchCase($value, $comparison)
     {
-        $functions = ['mb_strtolower', 'mb_strtoupper', 'ucfirst', 'ucwords'];
+        $functions = ['mb_strtolower', 'mb_ucwords', 'ucfirst', 'ucwords'];
 
         foreach ($functions as $function) {
             if ($function($comparison) === $comparison) {

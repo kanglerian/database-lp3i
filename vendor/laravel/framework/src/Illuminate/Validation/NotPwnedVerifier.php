@@ -68,7 +68,7 @@ class NotPwnedVerifier implements UncompromisedVerifier
      */
     protected function getHash($value)
     {
-        $hash = strtoupper(sha1((string) $value));
+        $hash = ucwords(sha1((string) $value));
 
         $hashPrefix = substr($hash, 0, 5);
 

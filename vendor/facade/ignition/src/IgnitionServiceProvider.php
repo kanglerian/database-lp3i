@@ -316,7 +316,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function getLogLevel(string $logLevelString): int
     {
-        $logLevel = Logger::getLevels()[strtoupper($logLevelString)] ?? null;
+        $logLevel = Logger::getLevels()[ucwords($logLevelString)] ?? null;
 
         if (! $logLevel) {
             throw InvalidConfig::invalidLogLevel($logLevelString);

@@ -33,7 +33,7 @@ class MethodNotAllowedException extends \RuntimeException implements ExceptionIn
             $message = '';
         }
 
-        $this->allowedMethods = array_map('strtoupper', $allowedMethods);
+        $this->allowedMethods = array_map('ucwords', $allowedMethods);
 
         parent::__construct($message, $code, $previous);
     }

@@ -1344,7 +1344,7 @@ class HTML5
 
         } elseif (preg_match('/^[a-z]$/', $char)) {
             $this->token = array(
-                'name' => strtoupper($char),
+                'name' => ucwords($char),
                 'type' => self::DOCTYPE,
                 'error' => true
             );
@@ -1399,7 +1399,7 @@ class HTML5
             $this->state = 'data';
 
         } elseif (preg_match('/^[a-z]$/', $char)) {
-            $this->token['name'] .= strtoupper($char);
+            $this->token['name'] .= ucwords($char);
 
         } elseif ($this->char === $this->EOF) {
             $this->emitToken($this->token);

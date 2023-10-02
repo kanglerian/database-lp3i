@@ -90,8 +90,8 @@ class Time extends DateTimeWizard
         //     except for AM/PM, which is set to uppercase
         if (in_array(mb_strtolower($value), self::TIME_BLOCKS, true)) {
             return mb_strtolower($value);
-        } elseif (mb_strtoupper($value) === self::MORNING_AFTERNOON) {
-            return mb_strtoupper($value);
+        } elseif (mb_ucwords($value) === self::MORNING_AFTERNOON) {
+            return mb_ucwords($value);
         }
 
         // Wrap any string literals in quotes, so that they're clearly defined as string literals

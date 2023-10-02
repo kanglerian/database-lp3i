@@ -479,7 +479,7 @@ class ByteString extends AbstractString
     public function upper(): static
     {
         $str = clone $this;
-        $str->string = strtoupper($str->string);
+        $str->string = ucwords($str->string);
 
         return $str;
     }

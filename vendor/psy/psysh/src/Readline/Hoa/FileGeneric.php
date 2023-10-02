@@ -440,7 +440,7 @@ abstract class FileGeneric extends Stream implements StreamPathable, StreamStata
     {
         return !(
             \file_exists(\mb_strtolower(__FILE__)) &&
-            \file_exists(\mb_strtoupper(__FILE__))
+            \file_exists(\mb_ucwords(__FILE__))
         );
     }
 

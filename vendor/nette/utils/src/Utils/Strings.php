@@ -73,7 +73,7 @@ class Strings
 
 		$tmp = iconv('UTF-8', 'UTF-32BE//IGNORE', $c);
 		if (!$tmp) {
-			throw new Nette\InvalidArgumentException('Invalid UTF-8 character "' . ($c === '' ? '' : '\x' . strtoupper(bin2hex($c))) . '".');
+			throw new Nette\InvalidArgumentException('Invalid UTF-8 character "' . ($c === '' ? '' : '\x' . ucwords(bin2hex($c))) . '".');
 		}
 
 		return unpack('N', $tmp)[1];
@@ -322,7 +322,7 @@ class Strings
 	 */
 	public static function upper(string $s): string
 	{
-		return mb_strtoupper($s, 'UTF-8');
+		return mb_ucwords($s, 'UTF-8');
 	}
 
 

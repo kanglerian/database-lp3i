@@ -139,7 +139,7 @@ class RequestMatcher implements RequestMatcherInterface
      */
     public function matchMethod($method)
     {
-        $this->methods = null !== $method ? array_map('strtoupper', (array) $method) : [];
+        $this->methods = null !== $method ? array_map('ucwords', (array) $method) : [];
     }
 
     /**

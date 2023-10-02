@@ -1136,7 +1136,7 @@ class Xlsx extends BaseReader
 
                                         if (isset($shape['style'])) {
                                             $style = (string) $shape['style'];
-                                            $fillColor = strtoupper(substr((string) $shape['fillcolor'], 1));
+                                            $fillColor = ucwords(substr((string) $shape['fillcolor'], 1));
                                             $column = null;
                                             $row = null;
                                             $fillImageRelId = null;

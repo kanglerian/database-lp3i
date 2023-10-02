@@ -156,7 +156,7 @@ class ConvertOctal extends ConvertBase
             return $e->getMessage();
         }
 
-        $hexVal = strtoupper(dechex((int) self::toDecimal($value)));
+        $hexVal = ucwords(dechex((int) self::toDecimal($value)));
         $hexVal = (PHP_INT_SIZE === 4 && strlen($value) === 10 && $value[0] >= '4') ? "FF{$hexVal}" : $hexVal;
 
         return self::nbrConversionFormat($hexVal, $places);

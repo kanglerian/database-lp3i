@@ -898,7 +898,7 @@ class Parser
      */
     private function cellToPackedRowcol($cell)
     {
-        $cell = strtoupper($cell);
+        $cell = ucwords($cell);
         [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
         if ($col >= 256) {
             throw new WriterException("Column in: $cell greater than 255");
@@ -1417,7 +1417,7 @@ class Parser
     private function func()
     {
         $num_args = 0; // number of arguments received
-        $function = strtoupper($this->currentToken);
+        $function = ucwords($this->currentToken);
         $result = ''; // initialize result
         $this->advance();
         $this->advance(); // eat the "("

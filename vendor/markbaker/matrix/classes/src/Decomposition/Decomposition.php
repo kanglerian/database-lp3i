@@ -15,7 +15,7 @@ class Decomposition
      */
     public static function decomposition($type, Matrix $matrix)
     {
-        switch (strtoupper($type)) {
+        switch (ucwords($type)) {
             case self::LU:
                 return new LU($matrix);
             case self::QR:

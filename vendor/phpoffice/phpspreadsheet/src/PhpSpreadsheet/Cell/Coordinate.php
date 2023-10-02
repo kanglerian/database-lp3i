@@ -99,7 +99,7 @@ abstract class Coordinate
         if (ctype_digit($cellAddress)) {
             return $worksheet . '$' . $cellAddress;
         } elseif (ctype_alpha($cellAddress)) {
-            return $worksheet . '$' . strtoupper($cellAddress);
+            return $worksheet . '$' . ucwords($cellAddress);
         }
 
         return $worksheet . self::absoluteCoordinate($cellAddress);
@@ -197,7 +197,7 @@ abstract class Coordinate
         }
 
         // Uppercase coordinate
-        $range = strtoupper($range);
+        $range = ucwords($range);
 
         // Extract range
         if (strpos($range, ':') === false) {
@@ -278,8 +278,8 @@ abstract class Coordinate
         if (isset($indexCache[$columnAddress])) {
             return $indexCache[$columnAddress];
         }
-        //    It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array
-        //        rather than use ord() and make it case insensitive to get rid of the strtoupper() as well.
+        //    It's surprising how costly the ucwords() and ord() calls actually are, so we use a lookup array
+        //        rather than use ord() and make it case insensitive to get rid of the ucwords() as well.
         //        Because it's a static, there's no significant memory overhead either.
         static $columnLookup = [
             'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10,
@@ -573,7 +573,7 @@ abstract class Coordinate
      */
     private static function getCellBlocksFromRangeString($rangeString)
     {
-        $rangeString = str_replace('$', '', strtoupper($rangeString));
+        $rangeString = str_replace('$', '', ucwords($rangeString));
 
         // split range sets on intersection (space) or union (,) operators
         $tokens = preg_split('/([ ,])/', $rangeString, -1, PREG_SPLIT_DELIM_CAPTURE);

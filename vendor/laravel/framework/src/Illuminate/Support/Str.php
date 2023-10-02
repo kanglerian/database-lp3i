@@ -729,7 +729,7 @@ class Str
      */
     public static function upper($value)
     {
-        return mb_strtoupper($value, 'UTF-8');
+        return mb_ucwords($value, 'UTF-8');
     }
 
     /**

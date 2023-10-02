@@ -89,7 +89,7 @@ class UserController extends Controller
 
             $data = [
                 'identity' => mt_rand(1, 1000000000),
-                'name' => strtoupper($request->input('name')),
+                'name' => ucwords($request->input('name')),
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
@@ -214,7 +214,7 @@ class UserController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'education' => $request->input('education'),
@@ -239,7 +239,7 @@ class UserController extends Controller
         $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
 
         $data_father = [
-            'name' => strtoupper($request->input('father_name')),
+            'name' => ucwords($request->input('father_name')),
             'job' => $request->input('father_job'),
             'place_of_birth' => $request->input('father_place_of_birth'),
             'date_of_birth' => $request->input('father_date_of_birth'),
@@ -258,7 +258,7 @@ class UserController extends Controller
         $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
 
         $data_mother = [
-            'name' => strtoupper($request->input('mother_name')),
+            'name' => ucwords($request->input('mother_name')),
             'job' => $request->input('mother_job'),
             'place_of_birth' => $request->input('mother_place_of_birth'),
             'date_of_birth' => $request->input('mother_date_of_birth'),
@@ -307,7 +307,7 @@ class UserController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
         ];

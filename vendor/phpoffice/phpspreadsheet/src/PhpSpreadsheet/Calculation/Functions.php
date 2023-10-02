@@ -165,7 +165,7 @@ class Functions
                     // Escape any quotes in the string value
                     $condition = (string) preg_replace('/"/ui', '""', $condition);
                 }
-                $condition = Calculation::wrapResult(strtoupper($condition));
+                $condition = Calculation::wrapResult(ucwords($condition));
             }
 
             return str_replace('""""', '""', '=' . $condition);
@@ -178,7 +178,7 @@ class Functions
             $operand = trim($operand, '"');
         } elseif (!is_numeric($operand) && $operand !== 'FALSE' && $operand !== 'TRUE') {
             $operand = str_replace('"', '""', $operand);
-            $operand = Calculation::wrapResult(strtoupper($operand));
+            $operand = Calculation::wrapResult(ucwords($operand));
         }
 
         return str_replace('""""', '""', $operator . $operand);
@@ -193,8 +193,8 @@ class Functions
     {
         if (is_numeric($operand) || is_bool($operand)) {
             return $operand;
-        } elseif (strtoupper($operand) === Calculation::getTRUE() || strtoupper($operand) === Calculation::getFALSE()) {
-            return strtoupper($operand);
+        } elseif (ucwords($operand) === Calculation::getTRUE() || ucwords($operand) === Calculation::getFALSE()) {
+            return ucwords($operand);
         }
 
         // Check for percentage
@@ -646,7 +646,7 @@ class Functions
         $worksheet = $cell->getWorksheet();
         $spreadsheet = $worksheet->getParentOrThrow();
         // Uppercase coordinate
-        $pCoordinatex = strtoupper($coordinate);
+        $pCoordinatex = ucwords($coordinate);
         // Eliminate leading equal sign
         $pCoordinatex = (string) preg_replace('/^=/', '', $pCoordinatex);
         $defined = $spreadsheet->getDefinedName($pCoordinatex, $worksheet);

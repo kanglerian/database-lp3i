@@ -35,7 +35,7 @@ use function str_replace;
 use function strlen;
 use function strpos;
 use function strtolower;
-use function strtoupper;
+use function ucwords;
 use function substr;
 use function trim;
 use PHPUnit\Framework\TestCase;
@@ -201,7 +201,7 @@ final class NamePrettifier
             return $buffer;
         }
 
-        $name[0] = strtoupper($name[0]);
+        $name[0] = ucwords($name[0]);
 
         if (strpos($name, '_') !== false) {
             return trim(str_replace('_', ' ', $name));

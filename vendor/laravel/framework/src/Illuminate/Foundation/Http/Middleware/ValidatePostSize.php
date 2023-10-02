@@ -38,7 +38,7 @@ class ValidatePostSize
             return (int) $postMaxSize;
         }
 
-        $metric = strtoupper(substr($postMaxSize, -1));
+        $metric = ucwords(substr($postMaxSize, -1));
         $postMaxSize = (int) $postMaxSize;
 
         switch ($metric) {

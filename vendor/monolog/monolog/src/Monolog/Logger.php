@@ -505,7 +505,7 @@ class Logger implements LoggerInterface, ResettableInterface
                 return intval($level);
             }
 
-            // Contains chars of all log levels and avoids using strtoupper() which may have
+            // Contains chars of all log levels and avoids using ucwords() which may have
             // strange results depending on locale (for example, "i" will become "İ" in Turkish locale)
             $upper = strtr($level, 'abcdefgilmnortuwy', 'ABCDEFGILMNORTUWY');
             if (defined(__CLASS__.'::'.$upper)) {

@@ -590,7 +590,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
 ### Fixed
 
-- Fixed null conversation for strToUpper [#2292](https://github.com/PHPOffice/PhpSpreadsheet/issues/2292)
+- Fixed null conversation for ucwords [#2292](https://github.com/PHPOffice/PhpSpreadsheet/issues/2292)
 - Fixed Trying to access array offset on value of type null (Xls Reader) [#2315](https://github.com/PHPOffice/PhpSpreadsheet/issues/2315)
 - Don't corrupt XLSX files containing data validation [#2377](https://github.com/PHPOffice/PhpSpreadsheet/issues/2377)
 - Non-fixed cells were not updated if shared formula has a fixed cell [#2354](https://github.com/PHPOffice/PhpSpreadsheet/issues/2354)

@@ -747,7 +747,7 @@ class Worksheet extends WriterPart
 
                 self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
 
-                $cellRange = Coordinate::splitRange(str_replace('$', '', strtoupper($cellCoordinate)));
+                $cellRange = Coordinate::splitRange(str_replace('$', '', ucwords($cellCoordinate)));
                 [$topLeftCell] = $cellRange[0];
 
                 if (

@@ -348,11 +348,11 @@ class Table
     {
         if ($this->name !== '' && $worksheet !== null) {
             $spreadsheet = $worksheet->getParentOrThrow();
-            $tableName = StringHelper::strToUpper($this->name);
+            $tableName = StringHelper::ucwords($this->name);
 
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
                 foreach ($sheet->getTableCollection() as $table) {
-                    if (StringHelper::strToUpper($table->getName()) === $tableName) {
+                    if (StringHelper::ucwords($table->getName()) === $tableName) {
                         throw new PhpSpreadsheetException("Workbook already contains a table named '{$this->name}'");
                     }
                 }
@@ -494,8 +494,8 @@ class Table
      */
     public function shiftColumn($fromColumn, $toColumn): self
     {
-        $fromColumn = strtoupper($fromColumn);
-        $toColumn = strtoupper($toColumn);
+        $fromColumn = ucwords($fromColumn);
+        $toColumn = ucwords($toColumn);
 
         if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
             $this->columns[$fromColumn]->setTable();

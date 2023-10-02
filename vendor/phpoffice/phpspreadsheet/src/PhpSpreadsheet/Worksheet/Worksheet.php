@@ -1305,7 +1305,7 @@ class Worksheet implements IComparable
             $worksheetReference = self::extractSheetTitle($coordinate, true);
 
             $sheet = $this->getParentOrThrow()->getSheetByName($worksheetReference[0]);
-            $finalCoordinate = strtoupper($worksheetReference[1]);
+            $finalCoordinate = ucwords($worksheetReference[1]);
 
             if ($sheet === null) {
                 throw new Exception('Sheet not found for name: ' . $worksheetReference[0]);
@@ -1330,7 +1330,7 @@ class Worksheet implements IComparable
 
         if ($sheet === null || $finalCoordinate === null) {
             $sheet = $this;
-            $finalCoordinate = strtoupper($coordinate);
+            $finalCoordinate = ucwords($coordinate);
         }
 
         if (Coordinate::coordinateIsRange($finalCoordinate)) {
@@ -1491,7 +1491,7 @@ class Worksheet implements IComparable
     public function getColumnDimension(string $column): ColumnDimension
     {
         // Uppercase coordinate
-        $column = strtoupper($column);
+        $column = ucwords($column);
 
         // Fetch dimensions
         if (!isset($this->columnDimensions[$column])) {
@@ -1590,7 +1590,7 @@ class Worksheet implements IComparable
      */
     public function getConditionalStyles(string $coordinate): array
     {
-        $coordinate = strtoupper($coordinate);
+        $coordinate = ucwords($coordinate);
         if (strpos($coordinate, ':') !== false) {
             return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
@@ -1607,7 +1607,7 @@ class Worksheet implements IComparable
 
     public function getConditionalRange(string $coordinate): ?string
     {
-        $coordinate = strtoupper($coordinate);
+        $coordinate = ucwords($coordinate);
         $cell = $this->getCell($coordinate);
         foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
             if ($cell->isInRange($conditionalRange)) {
@@ -1629,7 +1629,7 @@ class Worksheet implements IComparable
      */
     public function conditionalStylesExists($coordinate): bool
     {
-        $coordinate = strtoupper($coordinate);
+        $coordinate = ucwords($coordinate);
         if (strpos($coordinate, ':') !== false) {
             return isset($this->conditionalStylesCollection[$coordinate]);
         }
@@ -1653,7 +1653,7 @@ class Worksheet implements IComparable
      */
     public function removeConditionalStyles($coordinate)
     {
-        unset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        unset($this->conditionalStylesCollection[ucwords($coordinate)]);
 
         return $this;
     }
@@ -1678,7 +1678,7 @@ class Worksheet implements IComparable
      */
     public function setConditionalStyles($coordinate, $styles)
     {
-        $this->conditionalStylesCollection[strtoupper($coordinate)] = $styles;
+        $this->conditionalStylesCollection[ucwords($coordinate)] = $styles;
 
         return $this;
     }
@@ -2349,10 +2349,10 @@ class Worksheet implements IComparable
      */
     protected function getTableIndexByName(string $name): ?int
     {
-        $name = Shared\StringHelper::strToUpper($name);
+        $name = Shared\StringHelper::ucwords($name);
         foreach ($this->tableCollection as $index => $table) {
             /** @var Table $table */
-            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+            if (Shared\StringHelper::ucwords($table->getName()) === $name) {
                 return $index;
             }
         }

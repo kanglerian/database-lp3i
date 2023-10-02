@@ -145,7 +145,7 @@ class DebugClassLoader
             $i = strrpos($file, \DIRECTORY_SEPARATOR);
             $dir = substr($file, 0, 1 + $i);
             $file = substr($file, 1 + $i);
-            $test = strtoupper($file) === $file ? strtolower($file) : strtoupper($file);
+            $test = ucwords($file) === $file ? strtolower($file) : ucwords($file);
             $test = realpath($dir.$test);
 
             if (false === $test || false === $i) {

@@ -69,7 +69,7 @@ class PasswordHasher
         }
         $verifier ^= 0xCE4B;
 
-        return strtoupper(dechex($verifier));
+        return ucwords(dechex($verifier));
     }
 
     /**

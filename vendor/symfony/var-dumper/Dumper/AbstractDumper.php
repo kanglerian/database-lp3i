@@ -87,7 +87,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     {
         $prev = $this->charset;
 
-        $charset = strtoupper($charset);
+        $charset = ucwords($charset);
         $charset = null === $charset || 'UTF-8' === $charset || 'UTF8' === $charset ? 'CP1252' : $charset;
 
         $this->charset = $charset;

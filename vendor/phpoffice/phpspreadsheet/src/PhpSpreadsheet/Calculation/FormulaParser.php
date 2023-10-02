@@ -602,7 +602,7 @@ class FormulaParser
                 $token->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_NOTHING
             ) {
                 if (!is_numeric($token->getValue())) {
-                    if (strtoupper($token->getValue()) == 'TRUE' || strtoupper($token->getValue()) == 'FALSE') {
+                    if (ucwords($token->getValue()) == 'TRUE' || ucwords($token->getValue()) == 'FALSE') {
                         $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_LOGICAL);
                     } else {
                         $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_RANGE);

@@ -3224,7 +3224,7 @@ class Calculation
                     [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
                     if (strpos($localeSetting, '=') !== false) {
                         [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
-                        $settingName = strtoupper($settingName);
+                        $settingName = ucwords($settingName);
                         if ($settingValue !== '') {
                             switch ($settingName) {
                                 case 'ARGUMENTSEPARATOR':
@@ -4328,8 +4328,8 @@ class Calculation
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
                     $val = (string) preg_replace('/\s/u', '', $val);
-                    if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
-                        $valToUpper = strtoupper($val);
+                    if (isset(self::$phpSpreadsheetFunctions[ucwords($matches[1])]) || isset(self::$controlFunctions[ucwords($matches[1])])) {    // it's a function
+                        $valToUpper = ucwords($val);
                     } else {
                         $valToUpper = 'NAME.ERROR(';
                     }
@@ -4479,12 +4479,12 @@ class Calculation
                     } elseif ($opCharacter === self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
-                    } elseif (isset(self::$excelConstants[trim(strtoupper($val))])) {
+                    } elseif (isset(self::$excelConstants[trim(ucwords($val))])) {
                         $stackItemType = 'Constant';
-                        $excelConstant = trim(strtoupper($val));
+                        $excelConstant = trim(ucwords($val));
                         $val = self::$excelConstants[$excelConstant];
                         $stackItemReference = $excelConstant;
-                    } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
+                    } elseif (($localeConstant = array_search(trim(ucwords($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
                         $stackItemReference = $localeConstant;
@@ -5155,8 +5155,8 @@ class Calculation
                 }
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
-                if (isset(self::$excelConstants[strtoupper($token ?? '')])) {
-                    $excelConstant = strtoupper($token);
+                if (isset(self::$excelConstants[ucwords($token ?? '')])) {
+                    $excelConstant = ucwords($token);
                     $stack->push('Constant Value', self::$excelConstants[$excelConstant]);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = self::$excelConstants[$excelConstant];
@@ -5590,7 +5590,7 @@ class Calculation
      */
     public function isImplemented($function)
     {
-        $function = strtoupper($function);
+        $function = ucwords($function);
         $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');
 
         return !$notImplemented;

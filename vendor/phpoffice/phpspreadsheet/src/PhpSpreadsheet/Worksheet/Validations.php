@@ -23,7 +23,7 @@ class Validations
 //                throw new Exception('Reference is not for this worksheet');
 //            }
 
-            return empty($worksheet) ? strtoupper("$address") : $worksheet . '!' . strtoupper("$address");
+            return empty($worksheet) ? ucwords("$address") : $worksheet . '!' . ucwords("$address");
         }
 
         if (is_array($cellAddress)) {
@@ -76,7 +76,7 @@ class Validations
                 $addressRange
             );
 
-            return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);
+            return empty($worksheet) ? ucwords($addressRange) : $worksheet . '!' . ucwords($addressRange);
         }
 
         if (is_array($cellRange)) {
@@ -103,7 +103,7 @@ class Validations
     public static function definedNameToCoordinate(string $coordinate, Worksheet $worksheet): string
     {
         // Uppercase coordinate
-        $coordinate = strtoupper($coordinate);
+        $coordinate = ucwords($coordinate);
         // Eliminate leading equal sign
         $testCoordinate = (string) preg_replace('/^=/', '', $coordinate);
         $defined = $worksheet->getParentOrThrow()->getDefinedName($testCoordinate, $worksheet);

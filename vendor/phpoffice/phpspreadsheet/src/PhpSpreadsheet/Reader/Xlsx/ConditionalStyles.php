@@ -181,7 +181,7 @@ class ConditionalStyles
             $conditionalStyles = $this->readStyleRules($cfRules, $xmlExtLst);
 
             // Extract all cell references in $cellRangeReference
-            $cellBlocks = explode(' ', str_replace('$', '', strtoupper($cellRangeReference)));
+            $cellBlocks = explode(' ', str_replace('$', '', ucwords($cellRangeReference)));
             foreach ($cellBlocks as $cellBlock) {
                 $worksheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
             }

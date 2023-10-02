@@ -120,7 +120,7 @@ class ConvertDecimal extends ConvertBase
         if ($value > self::LARGEST_HEX_IN_DECIMAL || $value < self::SMALLEST_HEX_IN_DECIMAL) {
             return ExcelError::NAN();
         }
-        $r = strtoupper(dechex((int) $value));
+        $r = ucwords(dechex((int) $value));
         $r = self::hex32bit($value, $r);
 
         return self::nbrConversionFormat($r, $places);
@@ -132,12 +132,12 @@ class ConvertDecimal extends ConvertBase
             if ($value >= 2 ** 32) {
                 $quotient = (int) ($value / (2 ** 32));
 
-                return strtoupper(substr('0' . dechex($quotient), -2) . $hexstr);
+                return ucwords(substr('0' . dechex($quotient), -2) . $hexstr);
             }
             if ($value < -(2 ** 32)) {
                 $quotient = 256 - (int) ceil((-$value) / (2 ** 32));
 
-                return strtoupper(substr('0' . dechex($quotient), -2) . substr("00000000$hexstr", -8));
+                return ucwords(substr('0' . dechex($quotient), -2) . substr("00000000$hexstr", -8));
             }
             if ($value < 0) {
                 return "FF$hexstr";

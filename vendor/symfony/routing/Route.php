@@ -211,7 +211,7 @@ class Route implements \Serializable
      */
     public function setMethods($methods)
     {
-        $this->methods = array_map('strtoupper', (array) $methods);
+        $this->methods = array_map('ucwords', (array) $methods);
         $this->compiled = null;
 
         return $this;

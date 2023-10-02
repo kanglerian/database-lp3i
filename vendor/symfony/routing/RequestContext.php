@@ -144,7 +144,7 @@ class RequestContext
      */
     public function setMethod(string $method)
     {
-        $this->method = strtoupper($method);
+        $this->method = ucwords($method);
 
         return $this;
     }

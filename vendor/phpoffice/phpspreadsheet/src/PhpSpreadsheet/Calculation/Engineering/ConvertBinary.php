@@ -96,9 +96,9 @@ class ConvertBinary extends ConvertBase
             $low8 = substr($value, 2);
             $xarr = ['00' => '00000000', '01' => '00000001', '10' => 'FFFFFFFE', '11' => 'FFFFFFFF'];
 
-            return $xarr[$high2] . strtoupper(substr('0' . dechex((int) bindec($low8)), -2));
+            return $xarr[$high2] . ucwords(substr('0' . dechex((int) bindec($low8)), -2));
         }
-        $hexVal = (string) strtoupper(dechex((int) bindec($value)));
+        $hexVal = (string) ucwords(dechex((int) bindec($value)));
 
         return self::nbrConversionFormat($hexVal, $places);
     }
@@ -145,7 +145,7 @@ class ConvertBinary extends ConvertBase
         }
 
         if (strlen($value) == 10 && $value[0] === '1') { //    Two's Complement
-            return str_repeat('7', 6) . strtoupper(decoct((int) bindec("11$value")));
+            return str_repeat('7', 6) . ucwords(decoct((int) bindec("11$value")));
         }
         $octVal = (string) decoct((int) bindec($value));
 

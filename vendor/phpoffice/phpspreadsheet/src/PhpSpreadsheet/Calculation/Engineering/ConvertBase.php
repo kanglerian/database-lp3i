@@ -27,7 +27,7 @@ abstract class ConvertBase
             }
         }
 
-        return strtoupper((string) $value);
+        return ucwords((string) $value);
     }
 
     /** @param mixed $places */

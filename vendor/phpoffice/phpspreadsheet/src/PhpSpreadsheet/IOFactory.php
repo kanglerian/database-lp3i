@@ -136,11 +136,11 @@ abstract class IOFactory
 
         $testReaders = self::$readers;
         if ($readers !== null) {
-            $readers = array_map('strtoupper', $readers);
+            $readers = array_map('ucwords', $readers);
             $testReaders = array_filter(
                 self::$readers,
                 function (string $readerType) use ($readers) {
-                    return in_array(strtoupper($readerType), $readers, true);
+                    return in_array(ucwords($readerType), $readers, true);
                 },
                 ARRAY_FILTER_USE_KEY
             );

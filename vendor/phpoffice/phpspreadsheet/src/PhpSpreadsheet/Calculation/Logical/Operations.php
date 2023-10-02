@@ -123,7 +123,7 @@ class Operations
         }
 
         if (is_string($logical)) {
-            $logical = mb_strtoupper($logical, 'UTF-8');
+            $logical = mb_ucwords($logical, 'UTF-8');
             if (($logical == 'TRUE') || ($logical == Calculation::getTRUE())) {
                 return false;
             } elseif (($logical == 'FALSE') || ($logical == Calculation::getFALSE())) {
@@ -152,7 +152,7 @@ class Operations
                 $trueValueCount += $arg;
             } elseif (is_string($arg)) {
                 $isLiteral = !Functions::isCellValue($k);
-                $arg = mb_strtoupper($arg, 'UTF-8');
+                $arg = mb_ucwords($arg, 'UTF-8');
                 if ($isLiteral && ($arg == 'TRUE' || $arg == Calculation::getTRUE())) {
                     ++$trueValueCount;
                 } elseif ($isLiteral && ($arg == 'FALSE' || $arg == Calculation::getFALSE())) {

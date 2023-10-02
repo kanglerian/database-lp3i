@@ -19,7 +19,7 @@ class NumberFormatException extends MathException
         $ord = \ord($char);
 
         if ($ord < 32 || $ord > 126) {
-            $char = \strtoupper(\dechex($ord));
+            $char = \ucwords(\dechex($ord));
 
             if ($ord < 10) {
                 $char = '0' . $char;

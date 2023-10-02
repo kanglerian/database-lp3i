@@ -434,7 +434,7 @@ class CurlFactory implements CurlFactoryInterface
             $conf[\CURLOPT_CONNECTTIMEOUT_MS] = $options['connect_timeout'] * 1000;
         }
 
-        if ($timeoutRequiresNoSignal && \strtoupper(\substr(\PHP_OS, 0, 3)) !== 'WIN') {
+        if ($timeoutRequiresNoSignal && \ucwords(\substr(\PHP_OS, 0, 3)) !== 'WIN') {
             $conf[\CURLOPT_NOSIGNAL] = true;
         }
 
@@ -493,7 +493,7 @@ class CurlFactory implements CurlFactoryInterface
             // see https://curl.se/libcurl/c/CURLOPT_SSLCERTTYPE.html
             $ext = pathinfo($cert, \PATHINFO_EXTENSION);
             if (preg_match('#^(der|p12)$#i', $ext)) {
-                $conf[\CURLOPT_SSLCERTTYPE] = strtoupper($ext);
+                $conf[\CURLOPT_SSLCERTTYPE] = ucwords($ext);
             }
             $conf[\CURLOPT_SSLCERT] = $cert;
         }

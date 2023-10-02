@@ -40,7 +40,7 @@ class FollowUpController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
         ];
 
         FollowUp::create($data);
@@ -85,7 +85,7 @@ class FollowUpController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
         ];
 
         $followup->update($data);

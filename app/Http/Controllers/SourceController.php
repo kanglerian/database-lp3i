@@ -40,7 +40,7 @@ class SourceController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
         ];
 
         SourceSetting::create($data);
@@ -85,7 +85,7 @@ class SourceController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper($request->input('name')),
+            'name' => ucwords($request->input('name')),
         ];
 
         $source->update($data);

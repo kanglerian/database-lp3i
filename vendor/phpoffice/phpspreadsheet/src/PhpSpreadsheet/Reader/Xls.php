@@ -3526,7 +3526,7 @@ class Xls extends BaseReader
 
         if (!$this->readDataOnly) {
             // offset: 0; size: 2; 16-bit hash value of password
-            $password = strtoupper(dechex(self::getUInt2d($recordData, 0))); // the hashed password
+            $password = ucwords(dechex(self::getUInt2d($recordData, 0))); // the hashed password
             $this->phpSheet->getProtection()->setPassword($password, true);
         }
     }
@@ -5119,7 +5119,7 @@ class Xls extends BaseReader
 
             // Apply range protection to sheet
             if ($cellRanges) {
-                $this->phpSheet->protectCells(implode(' ', $cellRanges), strtoupper(dechex($wPassword)), true);
+                $this->phpSheet->protectCells(implode(' ', $cellRanges), ucwords(dechex($wPassword)), true);
             }
         }
     }

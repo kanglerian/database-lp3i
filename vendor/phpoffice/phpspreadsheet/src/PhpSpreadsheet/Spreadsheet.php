@@ -973,7 +973,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function addDefinedName(DefinedName $definedName): void
     {
-        $upperCaseName = StringHelper::strToUpper($definedName->getName());
+        $upperCaseName = StringHelper::ucwords($definedName->getName());
         if ($definedName->getScope() == null) {
             // global scope
             $this->definedNames[$upperCaseName] = $definedName;
@@ -993,7 +993,7 @@ class Spreadsheet implements JsonSerializable
         $returnValue = null;
 
         if ($namedRange !== '') {
-            $namedRange = StringHelper::strToUpper($namedRange);
+            $namedRange = StringHelper::ucwords($namedRange);
             // first look for global named range
             $returnValue = $this->getGlobalDefinedNameByType($namedRange, self::DEFINED_NAME_IS_RANGE);
             // then look for local named range (has priority over global named range if both names exist)
@@ -1013,7 +1013,7 @@ class Spreadsheet implements JsonSerializable
         $returnValue = null;
 
         if ($namedFormula !== '') {
-            $namedFormula = StringHelper::strToUpper($namedFormula);
+            $namedFormula = StringHelper::ucwords($namedFormula);
             // first look for global named formula
             $returnValue = $this->getGlobalDefinedNameByType($namedFormula, self::DEFINED_NAME_IS_FORMULA);
             // then look for local named formula (has priority over global named formula if both names exist)
@@ -1054,7 +1054,7 @@ class Spreadsheet implements JsonSerializable
         $returnValue = null;
 
         if ($definedName !== '') {
-            $definedName = StringHelper::strToUpper($definedName);
+            $definedName = StringHelper::ucwords($definedName);
             // first look for global defined name
             if (isset($this->definedNames[$definedName])) {
                 $returnValue = $this->definedNames[$definedName];
@@ -1110,7 +1110,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function removeDefinedName(string $definedName, ?Worksheet $worksheet = null): self
     {
-        $definedName = StringHelper::strToUpper($definedName);
+        $definedName = StringHelper::ucwords($definedName);
 
         if ($worksheet === null) {
             if (isset($this->definedNames[$definedName])) {

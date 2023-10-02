@@ -297,8 +297,8 @@ class AutoFilter
     public function shiftColumn($fromColumn, $toColumn)
     {
         $this->evaluated = false;
-        $fromColumn = strtoupper($fromColumn);
-        $toColumn = strtoupper($toColumn);
+        $fromColumn = ucwords($fromColumn);
+        $toColumn = ucwords($toColumn);
 
         if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
             $this->columns[$fromColumn]->setParent();

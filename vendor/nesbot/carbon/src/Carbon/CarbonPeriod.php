@@ -1528,7 +1528,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
 
         $result = implode(' ', $parts);
 
-        return mb_strtoupper(mb_substr($result, 0, 1)).mb_substr($result, 1);
+        return mb_ucwords(mb_substr($result, 0, 1)).mb_substr($result, 1);
     }
 
     /**

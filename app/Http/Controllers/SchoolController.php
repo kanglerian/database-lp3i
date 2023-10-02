@@ -57,8 +57,8 @@ class SchoolController extends Controller
         ]);
 
         $data = [
-            'name' => strtoupper(strtoupper($request->input('name'))),
-            'region' => strtoupper($request->input('region')),
+            'name' => ucwords($request->input('name')),
+            'region' => ucwords($request->input('region')),
         ];
 
         School::create($data);

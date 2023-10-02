@@ -34,12 +34,12 @@ abstract class DatabaseAbstract
      */
     protected static function fieldExtract(array $database, $field): ?int
     {
-        $field = strtoupper(Functions::flattenSingleValue($field) ?? '');
+        $field = ucwords(Functions::flattenSingleValue($field) ?? '');
         if ($field === '') {
             return null;
         }
 
-        $fieldNames = array_map('strtoupper', array_shift($database));
+        $fieldNames = array_map('ucwords', array_shift($database));
         if (is_numeric($field)) {
             $field = (int) $field - 1;
             if ($field < 0 || $field >= count($fieldNames)) {
@@ -184,7 +184,7 @@ abstract class DatabaseAbstract
             if (is_string($dataValue) && strpos($dataValue, '"') !== false) {
                 $dataValue = str_replace('"', '""', $dataValue);
             }
-            $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+            $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(ucwords($dataValue)) : $dataValue;
         }
 
         return str_replace('[:' . $criterion . ']', $dataValue, $conditions);

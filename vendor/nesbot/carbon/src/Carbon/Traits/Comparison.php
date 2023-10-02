@@ -758,7 +758,7 @@ trait Comparison
      */
     public function isDayOfWeek($dayOfWeek)
     {
-        if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
+        if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.ucwords($dayOfWeek))) {
             $dayOfWeek = \constant($constant);
         }
 

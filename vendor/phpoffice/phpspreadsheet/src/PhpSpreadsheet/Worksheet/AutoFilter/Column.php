@@ -128,7 +128,7 @@ class Column
     {
         $this->setEvaluatedFalse();
         // Uppercase coordinate
-        $column = strtoupper($column);
+        $column = ucwords($column);
         if ($this->parent !== null) {
             $this->parent->testColumnInRange($column);
         }
