@@ -124,7 +124,7 @@ class ApplicantUpdateImport implements ToModel
                 return new Applicant([
                     'identity' => $numbers_unique,
                     'pmb' => $row[1],
-                    'name' => !empty($row[2]) ? ucwords(strtolower($row[2])) : null,
+                    'name' => !empty($row[2]) ? ucfirst(strtolower($row[2])) : null,
                     'phone' => !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null,
                     'education' => !empty($row[5]) ? $row[5] : null,
                     'school' => $school ? $school->id : null,
