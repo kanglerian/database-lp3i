@@ -31,7 +31,7 @@
         showLoadingAnimation();
 
         let queryParams = [];
-
+        // Filter
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';
