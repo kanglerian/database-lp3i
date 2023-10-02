@@ -372,7 +372,7 @@
     const downloadCSV = () => {
         let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
         dataApplicants.forEach(applicant => {
-            content += `${applicant.name} ${applicant.school_applicant.name} ${applicant.major},* myContacts,Mobile,+${applicant.phone}\n`
+            content += `${applicant.name} ${applicant.school_applicant.name} ${applicant.major} ${applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
         });
         var downloadCSV = document.getElementById('downloadCSV');
         var blob = new Blob([content], {
@@ -385,7 +385,7 @@
     const downloadVCF = () => {
         let content = '';
         dataApplicants.forEach(applicant => {
-            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${applicant.school_applicant.name} ${applicant.major}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${applicant.school_applicant.name} ${applicant.major} ${applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
         });
         var downloadVCF = document.getElementById('downloadVCF');
         var blob = new Blob([content], {
