@@ -76,6 +76,8 @@ class ApplicantController extends Controller
         $pmbVal = request('pmbVal', 'all');
         $followVal = request('followVal', 'all');
         $comeVal = request('comeVal', 'all');
+        $incomeVal = request('incomeVal', 'all');
+        $planVal = request('planVal', 'all');
         $sourceVal = request('sourceVal', 'all');
         $statusVal = request('statusVal', 'all');
         $achievementVal = request('achievementVal', 'all');
@@ -129,6 +131,12 @@ class ApplicantController extends Controller
         }
         if ($comeVal !== 'all') {
             $applicantsQuery->where('come', $comeVal);
+        }
+        if ($incomeVal !== 'all') {
+            $applicantsQuery->where('income_parent', $incomeVal);
+        }
+        if ($planVal !== 'all') {
+            $applicantsQuery->where('planning', $planVal);
         }
         if ($databaseOnline !== 'all') {
             $applicantsQuery->where('identity_user', $databaseOnline);
@@ -566,6 +574,6 @@ class ApplicantController extends Controller
         $identityUser = $request->input('identity_user');
         Excel::import(new ApplicantUpdateImport($identityUser), $request->file('berkas'));
 
-        return back()->with('message', 'Data applicant berhasil diupdate');
+        return back()->with('message', 'Data aplikan berhasil diupdate');
     }
 }

@@ -41,6 +41,8 @@
         let birthdayVal = document.getElementById('birthday').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let comeVal = document.getElementById('change_come').value || 'all';
+        let planVal = document.getElementById('change_plan').value || 'all';
+        let incomeVal = document.getElementById('change_income').value || 'all';
         let achievementVal = document.getElementById('change_achievement').value || 'all';
         let followVal = document.getElementById('change_follow').value || 'all';
         let sourceVal = document.getElementById('change_source').value || 'all';
@@ -87,6 +89,12 @@
         }
         if (comeVal !== 'all') {
             queryParams.push(`comeVal=${comeVal}`);
+        }
+        if (incomeVal !== 'all') {
+            queryParams.push(`incomeVal=${incomeVal}`);
+        }
+        if (planVal !== 'all') {
+            queryParams.push(`planVal=${planVal}`);
         }
         if (kipVal !== 'all') {
             queryParams.push(`kipVal=${kipVal}`);
@@ -137,7 +145,9 @@
             document.getElementById('change_achievement').value = '';
             document.getElementById('change_relation').value = '';
             document.getElementById('change_kip').value = 'all';
+            document.getElementById('change_plan').value = 'all';
             document.getElementById('change_come').value = 'all';
+            document.getElementById('change_income').value = 'all';
             document.getElementById('change_follow').value = 'all';
             document.getElementById('change_source').value = 'all';
             document.getElementById('change_status').value = 'all';

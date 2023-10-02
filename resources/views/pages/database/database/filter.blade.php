@@ -95,12 +95,34 @@
             </select>
         </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">
+            <label for="" class="text-xs">Rencana Aplikan</label>
+            <select id="change_plan" onchange="changeFilter()"
+                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                <option value="all">Pilih</option>
+                <option value="Kuliah">Kuliah</option>
+                <option value="Kerja">Kerja</option>
+                <option value="Bisnis">Bisnis</option>
+                <option value="Nikah">Nikah</option>
+            </select>
+        </div>
+        <div class="w-1/2 space-y-1 p-1 md:p-0">
             <label for="" class="text-xs">Datang ke LP3I</label>
             <select id="change_come" onchange="changeFilter()"
                 class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                 <option value="all">Pilih</option>
                 <option value="1">Ya</option>
                 <option value="0">Tidak</option>
+            </select>
+        </div>
+        <div class="w-1/2 space-y-1 p-1 md:p-0">
+            <label for="" class="text-xs">Penghasilan Orang Tua</label>
+            <select id="change_income" onchange="changeFilter()"
+                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                <option value="all">Pilih</option>
+                <option value="< 1.000.000">&lt; 1.000.000</option>
+                <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+                <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
+                <option value="> 5.000.000">&gt; 5.000.000</option>
             </select>
         </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">
