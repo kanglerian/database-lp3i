@@ -295,7 +295,7 @@
                             data.id);
                         let folder = data.status_id == 4 || data.status_id == 3 ?
                             `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
-                            `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></button>`;
+                            `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-200"><i class="fa-regular fa-folder-open"></i></button>`;
                         return `
                         <div class="flex items-center gap-1">
                             ${folder}
