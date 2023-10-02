@@ -158,6 +158,7 @@
     </div>
 </x-app-layout>
 
+{{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 @include('pages.database.database.filterjs')
