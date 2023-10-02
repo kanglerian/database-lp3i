@@ -299,7 +299,7 @@
                         return `
                         <div class="flex items-center gap-1">
                             ${folder}
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant.name == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                             <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
