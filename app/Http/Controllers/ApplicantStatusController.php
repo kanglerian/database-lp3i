@@ -40,7 +40,7 @@ class ApplicantStatusController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
         ];
 
         ApplicantStatus::create($data);
@@ -85,7 +85,7 @@ class ApplicantStatusController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
         ];
 
         $status->update($data);

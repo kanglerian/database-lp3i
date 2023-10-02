@@ -89,7 +89,7 @@ class UserController extends Controller
 
             $data = [
                 'identity' => mt_rand(1, 1000000000),
-                'name' => ucwords($request->input('name')),
+                'name' => ucwords(strtolower($request->input('name'))),
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
@@ -214,7 +214,7 @@ class UserController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'education' => $request->input('education'),
@@ -307,7 +307,7 @@ class UserController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
         ];

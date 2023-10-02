@@ -242,7 +242,7 @@ class ApplicantController extends Controller
 
             $data_applicant = [
                 'identity' => $numbers_unique,
-                'name' => ucwords($request->input('name')),
+                'name' => ucwords(strtolower($request->input('name'))),
                 'gender' => $request->input('gender'),
                 'place_of_birth' => $request->input('place_of_birth'),
                 'date_of_birth' => $request->input('date_of_birth'),
@@ -405,7 +405,7 @@ class ApplicantController extends Controller
 
         if ($user_detail !== null) {
             $data_user = [
-                'name' => ucwords($request->input('name')),
+                'name' => ucwords(strtolower($request->input('name'))),
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
             ];
@@ -433,7 +433,7 @@ class ApplicantController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'note' => $request->input('note'),
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'gender' => $request->input('gender'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),

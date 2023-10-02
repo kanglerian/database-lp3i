@@ -50,7 +50,7 @@ class ProfileController extends Controller
 
         $data = [
             'identity' => $request->input('identity'),
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('phone')),
             'phone' => $request->input('phone'),
@@ -154,7 +154,7 @@ class ProfileController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
@@ -207,7 +207,7 @@ class ProfileController extends Controller
         ];
 
         $dataUser = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
         ];
 
         $user->update($dataUser);
@@ -248,7 +248,7 @@ class ProfileController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
         ];

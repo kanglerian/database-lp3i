@@ -40,7 +40,7 @@ class ProgramTypeController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'status' => 1,
         ];
 
@@ -86,7 +86,7 @@ class ProgramTypeController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'status' => 1,
         ];
 

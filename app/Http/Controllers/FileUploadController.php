@@ -41,8 +41,8 @@ class FileUploadController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
-            'namefile' => strtolower(str_replace(' ','-', ucwords($request->input('name')))),
+            'name' => ucwords(strtolower($request->input('name'))),
+            'namefile' => strtolower(str_replace(' ','-', ucwords(strtolower($request->input('name'))))),
             'accept' => $request->input('accept'),
         ];
 
@@ -89,8 +89,8 @@ class FileUploadController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
-            'namefile' => strtolower(str_replace(' ','-', ucwords($request->input('name')))),
+            'name' => ucwords(strtolower($request->input('name'))),
+            'namefile' => strtolower(str_replace(' ','-', ucwords(strtolower($request->input('name'))))),
             'accept' => $request->input('accept'),
         ];
 

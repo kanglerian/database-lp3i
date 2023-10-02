@@ -85,7 +85,7 @@ class RegisteredUserController extends Controller
 
         $data = [
             'identity' => $numbers_unique,
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
@@ -107,7 +107,7 @@ class RegisteredUserController extends Controller
             'identity' => $numbers_unique,
             'programtype_id' => $request->input('programtype_id'),
             'program' => $request->input('program'),
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'gender' => $request->input('gender'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),

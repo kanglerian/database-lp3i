@@ -57,7 +57,7 @@ class SchoolController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords($request->input('name')),
+            'name' => ucwords(strtolower($request->input('name'))),
             'region' => ucwords($request->input('region')),
         ];
 
