@@ -68,6 +68,14 @@
                     class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
                 </a>
+                <a id="downloadCSV" onclick="downloadCSV()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-file-csv"></i>
+                </a>
+                <a id="downloadVCF" onclick="downloadVCF()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-address-book"></i>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -349,7 +357,7 @@
     }
 
     const downloadBlast = () => {
-        var content = '';
+        let content = '';
         dataApplicants.forEach(applicant => {
             content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
         });
@@ -359,6 +367,32 @@
         });
         downloadBlast.href = URL.createObjectURL(blob);
         downloadBlast.download = `file-blast-applicant.txt`;
+    }
+
+    const downloadCSV = () => {
+        let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
+        dataApplicants.forEach(applicant => {
+            content += `${applicant.name} - ${applicant.school_applicant.name} - ${applicant.major},* myContacts,Mobile,+${applicant.phone}\n`
+        });
+        var downloadCSV = document.getElementById('downloadCSV');
+        var blob = new Blob([content], {
+            type: "text/plain"
+        });
+        downloadCSV.href = URL.createObjectURL(blob);
+        downloadCSV.download = `file-contact-applicant.csv`;
+    }
+
+    const downloadVCF = () => {
+        let content = '';
+        dataApplicants.forEach(applicant => {
+            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} - ${applicant.school_applicant.name} - ${applicant.major}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+        });
+        var downloadVCF = document.getElementById('downloadVCF');
+        var blob = new Blob([content], {
+            type: "text/vcard"
+        });
+        downloadVCF.href = URL.createObjectURL(blob);
+        downloadVCF.download = `file-contact-applicant.vcf`;
     }
 
     const copyRecord = (name, phone, school, year, source) => {
