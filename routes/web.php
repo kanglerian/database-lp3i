@@ -48,7 +48,7 @@ Route::post('import/applicants', [ApplicantController::class, 'import'])->middle
 Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
 Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->middleware(['auth','status:1'])->name('applicant.importupdate');
 
-Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1']);
 
 Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
 
