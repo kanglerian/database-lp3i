@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282215614238,
-                'name' => 'Nurul Ahyar',
+                'name' => 'Nurul Ahyar, S.Sos',
                 'email' => 'ahyar.lp3i@gmail.com',
                 'password' => Hash::make('ahyar123'),
                 'phone' => '6282215614238',
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282127356645,
-                'name' => 'Benny Suryadi Rahman',
+                'name' => 'Benny Suryadi Rahman, SE',
                 'email' => 'benny.lp3i@gmail.com',
                 'password' => Hash::make('benny123'),
                 'phone' => '6282127356645',
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6281947776090,
-                'name' => 'Sindiana',
+                'name' => 'Sindiana, A.Md.M',
                 'email' => 'sindiana.lp3i@gmail.com',
                 'password' => Hash::make('sindiana123'),
                 'phone' => '6281947776090',
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282127951392,
-                'name' => 'Harli',
+                'name' => 'Lilip Harlivandi Zakaria, S.Kom',
                 'email' => 'harli.lp3i@gmail.com',
                 'password' => Hash::make('harli123'),
                 'phone' => '6282127951392',
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6281220662033,
-                'name' => 'Yanti',
+                'name' => 'Yanti Fadila Wahab, M.Pd',
                 'email' => 'yanti.lp3i@gmail.com',
                 'password' => Hash::make('yanti123'),
                 'phone' => '6281220662033',
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282118936775,
-                'name' => 'Ratna',
+                'name' => 'Ratna Sopiah, S.AB',
                 'email' => 'ratna.lp3i@gmail.com',
                 'password' => Hash::make('ratna123'),
                 'phone' => '6282118936775',
