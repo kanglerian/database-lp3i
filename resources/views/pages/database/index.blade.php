@@ -52,6 +52,10 @@
                         </button>
                     </form>
                 </div>
+                <a href="{{ route('applicant.import') }}"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-rotate"></i>
+                </a>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>

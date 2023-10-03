@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\ApplicantsImport;
 use App\Imports\ApplicantUpdateImport;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 use App\Models\FollowUp;
 use App\Models\School;
@@ -165,7 +166,7 @@ class ApplicantController extends Controller
             });
         }
 
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother','presenter'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -553,16 +554,158 @@ class ApplicantController extends Controller
         return (new ApplicantsExport($dateStart, $dateEnd, $yearGrad, $schoolVal, $birthdayVal, $pmbVal, $sourceVal, $statusVal))->download('applicants.xlsx');
     }
 
+    public function studentsHandle($person, $identityUser){
+        $response = Http::get('https://script.google.com/macros/s/AKfycbyq8NzlVbO2n8kRrkRYMDmZNjRb4aNmV0clLvAKOa5ej-XgZzTA2VL35X2VM7BMl5Br/exec?person=' . $person);
+
+        $applicants = $response->json();
+
+        for ($i = 1; $i < count($applicants); $i++) {
+
+            $numbers_unique = mt_rand(1, 1000000000);
+            $phone = !empty($applicants[$i][3]) ? (substr($applicants[$i][3], 0, 1) === '0' ? '62' . substr($applicants[$i][3], 1) : '62' . $applicants[$i][3]) : null;
+            $student = Applicant::where('phone', $phone)->first();
+
+            $schoolName = $applicants[$i][6];
+            $school = School::where('name', $schoolName)->first();
+            $program = null;
+
+            if (!empty($applicants[$i][26])) {
+                switch ($applicants[$i][26]) {
+                    case 'AB':
+                        $program = 'D3 Administrasi Bisnis';
+                        break;
+                    case 'MI':
+                        $program = 'D3 Manajemen Informatika';
+                        break;
+                    case 'MKP':
+                        $program = 'D3 Manajemen Keuangan Perbankan';
+                        break;
+                    case 'MP':
+                        $program = 'D3 Manajemen Pemasaran';
+                        break;
+                    case 'TO':
+                        $program = 'Teknik Otomotif Vokasi 2 Tahun';
+                        break;
+                    default:
+                        $program = null;
+                }
+            }
+
+            $dusun = !empty($applicants[$i][30]) ? ucwords($applicants[$i][30]) : null;
+            $rtrw = !empty($applicants[$i][31]) ? ucwords($applicants[$i][31]) : null;
+            $kelurahan = !empty($applicants[$i][32]) ? ucwords($applicants[$i][32]) : null;
+            $kecamatan = !empty($applicants[$i][33]) ? ucwords($applicants[$i][33]) : null;
+            $kotakab = !empty($applicants[$i][34]) ? ucwords($applicants[$i][34]) : null;
+
+            $create_father = [
+                'identity_user' => $numbers_unique,
+                'gender' => 1,
+                'job' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
+            ];
+            $create_mother = [
+                'identity_user' => $numbers_unique,
+                'gender' => 0,
+                'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
+            ];
+
+            if ($student) {
+                $data_applicant = [
+                    'pmb' => $applicants[$i][1],
+                    'name' => !empty($applicants[$i][2]) ? ucwords(strtolower($applicants[$i][2])) : null,
+                    'education' => !empty($applicants[$i][5]) ? $applicants[$i][5] : null,
+                    'school' => $school ? $school->id : null,
+                    'major' => !empty($applicants[$i][7]) ? $applicants[$i][7] : null,
+                    'email' => !empty($applicants[$i][8]) && !Applicant::where('email', $applicants[$i][8])->exists() ? $applicants[$i][8] : null,
+                    'year' => !empty($applicants[$i][9]) ? $applicants[$i][9] : null,
+                    'place_of_birth' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+                    'date_of_birth' => !empty($applicants[$i][11]) ? date("Y-m-d", strtotime($applicants[$i][11])) : null,
+                    'gender' => $applicants[$i][12] === 'WANITA' || $applicants[$i][12] === 'PEREMPUAN' ? 0 : ($applicants[$i][12] == null ? null : 1),
+                    'religion' => !empty($applicants[$i][13]) ? $applicants[$i][13] : null,
+                    'identity_user' => $identityUser,
+                    'source_id' => 7,
+                    'status_id' => !empty($applicants[$i][16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][16])])->value('id') ?? 1 : 1,
+                    'followup_id' => $applicants[$i][17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+                    'come' => strcasecmp($applicants[$i][18], 'SUDAH') === 0 ? 1 : (strcasecmp($applicants[$i][18], 'BELUM') === 0 ? 0 : null),
+                    'achievement' => !empty($applicants[$i][19]) ? $applicants[$i][19] : null,
+                    'kip' => !empty($applicants[$i][22]) ? (strcasecmp($applicants[$i][22], 'YA') === 0 ? 1 : 0) : null,
+                    'relation' => !empty($applicants[$i][23]) ? $applicants[$i][23] : null,
+                    'known' => strcasecmp($applicants[$i][24], 'YA') === 0 ? 1 : (strcasecmp($applicants[$i][24], 'TIDAK') === 0 ? 0 : null),
+                    'planning' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+                    'program' => $program,
+                    'other_campus' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
+                    'income_parent' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
+                    'social_media' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+                    'address' => $dusun . ' ' . 'RT/RW. ' . $rtrw . ' ' . 'DESA/KEL. ' . $kelurahan . ' ' . 'KEC. ' . $kecamatan . ' ' . 'KOTA/KAB. ' . $kotakab,
+                ];
+
+                $data_father = [
+                    'job' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
+                ];
+
+                $data_mother = [
+                    'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
+                ];
+
+                $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
+                $applicantMother = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 0])->first();
+
+                $applicantFather->update($data_father);
+                $applicantMother->update($data_mother);
+                $student->update($data_applicant);
+
+            } else {
+                $data_applicant = [
+                    'identity' => $numbers_unique,
+                    'pmb' => $applicants[$i][1],
+                    'name' => !empty($applicants[$i][2]) ? ucwords(strtolower($applicants[$i][2])) : null,
+                    'phone' => !empty($applicants[$i][3]) ? (substr($applicants[$i][3], 0, 1) === '0' ? '62' . substr($applicants[$i][3], 1) : '62' . $applicants[$i][3]) : null,
+                    'education' => !empty($applicants[$i][5]) ? $applicants[$i][5] : null,
+                    'school' => $school ? $school->id : null,
+                    'major' => !empty($applicants[$i][7]) ? $applicants[$i][7] : null,
+                    'email' => !empty($applicants[$i][8]) && !Applicant::where('email', $applicants[$i][8])->exists() ? $applicants[$i][8] : null,
+                    'year' => !empty($applicants[$i][9]) ? $applicants[$i][9] : null,
+                    'place_of_birth' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+                    'date_of_birth' => !empty($applicants[$i][11]) ? date("Y-m-d", strtotime($applicants[$i][11])) : null,
+                    'gender' => $applicants[$i][12] === 'WANITA' || $applicants[$i][12] === 'PEREMPUAN' ? 0 : ($applicants[$i][12] === null ? null : 1),
+                    'religion' => !empty($applicants[$i][13]) ? $applicants[$i][13] : null,
+                    'identity_user' => $identityUser,
+                    'source_id' => 7,
+                    'status_id' => !empty($applicants[$i][16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][16])])->value('id') ?? 1 : 1,
+                    'followup_id' => $applicants[$i][17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+                    'come' => strcasecmp($applicants[$i][18], 'SUDAH') === 0 ? 1 : (strcasecmp($applicants[$i][18], 'BELUM') === 0 ? 0 : null),
+                    'achievement' => !empty($applicants[$i][19]) ? $applicants[$i][19] : null,
+                    'kip' => !empty($applicants[$i][22]) ? (strcasecmp($applicants[$i][22], 'YA') === 0 ? 1 : 0) : null,
+                    'relation' => !empty($applicants[$i][23]) ? $applicants[$i][23] : null,
+                    'known' => strcasecmp($applicants[$i][24], 'YA') === 0 ? 1 : (strcasecmp($applicants[$i][24], 'TIDAK') === 0 ? 0 : null),
+                    'planning' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+                    'program' => $program,
+                    'other_campus' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
+                    'income_parent' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
+                    'social_media' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+                    'address' => $dusun . ' ' . 'RT/RW. ' . $rtrw . ' ' . 'DESA/KEL. ' . $kelurahan . ' ' . 'KEC. ' . $kecamatan . ' ' . 'KOTA/KAB. ' . $kotakab,
+                ];
+                ApplicantFamily::create($create_father);
+                ApplicantFamily::create($create_mother);
+                Applicant::create($data_applicant);
+            }
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
-        $request->validate([
-            'identity_user' => ['required', 'string', 'not_in:0'],
-        ]);
+        $this->studentsHandle('BENNY','6282127356645');
+        $this->studentsHandle('RATNA','6282118936775');
+        $this->studentsHandle('AHYAR','6282215614238');
+        $this->studentsHandle('HARLI','6282127951392');
+        $this->studentsHandle('DYANA','6281947776090');
+        return back()->with('message', 'Data aplikan berhasil diupdate');
 
-        $identityUser = $request->input('identity_user');
-        Excel::import(new ApplicantsImport($identityUser), $request->file('berkas'));
-
-        return back()->with('message', 'Data applicant berhasil diimport');
     }
 
     public function import_update(Request $request)
