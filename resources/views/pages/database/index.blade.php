@@ -372,7 +372,9 @@
     const downloadCSV = () => {
         let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
         dataApplicants.forEach(applicant => {
-            content += `${applicant.name} ${applicant.school_applicant.name} ${applicant.major} ${applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
+            const schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            const majorWithoutSpace = applicant.major.replace(/[\s-]/g, '');
+            content += `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
         });
         var downloadCSV = document.getElementById('downloadCSV');
         var blob = new Blob([content], {
@@ -385,7 +387,9 @@
     const downloadVCF = () => {
         let content = '';
         dataApplicants.forEach(applicant => {
-            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${applicant.school_applicant.name} ${applicant.major} ${applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+            const schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            const majorWithoutSpace = applicant.major.replace(/[\s-]/g, '');
+            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
         });
         var downloadVCF = document.getElementById('downloadVCF');
         var blob = new Blob([content], {
