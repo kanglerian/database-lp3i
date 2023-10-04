@@ -362,6 +362,11 @@
 
     const downloadBlast = () => {
         let content = '';
+        let schoolSelect = document.getElementById('school');
+        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+        let schoolVal = selectedSchoolOption.innerText || 'all';
+        let majorVal = document.getElementById('change_major').value || 'all';
+        console.log(schoolVal);
         dataApplicants.forEach(applicant => {
             content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
         });
@@ -370,37 +375,49 @@
             type: "text/plain"
         });
         downloadBlast.href = URL.createObjectURL(blob);
-        downloadBlast.download = `file-blast-applicant.txt`;
+        downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
     }
 
     const downloadCSV = () => {
         let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
+        let schoolSelect = document.getElementById('school');
+        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+        let schoolVal = selectedSchoolOption.innerText || 'all';
+        let majorVal = document.getElementById('change_major').value || 'all';
+        console.log(schoolVal, majorVal);
         dataApplicants.forEach(applicant => {
-            const schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
-            const majorWithoutSpace = applicant.major.replace(/[\s-]/g, '');
-            content += `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
+            let schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
+            content +=
+                `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
         });
         var downloadCSV = document.getElementById('downloadCSV');
         var blob = new Blob([content], {
             type: "text/plain"
         });
         downloadCSV.href = URL.createObjectURL(blob);
-        downloadCSV.download = `file-contact-applicant.csv`;
+        downloadCSV.download = `${schoolVal}-${majorVal}-FILECONTACT.csv`;
     }
 
     const downloadVCF = () => {
         let content = '';
+        let schoolSelect = document.getElementById('school');
+        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+        let schoolVal = selectedSchoolOption.innerText || 'all';
+        let majorVal = document.getElementById('change_major').value || 'all';
+        console.log(schoolVal, majorVal);
         dataApplicants.forEach(applicant => {
-            const schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
-            const majorWithoutSpace = applicant.major.replace(/[\s-]/g, '');
-            content += `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+            let schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
+            content +=
+                `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
         });
         var downloadVCF = document.getElementById('downloadVCF');
         var blob = new Blob([content], {
             type: "text/vcard"
         });
         downloadVCF.href = URL.createObjectURL(blob);
-        downloadVCF.download = `file-contact-applicant.vcf`;
+        downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
     }
 
     const copyRecord = (name, phone, school, year, source) => {
