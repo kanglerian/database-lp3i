@@ -72,6 +72,10 @@
                     class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
                 </a>
+                <a id="downloadDP" onclick="downloadDP()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </a>
                 <a id="downloadCSV" onclick="downloadCSV()"
                     class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-file-csv"></i>
@@ -376,6 +380,39 @@
         });
         downloadBlast.href = URL.createObjectURL(blob);
         downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
+    }
+
+    const downloadDP = () => {
+        let content =
+            'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid,value\n';
+        dataApplicants.forEach(applicant => {
+            let fullName = applicant.name;
+            let nameParts = fullName.split(' ');
+            let fn = nameParts[0];
+            let kotaKab = applicant.address.split("KOTA/KAB.")[1]?.trim() || "";
+            let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
+            let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
+            let genderCode = applicant.gender;
+            let gender = genderCode === 1 ? 'M' : 'F';
+            let tahunSekarang = new Date().getFullYear();
+
+            let ln = nameParts.slice(1).join(' ');
+
+            let phoneNumber = applicant.phone;
+            let formattedPhoneNumber = phoneNumber !== null ?
+                `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
+                "";
+            content +=
+                `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},'Jawa Barat','ID',${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,,\n`
+
+        });
+        var downloadDP = document.getElementById('downloadDP');
+        var blob = new Blob([content], {
+            type: "text/plain"
+        });
+        downloadDP.href = URL.createObjectURL(blob);
+        downloadDP.download = `IKLAN.txt`;
+        content = '';
     }
 
     const downloadCSV = () => {
