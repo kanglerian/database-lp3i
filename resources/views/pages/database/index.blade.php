@@ -384,7 +384,7 @@
 
     const downloadDP = () => {
         let content =
-            'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid,value\n';
+            'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
         dataApplicants.forEach(applicant => {
             let fullName = applicant.name;
             let nameParts = fullName.split(' ');
@@ -403,7 +403,7 @@
                 `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
                 "";
             content +=
-                `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},'Jawa Barat','ID',${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,,\n`
+                `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},'Jawa Barat','ID',${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
 
         });
         var downloadDP = document.getElementById('downloadDP');
