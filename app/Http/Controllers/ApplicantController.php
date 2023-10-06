@@ -743,34 +743,40 @@ class ApplicantController extends Controller
                 'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
             ];
 
-            if ($phone) {
-                $studentByPhone = Applicant::where('phone', $phone)->first();
-                if ($studentByPhone) {
-                    $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                    if($studentByName){
-                        $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                    } else {
-                        if($studentByPhone->school == $school->id && $studentByPhone->major == $applicants[$i][7]){
-                            $this->update_data($studentByPhone, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+            if(!empty($applicants[$i][1]) && !empty($applicants[$i][2])){
+                if ($phone) {
+                    $studentByPhone = Applicant::where('phone', $phone)->first();
+                    if ($studentByPhone) {
+                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                        if($studentByName){
+                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                         } else {
-                            $samePhone = true;
-                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                            if($studentByPhone->school == $school->id && $studentByPhone->major == $applicants[$i][7]){
+                                $this->update_data($studentByPhone, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                            } else {
+                                $samePhone = true;
+                                $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                            }
+                        }
+                    } else {
+                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                        if ($studentByName) {
+                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        } else {
+                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother,);
                         }
                     }
                 } else {
-                    $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                    if ($studentByName) {
-                        $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                    if(!empty($school->id) && !empty($applicants[$i][7])){
+                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                        if($studentByName){
+                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        } else {
+                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        }
                     } else {
-                        $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother,);
+                        $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                     }
-                }
-            } else {
-                $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                if($studentByName){
-                    $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                } else {
-                    $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                 }
             }
         }
