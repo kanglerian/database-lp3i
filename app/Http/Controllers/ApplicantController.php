@@ -755,7 +755,13 @@ class ApplicantController extends Controller
                                 $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                             }
                         } else {
-                            $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                            $studentPhoneDup = Applicant::where('phone', $phone)->first();
+                            if($studentPhoneDup){
+                                $samePhone = true;
+                                $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                            }else {
+                                $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                            }
                         }
                     }
                 } else {
