@@ -230,7 +230,7 @@ class ApplicantController extends Controller
                 'come' => ['not_in:null']
             ]);
 
-            $numbers_unique = mt_rand(1, 1000000000);
+            $numbers_unique = mt_rand(1, 100000000000000);
             $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
             $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
             $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
@@ -554,44 +554,44 @@ class ApplicantController extends Controller
         return (new ApplicantsExport($dateStart, $dateEnd, $yearGrad, $schoolVal, $birthdayVal, $pmbVal, $sourceVal, $statusVal))->download('applicants.xlsx');
     }
 
-    public function update_data($student, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother)
+    public function update_data($student, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone = null)
     {
         $data_applicant = [
-            'pmb' => $applicants[$i][1],
-            'name' => !empty($applicants[$i][2]) ? ucwords(strtolower($applicants[$i][2])) : null,
-            'phone' => $phone,
-            'education' => !empty($applicants[$i][5]) ? $applicants[$i][5] : null,
+            'pmb' => $applicants[$i][2],
+            'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
+            'phone' => $samePhone == null ? $phone : null,
+            'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school ? $school->id : null,
-            'major' => !empty($applicants[$i][7]) ? $applicants[$i][7] : null,
-            'email' => !empty($applicants[$i][8]) && !Applicant::where('email', $applicants[$i][8])->exists() ? $applicants[$i][8] : null,
-            'year' => !empty($applicants[$i][9]) ? $applicants[$i][9] : null,
-            'place_of_birth' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
-            'date_of_birth' => !empty($applicants[$i][11]) ? date("Y-m-d", strtotime($applicants[$i][11])) : null,
+            'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
+            'email' => !empty($applicants[$i][9]) && !Applicant::where('email', $applicants[$i][9])->exists() ? $applicants[$i][9] : null,
+            'year' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+            'place_of_birth' => !empty($applicants[$i][11]) ? $applicants[$i][11] : null,
+            'date_of_birth' => !empty($applicants[$i][12]) ? date("Y-m-d", strtotime($applicants[$i][12])) : null,
             'gender' => $gender,
-            'religion' => !empty($applicants[$i][13]) ? $applicants[$i][13] : null,
+            'religion' => !empty($applicants[$i][14]) ? $applicants[$i][14] : null,
             'identity_user' => $identityUser,
             'source_id' => 7,
-            'status_id' => !empty($applicants[$i][16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][16])])->value('id') ?? 1 : 1,
-            'followup_id' => $applicants[$i][17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+            'status_id' => !empty($applicants[$i][17]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+            'followup_id' => $applicants[$i][18] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][18])])->value('id') ?? 1 : 1,
             'come' => $come,
-            'achievement' => !empty($applicants[$i][19]) ? $applicants[$i][19] : null,
+            'achievement' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
             'kip' => $kip,
-            'relation' => !empty($applicants[$i][23]) ? $applicants[$i][23] : null,
+            'relation' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
             'known' => $known,
-            'planning' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+            'planning' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
             'program' => $program,
-            'other_campus' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
-            'income_parent' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
-            'social_media' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+            'other_campus' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
+            'income_parent' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+            'social_media' => !empty($applicants[$i][30]) ? $applicants[$i][30] : null,
             'address' => $address,
         ];
 
         $data_father = [
-            'job' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
+            'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
         ];
 
         $data_mother = [
-            'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
+            'job' => !empty($applicants[$i][22]) ? $applicants[$i][22] : null,
         ];
 
         $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
@@ -602,45 +602,42 @@ class ApplicantController extends Controller
         $student->update($data_applicant);
     }
 
-    public function create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone = null)
+    public function create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone = null)
     {
         $data_applicant = [
-            'identity' => $numbers_unique,
-            'pmb' => $applicants[$i][1],
-            'name' => !empty($applicants[$i][2]) ? ucwords(strtolower($applicants[$i][2])) : null,
+            'identity' => $applicants[$i][1],
+            'pmb' => $applicants[$i][2],
+            'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
             'phone' => $samePhone == null ? $phone : null,
-            'education' => !empty($applicants[$i][5]) ? $applicants[$i][5] : null,
+            'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school ? $school->id : null,
-            'major' => !empty($applicants[$i][7]) ? $applicants[$i][7] : null,
-            'email' => !empty($applicants[$i][8]) && !Applicant::where('email', $applicants[$i][8])->exists() ? $applicants[$i][8] : null,
-            'year' => !empty($applicants[$i][9]) ? $applicants[$i][9] : null,
-            'place_of_birth' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
-            'date_of_birth' => !empty($applicants[$i][11]) ? date("Y-m-d", strtotime($applicants[$i][11])) : null,
+            'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
+            'email' => !empty($applicants[$i][9]) && !Applicant::where('email', $applicants[$i][9])->exists() ? $applicants[$i][9] : null,
+            'year' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+            'place_of_birth' => !empty($applicants[$i][11]) ? $applicants[$i][11] : null,
+            'date_of_birth' => !empty($applicants[$i][12]) ? date("Y-m-d", strtotime($applicants[$i][12])) : null,
             'gender' => $gender,
-            'religion' => !empty($applicants[$i][13]) ? $applicants[$i][13] : null,
+            'religion' => !empty($applicants[$i][14]) ? $applicants[$i][14] : null,
             'identity_user' => $identityUser,
             'source_id' => 7,
-            'status_id' => !empty($applicants[$i][16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][16])])->value('id') ?? 1 : 1,
-            'followup_id' => $applicants[$i][17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+            'status_id' => !empty($applicants[$i][17]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][17])])->value('id') ?? 1 : 1,
+            'followup_id' => $applicants[$i][18] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($applicants[$i][18])])->value('id') ?? 1 : 1,
             'come' => $come,
-            'achievement' => !empty($applicants[$i][19]) ? $applicants[$i][19] : null,
+            'achievement' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
             'kip' => $kip,
-            'relation' => !empty($applicants[$i][23]) ? $applicants[$i][23] : null,
+            'relation' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
             'known' => $known,
-            'planning' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+            'planning' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
             'program' => $program,
-            'other_campus' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
-            'income_parent' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
-            'social_media' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+            'other_campus' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
+            'income_parent' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
+            'social_media' => !empty($applicants[$i][30]) ? $applicants[$i][30] : null,
             'address' => $address,
         ];
 
-
-        if (!empty($applicants[$i][2]) && !empty($applicants[$i][1])) {
-            ApplicantFamily::create($create_father);
-            ApplicantFamily::create($create_mother);
-            Applicant::create($data_applicant);
-        }
+        ApplicantFamily::create($create_father);
+        ApplicantFamily::create($create_mother);
+        Applicant::create($data_applicant);
     }
 
     public function studentsHandle($person, $identityUser)
@@ -652,28 +649,26 @@ class ApplicantController extends Controller
 
         for ($i = 1; $i < count($applicants); $i++) {
 
-            $numbers_unique = mt_rand(1, 1000000000);
-
             $phone = null;
 
-            if (!empty($applicants[$i][3])) {
-                if (substr($applicants[$i][3], 0, 1) === '0') {
-                    $phone = '62' . substr($applicants[$i][3], 1);
+            if (!empty($applicants[$i][4])) {
+                if (substr($applicants[$i][4], 0, 1) === '0') {
+                    $phone = '62' . substr($applicants[$i][4], 1);
                 } else {
-                    $phone = '62' . $applicants[$i][3];
+                    $phone = '62' . $applicants[$i][4];
                 }
             }
 
             $come = null;
-            if (strcasecmp($applicants[$i][18], 'SUDAH') === 0) {
+            if (strcasecmp($applicants[$i][19], 'SUDAH') === 0) {
                 $come = 1;
-            } elseif (strcasecmp($applicants[$i][18], 'BELUM') === 0) {
+            } elseif (strcasecmp($applicants[$i][19], 'BELUM') === 0) {
                 $come = 0;
             }
 
             $kip = null;
-            if (!empty($applicants[$i][22])) {
-                if (strcasecmp($applicants[$i][22], 'YA') === 0) {
+            if (!empty($applicants[$i][25])) {
+                if (strcasecmp($applicants[$i][25], 'YA') === 0) {
                     $kip = 1;
                 } else {
                     $kip = 0;
@@ -682,29 +677,29 @@ class ApplicantController extends Controller
 
             $known = null;
 
-            if (strcasecmp($applicants[$i][24], 'YA') === 0) {
+            if (strcasecmp($applicants[$i][25], 'YA') === 0) {
                 $known = 1;
-            } elseif (strcasecmp($applicants[$i][24], 'TIDAK') === 0) {
+            } elseif (strcasecmp($applicants[$i][25], 'TIDAK') === 0) {
                 $known = 0;
             }
 
             $gender = null;
 
-            if ($applicants[$i][12] === 'WANITA' || $applicants[$i][12] === 'PEREMPUAN') {
+            if ($applicants[$i][13] === 'WANITA' || $applicants[$i][13] === 'PEREMPUAN') {
                 $gender = 0;
-            } elseif ($applicants[$i][12] === null) {
+            } elseif ($applicants[$i][13] === null) {
                 $gender = null;
             } else {
                 $gender = 1;
             }
 
 
-            $schoolName = $applicants[$i][6];
+            $schoolName = $applicants[$i][7];
             $school = School::where('name', $schoolName)->first();
             $program = null;
 
-            if (!empty($applicants[$i][26])) {
-                switch ($applicants[$i][26]) {
+            if (!empty($applicants[$i][27])) {
+                switch ($applicants[$i][27]) {
                     case 'AB':
                         $program = 'D3 Administrasi Bisnis';
                         break;
@@ -725,60 +720,53 @@ class ApplicantController extends Controller
                 }
             }
 
-            $dusun = !empty($applicants[$i][30]) ? ucwords($applicants[$i][30]) : null;
-            $rtrw = !empty($applicants[$i][31]) ? ucwords($applicants[$i][31]) : null;
-            $kelurahan = !empty($applicants[$i][32]) ? ucwords($applicants[$i][32]) : null;
-            $kecamatan = !empty($applicants[$i][33]) ? ucwords($applicants[$i][33]) : null;
-            $kotakab = !empty($applicants[$i][34]) ? ucwords($applicants[$i][34]) : null;
+            $dusun = !empty($applicants[$i][31]) ? ucwords($applicants[$i][31]) : null;
+            $rtrw = !empty($applicants[$i][32]) ? ucwords($applicants[$i][32]) : null;
+            $kelurahan = !empty($applicants[$i][33]) ? ucwords($applicants[$i][33]) : null;
+            $kecamatan = !empty($applicants[$i][34]) ? ucwords($applicants[$i][34]) : null;
+            $kotakab = !empty($applicants[$i][35]) ? ucwords($applicants[$i][35]) : null;
             $address = $dusun . ' ' . 'RT/RW. ' . $rtrw . ' ' . 'DESA/KEL. ' . $kelurahan . ' ' . 'KEC. ' . $kecamatan . ' ' . 'KOTA/KAB. ' . $kotakab;
 
             $create_father = [
-                'identity_user' => $numbers_unique,
+                'identity_user' => $applicants[$i][1],
                 'gender' => 1,
-                'job' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
-            ];
-            $create_mother = [
-                'identity_user' => $numbers_unique,
-                'gender' => 0,
                 'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
             ];
+            $create_mother = [
+                'identity_user' => $applicants[$i][1],
+                'gender' => 0,
+                'job' => !empty($applicants[$i][22]) ? $applicants[$i][22] : null,
+            ];
 
-            if(!empty($applicants[$i][1]) && !empty($applicants[$i][2])){
+            if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {
+
                 if ($phone) {
-                    $studentByPhone = Applicant::where('phone', $phone)->first();
-                    if ($studentByPhone) {
-                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                        if($studentByName){
-                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                        } else {
-                            if($studentByPhone->school == $school->id && $studentByPhone->major == $applicants[$i][7]){
-                                $this->update_data($studentByPhone, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                            } else {
-                                $samePhone = true;
-                                $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
-                            }
-                        }
+                    $studentDataPhone = Applicant::where(['identity' => $applicants[$i][1], 'phone' => $phone])->first();
+                    if ($studentDataPhone) {
+                        $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                     } else {
-                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                        if ($studentByName) {
-                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        $studentData = Applicant::where('identity', $applicants[$i][1])->first();
+                        if ($studentData) {
+                            $studentPhone = Applicant::where('phone', $phone)->first();
+                            if ($studentPhone) {
+                                $samePhone = true;
+                                $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                            } else {
+                                $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                            }
+
                         } else {
-                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother,);
+                            $samePhone = true;
+                            $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                         }
                     }
                 } else {
-                    if(!empty($school->id) && !empty($applicants[$i][7])){
-                        $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
-                        if($studentByName){
-                            $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                        } else {
-                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                        }
-                    } else {
-                        $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
-                    }
+                    dd('phone kosong');
                 }
+                // $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                // $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
             }
+
         }
     }
 
@@ -824,8 +812,8 @@ class ApplicantController extends Controller
                     $this->studentsHandle('DYANA', '6281947776090');
                     return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
                     break;
-                case '652508371':
-                    $this->studentsHandle('CHECK', '652508371');
+                case '6281286501015':
+                    $this->studentsHandle('CHECK', '6281286501015');
                     return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
                     break;
                 default:

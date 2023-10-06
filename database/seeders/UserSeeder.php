@@ -94,6 +94,17 @@ class UserSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'identity' => 6281286501015,
+                'name' => 'Check',
+                'email' => 'check.lp3i@gmail.com',
+                'password' => Hash::make('check123'),
+                'phone' => '6281286501015',
+                'role' => 'P',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
         ]);
     }
 }

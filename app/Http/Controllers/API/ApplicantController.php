@@ -32,7 +32,7 @@ class ApplicantController extends Controller
                 'name' => ['string', 'max:255'],
                 'phone' => ['string', 'max:15', 'min:10'],
             ]);
-            $numbers_unique = mt_rand(1, 1000000000);
+            $numbers_unique = mt_rand(1, 100000000000000);
 
             $data = [
                 'identity' => $numbers_unique,

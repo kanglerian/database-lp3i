@@ -29,14 +29,6 @@ class StatusSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],[
-                'name' => 'Daftar',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],[
-                'name' => 'Registrasi',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],[
                 'name' => 'Batal',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

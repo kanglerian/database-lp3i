@@ -26,7 +26,7 @@ class ApplicantUpdateImport implements ToModel
 
     public function model(array $row)
     {
-        $numbers_unique = mt_rand(1, 1000000000);
+        $numbers_unique = mt_rand(1, 100000000000000);
         $phone = !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null;
         $applicant = Applicant::where('phone', $phone)->first();
         $schoolName = $row[6];

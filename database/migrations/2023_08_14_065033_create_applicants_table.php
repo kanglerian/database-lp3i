@@ -16,7 +16,7 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
 
-            $table->string('identity', 30)->nullable();
+            $table->string('identity', 50)->nullable();
             $table->year('pmb')->nullable();
 
             $table->string('name', 150);
@@ -45,6 +45,10 @@ class CreateApplicantsTable extends Migration
             $table->string('program', 255)->nullable();
             $table->char('isread', 1)->default('0');
             $table->char('come', 1)->nullable();
+
+            $table->char('is_applicant', 1)->default('0');
+            $table->char('is_daftar', 1)->default('0');
+            $table->char('is_register', 1)->default('0');
 
             $table->char('known', 1)->nullable();
             $table->string('planning')->nullable();
