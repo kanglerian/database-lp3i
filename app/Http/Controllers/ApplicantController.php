@@ -604,6 +604,7 @@ class ApplicantController extends Controller
 
     public function create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone = null)
     {
+
         $data_applicant = [
             'identity' => $applicants[$i][1],
             'pmb' => $applicants[$i][2],
@@ -739,34 +740,40 @@ class ApplicantController extends Controller
             ];
 
             if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {
-
                 if ($phone) {
                     $studentDataPhone = Applicant::where(['identity' => $applicants[$i][1], 'phone' => $phone])->first();
                     if ($studentDataPhone) {
-                        $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        if ($studentDataPhone->is_applicant == 0) {
+                            $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        }
                     } else {
                         $studentData = Applicant::where('identity', $applicants[$i][1])->first();
                         if ($studentData) {
-                            $studentPhone = Applicant::where('phone', $phone)->first();
-                            if ($studentPhone) {
-                                $samePhone = true;
-                                $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
-                            } else {
-                                $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                            if ($studentData->is_applicant == 0) {
+                                $studentPhone = Applicant::where('phone', $phone)->first();
+                                if ($studentPhone) {
+                                    if($studentPhone->is_applicant == 0){
+                                        $samePhone = true;
+                                        $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                                    }
+                                } else {
+                                    $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                                }
+
                             }
                         } else {
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
-                            if($studentPhoneDup){
+                            if ($studentPhoneDup) {
                                 $samePhone = true;
                                 $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
-                            }else {
+                            } else {
                                 $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                             }
                         }
                     }
                 } else {
                     $studentData = Applicant::where('identity', $applicants[$i][1])->first();
-                    if($studentData){
+                    if ($studentData) {
                         $samePhone = true;
                         $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                     } else {
@@ -775,7 +782,6 @@ class ApplicantController extends Controller
                     }
                 }
             }
-
         }
     }
 
