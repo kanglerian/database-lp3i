@@ -752,7 +752,8 @@ class ApplicantController extends Controller
                                 $samePhone = true;
                                 $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                             } else {
-                                $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                                $samePhone = true;
+                                $this->create_data($studentData, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                             }
 
                         } else {
