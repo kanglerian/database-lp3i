@@ -602,13 +602,13 @@ class ApplicantController extends Controller
         $student->update($data_applicant);
     }
 
-    public function create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother)
+    public function create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone = null)
     {
         $data_applicant = [
             'identity' => $numbers_unique,
             'pmb' => $applicants[$i][1],
             'name' => !empty($applicants[$i][2]) ? ucwords(strtolower($applicants[$i][2])) : null,
-            'phone' => $phone,
+            'phone' => $samePhone == null ? $phone : null,
             'education' => !empty($applicants[$i][5]) ? $applicants[$i][5] : null,
             'school' => $school ? $school->id : null,
             'major' => !empty($applicants[$i][7]) ? $applicants[$i][7] : null,
@@ -636,7 +636,7 @@ class ApplicantController extends Controller
         ];
 
 
-        if(!empty($applicants[$i][2]) && !empty($applicants[$i][1])){
+        if (!empty($applicants[$i][2]) && !empty($applicants[$i][1])) {
             ApplicantFamily::create($create_father);
             ApplicantFamily::create($create_mother);
             Applicant::create($data_applicant);
@@ -743,16 +743,31 @@ class ApplicantController extends Controller
                 'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
             ];
 
-            if ($phone !== null) {
+            if ($phone) {
                 $studentByPhone = Applicant::where('phone', $phone)->first();
                 if ($studentByPhone) {
-                    $this->update_data($studentByPhone, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                    $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                    if($studentByName){
+                        $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                    } else {
+                        if($studentByPhone->school == $school->id && $studentByPhone->major == $applicants[$i][7]){
+                            $this->update_data($studentByPhone, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                        } else {
+                            $samePhone = true;
+                            $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
+                        }
+                    }
                 } else {
-                    $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                    $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                    if ($studentByName) {
+                        $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
+                    } else {
+                        $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother,);
+                    }
                 }
             } else {
-                $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'identity_user' => $identityUser])->first();
-                if ($studentByName) {
+                $studentByName = Applicant::where(['name' => ucwords(strtolower($applicants[$i][2])), 'school' => $school->id, 'major' => $applicants[$i][7]])->first();
+                if($studentByName){
                     $this->update_data($studentByName, $applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
                 } else {
                     $this->create_new_data($applicants, $i, $numbers_unique, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother);
@@ -801,6 +816,10 @@ class ApplicantController extends Controller
                     break;
                 case '6281947776090':
                     $this->studentsHandle('DYANA', '6281947776090');
+                    return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
+                    break;
+                case '652508371':
+                    $this->studentsHandle('CHECK', '652508371');
                     return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
                     break;
                 default:
