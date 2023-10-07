@@ -122,7 +122,7 @@
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="planning" :value="__('Rencana Setelah Lulus')" />
                         <x-select id="planning" name="planning">
-                                <option value="null">Pilih</option>
+                            <option value="null">Pilih</option>
                             <option value="Kuliah">Kuliah</option>
                             <option value="Kerja">Kerja</option>
                             <option value="Bisnis">Bisnis</option>
@@ -163,14 +163,18 @@
                     </div>
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
-                        <x-select id="followup_id" name="followup_id">
+                        <x-select id="followup_id" name="followup_id" required>
                             <option value="null">Pilih keterangan</option>
                             @foreach ($follows as $follow)
                                 <option value="{{ $follow->id }}">{{ $follow->name }}</option>
                             @endforeach
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            @if ($errors->has('followup_id'))
+                                <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -187,6 +191,18 @@
                             @else
                                 <span class="text-red-500">*Wajib diisi.</span>
                             @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="note" :value="__('Catatan')" />
+                        <x-textarea id="note" type="note" name="note" value="{{ old('note') }}"
+                            placeholder="Catatan">
+                        </x-textarea>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('note') }}</span>
                         </p>
                     </div>
                 </div>

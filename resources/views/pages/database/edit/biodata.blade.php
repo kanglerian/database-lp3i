@@ -232,7 +232,7 @@
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="income_parent" :value="__('Penghasilan Orang Tua')" />
                         <x-select id="income_parent" name="income_parent">
-                            @if ($applicant->income_parent == null)
+                            @if ($applicant->income_parent)
                                 <option value="{{ $applicant->income_parent }}">{{ $applicant->income_parent }}
                                 </option>
                             @else

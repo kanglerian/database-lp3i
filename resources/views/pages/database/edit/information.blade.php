@@ -13,6 +13,7 @@
             </header>
             <hr class="mt-2 mb-8">
             <section>
+                <x-input class="hidden" name="isread" value="{{ $applicant->isread }}"/>
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 md:mb-0">
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
@@ -154,7 +155,11 @@
                             @endforeach
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            @if ($errors->has('followup_id'))
+                                <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -237,7 +242,7 @@
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="come" :value="__('Datang Ke Kampus?')" />
                         <x-select id="come" name="come">
-                            @if ($applicant->come != null)
+                            @if ($applicant->come)
                                 @switch($applicant->come)
                                     @case(1)
                                         <option value="1">Ya</option>

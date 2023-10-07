@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <div>
+                <div class="hidden">
                     <form action="{{ route('applicant.importupdate') }}" method="post" enctype="multipart/form-data"
                         class="flex items-center gap-2">
                         @csrf
@@ -52,18 +52,10 @@
                         </button>
                     </form>
                 </div>
-                <a href="{{ route('applicant.import') }}"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
-                    <i class="fa-solid fa-rotate"></i>
-                </a>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
-                <button type="button" onclick="resetFilter()"
-                    class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
-                    <i class="fa-solid fa-filter-circle-xmark"></i>
-                </button>
                 <button onclick="exportExcel()"
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
@@ -112,20 +104,28 @@
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-
-                @if ($nopresenter > 0)
-                    <button class="relative" onclick="changeFilter()">
-                        <input type="hidden" id="database_online" value="6281313608558">
-                        @if (Auth::user()->role == 'A')
-                            <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
-                            <span
-                                class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
-                        @endif
+                <div class="flex gap-2">
+                    @if ($nopresenter > 0)
+                        <button class="relative" onclick="changeFilter()">
+                            <input type="hidden" id="database_online" value="6281313608558">
+                            @if (Auth::user()->role == 'A')
+                                <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
+                                <span
+                                    class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
+                            @endif
+                        </button>
+                    @else
+                        <input type="hidden" id="database_online" value="all">
+                    @endif
+                    <a href="{{ route('applicant.import') }}"
+                        class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                        <i class="fa-solid fa-rotate"></i>
+                    </a>
+                    <button type="button" onclick="resetFilter()"
+                        class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-lg text-white">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
                     </button>
-                @else
-                    <input type="hidden" id="database_online" value="all">
-                @endif
-
+                </div>
             </div>
             @include('pages.database.database.filter')
             <div class="bg-white overflow-hidden border md:rounded-xl">

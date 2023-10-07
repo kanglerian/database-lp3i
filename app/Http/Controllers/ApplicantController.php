@@ -227,50 +227,59 @@ class ApplicantController extends Controller
                 'followup_id' => ['not_in:null'],
                 'program' => ['required', 'string', 'not_in:0'],
                 'identity_user' => ['required', 'string', 'not_in:0'],
-                'come' => ['not_in:null']
             ]);
 
             $numbers_unique = mt_rand(1, 100000000000000);
+
             $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
             $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
-            $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
-            $kec = $request->input('districts') !== null ? 'Kec. ' . $request->input('districts') . ' ' : null;
-            $reg = $request->input('regencies') !== null ? 'Kota/Kab. ' . $request->input('regencies') . ' ' : null;
-            $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
-            $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+            $kel = $request->input('villages') !== null ? 'DESA/KEL. ' . $request->input('villages') . ' ' : null;
+            $kec = $request->input('districts') !== null ? 'KEC. ' . $request->input('districts') . ' ' : null;
+            $reg = $request->input('regencies') !== null ? 'KOTA/KAB. ' . $request->input('regencies') . ' ' : null;
+            $prov = $request->input('provinces') !== null ? 'PROVINSI ' . $request->input('provinces') . ' ' : null;
+            $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
 
             $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
             $data_applicant = [
                 'identity' => $numbers_unique,
+                'pmb' => $request->input('pmb'),
                 'name' => ucwords(strtolower($request->input('name'))),
                 'gender' => $request->input('gender'),
                 'place_of_birth' => $request->input('place_of_birth'),
                 'date_of_birth' => $request->input('date_of_birth'),
                 'religion' => $request->input('religion'),
                 'address' => $address_applicant,
+                'social_media' => $request->input('social_media'),
+
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
+
                 'education' => $request->input('education'),
-                'major' => $request->input('major'),
-                'year' => $request->input('year'),
                 'school' => $request->input('school'),
+                'major' => $request->input('major'),
                 'class' => $request->input('class'),
+                'year' => $request->input('year'),
+                'achievement' => $request->input('achievement'),
+                'kip' => $request->input('kip'),
+
+                'note' => $request->input('note'),
+                'relation' => $request->input('relation'),
+
+                'identity_user' => $request->input('identity_user'),
+                'program' => $request->input('program'),
+                'isread' => '0',
+                'come' => $request->input('come') == "null" ? null : $request->input('come'),
+
+                'known' => $request->input('known') == "null" ? null : $request->input('known'),
+                'planning' => $request->input('planning') == "null" ? null : $request->input('planning'),
+                'other_campus' => $request->input('other_campus'),
+                'income_parent' => $request->input('income_parent') == "null" ? null : $request->input('income_parent'),
+
+                'followup_id' => $request->input('followup_id'),
+                'programtype_id' => $request->input('programtype_id'),
                 'source_id' => $request->input('source_id'),
                 'status_id' => $request->input('status_id'),
-                'programtype_id' => $request->input('programtype_id'),
-                'pmb' => $request->input('pmb'),
-                'kip' => $request->input('kip'),
-                'come' => $request->input('come'),
-                'followup_id' => ['not_in:null'],
-                'known' => ['not_in:null'],
-                'planning' => ['not_in:null'],
-                'income_parent' => ['not_in:null'],
-                'relation' => $request->input('relation'),
-                'achievement' => $request->input('achievement'),
-                'program' => $request->input('program'),
-                'identity_user' => $request->input('identity_user'),
-                'isread' => '0',
             ];
 
             $data_father = [
@@ -287,6 +296,7 @@ class ApplicantController extends Controller
             ApplicantFamily::create($data_mother);
 
             return back()->with('message', 'Data aplikan berhasil ditambahkan!');
+
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
                 $errorMessage = 'Terjadi duplikat data.';
@@ -396,12 +406,8 @@ class ApplicantController extends Controller
             'source_id' => ['required', 'not_in:0'],
             'status_id' => ['required', 'not_in:0'],
             'followup_id' => ['not_in:null'],
-            'known' => ['not_in:null'],
-            'planning' => ['not_in:null'],
-            'income_parent' => ['not_in:null'],
             'program' => ['required', 'string', 'not_in:0'],
             'identity_user' => ['required', 'string', 'not_in:0'],
-            'come' => ['not_in:null']
         ]);
 
         if ($user_detail !== null) {
@@ -416,48 +422,62 @@ class ApplicantController extends Controller
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
         $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
-        $kel = $request->input('villages') !== null ? 'Desa/Kel. ' . $request->input('villages') . ' ' : null;
-        $kec = $request->input('districts') !== null ? 'Kec. ' . $request->input('districts') . ' ' : null;
-        $reg = $request->input('regencies') !== null ? 'Kota/Kab. ' . $request->input('regencies') . ' ' : null;
-        $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
-        $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+        $kel = $request->input('villages') !== null ? 'DESA/KEL. ' . $request->input('villages') . ' ' : null;
+        $kec = $request->input('districts') !== null ? 'KEC. ' . $request->input('districts') . ' ' : null;
+        $reg = $request->input('regencies') !== null ? 'KOTA/KAB. ' . $request->input('regencies') . ' ' : null;
+        $prov = $request->input('provinces') !== null ? 'PROVINSI ' . $request->input('provinces') . ' ' : null;
+        $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $data = [
-            'program' => $request->input('program'),
-            'identity_user' => $request->input('identity_user'),
-            'source_id' => $request->input('source_id'),
-            'status_id' => $request->input('status_id'),
             'pmb' => $request->input('pmb'),
-            'kip' => $request->input('kip'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'note' => $request->input('note'),
+
             'name' => ucwords(strtolower($request->input('name'))),
             'gender' => $request->input('gender'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),
             'religion' => $request->input('religion'),
-            'education' => $request->input('education'),
-            'major' => $request->input('major'),
-            'year' => $request->input('year'),
-            'school' => $request->input('school'),
-            'class' => $request->input('class'),
-            'come' => $request->input('come'),
-            'followup_id' => $request->input('followup_id'),
-            'relation' => $request->input('relation'),
-            'programtype_id' => $request->input('programtype_id'),
             'address' => $request->input('address') == null ? $address_applicant : $request->input('address'),
+            'social_media' => $request->input('social_media'),
+
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+
+            'education' => $request->input('education'),
+            'school' => $request->input('school'),
+            'major' => $request->input('major'),
+            'class' => $request->input('class'),
+            'year' => $request->input('year'),
+            'achievement' => $request->input('achievement'),
+            'kip' => $request->input('kip'),
+
+            'note' => $request->input('note'),
+            'relation' => $request->input('relation'),
+
+            'identity_user' => $request->input('identity_user'),
+            'program' => $request->input('program'),
+            'isread' => $request->input('isread'),
+            'come' => $request->input('come') == "null" ? null : $request->input('come'),
+
+            'known' => $request->input('known') == "null" ? null : $request->input('known'),
+            'planning' => $request->input('planning') == "null" ? null : $request->input('planning'),
+            'other_campus' => $request->input('other_campus'),
+            'income_parent' => $request->input('income_parent') == "null" ? null : $request->input('income_parent'),
+
+            'followup_id' => $request->input('followup_id'),
+            'programtype_id' => $request->input('programtype_id'),
+            'source_id' => $request->input('source_id'),
+            'status_id' => $request->input('status_id'),
         ];
 
         $father_rt = $request->input('father_rt') !== null ? 'RT. ' . $request->input('father_rt') . ' ' : null;
         $father_rw = $request->input('father_rw') !== null ? 'RW. ' . $request->input('father_rw') . ' ' : null;
-        $father_kel = $request->input('father_villages') !== null ? 'Desa/Kel. ' . $request->input('father_villages') . ' ' : null;
-        $father_kec = $request->input('father_districts') !== null ? 'Kec. ' . $request->input('father_districts') . ' ' : null;
-        $father_reg = $request->input('father_regencies') !== null ? 'Kota/Kab. ' . $request->input('father_regencies') . ' ' : null;
-        $father_prov = $request->input('father_provinces') !== null ? 'Provinsi ' . $request->input('father_provinces') . ' ' : null;
-        $father_postal = $request->input('father_postal_code') !== null ? 'Kode Pos ' . $request->input('father_postal_code') : null;
+        $father_kel = $request->input('father_villages') !== null ? 'DESA/KEL. ' . $request->input('father_villages') . ' ' : null;
+        $father_kec = $request->input('father_districts') !== null ? 'KEC. ' . $request->input('father_districts') . ' ' : null;
+        $father_reg = $request->input('father_regencies') !== null ? 'KOTA/KAB. ' . $request->input('father_regencies') . ' ' : null;
+        $father_prov = $request->input('father_provinces') !== null ? 'PROVINSI ' . $request->input('father_provinces') . ' ' : null;
+        $father_postal = $request->input('father_postal_code') !== null ? 'KODE POS ' . $request->input('father_postal_code') : null;
 
         $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
 
@@ -473,11 +493,11 @@ class ApplicantController extends Controller
 
         $mother_rt = $request->input('mother_rt') !== null ? 'RT. ' . $request->input('mother_rt') . ' ' : null;
         $mother_rw = $request->input('mother_rw') !== null ? 'RW. ' . $request->input('mother_rw') . ' ' : null;
-        $mother_kel = $request->input('mother_villages') !== null ? 'Desa/Kel. ' . $request->input('mother_villages') . ' ' : null;
-        $mother_kec = $request->input('mother_districts') !== null ? 'Kec. ' . $request->input('mother_districts') . ' ' : null;
-        $mother_reg = $request->input('mother_regencies') !== null ? 'Kota/Kab. ' . $request->input('mother_regencies') . ' ' : null;
-        $mother_prov = $request->input('mother_provinces') !== null ? 'Provinsi ' . $request->input('mother_provinces') . ' ' : null;
-        $mother_postal = $request->input('mother_postal_code') !== null ? 'Kode Pos ' . $request->input('mother_postal_code') : null;
+        $mother_kel = $request->input('mother_villages') !== null ? 'DESA/KEL. ' . $request->input('mother_villages') . ' ' : null;
+        $mother_kec = $request->input('mother_districts') !== null ? 'KEC. ' . $request->input('mother_districts') . ' ' : null;
+        $mother_reg = $request->input('mother_regencies') !== null ? 'KOTA/KAB. ' . $request->input('mother_regencies') . ' ' : null;
+        $mother_prov = $request->input('mother_provinces') !== null ? 'PROVINSI ' . $request->input('mother_provinces') . ' ' : null;
+        $mother_postal = $request->input('mother_postal_code') !== null ? 'KODE POS ' . $request->input('mother_postal_code') : null;
 
         $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
 
@@ -752,7 +772,7 @@ class ApplicantController extends Controller
                             if ($studentData->is_applicant == 0) {
                                 $studentPhone = Applicant::where('phone', $phone)->first();
                                 if ($studentPhone) {
-                                    if($studentPhone->is_applicant == 0){
+                                    if ($studentPhone->is_applicant == 0) {
                                         $samePhone = true;
                                         $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                                     }
