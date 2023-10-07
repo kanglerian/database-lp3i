@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center gap-5">
-            <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-lp3i-100 text-sm font-medium leading-8 text-gray-900 focus:outline-none focus:border-lp3i-300 transition duration-150 ease-in-out"><i class="fa-regular fa-id-card mr-2"></i> Profil</a>
-            <a href="#riwayat" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-8 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"><i class="fa-regular fa-comments mr-2"></i> Riwayat Chat</a>
+        <div class="flex items-center">
+            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
+                Berkas PMB Online ({{ $user->name }})
+            </h2>
         </div>
     </x-slot>
 
@@ -10,55 +11,6 @@
         <a href="{{ route('database.index') }}"
             class="inline-block border border-gray-400 hover:bg-gray-400 hover:text-white text-gray-500 px-4 py-2 rounded-lg text-sm"><i
                 class="fa-solid fa-arrow-left"></i> Kembali</a>
-    </div>
-
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5" id="riwayat">
-        <div class="w-full">
-            <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
-                <button type="button" data-modal-target="dataModal" onclick="dataModal(this)"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                        class="fa-solid fa-circle-plus"></i> Tambah Data</button>
-            </div>
-
-            <div class="p-6">
-                <ol class="relative border-l border-gray-200 dark:border-gray-700">
-                    @forelse ($histories as $history)
-                        <li class="mb-10 ml-4">
-                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
-                            </div>
-                            <div class="flex gap-5 mb-2">
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ $history['date'] }}</time>
-                                <div class="flex gap-3">
-                                    <button type="button" data-id="{{ $history['id'] }}" data-modal-target="dataModal"
-                                        data-title="{{ $history['title'] }}" data-date="{{ $history['date'] }}"
-                                        data-title="{{ $history['title'] }}" data-result="{{ $history['result'] }}" data-report="{{ $history['report'] }}"
-                                        onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button type="button" data-id="{{ $history['id'] }}" onclick="deleteModal(this)"
-                                        class="text-xs text-gray-600 hover:text-red-600"><i
-                                            class="fa-regular fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $history['title'] }}</h3>
-                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">{{ $history['result'] }}
-                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400"><span class="font-bold">Hasil:</span> {{ $history['report'] == null ? 'Belum diisi' : $history['report'] }}
-                            </p>
-                        </li>
-                    @empty
-                        <li class="mb-10 ml-4">
-                            <div
-                                class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Data riwayat belum ada</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Silahkan untuk isi
-                                riwayat melalui tombol tambah data atau dengan aplikasi pihak ke-3.</p>
-                        </li>
-                    @endforelse
-                </ol>
-
-            </div>
-        </div>
     </div>
 
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5">
@@ -102,7 +54,7 @@
                                     <li class="space-x-2">
                                         <span>Pendidikan Terakhir:</span>
                                         <span class="border-b">
-                                            {{ $user->SchoolApplicant == null ? '___' : $user->SchoolApplicant->name }}
+                                            {{ $user->SchoolApplicant->name == null ? '___' : $user->SchoolApplicant->name }}
                                         </span>
                                     </li>
                                     <li class="space-x-2">
@@ -202,7 +154,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="w-full md:w-2/6 mx-auto space-y-5">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 @if (session('error'))
@@ -239,49 +191,70 @@
                     <p class="mt-1 text-sm text-gray-600">
                         Tabel di bawah ini berisi berkas yang diunggah oleh pemilik akun.
                     </p>
-                    <hr class="my-3">
-                    <div class="relative h-[535px] overflow-y-auto  overflow-x-auto md:rounded-xl">
-                        <table class="w-full text-sm text-sm text-left text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr class="flex justify-between items-center">
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Nama Berkas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Aksi
-                                    </th>
-                            </thead>
-                            <tbody>
-                                @foreach ($userupload as $suc)
-                                    <tr class="bg-white border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
-                                        <td class="px-6 py-4">
-                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
-                                                class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
-                                                    class="fa-solid fa-download"></i></a>
-                                            <button
-                                                class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
-                                                    class="fa-solid fa-circle-check"></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($fileupload as $upload)
-                                    <tr class="bg-white border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $upload->name }}</td>
-                                        <td class="px-6 py-4">
-                                            <button
-                                                class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"><i
-                                                    class="fa-solid fa-circle-xmark"></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
                 </header>
+                <hr class="my-3">
+                <div class="relative overflow-x-auto md:rounded-xl">
+                    <table class="w-full text-sm text-sm text-left text-gray-500">
+                        <thead
+                            class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr class="flex justify-between items-center">
+                                <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    Nama Berkas
+                                </th>
+                                <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    Aksi
+                                </th>
+                        </thead>
+                        <tbody>
+                            @foreach ($userupload as $suc)
+                                <tr class="bg-white border-b flex justify-between items-center">
+                                    <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
+                                    <td class="px-6 py-4">
+                                        <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
+                                            class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
+                                                class="fa-solid fa-download"></i></a>
+                                        <button
+                                            class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
+                                                class="fa-solid fa-circle-check"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @foreach ($fileupload as $upload)
+                                <tr class="bg-white border-b flex justify-between items-center">
+                                    <td class="px-6 py-4">{{ $upload->name }}</td>
+                                    <td class="px-6 py-4">
+                                        <button
+                                            class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"><i
+                                                class="fa-solid fa-circle-xmark"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
 </x-app-layout>
+
+<script>
+    const deleteRecord = (id) => {
+        if (confirm(`Apakah kamu yakin akan menghapus data? ${id}`)) {
+            $.ajax({
+                url: `/userupload/${id}`,
+                type: 'POST',
+                data: {
+                    '_method': 'DELETE',
+                    '_token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert(status);
+                }
+            })
+        }
+    }
+</script>

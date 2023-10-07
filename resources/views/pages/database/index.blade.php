@@ -250,11 +250,10 @@
                         phone: 'phone'
                     },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('histories.show', ':identity') }}".replace(
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.phone == null ? `<span class="font-bold">${data.name}</span>` :
-                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`;
+                        return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`;
                     }
                 },
                 {

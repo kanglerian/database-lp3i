@@ -317,18 +317,43 @@ class ApplicantController extends Controller
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
+
             $userupload = UserUpload::where('identity_user', $identity)->get();
             $data = [];
             foreach ($userupload as $upload) {
                 $data[] = $upload->namefile;
             }
             $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
+            }
+
+            if ($user->phone == null) {
+                return back()->with('error', 'Nomor telpon belum dicantumkan');
+            }
+
+            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+
+            $status = $response->status();
+            switch ($status) {
+                case 200:
+                    $histories = $response->json();
+                    break;
+                case 500:
+                    return back()->with('error', 'Server belum dijalankan');
+
+            }
+
             return view('pages.database.show')->with([
-                'userupload' => $userupload,
-                'fileupload' => $fileupload,
                 'user' => $user,
                 'father' => $father,
                 'mother' => $mother,
+                'userupload' => $userupload,
+                'fileupload' => $fileupload,
+                'histories' => $histories,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
