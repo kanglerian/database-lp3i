@@ -266,16 +266,16 @@ class ApplicantController extends Controller
 
             $schoolCheck = School::where('id', $request->input('school'))->first();
 
-        if($schoolCheck){
-            $school = $schoolCheck->id;
-        } else {
-            $dataSchool = [
-                'name' => strtoupper($request->input('school')),
-                'region' => 'TIDAK DIKETAHUI',
-            ];
-            $school = School::create($dataSchool);
-            $school = $school->id;
-        }
+            if ($schoolCheck) {
+                $school = $schoolCheck->id;
+            } else {
+                $dataSchool = [
+                    'name' => strtoupper($request->input('school')),
+                    'region' => 'TIDAK DIKETAHUI',
+                ];
+                $school = School::create($dataSchool);
+                $school = $school->id;
+            }
 
             $data_applicant = [
                 'identity' => $numbers_unique,
@@ -539,7 +539,7 @@ class ApplicantController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
         $schoolCheck = School::where('id', $request->input('school'))->first();
 
-        if($schoolCheck){
+        if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
             $dataSchool = [
@@ -892,7 +892,7 @@ class ApplicantController extends Controller
                             if ($studentData->is_applicant == 0) {
                                 $studentPhone = Applicant::where('phone', $phone)->first();
                                 if ($studentPhone) {
-                                    if ($studentPhone->is_applicant == 0) {
+                                    if ($studentPhone->is_applicant == 0 && $studentPhone->is_daftar == 0 && $studentPhone->is_register == 0) {
                                         $samePhone = true;
                                         $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                                     }
