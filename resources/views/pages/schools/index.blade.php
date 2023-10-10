@@ -50,12 +50,6 @@
                 </div>
             @endif
 
-            <div class="px-2">
-                <button type="button" data-modal-target="schoolModal" onclick="changeSchoolModal(this)"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
-                    <i class="fa-solid fa-circle-plus"></i> Tambah Data</button>
-            </div>
-
             <div class="flex flex-wrap">
                 @foreach ($schools_by_region as $school_by_region)
                     <div class="block w-1/2 md:w-1/4 p-1">
@@ -68,6 +62,12 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <div class="px-2">
+                <button type="button" data-modal-target="schoolModal" onclick="changeSchoolModal(this)"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
+                    <i class="fa-solid fa-circle-plus"></i> Tambah Data</button>
             </div>
 
             @include('pages.schools.filters.filter')
