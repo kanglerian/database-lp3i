@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SourceSetting;
@@ -21,9 +22,31 @@ class DashboardController extends Controller
     {
         $userupload = UserUpload::where(['identity_user' => Auth::user()->identity, 'fileupload_id' => 11])->get();
         $fileupload = FileUpload::where('namefile', 'bukti-pembayaran')->get();
+
+        $databaseQuery = Applicant::query();
+        $applicantQuery = Applicant::query();
+        $daftarQuery = Applicant::query();
+        $registrasiQuery = Applicant::query();
+
+        if (Auth::user()->role === 'P') {
+            $databaseQuery->where('identity_user', Auth::user()->identity);
+            $applicantQuery->where('identity_user', Auth::user()->identity);
+            $daftarQuery->where('identity_user', Auth::user()->identity);
+            $registrasiQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        $databaseCount = $databaseQuery->count();
+        $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
+        $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
+        $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
+
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
+            'databaseCount' => $databaseCount,
+            'applicantCount' => $applicantCount,
+            'registrasiCount' => $registrasiCount,
+            'daftarCount' => $daftarCount,
         ]);
     }
 

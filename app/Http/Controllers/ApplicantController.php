@@ -1003,31 +1003,10 @@ class ApplicantController extends Controller
         $applicant = Applicant::findOrFail($id);
         $data = [
             'is_applicant' => $applicant->is_applicant == 1 ? 0 : 1,
-            'is_register' => $applicant->is_applicant == 1 ? 0 : 1,
-            'is_daftar' => $applicant->is_applicant == 1 ? 0 : 1,
         ];
         $applicant->update($data);
         return back()->with('message', 'Data aplikan berhasil diupdate');
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function is_register(Request $request, $id)
-    {
-        $applicant = Applicant::findOrFail($id);
-        $data = [
-            'is_register' => $applicant->is_register == 1 ? 0 : 1,
-            'is_daftar' => $applicant->is_register == 1 ? 0 : 1,
-        ];
-        $applicant->update($data);
-        return back()->with('message', 'Data aplikan berhasil diupdate');
-    }
-
 
     /**
      * Update the specified resource in storage.
@@ -1041,6 +1020,25 @@ class ApplicantController extends Controller
         $applicant = Applicant::findOrFail($id);
         $data = [
             'is_daftar' => $applicant->is_daftar == 1 ? 0 : 1,
+            'is_applicant' => $applicant->is_daftar == 1 ? 0 : 1,
+        ];
+        $applicant->update($data);
+        return back()->with('message', 'Data aplikan berhasil diupdate');
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_register(Request $request, $id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data = [
+            'is_register' => $applicant->is_register == 1 ? 0 : 1,
+            'is_daftar' => $applicant->is_register == 1 ? 0 : 1,
+            'is_applicant' => $applicant->is_register == 1 ? 0 : 1,
         ];
         $applicant->update($data);
         return back()->with('message', 'Data aplikan berhasil diupdate');

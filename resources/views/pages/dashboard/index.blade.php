@@ -143,6 +143,48 @@
         </div>
     @endif
     @if (Auth::user()->role !== 'S')
+        <div class="py-5">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex flex-wrap">
+                    <div class="block w-1/2 md:w-1/4 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                            <h4>
+                                <i class="fa-solid fa-database mr-1"></i>
+                                <span class="text-sm">Database</span>
+                            </h4>
+                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
+                        </div>
+                    </div>
+                    <div class="block w-1/2 md:w-1/4 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                            <h4>
+                                <i class="fa-solid fa-database mr-1"></i>
+                                <span class="text-sm">Aplikan</span>
+                            </h4>
+                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
+                        </div>
+                    </div>
+                    <div class="block w-1/2 md:w-1/4 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                            <h4>
+                                <i class="fa-solid fa-database mr-1"></i>
+                                <span class="text-sm">Daftar</span>
+                            </h4>
+                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
+                        </div>
+                    </div>
+                    <div class="block w-1/2 md:w-1/4 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                            <h4>
+                                <i class="fa-solid fa-database mr-1"></i>
+                                <span class="text-sm">Registrasi</span>
+                            </h4>
+                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $registrasiCount }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="py-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">

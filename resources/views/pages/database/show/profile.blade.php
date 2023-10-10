@@ -199,6 +199,17 @@
                         <hr class="my-3">
                         <section class="flex flex-col gap-3">
                             <div>
+                                <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="{{ $user->is_applicant }}" class="sr-only peer" {{ $user->is_applicant == 1 ? 'checked' : '' }}>
+                                        <button type="submit"
+                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                        </button>
+                                        <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                    </label>
+                                </form>
+                            </div>
+                            <div>
                                 <form action="{{ route('database.is_daftar', $user->id) }}" method="get">
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" value="{{ $user->is_daftar }}" class="sr-only peer" {{ $user->is_daftar == 1 ? 'checked' : '' }}>
@@ -217,17 +228,6 @@
                                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                         </button>
                                         <span class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
-                                    </label>
-                                </form>
-                            </div>
-                            <div>
-                                <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->is_applicant }}" class="sr-only peer" {{ $user->is_applicant == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
                                     </label>
                                 </form>
                             </div>
