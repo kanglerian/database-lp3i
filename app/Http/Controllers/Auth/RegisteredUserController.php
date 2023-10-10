@@ -69,6 +69,13 @@ class RegisteredUserController extends Controller
             'program' => ['required', 'string', 'not_in:0'],
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
+            'place_of_birth' => ['required'],
+            'date_of_birth' => ['required'],
+            'religion' => ['required'],
+            'education' => ['required'],
+            'major' => ['required'],
+            'year' => ['required'],
+            'school' => ['required', 'not_in:Pilih Sekolah'],
 
             'email' => ['required', 'email', 'max:255', 'unique:users', 'unique:applicants'],
             'phone' => [
@@ -103,6 +110,19 @@ class RegisteredUserController extends Controller
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
+        $schoolCheck = School::where('id', $request->input('school'))->first();
+
+        if($schoolCheck){
+            $school = $schoolCheck->id;
+        } else {
+            $dataSchool = [
+                'name' => strtoupper($request->input('school')),
+                'region' => 'TIDAK DIKETAHUI',
+            ];
+            $school = School::create($dataSchool);
+            $school = $school->id;
+        }
+
         $data_applicant = [
             'identity' => $numbers_unique,
             'programtype_id' => $request->input('programtype_id'),
@@ -115,7 +135,7 @@ class RegisteredUserController extends Controller
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
-            'school' => $request->input('school'),
+            'school' => $school,
             'class' => $request->input('class'),
             'address' => $address_applicant,
             'email' => $request->input('email'),

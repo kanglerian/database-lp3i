@@ -149,7 +149,7 @@
                     <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
                         id="chartSourceContainer">
                         <div class="text-center py-3">
-                            <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+                            <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Database</h3>
                         </div>
                         <hr>
                         <canvas id="chartSource" class="py-3"></canvas>
@@ -157,7 +157,7 @@
                     <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
                         id="chartPresenterContainer">
                         <div class="text-center py-3">
-                            <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Presenter</h3>
+                            <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
                         </div>
                         <hr>
                         <canvas id="chartPresenter" class="py-3"></canvas>

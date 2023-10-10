@@ -8,22 +8,22 @@
                 Edit Profil
             </h2>
             @if ($user->role == 'S')
-            <div class="flex items-center gap-2">
-                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                    <i class="fa-solid fa-map-location-dot text-gray-700"></i>
-                    <span class="text-sm" id="wilayah"></span>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-map-location-dot text-gray-700"></i>
+                        <span class="text-sm" id="wilayah"></span>
+                    </div>
+                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-rectangle-list text-gray-700"></i>
+                        <span class="text-sm">
+                            @if ($programs == null)
+                                <i class="fa-solid fa-wifi text-red-500"></i>
+                            @else
+                                <i class="fa-solid fa-wifi text-green-500"></i>
+                            @endif
+                        </span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                    <i class="fa-solid fa-rectangle-list text-gray-700"></i>
-                    <span class="text-sm">
-                        @if ($programs == null)
-                            <i class="fa-solid fa-wifi text-red-500"></i>
-                        @else
-                            <i class="fa-solid fa-wifi text-green-500"></i>
-                        @endif
-                    </span>
-                </div>
-            </div>
             @endif
         </div>
     </x-slot>
@@ -147,7 +147,9 @@
     <script src="{{ asset('js/api-notif.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.js-example-input-single').select2();
+            $('.js-example-input-single').select2({
+                tags: true,
+            });
         });
     </script>
 @endpush

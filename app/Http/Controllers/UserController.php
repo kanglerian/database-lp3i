@@ -212,6 +212,18 @@ class UserController extends Controller
         $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
         $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+        $schoolCheck = School::where('id', $request->input('school'))->first();
+
+        if($schoolCheck){
+            $school = $schoolCheck->id;
+        } else {
+            $dataSchool = [
+                'name' => strtoupper($request->input('school')),
+                'region' => 'TIDAK DIKETAHUI',
+            ];
+            $school = School::create($dataSchool);
+            $school = $school->id;
+        }
 
         $data = [
             'name' => ucwords(strtolower($request->input('name'))),
@@ -220,7 +232,7 @@ class UserController extends Controller
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
-            'school' => $request->input('school'),
+            'school' => $school,
             'class' => $request->input('class'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),

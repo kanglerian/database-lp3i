@@ -103,7 +103,11 @@
                     <x-input id="place_of_birth" type="text" name="place_of_birth" :value="old('place_of_birth')"
                         placeholder="Tulis tempat lahir disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
+                        @if ($errors->has('place_of_birth'))
+                            <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
                 <div class="relative z-0 w-full group mb-3">
@@ -111,7 +115,11 @@
                     <x-input id="date_of_birth" type="date" name="date_of_birth" :value="old('date_of_birth')"
                         placeholder="Tulis tempat lahir disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
+                        @if ($errors->has('date_of_birth'))
+                            <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
@@ -124,7 +132,11 @@
                         <option value="Konghucu">Konghucu</option>
                     </x-select>
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('religion') }}</span>
+                        @if ($errors->has('religion'))
+                            <span class="text-red-500">{{ $errors->first('religion') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -135,7 +147,11 @@
                     <x-input id="education" type="text" name="education" :value="old('education')"
                         placeholder="Tulis pendidikan terakhir disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('education') }}</span>
+                        @if ($errors->has('education'))
+                            <span class="text-red-500">{{ $errors->first('education') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
                 <div class="relative z-0 w-full group mb-3">
@@ -143,7 +159,11 @@
                     <x-input id="major" type="text" name="major" :value="old('major')"
                         placeholder="Tulis jurusan disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('major') }}</span>
+                        @if ($errors->has('major'))
+                            <span class="text-red-500">{{ $errors->first('major') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
@@ -151,7 +171,11 @@
                     <x-input type="number" min="1945" max="3000" name="year" id="year"
                         :value="old('year')" placeholder="Tulis tahun lulus disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('year') }}</span>
+                        @if ($errors->has('year'))
+                            <span class="text-red-500">{{ $errors->first('year') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -160,13 +184,17 @@
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="school" :value="__('Sekolah')" />
                     <x-select id="school" name="school" class="js-example-input-single">
-                        <option value="0">Pilih Sekolah</option>
+                        <option>Pilih Sekolah</option>
                         @foreach ($schools as $school)
                             <option value="{{ $school->id }}">{{ $school->name }}</option>
                         @endforeach
                     </x-select>
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('school') }}</span>
+                        @if ($errors->has('school'))
+                            <span class="text-red-500">{{ $errors->first('school') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
@@ -174,7 +202,11 @@
                     <x-input id="class" type="text" name="class" :value="old('class')"
                         placeholder="Tulis kelas disini..." />
                     <p class="mt-2 text-xs text-gray-500">
-                        <span class="text-red-500">{{ $errors->first('class') }}</span>
+                        @if ($errors->has('class'))
+                            <span class="text-red-500">{{ $errors->first('class') }}</span>
+                        @else
+                            <span class="text-red-500">*Wajib diisi.</span>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -248,7 +280,13 @@
                     <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email"
                         :value="old('email')" placeholder="Masukkan Alamat Email Anda" required />
                     <div class="text-xs text-red-700 mt-3">
-                        {{ $errors->first('email') }}
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('email'))
+                                <span class="text-red-500">{{ $errors->first('email') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
                     </div>
                 </div>
                 <div class="relative z-0 w-full group">
@@ -256,7 +294,13 @@
                     <x-input id="phone" class="block mt-1 w-full text-sm" type="number" name="phone"
                         :value="old('phone')" placeholder="Masukkan Nomor WhatsApp Anda" required />
                     <div class="text-xs text-red-700 mt-3">
-                        {{ $errors->first('phone') }}
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('phone'))
+                                <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
@@ -267,7 +311,13 @@
                     <x-input id="password" class="block mt-1 w-full text-sm" type="password" name="password"
                         required autocomplete="new-password" placeholder="Masukkan Password Anda" required />
                     <div class="text-xs text-red-700 mt-3">
-                        {{ $errors->first('password') }}
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('password'))
+                                <span class="text-red-500">{{ $errors->first('password') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
                     </div>
                 </div>
                 <div class="relative z-0 w-full group">
@@ -275,7 +325,13 @@
                     <x-input id="password_confirmation" class="block mt-1 w-full text-sm" type="password"
                         name="password_confirmation" placeholder="Konfirmasi Password Anda" required />
                     <div class="text-xs text-red-700 mt-3">
-                        {{ $errors->first('password') }}
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('password'))
+                                <span class="text-red-500">{{ $errors->first('password') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
@@ -308,7 +364,9 @@
 <script src="{{ asset('js/indonesia.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('.js-example-input-single').select2();
+        $('.js-example-input-single').select2({
+            tags: true,
+        });
     });
 
     const getYearPMB = () => {

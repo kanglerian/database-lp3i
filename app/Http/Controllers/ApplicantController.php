@@ -264,6 +264,19 @@ class ApplicantController extends Controller
 
             $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
+            $schoolCheck = School::where('id', $request->input('school'))->first();
+
+        if($schoolCheck){
+            $school = $schoolCheck->id;
+        } else {
+            $dataSchool = [
+                'name' => strtoupper($request->input('school')),
+                'region' => 'TIDAK DIKETAHUI',
+            ];
+            $school = School::create($dataSchool);
+            $school = $school->id;
+        }
+
             $data_applicant = [
                 'identity' => $numbers_unique,
                 'pmb' => $request->input('pmb'),
@@ -279,7 +292,7 @@ class ApplicantController extends Controller
                 'phone' => $request->input('phone'),
 
                 'education' => $request->input('education'),
-                'school' => $request->input('school'),
+                'school' => $school,
                 'major' => $request->input('major'),
                 'class' => $request->input('class'),
                 'year' => $request->input('year'),
@@ -524,6 +537,18 @@ class ApplicantController extends Controller
         $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+        $schoolCheck = School::where('id', $request->input('school'))->first();
+
+        if($schoolCheck){
+            $school = $schoolCheck->id;
+        } else {
+            $dataSchool = [
+                'name' => strtoupper($request->input('school')),
+                'region' => 'TIDAK DIKETAHUI',
+            ];
+            $school = School::create($dataSchool);
+            $school = $school->id;
+        }
 
         $data = [
             'pmb' => $request->input('pmb'),
@@ -540,7 +565,7 @@ class ApplicantController extends Controller
             'phone' => $request->input('phone'),
 
             'education' => $request->input('education'),
-            'school' => $request->input('school'),
+            'school' => $school,
             'major' => $request->input('major'),
             'class' => $request->input('class'),
             'year' => $request->input('year'),

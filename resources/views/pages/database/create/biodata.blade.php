@@ -264,7 +264,9 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.js-example-input-single').select2();
+            $('.js-example-input-single').select2({
+            tags: true,
+        });
         });
 
         const saveDatabase = () => {

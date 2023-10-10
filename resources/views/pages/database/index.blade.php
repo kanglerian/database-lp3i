@@ -109,9 +109,9 @@
                         <button class="relative" onclick="changeFilter()">
                             <input type="hidden" id="database_online" value="6281313608558">
                             @if (Auth::user()->role == 'A')
-                                <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
                                 <span
-                                    class="flex items-center justify-center left-[20px] top-[-10px] absolute bg-red-500 text-white w-5 h-5 rounded-xl text-[10px]">{{ $nopresenter }}</span>
+                                    class="flex items-center justify-center right-[25px] top-[-10px] absolute bg-red-500 text-white w-4 h-4 rounded-xl text-[9px]">{{ $nopresenter }}</span>
+                                <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
                             @endif
                         </button>
                     @else
@@ -231,8 +231,7 @@
                     target: 7
                 },
             ],
-            columns: [
-                {
+            columns: [{
                     data: {
                         id: 'id',
                         identity: 'identity',

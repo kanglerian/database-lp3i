@@ -1,0 +1,14 @@
+CREATE VIEW `schools_by_major_presentasi_grab` AS
+SELECT
+    schools.id AS id,
+    schools.region AS wilayah,
+    schools.name AS nama,
+    SUM(CASE WHEN applicants.source_id = 7 THEN 1 ELSE 0 END) AS presentasi,
+    SUM(CASE WHEN applicants.source_id = 9 THEN 1 ELSE 0 END) AS grab,
+    COUNT(applicants.major) AS jumlah
+FROM
+    schools
+LEFT JOIN
+    applicants ON schools.id = applicants.school
+GROUP BY
+    schools.id, schools.region, schools.name;

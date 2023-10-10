@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Imports\SchoolsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Models\SchoolByMajorPresentasiGrab;
+use App\Models\SchoolByRegion;
 use App\Models\School;
 
 class SchoolController extends Controller
@@ -18,19 +20,25 @@ class SchoolController extends Controller
     public function index()
     {
         $total = School::count();
+        $schools_by_region = SchoolByRegion::all();
         return view('pages.schools.index')->with([
             'total' => $total,
+            'schools_by_region' => $schools_by_region
         ]);
     }
 
     public function get_all()
     {
-        $schools = School::all();
-        return response()
-            ->json([
-                'schools' => $schools,
-            ])
-            ->header('Content-Type', 'application/json');
+        $schoolsQuery = SchoolByMajorPresentasiGrab::query();
+        $regionCheck = request('regionCheck', 'all');
+
+        if ($regionCheck !== 'all') {
+            $schoolsQuery->where('wilayah', $regionCheck);
+        }
+
+        $schools = $schoolsQuery->get();
+
+        return response()->json(['schools' => $schools]);
     }
 
     /**
@@ -57,8 +65,8 @@ class SchoolController extends Controller
         ]);
 
         $data = [
-            'name' => ucwords(strtolower($request->input('name'))),
-            'region' => ucwords($request->input('region')),
+            'name' => strtoupper($request->input('name')),
+            'region' => strtoupper($request->input('region')),
         ];
 
         School::create($data);
@@ -71,9 +79,16 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($region)
     {
-        //
+        $regions = School::where('region', $region)->get();
+        $total = School::count();
+        $schools_by_region = SchoolByRegion::all();
+        return view('pages.schools.show')->with([
+            'total' => $total,
+            'regions' => $regions,
+            'schools_by_region' => $schools_by_region
+        ]);
     }
 
     /**
