@@ -1,6 +1,17 @@
 <div
-    class="bg-white rounded-xl border border-gray-200 flex items-center gap-3 text-gray-500 overflow-x-auto pb-4 px-4 py-2 mx-2">
-    <div class="flex flex-row items-end md:gap-3 flex-wrap md:flex-nowrap md:overflow-x-auto">
+    class="bg-white rounded-xl border border-gray-200 flex items-center gap-3 text-gray-500 overflow-x-auto pb-4 px- py-2 mx-2">
+    <div class="flex flex-row items-end md:gap-3 flex-wrap md:flex-nowrap md:overflow-x-auto px-3">
+        <div class="w-1/2 space-y-1 p-1 md:p-0">
+            <label for="change_applicant" class="text-xs">Status Aplikan</label>
+            <select id="change_applicant" onchange="changeFilter()"
+                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                <option value="all">Pilih</option>
+                <option value="database">Database</option>
+                <option value="daftar">Daftar</option>
+                <option value="registrasi">Registrasi</option>
+                <option value="aplikan">Aplikan</option>
+            </select>
+        </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">
             <label for="date_start" class="text-xs">Tanggal awal:</label>
             <input type="date" id="date_start" onchange="changeFilter()"
@@ -145,7 +156,7 @@
             </select>
         </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">
-            <label for="" class="text-xs">Status:</label>
+            <label for="" class="text-xs">Status Database:</label>
             <select id="change_status" onchange="changeFilter()"
                 class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                 <option value="all">Status</option>

@@ -138,6 +138,9 @@
                                         <i class="fa-solid fa-user"></i>
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -153,16 +156,13 @@
                                         Asal sekolah
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Jurusan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Tahun lulus
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Sumber
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Status
-                                    </th>
                                     <th scope="col" class="px-6 py-3 rounded-tr-lg">
-                                        Action
+                                        Sumber
                                     </th>
                             </thead>
                             <tbody></tbody>
@@ -231,16 +231,48 @@
                     target: 7
                 },
             ],
-            columns: [{
-                    data: 'id',
-                    render: (data) => {
-                        return `<i class="fa-regular fa-circle-dot"></i>`;
+            columns: [
+                {
+                    data: {
+                        id: 'id',
+                        identity: 'identity',
+                        name: 'name',
+                        phone: 'phone',
+                        school: 'school_applicant',
+                        year: 'year',
+                        source: 'source_setting',
+                        status: 'applicant_status'
+                    },
+                    render: (data, type, row) => {
+                        return `
+                        <div class="flex items-center gap-1">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>`
+                    }
+                },
+                {
+                    data: {
+                        status: 'applicant_status',
+                        is_applicant: 'is_applicant',
+                        is_register: 'is_register',
+                        is_daftar: 'is_daftar'
+                    },
+                    render: (data, type, row) => {
+                        return `
+                        <div class="flex gap-2">
+                            <span class="text-[17px] ${data.is_daftar == 1 ? 'text-yellow-500' : 'text-gray-300'}"><i class="fa-solid fa-file-lines"></i></span>
+                            <span class="text-[18px] ${data.is_register == 1 ? 'text-sky-500' : 'text-gray-300'}"><i class="fa-solid fa-id-badge"></i></span>
+                            <span class="text-[15px] ${data.is_applicant == 1 ? 'text-emerald-500' : 'text-gray-300'}"><i class="fa-solid fa-user-check"></i></span>
+                        </div>
+                        `;
                     }
                 },
                 {
                     data: 'created_at',
                     render: (data) => {
-                        return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
+                        return moment(data).tz('Asia/Jakarta').locale('id').format('L');
                     }
                 },
                 {
@@ -275,6 +307,12 @@
                     }
                 },
                 {
+                    data: 'major',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                },
+                {
                     data: 'year',
                     render: (data, row) => {
                         return data != null ? data : 'Tidak diketahui';
@@ -284,47 +322,6 @@
                     data: 'source_setting',
                     render: (data, type, row) => {
                         return data.name;
-                    }
-                },
-                {
-                    data: 'applicant_status',
-                    render: (data, type, row) => {
-                        return data.name;
-                    }
-                },
-                {
-                    data: {
-                        id: 'id',
-                        identity: 'identity',
-                        name: 'name',
-                        phone: 'phone',
-                        school: 'school_applicant',
-                        year: 'year',
-                        source: 'source_setting',
-                        status: 'applicant_status'
-                    },
-                    render: (data, type, row) => {
-                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
-                            ':identity',
-                            data.identity);
-                        let editUrl = "{{ route('database.edit', ':id') }}".replace(':id',
-                            data.id);
-                        let folder = data.status_id == 4 || data.status_id == 3 ?
-                            `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
-                            `<button class="inline-block border border-gray-200 px-3 py-1 rounded-md text-xs text-gray-200"><i class="fa-regular fa-folder-open"></i></button>`;
-                        return `
-                        <div class="flex items-center gap-1">
-                            ${folder}
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
-                                <i class="fa-solid fa-copy"></i>
-                            </button>
-                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>`
                     }
                 },
             ],

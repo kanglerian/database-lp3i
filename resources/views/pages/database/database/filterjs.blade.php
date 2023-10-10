@@ -51,9 +51,12 @@
         let relationVal = document.getElementById('change_relation').value || 'all';
         let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
         let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
-
         let databaseOnline = document.getElementById('database_online').value || 'all';
+        let statusApplicant = document.getElementById('change_applicant').value || 'all';
 
+        if (statusApplicant !== 'all') {
+            queryParams.push(`statusApplicant=${statusApplicant}`);
+        }
         if (dateStart !== 'all') {
             queryParams.push(`dateStart=${dateStart}`);
         }
@@ -151,6 +154,7 @@
             document.getElementById('change_follow').value = 'all';
             document.getElementById('change_source').value = 'all';
             document.getElementById('change_status').value = 'all';
+            document.getElementById('change_applicant').value = 'all';
         } else {
             getDataTable();
         }

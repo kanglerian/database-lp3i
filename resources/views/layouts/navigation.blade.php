@@ -17,7 +17,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
-                        <x-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'histories.show'])">
+                        <x-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'database.chats', 'database.files'])">
                             {{ __('Database') }}
                         </x-nav-link>
                     @endif

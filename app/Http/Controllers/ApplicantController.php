@@ -88,9 +88,32 @@ class ApplicantController extends Controller
         $jobMotherVal = request('jobMotherVal', 'all');
 
         $databaseOnline = request('databaseOnline', 'all');
+        $statusApplicant = request('statusApplicant', 'all');
 
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        if ($statusApplicant !== 'all') {
+            switch ($statusApplicant) {
+                case 'database':
+                    $applicantsQuery->where('is_applicant', 0);
+                    $applicantsQuery->where('is_daftar', 0);
+                    $applicantsQuery->where('is_register', 0);
+                    break;
+                case 'daftar':
+                    $applicantsQuery->where('is_applicant', 0);
+                    $applicantsQuery->where('is_daftar', 1);
+                    $applicantsQuery->where('is_register', 0);
+                    break;
+                case 'registrasi':
+                    $applicantsQuery->where('is_applicant', 0);
+                    $applicantsQuery->where('is_register', 1);
+                    break;
+                case 'aplikan':
+                    $applicantsQuery->where('is_applicant', 1);
+                    break;
+            }
         }
 
         if ($dateStart !== 'all' && $dateEnd !== 'all') {
@@ -318,21 +341,37 @@ class ApplicantController extends Controller
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
 
-            $userupload = UserUpload::where('identity_user', $identity)->get();
-            $data = [];
-            foreach ($userupload as $upload) {
-                $data[] = $upload->namefile;
-            }
-            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
-
             if (Auth::user()->role == 'P') {
                 $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
             } elseif (Auth::user()->role == 'A') {
                 $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
-            if ($user->phone == null) {
-                return back()->with('error', 'Nomor telpon belum dicantumkan');
+            return view('pages.database.show.profile')->with([
+                'user' => $user,
+                'father' => $father,
+                'mother' => $mother,
+            ]);
+        } else {
+            return back()->with('error', 'Tidak diizinkan.');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function chats($identity)
+    {
+        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
             $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
@@ -347,13 +386,44 @@ class ApplicantController extends Controller
 
             }
 
-            return view('pages.database.show')->with([
+            return view('pages.database.show.chat')->with([
                 'user' => $user,
-                'father' => $father,
-                'mother' => $mother,
+                'histories' => $histories,
+            ]);
+        } else {
+            return back()->with('error', 'Tidak diizinkan.');
+        }
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function files($identity)
+    {
+        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+
+            $userupload = UserUpload::where('identity_user', $identity)->get();
+            $data = [];
+            foreach ($userupload as $upload) {
+                $data[] = $upload->namefile;
+            }
+            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
+            }
+
+            return view('pages.database.show.file')->with([
+                'user' => $user,
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
-                'histories' => $histories,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
@@ -895,4 +965,60 @@ class ApplicantController extends Controller
 
         return back()->with('message', 'Data aplikan berhasil diupdate');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_applicant(Request $request, $id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data = [
+            'is_applicant' => $applicant->is_applicant == 1 ? 0 : 1,
+            'is_register' => $applicant->is_applicant == 1 ? 0 : 1,
+            'is_daftar' => $applicant->is_applicant == 1 ? 0 : 1,
+        ];
+        $applicant->update($data);
+        return back()->with('message', 'Data aplikan berhasil diupdate');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_register(Request $request, $id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data = [
+            'is_register' => $applicant->is_register == 1 ? 0 : 1,
+            'is_daftar' => $applicant->is_register == 1 ? 0 : 1,
+        ];
+        $applicant->update($data);
+        return back()->with('message', 'Data aplikan berhasil diupdate');
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_daftar(Request $request, $id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data = [
+            'is_daftar' => $applicant->is_daftar == 1 ? 0 : 1,
+        ];
+        $applicant->update($data);
+        return back()->with('message', 'Data aplikan berhasil diupdate');
+    }
+
 }
