@@ -379,7 +379,9 @@ class ApplicantController extends Controller
     public function chats($identity)
     {
         $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
-        dd($user->phone);
+        $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+        $histories = $response->json();
+        dd($histories);
         // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
         //     if (Auth::user()->role == 'P') {
