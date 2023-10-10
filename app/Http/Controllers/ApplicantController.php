@@ -380,8 +380,15 @@ class ApplicantController extends Controller
     {
         $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
         $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
-        $histories = $response->json();
-        dd($histories);
+        if ($response->successful()) {
+            $histories = $response->json();
+            \Log::info('Response from API:', $histories);
+            dd($histories);
+        } else {
+            \Log::error('HTTP request failed with status code: ' . $response->status());
+            // Tangani kesalahan di sini
+            echo "Permintaan HTTP gagal: " . $response->status();
+        }
         // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
         //     if (Auth::user()->role == 'P') {
