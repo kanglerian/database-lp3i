@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($mother->address != null)
+                {{-- @if ($mother->address != null) --}}
                     <div class="grid md:grid-cols-1 md:gap-6">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_address" :value="__('Alamat')" />
@@ -82,7 +82,7 @@
                             </p>
                         </div>
                     </div>
-                @else
+                {{-- @else
                     <div id="address-mother-container" class="hidden">
                         @if ($applicant->address !== null)
                             <div class="flex mb-3">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif --}}
             </section>
         </section>
     </div>
