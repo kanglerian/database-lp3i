@@ -35,7 +35,7 @@
         class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
         <div class="w-full">
             <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
-                <button type="button" data-modal-target="dataModal" onclick="dataModal(this)"
+                <button type="button" onclick="dataModal()"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</button>
             </div>
@@ -45,14 +45,7 @@
                     {{-- @forelse ($histories as $history)
 
                     @empty
-                        <li class="mb-10 ml-4">
-                            <div
-                                class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Data riwayat belum ada</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Silahkan untuk isi
-                                riwayat melalui tombol tambah data atau dengan aplikasi pihak ke-3.</p>
-                        </li>
+
                     @endforelse --}}
                 </ol>
 
@@ -63,9 +56,8 @@
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    const dataModal = (button) => {
-        const modalTarget = button.dataset.modalTarget;
-        let status = document.getElementById(modalTarget);
+    const dataModal = () => {
+        const status = document.getElementById('modalForm')
         document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
         document.getElementById('title').value = '';
         document.getElementById('date').value = '';
@@ -129,9 +121,9 @@
 
     try {
         await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
-        .then((response) => {
-            alert('Histori ditambahkan');
-        })
+            .then((response) => {
+                alert('Histori ditambahkan');
+            })
     } catch (error) {
         console.error(error);
     }
@@ -172,7 +164,15 @@
                     document.getElementById('histories').innerHTML = bucket;
                 })
                 .catch((error) => {
-                    console.log(error.message);
+                    bucket += `
+                    <li class="mb-10 ml-4">
+                        <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Data riwayat belum ada</h3>
+                        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Silahkan untuk isi
+                                riwayat melalui tombol tambah data atau dengan aplikasi pihak ke-3.</p>
+                    </li>
+                    `
                 });
         } else {
             console.log('Nomor telepon tidak ditemukan.');
@@ -182,7 +182,7 @@
 </script>
 
 
-<div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="dataModal">
+<div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalForm">
     <div class="fixed inset-0 bg-black opacity-50"></div>
     <div class="fixed inset-0 flex items-center justify-center">
         <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
