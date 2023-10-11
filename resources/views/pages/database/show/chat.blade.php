@@ -41,7 +41,7 @@
 
             <div class="p-6">
                 <ol class="relative border-l border-gray-200 dark:border-gray-700">
-                    @forelse ($histories as $history)
+                    {{-- @forelse ($histories as $history)
                         <li class="mb-10 ml-4">
                             <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
                             </div>
@@ -73,7 +73,7 @@
                             <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Silahkan untuk isi
                                 riwayat melalui tombol tambah data atau dengan aplikasi pihak ke-3.</p>
                         </li>
-                    @endforelse
+                    @endforelse --}}
                 </ol>
 
             </div>
@@ -81,3 +81,16 @@
     </div>
 
 </x-app-layout>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const getChats = async () => {
+        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/6281286501013`)
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+    }
+    getChats();
+</script>

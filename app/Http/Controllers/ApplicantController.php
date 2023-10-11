@@ -388,21 +388,8 @@ class ApplicantController extends Controller
                 $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
-            $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
-
-            $status = $response->status();
-            switch ($status) {
-                case 200:
-                    $histories = $response->json();
-                    break;
-                case 500:
-                    return back()->with('error', 'Server belum dijalankan');
-
-            }
-
             return view('pages.database.show.chat')->with([
                 'user' => $user,
-                'histories' => $histories,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
