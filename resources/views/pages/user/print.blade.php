@@ -176,11 +176,11 @@
                     <td>:</td>
                     <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
                 </tr>
-                {{-- <tr>
+                <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
                     <td>{{ $father->address == null ? '___' : $father->address }}</td>
-                </tr> --}}
+                </tr>
             </table>
             <hr style="margin-top: 10px;">
             <h3>Biodata Ibu</h3>
@@ -207,11 +207,11 @@
                     <td>:</td>
                     <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
                 </tr>
-                {{-- <tr>
+                <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
                     <td>{{ $mother->address == null ? '___' : $mother->address }}</td>
-                </tr> --}}
+                </tr>
             </table>
             {{-- <div id="print" style="position: absolute;bottom: 50px;right:50px">
                 <button onclick="printCV()">Cetak Daftar Riwayat Hidup</button>
