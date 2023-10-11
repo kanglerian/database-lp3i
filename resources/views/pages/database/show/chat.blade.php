@@ -31,7 +31,7 @@
         @endif
     </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
+    <div id="phone" data-phone="{{ $user->phone }}" class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
         <div class="w-full">
             <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
                 <button type="button" data-modal-target="dataModal" onclick="dataModal(this)"
@@ -84,13 +84,18 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const getChats = async () => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/6281286501013`)
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.log(error.message);
-        });
+        let phone = document.getElementById('phone').getAttribute('data-phone');
+        if (phone) {
+            await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/${phone}`)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        } else {
+            console.log('Nomor telepon tidak ditemukan.');
+        }
     }
     getChats();
 </script>
