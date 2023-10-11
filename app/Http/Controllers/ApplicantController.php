@@ -378,7 +378,7 @@ class ApplicantController extends Controller
      */
     public function chats($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        // $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
 
         // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
@@ -388,10 +388,10 @@ class ApplicantController extends Controller
         //         $user = Applicant::where(['identity' => $identity])->firstOrFail();
         //     }
 
-        $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces');
+        // $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces');
 
             // $status = $response->status();
-            dd($response->json());
+            // dd($response->json());
             // switch ($status) {
             //     case 200:
             //         $histories = $response->json();
@@ -411,6 +411,7 @@ class ApplicantController extends Controller
         // } else {
         //     return back()->with('error', 'Tidak diizinkan.');
         // }
+        return view('pages.database.show.check');
     }
 
 
@@ -672,7 +673,8 @@ class ApplicantController extends Controller
      */
     public function print($id)
     {
-        $applicant = Applicant::where('identity', $id)->firstOrFail();
+        $applicant = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
+        // dd($applicant->SchoolApplicant->name);
         $user = User::where('identity', $id)->firstOrFail();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();

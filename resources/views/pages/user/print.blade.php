@@ -105,15 +105,15 @@
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
                     <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}</p>
                 </div>
-                @if ($user->avatar)
+                {{-- @if ($user->avatar)
                     <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $applicant->identity }}/{{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="170px">
-                @else
+                @else --}}
                     <div
                         style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
                         <p>Pas foto 4x3</p>
                     </div>
-                @endif
+                {{-- @endif --}}
             </header>
             <hr style="margin-top: 10px;">
             <h3>Biodata Mahasiswa</h3>
@@ -138,7 +138,7 @@
                 <tr>
                     <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
                     <td>:</td>
-                    <td>{{ $applicant->school == null ? '___' : $applicant->school }}</td>
+                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. telepon / HP</td>
@@ -176,11 +176,11 @@
                     <td>:</td>
                     <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
                     <td>{{ $father->address == null ? '___' : $father->address }}</td>
-                </tr>
+                </tr> --}}
             </table>
             <hr style="margin-top: 10px;">
             <h3>Biodata Ibu</h3>
@@ -207,15 +207,124 @@
                     <td>:</td>
                     <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
                     <td>{{ $mother->address == null ? '___' : $mother->address }}</td>
+                </tr> --}}
+            </table>
+            {{-- <div id="print" style="position: absolute;bottom: 50px;right:50px">
+                <button onclick="printCV()">Cetak Daftar Riwayat Hidup</button>
+            </div> --}}
+            <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
+        </div>
+        <div class="page">
+            <header style="display: flex; justify-content: start; align-items: start">
+                <div>
+                    <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
+                    <h2>SEKILAS TENTANG ANDA</h2>
+                    <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
+                    <p>Relasi: {{ $applicant->relation == null ? '___' : $applicant->relation }}</p>
+                    <p>Sumber: {{ $applicant->source_id == null ? '___' : $applicant->SourceSetting->name }}</p>
+                </div>
+            </header>
+            <hr style="margin-top: 10px;">
+            <h3>Biodata Mahasiswa</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Nama lengkap</td>
+                    <td>:</td>
+                    <td>{{ $applicant->name == null ? '___' : $applicant->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Tempat, Tanggal Lahir</td>
+                    <td>:</td>
+                    <td>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}
+                        /
+                        {{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Agama</td>
+                    <td>:</td>
+                    <td>{{ $applicant->religion == null ? '___' : $applicant->religion }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
+                    <td>:</td>
+                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Jurusan</td>
+                    <td>:</td>
+                    <td>{{ $applicant->major == null ? '___' : $applicant->major }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Tahun Lulus</td>
+                    <td>:</td>
+                    <td>{{ $applicant->year == null ? '___' : $applicant->year }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. telepon / HP</td>
+                    <td>:</td>
+                    <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat</td>
+                    <td>:</td>
+                    <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP</td>
+                    <td>:</td>
+                    <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Email</td>
+                    <td>:</td>
+                    <td>{{ $applicant->email == null ? '___' : $applicant->email }}</td>
                 </tr>
             </table>
-            <div id="print" style="position: absolute;bottom: 50px;right:50px">
+            <hr style="margin-top: 10px;">
+            <h3>Biodata Ayah</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Nama lengkap</td>
+                    <td>:</td>
+                    <td>{{ $father->name == null ? '___' : $father->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Pekerjaan Ayah</td>
+                    <td>:</td>
+                    <td>{{ $father->job == null ? '___' : $father->job }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP</td>
+                    <td>:</td>
+                    <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>Biodata Ibu</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Nama lengkap</td>
+                    <td>:</td>
+                    <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Pekerjaan Ibu</td>
+                    <td>:</td>
+                    <td>{{ $mother->job == null ? '___' : $mother->job }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP</td>
+                    <td>:</td>
+                    <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
+                </tr>
+            </table>
+            {{-- <div id="print" style="position: absolute;bottom: 50px;right:50px">
                 <button onclick="printCV()">Cetak Daftar Riwayat Hidup</button>
-            </div>
+            </div> --}}
             <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
         </div>
     </div>
