@@ -100,15 +100,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        const modalFunction = () => {
+        const modalFunction = (type) => {
             let modalChat = document.getElementById('modalChat');
-            console.log(modalChat);
-            document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
+            switch (type) {
+                case 'add':
+                document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
+                document.getElementById('formButton').innerText = 'Simpan';
+                    break;
+                case 'update':
+                document.getElementById('title_form').innerText = `Ubah Data Riwayat`;
+                document.getElementById('formButton').innerText = 'Simpan Perubahan';
+                    break;
+            }
             document.getElementById('title').value = '';
             document.getElementById('date').value = '';
             document.getElementById('result').value = '';
             document.getElementById('report').value = '';
-            document.getElementById('formButton').innerText = 'Simpan';
             modalChat.classList.toggle('hidden');
         }
 
@@ -161,12 +168,9 @@
                             </div>
                             <div class="flex gap-5 mb-2">
                                 <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">${history.date}</time>
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400">${history.date}</time>
                                 <div class="flex gap-3">
-                                    <button type="button" data-id="${history.id}" data-modal-target="dataModal"
-                                        data-title="${history.title}" data-date="${history.date}"
-                                        data-title="${history.title}" data-result="${history.result}" data-report="${history.report}"
-                                        onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
+                                    <button type="button" onclick="modalFunction('update')" class="text-xs text-gray-600 hover:text-yellow-600"><i
                                             class="fa-regular fa-pen-to-square"></i></button>
                                     <button type="button" data-id="${history.id}" onclick="deleteModal(this)"
                                         class="text-xs text-gray-600 hover:text-red-600"><i
