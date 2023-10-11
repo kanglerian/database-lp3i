@@ -389,15 +389,16 @@ class ApplicantController extends Controller
             // Tangani kesalahan di sini
             echo "Permintaan HTTP gagal: " . $response->status();
         }
-        // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
-        //     if (Auth::user()->role == 'P') {
-        //         $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
-        //     } elseif (Auth::user()->role == 'A') {
-        //         $user = Applicant::where(['identity' => $identity])->firstOrFail();
-        //     }
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
-        //     $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
+            }
+
+            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
             $status = $response->status();
             switch ($status) {
@@ -406,16 +407,19 @@ class ApplicantController extends Controller
                     break;
                 case 500:
                     return back()->with('error', 'Server belum dijalankan');
+                    default:
+                        dd('hey');
+                        break;
 
-        //     }
+            }
 
-        //     return view('pages.database.show.chat')->with([
-        //         'user' => $user,
-        //         'histories' => $histories,
-        //     ]);
-        // } else {
-        //     return back()->with('error', 'Tidak diizinkan.');
-        // }
+            // return view('pages.database.show.chat')->with([
+            //     'user' => $user,
+            //     'histories' => $histories,
+            // ]);
+        } else {
+            return back()->with('error', 'Tidak diizinkan.');
+        }
     }
 
 
