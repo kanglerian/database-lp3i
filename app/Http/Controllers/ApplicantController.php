@@ -391,7 +391,7 @@ class ApplicantController extends Controller
             $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
             $status = $response->status();
-            dd($status);
+            dd($user);
             // switch ($status) {
             //     case 200:
             //         $histories = $response->json();
