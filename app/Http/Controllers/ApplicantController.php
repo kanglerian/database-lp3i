@@ -383,6 +383,9 @@ class ApplicantController extends Controller
                     break;
                 case 500:
                     return back()->with('error', 'Server belum dijalankan');
+                default:
+                    dd('teu nanaon');
+                    break;
 
             }
 

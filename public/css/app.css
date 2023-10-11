@@ -769,12 +769,12 @@ select {
   left: 50%;
 }
 
-.left-\[20px\] {
-  left: 20px;
-}
-
 .right-0 {
   right: 0px;
+}
+
+.right-\[25px\] {
+  right: 25px;
 }
 
 .top-0 {
@@ -787,6 +787,10 @@ select {
 
 .top-\[-10px\] {
   top: -10px;
+}
+
+.left-\[20px\] {
+  left: 20px;
 }
 
 .-z-10 {
@@ -1748,10 +1752,6 @@ select {
   line-height: 2rem;
 }
 
-.text-\[10px\] {
-  font-size: 10px;
-}
-
 .text-\[15px\] {
   font-size: 15px;
 }
@@ -1766,6 +1766,10 @@ select {
 
 .text-\[25px\] {
   font-size: 25px;
+}
+
+.text-\[9px\] {
+  font-size: 9px;
 }
 
 .text-base {
@@ -1791,6 +1795,10 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
 }
 
 .font-bold {
