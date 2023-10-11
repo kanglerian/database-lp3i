@@ -35,7 +35,7 @@
         class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
         <div class="w-full">
             <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
-                <button type="button" onclick="dataModal()"
+                <button type="button" onclick="dataFunctionModal()"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</button>
             </div>
@@ -56,8 +56,23 @@
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    const dataModal = () => {
-        const status = document.getElementById('modalForm')
+    const dataFunctionModal = () => {
+        console.log('berhasil');
+        // const modalTarget = button.dataset.modalTarget;
+        // let status = document.getElementById(modalTarget);
+        // document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
+        // document.getElementById('title').value = '';
+        // document.getElementById('date').value = '';
+        // document.getElementById('result').value = '';
+        // document.getElementById('report').value = '';
+        // document.getElementById('formButton').innerText = 'Simpan';
+
+        // status.classList.toggle('hidden');
+    }
+
+    const dataModal = (button) => {
+        const modalTarget = button.dataset.modalTarget;
+        let status = document.getElementById(modalTarget);
         document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
         document.getElementById('title').value = '';
         document.getElementById('date').value = '';
