@@ -498,7 +498,10 @@
                     </td>
                 </tr>
             </table>
-            <hr style="margin-top: 10px;">
+        </div>
+
+        <div class="page">
+
             <h3>RIWAYAT PENDIDIKAN</h3>
             <table style="margin-top: 10px">
                 <tr>
@@ -545,9 +548,7 @@
                     <td>______________________________</td>
                 </tr>
             </table>
-        </div>
-
-        <div class="page">
+            <hr style="margin-top: 10px">
             <p>*Harap diisi apabila sudah bekerja</p>
             <h3>DATA PERUSAHAAN TEMPAT BEKERJA</h3>
             <table style="margin-top: 10px">
@@ -611,7 +612,9 @@
                     <td>______________________________________________________</td>
                 </tr>
             </table>
-            <hr style="margin-top: 10px;">
+        </div>
+
+        <div class="page">
             <h3>KELENGKAPAN PERSYARATAN</h3>
             <table style="margin-top: 10px">
                 <tr>
