@@ -388,10 +388,22 @@ class ApplicantController extends Controller
                 $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
-            // $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+            $apiUrl = 'https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone;
+
+            $ch = curl_init($apiUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                // Penanganan kesalahan jika terjadi kesalahan saat melakukan pemanggilan API
+                echo 'Error: ' . curl_error($ch);
+            }
+
+            curl_close($ch);
+            dd($response);
 
             // $status = $response->status();
-            dd($user);
             // switch ($status) {
             //     case 200:
             //         $histories = $response->json();
