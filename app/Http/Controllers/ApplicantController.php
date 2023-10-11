@@ -380,30 +380,18 @@ class ApplicantController extends Controller
     {
         $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
 
-        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+        // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
-            if (Auth::user()->role == 'P') {
-                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
-            } elseif (Auth::user()->role == 'A') {
-                $user = Applicant::where(['identity' => $identity])->firstOrFail();
-            }
+        //     if (Auth::user()->role == 'P') {
+        //         $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+        //     } elseif (Auth::user()->role == 'A') {
+        //         $user = Applicant::where(['identity' => $identity])->firstOrFail();
+        //     }
 
-            $apiUrl = 'https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone;
-
-            $ch = curl_init($apiUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-            $response = curl_exec($ch);
-
-            if (curl_errno($ch)) {
-                // Penanganan kesalahan jika terjadi kesalahan saat melakukan pemanggilan API
-                echo 'Error: ' . curl_error($ch);
-            }
-
-            curl_close($ch);
-            dd($response);
+            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
             // $status = $response->status();
+            dd($response);
             // switch ($status) {
             //     case 200:
             //         $histories = $response->json();
@@ -420,9 +408,9 @@ class ApplicantController extends Controller
             //     'user' => $user,
             //     'histories' => $histories,
             // ]);
-        } else {
-            return back()->with('error', 'Tidak diizinkan.');
-        }
+        // } else {
+        //     return back()->with('error', 'Tidak diizinkan.');
+        // }
     }
 
 
