@@ -53,7 +53,7 @@
         </div>
     </div>
 
-</x-app-layout>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const dataFunctionModal = () => {
@@ -247,3 +247,5 @@
         </div>
     </div>
 </div>
+
+</x-app-layout>
