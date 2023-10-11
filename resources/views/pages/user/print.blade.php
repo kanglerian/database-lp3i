@@ -109,10 +109,10 @@
                     <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $applicant->identity }}/{{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="170px">
                 @else --}}
-                    <div
-                        style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
-                        <p>Pas foto 4x3</p>
-                    </div>
+                <div
+                    style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
+                    <p>Pas foto 4x3</p>
+                </div>
                 {{-- @endif --}}
             </header>
             <hr style="margin-top: 10px;">
@@ -218,14 +218,20 @@
             </div> --}}
             <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
         </div>
+
         <div class="page">
             <header style="display: flex; justify-content: start; align-items: start">
                 <div>
                     <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
                     <h2>SEKILAS TENTANG ANDA</h2>
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
-                    <p>Relasi: {{ $applicant->relation == null ? '___' : $applicant->relation }}</p>
-                    <p>Sumber: {{ $applicant->source_id == null ? '___' : $applicant->SourceSetting->name }}</p>
+                    <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}
+                        ({{ $applicant->programtype->name }})</p>
+                    <p>
+                        <span>Relasi: {{ $applicant->relation == null ? '___' : $applicant->relation }}</span> |
+                        <span>Sumber:
+                            {{ $applicant->source_id == null ? '___' : $applicant->SourceSetting->name }}</span>
+                    </p>
                 </div>
             </header>
             <hr style="margin-top: 10px;">
@@ -239,9 +245,11 @@
                 <tr>
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
-                    <td>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}
+                    <td>
+                        <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
                         /
-                        {{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</td>
+                        <span>{{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</span>
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Agama</td>
@@ -251,37 +259,25 @@
                 <tr>
                     <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
                     <td>:</td>
-                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
+                    <td>
+                        <span>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</span>
+                        (<span>{{ $applicant->major == null ? '___' : $applicant->major }}</span>
+                        <span>{{ $applicant->year == null ? '___' : $applicant->year }}</span>)
+                    </td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Jurusan</td>
+                    <td style="width: 200px;">No. HP / Email</td>
                     <td>:</td>
-                    <td>{{ $applicant->major == null ? '___' : $applicant->major }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Tahun Lulus</td>
-                    <td>:</td>
-                    <td>{{ $applicant->year == null ? '___' : $applicant->year }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">No. telepon / HP</td>
-                    <td>:</td>
-                    <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
+                    <td>
+                        <span>{{ $applicant->phone == null ? '___' : $applicant->phone }}</span>
+                        /
+                        <span>{{ $applicant->email == null ? '___' : $applicant->email }}</span>
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
                     <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">No. HP</td>
-                    <td>:</td>
-                    <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Email</td>
-                    <td>:</td>
-                    <td>{{ $applicant->email == null ? '___' : $applicant->email }}</td>
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
@@ -322,19 +318,398 @@
                     <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
                 </tr>
             </table>
-            {{-- <div id="print" style="position: absolute;bottom: 50px;right:50px">
-                <button onclick="printCV()">Cetak Daftar Riwayat Hidup</button>
-            </div> --}}
-            <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
+
+            <hr style="margin-top: 10px;">
+            <div style="display: flex; justify-content:space-between" style="margin-top: 30px">
+                <div style="margin-top: 10px">
+                    <p>Keterangan:</p>
+                    <p>__________________________________</p>
+                    <p>__________________________________</p>
+                    <p>__________________________________</p>
+                </div>
+                <div style="margin-top: 10px;text-align:center">
+                    <p>Tasikmalaya, <span class="signature"></span></p>
+                    <p>Panitia Penerima Mahasiswa Baru</p><br /><br />
+                    <p>__________________________________</p>
+                    <p>Tanda Tangan & Nama Jelas</p>
+                </div>
+            </div>
         </div>
+
+        <div class="page">
+            <header style="display: flex; justify-content: start; align-items: start">
+                <div>
+                    <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
+                    <h2>FORMULIR PENDAFTARAN MAHASISWA BARU T.A _______/_______</h2>
+                    <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
+                </div>
+            </header>
+            <hr style="margin-top: 10px;">
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">No. Pendaftaran</td>
+                    <td>:</td>
+                    <td>____________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Status Aplikan</td>
+                    <td>:</td>
+                    <td>
+                        <span>A {{ $applicant->is_applicant == null ? '' : 'OK' }}</span> |
+                        <span>D {{ $applicant->is_daftar == null ? '' : 'OK' }}</span> |
+                        <span>R {{ $applicant->is_register == null ? '' : 'OK' }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. Kwitansi Pendaftaran</td>
+                    <td>:</td>
+                    <td>____________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Program Studi</td>
+                    <td>:</td>
+                    <td>{{ $applicant->program == null ? '___' : $applicant->program }}
+                        ({{ $applicant->programtype->name }})</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>DATA PRIBADI</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">No. KTP</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Nama lengkap</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $applicant->name == null ? '___' : $applicant->name }}</span>
+                        <span>
+                            @switch($applicant->gender)
+                                @case(1)
+                                    <span>(Laki-laki)</span>
+                                @break
+
+                                @case(0)
+                                    <span>(Perempuan)</span>
+                                @break
+
+                                @default
+                                    <span>(___)</span>
+                            @endswitch
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Tempat, Tanggal Lahir</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
+                        /
+                        <span>{{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP / Email</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $applicant->phone == null ? '___' : $applicant->phone }}</span>
+                        /
+                        <span>{{ $applicant->email == null ? '___' : $applicant->email }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">*Status Pernikahan</td>
+                    <td>:</td>
+                    <td>Menikah / Belum Menikah</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Agama</td>
+                    <td>:</td>
+                    <td>{{ $applicant->religion == null ? '___' : $applicant->religion }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Warga Negara</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">*Penanggung Jawab Kuliah</td>
+                    <td>:</td>
+                    <td>Orang Tua / Wali / Sendiri / Beasiswa</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat</td>
+                    <td>:</td>
+                    <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">*Status Alamat</td>
+                    <td>:</td>
+                    <td>Rumah Orang Tua / Rumah Keluarga / Kontrak / Kost</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>BIODATA ORANG TUA</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">KTP Orang Tua</td>
+                    <td>:</td>
+                    <td>______________________________ (Ayah / Ibu)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Nama Ayah</td>
+                    <td>:</td>
+                    <td>{{ $father->name == null ? '___' : $father->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Nama Ibu</td>
+                    <td>:</td>
+                    <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP Ayah / Ibu</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $father->phone == null ? '___' : $father->phone }}</span> /
+                        <span>{{ $mother->phone == null ? '___' : $mother->phone }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat</td>
+                    <td>:</td>
+                    <td>{{ $father->address == null ? '___' : $father->address }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Pekerjaan Ayah / Ibu</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $father->job == null ? '___' : $father->job }}</span> /
+                        <span>{{ $mother->job == null ? '___' : $mother->job }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Pendidikan Ayah / Ibu</td>
+                    <td>:</td>
+                    <td>
+                        <span>{{ $father->education == null ? '___' : $father->education }}</span> /
+                        <span>{{ $mother->education == null ? '___' : $mother->education }}</span>
+                    </td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>RIWAYAT PENDIDIKAN</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
+                    <td>:</td>
+                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Jurusan</td>
+                    <td>:</td>
+                    <td>{{ $applicant->major == null ? '___' : $applicant->major }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Tahun Lulus</td>
+                    <td>:</td>
+                    <td>{{ $applicant->year == null ? '___' : $applicant->year }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat Sekolah</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+            </table>
+            <p style="margin-top: 30px">Harap diisi jika mahasiswa pindahan PTS lain</p>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Nama PTS Asal</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Program Studi / Akreditasi</td>
+                    <td>:</td>
+                    <td>______________________________ / ______________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Jenjang Pendidikan</td>
+                    <td>:</td>
+                    <td>D1 / D2 / D3 / ___</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat PTS</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page">
+            <p>*Harap diisi apabila sudah bekerja</p>
+            <h3>DATA PERUSAHAAN TEMPAT BEKERJA</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Nama Perusahaan</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Alamat Perusahaan</td>
+                    <td>:</td>
+                    <td>______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. HP / Email</td>
+                    <td>:</td>
+                    <td>______________________________ / ______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Departemen (Bagian) / Jabatan</td>
+                    <td>:</td>
+                    <td>______________________________ / ______________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Status Kepegawaian</td>
+                    <td>:</td>
+                    <td>Tetap / Kontrak / Outsourcing</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>DATA AKTIVITAS SOSIAL</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Pengalaman Berorganisasi</td>
+                    <td>:</td>
+                    <td>______________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;"></td>
+                    <td></td>
+                    <td>______________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;"></td>
+                    <td></td>
+                    <td>______________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Prestasi</td>
+                    <td>:</td>
+                    <td>______________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;"></td>
+                    <td></td>
+                    <td>______________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;"></td>
+                    <td></td>
+                    <td>______________________________________________________</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 10px;">
+            <h3>KELENGKAPAN PERSYARATAN</h3>
+            <table style="margin-top: 10px">
+                <tr>
+                    <td style="width: 200px;">Salinan Ijazah Terakhir</td>
+                    <td>:</td>
+                    <td>[ ] ___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Salinan Transkip Nilai</td>
+                    <td>:</td>
+                    <td>[ ] ___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Salinan Akta Kelahiran</td>
+                    <td>:</td>
+                    <td>[ ] ___________________________________________________</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Pas Foto Terbaru</td>
+                    <td>:</td>
+                    <td>[ ] 2x3 / 3x4 / 4x6 (3 lembar)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Fotokopi KTP</td>
+                    <td>:</td>
+                    <td>[ ] (3 lembar)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">SK Kerja</td>
+                    <td>:</td>
+                    <td>[ ] (Apabila sudah bekerja)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Fotokopi KK</td>
+                    <td>:</td>
+                    <td>[ ] (3 lembar)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Materai Rp10.000</td>
+                    <td>:</td>
+                    <td>[ ] (3 lembar)</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">Sertifikat Pendukung</td>
+                    <td>:</td>
+                    <td>[ ] (Jika ada)</td>
+                </tr>
+            </table>
+            <hr style="margin-top: 30px">
+
+            <div style="display: flex; justify-content:space-between">
+                <div style="margin-top: 10px;text-align:center">
+                    <p>Tasikmalaya, <span class="signature"></span></p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p>__________________________________</p>
+                    <p>Tanda Tangan & Nama Lengkap Pendaftar</p>
+                </div>
+                <div style="margin-top: 35px;text-align:center">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p>__________________________________</p>
+                    <p>Tanda Tangan & Nama Lengkap Leader Presenter</p>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script>
         const isiTimestamp = () => {
             let footer = document.getElementById('footer');
-            let dateTimeString = new Date().toLocaleString();
+            let dateTimeString = new Date().toLocaleString('id');
             footer.innerText = `Dicetak pada tanggal: ${dateTimeString}`;
         }
         isiTimestamp();
+
+        const signature = () => {
+            let signatures = document.getElementsByClassName('signature');
+            let dateTime = new Date();
+            const monthNames = [
+                "Januari", "Februari", "Maret",
+                "April", "Mei", "Juni", "Juli",
+                "Agustus", "September", "Oktober",
+                "November", "Desember"
+            ];
+            const day = dateTime.getDate();
+            const monthIndex = dateTime.getMonth();
+            const year = dateTime.getFullYear();
+            const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+
+            for (let i = 0; i < signatures.length; i++) {
+                signatures[i].innerText = formattedDate;
+            }
+        }
+        signature();
 
         const printCV = () => {
             window.print();
