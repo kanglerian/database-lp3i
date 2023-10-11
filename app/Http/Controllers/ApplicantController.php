@@ -388,7 +388,7 @@ class ApplicantController extends Controller
         //         $user = Applicant::where(['identity' => $identity])->firstOrFail();
         //     }
 
-            $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
+        $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
             // $status = $response->status();
             dd($response);
