@@ -63,6 +63,80 @@
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+    const dataModal = (button) => {
+        const modalTarget = button.dataset.modalTarget;
+        let status = document.getElementById(modalTarget);
+        document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
+        document.getElementById('title').value = '';
+        document.getElementById('date').value = '';
+        document.getElementById('result').value = '';
+        document.getElementById('report').value = '';
+        document.getElementById('formButton').innerText = 'Simpan';
+
+        status.classList.toggle('hidden');
+    }
+
+    const editModal = (button) => {
+        const modalTarget = button.dataset.modalTarget;
+        const id = button.dataset.id;
+        const title = button.dataset.title;
+        const date = button.dataset.date;
+        const result = button.dataset.result;
+        const report = button.dataset.report;
+        let status = document.getElementById(modalTarget);
+        document.getElementById('title_form').innerText = `Edit Data Riwayat ${title}`;
+        document.getElementById('title').value = title;
+        document.getElementById('date').value = date;
+        document.getElementById('result').value = result;
+        document.getElementById('report').value = report;
+        document.getElementById('formButton').innerText = 'Simpan perubahan';
+
+        status.classList.toggle('hidden');
+    }
+
+    const deleteModal = (item) => {
+        let id = item.dataset.id;
+        if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
+            $.ajax({
+                url: `https://api.politekniklp3i-tasikmalaya.ac.id/history/delete/${id}`,
+                type: 'POST',
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error deleting record');
+                }
+            })
+        }
+    }
+    const formModal = document.getElementById('formModal');
+    formModal.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        const result = document.getElementById('result').value;
+        const report = document.getElementById('report').value;
+        const phone = document.getElementById('phone').getAttribute('data-phone');
+    })
+
+    const formData = {
+        title,
+        date,
+        result,
+        report,
+        phone,
+    };
+
+    try {
+        await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
+        .then((response) => {
+            alert('Histori ditambahkan');
+        })
+    } catch (error) {
+        console.error(error);
+    }
+</script>
+<script>
     const getChats = async () => {
         let phone = document.getElementById('phone').getAttribute('data-phone');
         if (phone) {
@@ -158,78 +232,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    const dataModal = (button) => {
-        const modalTarget = button.dataset.modalTarget;
-        let status = document.getElementById(modalTarget);
-        document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
-        document.getElementById('title').value = '';
-        document.getElementById('date').value = '';
-        document.getElementById('result').value = '';
-        document.getElementById('report').value = '';
-        document.getElementById('formButton').innerText = 'Simpan';
-
-        status.classList.toggle('hidden');
-    }
-
-    const editModal = (button) => {
-        const modalTarget = button.dataset.modalTarget;
-        const id = button.dataset.id;
-        const title = button.dataset.title;
-        const date = button.dataset.date;
-        const result = button.dataset.result;
-        const report = button.dataset.report;
-        let status = document.getElementById(modalTarget);
-        document.getElementById('title_form').innerText = `Edit Data Riwayat ${title}`;
-        document.getElementById('title').value = title;
-        document.getElementById('date').value = date;
-        document.getElementById('result').value = result;
-        document.getElementById('report').value = report;
-        document.getElementById('formButton').innerText = 'Simpan perubahan';
-
-        status.classList.toggle('hidden');
-    }
-
-    const deleteModal = (item) => {
-        let id = item.dataset.id;
-        if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
-            $.ajax({
-                url: `https://api.politekniklp3i-tasikmalaya.ac.id/history/delete/${id}`,
-                type: 'POST',
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                }
-            })
-        }
-    }
-    const formModal = document.getElementById('formModal');
-    formModal.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const title = document.getElementById('title').value;
-        const date = document.getElementById('date').value;
-        const result = document.getElementById('result').value;
-        const report = document.getElementById('report').value;
-        const phone = document.getElementById('phone').getAttribute('data-phone');
-    })
-
-    const formData = {
-        title,
-        date,
-        result,
-        report,
-        phone,
-    };
-
-    try {
-        await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
-        .then((response) => {
-            alert('Histori ditambahkan');
-        })
-    } catch (error) {
-        console.error(error);
-    }
-</script>
