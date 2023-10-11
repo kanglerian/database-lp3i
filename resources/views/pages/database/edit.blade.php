@@ -24,7 +24,7 @@
                         </span>
                     </div>
                 </div>
-                @if ($account == 0 && ($applicant->status_id == 3 || $applicant->status_id == 4))
+                @if ($account == 0 && ($applicant->is_register == 1 || $applicant->is_daftar == 1))
                     <form action="{{ route('profile.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="identity" value="{{ $applicant->identity }}">
