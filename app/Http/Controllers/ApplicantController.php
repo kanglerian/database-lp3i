@@ -391,7 +391,7 @@ class ApplicantController extends Controller
         $response = Http::timeout(30)->get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
             // $status = $response->status();
-            dd($response);
+            dd($response->json());
             // switch ($status) {
             //     case 200:
             //         $histories = $response->json();
