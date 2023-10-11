@@ -379,16 +379,6 @@ class ApplicantController extends Controller
     public function chats($identity)
     {
         $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
-        $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
-        if ($response->successful()) {
-            $histories = $response->json();
-            \Log::info('Response from API:', $histories);
-            dd($histories);
-        } else {
-            \Log::error('HTTP request failed with status code: ' . $response->status());
-            // Tangani kesalahan di sini
-            echo "Permintaan HTTP gagal: " . $response->status();
-        }
 
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
@@ -401,17 +391,18 @@ class ApplicantController extends Controller
             $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
             $status = $response->status();
-            switch ($status) {
-                case 200:
-                    $histories = $response->json();
-                    break;
-                case 500:
-                    return back()->with('error', 'Server belum dijalankan');
-                    default:
-                        dd('hey');
-                        break;
+            dd($status);
+            // switch ($status) {
+            //     case 200:
+            //         $histories = $response->json();
+            //         break;
+            //     case 500:
+            //         return back()->with('error', 'Server belum dijalankan');
+            //         default:
+            //             dd('hey');
+            //             break;
 
-            }
+            // }
 
             // return view('pages.database.show.chat')->with([
             //     'user' => $user,
