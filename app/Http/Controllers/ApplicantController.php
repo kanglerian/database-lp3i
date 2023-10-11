@@ -399,13 +399,13 @@ class ApplicantController extends Controller
 
         //     $response = Http::get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
-        //     $status = $response->status();
-        //     switch ($status) {
-        //         case 200:
-        //             $histories = $response->json();
-        //             break;
-        //         case 500:
-        //             return back()->with('error', 'Server belum dijalankan');
+            $status = $response->status();
+            switch ($status) {
+                case 200:
+                    $histories = $response->json();
+                    break;
+                case 500:
+                    return back()->with('error', 'Server belum dijalankan');
 
         //     }
 

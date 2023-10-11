@@ -789,6 +789,10 @@ select {
   top: -10px;
 }
 
+.left-\[20px\] {
+  left: 20px;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -1791,6 +1795,10 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
 }
 
 .font-bold {
