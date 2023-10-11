@@ -40,30 +40,9 @@
             </div>
 
             <div class="p-6">
-                <ol class="relative border-l border-gray-200 dark:border-gray-700">
+                <ol class="relative border-l border-gray-200 dark:border-gray-700" id="histories">
                     {{-- @forelse ($histories as $history)
-                        <li class="mb-10 ml-4">
-                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
-                            </div>
-                            <div class="flex gap-5 mb-2">
-                                <time
-                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ $history['date'] }}</time>
-                                <div class="flex gap-3">
-                                    <button type="button" data-id="{{ $history['id'] }}" data-modal-target="dataModal"
-                                        data-title="{{ $history['title'] }}" data-date="{{ $history['date'] }}"
-                                        data-title="{{ $history['title'] }}" data-result="{{ $history['result'] }}" data-report="{{ $history['report'] }}"
-                                        onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
-                                            class="fa-regular fa-pen-to-square"></i></button>
-                                    <button type="button" data-id="{{ $history['id'] }}" onclick="deleteModal(this)"
-                                        class="text-xs text-gray-600 hover:text-red-600"><i
-                                            class="fa-regular fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $history['title'] }}</h3>
-                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">{{ $history['result'] }}
-                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400"><span class="font-bold">Hasil:</span> {{ $history['report'] == null ? 'Belum diisi' : $history['report'] }}
-                            </p>
-                        </li>
+
                     @empty
                         <li class="mb-10 ml-4">
                             <div
@@ -86,9 +65,36 @@
     const getChats = async () => {
         let phone = document.getElementById('phone').getAttribute('data-phone');
         if (phone) {
+            let bucket = '';
             await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/${phone}`)
                 .then((response) => {
-                    console.log(response.data);
+                    let histories = response.data;
+                    histories.forEach(history => {
+                        bucket += `
+                        <li class="mb-10 ml-4">
+                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
+                            </div>
+                            <div class="flex gap-5 mb-2">
+                                <time
+                                    class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">${history.date}</time>
+                                <div class="flex gap-3">
+                                    <button type="button" data-id="${history.id}" data-modal-target="dataModal"
+                                        data-title="${history.title}" data-date="${history.date}"
+                                        data-title="${history.title}" data-result="${history.result}" data-report="${history.report}"
+                                        onclick="editModal(this)" class="text-xs text-gray-600 hover:text-yellow-600"><i
+                                            class="fa-regular fa-pen-to-square"></i></button>
+                                    <button type="button" data-id="${history.id}" onclick="deleteModal(this)"
+                                        class="text-xs text-gray-600 hover:text-red-600"><i
+                                            class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${history.title}</h3>
+                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400">${history.result}
+                            <p class="mb-4 text-sm font-normal text-gray-500 dark:text-gray-400"><span class="font-bold">Hasil:</span> ${history.report == null ? 'Belum diisi' : history.report}
+                            </p>
+                        </li>`
+                    });
+                    document.getElementById('histories').innerHTML = bucket;
                 })
                 .catch((error) => {
                     console.log(error.message);
