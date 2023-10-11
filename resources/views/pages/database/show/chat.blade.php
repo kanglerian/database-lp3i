@@ -134,7 +134,7 @@
                     await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
                     .then((res) => {
                         alert('Berhasil disimpan!');
-                        window.location.reload();
+                        location.reload();
                     })
                     .catch((err) => {
                         console.log(err.message);
