@@ -1,4 +1,4 @@
-<div class="flex items-center gap-5">
+<div class="flex items-center flex-wrap gap-5">
     <a href="{{ route('database.index') }}"
         class="inline-block border border-gray-400 hover:bg-gray-400 hover:text-white text-gray-500 px-4 py-2 rounded-lg text-sm"><i
             class="fa-solid fa-arrow-left"></i> Kembali</a>

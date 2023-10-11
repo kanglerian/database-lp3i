@@ -378,40 +378,36 @@ class ApplicantController extends Controller
      */
     public function chats($identity)
     {
-        // $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
 
-        // if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
-        //     if (Auth::user()->role == 'P') {
-        //         $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
-        //     } elseif (Auth::user()->role == 'A') {
-        //         $user = Applicant::where(['identity' => $identity])->firstOrFail();
-        //     }
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
+            }
 
-        // $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces');
+            $response = Http::timeout(30)->get('https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/' . $user->phone);
 
-            // $status = $response->status();
-            // dd($response->json());
-            // switch ($status) {
-            //     case 200:
-            //         $histories = $response->json();
-            //         break;
-            //     case 500:
-            //         return back()->with('error', 'Server belum dijalankan');
-            //         default:
-            //             dd('hey');
-            //             break;
+            $status = $response->status();
+            switch ($status) {
+                case 200:
+                    $histories = $response->json();
+                    break;
+                case 500:
+                    return back()->with('error', 'Server belum dijalankan');
 
-            // }
+            }
 
-            // return view('pages.database.show.chat')->with([
-            //     'user' => $user,
-            //     'histories' => $histories,
-            // ]);
-        // } else {
-        //     return back()->with('error', 'Tidak diizinkan.');
-        // }
-        return view('pages.database.show.check');
+            return view('pages.database.show.chat')->with([
+                'user' => $user,
+                'histories' => $histories,
+            ]);
+        } else {
+            return back()->with('error', 'Tidak diizinkan.');
+        }
+        return view('pages.database.show.chat');
     }
 
 
@@ -674,7 +670,6 @@ class ApplicantController extends Controller
     public function print($id)
     {
         $applicant = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
-        // dd($applicant->SchoolApplicant->name);
         $user = User::where('identity', $id)->firstOrFail();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
