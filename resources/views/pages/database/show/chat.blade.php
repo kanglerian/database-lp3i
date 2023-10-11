@@ -31,7 +31,8 @@
         @endif
     </div>
 
-    <div id="phone" data-phone="{{ $user->phone }}" class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
+    <div id="phone" data-phone="{{ $user->phone }}"
+        class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
         <div class="w-full">
             <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
                 <button type="button" data-modal-target="dataModal" onclick="dataModal(this)"
@@ -110,23 +111,13 @@
     const dataModal = (button) => {
         const modalTarget = button.dataset.modalTarget;
         let status = document.getElementById(modalTarget);
-        let url = "{{ route('histories.store') }}";
         document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
         document.getElementById('title').value = '';
         document.getElementById('date').value = '';
         document.getElementById('result').value = '';
         document.getElementById('report').value = '';
         document.getElementById('formButton').innerText = 'Simpan';
-        document.getElementById('formModal').setAttribute('action', url);
 
-        const elementsToRemove = document.querySelectorAll('[name="_method"]');
-        if (elementsToRemove.length > 0) {
-            elementsToRemove.forEach((element) => {
-                element.remove();
-            });
-        } else {
-            console.log("No elements found with the specified name.");
-        }
         status.classList.toggle('hidden');
     }
 
@@ -137,7 +128,6 @@
         const date = button.dataset.date;
         const result = button.dataset.result;
         const report = button.dataset.report;
-        let url = "{{ route('histories.update', ':id') }}".replace(':id', id);
         let status = document.getElementById(modalTarget);
         document.getElementById('title_form').innerText = `Edit Data Riwayat ${title}`;
         document.getElementById('title').value = title;
@@ -145,18 +135,6 @@
         document.getElementById('result').value = result;
         document.getElementById('report').value = report;
         document.getElementById('formButton').innerText = 'Simpan perubahan';
-        document.getElementById('formModal').setAttribute('action', url);
-        let csrfToken = document.createElement('input');
-        csrfToken.setAttribute('type', 'hidden');
-        csrfToken.setAttribute('name', '_token');
-        csrfToken.setAttribute('value', '{{ csrf_token() }}');
-        formModal.appendChild(csrfToken);
-
-        let methodInput = document.createElement('input');
-        methodInput.setAttribute('type', 'hidden');
-        methodInput.setAttribute('name', '_method');
-        methodInput.setAttribute('value', 'PATCH');
-        formModal.appendChild(methodInput);
 
         status.classList.toggle('hidden');
     }
@@ -176,6 +154,32 @@
             })
         }
     }
+    const formModal = document.getElementById('formModal');
+    formModal.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        const result = document.getElementById('result').value;
+        const report = document.getElementById('report').value;
+        const phone = document.getElementById('phone').getAttribute('data-phone');
+    })
+
+    const formData = {
+        title,
+        date,
+        result,
+        report,
+        phone,
+    };
+
+    try {
+        await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
+        .then((response) => {
+            alert('Histori ditambahkan');
+        })
+    } catch (error) {
+        console.error(error);
+    }
 </script>
 
 
@@ -193,15 +197,13 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <form method="POST" action="{{ route('histories.store') }}" id="formModal">
-                @csrf
+            <form method="POST" action="javascript:void(0)" id="formModal">
                 <div class="p-4 space-y-6">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900">Judul Riwayat</label>
                         <input type="text" id="title" name="title" placeholder="Isi judul riwayat disini.."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
-                        <input type="hidden" name="phone" value="{{ $user->phone }}">
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal</label>
@@ -224,7 +226,7 @@
                 <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
                     <button type="submit" id="formButton"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
-                    <button type="button" data-modal-target="dataModal" onclick="dataModal(this)"
+                    <button type="submit" data-modal-target="dataModal" onclick="dataModal(this)"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
                 </div>
             </form>
