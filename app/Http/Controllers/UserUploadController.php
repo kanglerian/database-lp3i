@@ -48,15 +48,6 @@ class UserUploadController extends Controller
             'typefile' => $request->berkas->extension(),
         ];
 
-        $encodedFile = base64_encode(file_get_contents($request->berkas->getPathName()));
-
-        $payload = [
-            'identity' => Auth::user()->identity,
-            'namefile' => $request->input('namefile'),
-            'typefile' => $request->berkas->extension(),
-            'image' => $encodedFile,
-        ];
-
         if ($data['fileupload_id'] == 1) {
             $file = FileUpload::findOrFail($request->input('fileupload_id'));
             $dataku = [
@@ -66,15 +57,7 @@ class UserUploadController extends Controller
             $user->update($dataku);
         }
 
-        $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
-        $status = $response->status();
-        switch ($status) {
-            case 200:
-                UserUpload::create($data);
-                return back()->with('message', 'Berkas berhasil ditambahkan!');
-            case 500:
-                return back()->with('error', 'Server belum dijalankan');
-        }
+        UserUpload::create($data);
 
     }
 
@@ -105,6 +88,7 @@ class UserUploadController extends Controller
             $success = FileUpload::whereIn('id', $data)->get();
             $fileupload = FileUpload::whereNotIn('id', $data)->get();
             return view('pages.userupload.index')->with([
+                'identity' => $identity,
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
                 'success' => $success,
@@ -137,12 +121,6 @@ class UserUploadController extends Controller
     {
         $user_upload = UserUpload::with('fileupload')->findOrFail($id);
 
-        $payload = [
-            'identity' => $user_upload->identity_user,
-            'namefile' => $user_upload->fileupload->namefile,
-            'typefile' => $user_upload->typefile,
-        ];
-
         if ($user_upload->fileupload->namefile == 'foto') {
             $dataku = [
                 'avatar' => null,
@@ -151,16 +129,17 @@ class UserUploadController extends Controller
             $user->update($dataku);
         }
 
-        $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/remove', $payload);
-
-        if ($response->successful()) {
-            $user_upload->delete();
-            session()->flash('message', 'Data berhasil dihapus');
-        } else {
-            $statusCode = $response->status();
-            session()->flash('error', 'Gagal menghapus data (Kode status: ' . $statusCode . ')');
-        }
+        $user_upload->delete();
         return response()->json(['status' => 'success']);
+
+        // $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/remove', $payload);
+
+        // if ($response->successful()) {
+        //     $user_upload->delete();
+        // } else {
+        //     $statusCode = $response->status();
+        //     session()->flash('error', 'Gagal menghapus data (Kode status: ' . $statusCode . ')');
+        // }
     }
 
     /**

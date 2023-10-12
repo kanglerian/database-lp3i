@@ -61,7 +61,7 @@
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button
-                                                onclick="event.preventDefault(); deleteRecord('{{ $suc->id }}')"
+                                                onclick="event.preventDefault(); deleteBerkas('{{ $suc->id }}','{{ $suc->fileupload->namefile }}', '{{ $suc->typefile }}', '{{ $suc->identity_user }}')"
                                                 class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -73,17 +73,20 @@
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
                                         <td class="w-1/2 md:w-1/3 px-6 py-4" colspan="2">
-                                            <form action="{{ route('userupload.store') }}"
-                                                enctype="multipart/form-data" class="inline-block" method="POST">
+                                            <form action="javascript:void(0)"
+                                                enctype="multipart/form-data" class="inline-block"
+                                                id="form-{{ $upload->namefile }}" method="POST">
                                                 @csrf
                                                 <div>
                                                     <input type="hidden" name="fileupload_id"
                                                         value="{{ $upload->id }}">
                                                     <input type="hidden" name="namefile"
                                                         value="{{ $upload->namefile }}">
-                                                    <input type="file" name="berkas" id="berkas" class="text-sm"
+                                                    <input type="file" name="berkas"
+                                                        id="berkas-{{ $upload->namefile }}" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
-                                                    <button type="submit"
+                                                    <button
+                                                        onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $identity }}')"
                                                         class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-upload"></i>
                                                     </button>
@@ -100,6 +103,76 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script>
+        const uploadBerkas = (id, namefile, identity) => {
+            let inputElement = document.getElementById(`berkas-${namefile}`);
+            let berkas = inputElement.files[0];
+
+            if (berkas) {
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    let data = {
+                        identity: identity,
+                        image: event.target.result,
+                        namefile: namefile,
+                        typefile: berkas.name.split('.').pop(),
+                    }
+                    await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload`, data)
+                        .then((res) => {
+                            console.log(res.data);
+                            // const form = document.getElementById(`form-${namefile}`);
+                            // if (form) {
+                            //     form.submit();
+                            // } else {
+                            //     console.error(`Form with id "form-${namefile}" not found.`);
+                            // }
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
+                };
+
+                reader.readAsDataURL(berkas);
+            }
+        }
+
+        const deleteBerkas = async (id, namefile, typefile, identity) => {
+            if (confirm(`Apakah kamu yakin akan menghapus data? ${id}`)) {
+                let data = {
+                    identity: identity,
+                    namefile: namefile,
+                }
+                $.ajax({
+                    url: `/userupload/${id}`,
+                    type: 'POST',
+                    data: {
+                        '_method': 'DELETE',
+                        '_token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            location.reload();
+                        } else {
+                            console.log('Ada kesalahan dalam permintaan.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+                // await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/remove`, data)
+                //     .then((res) => {
+                //         console.log(res.data);
+
+                //     })
+                //     .catch((err) => {
+                //         console.log(err.message);
+                //     });
+            }
+        }
+    </script>
+
 </x-app-layout>
 
 <script>
