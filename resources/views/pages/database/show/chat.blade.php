@@ -104,18 +104,18 @@
             let modalChat = document.getElementById('modalChat');
             switch (type) {
                 case 'add':
-                document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
-                document.getElementById('formButton').innerText = 'Simpan';
+                    document.getElementById('title_form').innerText = `Tambah Data Riwayat`;
+                    document.getElementById('formButton').innerText = 'Simpan';
+                    document.getElementById('title').value = '';
+                    document.getElementById('date').value = '';
+                    document.getElementById('result').value = '';
+                    document.getElementById('report').value = '';
                     break;
                 case 'update':
-                document.getElementById('title_form').innerText = `Ubah Data Riwayat`;
-                document.getElementById('formButton').innerText = 'Simpan Perubahan';
+                    document.getElementById('title_form').innerText = `Ubah Data Riwayat`;
+                    document.getElementById('formButton').innerText = 'Simpan Perubahan';
                     break;
             }
-            document.getElementById('title').value = '';
-            document.getElementById('date').value = '';
-            document.getElementById('result').value = '';
-            document.getElementById('report').value = '';
             modalChat.classList.toggle('hidden');
         }
 
@@ -139,13 +139,13 @@
             switch (type) {
                 case 'Simpan':
                     await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
-                    .then((res) => {
-                        alert('Berhasil disimpan!');
-                        location.reload();
-                    })
-                    .catch((err) => {
-                        console.log(err.message);
-                    });
+                        .then((res) => {
+                            alert('Berhasil disimpan!');
+                            location.reload();
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
                     break;
                 case 'Simpan Perubahan':
                     console.log('update');
