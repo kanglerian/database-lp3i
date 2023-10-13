@@ -76,8 +76,8 @@
                                 @foreach ($fileupload as $upload)
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
-                                        <td class="w-1/2 md:w-1/3 px-6 py-4" colspan="2" id="loading-form">
-                                            <form action="javascript:void(0)" class="upload-form" enctype="multipart/form-data"
+                                        <td class="loading-form w-1/2 md:w-1/3 px-6 py-4" colspan="2">
+                                            <form action="javascript:void(0)" enctype="multipart/form-data"
                                                 class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
                                                 @csrf
                                                 <div>
@@ -113,6 +113,7 @@
             let uploadForm = document.querySelector('.upload-form');
             let loadingForm = document.querySelector('.loading-form');
             let loadingElement = document.createElement('p');
+
             loadingElement.textContent = 'Loading...';
             uploadForm.style.display = 'none';
             loadingForm.appendChild(loadingElement);
