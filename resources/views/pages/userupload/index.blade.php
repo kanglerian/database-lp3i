@@ -59,7 +59,7 @@
                                                         value="{{ $upload->id }}">
                                                     <input type="hidden" name="namefile"
                                                         value="{{ $upload->namefile }}">
-                                                    <input type="file" name="berkas"
+                                                    <input type="file" name="berkas" onchange="notifButton('{{ $upload->namefile }}')"
                                                         id="berkas-{{ $upload->namefile }}" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
                                                     <button id="button-{{ $upload->namefile }}"
@@ -82,6 +82,16 @@
     </div>
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
+        const notifButton = (namefile) => {
+            let inputElement = document.getElementById(`berkas-${namefile}`);
+            let buttonElement = document.getElementById(`button-${namefile}`);
+
+            if (inputElement.files.length > 0) {
+                buttonElement.classList.remove('hidden');
+            } else {
+                buttonElement.classList.add('hidden');
+            }
+        }
         const uploadBerkas = (id, namefile, identity) => {
             let inputElement = document.getElementById(`berkas-${namefile}`);
             let buttonElement = document.getElementById(`button-${namefile}`);
