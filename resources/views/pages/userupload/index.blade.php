@@ -78,7 +78,7 @@
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
                                         <td class="loading-form w-1/2 md:w-1/3 px-6 py-4" colspan="2">
                                             <form action="javascript:void(0)" enctype="multipart/form-data"
-                                                class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
+                                                class="upload-form inline-block" id="form-{{ $upload->namefile }}" method="POST">
                                                 @csrf
                                                 <div>
                                                     <input type="hidden" name="fileupload_id"
