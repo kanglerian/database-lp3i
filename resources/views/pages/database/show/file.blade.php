@@ -58,7 +58,7 @@
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
                                         <td class="px-6 py-4">
-                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $suc->identity_user }}/{{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
+                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button
