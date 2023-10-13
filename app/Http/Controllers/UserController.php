@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $usersQuery = User::query();
 
-        if(Auth::user()->role == 'P'){
+        if (Auth::user()->role == 'P') {
             $usersQuery->where('role', 'S');
         }
 
@@ -77,31 +77,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'email', 'unique:users', 'max:255'],
-                'phone' => ['string', 'unique:users', 'max:15'],
-                'role' => ['string', 'not_in:Pilih peran'],
-                'status' => ['string', 'not_in:Pilih status'],
-                'password' => ['required', 'min:8', 'confirmed'],
-            ]);
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users', 'max:255'],
+            'phone' => ['string', 'unique:users', 'max:15'],
+            'role' => ['string', 'not_in:Pilih peran'],
+            'status' => ['string', 'not_in:Pilih status'],
+            'password' => ['required', 'min:8', 'confirmed'],
+        ]);
 
-            $data = [
-                'identity' => mt_rand(1, 1000000000),
-                'name' => ucwords(strtolower($request->input('name'))),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'password' => Hash::make($request->input('password')),
-                'role' => $request->input('role'),
-                'status' => $request->input('status'),
-            ];
-            User::create($data);
-            return back()->with('message', 'Akun berhasil ditambahkan!');
-        } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
-        }
+        $data = [
+            'identity' => mt_rand(1, 1000000000),
+            'name' => ucwords(strtolower($request->input('name'))),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => Hash::make($request->input('password')),
+            'role' => $request->input('role'),
+            'status' => $request->input('status'),
+        ];
+        User::create($data);
+        return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**
@@ -214,7 +209,7 @@ class UserController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
         $schoolCheck = School::where('id', $request->input('school'))->first();
 
-        if($schoolCheck){
+        if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
             $dataSchool = [
@@ -369,7 +364,7 @@ class UserController extends Controller
             'applicant' => $applicant,
             'father' => $father,
             'mother' => $mother,
-            'user' => $user
+            'user' => $user,
         ]);
     }
 

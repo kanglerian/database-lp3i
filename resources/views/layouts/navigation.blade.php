@@ -17,11 +17,18 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
-                        <x-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'database.chats', 'database.files'])">
+                        <x-nav-link :href="route('database.index')" :active="request()->routeIs([
+                            'database.index',
+                            'database.create',
+                            'database.edit',
+                            'database.show',
+                            'database.chats',
+                            'database.files',
+                        ])">
                             {{ __('Database') }}
                         </x-nav-link>
                     @endif
-                    @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A'))
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                         <x-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
                             {{ __('Sekolah') }}
                         </x-nav-link>
@@ -37,7 +44,12 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs(['setting.index', 'setting.create', 'setting.edit', 'setting.show'])">
+                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs([
+                            'setting.index',
+                            'setting.create',
+                            'setting.edit',
+                            'setting.show',
+                        ])">
                             {{ __('Pengaturan') }}
                         </x-nav-link>
                     @endif
@@ -56,8 +68,7 @@
                         <button
                             class="flex gap-3 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ Auth::user()->identity }}/{{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
-                                    alt="Avatar" class="h-8 rounded-full">
+                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}" alt="Avatar" class="h-8 rounded-full">
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
                             @endif
@@ -125,11 +136,17 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs(['database.index', 'database.create', 'database.edit', 'database.show', 'histories.show'])">
+                <x-responsive-nav-link :href="route('database.index')" :active="request()->routeIs([
+                    'database.index',
+                    'database.create',
+                    'database.edit',
+                    'database.show',
+                    'histories.show',
+                ])">
                     {{ __('Database') }}
                 </x-responsive-nav-link>
             @endif
-            @if ((Auth::check() && Auth::user()->status == '1') && Auth::user()->role == 'A')
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
                     {{ __('Sekolah') }}
                 </x-responsive-nav-link>

@@ -38,26 +38,27 @@ class UserUploadController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'berkas' => 'required|max:1024',
-        ]);
+
+        $berkas = $request->all();
 
         $data = [
             'identity_user' => Auth::user()->identity,
-            'fileupload_id' => $request->input('fileupload_id'),
-            'typefile' => $request->berkas->extension(),
+            'fileupload_id' => $berkas['data']['fileupload_id'],
+            'typefile' => $berkas['data']['typefile'],
         ];
 
         if ($data['fileupload_id'] == 1) {
-            $file = FileUpload::findOrFail($request->input('fileupload_id'));
+            $file = FileUpload::findOrFail($data['fileupload_id']);
             $dataku = [
-                'avatar' => $file->namefile . '.' . $request->berkas->extension(),
+                'avatar' => $file->namefile . '.' . $data['typefile'],
             ];
             $user = User::findOrFail(Auth::user()->id);
             $user->update($dataku);
         }
 
         UserUpload::create($data);
+        return response()->json(['status' => 'success', 'data' => $user]);
+
 
     }
 
@@ -131,15 +132,6 @@ class UserUploadController extends Controller
 
         $user_upload->delete();
         return response()->json(['status' => 'success']);
-
-        // $response = Http::delete('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/remove', $payload);
-
-        // if ($response->successful()) {
-        //     $user_upload->delete();
-        // } else {
-        //     $statusCode = $response->status();
-        //     session()->flash('error', 'Gagal menghapus data (Kode status: ' . $statusCode . ')');
-        // }
     }
 
     /**
