@@ -49,10 +49,10 @@
                                 @foreach ($fileupload as $upload)
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
-                                        <td class="loading-form w-1/2 md:w-1/3 px-6 py-4" colspan="2" id="loading-form-{{ $upload->namefile }}">
+                                        <td class="loading-form w-1/2 md:w-1/3 px-6 py-4" colspan="2"
+                                            id="loading-form-{{ $upload->namefile }}">
                                             <form action="javascript:void(0)" enctype="multipart/form-data"
-                                                class="inline-block" id="form-{{ $upload->namefile }}"
-                                                method="POST">
+                                                class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
                                                 @csrf
                                                 <div>
                                                     <input type="hidden" name="fileupload_id"
@@ -62,9 +62,9 @@
                                                     <input type="file" name="berkas"
                                                         id="berkas-{{ $upload->namefile }}" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
-                                                    <button
+                                                    <button id="button-{{ $upload->namefile }}"
                                                         onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $identity }}')"
-                                                        class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="hidden inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-upload"></i>
                                                     </button>
                                                 </div>
@@ -84,6 +84,16 @@
     <script>
         const uploadBerkas = (id, namefile, identity) => {
             let inputElement = document.getElementById(`berkas-${namefile}`);
+            let buttonElement = document.getElementById(`button-${namefile}`);
+
+            inputElement.addEventListener('change', function() {
+                if (inputElement.files.length > 0) {
+                    buttonElement.classList.remove('hidden');
+                } else {
+                    newButton.classList.add('hidden');
+                }
+            });
+
             let uploadForm = document.getElementById(`form-${namefile}`);
             let loadingForm = document.getElementById(`loading-form-${namefile}`);
             let loadingElement = document.createElement('div');
