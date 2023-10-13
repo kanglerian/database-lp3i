@@ -7,9 +7,9 @@
                 class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                 <option value="all">Pilih</option>
                 <option value="database">Database</option>
+                <option value="aplikan">Aplikan</option>
                 <option value="daftar">Daftar</option>
                 <option value="registrasi">Registrasi</option>
-                <option value="aplikan">Aplikan</option>
             </select>
         </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">

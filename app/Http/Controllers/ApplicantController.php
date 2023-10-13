@@ -103,17 +103,11 @@ class ApplicantController extends Controller
                     break;
                 case 'aplikan':
                     $applicantsQuery->where('is_applicant', 1);
-                    $applicantsQuery->where('is_daftar', 0);
-                    $applicantsQuery->where('is_register', 0);
                     break;
                 case 'daftar':
-                    $applicantsQuery->where('is_applicant', 1);
                     $applicantsQuery->where('is_daftar', 1);
-                    $applicantsQuery->where('is_register', 0);
                     break;
                 case 'registrasi':
-                    $applicantsQuery->where('is_applicant', 1);
-                    $applicantsQuery->where('is_daftar', 1);
                     $applicantsQuery->where('is_register', 1);
                     break;
             }
