@@ -34,6 +34,7 @@
                 <select id="identity_user" onchange="changeFilter()"
                     class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                     <option value="all">Pilih presenter</option>
+                    <option value="6281313608558">Administrator</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->identity }}">{{ $user->name }}</option>
                     @endforeach

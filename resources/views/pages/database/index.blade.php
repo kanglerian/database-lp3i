@@ -106,14 +106,13 @@
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex gap-2">
                     @if ($nopresenter > 0)
-                        <button class="relative" onclick="changeFilter()">
-                            <input type="hidden" id="database_online" value="6281313608558">
+                        <div class="relative">
                             @if (Auth::user()->role == 'A')
                                 <span
                                     class="flex items-center justify-center right-[25px] top-[-10px] absolute bg-red-500 text-white w-4 h-4 rounded-xl text-[9px]">{{ $nopresenter }}</span>
                                 <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
                             @endif
-                        </button>
+                        </div>
                     @else
                         <input type="hidden" id="database_online" value="all">
                     @endif

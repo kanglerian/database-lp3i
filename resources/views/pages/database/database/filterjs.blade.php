@@ -51,7 +51,6 @@
         let relationVal = document.getElementById('change_relation').value || 'all';
         let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
         let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
-        let databaseOnline = document.getElementById('database_online').value || 'all';
         let statusApplicant = document.getElementById('change_applicant').value || 'all';
 
         if (statusApplicant !== 'all') {
@@ -114,10 +113,6 @@
         if (majorVal !== 'all') {
             queryParams.push(`majorVal=${majorVal}`);
         }
-        if (databaseOnline !== 'all') {
-            queryParams.push(`databaseOnline=${databaseOnline}`);
-        }
-
         let queryString = queryParams.join('&');
 
         urlData = `get/databases?${queryString}`;

@@ -190,7 +190,7 @@
                     <div class="relative z-0 w-full group mb-4">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
-                            <option value="0">Pilih Sekolah</option>
+                            <option value="TIDAK DIKETAHUI">Pilih Sekolah</option>
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
