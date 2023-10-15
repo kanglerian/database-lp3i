@@ -44,7 +44,6 @@ class ApplicantController extends Controller
                 'source_id' => 1,
                 'status_id' => 1,
                 'followup_id' => 1,
-                'come' => 0,
                 'isread' => '0',
             ];
 

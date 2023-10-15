@@ -416,9 +416,8 @@
         let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
         let schoolVal = selectedSchoolOption.innerText || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
-        console.log(schoolVal, majorVal);
         dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name.replace(/[\s-]/g, '') : null;
             let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
             content +=
                 `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
@@ -437,9 +436,8 @@
         let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
         let schoolVal = selectedSchoolOption.innerText || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
-        console.log(schoolVal, majorVal);
         dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant.name.replace(/[\s-]/g, '');
+            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name.replace(/[\s-]/g, '') : null;
             let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
             content +=
                 `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
