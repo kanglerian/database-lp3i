@@ -501,6 +501,7 @@ class ApplicantController extends Controller
             'status_id' => ['required', 'not_in:0'],
             'followup_id' => ['not_in:null'],
             'program' => ['required', 'string', 'not_in:0'],
+            // 'school' => ['not_in:0'],
             'identity_user' => ['required', 'string', 'not_in:0'],
         ]);
 
@@ -525,15 +526,20 @@ class ApplicantController extends Controller
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
         $schoolCheck = School::where('id', $request->input('school'))->first();
 
+
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            $dataSchool = [
-                'name' => strtoupper($request->input('school')),
-                'region' => 'TIDAK DIKETAHUI',
-            ];
-            $school = School::create($dataSchool);
-            $school = $school->id;
+            if(strlen($request->input('school')) < 7){
+                $school = null;
+            } else {
+                $dataSchool = [
+                    'name' => strtoupper($request->input('school')),
+                    'region' => 'TIDAK DIKETAHUI',
+                ];
+                $school = School::create($dataSchool);
+                $school = $school->id;
+            }
         }
 
         $data = [

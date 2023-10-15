@@ -172,8 +172,7 @@
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             @if ($applicant->school)
-                                <option value="{{ $applicant->SchoolApplicant->id }}">
-                                    {{ $applicant->SchoolApplicant->name }}</option>
+                                <option value="{{ $applicant->SchoolApplicant->name }}">{{ $applicant->SchoolApplicant->name }}</option>
                             @else
                                 <option value="0">Pilih Sekolah</option>
                             @endif
