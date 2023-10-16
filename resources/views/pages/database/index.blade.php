@@ -330,6 +330,9 @@
             dataApplicants = data.applicants;
             dataTableInstance = $('#myTable').DataTable(dataTableConfig);
             dataTableInitialized = true;
+            setTimeout(() => {
+                changeFilter();
+            }, 2000);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -415,7 +418,8 @@
         let schoolVal = selectedSchoolOption.innerText || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
         dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name.replace(/[\s-]/g, '') : null;
+            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+                .replace(/[\s-]/g, '') : null;
             let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
             content +=
                 `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
@@ -435,7 +439,8 @@
         let schoolVal = selectedSchoolOption.innerText || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
         dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name.replace(/[\s-]/g, '') : null;
+            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+                .replace(/[\s-]/g, '') : null;
             let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
             content +=
                 `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`

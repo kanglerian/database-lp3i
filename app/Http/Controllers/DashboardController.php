@@ -49,6 +49,42 @@ class DashboardController extends Controller
             'daftarCount' => $daftarCount,
         ]);
     }
+/**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_all()
+    {
+        $databaseQuery = Applicant::query();
+        $applicantQuery = Applicant::query();
+        $daftarQuery = Applicant::query();
+        $registrasiQuery = Applicant::query();
+
+        $pmbVal = request('pmbVal', 'all');
+
+        if (Auth::user()->role === 'P') {
+            $databaseQuery->where('identity_user', Auth::user()->identity);
+            $applicantQuery->where('identity_user', Auth::user()->identity);
+            $daftarQuery->where('identity_user', Auth::user()->identity);
+            $registrasiQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        // if ($pmbVal !== 'all') {
+            $databaseQuery->where('pmb', $pmbVal);
+            $applicantQuery->where('pmb', $pmbVal);
+            $daftarQuery->where('pmb', $pmbVal);
+            $registrasiQuery->where('pmb', $pmbVal);
+        // }
+
+        $databaseCount = $databaseQuery->count();
+        $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
+        $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
+        $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
+
+        return response()->json(['pmb' => $pmbVal,'database_count' => $databaseCount,'applicant_count' => $applicantCount,'daftar_count' => $daftarCount, 'registrasi_count' => $registrasiCount]);
+    }
 
     /**
      * Display the specified resource.

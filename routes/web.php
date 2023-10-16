@@ -38,6 +38,8 @@ Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.g
 
 Route::post('import/schools', [SchoolController::class, 'import'])->middleware(['auth','status:1','role:A'])->name('school.import');
 
+Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all')->middleware(['auth','status:1']);
+
 Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
 Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget')->middleware(['auth','status:1']);
 

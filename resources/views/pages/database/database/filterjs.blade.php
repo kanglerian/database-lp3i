@@ -1,4 +1,14 @@
 <script>
+    const getYearPMB = () => {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+        document.getElementById('change_pmb').value = startYear;
+    }
+    getYearPMB();
+</script>
+<script>
     var urlData = 'get/databases';
     var urlExcel = 'applicants/export';
 
@@ -29,9 +39,7 @@
 
     const changeFilter = () => {
         showLoadingAnimation();
-
         let queryParams = [];
-        // Filter
         let dateStart = document.getElementById('date_start').value || 'all';
         let dateEnd = document.getElementById('date_end').value || 'all';
         let yearGrad = document.getElementById('year_grad').value || 'all';

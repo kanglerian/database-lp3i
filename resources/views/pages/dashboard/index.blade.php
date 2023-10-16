@@ -145,6 +145,7 @@
     @if (Auth::user()->role !== 'S')
         <div class="py-5">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                {{-- <input type="text" id="change_pmb" placeholder="PMB" onchange="changeFilter()"> --}}
                 <div class="flex flex-wrap">
                     <div class="block w-1/2 md:w-1/4 p-1">
                         <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
@@ -152,34 +153,38 @@
                                 <i class="fa-solid fa-database mr-1"></i>
                                 <span class="text-sm">Database</span>
                             </h4>
-                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
+                            <span
+                                class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
                         </div>
                     </div>
                     <div class="block w-1/2 md:w-1/4 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                        <div class="flex justify-between items-center px-5 py-3 bg-amber-500 text-white rounded-xl">
                             <h4>
                                 <i class="fa-solid fa-database mr-1"></i>
                                 <span class="text-sm">Aplikan</span>
                             </h4>
-                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
+                            <span
+                                class="bg-amber-600 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
                         </div>
                     </div>
                     <div class="block w-1/2 md:w-1/4 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                        <div class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
                             <h4>
                                 <i class="fa-solid fa-database mr-1"></i>
                                 <span class="text-sm">Daftar</span>
                             </h4>
-                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
+                            <span
+                                class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
                         </div>
                     </div>
                     <div class="block w-1/2 md:w-1/4 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                        <div class="flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
                             <h4>
                                 <i class="fa-solid fa-database mr-1"></i>
                                 <span class="text-sm">Registrasi</span>
                             </h4>
-                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $registrasiCount }}</span>
+                            <span
+                                class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg">{{ $registrasiCount }}</span>
                         </div>
                     </div>
                 </div>
@@ -212,6 +217,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var urlDataDashboard = 'get/dashboard/all'
+    const getAll = async () => {
+        await axios.get(urlDataDashboard)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+    getAll();
+
+    const changeFilter = () => {
+        let queryParams = [];
+        let pmbVal = document.getElementById('change_pmb').value || 'all';
+        if (pmbVal !== 'all') {
+            queryParams.push(`pmbVal=${pmbVal}`);
+        }
+        let queryString = queryParams.join('&');
+        urlData = `get/dashboard/all?${queryString}`;
+        getAll();
+    }
+
+</script>
 <script>
     const getSource = async () => {
         let data;
