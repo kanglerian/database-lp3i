@@ -115,12 +115,16 @@ class RegisteredUserController extends Controller
         if($schoolCheck){
             $school = $schoolCheck->id;
         } else {
-            $dataSchool = [
-                'name' => strtoupper($request->input('school')),
-                'region' => 'TIDAK DIKETAHUI',
-            ];
-            $school = School::create($dataSchool);
-            $school = $school->id;
+            if($request->input('school') == 'TIDAK DIKETAHUI'){
+                $school = null;
+            } else {
+                $dataSchool = [
+                    'name' => strtoupper($request->input('school')),
+                    'region' => 'TIDAK DIKETAHUI',
+                ];
+                $school = School::create($dataSchool);
+                $school = $school->id;
+            }
         }
 
         $data_applicant = [
