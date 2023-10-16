@@ -266,7 +266,7 @@ class ApplicantController extends Controller
             if ($schoolCheck) {
                 $school = $schoolCheck->id;
             } else {
-                if($request->input('school') == 'TIDAK DIKETAHUI'){
+                if ($request->input('school') == 'TIDAK DIKETAHUI') {
                     $school = null;
                 } else {
                     $dataSchool = [
@@ -534,7 +534,7 @@ class ApplicantController extends Controller
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if(strlen($request->input('school')) < 7){
+            if (strlen($request->input('school')) < 7) {
                 $school = null;
             } else {
                 $dataSchool = [
@@ -936,6 +936,7 @@ class ApplicantController extends Controller
             $this->studentsHandle('YANTI', '6281220662033');
             $this->studentsHandle('HARLI', '6282127951392');
             $this->studentsHandle('DYANA', '6281947776090');
+            $this->studentsHandle('INDRI', '6282219509698');
             return back()->with('message', 'Database berhasil diupdate dari semua Presenter.');
         } else {
             switch (Auth::user()->identity) {
@@ -961,6 +962,10 @@ class ApplicantController extends Controller
                     break;
                 case '6281947776090':
                     $this->studentsHandle('DYANA', '6281947776090');
+                    return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
+                    break;
+                case '6282219509698':
+                    $this->studentsHandle('INDRI', '6282219509698');
                     return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
                     break;
                 case '6281286501015':

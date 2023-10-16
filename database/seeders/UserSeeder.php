@@ -29,6 +29,17 @@ class UserSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'identity' => 6282219509698,
+                'name' => 'Indri Fitrianasari, S.Kom',
+                'email' => 'indri.lp3i@gmail.com',
+                'password' => Hash::make('indri123'),
+                'phone' => '6282219509698',
+                'role' => 'P',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
                 'identity' => 6282215614238,
                 'name' => 'Nurul Ahyar, S.Sos',
                 'email' => 'ahyar.lp3i@gmail.com',
