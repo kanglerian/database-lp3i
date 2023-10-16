@@ -34,32 +34,40 @@ class ApplicantController extends Controller
             ]);
             $numbers_unique = mt_rand(1, 100000000000000);
 
-            $data = [
-                'identity' => $numbers_unique,
-                'name' => ucwords(strtolower($request->input('name'))),
-                'phone' => strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone'),
-                'pmb' => $request->input('pmb'),
-                'programtype_id' => $request->input('programtype_id'),
-                'identity_user' => '6281313608558',
-                'source_id' => 1,
-                'status_id' => 1,
-                'followup_id' => 1,
-            ];
+            $number_phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
-            $data_father = [
-                'identity_user' => $numbers_unique,
-                'gender' => 1,
-            ];
-            $data_mother = [
-                'identity_user' => $numbers_unique,
-                'gender' => 0,
-            ];
+            $check_number = Applicant::where('phone', $number_phone)->first();
+            if($check_number){
+                return response()->json(['status' => true,'message' => 'ada']);
+            } else {
+                $data = [
+                    'identity' => $numbers_unique,
+                    'name' => ucwords(strtolower($request->input('name'))),
+                    'phone' => $number_phone,
+                    'pmb' => $request->input('pmb'),
+                    'programtype_id' => $request->input('programtype_id'),
+                    'identity_user' => '6281313608558',
+                    'source_id' => 1,
+                    'status_id' => 1,
+                    'followup_id' => 1,
+                ];
 
-            Applicant::create($data);
-            ApplicantFamily::create($data_father);
-            ApplicantFamily::create($data_mother);
+                $data_father = [
+                    'identity_user' => $numbers_unique,
+                    'gender' => 1,
+                ];
+                $data_mother = [
+                    'identity_user' => $numbers_unique,
+                    'gender' => 0,
+                ];
 
-            return response()->json(['message' => 'Terima kasih telah mengisi form. tunggu sampai bidang terkait menghubungimu ya']);
+                Applicant::create($data);
+                ApplicantFamily::create($data_father);
+                ApplicantFamily::create($data_mother);
+
+                return response()->json(['status' => false,'message' => 'Terima kasih telah mengisi form. tunggu sampai bidang terkait menghubungimu ya']);
+            }
+
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }

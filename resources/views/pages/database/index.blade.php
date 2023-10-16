@@ -327,7 +327,6 @@
         try {
             const response = await fetch(urlData);
             const data = await response.json();
-            // Tampilkan data applicants di console
             dataApplicants = data.applicants;
             dataTableInstance = $('#myTable').DataTable(dataTableConfig);
             dataTableInitialized = true;
