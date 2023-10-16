@@ -38,7 +38,7 @@ class ApplicantController extends Controller
 
             $check_number = Applicant::where('phone', $number_phone)->first();
             if($check_number){
-                return response()->json(['status' => true,'message' => 'ada']);
+                return response()->json(['status' => true, 'message' => 'ada', 'data' => $check_number]);
             } else {
                 $data = [
                     'identity' => $numbers_unique,
