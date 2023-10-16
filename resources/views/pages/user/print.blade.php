@@ -340,7 +340,7 @@
             <header style="display: flex; justify-content: start; align-items: start">
                 <div>
                     <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
-                    <h2>FORMULIR PENDAFTARAN MAHASISWA BARU T.A _______/_______</h2>
+                    <h2>FORMULIR PENDAFTARAN MAHASISWA BARU T.A {{ $applicant->pmb }}/{{ $applicant->pmb + 1 }}</h2>
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
                 </div>
             </header>
