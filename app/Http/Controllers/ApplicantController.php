@@ -937,6 +937,7 @@ class ApplicantController extends Controller
             $this->studentsHandle('HARLI', '6282127951392');
             $this->studentsHandle('DYANA', '6281947776090');
             $this->studentsHandle('INDRI', '6282219509698');
+            $this->studentsHandle('ARIP', '6282211780631');
             return back()->with('message', 'Database berhasil diupdate dari semua Presenter.');
         } else {
             switch (Auth::user()->identity) {
@@ -966,6 +967,10 @@ class ApplicantController extends Controller
                     break;
                 case '6282219509698':
                     $this->studentsHandle('INDRI', '6282219509698');
+                    return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
+                    break;
+                case '6282211780631':
+                    $this->studentsHandle('ARIP', '6282211780631');
                     return back()->with('message', 'Database ' . Auth::user()->name . ' berhasil diupdate.');
                     break;
                 case '6281286501015':
