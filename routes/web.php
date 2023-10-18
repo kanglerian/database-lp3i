@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthenticationJWT;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;

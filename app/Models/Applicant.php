@@ -36,6 +36,8 @@ class Applicant extends Model
         'year',
         'achievement',
         'kip',
+       'nisn',
+        'schoolarship',
 
         'note',
         'relation',
