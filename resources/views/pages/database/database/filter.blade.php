@@ -16,6 +16,7 @@
                 <option value="aplikan">Aplikan</option>
                 <option value="daftar">Daftar</option>
                 <option value="registrasi">Registrasi</option>
+                <option value="schoolarship">Beasiswa</option>
             </select>
         </div>
         <div class="w-1/2 space-y-1 p-1 md:p-0">

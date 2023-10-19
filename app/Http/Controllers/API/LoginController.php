@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,12 +18,12 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function login(Request $request)
+    public function login(Request $request)
     {
         //set validation
         $validator = Validator::make($request->all(), [
-            'email'     => 'required',
-            'password'  => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -31,24 +32,33 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if(!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email atau Password Anda salah'
             ], 401);
         }
 
-        $data = auth()->user();
-        $user = User::where('identity', $data->identity)->first();
-        $user->update([
-            'token' => $token
-        ]);
+        $check_beasiswa = Applicant::where('email', $credentials['email'])->first();
 
-        return response()->json([
-            'success' => true,
-            'user'    => auth()->user(),
-            'token'   => $token,
-            'check' => $user,
-        ], 200);
+        if ($check_beasiswa->schoolarship == '0') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Maaf, Anda tidak memenuhi syarat untuk masuk. Hanya penerima beasiswa yang diizinkan.'
+            ], 401);
+        } else {
+            $data = auth()->user();
+            $user = User::where('identity', $data->identity)->first();
+            $user->update([
+                'token' => $token
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'user' => auth()->user(),
+                'token' => $token,
+                'check' => $user,
+            ], 200);
+        }
     }
 }

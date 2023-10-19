@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ApplicantsImport;
 use App\Imports\ApplicantUpdateImport;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 use App\Models\FollowUp;
 use App\Models\School;
@@ -109,6 +107,9 @@ class ApplicantController extends Controller
                     break;
                 case 'registrasi':
                     $applicantsQuery->where('is_register', 1);
+                    break;
+                case 'schoolarship':
+                    $applicantsQuery->where('schoolarship', 1);
                     break;
             }
         }
@@ -505,7 +506,6 @@ class ApplicantController extends Controller
             'status_id' => ['required', 'not_in:0'],
             'followup_id' => ['not_in:null'],
             'program' => ['required', 'string', 'not_in:0'],
-            // 'school' => ['not_in:0'],
             'identity_user' => ['required', 'string', 'not_in:0'],
         ]);
 
@@ -888,7 +888,7 @@ class ApplicantController extends Controller
                             if ($studentData->is_applicant == 0) {
                                 $studentPhone = Applicant::where('phone', $phone)->first();
                                 if ($studentPhone) {
-                                    if ($studentPhone->is_applicant == 0 && $studentPhone->is_daftar == 0 && $studentPhone->is_register == 0) {
+                                    if ($studentPhone->is_applicant == 0 && $studentPhone->is_daftar == 0 && $studentPhone->is_register == 0 && $studentPhone->schoolarship == 0) {
                                         $samePhone = true;
                                         $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $address, $create_father, $create_mother, $samePhone);
                                     }
@@ -1045,6 +1045,23 @@ class ApplicantController extends Controller
             'is_register' => $applicant->is_register == 1 ? 0 : 1,
             'is_daftar' => $applicant->is_register == 1 ? 0 : 1,
             'is_applicant' => $applicant->is_register == 1 ? 0 : 1,
+        ];
+        $applicant->update($data);
+        return back()->with('message', 'Data aplikan berhasil diupdate');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function is_schoolarship(Request $request, $id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data = [
+            'schoolarship' => $applicant->schoolarship == 1 ? 0 : 1,
         ];
         $applicant->update($data);
         return back()->with('message', 'Data aplikan berhasil diupdate');

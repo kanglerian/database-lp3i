@@ -29,6 +29,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/user/get', [UserController::class,'get_user'])->name('users.get');
+Route::patch('/user/update/{identity}', [UserController::class,'update'])->name('users.update');
+Route::patch('/user/updatefamily/{identity}', [UserController::class,'update_family'])->name('users.updatefamily');
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
@@ -38,3 +40,4 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
+

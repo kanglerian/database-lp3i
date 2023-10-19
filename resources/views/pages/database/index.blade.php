@@ -255,7 +255,8 @@
                         status: 'applicant_status',
                         is_applicant: 'is_applicant',
                         is_register: 'is_register',
-                        is_daftar: 'is_daftar'
+                        is_daftar: 'is_daftar',
+                        schoolarship: 'schoolarship',
                     },
                     render: (data, type, row) => {
                         return `
@@ -263,6 +264,7 @@
                             <span class="text-[17px] ${data.is_applicant == 1 ? 'text-yellow-500' : 'text-gray-300'}"><i class="fa-solid fa-file-lines"></i></span>
                             <span class="text-[18px] ${data.is_daftar == 1 ? 'text-sky-500' : 'text-gray-300'}"><i class="fa-solid fa-id-badge"></i></span>
                             <span class="text-[15px] ${data.is_register == 1 ? 'text-emerald-500' : 'text-gray-300'}"><i class="fa-solid fa-user-check"></i></span>
+                            <span class="text-[15px] ${data.schoolarship == 1 ? 'text-cyan-500' : 'text-gray-300'}"><i class="fa-solid fa-graduation-cap"></i></span>
                         </div>
                         `;
                     }
