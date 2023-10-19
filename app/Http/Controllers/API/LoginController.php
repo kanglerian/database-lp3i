@@ -25,12 +25,10 @@ class LoginController extends Controller
             'password'  => 'required'
         ]);
 
-        //if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        //get credentials from request
         $credentials = $request->only('email', 'password');
 
         if(!$token = JWTAuth::attempt($credentials)) {
@@ -46,7 +44,6 @@ class LoginController extends Controller
             'token' => $token
         ]);
 
-        //if auth success
         return response()->json([
             'success' => true,
             'user'    => auth()->user(),

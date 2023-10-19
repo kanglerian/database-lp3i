@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
@@ -36,3 +37,4 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
