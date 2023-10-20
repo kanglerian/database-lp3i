@@ -6,6 +6,7 @@ use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\SchoolController;
+use App\Http\Controllers\API\UserUploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
@@ -36,6 +37,9 @@ Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'
 
 Route::post('/achievement', [AchievementController::class, 'store'])->name('achievements.api.store');
 Route::delete('/achievement/{id}', [AchievementController::class, 'destroy'])->name('achievements.api.destroy');
+
+Route::post('/userupload', [UserUploadController::class, 'store'])->name('useruploads.api.store');
+Route::delete('/userupload/{id}', [UserUploadController::class, 'destroy'])->name('useruploads.api.destroy');
 
 Route::post('/organization', [OrganizationController::class, 'store'])->name('organizations.api.store');
 Route::delete('/organization/{id}', [OrganizationController::class, 'destroy'])->name('organizations.api.destroy');

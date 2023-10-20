@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use App\Models\Applicant;
 use App\Models\ApplicantFamily;
+use App\Models\FileUpload;
 use App\Models\Organization;
 use App\Models\School;
+use App\Models\UserUpload;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -36,12 +38,22 @@ class UserController extends Controller
         $applicant = Applicant::where('identity', $user->identity)->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->firstOrFail();
         $achievements = Achievement::where('identity_user', $user->identity)->get();
         $organizations = Organization::where('identity_user', $user->identity)->get();
+        $userupload = UserUpload::with('fileupload')->where('identity_user', $identity)->get();
+        $data = [];
+        foreach ($userupload as $upload) {
+            $data[] = $upload->fileupload_id;
+        }
+        $fileuploaded = FileUpload::whereIn('id', $data)->get();
+        $fileupload = FileUpload::whereNotIn('id', $data)->get();
         return response()->json([
             'success' => true,
             'user' => $user,
             'applicant' => $applicant,
             'achievements' => $achievements,
             'organizations' => $organizations,
+            'userupload' => $userupload,
+            'fileupload' => $fileupload,
+            'fileuploaded' => $fileuploaded,
         ], 201);
     }
 
@@ -102,7 +114,7 @@ class UserController extends Controller
 
         $applicant->update($data);
 
-        return response()->json(['success' => true,  'message' => 'Biodata sudah diupdate.']);
+        return response()->json(['success' => true, 'message' => 'Biodata sudah diupdate.']);
     }
 
     public function update_family(Request $request, $id)
@@ -131,6 +143,6 @@ class UserController extends Controller
         $father->update($data_father);
         $mother->update($data_mother);
 
-        return response()->json(['success' => true,  'message' => 'Biodata sudah diupdate.']);
+        return response()->json(['success' => true, 'message' => 'Biodata sudah diupdate.']);
     }
 }
