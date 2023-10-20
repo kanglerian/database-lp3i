@@ -1,16 +1,15 @@
 <?php
 
+use App\Http\Controllers\API\AchievementController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
+use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
-use App\Http\Controllers\API\PresenterController;
-use App\Http\Controllers\API\BaksoController;
-use App\Http\Controllers\API\KlinikController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -34,6 +33,12 @@ Route::patch('/user/updatefamily/{identity}', [UserController::class,'update_fam
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
+
+Route::post('/achievement', [AchievementController::class, 'store'])->name('achievements.api.store');
+Route::delete('/achievement/{id}', [AchievementController::class, 'destroy'])->name('achievements.api.destroy');
+
+Route::post('/organization', [OrganizationController::class, 'store'])->name('organizations.api.store');
+Route::delete('/organization/{id}', [OrganizationController::class, 'destroy'])->name('organizations.api.destroy');
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');

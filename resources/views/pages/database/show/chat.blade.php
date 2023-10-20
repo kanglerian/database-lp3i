@@ -61,7 +61,7 @@
                     </button>
                 </div>
                 <div>
-                    <div class="p-4 space-y-6">
+                    <div class="px-5 pb-5 space-y-6">
                         <input type="hidden" value="" id="id" name="id">
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Judul Riwayat</label>

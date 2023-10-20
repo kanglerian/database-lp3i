@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Achievement;
 use App\Models\Applicant;
 use App\Models\ApplicantFamily;
+use App\Models\Organization;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,10 +34,14 @@ class UserController extends Controller
         $token = $request->query('token');
         $user = User::where(['token' => $token, 'identity' => $identity])->firstOrFail();
         $applicant = Applicant::where('identity', $user->identity)->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->firstOrFail();
+        $achievements = Achievement::where('identity_user', $user->identity)->get();
+        $organizations = Organization::where('identity_user', $user->identity)->get();
         return response()->json([
             'success' => true,
             'user' => $user,
             'applicant' => $applicant,
+            'achievements' => $achievements,
+            'organizations' => $organizations,
         ], 201);
     }
 

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AchivementController;
 use App\Http\Controllers\API\AuthenticationJWT;
 use App\Http\Controllers\FollowUpController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
@@ -59,8 +61,10 @@ Route::get('isregister/{identity?}', [ApplicantController::class, 'is_register']
 Route::get('isdaftar/{identity?}', [ApplicantController::class, 'is_daftar'])->name('database.is_daftar')->middleware(['auth','status:1','role:P']);
 Route::get('isschoolarship/{identity?}', [ApplicantController::class, 'is_schoolarship'])->name('database.is_schoolarship')->middleware(['auth','status:1','role:P']);
 
-Route::get('chats/{identity?}', [ApplicantController::class, 'chats'])->name('database.chats')->middleware(['auth','status:1','role:P']);
-Route::get('files/{identity?}', [ApplicantController::class, 'files'])->name('database.files')->middleware(['auth','status:1','role:P']);
+Route::get('chat/{identity?}', [ApplicantController::class, 'chats'])->name('database.chat')->middleware(['auth','status:1','role:P']);
+Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file')->middleware(['auth','status:1','role:P']);
+Route::get('achievement/{identity?}', [ApplicantController::class, 'achievements'])->name('database.achievement')->middleware(['auth','status:1','role:P']);
+Route::get('organization/{identity?}', [ApplicantController::class, 'organizations'])->name('database.organization')->middleware(['auth','status:1','role:P']);
 
 Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
 
@@ -97,5 +101,8 @@ Route::resource('source', SourceController::class)->middleware(['auth','role:A']
 Route::resource('fileupload', FileUploadController::class)->middleware(['auth','role:A']);
 Route::resource('applicantstatus', ApplicantStatusController::class)->middleware(['auth','role:A']);
 Route::resource('followup', FollowUpController::class)->middleware(['auth','role:A']);
+
+Route::resource('achievements', AchivementController::class)->middleware(['auth']);
+Route::resource('organizations', OrganizationController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';

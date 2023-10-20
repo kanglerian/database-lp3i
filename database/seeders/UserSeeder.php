@@ -110,7 +110,7 @@ class UserSeeder extends Seeder
                 'name' => 'Check',
                 'email' => 'check.lp3i@gmail.com',
                 'password' => Hash::make('check123'),
-                'phone' => '6281286501015',
+                'phone' => '6281286501013',
                 'role' => 'P',
                 'status' => 1,
                 'created_at' => Carbon::now(),
