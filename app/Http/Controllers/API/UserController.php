@@ -117,6 +117,28 @@ class UserController extends Controller
         return response()->json(['success' => true, 'message' => 'Biodata sudah diupdate.']);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_program(Request $request, $id)
+    {
+
+        $applicant = Applicant::where('identity', $id)->first();
+
+        $data = [
+            'program' => $request->program,
+            'program_second' => $request->program_second,
+        ];
+
+        $applicant->update($data);
+
+        return response()->json(['success' => true, 'message' => 'Program studi sudah diupdate.']);
+    }
+
     public function update_family(Request $request, $id)
     {
         $father = ApplicantFamily::where(['identity_user' => $id, 'gender' => 1])->first();

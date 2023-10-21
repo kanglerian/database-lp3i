@@ -44,6 +44,7 @@ class Applicant extends Model
 
         'identity_user',
         'program',
+        'program_second',
         'isread',
         'come',
 

@@ -30,6 +30,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/user/get', [UserController::class,'get_user'])->name('users.get');
 Route::patch('/user/update/{identity}', [UserController::class,'update'])->name('users.update');
+Route::patch('/user/updateprogram/{identity}', [UserController::class,'update_program'])->name('users.updateprogram');
 Route::patch('/user/updatefamily/{identity}', [UserController::class,'update_family'])->name('users.updatefamily');
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
