@@ -21,7 +21,7 @@
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
                 <div class="flex items-center gap-3">
-                    <x-input id="password" class="block w-full text-sm" type="text" name="password"
+                    <x-input id="password" class="block w-full text-sm" type="password" name="password"
                         placeholder="Masukkan Password Anda" required autocomplete="current-password" />
                     <button type="button" class="mt-2 text-gray-700" id="see-password" onclick="seePassword()"><i
                             class="fa-solid fa-eye"></i></button>
