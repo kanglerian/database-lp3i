@@ -21,18 +21,17 @@ class UserUploadController extends Controller
     {
 
         $data = [
-            'identity_user' => $request->identity,
+            'identity_user' => $request->identity_user,
             'fileupload_id' => $request->fileupload_id,
             'typefile' => $request->typefile,
         ];
-        return response()->json(['success' => true, 'message' => $data]);
 
         if ($request->fileupload_id == 1) {
             $file = FileUpload::findOrFail($request->fileupload_id);
             $dataku = [
                 'avatar' => $file->namefile . '.' . $request->typefile,
             ];
-            $user = User::where('identity', $request->identity)->first();
+            $user = User::where('identity', $request->identity_user)->first();
             $user->update($dataku);
         }
 
@@ -49,8 +48,8 @@ class UserUploadController extends Controller
      */
     public function destroy($id)
     {
-        $achievement = UserUpload::findOrFail($id);
-        $achievement->delete();
-        return response()->json(['success' => true, 'message' => 'Data prestasi sudah dihapus.']);
+        $upload = UserUpload::findOrFail($id);
+        $upload->delete();
+        return response()->json(['success' => true, 'message' => 'Data berkas sudah dihapus.']);
     }
 }

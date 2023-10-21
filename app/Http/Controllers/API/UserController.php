@@ -122,6 +122,12 @@ class UserController extends Controller
         $father = ApplicantFamily::where(['identity_user' => $id, 'gender' => 1])->first();
         $mother = ApplicantFamily::where(['identity_user' => $id, 'gender' => 0])->first();
 
+        $applicant = Applicant::where('identity', $id)->first();
+
+        $data_applicant = [
+            'income_parent' => $request->incomeParent,
+        ];
+
         $data_father = [
             'name' => ucwords($request->fatherName),
             'job' => $request->fatherJob,
@@ -142,6 +148,7 @@ class UserController extends Controller
 
         $father->update($data_father);
         $mother->update($data_mother);
+        $applicant->update($data_applicant);
 
         return response()->json(['success' => true, 'message' => 'Biodata sudah diupdate.']);
     }

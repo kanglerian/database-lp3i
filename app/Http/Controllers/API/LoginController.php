@@ -21,7 +21,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->only('email', 'password');
+        $credentials = [
+            "email" => str_replace(' ', '', $request->email),
+            "password" => str_replace(' ', '', $request->password)
+        ];
 
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
@@ -38,6 +41,7 @@ class LoginController extends Controller
                 'message' => 'Maaf, Anda tidak memenuhi syarat untuk masuk. Hanya penerima beasiswa yang diizinkan.'
             ], 401);
         } else {
+
             $data = auth()->user();
             $user = User::where('identity', $data->identity)->first();
             $user->update([
@@ -48,7 +52,6 @@ class LoginController extends Controller
                 'success' => true,
                 'user' => auth()->user(),
                 'token' => $token,
-                'check' => $user,
             ], 200);
         }
     }

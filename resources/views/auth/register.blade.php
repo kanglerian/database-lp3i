@@ -308,8 +308,12 @@
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="password" :value="__('Password')" />
-                    <x-input id="password" class="block mt-1 w-full text-sm" type="password" name="password"
-                        required autocomplete="new-password" placeholder="Masukkan Password Anda" required />
+                    <div class="flex items-center gap-3">
+                        <x-input id="password" class="block mt-1 w-full text-sm" type="password" name="password"
+                            required autocomplete="new-password" placeholder="Masukkan Password Anda" required />
+                        <button type="button" class="mt-2 text-gray-700" id="see-password"
+                            onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
+                    </div>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('password'))
@@ -322,8 +326,12 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <x-label for="password_confirmation" :value="__('Konfirmasi password')" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full text-sm" type="password"
-                        name="password_confirmation" placeholder="Konfirmasi Password Anda" required />
+                    <div class="flex items-center gap-3">
+                        <x-input id="password_confirmation" class="block mt-1 w-full text-sm" type="password"
+                            name="password_confirmation" placeholder="Konfirmasi Password Anda" required />
+                        <button type="button" class="mt-2 text-gray-700" id="see-password-confirmation"
+                            onclick="seePasswordConfirmation()"><i class="fa-solid fa-eye"></i></button>
+                    </div>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('password'))
@@ -368,6 +376,32 @@
             tags: true,
         });
     });
+
+    const seePassword = () => {
+        let passwordElement = document.getElementById('password');
+        let seeElement = document.getElementById('see-password');
+        let attribute = passwordElement.getAttribute('type');
+        if (attribute === 'text') {
+            passwordElement.setAttribute('type', 'password');
+            seeElement.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        } else {
+            passwordElement.setAttribute('type', 'text');
+            seeElement.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+        }
+    }
+
+    const seePasswordConfirmation = () => {
+        let passwordElement = document.getElementById('password_confirmation');
+        let seeElement = document.getElementById('see-password-confirmation');
+        let attribute = passwordElement.getAttribute('type');
+        if (attribute === 'text') {
+            passwordElement.setAttribute('type', 'password');
+            seeElement.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        } else {
+            passwordElement.setAttribute('type', 'text');
+            seeElement.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+        }
+    }
 
     const getYearPMB = () => {
         const currentDate = new Date();
