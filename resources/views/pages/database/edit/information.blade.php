@@ -52,10 +52,10 @@
                 </div>
 
                 <div
-                    class="grid md:grid-cols-{{ $programs == null || Auth::user()->role == 'P' ? '1' : '2' }} md:gap-6 mb-4 lg:mb-0">
+                    class="grid md:grid-cols-{{ $programs == null || Auth::user()->role == 'P' ? '2' : '3' }} md:gap-6 mb-4 lg:mb-0">
                     @if ($programs !== null)
                         <div class="relative z-0 w-full group mb-4">
-                            <x-label for="program" :value="__('Program')" />
+                            <x-label for="program" :value="__('Program Pilihan 1')" />
                             <x-select id="program" name="program" required>
                                 @if ($applicant->program == null)
                                     <option value="Pilih program">Pilih program</option>
@@ -84,6 +84,38 @@
                         </div>
                     @else
                         <input type="hidden" name="program" id="program" value="{{ $applicant->program }}">
+                    @endif
+                    @if ($programs !== null)
+                        <div class="relative z-0 w-full group mb-4">
+                            <x-label for="program_second" :value="__('Program Pilihan 2')" />
+                            <x-select id="program_second" name="program_second" required>
+                                @if ($applicant->program_second == null)
+                                    <option value="Pilih program">Pilih program</option>
+                                    <option value="Belum diketahui">Belum diketahui</option>
+                                    @foreach ($programs as $prog)
+                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                    @endforeach
+                                @else
+                                    <option value="{{ $applicant->program_second }}">
+                                        {{ $applicant->program_second }}
+                                    </option>
+                                    @foreach ($programs as $prog)
+                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
+                                    @endforeach
+                                @endif
+                            </x-select>
+                            <p class="mt-2 text-xs text-gray-500">
+                                @if ($errors->has('program_second'))
+                                    <span class="text-red-500">{{ $errors->first('program_second') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
+                            </p>
+                        </div>
+                    @else
+                        <input type="hidden" name="program_second" id="program_second" value="{{ $applicant->program_second }}">
                     @endif
                     @if (Auth::check() && Auth::user()->role == 'P')
                         <input type="hidden" value="{{ $applicant->identity_user }}" name="identity_user">

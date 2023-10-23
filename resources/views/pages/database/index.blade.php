@@ -126,7 +126,9 @@
                     </button>
                 </div>
             </div>
-            @include('pages.database.database.filter')
+            <section class="flex flex-col justify-center gap-3">
+                @include('pages.database.database.filter')
+            </section>
             <div class="bg-white overflow-hidden border md:rounded-xl">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">

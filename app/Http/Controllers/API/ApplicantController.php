@@ -37,6 +37,7 @@ class ApplicantController extends Controller
             $number_phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
             $check_number = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('phone', $number_phone)->first();
+
             if ($check_number) {
                 return response()->json(['status' => true, 'message' => 'Terima kasih telah mengisi data. Kami akan segera menghubungi Anda untuk informasi lebih lanjut.', 'data' => $check_number]);
             } else {
@@ -48,6 +49,7 @@ class ApplicantController extends Controller
                     'programtype_id' => $request->input('programtype_id'),
                     'identity_user' => '6281313608558',
                     'source_id' => 1,
+                    'source_daftar_id' => 1,
                     'status_id' => 1,
                     'followup_id' => 1,
                 ];

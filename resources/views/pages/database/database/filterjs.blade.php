@@ -54,6 +54,7 @@
         let achievementVal = document.getElementById('change_achievement').value || 'all';
         let followVal = document.getElementById('change_follow').value || 'all';
         let sourceVal = document.getElementById('change_source').value || 'all';
+        let sourceDaftarVal = document.getElementById('change_source_daftar').value || 'all';
         let statusVal = document.getElementById('change_status').value || 'all';
         let kipVal = document.getElementById('change_kip').value || 'all';
         let relationVal = document.getElementById('change_relation').value || 'all';
@@ -90,6 +91,9 @@
         }
         if (sourceVal !== 'all') {
             queryParams.push(`sourceVal=${sourceVal}`);
+        }
+        if (sourceDaftarVal !== 'all') {
+            queryParams.push(`sourceDaftarVal=${sourceDaftarVal}`);
         }
         if (statusVal !== 'all') {
             queryParams.push(`statusVal=${statusVal}`);
@@ -156,6 +160,7 @@
             document.getElementById('change_income').value = 'all';
             document.getElementById('change_follow').value = 'all';
             document.getElementById('change_source').value = 'all';
+            document.getElementById('change_source_daftar').value = 'all';
             document.getElementById('change_status').value = 'all';
             document.getElementById('change_applicant').value = 'all';
         } else {

@@ -78,6 +78,7 @@ class ApplicantController extends Controller
         $incomeVal = request('incomeVal', 'all');
         $planVal = request('planVal', 'all');
         $sourceVal = request('sourceVal', 'all');
+        $sourceDaftarVal = request('sourceDaftarVal', 'all');
         $statusVal = request('statusVal', 'all');
         $achievementVal = request('achievementVal', 'all');
         $kipVal = request('kipVal', 'all');
@@ -147,6 +148,9 @@ class ApplicantController extends Controller
         }
         if ($sourceVal !== 'all') {
             $applicantsQuery->where('source_id', $sourceVal);
+        }
+        if ($sourceDaftarVal !== 'all') {
+            $applicantsQuery->where('source_daftar_id', $sourceDaftarVal);
         }
         if ($statusVal !== 'all') {
             $applicantsQuery->where('status_id', $statusVal);

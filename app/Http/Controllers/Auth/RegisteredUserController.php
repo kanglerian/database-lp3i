@@ -77,28 +77,14 @@ class RegisteredUserController extends Controller
             'year' => ['required'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
 
-            'email' => ['required', 'email', 'max:255', 'unique:users', 'unique:applicants'],
+            'email' => ['required', 'email', 'max:255'],
             'phone' => [
                 'required',
                 'string',
-                'unique:users',
-                'unique:applicants'
             ],
 
             'password' => ['required', 'min:8', 'confirmed'],
         ]);
-
-        $numbers_unique = mt_rand(1, 100000000000000);
-
-        $data = [
-            'identity' => $numbers_unique,
-            'name' => ucwords(strtolower($request->input('name'))),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'password' => Hash::make($request->input('password')),
-            'role' => 'S',
-            'status' => '0',
-        ];
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
         $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
@@ -112,61 +98,148 @@ class RegisteredUserController extends Controller
 
         $schoolCheck = School::where('id', $request->input('school'))->first();
 
-        if($schoolCheck){
+        if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if($request->input('school') == 'TIDAK DIKETAHUI'){
+            if ($request->input('school') == 'TIDAK DIKETAHUI') {
                 $school = null;
             } else {
                 $dataSchool = [
                     'name' => strtoupper($request->input('school')),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
-                $school = School::create($dataSchool);
-                $school = $school->id;
+                $schoolCreate = School::create($dataSchool);
+                $school = $schoolCreate->id;
             }
         }
 
-        $data_applicant = [
-            'identity' => $numbers_unique,
-            'programtype_id' => $request->input('programtype_id'),
-            'program' => $request->input('program'),
-            'name' => ucwords(strtolower($request->input('name'))),
-            'gender' => $request->input('gender'),
-            'place_of_birth' => $request->input('place_of_birth'),
-            'date_of_birth' => $request->input('date_of_birth'),
-            'religion' => $request->input('religion'),
-            'education' => $request->input('education'),
-            'major' => $request->input('major'),
-            'year' => $request->input('year'),
-            'school' => $school,
-            'class' => $request->input('class'),
-            'address' => $address_applicant,
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'pmb' => $request->input('pmb'),
-            'identity_user' => '6281313608558',
-            'source_id' => 8,
-            'status_id' => 4,
-            'come' => 0,
-            'isread' => '0',
-        ];
+        $check_email_applicant = Applicant::where('email', $request->input('email'))->first();
+        $check_email_user = User::where('email', $request->input('email'))->first();
 
-        $data_father = [
-            'identity_user' => $numbers_unique,
-            'gender' => 1,
-        ];
-        $data_mother = [
-            'identity_user' => $numbers_unique,
-            'gender' => 0,
-        ];
+        $check_phone_applicant = Applicant::where('phone', $request->input('phone'))->first();
 
-        $user = User::create($data);
-        Applicant::create($data_applicant);
-        ApplicantFamily::create($data_father);
-        ApplicantFamily::create($data_mother);
+        $numbers_unique = mt_rand(1, 100000000000000);
 
-        Auth::login($user);
+        if ($check_email_applicant) {
+            if ($check_email_user) {
+            return back()->with('error', 'Akun sudah ditambahkan. Jika anda lupa Email dan Kata Sandi silahkan hubungi Panitia PMB melalui tombol Whatsapp.');
+            } else {
+                if ($check_phone_applicant) {
+                    $data_user = [
+                        'identity' => $check_email_applicant->identity,
+                        'name' => $check_email_applicant->name,
+                        'email' => $check_email_applicant->email,
+                        'phone' => $check_phone_applicant->phone,
+                        'password' => Hash::make($request->input('password')),
+                        'role' => 'S',
+                        'status' => '0',
+                    ];
+                    $user = User::create($data_user);
+                    Auth::login($user);
+                } else {
+                    $data_user = [
+                        'identity' => $check_email_applicant->identity,
+                        'name' => $check_email_applicant->name,
+                        'email' => $check_email_applicant->email,
+                        'phone' => $request->input('phone'),
+                        'password' => Hash::make($request->input('password')),
+                        'role' => 'S',
+                        'status' => '0',
+                    ];
+                    $user = User::create($data_user);
+                    Auth::login($user);
+                }
+            }
+        } else {
+            if ($check_phone_applicant) {
+                $data_applicant = [
+                    'identity' => $check_phone_applicant->identity,
+                    'programtype_id' => $request->input('programtype_id'),
+                    'program' => $request->input('program'),
+                    'name' => $check_phone_applicant->name,
+                    'gender' => $request->input('gender'),
+                    'place_of_birth' => $request->input('place_of_birth'),
+                    'date_of_birth' => $request->input('date_of_birth'),
+                    'religion' => $request->input('religion'),
+                    'education' => $request->input('education'),
+                    'major' => $request->input('major'),
+                    'year' => $request->input('year'),
+                    'school' => $school,
+                    'class' => $request->input('class'),
+                    'address' => $address_applicant,
+                    'email' => $request->input('email'),
+                    'source_daftar_id' => 8,
+                    'status_id' => 2,
+                    'come' => 0,
+                    'isread' => '0',
+                ];
+
+                $data_user = [
+                    'identity' => $check_phone_applicant->identity,
+                    'name' => $check_phone_applicant->name,
+                    'email' => $request->input('email'),
+                    'phone' => $check_phone_applicant->phone,
+                    'password' => Hash::make($request->input('password')),
+                    'role' => 'S',
+                    'status' => '0',
+                ];
+
+                $user = User::create($data_user);
+                $check_phone_applicant->update($data_applicant);
+                Auth::login($user);
+            } else {
+                $data_applicant = [
+                    'identity' => $numbers_unique,
+                    'programtype_id' => $request->input('programtype_id'),
+                    'program' => $request->input('program'),
+                    'name' => ucwords(strtolower($request->input('name'))),
+                    'gender' => $request->input('gender'),
+                    'place_of_birth' => $request->input('place_of_birth'),
+                    'date_of_birth' => $request->input('date_of_birth'),
+                    'religion' => $request->input('religion'),
+                    'education' => $request->input('education'),
+                    'major' => $request->input('major'),
+                    'year' => $request->input('year'),
+                    'school' => $school,
+                    'class' => $request->input('class'),
+                    'address' => $address_applicant,
+                    'email' => $request->input('email'),
+                    'phone' => $request->input('phone'),
+                    'pmb' => $request->input('pmb'),
+                    'identity_user' => '6281313608558',
+                    'source_id' => 8,
+                    'source_daftar_id' => 8,
+                    'status_id' => 4,
+                    'come' => 0,
+                    'isread' => '0',
+                ];
+
+                $data_user = [
+                    'identity' => $numbers_unique,
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'phone' => $request->input('phone'),
+                    'password' => Hash::make($request->input('password')),
+                    'role' => 'S',
+                    'status' => '0',
+                ];
+
+                $data_father = [
+                    'identity_user' => $numbers_unique,
+                    'gender' => 1,
+                ];
+                $data_mother = [
+                    'identity_user' => $numbers_unique,
+                    'gender' => 0,
+                ];
+
+                $user = User::create($data_user);
+                Applicant::create($data_applicant);
+                ApplicantFamily::create($data_father);
+                ApplicantFamily::create($data_mother);
+                Auth::login($user);
+            }
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

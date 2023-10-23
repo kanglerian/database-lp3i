@@ -60,6 +60,7 @@ class CreateApplicantsTable extends Migration
 
             $table->unsignedBigInteger('followup_id')->nullable();
             $table->unsignedBigInteger('programtype_id')->nullable();
+            $table->unsignedBigInteger('source_daftar_id')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
 

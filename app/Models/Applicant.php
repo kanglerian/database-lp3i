@@ -59,6 +59,7 @@ class Applicant extends Model
 
         'followup_id',
         'programtype_id',
+        'source_daftar_id',
         'source_id',
         'status_id',
     ];
@@ -82,6 +83,9 @@ class Applicant extends Model
     public function sourceSetting()
     {
         return $this->belongsTo(SourceSetting::class, 'source_id', 'id');
+    }public function sourceDaftarSetting()
+    {
+        return $this->belongsTo(SourceSetting::class, 'source_daftar_id', 'id');
     }
 
     public function programType()
