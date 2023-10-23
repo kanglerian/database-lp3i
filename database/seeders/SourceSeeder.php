@@ -52,6 +52,10 @@ class SourceSeeder extends Seeder
                 'name' => 'Grab Data',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],[
+                'name' => 'Beasiswa',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
     }

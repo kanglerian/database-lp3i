@@ -113,7 +113,7 @@ class RegisterController extends Controller
                 'pmb' => '2024',
                 'identity_user' => '6281313608558',
                 'source_id' => 8,
-                'source_daftar_id' => 8,
+                'source_daftar_id' => 10,
                 'status_id' => 1,
                 'schoolarship' => 1,
                 'come' => 0,
