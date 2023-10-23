@@ -45,6 +45,11 @@ class RegisterController extends Controller
                     $password_data = [
                         'password' => Hash::make($request->phone),
                     ];
+                    $data_applicant = [
+                        'schoolarship' => 1,
+                        'nisn' => $request->nisn,
+                    ];
+                    $check_number->update($data_applicant);
                     $user_data->update($password_data);
                     return response()->json(['success' => false, 'info' => true, 'login' => true, 'message' => 'Akun sudah ditemukan. Silahkan masuk dengan akun yang sudah dikirim melalui Whatsapp!', 'user' => $user_data]);
                 } else {

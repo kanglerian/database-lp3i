@@ -52,6 +52,11 @@
                         </button>
                     </form>
                 </div>
+                <button onclick="broadcastSchoolarship()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </button>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
@@ -178,7 +183,21 @@
 {{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
+<script src="{{ asset('js/axios.min.js') }}"></script>
 @include('pages.database.database.filterjs')
+<script>
+    const broadcastSchoolarship = async () => {
+        await axios.get(`/get/databasesbeasiswa`)
+        .then((res) => {
+            let students = res.data.applicants
+            console.log(students);
+            alert('Fungsi ini belum tersedia');
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    }
+</script>
 <script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();

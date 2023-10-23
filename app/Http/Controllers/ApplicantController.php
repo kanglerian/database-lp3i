@@ -197,6 +197,22 @@ class ApplicantController extends Controller
 
         return response()->json(['applicants' => $applicants]);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_beasiswa()
+    {
+        $applicantsQuery = Applicant::query();
+        $applicantsQuery->where('schoolarship', 1);
+
+        $applicants = $applicantsQuery->orderByDesc('created_at')->get();
+
+        return response()->json(['applicants' => $applicants]);
+    }
     /**
      * Show the form for creating a new resource.
      *

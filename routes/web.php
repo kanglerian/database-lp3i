@@ -56,6 +56,9 @@ Route::resource('database', ApplicantController::class)->middleware(['auth','sta
 Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->middleware(['auth','status:1'])->name('applicant.importupdate');
 
 Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+
+Route::get('get/databasesbeasiswa', [ApplicantController::class, 'get_beasiswa'])->name('database.getbeasiswa')->middleware(['auth','status:1','role:P']);
+
 Route::get('isapplicant/{identity?}', [ApplicantController::class, 'is_applicant'])->name('database.is_applicant')->middleware(['auth','status:1','role:P']);
 Route::get('isregister/{identity?}', [ApplicantController::class, 'is_register'])->name('database.is_register')->middleware(['auth','status:1','role:P']);
 Route::get('isdaftar/{identity?}', [ApplicantController::class, 'is_daftar'])->name('database.is_daftar')->middleware(['auth','status:1','role:P']);
