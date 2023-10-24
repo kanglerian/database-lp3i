@@ -169,7 +169,7 @@
                 <div class="relative z-0 w-full group">
                     <x-label for="year" :value="__('Tahun Lulus')" />
                     <x-input type="number" min="1945" max="3000" name="year" id="year"
-                        :value="old('year')" placeholder="Tulis tahun lulus disini..." />
+                        :value="old('year')" placeholder="Tulis tahun lulus disini..." required/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('year'))
                             <span class="text-red-500">{{ $errors->first('year') }}</span>

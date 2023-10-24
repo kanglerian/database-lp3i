@@ -151,6 +151,9 @@
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Sumber Database
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Nama lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -165,11 +168,8 @@
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Jurusan
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Tahun lulus
-                                    </th>
                                     <th scope="col" class="px-6 py-3 rounded-tr-lg">
-                                        Sumber
+                                        Tahun lulus
                                     </th>
                             </thead>
                             <tbody></tbody>
@@ -299,7 +299,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.source_setting.name}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.program}','${data.program_type.name}','${data.source_setting.name}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>`
@@ -328,6 +328,12 @@
                     data: 'created_at',
                     render: (data) => {
                         return moment(data).tz('Asia/Jakarta').locale('id').format('L');
+                    }
+                },
+                {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
                     }
                 },
                 {
@@ -371,12 +377,6 @@
                     data: 'year',
                     render: (data, row) => {
                         return data != null ? data : 'Tidak diketahui';
-                    }
-                },
-                {
-                    data: 'source_setting',
-                    render: (data, type, row) => {
-                        return data.name;
                     }
                 },
             ],
@@ -510,10 +510,10 @@
         downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
     }
 
-    const copyRecord = (name, phone, school, year, source) => {
+    const copyRecord = (name, phone, school, year, program, programtype, source) => {
         const textarea = document.createElement("textarea");
         textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${source}`;
+            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();

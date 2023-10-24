@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
                 'string',
             ],
 
-            'password' => ['required', 'min:8', 'confirmed'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;

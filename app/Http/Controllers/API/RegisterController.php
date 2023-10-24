@@ -33,7 +33,7 @@ class RegisterController extends Controller
                 'required',
                 'string',
             ],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         function getYearPMB()

@@ -88,7 +88,7 @@
                     @if ($programs !== null)
                         <div class="relative z-0 w-full group mb-4">
                             <x-label for="program_second" :value="__('Program Pilihan 2')" />
-                            <x-select id="program_second" name="program_second" required>
+                            <x-select id="program_second" name="program_second">
                                 @if ($applicant->program_second == null)
                                     <option value="Pilih program">Pilih program</option>
                                     <option value="Belum diketahui">Belum diketahui</option>
