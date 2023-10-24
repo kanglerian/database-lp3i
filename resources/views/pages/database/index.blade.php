@@ -52,7 +52,8 @@
                         </button>
                     </form>
                 </div>
-                <button onclick="broadcastSchoolarship()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                <button onclick="broadcastSchoolarship()"
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                     <i class="fa-brands fa-whatsapp"></i>
                     <i class="fa-solid fa-bullhorn"></i>
                     <i class="fa-solid fa-graduation-cap"></i>
@@ -186,16 +187,49 @@
 <script src="{{ asset('js/axios.min.js') }}"></script>
 @include('pages.database.database.filterjs')
 <script>
+    const handleWhatsapp = async (target, message) => {
+        await axios
+            .post(
+                `https://api.politekniklp3i-tasikmalaya.ac.id/whatsappbot/send`, {
+                    target: target,
+                    message: message,
+                }
+            )
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     const broadcastSchoolarship = async () => {
-        await axios.get(`/get/databasesbeasiswa`)
-        .then((res) => {
-            let students = res.data.applicants
-            console.log(students);
-            alert('Fungsi ini belum tersedia');
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
+        let status = document.getElementById('change_applicant').value;
+        await axios.get(`/get/databasesbeasiswa`, {
+                params: {
+                    status: status,
+                }
+            })
+            .then((res) => {
+                let students = res.data.applicants;
+                let index = 0;
+                const sendWhatsappMessage = () => {
+                    if (index < students.length) {
+                        let student = students[index];
+                        let message =
+                            `Halo *${student.name}*,\nMohon untuk segera mengisi dan melengkapi persyaratan beasiswa di SBPMB Politeknik LP3I Kampus Tasikmalaya. Terima kasih.\n\nSalam, Politeknik LP3I Kampus Tasikmalaya.`;
+                        let target = `${student.phone}@c.us`;
+                        handleWhatsapp(target, message);
+                        index++;
+                        setTimeout(sendWhatsappMessage, 2000);
+                    }
+                };
+                // sendWhatsappMessage();
+                alert('Fungsi ini belum dijalankan');
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     }
 </script>
 <script>

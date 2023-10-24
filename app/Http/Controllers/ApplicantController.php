@@ -199,19 +199,40 @@ class ApplicantController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function get_beasiswa()
+    public function get_beasiswa(Request $request)
     {
         $applicantsQuery = Applicant::query();
-        $applicantsQuery->where('schoolarship', 1);
+        $statusApplicant = $request->input('status');
 
-        $applicants = $applicantsQuery->orderByDesc('created_at')->get();
+        if ($statusApplicant !== 'all') {
+            switch ($statusApplicant) {
+                case 'database':
+                    $applicantsQuery->where('is_applicant', 0);
+                    $applicantsQuery->where('is_daftar', 0);
+                    $applicantsQuery->where('is_register', 0);
+                    break;
+                case 'aplikan':
+                    $applicantsQuery->where('is_applicant', 1);
+                    break;
+                case 'daftar':
+                    $applicantsQuery->where('is_daftar', 1);
+                    break;
+                case 'registrasi':
+                    $applicantsQuery->where('is_register', 1);
+                    break;
+                case 'schoolarship':
+                    $applicantsQuery->where('schoolarship', 1);
+                    break;
+            }
+            $applicants = $applicantsQuery->orderByDesc('created_at')->get();
+            return response()->json(['applicants' => $applicants]);
+        }
 
-        return response()->json(['applicants' => $applicants]);
     }
     /**
      * Show the form for creating a new resource.
