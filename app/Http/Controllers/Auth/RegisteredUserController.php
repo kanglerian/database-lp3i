@@ -114,9 +114,9 @@ class RegisteredUserController extends Controller
         }
 
         $check_email_applicant = Applicant::where('email', $request->input('email'))->first();
-        $check_email_user = User::where('email', $request->input('email'))->first();
-
         $check_phone_applicant = Applicant::where('phone', $request->input('phone'))->first();
+
+        $check_email_user = User::where('email', $request->input('email'))->first();
 
         $numbers_unique = mt_rand(1, 100000000000000);
 

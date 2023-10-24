@@ -1332,10 +1332,6 @@ select {
   overflow-y: auto;
 }
 
-.overflow-x-hidden {
-  overflow-x: hidden;
-}
-
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -1723,10 +1719,6 @@ select {
   padding-bottom: 0.75rem;
 }
 
-.pb-4 {
-  padding-bottom: 1rem;
-}
-
 .pb-5 {
   padding-bottom: 1.25rem;
 }
@@ -1757,10 +1749,6 @@ select {
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 
 .text-left {
@@ -2609,10 +2597,6 @@ select {
     margin-top: 0px;
   }
 
-  .md\:inline-block {
-    display: inline-block;
-  }
-
   .md\:w-1\/2 {
     width: 50%;
   }
@@ -2711,16 +2695,8 @@ select {
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
-  .md\:overflow-auto {
-    overflow: auto;
-  }
-
   .md\:overflow-x-auto {
     overflow-x: auto;
-  }
-
-  .md\:overflow-x-hidden {
-    overflow-x: hidden;
   }
 
   .md\:rounded-xl {
@@ -2729,10 +2705,6 @@ select {
 
   .md\:p-0 {
     padding: 0px;
-  }
-
-  .md\:p-1 {
-    padding: 0.25rem;
   }
 
   .md\:px-0 {
