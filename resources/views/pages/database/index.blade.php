@@ -126,6 +126,10 @@
                         class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
                         <i class="fa-solid fa-rotate"></i>
                     </a>
+                    <button type="button" onclick="changeFilter()"
+                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-lg text-white">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
                     <button type="button" onclick="resetFilter()"
                         class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-lg text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
@@ -171,8 +175,13 @@
                                     <th scope="col" class="px-6 py-3 rounded-tr-lg">
                                         Tahun lulus
                                     </th>
+                                </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="9" class="text-center py-5 px-6">Belum ada data yang sesuai dengan filter yang diterapkan. <span onclick="changeFilter()" class="underline cursor-pointer">Lihat semua.</span></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -291,15 +300,17 @@
                         identity: 'identity',
                         name: 'name',
                         phone: 'phone',
-                        school: 'school_applicant',
+                        school: 'school',
                         year: 'year',
-                        source: 'source_setting',
-                        status: 'applicant_status'
+                        program: 'program',
+                        source_id: 'source_id',
+                        programtype_id: 'programtype_id',
+                        status_id: 'status_id'
                     },
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.program}','${data.program_type}','${data.source_setting}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant ? data.school_applicant.name : 'Tidak diketahui'}','${typeof(data.year) === 'number' ? data.year : 'Tidak diketahui'}','${data.program}','${data.source_setting.name}','${data.programtype_id ? data.program_type.name : ''}','${data.status_id ? data.applicant_status.name : ''}')">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>`
@@ -394,8 +405,8 @@
             console.error("Error fetching data:", error);
         }
     }
-    getAPI();
-    getDataTable();
+
+
 
     const deleteRecord = (id) => {
         if (confirm('Apakah kamu yakin akan menghapus data?')) {
@@ -415,6 +426,19 @@
                 }
             })
         }
+    }
+
+
+    const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
+        const textarea = document.createElement("textarea");
+        textarea.value =
+            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
+        textarea.style.position = "fixed";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert('Link sudah disalin!');
     }
 
     const downloadBlast = () => {
@@ -508,18 +532,6 @@
         });
         downloadVCF.href = URL.createObjectURL(blob);
         downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
-    }
-
-    const copyRecord = (name, phone, school, year, program, programtype, source) => {
-        const textarea = document.createElement("textarea");
-        textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype == "null" ? 'Tidak diketahui' : programtype.name}\nSumber: ${source == 'null' ? 'Tidak diketahui' : source.name}`;
-        textarea.style.position = "fixed";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert('Link sudah disalin!');
     }
 
     const exportExcel = () => {

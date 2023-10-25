@@ -195,16 +195,12 @@
                     render: (data, type, row) => {
                         let editUrl = "{{ route('user.edit', ':id') }}".replace(':id', data.id);
                         let showUrl = "{{ route('user.show', ':id') }}".replace(':id', data.id);
-                        let folder = data.role === 'S' ?
-                            `<a href="${showUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white"><i class="fa-regular fa-folder-open"></i></a>` :
-                            `<button class="inline-block border border-gray-300 px-3 py-1 rounded-md text-xs text-gray-400"><i class="fa-regular fa-folder-open"></i></button>`;
                         let status = data.status === "1" ?
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
                         return `
                         <div class="flex items-center gap-1">
                             ${status}
-                            ${folder}
                             <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>

@@ -1,13 +1,14 @@
-<div class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
+<div
+    class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Periode PMB:</label>
-        <input type="number" id="change_pmb" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="number" id="change_pmb"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tahun PMB">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="change_applicant" class="text-xs">Status Aplikan</label>
-        <select id="change_applicant" onchange="changeFilter()"
+        <select id="change_applicant"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
             <option value="database">Database</option>
@@ -19,7 +20,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Sumber Informasi:</label>
-        <select id="change_source_daftar" onchange="changeFilter()"
+        <select id="change_source_daftar"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Sumber</option>
             @foreach ($sources as $source)
@@ -29,7 +30,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Sumber Database:</label>
-        <select id="change_source" onchange="changeFilter()"
+        <select id="change_source"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Sumber</option>
             @foreach ($sources as $source)
@@ -39,7 +40,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Status Database:</label>
-        <select id="change_status" onchange="changeFilter()"
+        <select id="change_status"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Status</option>
             @foreach ($statuses as $status)
@@ -49,18 +50,18 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="date_start" class="text-xs">Tanggal awal:</label>
-        <input type="date" id="date_start" onchange="changeFilter()"
+        <input type="date" id="date_start"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Tanggal akhir:</label>
-        <input type="date" id="date_end" onchange="changeFilter()"
+        <input type="date" id="date_end"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
     </div>
-    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Presenter:</label>
-        @if (Auth::user()->role == 'A')
-            <select id="identity_user" onchange="changeFilter()"
+    @if (Auth::user()->role == 'A')
+        <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+            <label for="" class="text-xs">Presenter:</label>
+            <select id="identity_user"
                 class="js-example-basic-single bg-white border border-gray-300 w-full md:w-[150px] px-3 py-2 text-xs rounded-lg text-gray-800">
                 <option value="all">Pilih presenter</option>
                 <option value="6281313608558">Administrator</option>
@@ -68,13 +69,13 @@
                     <option value="{{ $user->identity }}">{{ $user->name }}</option>
                 @endforeach
             </select>
-        @else
-            <input type="text" id="identity_user" value="{{ Auth::user()->identity }}">
-        @endif
-    </div>
+        </div>
+    @else
+        <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
+    @endif
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Ket. Follow Up:</label>
-        <select id="change_follow" onchange="changeFilter()"
+        <select id="change_follow"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Keterangan</option>
             @foreach ($follows as $follow)
@@ -85,10 +86,11 @@
 </div>
 
 
-<div class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
+<div
+    class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Asal sekolah:</label>
-        <select id="school" onchange="changeFilter()"
+        <select id="school"
             class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih sekolah</option>
             <option value="0">Tidak diketahui</option>
@@ -99,49 +101,49 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Jurusan:</label>
-        <input type="text" id="change_major" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="text" id="change_major"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Jurusan">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Tahun lulus:</label>
-        <input type="number" id="year_grad" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="number" id="year_grad"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tahun lulus">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Tanggal lahir:</label>
-        <input type="date" id="birthday" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="date" id="birthday"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tanggal Lahir">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Prestasi:</label>
-        <input type="text" id="change_achievement" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="text" id="change_achievement"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Prestasi">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Relasi:</label>
-        <input type="text" id="change_relation" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="text" id="change_relation"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Relasi">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Pekerjaan Ayah:</label>
-        <input type="text" id="change_jobfather" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="text" id="change_jobfather"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Pekerjaan Ayah">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Pekerjaan Ibu:</label>
-        <input type="text" id="change_jobmother" onkeyup="if (event.keyCode === 13) changeFilter()"
+        <input type="text" id="change_jobmother"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Pekerjaan Ibu">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Rencana Aplikan</label>
-        <select id="change_plan" onchange="changeFilter()"
+        <select id="change_plan"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
             <option value="Kuliah">Kuliah</option>
@@ -152,7 +154,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Datang ke LP3I</label>
-        <select id="change_come" onchange="changeFilter()"
+        <select id="change_come"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
             <option value="1">Ya</option>
@@ -161,7 +163,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Penghasilan Orang Tua</label>
-        <select id="change_income" onchange="changeFilter()"
+        <select id="change_income"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
             <option value="< 1.000.000">&lt; 1.000.000</option>
@@ -172,7 +174,7 @@
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">KIP</label>
-        <select id="change_kip" onchange="changeFilter()"
+        <select id="change_kip"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
             <option value="1">Ya</option>
@@ -180,4 +182,3 @@
         </select>
     </div>
 </div>
-

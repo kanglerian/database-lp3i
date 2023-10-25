@@ -68,6 +68,11 @@
                                         <span class="border-b">{{ $user->name == null ? '___' : $user->name }}</span>
                                     </li>
                                     <li class="space-x-2">
+                                        <span>Program Kuliah:</span>
+                                        <span
+                                            class="border-b">{{ $user->programtype_id == null ? '___' : $user->programtype->name }}</span>
+                                    </li>
+                                    <li class="space-x-2">
                                         <span>Program Studi:</span>
                                         <span
                                             class="border-b">{{ $user->program == null ? '___' : $user->program }}</span>

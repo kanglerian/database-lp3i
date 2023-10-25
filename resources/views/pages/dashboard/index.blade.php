@@ -147,7 +147,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 {{-- <input type="text" id="change_pmb" placeholder="PMB" onchange="changeFilter()"> --}}
                 <div class="flex flex-wrap">
-                    <div class="block w-1/2 md:w-1/4 p-1">
+                    <div class="block w-1/2 md:w-1/5 p-1">
                         <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
                             <h4>
                                 <i class="fa-solid fa-database mr-1"></i>
@@ -157,30 +157,40 @@
                                 class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
                         </div>
                     </div>
-                    <div class="block w-1/2 md:w-1/4 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-amber-500 text-white rounded-xl">
+                    <div class="block w-1/2 md:w-1/5 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
                             <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
+                                <i class="fa-solid fa-graduation-cap mr-1"></i>
+                                <span class="text-sm">Beasiswa</span>
+                            </h4>
+                            <span
+                                class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg">{{ $schoolarshipCount }}</span>
+                        </div>
+                    </div>
+                    <div class="block w-1/2 md:w-1/5 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
+                            <h4>
+                                <i class="fa-solid fa-file-lines mr-1"></i>
                                 <span class="text-sm">Aplikan</span>
                             </h4>
                             <span
-                                class="bg-amber-600 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
+                                class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
                         </div>
                     </div>
-                    <div class="block w-1/2 md:w-1/4 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
+                    <div class="block w-1/2 md:w-1/5 p-1">
+                        <div class="flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
                             <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
+                                <i class="fa-solid fa-id-badge mr-1"></i>
                                 <span class="text-sm">Daftar</span>
                             </h4>
                             <span
-                                class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
+                                class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
                         </div>
                     </div>
-                    <div class="block w-1/2 md:w-1/4 p-1">
+                    <div class="block w-1/2 md:w-1/5 p-1">
                         <div class="flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
                             <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
+                                <i class="fa-solid fa-user-check mr-1"></i>
                                 <span class="text-sm">Registrasi</span>
                             </h4>
                             <span

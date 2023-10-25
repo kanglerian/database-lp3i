@@ -27,18 +27,21 @@ class DashboardController extends Controller
         $applicantQuery = Applicant::query();
         $daftarQuery = Applicant::query();
         $registrasiQuery = Applicant::query();
+        $schoolarshipQuery = Applicant::query();
 
         if (Auth::user()->role === 'P') {
             $databaseQuery->where('identity_user', Auth::user()->identity);
             $applicantQuery->where('identity_user', Auth::user()->identity);
             $daftarQuery->where('identity_user', Auth::user()->identity);
             $registrasiQuery->where('identity_user', Auth::user()->identity);
+            $schoolarshipQuery->where('identity_user', Auth::user()->identity);
         }
 
         $databaseCount = $databaseQuery->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
         $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
+        $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
 
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
@@ -46,6 +49,7 @@ class DashboardController extends Controller
             'databaseCount' => $databaseCount,
             'applicantCount' => $applicantCount,
             'registrasiCount' => $registrasiCount,
+            'schoolarshipCount' => $schoolarshipCount,
             'daftarCount' => $daftarCount,
         ]);
     }
