@@ -63,8 +63,10 @@ class RegisterController extends Controller
                 $school = $schoolCreate->id;
             }
         }
-
-        $numbers_unique = mt_rand(1, 100000000000000);
+        $min = 1;
+        $max = 100000000000000;
+        $random_number = mt_rand($min, $max);
+        $numbers_unique = $random_number / abs($min);
 
         $check_email_applicant = Applicant::where('email', $request->email)->first();
         $check_phone_applicant = Applicant::where('phone', $request->phone)->first();
@@ -206,7 +208,6 @@ class RegisterController extends Controller
                         'identity_user' => $numbers_unique,
                         'gender' => 0,
                     ];
-
                     $user = User::create($data_user);
                     Applicant::create($data_applicant);
                     ApplicantFamily::create($data_father);

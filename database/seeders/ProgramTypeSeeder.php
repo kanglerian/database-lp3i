@@ -17,12 +17,6 @@ class ProgramTypeSeeder extends Seeder
     {
         DB::table('program_type')->insert([
             [
-                'name' => 'Tidak Diketahui',
-                'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'name' => 'Reguler Pagi',
                 'status' => 1,
                 'created_at' => Carbon::now(),
