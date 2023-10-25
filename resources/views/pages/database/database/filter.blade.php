@@ -48,16 +48,6 @@
             @endforeach
         </select>
     </div>
-    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="date_start" class="text-xs">Tanggal awal:</label>
-        <input type="date" id="date_start"
-            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-    </div>
-    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Tanggal akhir:</label>
-        <input type="date" id="date_end"
-            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-    </div>
     @if (Auth::user()->role == 'A')
         <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
             <label for="" class="text-xs">Presenter:</label>
@@ -73,6 +63,16 @@
     @else
         <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
     @endif
+    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+        <label for="date_start" class="text-xs">Tanggal awal:</label>
+        <input type="date" id="date_start"
+            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+    </div>
+    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+        <label for="" class="text-xs">Tanggal akhir:</label>
+        <input type="date" id="date_end"
+            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+    </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="" class="text-xs">Ket. Follow Up:</label>
         <select id="change_follow"

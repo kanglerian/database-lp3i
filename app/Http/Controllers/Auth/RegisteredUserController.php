@@ -96,16 +96,17 @@ class RegisteredUserController extends Controller
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
-        $schoolCheck = School::where('id', $request->input('school'))->first();
+        $schoolCheck = School::where('id', $request->school)->first();
+        $schoolNameCheck = School::where('name', $request->school)->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if ($request->input('school') == 'TIDAK DIKETAHUI') {
-                $school = null;
+            if($schoolNameCheck){
+                $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
-                    'name' => strtoupper($request->input('school')),
+                    'name' => strtoupper($request->school),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
                 $schoolCreate = School::create($dataSchool);

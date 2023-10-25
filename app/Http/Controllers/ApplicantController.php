@@ -303,20 +303,22 @@ class ApplicantController extends Controller
 
             $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
-            $schoolCheck = School::where('id', $request->input('school'))->first();
+            $schoolCheck = School::where('id', $request->school)->first();
+            $schoolName = str_replace(' ', '', $request->school);
+            $schoolNameCheck = School::where('name', $schoolName)->first();
 
             if ($schoolCheck) {
                 $school = $schoolCheck->id;
             } else {
-                if ($request->input('school') == 'TIDAK DIKETAHUI') {
-                    $school = null;
+                if ($schoolNameCheck) {
+                    $school = $schoolNameCheck->id;
                 } else {
                     $dataSchool = [
-                        'name' => strtoupper($request->input('school')),
+                        'name' => strtoupper($schoolName),
                         'region' => 'TIDAK DIKETAHUI',
                     ];
-                    $school = School::create($dataSchool);
-                    $school = $school->id;
+                    $schoolCreate = School::create($dataSchool);
+                    $school = $schoolCreate->id;
                 }
             }
 

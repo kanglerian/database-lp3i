@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
 use App\Models\ApplicantFamily;
@@ -38,6 +39,24 @@ class ApplicantController extends Controller
 
             $check_number = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('phone', $number_phone)->first();
 
+            $schoolCheck = School::where('id', $request->school)->first();
+            $schoolNameCheck = School::where('name', $request->school)->first();
+
+            if ($schoolCheck) {
+                $school = $schoolCheck->id;
+            } else {
+                if ($schoolNameCheck) {
+                    $school = $schoolNameCheck->id;
+                } else {
+                    $dataSchool = [
+                        'name' => strtoupper($request->school),
+                        'region' => 'TIDAK DIKETAHUI',
+                    ];
+                    $schoolCreate = School::create($dataSchool);
+                    $school = $schoolCreate->id;
+                }
+            }
+
             if ($check_number) {
                 return response()->json(['status' => true, 'message' => 'Terima kasih telah mengisi data. Kami akan segera menghubungi Anda untuk informasi lebih lanjut.', 'data' => $check_number]);
             } else {
@@ -45,6 +64,8 @@ class ApplicantController extends Controller
                     'identity' => $numbers_unique,
                     'name' => ucwords(strtolower($request->input('name'))),
                     'phone' => $number_phone,
+                    'school' => $request->input('school'),
+                    'year' => $request->input('year'),
                     'pmb' => $request->input('pmb'),
                     'programtype_id' => $request->input('programtype_id'),
                     'identity_user' => '6281313608558',

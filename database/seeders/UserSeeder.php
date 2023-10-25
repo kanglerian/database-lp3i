@@ -116,6 +116,18 @@ class UserSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'identity' => 6282211780631,
+                'name' => 'Arip Budiman, S.T., M.Pd',
+                'email' => 'arip.lp3i@gmail.com',
+                'password' => Hash::make('arip123456'),
+                'phone' => '6282213099124',
+                'role' => 'P',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+
         ]);
     }
 }

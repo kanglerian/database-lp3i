@@ -207,17 +207,23 @@ class UserController extends Controller
         $prov = $request->input('provinces') !== null ? 'Provinsi ' . $request->input('provinces') . ' ' : null;
         $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
-        $schoolCheck = School::where('id', $request->input('school'))->first();
+
+        $schoolCheck = School::where('id', $request->school)->first();
+        $schoolNameCheck = School::where('name', $request->school)->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            $dataSchool = [
-                'name' => strtoupper($request->input('school')),
-                'region' => 'TIDAK DIKETAHUI',
-            ];
-            $school = School::create($dataSchool);
-            $school = $school->id;
+            if($schoolNameCheck){
+                $school = $schoolNameCheck->id;
+            } else {
+                $dataSchool = [
+                    'name' => strtoupper($request->school),
+                    'region' => 'TIDAK DIKETAHUI',
+                ];
+                $schoolCreate = School::create($dataSchool);
+                $school = $schoolCreate->id;
+            }
         }
 
         $data = [

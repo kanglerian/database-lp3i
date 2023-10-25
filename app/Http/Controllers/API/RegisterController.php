@@ -47,12 +47,13 @@ class RegisterController extends Controller
         $pmbValue = getYearPMB();
 
         $schoolCheck = School::where('id', $request->school)->first();
+        $schoolNameCheck = School::where('name', $request->school)->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if ($request->school == 'TIDAK DIKETAHUI') {
-                $school = null;
+            if($schoolNameCheck){
+                $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
                     'name' => strtoupper($request->school),
