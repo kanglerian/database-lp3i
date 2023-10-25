@@ -299,7 +299,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.program}','${data.program_type.name}','${data.source_setting.name}',)">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord('${data.name}','${data.phone}','${data.school_applicant == null ? 'Tidak diketahui' : data.school_applicant.name}','${data.year}','${data.program}','${data.program_type}','${data.source_setting}',)">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>`
@@ -513,7 +513,7 @@
     const copyRecord = (name, phone, school, year, program, programtype, source) => {
         const textarea = document.createElement("textarea");
         textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
+            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype == "null" ? 'Tidak diketahui' : programtype.name}\nSumber: ${source == 'null' ? 'Tidak diketahui' : source.name}`;
         textarea.style.position = "fixed";
         document.body.appendChild(textarea);
         textarea.select();
