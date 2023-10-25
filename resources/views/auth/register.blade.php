@@ -22,7 +22,7 @@
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="programtype_id" :value="__('Program Kuliah')" />
-                    <x-select id="programtype_id" name="programtype_id" required>
+                    <x-select id="programtype_id" onchange="filterProgram()" name="programtype_id" required>
                         <option value="0">Pilih program</option>
                         @forelse ($programtypes as $programtype)
                             <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
@@ -40,17 +40,8 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <x-label for="program" :value="__('Program')" />
-                    <x-select id="program" name="program" required>
-                        <option value="0">Pilih program</option>
-                        @if ($programs == null)
-                            <option value="Belum diketahui">Belum diketahui</option>
-                        @else
-                            @foreach ($programs as $prog)
-                                <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                    {{ $prog['level'] }}
-                                    {{ $prog['title'] }}</option>
-                            @endforeach
-                        @endif
+                    <x-select id="program" name="program" required disabled>
+                        <option value="0">Pilih Program Studi</option>
                     </x-select>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('program'))
@@ -169,7 +160,7 @@
                 <div class="relative z-0 w-full group">
                     <x-label for="year" :value="__('Tahun Lulus')" />
                     <x-input type="number" min="1945" max="3000" name="year" id="year"
-                        :value="old('year')" placeholder="Tulis tahun lulus disini..." required/>
+                        :value="old('year')" placeholder="Tulis tahun lulus disini..." required />
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('year'))
                             <span class="text-red-500">{{ $errors->first('year') }}</span>
@@ -370,12 +361,40 @@
     </x-auth-card-register>
 </x-guest-layout>
 <script src="{{ asset('js/indonesia.js') }}"></script>
+<script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('.js-example-input-single').select2({
             tags: true,
         });
     });
+
+    const filterProgram = async () => {
+        let programType = document.getElementById('programtype_id').value;
+        await axios.get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs')
+            .then((res) => {
+                let programs = res.data;
+                var results;
+                let bucket = '';
+                switch (programType) {
+                    case "2":
+                        results = programs.filter(program => program.regular === "1");
+                        break;
+                    case "3":
+                        results = programs.filter(program => program.employee === "1");
+                        break;
+                }
+                results.map((result) => {
+                    bucket += `<option value="${result.level} ${result.title}">${result.level} ${result.title}</option>`;
+                });
+                document.getElementById('program').innerHTML = bucket;
+                document.getElementById('program').disabled = false;
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+
+    }
 
     const seePassword = () => {
         let passwordElement = document.getElementById('password');
