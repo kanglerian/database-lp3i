@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     @stack('styles')
