@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Fontss -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon/favicon.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
 </head>
 
 <body class="bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
@@ -60,7 +59,7 @@
                 @if (Route::has('login'))
                     <div class="flex justify-center md:justify-start items-center gap-2">
                         @auth
-                            <a href="{{ route('dashboard.index') }}" 
+                            <a href="{{ route('dashboard.index') }}"
                             class="bg-lp3i-200 hover:bg-lp3i-300 px-6 py-2 rounded-lg text-white">Dashboard</a>
                         @else
                             @if (Route::has('register'))
