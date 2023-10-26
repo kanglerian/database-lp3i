@@ -306,9 +306,8 @@ class ApplicantController extends Controller
 
             $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
-            $schoolCheck = School::where('id', $request->school)->first();
-            $schoolName = str_replace(' ', '', $request->school);
-            $schoolNameCheck = School::where('name', $schoolName)->first();
+            $schoolCheck = School::where('id', $request->input('school'))->first();
+            $schoolNameCheck = School::where('name', $request->input('school'))->first();
 
             if ($schoolCheck) {
                 $school = $schoolCheck->id;
@@ -317,7 +316,7 @@ class ApplicantController extends Controller
                     $school = $schoolNameCheck->id;
                 } else {
                     $dataSchool = [
-                        'name' => strtoupper($schoolName),
+                        'name' => strtoupper($request->input('school')),
                         'region' => 'TIDAK DIKETAHUI',
                     ];
                     $schoolCreate = School::create($dataSchool);
@@ -629,21 +628,22 @@ class ApplicantController extends Controller
         $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
-        $schoolCheck = School::where('id', $request->input('school'))->first();
 
+        $schoolCheck = School::where('id', $request->input('school'))->first();
+        $schoolNameCheck = School::where('name', $request->input('school'))->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if (strlen($request->input('school')) < 7) {
-                $school = null;
+            if ($schoolNameCheck) {
+                $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
                     'name' => strtoupper($request->input('school')),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
-                $school = School::create($dataSchool);
-                $school = $school->id;
+                $schoolCreate = School::create($dataSchool);
+                $school = $schoolCreate->id;
             }
         }
 
