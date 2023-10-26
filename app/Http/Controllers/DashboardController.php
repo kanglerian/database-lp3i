@@ -112,6 +112,7 @@ class DashboardController extends Controller
     {
 
         $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
+        $sourcesIdDaftarQuery->where('source_daftar_id', '!=', null);
         $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
 
         return response()->json(['sources' => $sourcesIdDaftarCount]);
