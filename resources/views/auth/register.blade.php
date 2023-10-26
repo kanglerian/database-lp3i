@@ -377,18 +377,33 @@
                 var results;
                 let bucket = '';
                 switch (programType) {
-                    case "2":
+                    case "1":
                         results = programs.filter(program => program.regular === "1");
                         break;
-                    case "3":
+                    case "2":
                         results = programs.filter(program => program.employee === "1");
                         break;
+                    default:
+                        document.getElementById('program').innerHTML =
+                            `<option value="0">Pilih Program Studi</option>`;
+                        document.getElementById('program').disabled = true;
+                        break
                 }
-                results.map((result) => {
-                    bucket += `<option value="${result.level} ${result.title}">${result.level} ${result.title}</option>`;
-                });
-                document.getElementById('program').innerHTML = bucket;
-                document.getElementById('program').disabled = false;
+                if (programType != 0) {
+                    results.map((result) => {
+                        let option = '';
+                        result.interest.map((inter, index) => {
+                            option +=
+                                `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                        })
+                        bucket += `
+                    <optgroup label="${result.level} ${result.title}">
+                        ${option}
+                    </optgroup>`;
+                    });
+                    document.getElementById('program').innerHTML = bucket;
+                    document.getElementById('program').disabled = false;
+                }
             })
             .catch((err) => {
                 console.log(err.message);
