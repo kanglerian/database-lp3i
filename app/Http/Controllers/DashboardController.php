@@ -31,6 +31,8 @@ class DashboardController extends Controller
         $daftarQuery = Applicant::query();
         $registrasiQuery = Applicant::query();
         $schoolarshipQuery = Applicant::query();
+        $sourcesIdQuery = ApplicantBySourceId::query();
+        $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
 
         if (Auth::user()->role === 'P') {
             $databaseQuery->where('identity_user', Auth::user()->identity);
@@ -39,12 +41,15 @@ class DashboardController extends Controller
             $registrasiQuery->where('identity_user', Auth::user()->identity);
             $schoolarshipQuery->where('identity_user', Auth::user()->identity);
         }
+        $sourcesIdDaftarQuery->where('source_daftar_id', '!=', null);
 
         $databaseCount = $databaseQuery->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
         $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
+        $sourcesIdCount = $sourcesIdQuery->with('SourceSetting')->get();
+        $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
 
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
@@ -54,6 +59,8 @@ class DashboardController extends Controller
             'registrasiCount' => $registrasiCount,
             'schoolarshipCount' => $schoolarshipCount,
             'daftarCount' => $daftarCount,
+            'sourcesIdCount' => $sourcesIdCount,
+            'sourcesIdDaftarCount' => $sourcesIdDaftarCount,
         ]);
     }
 /**

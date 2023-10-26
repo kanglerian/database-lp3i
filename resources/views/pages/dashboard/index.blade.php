@@ -198,38 +198,79 @@
                         </div>
                     </div>
                 </div>
+                @if (Auth::user()->role == 'A')
+                    <div class="mt-5">
+                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Informasi:</h1>
+                        <div class="flex flex-wrap">
+                            @foreach ($sourcesIdDaftarCount as $sourcesdaftarid)
+                                <div class="block w-1/2 md:w-1/5 p-1">
+                                    <div
+                                        class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
+                                        <h4>
+                                            <i class="fa-solid fa-database mr-1"></i>
+                                            <span
+                                                class="text-sm">{{ $sourcesdaftarid->sourceDaftarSetting->name }}</span>
+                                        </h4>
+                                        <span
+                                            class="bg-gray-600 text-white text-sm px-2 py-1 rounded-lg">{{ $sourcesdaftarid->total }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Database:</h1>
+                        <div class="flex flex-wrap">
+                            @foreach ($sourcesIdCount as $sourcesid)
+                                <div class="block w-1/2 md:w-1/5 p-1">
+                                    <div
+                                        class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
+                                        <h4>
+                                            <i class="fa-solid fa-database mr-1"></i>
+                                            <span class="text-sm">{{ $sourcesid->sourceSetting->name }}</span>
+                                        </h4>
+                                        <span
+                                            class="bg-gray-600 text-white text-sm px-2 py-1 rounded-lg">{{ $sourcesid->total }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
-        <div class="py-10">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
-                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                        id="chartSourceContainer">
-                        <div class="text-center py-3">
-                            <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Database</h3>
+        @if (Auth::user()->role == 'A')
+            <div class="py-10">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
+                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                            id="chartSourceContainer">
+                            <div class="text-center py-3">
+                                <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Database</h3>
+                            </div>
+                            <hr>
+                            <canvas id="chartSource" class="py-3"></canvas>
                         </div>
-                        <hr>
-                        <canvas id="chartSource" class="py-3"></canvas>
-                    </div>
-                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                        id="chartSourceDaftarContainer">
-                        <div class="text-center py-3">
-                            <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Informasi</h3>
+                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                            id="chartSourceDaftarContainer">
+                            <div class="text-center py-3">
+                                <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Informasi</h3>
+                            </div>
+                            <hr>
+                            <canvas id="chartSourceDaftar" class="py-3"></canvas>
                         </div>
-                        <hr>
-                        <canvas id="chartSourceDaftar" class="py-3"></canvas>
-                    </div>
-                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                        id="chartPresenterContainer">
-                        <div class="text-center py-3">
-                            <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
+                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                            id="chartPresenterContainer">
+                            <div class="text-center py-3">
+                                <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
+                            </div>
+                            <hr>
+                            <canvas id="chartPresenter" class="py-3"></canvas>
                         </div>
-                        <hr>
-                        <canvas id="chartPresenter" class="py-3"></canvas>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     @endif
 </x-app-layout>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
@@ -318,7 +359,6 @@
                 let dataSource = data
                     .filter(element => element.source_daftar_id !== null)
                     .map(element => element.total);
-                    console.log(dataSource.length);
                 if (dataSource.length > 0) {
                     await new Chart(chartSourceDaftar, {
                         type: 'doughnut',
