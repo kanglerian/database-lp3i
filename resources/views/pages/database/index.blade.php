@@ -469,7 +469,7 @@
             let fullName = applicant.name;
             let nameParts = fullName.split(' ');
             let fn = nameParts[0];
-            let kotaKab = applicant.address.split("KOTA/KAB.")[1]?.trim() || "";
+            let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant.address.split("KOTA/KAB.")[1].trim() : "") : '';
             let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
             let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
             let genderCode = applicant.gender;
