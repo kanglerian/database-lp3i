@@ -35,7 +35,7 @@ class UserController extends Controller
         $identity = $request->query('identity');
         $token = $request->query('token');
         $user = User::where(['token' => $token, 'identity' => $identity])->firstOrFail();
-        $applicant = Applicant::where('identity', $user->identity)->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->firstOrFail();
+        $applicant = Applicant::where('identity', $user->identity)->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->firstOrFail();
         $achievements = Achievement::where('identity_user', $user->identity)->get();
         $organizations = Organization::where('identity_user', $user->identity)->get();
         $userupload = UserUpload::with('fileupload')->where('identity_user', $identity)->get();

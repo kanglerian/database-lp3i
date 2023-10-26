@@ -17,14 +17,14 @@
                 @csrf
                 <div class="p-4 space-y-6">
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama
+                        <label for="name_school" class="block mb-2 text-sm font-medium text-gray-900">Nama
                             Sekolah</label>
                         <input type="text" id="name_school" name="name" placeholder="Isi nama sekolah disini.."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
+                         required>
                     </div>
                     <div>
-                        <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Wilayah</label>
+                        <label for="region_school" class="block mb-2 text-sm font-medium text-gray-900">Wilayah</label>
                         <input type="text" id="region_school" name="region" placeholder="Isi wilayah disini.."
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>

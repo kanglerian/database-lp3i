@@ -39,8 +39,8 @@ class ApplicantController extends Controller
 
             $check_number = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('phone', $number_phone)->first();
 
-            $schoolCheck = School::where('id', $request->school)->first();
-            $schoolNameCheck = School::where('name', $request->school)->first();
+            $schoolCheck = School::where('id', $request->input('school'))->first();
+            $schoolNameCheck = School::where('name', $request->input('school'))->first();
 
             if ($schoolCheck) {
                 $school = $schoolCheck->id;
@@ -49,7 +49,7 @@ class ApplicantController extends Controller
                     $school = $schoolNameCheck->id;
                 } else {
                     $dataSchool = [
-                        'name' => strtoupper($request->school),
+                        'name' => strtoupper($request->input('school')),
                         'region' => 'TIDAK DIKETAHUI',
                     ];
                     $schoolCreate = School::create($dataSchool);
@@ -64,7 +64,7 @@ class ApplicantController extends Controller
                     'identity' => $numbers_unique,
                     'name' => ucwords(strtolower($request->input('name'))),
                     'phone' => $number_phone,
-                    'school' => $request->input('school'),
+                    'school' => $school,
                     'year' => $request->input('year'),
                     'pmb' => $request->input('pmb'),
                     'programtype_id' => $request->input('programtype_id'),

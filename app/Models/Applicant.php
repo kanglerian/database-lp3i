@@ -83,7 +83,8 @@ class Applicant extends Model
     public function sourceSetting()
     {
         return $this->belongsTo(SourceSetting::class, 'source_id', 'id');
-    }public function sourceDaftarSetting()
+    }
+    public function sourceDaftarSetting()
     {
         return $this->belongsTo(SourceSetting::class, 'source_daftar_id', 'id');
     }

@@ -32,4 +32,12 @@ class SourceSetting extends Model
     public function applicant(){
         return $this->hasMany(Applicant::class, 'source_id');
     }
+
+    public function applicantSourceId(){
+        return $this->hasMany(ApplicantBySourceId::class, 'source_id');
+    }
+
+    public function applicantSourceDaftarId(){
+        return $this->hasMany(ApplicantBySourceId::class, 'source_daftar_id');
+    }
 }

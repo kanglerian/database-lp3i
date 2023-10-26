@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <form action="{{ route('school.import') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('school.import') }}" id="form-school" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="berkas" id="berkas"
                         class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>

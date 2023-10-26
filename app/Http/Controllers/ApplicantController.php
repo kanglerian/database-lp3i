@@ -191,7 +191,7 @@ class ApplicantController extends Controller
             });
         }
 
-        $applicants = $applicantsQuery->with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
+        $applicants = $applicantsQuery->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
             ->orderByDesc('created_at')
             ->get();
 
@@ -394,7 +394,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceSetting','sourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
@@ -423,7 +423,7 @@ class ApplicantController extends Controller
      */
     public function chats($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
 
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
@@ -450,7 +450,7 @@ class ApplicantController extends Controller
      */
     public function achievements($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
 
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
@@ -477,7 +477,7 @@ class ApplicantController extends Controller
      */
     public function organizations($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
 
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
@@ -505,7 +505,7 @@ class ApplicantController extends Controller
      */
     public function files($identity)
     {
-        $user = Applicant::with('SchoolApplicant')->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
             $userupload = UserUpload::where('identity_user', $identity)->get();
@@ -560,7 +560,7 @@ class ApplicantController extends Controller
                 $programs = null;
             }
 
-            $applicant = Applicant::with('SchoolApplicant')->findOrFail($id);
+            $applicant = Applicant::with(['SchoolApplicant', 'SourceSetting','sourceDaftarSetting'])->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
                 'programs' => $programs,
@@ -600,6 +600,7 @@ class ApplicantController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
             'source_id' => ['required', 'not_in:0'],
+            'source_daftar_id' => ['required', 'not_in:0'],
             'status_id' => ['required', 'not_in:0'],
             'followup_id' => ['not_in:null'],
             'program' => ['required', 'string', 'not_in:0'],
@@ -681,6 +682,7 @@ class ApplicantController extends Controller
             'followup_id' => $request->input('followup_id'),
             'programtype_id' => $request->input('programtype_id'),
             'source_id' => $request->input('source_id'),
+            'source_daftar_id' => $request->input('source_daftar_id'),
             'status_id' => $request->input('status_id'),
         ];
 
@@ -760,7 +762,7 @@ class ApplicantController extends Controller
      */
     public function print($id)
     {
-        $applicant = Applicant::with(['SourceSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
+        $applicant = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
         $user = User::where('identity', $id)->firstOrFail();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();

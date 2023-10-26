@@ -152,13 +152,17 @@
                     @endif
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
-                        <x-label for="source_id" :value="__('Sumber')" />
+                        <x-label for="source_id" :value="__('Sumber Database')" />
                         <x-select id="source_id" name="source_id" required>
+                            @if ($applicant->source_id)
                             <option value="{{ $applicant->source_id }}" selected>
                                 {{ $applicant->sourceSetting->name }}
                             </option>
+                            @else
+                            <option value="0" selected>Pilih Sumber Database</option>
+                            @endif
                             @foreach ($sources as $source)
                                 <option value="{{ $source->id }}">
                                     {{ $source->name }}
@@ -174,7 +178,34 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group mb-4">
-                        <x-label for="c" :value="__('Keterangan Follow Up')" />
+                        <x-label for="source_daftar_id" :value="__('Sumber Informasi')" />
+                        <x-select id="source_daftar_id" name="source_daftar_id" required>
+                            @if ($applicant->source_daftar_id)
+                            <option value="{{ $applicant->source_daftar_id }}" selected>
+                                {{ $applicant->sourceDaftarSetting->name }}
+                            </option>
+                            @else
+                                <option value="0" selected>Pilih Sumber informasi</option>
+                            @endif
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">
+                                    {{ $source->name }}
+                                </option>
+                            @endforeach
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('source_daftar_id'))
+                                <span class="text-red-500">{{ $errors->first('source_daftar_id') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
+                        <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
                         <x-select id="followup_id" name="followup_id">
                             @if ($applicant->followup_id)
                                 <option value="{{ $applicant->followup_id }}">{{ $applicant->FollowUp->name }}

@@ -212,6 +212,14 @@
                         <canvas id="chartSource" class="py-3"></canvas>
                     </div>
                     <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
+                        id="chartSourceDaftarContainer">
+                        <div class="text-center py-3">
+                            <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Informasi</h3>
+                        </div>
+                        <hr>
+                        <canvas id="chartSourceDaftar" class="py-3"></canvas>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
                         id="chartPresenterContainer">
                         <div class="text-center py-3">
                             <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
@@ -231,12 +239,12 @@
     var urlDataDashboard = 'get/dashboard/all'
     const getAll = async () => {
         await axios.get(urlDataDashboard)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
     getAll();
 
@@ -250,7 +258,6 @@
         urlData = `get/dashboard/all?${queryString}`;
         getAll();
     }
-
 </script>
 <script>
     const getSource = async () => {
@@ -260,9 +267,9 @@
         await axios.get('get/dashboard/sources')
             .then(async (res) => {
                 data = res.data.sources;
-                if (data.length > 0) {
-                    let labels = data.map(element => element.name);
-                    let dataSource = data.map(element => element.count);
+                let labels = data.map(element => element.source_setting.name);
+                let dataSource = data.map(element => element.total);
+                if (dataSource.length > 0) {
                     await new Chart(chartSource, {
                         type: 'doughnut',
                         options: {
@@ -296,6 +303,56 @@
             });
     }
     getSource();
+</script>
+<script>
+    const getSourceDaftar = async () => {
+        let data;
+        const chartSourceDaftar = document.getElementById('chartSourceDaftar');
+        const chartSourceDaftarContainer = document.getElementById('chartSourceDaftarContainer');
+        await axios.get('get/dashboard/sourcesdaftar')
+            .then(async (res) => {
+                data = res.data.sources;
+                let labels = data
+                    .filter(element => element.source_daftar_id !== null)
+                    .map(element => element.source_daftar_setting.name);
+                let dataSource = data
+                    .filter(element => element.source_daftar_id !== null)
+                    .map(element => element.total);
+                    console.log(dataSource.length);
+                if (dataSource.length > 0) {
+                    await new Chart(chartSourceDaftar, {
+                        type: 'doughnut',
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Hasil',
+                                data: dataSource,
+                            }]
+                        }
+                    });
+                } else {
+                    let content =
+                        `<div class="text-center py-3">
+                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+                    </div>
+                    <hr>
+                    <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
+                    chartSourceDaftarContainer.innerHTML = content;
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+    getSourceDaftar();
 </script>
 <script>
     const getPresenter = async () => {

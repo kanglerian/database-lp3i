@@ -44,6 +44,7 @@ Route::post('import/schools', [SchoolController::class, 'import'])->middleware([
 Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all')->middleware(['auth','status:1']);
 
 Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
+Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget')->middleware(['auth','status:1']);
 Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget')->middleware(['auth','status:1']);
 
 Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');

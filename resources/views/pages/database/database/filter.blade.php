@@ -1,7 +1,7 @@
 <div
     class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Periode PMB:</label>
+        <label for="change_pmb" class="text-xs">Periode PMB:</label>
         <input type="number" id="change_pmb"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tahun PMB">
@@ -19,7 +19,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Sumber Informasi:</label>
+        <label for="change_source_daftar" class="text-xs">Sumber Informasi:</label>
         <select id="change_source_daftar"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Sumber</option>
@@ -29,7 +29,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Sumber Database:</label>
+        <label for="change_source" class="text-xs">Sumber Database:</label>
         <select id="change_source"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Sumber</option>
@@ -39,7 +39,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Status Database:</label>
+        <label for="change_status" class="text-xs">Status Database:</label>
         <select id="change_status"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Status</option>
@@ -50,7 +50,7 @@
     </div>
     @if (Auth::user()->role == 'A')
         <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-            <label for="" class="text-xs">Presenter:</label>
+            <label for="identity_user" class="text-xs">Presenter:</label>
             <select id="identity_user"
                 class="js-example-basic-single bg-white border border-gray-300 w-full md:w-[150px] px-3 py-2 text-xs rounded-lg text-gray-800">
                 <option value="all">Pilih presenter</option>
@@ -69,12 +69,12 @@
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Tanggal akhir:</label>
+        <label for="date_end" class="text-xs">Tanggal akhir:</label>
         <input type="date" id="date_end"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Ket. Follow Up:</label>
+        <label for="change_follow" class="text-xs">Ket. Follow Up:</label>
         <select id="change_follow"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Keterangan</option>
@@ -89,7 +89,7 @@
 <div
     class="w-full bg-white rounded-xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Asal sekolah:</label>
+        <label for="school" class="text-xs">Asal sekolah:</label>
         <select id="school"
             class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih sekolah</option>
@@ -100,49 +100,49 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Jurusan:</label>
+        <label for="change_major" class="text-xs">Jurusan:</label>
         <input type="text" id="change_major"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Jurusan">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Tahun lulus:</label>
+        <label for="year_grad" class="text-xs">Tahun lulus:</label>
         <input type="number" id="year_grad"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tahun lulus">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Tanggal lahir:</label>
+        <label for="birthday" class="text-xs">Tanggal lahir:</label>
         <input type="date" id="birthday"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Tanggal Lahir">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Prestasi:</label>
+        <label for="change_achievement" class="text-xs">Prestasi:</label>
         <input type="text" id="change_achievement"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Prestasi">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Relasi:</label>
+        <label for="change_relation" class="text-xs">Relasi:</label>
         <input type="text" id="change_relation"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Relasi">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Pekerjaan Ayah:</label>
+        <label for="change_jobfather" class="text-xs">Pekerjaan Ayah:</label>
         <input type="text" id="change_jobfather"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Pekerjaan Ayah">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Pekerjaan Ibu:</label>
+        <label for="change_jobmother" class="text-xs">Pekerjaan Ibu:</label>
         <input type="text" id="change_jobmother"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
             placeholder="Pekerjaan Ibu">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Rencana Aplikan</label>
+        <label for="change_plan" class="text-xs">Rencana Aplikan</label>
         <select id="change_plan"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
@@ -153,7 +153,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Datang ke LP3I</label>
+        <label for="change_come" class="text-xs">Datang ke LP3I</label>
         <select id="change_come"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
@@ -162,7 +162,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">Penghasilan Orang Tua</label>
+        <label for="change_income" class="text-xs">Penghasilan Orang Tua</label>
         <select id="change_income"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>
@@ -173,7 +173,7 @@
         </select>
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-        <label for="" class="text-xs">KIP</label>
+        <label for="change_kip" class="text-xs">KIP</label>
         <select id="change_kip"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
             <option value="all">Pilih</option>

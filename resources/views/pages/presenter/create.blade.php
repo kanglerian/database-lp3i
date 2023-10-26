@@ -78,7 +78,6 @@
     </div>
 </x-app-layout>
 
-@push('scripts')
 <script>
     let phoneInput = document.getElementById('phone');
     phoneInput.addEventListener('input', function() {
@@ -92,4 +91,3 @@
         }
     });
 </script>
-@endpush

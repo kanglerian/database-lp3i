@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\ApplicantBySourceDaftarId;
+use App\Models\ApplicantBySourceId;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SourceSetting;
+use App\Models\SourceDaftarSetting;
 use App\Models\User;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
@@ -98,19 +101,30 @@ class DashboardController extends Controller
      */
     public function get_sources($pmb = null)
     {
-        $sourcesQuery = SourceSetting::select('source_setting.id', 'source_setting.name', DB::raw('COUNT(applicants.source_id) as count'));
 
-        if ($pmb !== 'all' && $pmb !== null) {
-            $sourcesQuery->where('applicants.pmb', $pmb);
+        $sourcesIdQuery = ApplicantBySourceId::query();
+
+        if (Auth::user()->role === 'P') {
+            $sourcesIdQuery->where('identity_user', Auth::user()->identity);
         }
 
-        $sourcesQuery->leftJoin('applicants', 'source_setting.id', '=', 'applicants.source_id');
+        $sourcesIdCount = $sourcesIdQuery->with('SourceSetting')->get();
 
-        $sourcesQuery->groupBy('source_setting.id', 'source_setting.name');
+        return response()->json(['sources' => $sourcesIdCount]);
+    }
 
-        $sources = $sourcesQuery->get();
+    public function get_sources_daftar($pmb = null)
+    {
 
-        return response()->json(['sources' => $sources]);
+        $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
+
+        if (Auth::user()->role === 'P') {
+            $sourcesIdDaftarQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
+
+        return response()->json(['sources' => $sourcesIdDaftarCount]);
     }
 
     public function get_presenters($pmb = null)
