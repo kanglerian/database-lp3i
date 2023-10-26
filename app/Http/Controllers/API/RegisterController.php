@@ -145,7 +145,7 @@ class RegisterController extends Controller
                         'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
                         'followup_id' => $check_phone_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
-                        'source_daftar_id' => 10,
+                        'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 10,
                         'status_id' => 2,
                         'come' => 0,
                         'isread' => '0',

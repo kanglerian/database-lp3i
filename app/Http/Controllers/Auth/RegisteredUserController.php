@@ -96,8 +96,8 @@ class RegisteredUserController extends Controller
 
         $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
-        $schoolCheck = School::where('id', $request->school)->first();
-        $schoolNameCheck = School::where('name', $request->school)->first();
+        $schoolCheck = School::where('id', $request->input('school'))->first();
+        $schoolNameCheck = School::where('name', $request->input('school'))->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
@@ -106,7 +106,7 @@ class RegisteredUserController extends Controller
                 $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
-                    'name' => strtoupper($request->school),
+                    'name' => strtoupper($request->input('school')),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
                 $schoolCreate = School::create($dataSchool);
@@ -169,7 +169,7 @@ class RegisteredUserController extends Controller
                     'class' => $request->input('class'),
                     'address' => $address_applicant,
                     'email' => $request->input('email'),
-                    'source_daftar_id' => 8,
+                    'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 8,
                     'status_id' => 2,
                     'come' => 0,
                     'isread' => '0',
