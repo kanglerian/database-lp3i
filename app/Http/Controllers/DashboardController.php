@@ -103,11 +103,6 @@ class DashboardController extends Controller
     {
 
         $sourcesIdQuery = ApplicantBySourceId::query();
-
-        if (Auth::user()->role === 'P') {
-            $sourcesIdQuery->where('identity_user', Auth::user()->identity);
-        }
-
         $sourcesIdCount = $sourcesIdQuery->with('SourceSetting')->get();
 
         return response()->json(['sources' => $sourcesIdCount]);
@@ -117,11 +112,6 @@ class DashboardController extends Controller
     {
 
         $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
-
-        if (Auth::user()->role === 'P') {
-            $sourcesIdDaftarQuery->where('identity_user', Auth::user()->identity);
-        }
-
         $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
 
         return response()->json(['sources' => $sourcesIdDaftarCount]);
