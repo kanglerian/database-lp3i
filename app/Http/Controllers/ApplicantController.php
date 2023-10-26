@@ -291,7 +291,10 @@ class ApplicantController extends Controller
                 'identity_user' => ['required', 'string', 'not_in:0'],
             ]);
 
-            $numbers_unique = mt_rand(1, 100000000000000);
+            $min = 1;
+            $max = 100000000000000;
+            $random_number = mt_rand($min, $max);
+            $numbers_unique = $random_number / abs($min);
 
             $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
             $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
@@ -394,7 +397,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::with(['SchoolApplicant', 'SourceSetting','sourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
+        $user = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $identity, 'gender' => 0])->first();
@@ -560,7 +563,7 @@ class ApplicantController extends Controller
                 $programs = null;
             }
 
-            $applicant = Applicant::with(['SchoolApplicant', 'SourceSetting','sourceDaftarSetting'])->findOrFail($id);
+            $applicant = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting'])->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
                 'programs' => $programs,

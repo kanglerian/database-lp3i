@@ -119,7 +119,10 @@ class RegisteredUserController extends Controller
 
         $check_email_user = User::where('email', $request->input('email'))->first();
 
-        $numbers_unique = mt_rand(1, 100000000000000);
+        $min = 1;
+        $max = 100000000000000;
+        $random_number = mt_rand($min, $max);
+        $numbers_unique = $random_number / abs($min);
 
         if ($check_email_applicant) {
             if ($check_email_user) {

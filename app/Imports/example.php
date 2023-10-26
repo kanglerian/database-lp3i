@@ -26,7 +26,10 @@ class ApplicantsImport implements ToModel
 
     public function model(array $row)
     {
-        $numbers_unique = mt_rand(1, 100000000000000);
+        $min = 1;
+        $max = 100000000000000;
+        $random_number = mt_rand($min, $max);
+        $numbers_unique = $random_number / abs($min);
         $schoolName = $row[6];
         $school = School::where('name', $schoolName)->first();
 

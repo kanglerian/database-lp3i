@@ -33,7 +33,10 @@ class ApplicantController extends Controller
                 'name' => ['string', 'max:255'],
                 'phone' => ['string', 'max:15', 'min:10'],
             ]);
-            $numbers_unique = mt_rand(1, 100000000000000);
+            $min = 1;
+            $max = 100000000000000;
+            $random_number = mt_rand($min, $max);
+            $numbers_unique = $random_number / abs($min);
 
             $number_phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
