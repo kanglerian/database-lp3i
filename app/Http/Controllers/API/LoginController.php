@@ -31,28 +31,28 @@ class LoginController extends Controller
                 'success' => false,
                 'message' => 'Email atau Password Anda salah'
             ], 401);
-        }
-
-        $check_beasiswa = Applicant::where('email', $credentials['email'])->first();
-
-        if ($check_beasiswa->schoolarship == '0') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Maaf, Anda tidak memenuhi syarat untuk masuk. Hanya penerima beasiswa yang diizinkan.'
-            ], 401);
         } else {
+            $check_beasiswa = Applicant::where('email', $credentials['email'])->first();
 
-            $data = auth()->user();
-            $user = User::where('identity', $data->identity)->first();
-            $user->update([
-                'token' => $token
-            ]);
+            if ($check_beasiswa->schoolarship == '0') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maaf, Anda tidak memenuhi syarat untuk masuk. Hanya penerima beasiswa yang diizinkan.'
+                ], 401);
+            } else {
 
-            return response()->json([
-                'success' => true,
-                'user' => auth()->user(),
-                'token' => $token,
-            ], 200);
+                $data = auth()->user();
+                $user = User::where('identity', $data->identity)->first();
+                $user->update([
+                    'token' => $token
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'user' => auth()->user(),
+                    'token' => $token,
+                ], 200);
+            }
         }
     }
 }
