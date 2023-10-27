@@ -88,7 +88,7 @@ class RegisterController extends Controller
                         'name' => $check_email_applicant->name,
                         'email' => $check_email_applicant->email,
                         'phone' => $check_email_applicant->phone,
-                        'password' => bcrypt($request->password),
+                        'password' => Hash::make($request->password),
                         'role' => 'S',
                         'status' => 1,
                     ];
@@ -111,7 +111,7 @@ class RegisterController extends Controller
                         'name' => $check_email_applicant->name,
                         'email' => $check_email_applicant->email,
                         'phone' => $request->phone,
-                        'password' => bcrypt($request->password),
+                        'password' => Hash::make($request->password),
                         'role' => 'S',
                         'status' => 1,
                     ];
@@ -156,7 +156,7 @@ class RegisterController extends Controller
                         'name' => $check_phone_applicant->name,
                         'email' => $request->email,
                         'phone' => $check_phone_applicant->phone,
-                        'password' => bcrypt($request->password),
+                        'password' => Hash::make($request->password),
                         'role' => 'S',
                         'status' => 1,
                     ];
@@ -195,7 +195,7 @@ class RegisterController extends Controller
                         'name' => $request->name,
                         'email' => $request->email,
                         'phone' => $request->phone,
-                        'password' => bcrypt($request->password),
+                        'password' => Hash::make($request->password),
                         'role' => 'S',
                         'status' => 1,
                     ];
