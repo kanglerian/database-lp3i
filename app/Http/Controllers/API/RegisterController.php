@@ -93,6 +93,7 @@ class RegisterController extends Controller
                         'status' => 1,
                     ];
                     $data_applicant = [
+                        'year' => $request->year,
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
@@ -116,6 +117,7 @@ class RegisterController extends Controller
                         'status' => 1,
                     ];
                     $data_applicant = [
+                        'year' => $request->year,
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
@@ -142,6 +144,7 @@ class RegisterController extends Controller
                         'nisn' => $request->nisn,
                         'school' => $school,
                         'email' => $request->email,
+                        'year' => $request->year,
                         'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
                         'followup_id' => $check_phone_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
@@ -178,6 +181,7 @@ class RegisterController extends Controller
                         'name' => ucwords(strtolower($request->name)),
                         'nisn' => $request->nisn,
                         'school' => $school,
+                        'year' => $request->year,
                         'email' => $request->email,
                         'phone' => $request->phone,
                         'programtype_id' => 1,
