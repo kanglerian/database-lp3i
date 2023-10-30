@@ -272,7 +272,7 @@
         @endif
     @endif
     @if (Auth::user()->role == 'P')
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-white relative overflow-x-auto border border-gray-200 sm:rounded-lg">
                     <header class="p-5 space-y-1">
