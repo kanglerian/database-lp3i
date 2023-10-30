@@ -51,6 +51,14 @@ class DashboardController extends Controller
         $sourcesIdCount = $sourcesIdQuery->with('SourceSetting')->get();
         $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
 
+        $databasesAdminstratorCount = Applicant::where('identity_user', '6281313608558')->count();
+
+        $databasesAdministrator = Applicant::where('identity_user', '6281313608558')
+        ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
+        ->orderByDesc('created_at')
+        ->take(10)
+        ->get();
+
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
@@ -61,6 +69,8 @@ class DashboardController extends Controller
             'daftarCount' => $daftarCount,
             'sourcesIdCount' => $sourcesIdCount,
             'sourcesIdDaftarCount' => $sourcesIdDaftarCount,
+            'databasesAdminstratorCount' => $databasesAdminstratorCount,
+            'databasesAdministrator' => $databasesAdministrator
         ]);
     }
 /**
