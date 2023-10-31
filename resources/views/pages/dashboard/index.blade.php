@@ -142,136 +142,61 @@
             </div>
         </div>
     @endif
+
     @if (Auth::user()->role !== 'S')
-        <div class="py-5">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-wrap">
-                    <div class="block w-1/2 md:w-1/5 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
-                                <span class="text-sm">Database</span>
-                            </h4>
-                            <span
-                                class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
-                        </div>
-                    </div>
-                    <div class="block w-1/2 md:w-1/5 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-graduation-cap mr-1"></i>
-                                <span class="text-sm">Beasiswa</span>
-                            </h4>
-                            <span
-                                class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg">{{ $schoolarshipCount }}</span>
-                        </div>
-                    </div>
-                    <div class="block w-1/2 md:w-1/5 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-file-lines mr-1"></i>
-                                <span class="text-sm">Aplikan</span>
-                            </h4>
-                            <span
-                                class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
-                        </div>
-                    </div>
-                    <div class="block w-1/2 md:w-1/5 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-id-badge mr-1"></i>
-                                <span class="text-sm">Daftar</span>
-                            </h4>
-                            <span
-                                class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
-                        </div>
-                    </div>
-                    <div class="block w-1/2 md:w-1/5 p-1">
-                        <div class="flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-user-check mr-1"></i>
-                                <span class="text-sm">Registrasi</span>
-                            </h4>
-                            <span
-                                class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg">{{ $registrasiCount }}</span>
-                        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-wrap">
+                <div class="block w-1/2 md:w-1/5 p-1">
+                    <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
+                        <h4>
+                            <i class="fa-solid fa-database mr-1"></i>
+                            <span class="text-sm">Database</span>
+                        </h4>
+                        <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $databaseCount }}</span>
                     </div>
                 </div>
-                @if (Auth::user()->role == 'A')
-                    <div class="mt-5">
-                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Informasi:</h1>
-                        <div class="flex flex-wrap">
-                            @foreach ($sourcesIdDaftarCount as $sourcesdaftarid)
-                                <div class="block w-1/2 md:w-1/5 p-1">
-                                    <div
-                                        class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
-                                        <h4>
-                                            <i class="fa-solid fa-database mr-1"></i>
-                                            <span
-                                                class="text-sm">{{ $sourcesdaftarid->sourceDaftarSetting->name }}</span>
-                                        </h4>
-                                        <span
-                                            class="bg-gray-600 text-white text-sm px-2 py-1 rounded-lg">{{ $sourcesdaftarid->total }}</span>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                <div class="block w-1/2 md:w-1/5 p-1">
+                    <div class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
+                        <h4>
+                            <i class="fa-solid fa-graduation-cap mr-1"></i>
+                            <span class="text-sm">Beasiswa</span>
+                        </h4>
+                        <span
+                            class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg">{{ $schoolarshipCount }}</span>
                     </div>
-                    <div class="mt-5">
-                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Database:</h1>
-                        <div class="flex flex-wrap">
-                            @foreach ($sourcesIdCount as $sourcesid)
-                                <div class="block w-1/2 md:w-1/5 p-1">
-                                    <div
-                                        class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
-                                        <h4>
-                                            <i class="fa-solid fa-database mr-1"></i>
-                                            <span class="text-sm">{{ $sourcesid->sourceSetting->name }}</span>
-                                        </h4>
-                                        <span
-                                            class="bg-gray-600 text-white text-sm px-2 py-1 rounded-lg">{{ $sourcesid->total }}</span>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                </div>
+                <div class="block w-1/2 md:w-1/5 p-1">
+                    <div class="flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
+                        <h4>
+                            <i class="fa-solid fa-file-lines mr-1"></i>
+                            <span class="text-sm">Aplikan</span>
+                        </h4>
+                        <span
+                            class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg">{{ $applicantCount }}</span>
                     </div>
-                @endif
+                </div>
+                <div class="block w-1/2 md:w-1/5 p-1">
+                    <div class="flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
+                        <h4>
+                            <i class="fa-solid fa-id-badge mr-1"></i>
+                            <span class="text-sm">Daftar</span>
+                        </h4>
+                        <span class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg">{{ $daftarCount }}</span>
+                    </div>
+                </div>
+                <div class="block w-1/2 md:w-1/5 p-1">
+                    <div class="flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
+                        <h4>
+                            <i class="fa-solid fa-user-check mr-1"></i>
+                            <span class="text-sm">Registrasi</span>
+                        </h4>
+                        <span
+                            class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg">{{ $registrasiCount }}</span>
+                    </div>
+                </div>
             </div>
         </div>
-        @if (Auth::user()->role == 'A')
-            <div class="py-10">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="flex flex-col md:flex-row gap-5 px-5 md:px-0">
-                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                            id="chartSourceContainer">
-                            <div class="text-center py-3">
-                                <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Database</h3>
-                            </div>
-                            <hr>
-                            <canvas id="chartSource" class="py-3"></canvas>
-                        </div>
-                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                            id="chartSourceDaftarContainer">
-                            <div class="text-center py-3">
-                                <h3 class="font-bold text-gray-800">Data Berdasarkan Sumber Informasi</h3>
-                            </div>
-                            <hr>
-                            <canvas id="chartSourceDaftar" class="py-3"></canvas>
-                        </div>
-                        <div class="w-full md:w-1/3 bg-white p-3 rounded-3xl border border-gray-200"
-                            id="chartPresenterContainer">
-                            <div class="text-center py-3">
-                                <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
-                            </div>
-                            <hr>
-                            <canvas id="chartPresenter" class="py-3"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     @endif
-
 
     @if (Auth::user()->role !== 'S')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3" id="identity"
@@ -294,7 +219,8 @@
                                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                 placeholder="Cari calon mahasiswa disini...">
                         </div>
-                        <p id="quick-search" class="mt-2 text-xs text-gray-500">Fitur cari cepat data calon mahasiswa.
+                        <p id="quick-search" class="mt-2 text-xs text-gray-500">Fitur cari cepat data calon
+                            mahasiswa.
                             Untuk selengkapnya <a href="{{ route('database.index') }}"
                                 class="font-medium text-blue-600 hover:underline">klik disini.</a>
                         </p>
@@ -325,21 +251,76 @@
                         </thead>
                         <tbody id="result-quicksearch">
                             <tr class="border-b bg-gray-50">
-                                <td colspan="6" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.
+                                <td colspan="6" class="px-6 py-4 text-center">Silahkan untuk isi kolom
+                                    pencarian.
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <hr class="mb-5">
                     <div class="px-5 pb-5">
-                        <p class="text-gray-500 text-xs">Silahkan untuk dibagikan melalui menu <a
-                                href="{{ route('database.index') }}" class="underline">Database</a>, kemudian
-                            edit Presenter di profil calon mahasiswa baru oleh Administrator.</p>
+                        <p class="text-gray-500 text-xs">Silahkan untuk klik nama untuk melihat informasi lebih lanjut.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     @endif
+
+
+    @if (Auth::user()->role == 'A')
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 space-y-5">
+            <div class="flex">
+                <section class="w-full md:w-2/3 p-3">
+                    <div>
+                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Informasi:</h1>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                            @foreach ($sourcesIdDaftarCount as $sourcesdaftarid)
+                                <div
+                                    class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
+                                    <h4>
+                                        <i class="fa-solid fa-database mr-1"></i>
+                                        <span class="text-sm">{{ $sourcesdaftarid->sourceDaftarSetting->name }}</span>
+                                    </h4>
+                                    <span
+                                        class="bg-gray-600 text-white text-xs px-2 py-1 rounded-lg">{{ $sourcesdaftarid->total }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="my-2 font-bold text-gray-700">Total Sumber Database:</h1>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                            @foreach ($sourcesIdCount as $sourcesid)
+                                <div
+                                    class="flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
+                                    <h4>
+                                        <i class="fa-solid fa-database mr-1"></i>
+                                        <span class="text-sm">{{ $sourcesid->sourceSetting->name }}</span>
+                                    </h4>
+                                    <span
+                                        class="bg-gray-600 text-white text-xs px-2 py-1 rounded-lg">{{ $sourcesid->total }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full md:w-1/3 p-3">
+                    <div class="w-full bg-white p-3 rounded-3xl border border-gray-200"
+                        id="chartPresenterContainer">
+                        <div class="text-center py-3">
+                            <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
+                            <p class="text-xs text-gray-500">Berikut ini jumlah data calon mahasiswa per Presenter.</p>
+                        </div>
+                        <hr>
+                        <canvas id="chartPresenter" class="py-3"></canvas>
+                    </div>
+                </section>
+            </div>
+        </div>
+    @endif
+
+
     @if (Auth::user()->role == 'P')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
             <div class="grid grid-cols-1 gap-4">
@@ -513,101 +494,7 @@
             getAll();
         }
     </script>
-    <script>
-        const getSource = async () => {
-            let data;
-            const chartSource = document.getElementById('chartSource');
-            const chartSourceContainer = document.getElementById('chartSourceContainer');
-            await axios.get('get/dashboard/sources')
-                .then(async (res) => {
-                    data = res.data.sources;
-                    let labels = data.map(element => element.source_setting.name);
-                    let dataSource = data.map(element => element.total);
-                    if (dataSource.length > 0) {
-                        await new Chart(chartSource, {
-                            type: 'doughnut',
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                },
-                            },
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Hasil',
-                                    data: dataSource,
-                                }]
-                            }
-                        });
-                    } else {
-                        let content =
-                            `<div class="text-center py-3">
-                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
-                    </div>
-                    <hr>
-                    <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
-                        chartSourceContainer.innerHTML = content;
-                    }
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
-        getSource();
-    </script>
     @if (Auth::user()->role == 'A')
-        <script>
-            const getSourceDaftar = async () => {
-                let data;
-                const chartSourceDaftar = document.getElementById('chartSourceDaftar');
-                const chartSourceDaftarContainer = document.getElementById('chartSourceDaftarContainer');
-                await axios.get('get/dashboard/sourcesdaftar')
-                    .then(async (res) => {
-                        data = res.data.sources;
-                        let labels = data
-                            .filter(element => element.source_daftar_id !== null)
-                            .map(element => element.source_daftar_setting.name);
-                        let dataSource = data
-                            .filter(element => element.source_daftar_id !== null)
-                            .map(element => element.total);
-                        if (dataSource.length > 0) {
-                            await new Chart(chartSourceDaftar, {
-                                type: 'doughnut',
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                    },
-                                },
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Hasil',
-                                        data: dataSource,
-                                    }]
-                                }
-                            });
-                        } else {
-                            let content =
-                                `<div class="text-center py-3">
-                        <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
-                    </div>
-                    <hr>
-                    <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
-                            chartSourceDaftarContainer.innerHTML = content;
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err.message);
-                    });
-            }
-            getSourceDaftar();
-        </script>
         <script>
             const getPresenter = async () => {
                 let data;
@@ -625,7 +512,7 @@
                                     responsive: true,
                                     plugins: {
                                         legend: {
-                                            position: 'top',
+                                            display: false,
                                         },
                                     },
                                 },
