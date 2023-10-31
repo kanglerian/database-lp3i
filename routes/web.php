@@ -4,6 +4,7 @@ use App\Http\Controllers\AchivementController;
 use App\Http\Controllers\API\AuthenticationJWT;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
@@ -108,5 +109,6 @@ Route::resource('followup', FollowUpController::class)->middleware(['auth','role
 
 Route::resource('achievements', AchivementController::class)->middleware(['auth']);
 Route::resource('organizations', OrganizationController::class)->middleware(['auth']);
+Route::resource('registration', RegistrationController::class)->middleware(['auth', 'status:1', 'role:P']);
 
 require __DIR__.'/auth.php';
