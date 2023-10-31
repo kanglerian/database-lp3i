@@ -274,7 +274,8 @@
 
 
     @if (Auth::user()->role !== 'S')
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3" id="identity"
+            data-identity="{{ Auth::user()->identity }}">
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-white relative overflow-x-auto border border-gray-200 sm:rounded-lg">
                     <header class="w-full md:w-1/2 p-5 space-y-2">
@@ -306,7 +307,10 @@
                                     No.
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Sumber Database
+                                    Nama Lengkap
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Presenter
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Sumber Database
@@ -321,7 +325,7 @@
                         </thead>
                         <tbody id="result-quicksearch">
                             <tr class="border-b bg-gray-50">
-                                <td colspan="5" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.
+                                <td colspan="6" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.
                                 </td>
                             </tr>
                         </tbody>
@@ -421,6 +425,7 @@
         const quickSearch = async () => {
             let nameSearch = document.getElementById('quick-search').value;
             let result = document.getElementById('result-quicksearch');
+            let identity = document.getElementById('identity').getAttribute('data-identity');
             if (nameSearch) {
                 await axios.get(`quicksearch/${nameSearch}`)
                     .then((res) => {
@@ -434,9 +439,19 @@
                                     ${i + 1}
                                 </th>
                                 <td class="px-6 py-4">
-                                   <a class="underline font-bold" href="/database/${student.identity}">
-                                    ${student.name}
-                                    </a>
+                                    ${
+                                        identity == student.identity_user ?
+                                        (
+                                            `<a class="underline font-bold" href="/database/${student.identity}">${student.name}</a>`
+                                        )
+                                        :
+                                        (
+                                            `${student.name}`
+                                        )
+                                    }
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${student.presenter.name}
                                 </td>
                                 <td class="px-6 py-4">
                                     ${student.source_setting.name}
@@ -452,7 +467,7 @@
                         } else {
                             bucket += `
                         <tr class="border-b bg-gray-50">
-                            <td colspan="5" class="px-6 py-4 text-center">
+                            <td colspan="6" class="px-6 py-4 text-center">
                                 Data tidak ditemukan
                             </td>
                         </tr>`
@@ -466,7 +481,7 @@
             } else {
                 let bucket = `
                     <tr class="border-b bg-gray-50">
-                        <td colspan="5" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.</td>
+                        <td colspan="6" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.</td>
                     </tr>`
                 result.innerHTML = bucket;
                 document.getElementById('count-quicksearch').innerText = 0;
@@ -543,100 +558,102 @@
         }
         getSource();
     </script>
-    <script>
-        const getSourceDaftar = async () => {
-            let data;
-            const chartSourceDaftar = document.getElementById('chartSourceDaftar');
-            const chartSourceDaftarContainer = document.getElementById('chartSourceDaftarContainer');
-            await axios.get('get/dashboard/sourcesdaftar')
-                .then(async (res) => {
-                    data = res.data.sources;
-                    let labels = data
-                        .filter(element => element.source_daftar_id !== null)
-                        .map(element => element.source_daftar_setting.name);
-                    let dataSource = data
-                        .filter(element => element.source_daftar_id !== null)
-                        .map(element => element.total);
-                    if (dataSource.length > 0) {
-                        await new Chart(chartSourceDaftar, {
-                            type: 'doughnut',
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
+    @if (Auth::user()->role == 'A')
+        <script>
+            const getSourceDaftar = async () => {
+                let data;
+                const chartSourceDaftar = document.getElementById('chartSourceDaftar');
+                const chartSourceDaftarContainer = document.getElementById('chartSourceDaftarContainer');
+                await axios.get('get/dashboard/sourcesdaftar')
+                    .then(async (res) => {
+                        data = res.data.sources;
+                        let labels = data
+                            .filter(element => element.source_daftar_id !== null)
+                            .map(element => element.source_daftar_setting.name);
+                        let dataSource = data
+                            .filter(element => element.source_daftar_id !== null)
+                            .map(element => element.total);
+                        if (dataSource.length > 0) {
+                            await new Chart(chartSourceDaftar, {
+                                type: 'doughnut',
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
                                     },
                                 },
-                            },
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Hasil',
-                                    data: dataSource,
-                                }]
-                            }
-                        });
-                    } else {
-                        let content =
-                            `<div class="text-center py-3">
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Hasil',
+                                        data: dataSource,
+                                    }]
+                                }
+                            });
+                        } else {
+                            let content =
+                                `<div class="text-center py-3">
                         <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
                     </div>
                     <hr>
                     <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
-                        chartSourceDaftarContainer.innerHTML = content;
-                    }
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
-        getSourceDaftar();
-    </script>
-    <script>
-        const getPresenter = async () => {
-            let data;
-            const chartPresenter = document.getElementById('chartPresenter');
-            const chartPresenterContainer = document.getElementById('chartPresenterContainer');
-            await axios.get('get/dashboard/presenters')
-                .then(async (res) => {
-                    data = res.data.presenters;
-                    if (data.length > 0) {
-                        let labels = data.map(element => element.name);
-                        let dataPresenter = data.map(element => element.count);
-                        await new Chart(chartPresenter, {
-                            type: 'doughnut',
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
+                            chartSourceDaftarContainer.innerHTML = content;
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
+            }
+            getSourceDaftar();
+        </script>
+        <script>
+            const getPresenter = async () => {
+                let data;
+                const chartPresenter = document.getElementById('chartPresenter');
+                const chartPresenterContainer = document.getElementById('chartPresenterContainer');
+                await axios.get('get/dashboard/presenters')
+                    .then(async (res) => {
+                        data = res.data.presenters;
+                        if (data.length > 0) {
+                            let labels = data.map(element => element.name);
+                            let dataPresenter = data.map(element => element.count);
+                            await new Chart(chartPresenter, {
+                                type: 'doughnut',
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
                                     },
                                 },
-                            },
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Hasil',
-                                    data: dataPresenter,
-                                }]
-                            }
-                        });
-                    } else {
-                        let content =
-                            `<div class="text-center py-3">
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Hasil',
+                                        data: dataPresenter,
+                                    }]
+                                }
+                            });
+                        } else {
+                            let content =
+                                `<div class="text-center py-3">
                         <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
                     </div>
                     <hr>
                     <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
-                        chartPresenterContainer.innerHTML = content;
-                    }
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
-        getPresenter();
-    </script>
+                            chartPresenterContainer.innerHTML = content;
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
+            }
+            getPresenter();
+        </script>
+    @endif
     <script>
         const copyRecord = (number) => {
             const textarea = document.createElement("textarea");
