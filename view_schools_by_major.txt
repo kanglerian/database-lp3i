@@ -12,6 +12,7 @@ SELECT
     SUM(CASE WHEN applicants.source_id = 7 THEN 1 ELSE 0 END) AS presentasi,
     SUM(CASE WHEN applicants.source_id = 8 THEN 1 ELSE 0 END) AS daftaronline,
     SUM(CASE WHEN applicants.source_id = 9 THEN 1 ELSE 0 END) AS grab,
+    SUM(CASE WHEN applicants.source_id = 10 THEN 1 ELSE 0 END) AS beasiswa,
     COUNT(DISTINCT applicants.major) AS kelas,
     COUNT(applicants.major) AS jumlah
 FROM

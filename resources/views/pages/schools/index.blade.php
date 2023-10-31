@@ -21,7 +21,8 @@
                 </div>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <form action="{{ route('school.import') }}" id="form-school" method="post" enctype="multipart/form-data">
+                <form action="{{ route('school.import') }}" id="form-school" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="berkas" id="berkas"
                         class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
@@ -58,7 +59,8 @@
                                 <i class="fa-solid fa-map-location-dot mr-1"></i>
                                 <span class="text-sm">{{ $school_by_region->region }}</span>
                             </h4>
-                            <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $school_by_region->jumlah }}</span>
+                            <span
+                                class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg">{{ $school_by_region->jumlah }}</span>
                         </div>
                     </div>
                 @endforeach
@@ -88,16 +90,40 @@
                                         Nama
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Total
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Jumlah Kelas
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Presentasi
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Daftar Online
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Website
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Beasiswa
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Sosial Media
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Grab Data
                                     </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        MGM
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Sekolah
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Jadwal Datang
+                                    </th>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Total
+                                        Guru BK
                                     </th>
                             </thead>
                             <tbody></tbody>
@@ -119,8 +145,7 @@
                 url: 'get/schools',
                 dataSrc: 'schools'
             },
-            columns: [
-                {
+            columns: [{
                     data: 'grab',
                     render: (data, type, row, meta) => {
                         return meta.row + 1;
@@ -142,16 +167,40 @@
                     }
                 },
                 {
+                    data: 'jumlah'
+                },
+                {
                     data: 'kelas',
                 },
                 {
                     data: 'presentasi'
                 },
                 {
+                    data: 'daftaronline'
+                },
+                {
+                    data: 'website'
+                },
+                {
+                    data: 'beasiswa'
+                },
+                {
+                    data: 'sosmed'
+                },
+                {
                     data: 'grab'
                 },
                 {
-                    data: 'jumlah'
+                    data: 'mgm'
+                },
+                {
+                    data: 'sekolah'
+                },
+                {
+                    data: 'jadwaldatang'
+                },
+                {
+                    data: 'gurubk'
                 },
             ],
         }
@@ -167,5 +216,4 @@
     }
     getAPI();
     getDataTable();
-
 </script>
