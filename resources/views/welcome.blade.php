@@ -22,8 +22,9 @@
 <body class="bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
     <div class="container mx-auto px-4">
         <nav class="flex flex-col md:flex-row items-center justify-between py-3 gap-5">
-            <div>
+            <div class="flex items-center gap-5">
                 <img src="{{ asset('img/lp3i-logo.svg') }}" alt="" class="w-48">
+                <img src="{{ asset('logo/logo-kampusglobalmandiri.png') }}" alt="" class="w-40">
             </div>
             <ul class="flex items-center text-sm gap-5">
                 <li class="font-bold text-gray-800">Beranda</li>
