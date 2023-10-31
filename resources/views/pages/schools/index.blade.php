@@ -88,6 +88,9 @@
                                         Nama
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Jumlah Kelas
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Presentasi
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -127,7 +130,19 @@
                     data: 'wilayah',
                 },
                 {
-                    data: 'nama'
+                    data: {
+                        id: 'id',
+                        name: 'name',
+                    },
+                    render: (data, type, row) => {
+                        let showUrl = "{{ route('school.show', ':id') }}".replace(
+                            ':id',
+                            data.id);
+                        return `<a href="${showUrl}" class="font-bold underline">${data.nama}</a>`;
+                    }
+                },
+                {
+                    data: 'kelas',
                 },
                 {
                     data: 'presentasi'

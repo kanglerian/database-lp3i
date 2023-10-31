@@ -18,8 +18,16 @@ class SchoolByMajorPresentasiGrab extends Model
         'id',
         'wilayah',
         'nama',
+        'website',
+        'mgm',
+        'sosmed',
+        'sekolah',
+        'jadwaldatang',
+        'gurubk',
         'presentasi',
+        'daftaronline',
         'grab',
+        'kelas',
         'jumlah',
     ];
 

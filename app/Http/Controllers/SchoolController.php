@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Imports\SchoolsImport;
+use App\Models\Applicant;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\SchoolByMajorPresentasiGrab;
@@ -79,15 +81,16 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($region)
+    public function show($id)
     {
-        $regions = School::where('region', $region)->get();
-        $total = School::count();
-        $schools_by_region = SchoolByRegion::all();
+        $school = School::findOrFail($id);
+        $details = Applicant::select('major', DB::raw('count(*) as total'))
+        ->where('school', $id)
+        ->groupBy('major')
+        ->get();
         return view('pages.schools.show')->with([
-            'total' => $total,
-            'regions' => $regions,
-            'schools_by_region' => $schools_by_region
+            'school' => $school,
+            'details' => $details,
         ]);
     }
 
