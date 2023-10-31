@@ -100,12 +100,12 @@
                             @csrf
                             @if (Auth::check() && Auth::user()->status == '1')
                                 <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
-                                    {{ __('Edit Profile') }}
+                                    {{ __('Ubah Profil') }}
                                 </x-dropdown-link>
                             @endif
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Keluar') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -188,7 +188,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Keluar') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

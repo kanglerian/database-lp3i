@@ -271,7 +271,7 @@
     @if (Auth::user()->role == 'A')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 space-y-5">
             <div class="flex">
-                <section class="w-full md:w-2/3 p-3">
+                <section class="w-full md:w-2/3 p-3 space-y-3">
                     <div>
                         <h1 class="my-2 font-bold text-gray-700">Total Sumber Informasi:</h1>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
