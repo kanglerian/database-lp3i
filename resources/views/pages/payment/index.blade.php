@@ -27,7 +27,7 @@
                 </div>
             @endif
             <div class="px-2">
-                <a href="{{ route('presenter.create') }}"
+                <a onclick="alert('belum berfungsi, silahkan tambahkan di halaman mahasiswa.')"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
                         class="fa-solid fa-circle-plus"></i> Pendaftaran</a>
             </div>
