@@ -226,7 +226,7 @@
                                     </label>
                                 </form>
                                 @if ($user->is_daftar)
-                                    <button type="button" onclick="modalDaftar()"
+                                    <button type="button" onclick="alert('Fungsi ini belum berfungsi!')"
                                         class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
                                             class="fa-solid fa-receipt mr-1"></i>
                                         Masukan nominal
