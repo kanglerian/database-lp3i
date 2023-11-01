@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegistrationTable extends Migration
+class CreateEnrollmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateRegistrationTable extends Migration
      */
     public function up()
     {
-        Schema::create('registration', function (Blueprint $table) {
+        Schema::create('enrollment', function (Blueprint $table) {
             $table->id();
             $table->string('identity_user', 30);
             $table->date('date');
+            $table->string('receipt');
+            $table->string('register');
+            $table->string('register_end');
             $table->integer('nominal');
-            $table->integer('deal');
-            $table->integer('discount')->nullable();
+            $table->date('repayment')->nullable();
+            $table->integer('debit')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ class CreateRegistrationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registration');
+        Schema::dropIfExists('enrollment');
     }
 }

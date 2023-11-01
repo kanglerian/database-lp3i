@@ -226,7 +226,7 @@
                                     </label>
                                 </form>
                                 @if ($user->is_daftar)
-                                    <button type="button" onclick="alert('Fungsi ini belum berfungsi!')"
+                                    <button type="button" onclick="modalDaftar()"
                                         class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
                                             class="fa-solid fa-receipt mr-1"></i>
                                         Masukan nominal
@@ -292,6 +292,25 @@
                         </header>
                         <hr class="my-3">
                         <section class="flex flex-col gap-3">
+                            @if ($registration)
+                                <h2 class="text-base font-semibold text-gray-900">Daftar:</h2>
+                                <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                    <li class="flex items-center space-x-2">
+                                        <i class="block fa-solid fa-receipt text-gray-400"></i>
+                                        <span class="inline-block mr-2">Nominal: Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="block fa-solid fa-money-bills text-gray-400"></i>
+                                        <span class="inline-block mr-2">Harga Deal: Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="block fa-solid fa-percent text-gray-400"></i>
+                                        <span class="inline-block mr-2">Potongan: Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                    </li>
+                                </ul>
+                            @else
+                                <p class="text-sm text-gray-600"><i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum daftar</p>
+                            @endif
                             @if ($registration)
                                 <h2 class="text-base font-semibold text-gray-900">Registrasi:</h2>
                                 <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">

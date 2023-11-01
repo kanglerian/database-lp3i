@@ -16,6 +16,7 @@ class Registration extends Model
      */
     protected $fillable = [
         'identity_user',
+        'date',
         'nominal',
         'deal',
         'discount',

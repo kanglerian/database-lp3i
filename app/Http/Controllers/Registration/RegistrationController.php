@@ -37,6 +37,7 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'date' => ['required'],
             'identity_user' => ['required', 'string'],
             'nominal' => ['required', 'integer'],
             'deal' => ['required', 'integer'],
@@ -44,6 +45,7 @@ class RegistrationController extends Controller
         ]);
 
         $data = [
+            'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
             'nominal' => $request->input('nominal'),
             'deal' => $request->input('deal'),
