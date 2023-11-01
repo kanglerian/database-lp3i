@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Registration;
+namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Registration;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 
-class RegistrationController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        return view('pages.payment.registration.index');
+        return view('pages.payment.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,12 +29,6 @@ class RegistrationController extends Controller
         //
     }
 
-    public function get_all()
-    {
-        $registrations = Registration::with('applicant')->get();
-        return response()->json(['registrations' => $registrations]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -42,24 +37,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'date' => ['required'],
-            'identity_user' => ['required', 'string'],
-            'nominal' => ['required', 'integer'],
-            'deal' => ['required', 'integer'],
-            'discount' => ['required', 'integer'],
-        ]);
-
-        $data = [
-            'date' => $request->input('date'),
-            'identity_user' => $request->input('identity_user'),
-            'nominal' => $request->input('nominal'),
-            'deal' => $request->input('deal'),
-            'discount' => $request->input('discount'),
-        ];
-
-        Registration::create($data);
-        return back()->with('message', 'Data registrasi berhasil ditambahkan!');
+        //
     }
 
     /**
@@ -105,9 +83,9 @@ class RegistrationController extends Controller
     public function destroy($id)
     {
         try {
-            $registration = Registration::findOrFail($id);
-            $registration->delete();
-            return session()->flash('message', 'Data registrasi berhasil dihapus!');
+            $presenter = Enrollment::findOrFail($id);
+            $presenter->delete();
+            return session()->flash('message', 'Data pendaftaran berhasil dihapus!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
             return back()->with('error', $errorMessage);

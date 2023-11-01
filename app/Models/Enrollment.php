@@ -36,4 +36,9 @@ class Enrollment extends Model
         'created_at',
         'updated_at',
     ];
+
+
+    public function applicant(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity');
+    }
 }

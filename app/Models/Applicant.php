@@ -123,4 +123,14 @@ class Applicant extends Model
     {
         return $this->belongsTo(FollowUp::class, 'followup_id', 'id');
     }
+
+    public function registration()
+    {
+        return $this->hasOne(Registration::class, 'identity_user', 'identity');
+    }
+
+    public function enrollment()
+    {
+        return $this->hasOne(Enrollment::class, 'identity_user', 'identity');
+    }
 }

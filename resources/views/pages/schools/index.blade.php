@@ -145,7 +145,8 @@
                 url: 'get/schools',
                 dataSrc: 'schools'
             },
-            columns: [{
+            columns: [
+                {
                     data: 'grab',
                     render: (data, type, row, meta) => {
                         return meta.row + 1;

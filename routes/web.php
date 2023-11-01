@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthenticationJWT;
 use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,7 @@ Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_
 
 Route::resource('userupload', UserUploadController::class)->middleware(['auth','role:S']);
 
+Route::resource('payment', PaymentController::class)->middleware(['auth', 'status:1', 'role:P']);
 
 Route::resource('setting', SettingController::class)->middleware(['auth','role:A']);
 Route::resource('programtype', ProgramTypeController::class)->middleware(['auth','role:A']);
@@ -110,7 +112,11 @@ Route::resource('followup', FollowUpController::class)->middleware(['auth','role
 
 Route::resource('achievements', AchivementController::class)->middleware(['auth']);
 Route::resource('organizations', OrganizationController::class)->middleware(['auth']);
+
 Route::resource('enrollment', EnrollmentController::class)->middleware(['auth', 'status:1', 'role:P']);
+Route::get('get/enrollments', [EnrollmentController::class, 'get_all'])->name('enrollment.get')->middleware(['auth','status:1','role:P']);
+
 Route::resource('registration', RegistrationController::class)->middleware(['auth', 'status:1', 'role:P']);
+Route::get('get/registrations', [RegistrationController::class, 'get_all'])->name('registration.get')->middleware(['auth','status:1','role:P']);
 
 require __DIR__.'/auth.php';

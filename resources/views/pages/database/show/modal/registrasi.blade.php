@@ -16,36 +16,53 @@
                 <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                     @csrf
                     <div>
-                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
-                            Registrasi</label>
-                        <input type="date" name="date" id="date"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Tanggal Registrasi" required>
-                    </div>
-                    <div>
                         <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     </div>
-                    <div>
-                        <label for="nominal" class="block mb-2 text-sm font-medium text-gray-900">Nominal
-                            Registrasi</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                <span class="text-sm text-gray-500">Rp</span>
-                            </div>
-                            <input type="number" name="nominal" id="nominal"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                        <div>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
+                                Registrasi</label>
+                            <input type="date" name="date" id="date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                placeholder="Tanggal Registrasi" required>
+                        </div>
+                        <div>
+                            <label for="session" class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
+                            <select id="session" name="session"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
                     </div>
-                    <div>
-                        <label for="deal" class="block mb-2 text-sm font-medium text-gray-900">Harga Deal</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                <span class="text-sm text-gray-500">Rp</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                        <div>
+                            <label for="nominal" class="block mb-2 text-sm font-medium text-gray-900">Nominal
+                                Registrasi</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                    <span class="text-sm text-gray-500">Rp</span>
+                                </div>
+                                <input type="number" name="nominal" id="nominal"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
+                                    required>
                             </div>
-                            <input type="number" name="deal" id="deal"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="0" required>
+                        </div>
+                        <div>
+                            <label for="deal" class="block mb-2 text-sm font-medium text-gray-900">Harga
+                                Deal</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                    <span class="text-sm text-gray-500">Rp</span>
+                                </div>
+                                <input type="number" name="deal" id="deal"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                                    placeholder="0" required>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -55,7 +72,8 @@
                                 <span class="text-sm text-gray-500">Rp</span>
                             </div>
                             <input type="number" name="discount" id="discount"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="0" required>
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                                placeholder="0" required>
                         </div>
                     </div>
                     <button type="submit"

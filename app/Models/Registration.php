@@ -20,6 +20,7 @@ class Registration extends Model
         'nominal',
         'deal',
         'discount',
+        'session',
     ];
 
 
@@ -33,4 +34,8 @@ class Registration extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function applicant(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity');
+    }
 }

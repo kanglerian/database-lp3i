@@ -15,7 +15,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.payment.enrollment.index');
     }
 
     /**
@@ -26,6 +26,12 @@ class EnrollmentController extends Controller
     public function create()
     {
         //
+    }
+
+    public function get_all()
+    {
+        $enrollments = Enrollment::with('applicant')->get();
+        return response()->json(['enrollments' => $enrollments]);
     }
 
     /**
@@ -102,6 +108,13 @@ class EnrollmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $enrollment = Enrollment::findOrFail($id);
+            $enrollment->delete();
+            return session()->flash('message', 'Data pendaftaran berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 }
