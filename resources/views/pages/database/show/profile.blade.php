@@ -219,18 +219,24 @@
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" value="{{ $user->is_daftar }}" class="sr-only peer"
                                             {{ $user->is_daftar == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
+                                        <button {{ $enrollment ? 'disabled' : '' }} type="submit"
                                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                         </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
+                                        <span class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
                                     </label>
                                 </form>
                                 @if ($user->is_daftar)
-                                    <button type="button" onclick="alert('Belum berfungsi!')"
+                                    @if ($enrollment)
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                        </div>
+                                    @else
+                                    <button type="button" onclick="modalDaftar()"
                                         class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
                                             class="fa-solid fa-receipt mr-1"></i>
                                         Masukan nominal
                                     </button>
+                                    @endif
                                 @endif
                             </div>
                             <div class="flex justify-between items-center gap-2">
@@ -238,19 +244,16 @@
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" value="{{ $user->is_register }}" class="sr-only peer"
                                             {{ $user->is_register == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
+                                        <button {{ $registration ? 'disabled' : '' }} type="submit"
                                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                         </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
+                                        <span class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
                                     </label>
                                 </form>
                                 @if ($user->is_register)
                                     @if ($registration)
                                         <div class="flex items-center gap-3 mt-1">
                                             <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            <i class="fa-solid fa-receipt text-gray-400"></i>
-                                            <i class="fa-solid fa-money-bills text-gray-400"></i>
-                                            <i class="fa-solid fa-percent text-gray-400"></i>
                                         </div>
                                     @else
                                         <button type="button" onclick="modalRegistrasi()"
@@ -292,43 +295,95 @@
                         </header>
                         <hr class="my-3">
                         <section class="flex flex-col gap-3">
-                            {{-- @if ($registration)
+                            @if ($enrollment)
                                 <h2 class="text-base font-semibold text-gray-900">Daftar:</h2>
                                 <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
                                     <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-receipt text-gray-400"></i>
-                                        <span class="inline-block mr-2">Nominal: Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
+                                        <span class="inline-block mr-2">Tanggal:
+                                            <span class="underline">{{ $enrollment->date }}</span>
+                                        </span>
                                     </li>
                                     <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-money-bills text-gray-400"></i>
-                                        <span class="inline-block mr-2">Harga Deal: Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                        <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                        <span class="inline-block mr-2">Keterangan:
+                                            <span class="underline">{{ $enrollment->register }}</span>
+                                        </span>
                                     </li>
                                     <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-percent text-gray-400"></i>
-                                        <span class="inline-block mr-2">Potongan: Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                        <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                        <span class="inline-block mr-2">Keterangan Daftar:
+                                            <span class="underline">{{ $enrollment->register_end }}</span>
+                                        </span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fa-solid fa-coins block text-gray-400"></i>
+                                        <span class="inline-block mr-2">Nominal:
+                                            <span
+                                                class="underline">Rp{{ number_format($enrollment->nominal, 0, ',', '.') }}</span>
+                                        </span>
+                                    </li>
+                                    @if ($enrollment->repayment)
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-solid fa-calendar-day text-gray-400"></i>
+                                            <span class="inline-block mr-2">Pengembalian BK:
+                                                <span class="underline">{{ $enrollment->repayment }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-money-bill-transfer block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Debit:
+                                                <span
+                                                    class="underline">Rp{{ number_format($enrollment->debit, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                    @endif
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fa-regular fa-credit-card block text-gray-400"></i>
+                                        <span class="inline-block mr-2">Kas Pendaftaran:
+                                            <span
+                                                class="underline">Rp{{ number_format($enrollment->nominal - $enrollment->debit, 0, ',', '.') }}</span>
+                                        </span>
                                     </li>
                                 </ul>
                             @else
-                                <p class="text-sm text-gray-600"><i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum daftar</p>
-                            @endif --}}
+                                <p class="text-sm text-gray-600"><i
+                                        class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum daftar</p>
+                            @endif
                             @if ($registration)
                                 <h2 class="text-base font-semibold text-gray-900">Registrasi:</h2>
                                 <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
                                     <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-receipt text-gray-400"></i>
-                                        <span class="inline-block mr-2">Nominal: Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
+                                        <span class="inline-block mr-2">Tanggal:
+                                            <span class="underline">{{ $registration->date }}</span>
+                                        </span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fa-solid fa-coins block text-gray-400"></i>
+                                        <span class="inline-block mr-2">Nominal:
+                                            <span
+                                                class="underline">Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                        </span>
                                     </li>
                                     <li class="flex items-center space-x-2">
                                         <i class="block fa-solid fa-money-bills text-gray-400"></i>
-                                        <span class="inline-block mr-2">Harga Deal: Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                        <span class="inline-block mr-2">Harga Deal:
+                                            <span
+                                                class="underline">Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                        </span>
                                     </li>
                                     <li class="flex items-center space-x-2">
                                         <i class="block fa-solid fa-percent text-gray-400"></i>
-                                        <span class="inline-block mr-2">Potongan: Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                        <span class="inline-block mr-2">Potongan:
+                                            <span
+                                                class="underline">Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                        </span>
                                     </li>
                                 </ul>
                             @else
-                                <p class="text-sm text-gray-600"><i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum registrasi</p>
+                                <p class="text-sm text-gray-600"><i
+                                        class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum registrasi</p>
                             @endif
                         </section>
                     </section>

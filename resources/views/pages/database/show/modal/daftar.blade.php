@@ -13,7 +13,7 @@
             <div class="px-6 py-6 lg:px-8">
                 <h3 class="mb-4 text-xl font-medium text-gray-900">Daftar Mahasiswa Baru</h3>
                 <hr class="mb-3">
-                <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
+                <form class="space-y-4" action="{{ route('enrollment.store') }}" method="POST">
                     @csrf
                     <div>
                         <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
@@ -44,7 +44,7 @@
                         <div>
                             <label for="register"
                                 class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
-                            <select id="register"
+                            <select id="register" name="register"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option>Daftar Kampus</option>
@@ -55,7 +55,7 @@
                         <div>
                             <label for="register_end" class="block mb-2 text-sm font-medium text-gray-900">Keterangan
                                 Daftar</label>
-                            <select id="register_end"
+                            <select id="register_end" name="register_end"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option>Daftar Kampus</option>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AchivementController;
 use App\Http\Controllers\API\AuthenticationJWT;
+use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\Registration\RegistrationController;
@@ -109,6 +110,7 @@ Route::resource('followup', FollowUpController::class)->middleware(['auth','role
 
 Route::resource('achievements', AchivementController::class)->middleware(['auth']);
 Route::resource('organizations', OrganizationController::class)->middleware(['auth']);
+Route::resource('enrollment', EnrollmentController::class)->middleware(['auth', 'status:1', 'role:P']);
 Route::resource('registration', RegistrationController::class)->middleware(['auth', 'status:1', 'role:P']);
 
 require __DIR__.'/auth.php';

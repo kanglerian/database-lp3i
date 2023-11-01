@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ApplicantUpdateImport;
+use App\Models\Enrollment;
 use App\Models\Registration;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -408,10 +409,12 @@ class ApplicantController extends Controller
                 $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
+            $enrollment = Enrollment::where('identity_user', $identity)->first();
             $registration = Registration::where('identity_user', $identity)->first();
 
             return view('pages.database.show.profile')->with([
                 'user' => $user,
+                'enrollment' => $enrollment,
                 'registration' => $registration,
                 'father' => $father,
                 'mother' => $mother,

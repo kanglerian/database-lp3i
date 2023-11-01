@@ -17,7 +17,7 @@ class CreateEnrollmentTable extends Migration
             $table->id();
             $table->string('identity_user', 30);
             $table->date('date');
-            $table->string('receipt');
+            $table->integer('receipt');
             $table->string('register');
             $table->string('register_end');
             $table->integer('nominal');
