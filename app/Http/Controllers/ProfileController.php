@@ -55,7 +55,7 @@ class ProfileController extends Controller
             'password' => Hash::make($request->input('phone')),
             'phone' => $request->input('phone'),
             'role' => 'S',
-            'status' => 0,
+            'status' => 1,
         ];
 
         $data_applicant = [
