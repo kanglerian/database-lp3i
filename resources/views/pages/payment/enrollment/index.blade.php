@@ -109,7 +109,7 @@
                                         Keterangan
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Keterangan Daftar
+                                        Daftar
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Nominal Daftar
@@ -121,7 +121,7 @@
                                         Debit
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Kas Pendaftaran
+                                        Kas
                                     </th>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
                                         Action
@@ -154,7 +154,7 @@
             ],
             columnDefs: [
                 {
-                    width: 150,
+                    width: 100,
                     target: 0
                 },
                 {
@@ -215,7 +215,7 @@
                 {
                     data: 'repayment',
                     render: (data, type, row) => {
-                        return `${data ? data : 'Tidak ada'}`
+                        return `${data || 'Tidak ada'}`
                     }
                 },
                 {

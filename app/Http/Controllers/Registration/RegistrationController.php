@@ -39,6 +39,7 @@ class RegistrationController extends Controller
         $dateVal = request('date', 'all');
         $pmbVal = request('pmbVal', 'all');
         $sessionVal = request('sessionVal', 'all');
+        $percentVal = request('percentVal', 'all');
 
         if ($dateVal !== 'all') {
             $registrationQuery->where('date', $dateVal);
@@ -50,6 +51,9 @@ class RegistrationController extends Controller
         }
         if ($sessionVal !== 'all') {
             $registrationQuery->where('session', $sessionVal);
+        }
+        if ($percentVal !== 'all') {
+            $registrationQuery->whereRaw('nominal < (deal * ' . $percentVal . ')');
         }
 
         $registrations = $registrationQuery->orderByDesc('created_at')->get();

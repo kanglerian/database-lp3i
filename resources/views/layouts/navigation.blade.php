@@ -154,6 +154,11 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('payment.index')" :active="request()->routeIs(['payment.index', 'payment.create', 'payment.edit', 'payment.show'])">
+                    {{ __('Pembayaran') }}
+                </x-responsive-nav-link>
+            @endif
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
                     {{ __('Sekolah') }}
                 </x-responsive-nav-link>

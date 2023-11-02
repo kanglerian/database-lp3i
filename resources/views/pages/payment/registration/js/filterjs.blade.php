@@ -42,6 +42,7 @@
         let date = document.getElementById('date').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let sessionVal = document.getElementById('session').value || 'all';
+        let percentVal = document.getElementById('percent').value || 'all';
 
         if (date !== 'all') {
             queryParams.push(`date=${date}`);
@@ -51,6 +52,9 @@
         }
         if (sessionVal !== 'all') {
             queryParams.push(`sessionVal=${sessionVal}`);
+        }
+        if (percentVal !== 'all') {
+            queryParams.push(`percentVal=${percentVal}`);
         }
 
         let queryString = queryParams.join('&');
@@ -75,6 +79,7 @@
             document.getElementById('date').value = '';
             document.getElementById('change_pmb').value = '';
             document.getElementById('session').value = '';
+            document.getElementById('percent').value = '';
         } else {
             getDataTable();
         }

@@ -75,6 +75,14 @@
                             <option value="3">Gelombang 3</option>
                         </select>
                     </div>
+                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="percent" class="text-xs">Persen</label>
+                        <select id="percent" onchange="changeFilter()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="0.3">< 30% </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -101,6 +109,12 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Diskon
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Keterangan
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        < 30%
                                     </th>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
                                         Action
@@ -131,17 +145,16 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [
-                {
-                    width: 150,
+            columnDefs: [{
+                    width: 100,
                     target: 0
                 },
                 {
-                    width: 200,
+                    width: 100,
                     target: 1
                 },
                 {
-                    width: 100,
+                    width: 200,
                     target: 2
                 },
                 {
@@ -157,12 +170,19 @@
                     target: 5
                 },
                 {
-                    width: 50,
+                    width: 150,
                     target: 6
                 },
-            ],
-            columns: [
                 {
+                    width: 50,
+                    target: 7
+                },
+                {
+                    width: 50,
+                    target: 8
+                },
+            ],
+            columns: [{
                     data: 'date'
                 },
                 {
@@ -193,9 +213,24 @@
                     }
                 },
                 {
+                    data: 'desc_discount',
+                    render: (data, type, row) => {
+                        return `${data || 'Tidak ada'}`
+                    }
+                },
+                {
                     data: {
-                        id: 'id',
+                        nominal: 'nominal',
+                        deal: 'deal'
                     },
+                    render: (data, type, row) => {
+                        let dataPercent = data.deal * 0.3;
+                        let percent = data.nominal < dataPercent;
+                        return ` ${percent ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' : '<i class="fa-solid fa-circle-xmark text-red-500"></i>'}`
+                    }
+                },
+                {
+                    data: 'id',
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
