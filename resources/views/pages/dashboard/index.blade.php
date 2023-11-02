@@ -270,7 +270,7 @@
 
     @if (Auth::user()->role == 'A')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 space-y-5">
-            <div class="flex">
+            <div class="flex flex-col md:flex-row gap-3">
                 <section class="w-full md:w-2/3 p-3 space-y-3">
                     <div>
                         <h1 class="my-2 font-bold text-gray-700">Total Sumber Informasi:</h1>
@@ -321,7 +321,7 @@
     @endif
 
 
-    @if (Auth::user()->role == 'P')
+    @if (Auth::user()->role !== 'S')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
             <div class="grid grid-cols-1 gap-4">
                 <div class="bg-white relative overflow-x-auto border border-gray-200 sm:rounded-lg">
