@@ -16,11 +16,15 @@ class PaymentController extends Controller
      */
     public function index()
     {
+        $daftar_total_nominal = Enrollment::sum('nominal');
+        $daftar_total_debit = Enrollment::sum('debit');
+        $cash = $daftar_total_nominal - $daftar_total_debit;
         $total = Registration::sum('nominal');
         $turnover = Registration::sum('deal');
         return view('pages.payment.index')->with([
             'total' => $total,
-            'turnover'=> $turnover
+            'turnover'=> $turnover,
+            'cash' => $cash
         ]);
     }
 
