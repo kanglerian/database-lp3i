@@ -4,14 +4,29 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-5">
-                <a href="{{ route('database.show', $applicant->identity) }}"
-                    class="inline-block border border-gray-400 hover:bg-gray-400 hover:text-white text-gray-500 px-4 py-2 rounded-lg text-sm"><i
-                        class="fa-solid fa-arrow-left"></i> Kembali</a>
-                <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-                    {{ $applicant->name }}
-                </h2>
-            </div>
+            <nav class="flex">
+                <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="{{ route('database.index') }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                            <i class="fa-solid fa-database mr-2"></i>
+                            Database
+                        </a>
+                    </li>
+                    <li>
+                      <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                        <a href="{{ route('database.show', $applicant->identity) }}" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-800 md:ml-2">Profil Mahasiswa</a>
+                      </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Edit Mahasiswa</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
 
             <div class="flex flex-col md:flex-row items-center gap-2">
                 <div class="flex items-center gap-2">

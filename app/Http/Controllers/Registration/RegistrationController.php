@@ -15,7 +15,10 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        return view('pages.payment.registration.index');
+        $total =  Registration::count();
+        return view('pages.payment.registration.index')->with([
+            'total' => $total,
+        ]);
     }
 
     /**
@@ -30,7 +33,27 @@ class RegistrationController extends Controller
 
     public function get_all()
     {
-        $registrations = Registration::with('applicant')->get();
+        $registrationQuery = Registration::query();
+        $registrationQuery->with('applicant');
+
+        $dateVal = request('date', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $sessionVal = request('sessionVal', 'all');
+
+        if ($dateVal !== 'all') {
+            $registrationQuery->where('date', $dateVal);
+        }
+        if ($pmbVal !== 'all') {
+            $registrationQuery->whereHas('applicant', function ($query) use ($pmbVal) {
+                $query->where('pmb', $pmbVal);
+            });
+        }
+        if ($sessionVal !== 'all') {
+            $registrationQuery->where('session', $sessionVal);
+        }
+
+        $registrations = $registrationQuery->orderByDesc('created_at')->get();
+
         return response()->json(['registrations' => $registrations]);
     }
 

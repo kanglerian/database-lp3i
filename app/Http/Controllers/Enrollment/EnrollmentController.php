@@ -15,7 +15,10 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        return view('pages.payment.enrollment.index');
+        $total =  Enrollment::count();
+        return view('pages.payment.enrollment.index')->with([
+            'total' => $total,
+        ]);
     }
 
     /**
@@ -30,7 +33,35 @@ class EnrollmentController extends Controller
 
     public function get_all()
     {
-        $enrollments = Enrollment::with('applicant')->get();
+        $enrollmentQuery = Enrollment::query();
+        $enrollmentQuery->with('applicant');
+
+        $dateVal = request('date', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $repaymentVal = request('repaymentVal', 'all');
+        $registerVal = request('registerVal', 'all');
+        $registerEndVal = request('registerEndVal', 'all');
+
+        if ($dateVal !== 'all') {
+            $enrollmentQuery->where('date', $dateVal);
+        }
+        if ($pmbVal !== 'all') {
+            $enrollmentQuery->whereHas('applicant', function ($query) use ($pmbVal) {
+                $query->where('pmb', $pmbVal);
+            });
+        }
+        if ($repaymentVal !== 'all') {
+            $enrollmentQuery->where('repayment', $repaymentVal);
+        }
+        if ($registerVal !== 'all') {
+            $enrollmentQuery->where('register', $registerVal);
+        }
+        if ($registerEndVal !== 'all') {
+            $enrollmentQuery->where('register_end', $registerEndVal);
+        }
+
+        $enrollments = $enrollmentQuery->orderByDesc('created_at')->get();
+
         return response()->json(['enrollments' => $enrollments]);
     }
 
