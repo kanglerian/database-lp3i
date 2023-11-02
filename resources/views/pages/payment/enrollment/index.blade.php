@@ -209,7 +209,7 @@
                 {
                     data: 'nominal',
                     render: (data, type, row) => {
-                        return `${data.toLocaleString('id-ID')}`
+                        return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
                 {
@@ -221,13 +221,13 @@
                 {
                     data: 'debit',
                     render: (data, type, row) => {
-                        return `${data ? data.toLocaleString('id-ID') : 'Tidak ada'}`
+                        return `${data ? 'Rp' + data.toLocaleString('id-ID') : 'Tidak ada'}`
                     }
                 },
                 {
                     data: 'repayment',
                     render: (data, type, row) => {
-                        return `0`
+                        return `${data}`
                     }
                 },
                 {
