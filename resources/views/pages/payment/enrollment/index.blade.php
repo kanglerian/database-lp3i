@@ -100,9 +100,6 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        No.
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -155,10 +152,7 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [{
-                    width: 10,
-                    target: 0
-                },
+            columnDefs: [
                 {
                     width: 150,
                     target: 1
@@ -196,12 +190,7 @@
                     target: 9
                 },
             ],
-            columns: [{
-                    data: 'id',
-                    render: (data, type, row, meta) => {
-                        return meta.row + 1;
-                    }
-                },
+            columns: [
                 {
                     data: 'date'
                 },
