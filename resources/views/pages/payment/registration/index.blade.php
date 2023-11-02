@@ -132,22 +132,23 @@
                 dataSrc: 'registrations'
             },
             order: [
-                [1, 'desc']
+                [0, 'desc']
             ],
-            columnDefs: [{
-                    width: 10,
+            columnDefs: [
+                {
+                    width: 150,
                     target: 0
                 },
                 {
-                    width: 150,
+                    width: 200,
                     target: 1
                 },
                 {
-                    width: 200,
+                    width: 100,
                     target: 2
                 },
                 {
-                    width: 100,
+                    width: 150,
                     target: 3
                 },
                 {
@@ -155,24 +156,15 @@
                     target: 4
                 },
                 {
-                    width: 150,
+                    width: 100,
                     target: 5
                 },
                 {
-                    width: 100,
+                    width: 50,
                     target: 6
                 },
-                {
-                    width: 50,
-                    target: 7
-                },
             ],
-            columns: [{
-                    data: 'id',
-                    render: (data, type, row, meta) => {
-                        return meta.row + 1;
-                    }
-                },
+            columns: [
                 {
                     data: 'date'
                 },
