@@ -51,12 +51,6 @@
                         </button>
                     </form>
                 </div>
-                <button onclick="broadcastSchoolarship()"
-                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </button>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
@@ -210,35 +204,6 @@
             })
             .catch((err) => {
                 console.log(err);
-            });
-    }
-
-    const broadcastSchoolarship = async () => {
-        let status = document.getElementById('change_applicant').value;
-        await axios.get(`/get/databasesbeasiswa`, {
-                params: {
-                    status: status,
-                }
-            })
-            .then((res) => {
-                let students = res.data.applicants;
-                let index = 0;
-                const sendWhatsappMessage = () => {
-                    if (index < students.length) {
-                        let student = students[index];
-                        let message =
-                            `Halo *${student.name}*,\nMohon untuk segera mengisi dan melengkapi persyaratan beasiswa di SBPMB Politeknik LP3I Kampus Tasikmalaya. Terima kasih.\n\nSalam, Politeknik LP3I Kampus Tasikmalaya.`;
-                        let target = `${student.phone}@c.us`;
-                        handleWhatsapp(target, message);
-                        index++;
-                        setTimeout(sendWhatsappMessage, 2000);
-                    }
-                };
-                // sendWhatsappMessage();
-                alert('Fungsi ini belum dijalankan');
-            })
-            .catch((err) => {
-                console.log(err.message);
             });
     }
 </script>

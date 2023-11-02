@@ -17,6 +17,6 @@
 
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-3 py-5">
-        <p class="text-sm text-center text-gray-500">Mohon maaf, halaman ini sedang dalam perbaikan. Silahkan akses menu <a href="{{ route('enrollment.index') }}" class="underline">Pendaftaran</a> atau <a href="{{ route('registration.index') }}" class="underline">Registrasi</a></p>
+        <p class="text-sm text-center text-gray-500">Mohon maaf, halaman ini sedang dalam perbaikan. Silahkan akses menu <a href="{{ route('enrollment.index') }}" class="underline">Pendaftaran</a> atau <a href="{{ route('registration.index') }}" class="underline">Registrasi</a>.</p>
     </div>
 </x-app-layout>
