@@ -225,9 +225,13 @@
                     }
                 },
                 {
-                    data: 'repayment',
+                    data: {
+                        nominal: 'nominal',
+                        debit: 'debit'
+                    },
                     render: (data, type, row) => {
-                        return `${data}`
+                        let money = data.nominal = data.debit;
+                        return `Rp${money.toLocaleString('id-ID')}`
                     }
                 },
                 {
