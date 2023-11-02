@@ -224,12 +224,15 @@
                     }
                 },
                 {
-                    data: 'repayment'
+                    data: 'repayment',
+                    render: (data, type, row) => {
+                        return `${data ? data : 'Tidak ada'}`
+                    }
                 },
                 {
                     data: 'debit',
                     render: (data, type, row) => {
-                        return `${data.toLocaleString('id-ID')}`
+                        return `${data ? data.toLocaleString('id-ID') : 'Tidak ada'}`
                     }
                 },
                 {
