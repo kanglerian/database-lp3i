@@ -299,6 +299,12 @@
                                 <h2 class="text-base font-semibold text-gray-900">Daftar:</h2>
                                 <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
                                     <li class="flex items-center space-x-2">
+                                        <i class="block fa-solid fa-receipt text-gray-400"></i>
+                                        <span class="inline-block mr-2">No. Kwitansi:
+                                            <span class="underline">{{ $enrollment->receipt }}</span>
+                                        </span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
                                         <i class="block fa-solid fa-calendar-day text-gray-400"></i>
                                         <span class="inline-block mr-2">Tanggal:
                                             <span class="underline">{{ $enrollment->date }}</span>
