@@ -254,7 +254,7 @@
                 dataSrc: 'applicants'
             },
             order: [
-                [0, 'desc']
+                [2, 'desc']
             ],
             rowCallback: function(row, data, index) {
                 if (data.presenter.phone == '6281313608558') {
