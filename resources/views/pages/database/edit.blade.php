@@ -45,22 +45,6 @@
                         </span>
                     </div>
                 </div>
-                @if ($account == 0 && ($applicant->is_register == 1 || $applicant->is_daftar == 1))
-                    <form action="{{ route('profile.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="identity" value="{{ $applicant->identity }}">
-                        <input type="hidden" name="name" value="{{ $applicant->name }}">
-                        <input type="hidden" name="email" value="{{ $applicant->email }}">
-                        <input type="hidden" name="phone" value="{{ $applicant->phone }}">
-                        <button type="submit"
-                            class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
-                                class="fa-solid fa-user-plus"></i> Buat Akun</button>
-                    </form>
-                @elseif($account > 0)
-                    <span
-                        class="text-white bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
-                            class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
-                @endif
                 <button onclick="saveChanges()"
                     class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                         class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>

@@ -20,6 +20,7 @@ class Registration extends Model
         'nominal',
         'deal',
         'discount',
+        'desc_discount',
         'session',
     ];
 

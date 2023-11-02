@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AchivementController;
-use App\Http\Controllers\API\AuthenticationJWT;
 use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\OrganizationController;

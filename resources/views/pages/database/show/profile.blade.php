@@ -201,7 +201,18 @@
                             </div>
                         </header>
                         <hr class="my-3">
-                        <section class="flex flex-col gap-3">
+                        <section class="flex flex-col justify-between gap-3">
+                            @if ($account == 0 && ($user->is_register == 1 || $user->is_daftar == 1))
+                                <button type="button" onclick="modalAccount()"
+                                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-white text-sm">
+                                    <i class="fa-solid fa-user-plus mr-1"></i>
+                                    <span>Buat Akun</span>
+                                </button>
+                            @elseif($account > 0)
+                                <span
+                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                                        class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
+                            @endif
                             <div>
                                 <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
                                     <label class="relative inline-flex items-center cursor-pointer">
@@ -222,7 +233,8 @@
                                         <button {{ $enrollment ? 'disabled' : '' }} type="submit"
                                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                         </button>
-                                        <span class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
+                                        <span
+                                            class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
                                     </label>
                                 </form>
                                 @if ($user->is_daftar)
@@ -231,11 +243,11 @@
                                             <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                         </div>
                                     @else
-                                    <button type="button" onclick="modalDaftar()"
-                                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                            class="fa-solid fa-receipt mr-1"></i>
-                                        Masukan nominal
-                                    </button>
+                                        <button type="button" onclick="modalDaftar()"
+                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                class="fa-solid fa-receipt mr-1"></i>
+                                            Masukan nominal
+                                        </button>
                                     @endif
                                 @endif
                             </div>
@@ -247,7 +259,8 @@
                                         <button {{ $registration ? 'disabled' : '' }} type="submit"
                                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                         </button>
-                                        <span class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
+                                        <span
+                                            class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
                                     </label>
                                 </form>
                                 @if ($user->is_register)
@@ -397,11 +410,21 @@
             </div>
         </div>
     </div>
+    @include('pages.database.show.modal.account')
     @include('pages.database.show.modal.daftar')
     @include('pages.database.show.modal.registrasi')
 </x-app-layout>
 
 <script>
+    const modalAccount = () => {
+        let modal = document.getElementById('modal-account');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
     const modalRegistrasi = () => {
         let modal = document.getElementById('modal-registrasi');
         if (modal.classList.contains('hidden')) {

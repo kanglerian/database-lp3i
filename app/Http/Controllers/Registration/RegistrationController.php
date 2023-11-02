@@ -79,6 +79,7 @@ class RegistrationController extends Controller
             'nominal' => $request->input('nominal'),
             'deal' => $request->input('deal'),
             'discount' => $request->input('discount'),
+            'desc_discount' => $request->input('desc_discount'),
         ];
 
         Registration::create($data);

@@ -57,7 +57,15 @@ class ProfileController extends Controller
             'role' => 'S',
             'status' => 0,
         ];
+
+        $data_applicant = [
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+        ];
+
+        $applicant = Applicant::where('identity', $request->input('identity'))->first();
         User::create($data);
+        $applicant->update($data_applicant);
         return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
