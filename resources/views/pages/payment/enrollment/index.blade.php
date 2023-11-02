@@ -155,14 +155,18 @@
             columnDefs: [
                 {
                     width: 150,
-                    target: 1
+                    target: 0
                 },
                 {
                     width: 200,
-                    target: 2
+                    target: 1
                 },
                 {
                     width: 100,
+                    target: 2
+                },
+                {
+                    width: 150,
                     target: 3
                 },
                 {
@@ -170,7 +174,7 @@
                     target: 4
                 },
                 {
-                    width: 150,
+                    width: 100,
                     target: 5
                 },
                 {
@@ -182,12 +186,8 @@
                     target: 7
                 },
                 {
-                    width: 100,
-                    target: 8
-                },
-                {
                     width: 50,
-                    target: 9
+                    target: 8
                 },
             ],
             columns: [
