@@ -230,7 +230,9 @@
                         debit: 'debit'
                     },
                     render: (data, type, row) => {
-                        let money = data.nominal = data.debit;
+                        let debit = data.debit || 0;
+                        let nominal = data.nominal || 0;
+                        let money = nominal - debit;
                         return `Rp${money.toLocaleString('id-ID')}`
                     }
                 },
