@@ -29,10 +29,14 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs(
-                            ['payment.index', 'payment.create', 'payment.edit', 'payment.show',
-                            'enrollment.index','registration.index',]
-                            )">
+                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs([
+                            'payment.index',
+                            'payment.create',
+                            'payment.edit',
+                            'payment.show',
+                            'enrollment.index',
+                            'registration.index',
+                        ])">
                             {{ __('Pembayaran') }}
                         </x-nav-link>
                     @endif
@@ -76,7 +80,8 @@
                         <button
                             class="flex overflow-hidden gap-3 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}" alt="Avatar" class="h-8 rounded-full">
+                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
+                                    alt="Avatar" class="h-8 rounded-full">
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
                             @endif
@@ -93,10 +98,9 @@
                                         @break
 
                                         @case('S')
-                                            Student
+                                            Siswa
                                         @break
                                     @endswitch
-                                    ({{ Auth::user()->identity }})
                                 </span>
                             </div>
                         </button>
@@ -189,8 +193,21 @@
         <div class="pt-4 pb-1 border-t border-gray-200">
             <a href="{{ route('profile.edit', Auth::user()->id) }}" class="block px-4 py-2 bg-gray-50">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}
-                    ({{ Auth::user()->identity }})</div>
+                <div class="font-medium text-sm text-gray-500">
+                    @switch(Auth::user()->role)
+                        @case('A')
+                            Administrator
+                        @break
+
+                        @case('P')
+                            Presenter
+                        @break
+
+                        @case('S')
+                            Siswa
+                        @break
+                    @endswitch
+                </div>
             </a>
 
             <div class="mt-3 space-y-1">
