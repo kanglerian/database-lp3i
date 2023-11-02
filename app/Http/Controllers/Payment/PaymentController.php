@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -15,7 +16,12 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return view('pages.payment.index');
+        $total = Registration::sum('nominal');
+        $turnover = Registration::sum('deal');
+        return view('pages.payment.index')->with([
+            'total' => $total,
+            'turnover'=> $turnover
+        ]);
     }
 
 
