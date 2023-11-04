@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Registration extends Model
+class Target extends Model
 {
     use HasFactory;
 
@@ -18,15 +18,12 @@ class Registration extends Model
         'pmb',
         'identity_user',
         'date',
-        'nominal',
-        'deal',
-        'discount',
-        'desc_discount',
+        'total',
         'session',
     ];
 
 
-    protected $table = 'registration';
+    protected $table = 'target';
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -37,7 +34,7 @@ class Registration extends Model
         'updated_at',
     ];
 
-    public function applicant(){
-        return $this->belongsTo(Applicant::class,'identity_user','identity');
+    public function presenter(){
+        return $this->belongsTo(User::class,'identity_user','identity');
     }
 }

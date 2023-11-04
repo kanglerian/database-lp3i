@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
+use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -82,7 +84,12 @@ class PresenterController extends Controller
      */
     public function show($id)
     {
-        //
+        $presenter = User::findOrFail($id);
+        $targets = Target::where(['identity_user' => $presenter->identity])->get();
+        return view('pages.presenter.show')->with([
+            'presenter'=> $presenter,
+            'targets' => $targets
+        ]);
     }
 
     /**

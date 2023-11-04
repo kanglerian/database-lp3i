@@ -15,10 +15,8 @@
                 <hr class="mb-3">
                 <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                     @csrf
-                    <div>
-                        <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    </div>
+                    <input type="hidden" value="{{ $user->pmb }}" name="pmb" id="pmb">
+                    <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user">
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                         <div>
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
@@ -77,7 +75,8 @@
                         </div>
                     </div>
                     <div>
-                        <label for="desc_discount" class="block mb-2 text-sm font-medium text-gray-900">Keterangan Potongan</label>
+                        <label for="desc_discount" class="block mb-2 text-sm font-medium text-gray-900">Keterangan
+                            Potongan</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                 <i class="fa-solid fa-note-sticky text-gray-400"></i>

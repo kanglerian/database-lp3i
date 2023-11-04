@@ -45,9 +45,7 @@ class RegistrationController extends Controller
             $registrationQuery->where('date', $dateVal);
         }
         if ($pmbVal !== 'all') {
-            $registrationQuery->whereHas('applicant', function ($query) use ($pmbVal) {
-                $query->where('pmb', $pmbVal);
-            });
+            $registrationQuery->where('pmb', $pmbVal);
         }
         if ($sessionVal !== 'all') {
             $registrationQuery->where('session', $sessionVal);
@@ -70,20 +68,24 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'pmb' => ['required'],
             'date' => ['required'],
-            'identity_user' => ['required', 'string'],
+            'identity_user' => ['required'],
             'nominal' => ['required', 'integer'],
             'deal' => ['required', 'integer'],
             'discount' => ['required', 'integer'],
+            'session' => ['required'],
         ]);
 
         $data = [
+            'pmb' => $request->input('pmb'),
             'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
             'nominal' => $request->input('nominal'),
             'deal' => $request->input('deal'),
             'discount' => $request->input('discount'),
             'desc_discount' => $request->input('desc_discount'),
+            'session' => $request->input('session'),
         ];
 
         Registration::create($data);

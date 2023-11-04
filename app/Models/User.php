@@ -80,4 +80,9 @@ class User extends Authenticatable implements JWTSubject
     public function userupload(){
         return $this->hasMany(User::class, 'identity');
     }
+
+    public function target()
+    {
+        return $this->hasOne(Target::class, 'identity_user', 'identity');
+    }
 }

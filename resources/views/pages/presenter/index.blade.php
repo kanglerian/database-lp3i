@@ -126,7 +126,15 @@
                     data: 'identity',
                 },
                 {
-                    data: 'name'
+                    data: {
+                        id: 'id',
+                        name: 'name'
+                    },
+                    render: (data, row) => {
+                        let showUrl = "{{ route('presenter.show', ':id') }}".replace(':id',
+                            data.id);
+                        return `<a href="${showUrl}" class="underline">${data.name}</a>`
+                    }
                 },
                 {
                     data: 'phone',

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\AchivementController;
+use App\Http\Controllers\Target\TargetController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enrollment\EnrollmentController;
-use App\Http\Controllers\FollowUpController;
-use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\AchivementController;
+use App\Http\Controllers\FollowUpController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SchoolController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicantController;
@@ -36,86 +37,117 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('dashboard', DashboardController::class)->middleware(['auth']);
+/* Route Dashboard */
+Route::middleware(['auth', 'status:1'])->group(function () {
+    Route::resource('dashboard', DashboardController::class);
+    Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all');
+    Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget');
+    Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget');
+    Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget');
+    Route::get('quicksearch/{name?}', [DashboardController::class, 'quick_search'])->name('quicksearch');
+});
 
-Route::resource('school', SchoolController::class)->middleware(['auth','status:1','role:A']);
-Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get')->middleware(['auth','status:1','role:A']);
+/* Route School */
+Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+    Route::resource('school', SchoolController::class);
+    Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get');
+    Route::post('import/schools', [SchoolController::class, 'import'])->name('school.import');
+});
 
-Route::post('import/schools', [SchoolController::class, 'import'])->middleware(['auth','status:1','role:A'])->name('school.import');
+/* Route Database  */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('database', ApplicantController::class);
+    Route::resource('histories', ApplicantHistoryController::class);
+    /* Import from Spreadsheet */
+    Route::get('import/applicants', [ApplicantController::class, 'import'])->name('applicant.import');
+    Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->name('applicant.importupdate');
+    /* Export to Excel */
+    Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
+    /* Get data from Javascript in blade */
+    Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get');
+    Route::get('get/databasesbeasiswa', [ApplicantController::class, 'get_beasiswa'])->name('database.getbeasiswa');
+    Route::get('isapplicant/{identity?}', [ApplicantController::class, 'is_applicant'])->name('database.is_applicant');
+    Route::get('isregister/{identity?}', [ApplicantController::class, 'is_register'])->name('database.is_register');
+    Route::get('isdaftar/{identity?}', [ApplicantController::class, 'is_daftar'])->name('database.is_daftar');
+    Route::get('isschoolarship/{identity?}', [ApplicantController::class, 'is_schoolarship'])->name('database.is_schoolarship');
+    Route::get('chat/{identity?}', [ApplicantController::class, 'chats'])->name('database.chat');
+    Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file');
+    Route::get('achievement/{identity?}', [ApplicantController::class, 'achievements'])->name('database.achievement');
+    Route::get('organization/{identity?}', [ApplicantController::class, 'organizations'])->name('database.organization');
+    Route::get('print/database/{id}', [ApplicantController::class, 'print'])->name('database.print');
+});
 
-Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all')->middleware(['auth','status:1']);
-Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget')->middleware(['auth','status:1']);
-Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget')->middleware(['auth','status:1']);
-Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget')->middleware(['auth','status:1']);
-Route::get('quicksearch/{name?}',[DashboardController::class, 'quick_search'])->middleware(['auth','status:1'])->name('quicksearch');
+/* Route Presenter  */
+Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+    Route::resource('presenter', PresenterController::class);
+    Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get');
+});
 
-Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->middleware(['auth'])->name('upload.payment');
+/* Route Presenter  */
+Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+    Route::resource('user', UserController::class)->middleware(['auth', 'role:A']);
+    Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get');
+    Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account');
+    Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password');
+    Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change');
+    Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print');
+    Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change');
+    Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password');
+});
 
-Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
+/* Route Profile */
+Route::middleware(['auth', 'status:1'])->group(function () {
+    Route::resource('profile', ProfileController::class);
+    Route::patch('profile/update_account/{id}', [ProfileController::class, 'update_account'])->name('profile.update_account');
+    Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_password'])->name('profile.change_password');
+});
 
-Route::get('import/applicants', [ApplicantController::class, 'import'])->middleware(['auth','status:1'])->name('applicant.import');
+/* Route Student */
+Route::middleware(['auth', 'status:1', 'role:S'])->group(function () {
+    Route::resource('userupload', UserUploadController::class);
+    Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->name('upload.payment');
+});
 
-Route::resource('database', ApplicantController::class)->middleware(['auth','status:1','role:P']);
-Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->middleware(['auth','status:1'])->name('applicant.importupdate');
+/* Route Enrollment */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('enrollment', EnrollmentController::class);
+    Route::get('get/enrollments', [EnrollmentController::class, 'get_all'])->name('enrollment.get');
+});
 
-Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get')->middleware(['auth','status:1','role:P']);
+/* Route Registration */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('registration', RegistrationController::class);
+    Route::get('get/registrations', [RegistrationController::class, 'get_all'])->name('registration.get');
+});
 
-Route::get('get/databasesbeasiswa', [ApplicantController::class, 'get_beasiswa'])->name('database.getbeasiswa')->middleware(['auth','status:1','role:P']);
+/* Route Target */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('target', TargetController::class);
+});
 
-Route::get('isapplicant/{identity?}', [ApplicantController::class, 'is_applicant'])->name('database.is_applicant')->middleware(['auth','status:1','role:P']);
-Route::get('isregister/{identity?}', [ApplicantController::class, 'is_register'])->name('database.is_register')->middleware(['auth','status:1','role:P']);
-Route::get('isdaftar/{identity?}', [ApplicantController::class, 'is_daftar'])->name('database.is_daftar')->middleware(['auth','status:1','role:P']);
-Route::get('isschoolarship/{identity?}', [ApplicantController::class, 'is_schoolarship'])->name('database.is_schoolarship')->middleware(['auth','status:1','role:P']);
+/* Route Payment */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('payment', PaymentController::class);
+});
 
-Route::get('chat/{identity?}', [ApplicantController::class, 'chats'])->name('database.chat')->middleware(['auth','status:1','role:P']);
-Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file')->middleware(['auth','status:1','role:P']);
-Route::get('achievement/{identity?}', [ApplicantController::class, 'achievements'])->name('database.achievement')->middleware(['auth','status:1','role:P']);
-Route::get('organization/{identity?}', [ApplicantController::class, 'organizations'])->name('database.organization')->middleware(['auth','status:1','role:P']);
+/* Route Setting */
+Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+    Route::resource('setting', SettingController::class);
+    Route::resource('programtype', ProgramTypeController::class);
+    Route::resource('source', SourceController::class);
+    Route::resource('fileupload', FileUploadController::class);
+    Route::resource('applicantstatus', ApplicantStatusController::class);
+    Route::resource('followup', FollowUpController::class);
+});
 
-Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
+/* Route Achievement */
+Route::middleware(['auth', 'status:1'])->group(function () {
+    Route::resource('achievements', AchivementController::class);
+});
 
-Route::resource('histories', ApplicantHistoryController::class)->middleware(['auth','status:1','role:P']);
+/* Route Organization */
+Route::middleware(['auth', 'status:1'])->group(function () {
+    Route::resource('organizations', OrganizationController::class);
+});
 
-Route::resource('presenter', PresenterController::class)->middleware(['auth','role:A']);
-Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get')->middleware(['auth','status:1','role:A']);
-
-Route::resource('user', UserController::class)->middleware(['auth','role:A']);
-Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get')->middleware(['auth','role:P']);
-Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account')->middleware(['auth','role:A','status:1']);
-Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password')->middleware(['auth','status:1','role:A']);
-
-Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change')->middleware(['auth','status:1','role:A']);
-
-Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print')->middleware(['auth','role:A']);
-
-Route::get('print/database/{id}', [ApplicantController::class, 'print'])->name('database.print')->middleware(['auth','role:P']);
-
-Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change')->middleware(['auth','status:1','role:A']);
-Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password')->middleware(['auth','status:1','role:A']);
-
-Route::resource('profile', ProfileController::class)->middleware(['auth']);
-
-Route::patch('profile/update_account/{id}', [ProfileController::class, 'update_account'])->name('profile.update_account')->middleware(['auth','status:1']);
-Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_password'])->name('profile.change_password')->middleware(['auth','status:1']);
-
-Route::resource('userupload', UserUploadController::class)->middleware(['auth','role:S']);
-
-Route::resource('payment', PaymentController::class)->middleware(['auth', 'status:1', 'role:P']);
-
-Route::resource('setting', SettingController::class)->middleware(['auth','role:A']);
-Route::resource('programtype', ProgramTypeController::class)->middleware(['auth','role:A']);
-Route::resource('source', SourceController::class)->middleware(['auth','role:A']);
-Route::resource('fileupload', FileUploadController::class)->middleware(['auth','role:A']);
-Route::resource('applicantstatus', ApplicantStatusController::class)->middleware(['auth','role:A']);
-Route::resource('followup', FollowUpController::class)->middleware(['auth','role:A']);
-
-Route::resource('achievements', AchivementController::class)->middleware(['auth']);
-Route::resource('organizations', OrganizationController::class)->middleware(['auth']);
-
-Route::resource('enrollment', EnrollmentController::class)->middleware(['auth', 'status:1', 'role:P']);
-Route::get('get/enrollments', [EnrollmentController::class, 'get_all'])->name('enrollment.get')->middleware(['auth','status:1','role:P']);
-
-Route::resource('registration', RegistrationController::class)->middleware(['auth', 'status:1', 'role:P']);
-Route::get('get/registrations', [RegistrationController::class, 'get_all'])->name('registration.get')->middleware(['auth','status:1','role:P']);
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
