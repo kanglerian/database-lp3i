@@ -10,13 +10,7 @@ class LogoutController extends Controller
 {
     public function logout(Request $request)
     {
-        $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
-
-        if($removeToken) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Logout Berhasil!',
-            ]);
-        }
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Berhasil keluar!'], 200);
     }
 }

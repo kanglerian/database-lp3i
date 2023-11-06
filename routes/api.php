@@ -24,30 +24,26 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/* Route SBPMB */
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [UserController::class, 'get_user']);
+    Route::post('/logout', [LogoutController::class, 'logout']);
+    Route::patch('/user/update/{identity}', [UserController::class, 'update']);
+    Route::patch('/user/updateprogram/{identity}', [UserController::class, 'update_program']);
+    Route::patch('/user/updatefamily/{identity}', [UserController::class, 'update_family']);
+    Route::post('/achievement', [AchievementController::class, 'store']);
+    Route::delete('/achievement/{id}', [AchievementController::class, 'destroy']);
+    Route::post('/userupload', [UserUploadController::class, 'store']);
+    Route::delete('/userupload/{id}', [UserUploadController::class, 'destroy']);
+    Route::post('/organization', [OrganizationController::class, 'store']);
+    Route::delete('/organization/{id}', [OrganizationController::class, 'destroy']);
 });
-
-Route::get('/user/get', [UserController::class,'get_user'])->name('users.get');
-Route::patch('/user/update/{identity}', [UserController::class,'update'])->name('users.update');
-Route::patch('/user/updateprogram/{identity}', [UserController::class,'update_program'])->name('users.updateprogram');
-Route::patch('/user/updatefamily/{identity}', [UserController::class,'update_family'])->name('users.updatefamily');
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
 
-Route::post('/achievement', [AchievementController::class, 'store'])->name('achievements.api.store');
-Route::delete('/achievement/{id}', [AchievementController::class, 'destroy'])->name('achievements.api.destroy');
-
-Route::post('/userupload', [UserUploadController::class, 'store'])->name('useruploads.api.store');
-Route::delete('/userupload/{id}', [UserUploadController::class, 'destroy'])->name('useruploads.api.destroy');
-
-Route::post('/organization', [OrganizationController::class, 'store'])->name('organizations.api.store');
-Route::delete('/organization/{id}', [OrganizationController::class, 'destroy'])->name('organizations.api.destroy');
-
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
 

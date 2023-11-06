@@ -32,9 +32,9 @@ class UserController extends Controller
      */
     public function get_user(Request $request)
     {
-        $identity = $request->query('identity');
-        $token = $request->query('token');
-        $user = User::where(['token' => $token, 'identity' => $identity])->firstOrFail();
+        $account = $request->user();
+        $identity = $account->identity;
+        $user = User::where(['identity' => $identity])->firstOrFail();
         $applicant = Applicant::where('identity', $user->identity)->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->firstOrFail();
         $achievements = Achievement::where('identity_user', $user->identity)->get();
         $organizations = Organization::where('identity_user', $user->identity)->get();
@@ -46,7 +46,6 @@ class UserController extends Controller
         $fileuploaded = FileUpload::whereIn('id', $data)->get();
         $fileupload = FileUpload::whereNotIn('id', $data)->get();
         return response()->json([
-            'success' => true,
             'user' => $user,
             'applicant' => $applicant,
             'achievements' => $achievements,
@@ -54,7 +53,7 @@ class UserController extends Controller
             'userupload' => $userupload,
             'fileupload' => $fileupload,
             'fileuploaded' => $fileuploaded,
-        ], 201);
+        ], 200);
     }
 
 

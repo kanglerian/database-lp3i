@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Applicant;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -21,38 +22,26 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = [
-            "email" => str_replace(' ', '', $request->email),
-            "password" => str_replace(' ', '', $request->password)
-        ];
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (!$token = JWTAuth::attempt($credentials)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Email atau Password Anda salah'
-            ], 401);
-        } else {
-            $check_beasiswa = Applicant::where('email', $credentials['email'])->first();
-
-            if ($check_beasiswa->schoolarship == '0') {
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $schoolarship = Applicant::where(['identity' => $user->identity, 'schoolarship' => 1])->first();
+            if ($schoolarship) {
+                $token = $user->createToken('auth_token')->plainTextToken;
                 return response()->json([
-                    'success' => false,
-                    'message' => 'Maaf, Anda tidak memenuhi syarat untuk masuk. Hanya penerima beasiswa yang diizinkan.'
-                ], 401);
-            } else {
-
-                $data = auth()->user();
-                $user = User::where('identity', $data->identity)->first();
-                $user->update([
-                    'token' => $token
-                ]);
-
-                return response()->json([
-                    'success' => true,
-                    'user' => auth()->user(),
+                    'id' => $user->identity,
                     'token' => $token,
                 ], 200);
+            } else {
+                return response()->json(['message' => 'Maaf, bukan penerima beasiswa.'], 401);
             }
+        } else {
+            return response()->json(['message' => 'Email atau Password salah!'], 401);
         }
+
     }
 }

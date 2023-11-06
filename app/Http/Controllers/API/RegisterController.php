@@ -52,7 +52,7 @@ class RegisterController extends Controller
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if($schoolNameCheck){
+            if ($schoolNameCheck) {
                 $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
@@ -77,9 +77,9 @@ class RegisterController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['success' => false, 'message' => 'Email sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.']);
+                    return response()->json(['message' => 'Email sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
-                    return response()->json(['success' => false, 'message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.']);
+                    return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 }
             } else {
                 if ($check_phone_applicant) {
@@ -100,10 +100,10 @@ class RegisterController extends Controller
                     ];
                     $user = User::create($data_user);
                     $check_phone_applicant->update($data_applicant);
+                    $token = $user->createToken('auth_token')->plainTextToken;
                     if ($user) {
                         return response()->json([
-                            'success' => true,
-                            'user' => $user,
+                            'token' => $token
                         ], 201);
                     }
                 } else {
@@ -125,104 +125,106 @@ class RegisterController extends Controller
                     ];
                     $check_email_applicant->update($data_applicant);
                     $user = User::create($data_user);
+                    $token = $user->createToken('auth_token')->plainTextToken;
                     if ($user) {
                         return response()->json([
-                            'success' => true,
-                            'user' => $user,
+                            'token' => $token,
                         ], 201);
                     }
                 }
             }
         } else {
-            if ($check_phone_user) {
-                return response()->json(['success' => false, 'message' => 'No. Telpon sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.']);
+            if ($check_email_user) {
+                return response()->json(['message' => 'Email sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
             } else {
-                if ($check_phone_applicant) {
-                    $data_applicant = [
-                        'identity' => $check_phone_applicant->identity,
-                        'name' => $check_phone_applicant->name,
-                        'nisn' => $request->nisn,
-                        'school' => $school,
-                        'email' => $request->email,
-                        'year' => $request->year,
-                        'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
-                        'followup_id' => $check_phone_applicant->followup_id ?? 1,
-                        'schoolarship' => 1,
-                        'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 10,
-                        'status_id' => 2,
-                        'come' => 0,
-                        'isread' => '0',
-                    ];
-
-                    $data_user = [
-                        'identity' => $check_phone_applicant->identity,
-                        'name' => $check_phone_applicant->name,
-                        'email' => $request->email,
-                        'phone' => $check_phone_applicant->phone,
-                        'password' => Hash::make($request->password),
-                        'role' => 'S',
-                        'status' => 1,
-                    ];
-
-                    $check_phone_applicant->update($data_applicant);
-                    $user = User::create($data_user);
-
-                    if ($user) {
-                        return response()->json([
-                            'success' => true,
-                            'user' => $user,
-                        ], 201);
-                    }
+                if ($check_phone_user) {
+                    return response()->json(['message' => 'No. Telpon sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 } else {
-                    $data_applicant = [
-                        'pmb' => $pmbValue,
-                        'identity' => $numbers_unique,
-                        'identity_user' => '6281313608558',
-                        'name' => ucwords(strtolower($request->name)),
-                        'nisn' => $request->nisn,
-                        'school' => $school,
-                        'year' => $request->year,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'programtype_id' => 1,
-                        'followup_id' => 1,
-                        'schoolarship' => 1,
-                        'source_id' => 10,
-                        'source_daftar_id' => 10,
-                        'status_id' => 2,
-                        'come' => 0,
-                        'isread' => '0',
-                    ];
-
-                    $data_user = [
-                        'identity' => $numbers_unique,
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'password' => Hash::make($request->password),
-                        'role' => 'S',
-                        'status' => 1,
-                    ];
-
-                    $data_father = [
-                        'identity_user' => $numbers_unique,
-                        'gender' => 1,
-                    ];
-                    $data_mother = [
-                        'identity_user' => $numbers_unique,
-                        'gender' => 0,
-                    ];
-                    $user = User::create($data_user);
-                    Applicant::create($data_applicant);
-                    ApplicantFamily::create($data_father);
-                    ApplicantFamily::create($data_mother);
-
-                    if ($user) {
-                        return response()->json([
-                            'success' => true,
-                            'user' => $user,
+                    if ($check_phone_applicant) {
+                        $data_applicant = [
+                            'identity' => $check_phone_applicant->identity,
+                            'name' => $check_phone_applicant->name,
+                            'nisn' => $request->nisn,
+                            'school' => $school,
+                            'email' => $request->email,
                             'year' => $request->year,
-                        ], 201);
+                            'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
+                            'followup_id' => $check_phone_applicant->followup_id ?? 1,
+                            'schoolarship' => 1,
+                            'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 10,
+                            'status_id' => 2,
+                            'come' => 0,
+                            'isread' => '0',
+                        ];
+
+                        $data_user = [
+                            'identity' => $check_phone_applicant->identity,
+                            'name' => $check_phone_applicant->name,
+                            'email' => $request->email,
+                            'phone' => $check_phone_applicant->phone,
+                            'password' => Hash::make($request->password),
+                            'role' => 'S',
+                            'status' => 1,
+                        ];
+
+                        $check_phone_applicant->update($data_applicant);
+                        $user = User::create($data_user);
+                        $token = $user->createToken('auth_token')->plainTextToken;
+
+                        if ($user) {
+                            return response()->json([
+                                'token' => $token
+                            ], 201);
+                        }
+                    } else {
+                        $data_applicant = [
+                            'pmb' => $pmbValue,
+                            'identity' => $numbers_unique,
+                            'identity_user' => '6281313608558',
+                            'name' => ucwords(strtolower($request->name)),
+                            'nisn' => $request->nisn,
+                            'school' => $school,
+                            'year' => $request->year,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                            'programtype_id' => 1,
+                            'followup_id' => 1,
+                            'schoolarship' => 1,
+                            'source_id' => 10,
+                            'source_daftar_id' => 10,
+                            'status_id' => 2,
+                            'come' => 0,
+                            'isread' => '0',
+                        ];
+
+                        $data_user = [
+                            'identity' => $numbers_unique,
+                            'name' => $request->name,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                            'password' => Hash::make($request->password),
+                            'role' => 'S',
+                            'status' => 1,
+                        ];
+
+                        $data_father = [
+                            'identity_user' => $numbers_unique,
+                            'gender' => 1,
+                        ];
+                        $data_mother = [
+                            'identity_user' => $numbers_unique,
+                            'gender' => 0,
+                        ];
+                        $user = User::create($data_user);
+                        Applicant::create($data_applicant);
+                        ApplicantFamily::create($data_father);
+                        ApplicantFamily::create($data_mother);
+                        $token = $user->createToken('auth_token')->plainTextToken;
+                        if ($user) {
+                            return response()->json([
+                                'token' => $token
+                            ], 201);
+                        }
                     }
                 }
             }

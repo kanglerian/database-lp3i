@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70be39134853fd8c21a5476396793661",
+    "content-hash": "e1af6dbfb985a40a84661b6569a7752a",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -8973,7 +8973,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "tymon/jwt-auth": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
