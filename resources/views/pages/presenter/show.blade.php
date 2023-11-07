@@ -98,9 +98,12 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="bg-red-500 p-4 rounded-xl space-y-1">
+                        <div id="container-animate" class="relative bg-red-500 p-4 rounded-xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
                             <p class="text-white text-sm">Sisa Target</p>
+                            <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
+                                <dotlottie-player src="{{ asset('animations/win.lottie') }}" background="transparent" speed="1" style="width: 150px; height: 150px" direction="1" mode="normal" loop autoplay></dotlottie-player>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,6 +145,7 @@
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 @include('pages.presenter.js.filterjs')
 <script>
     const getRegistrations = async () => {
@@ -156,6 +160,11 @@
             document.getElementById('register_count').innerText = registers;
             document.getElementById('target_count').innerText = targets;
             document.getElementById('result_count').innerText = targets - registers;
+            if(targets - registers <= 0){
+                document.getElementById('animate').classList.remove('hidden');
+                document.getElementById('container-animate').classList.remove('bg-red-500');
+                document.getElementById('container-animate').classList.add('bg-yellow-500');
+            }
         })
         .catch((err) => {
             console.log(err);
