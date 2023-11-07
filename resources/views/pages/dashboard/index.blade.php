@@ -199,7 +199,7 @@
     @endif
 
     @if (Auth::user()->role == 'P')
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 px-2">
             <div class="flex justify-between items-center gap-3 mb-3">
                 <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                     <input type="hidden" id="identity" value="{{ Auth::user()->identity }}">
