@@ -210,7 +210,7 @@
                             placeholder="Tahun PMB">
                     </div>
                     <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
+                        <label for="date" class="text-xs">Bulan:</label>
                         <input type="date" id="date" onchange="changeFilterTarget()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                     </div>
