@@ -175,7 +175,9 @@
     @endif
 
     @include('pages.dashboard.database.database')
-    @include('pages.dashboard.target.target')
+    @if (Auth::user()->role == 'P')
+        @include('pages.dashboard.target.target')
+    @endif
     @include('pages.dashboard.search.search')
     @include('pages.dashboard.harta.database')
     @include('pages.dashboard.source.source')
