@@ -229,15 +229,15 @@
             <div>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
                     <div class="bg-sky-500 p-4 rounded-xl space-y-1">
-                        <h2 class="text-white text-xl" id="target_count">0</h2>
+                        <h2 class="text-white text-lg bg-sky-600 inline px-3 py-1 rounded-lg" id="target_count">0</h2>
                         <p class="text-white text-sm">Total Target</p>
                     </div>
                     <div class="bg-emerald-500 p-4 rounded-xl space-y-1">
-                        <h2 class="text-white text-xl" id="register_count">0</h2>
+                        <h2 class="text-white text-lg bg-emerald-600 inline px-3 py-1 rounded-lg" id="register_count">0</h2>
                         <p class="text-white text-sm">Registrasi</p>
                     </div>
                     <div id="container-animate" class="relative bg-red-500 p-4 rounded-xl space-y-1">
-                        <h2 class="text-white text-xl" id="result_count">0</h2>
+                        <h2 class="text-white text-lg bg-red-600 inline px-3 py-1 rounded-lg" id="result_count">0</h2>
                         <p class="text-white text-sm">Sisa Target</p>
                         <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
                             <dotlottie-player src="{{ asset('animations/win.lottie') }}" background="transparent"
