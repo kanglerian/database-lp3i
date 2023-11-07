@@ -862,6 +862,18 @@ select {
   top: -40px;
 }
 
+.top-\[0px\] {
+  top: 0px;
+}
+
+.top-\[-50px\] {
+  top: -50px;
+}
+
+.top-\[-60px\] {
+  top: -60px;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -1893,6 +1905,14 @@ select {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
+}
+
+.pt-7 {
+  padding-top: 1.75rem;
 }
 
 .text-left {

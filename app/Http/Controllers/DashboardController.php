@@ -26,28 +26,28 @@ class DashboardController extends Controller
 
         $databaseQuery = Applicant::query();
         $applicantQuery = Applicant::query();
-        $daftarQuery = Applicant::query();
+        $enrollmentQuery = Applicant::query();
         $registrasiQuery = Applicant::query();
         $schoolarshipQuery = Applicant::query();
         $sourcesIdQuery = ApplicantBySourceId::query();
-        $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
+        $sourcesIdEnrollmentQuery = ApplicantBySourceDaftarId::query();
 
         if (Auth::user()->role === 'P') {
             $databaseQuery->where('identity_user', Auth::user()->identity);
             $applicantQuery->where('identity_user', Auth::user()->identity);
-            $daftarQuery->where('identity_user', Auth::user()->identity);
+            $enrollmentQuery->where('identity_user', Auth::user()->identity);
             $registrasiQuery->where('identity_user', Auth::user()->identity);
             $schoolarshipQuery->where('identity_user', Auth::user()->identity);
         }
-        $sourcesIdDaftarQuery->where('source_daftar_id', '!=', null);
+        $sourcesIdEnrollmentQuery->where('source_daftar_id', '!=', null);
 
         $databaseCount = $databaseQuery->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
-        $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
-        $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
+        $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
+        $registrationCount = $registrasiQuery->where('is_register', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $sourcesIdCount = $sourcesIdQuery->with('SourceSetting')->get();
-        $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
+        $sourcesIdEnrollmentCount = $sourcesIdEnrollmentQuery->with('SourceDaftarSetting')->get();
 
         $databasesAdminstratorCount = Applicant::where('identity_user', '6281313608558')->count();
 
@@ -62,11 +62,11 @@ class DashboardController extends Controller
             'fileupload' => $fileupload,
             'databaseCount' => $databaseCount,
             'applicantCount' => $applicantCount,
-            'registrasiCount' => $registrasiCount,
+            'registrationCount' => $registrationCount,
             'schoolarshipCount' => $schoolarshipCount,
-            'daftarCount' => $daftarCount,
+            'enrollmentCount' => $enrollmentCount,
             'sourcesIdCount' => $sourcesIdCount,
-            'sourcesIdDaftarCount' => $sourcesIdDaftarCount,
+            'sourcesIdEnrollmentCount' => $sourcesIdEnrollmentCount,
             'databasesAdminstratorCount' => $databasesAdminstratorCount,
             'databasesAdministrator' => $databasesAdministrator
         ]);
@@ -81,31 +81,36 @@ class DashboardController extends Controller
     {
         $databaseQuery = Applicant::query();
         $applicantQuery = Applicant::query();
-        $daftarQuery = Applicant::query();
+        $enrollmentQuery = Applicant::query();
         $registrasiQuery = Applicant::query();
+        $schoolarshipQuery = Applicant::query();
 
+        $identityVal = request('identity');
         $pmbVal = request('pmbVal', 'all');
 
         if (Auth::user()->role === 'P') {
-            $databaseQuery->where('identity_user', Auth::user()->identity);
-            $applicantQuery->where('identity_user', Auth::user()->identity);
-            $daftarQuery->where('identity_user', Auth::user()->identity);
-            $registrasiQuery->where('identity_user', Auth::user()->identity);
+            $databaseQuery->where('identity_user', $identityVal);
+            $applicantQuery->where('identity_user', $identityVal);
+            $enrollmentQuery->where('identity_user', $identityVal);
+            $registrasiQuery->where('identity_user', $identityVal);
+            $schoolarshipQuery->where('identity_user', $identityVal);
         }
 
-        // if ($pmbVal !== 'all') {
+        if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
             $applicantQuery->where('pmb', $pmbVal);
-            $daftarQuery->where('pmb', $pmbVal);
+            $enrollmentQuery->where('pmb', $pmbVal);
             $registrasiQuery->where('pmb', $pmbVal);
-        // }
+            $schoolarshipQuery->where('pmb', $pmbVal);
+        }
 
         $databaseCount = $databaseQuery->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
-        $daftarCount = $daftarQuery->where('is_daftar', 1)->count();
-        $registrasiCount = $registrasiQuery->where('is_register', 1)->count();
+        $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
+        $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
+        $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
-        return response()->json(['pmb' => $pmbVal,'database_count' => $databaseCount,'applicant_count' => $applicantCount,'daftar_count' => $daftarCount, 'registrasi_count' => $registrasiCount]);
+        return response()->json(['database_count' => $databaseCount, 'schoolarship_count' => $schoolarshipCount, 'applicant_count' => $applicantCount,'enrollment_count' => $enrollmentCount, 'registration_count' => $registrationCount]);
     }
 
     /**
@@ -126,11 +131,11 @@ class DashboardController extends Controller
     public function get_sources_daftar($pmb = null)
     {
 
-        $sourcesIdDaftarQuery = ApplicantBySourceDaftarId::query();
-        $sourcesIdDaftarQuery->where('source_daftar_id', '!=', null);
-        $sourcesIdDaftarCount = $sourcesIdDaftarQuery->with('SourceDaftarSetting')->get();
+        $sourcesIdEnrollmentQuery = ApplicantBySourceDaftarId::query();
+        $sourcesIdEnrollmentQuery->where('source_daftar_id', '!=', null);
+        $sourcesIdenrollmentCount = $sourcesIdEnrollmentQuery->with('SourceDaftarSetting')->get();
 
-        return response()->json(['sources' => $sourcesIdDaftarCount]);
+        return response()->json(['sources' => $sourcesIdenrollmentCount]);
     }
 
     public function get_presenters($pmb = null)

@@ -61,6 +61,7 @@ class PresenterController extends Controller
             $targetQuery->where('pmb', $pmbVal);
             $registrationQuery->where('pmb', $pmbVal);
         }
+
         if ($sessionVal !== 'all') {
             $targetQuery->where('session', $sessionVal);
             $registrationQuery->where('session', $sessionVal);
