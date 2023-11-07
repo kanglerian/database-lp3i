@@ -15,11 +15,13 @@
                 <hr class="mb-3">
                 <form class="space-y-4" action="{{ route('enrollment.store') }}" method="POST">
                     @csrf
-                    <div>
-                        <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                        <div>
+                            <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun PMB</label>
+                            <input type="number" value="{{ $user->pmb }}" name="pmb" id="pmb"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                placeholder="Tahun PMB" required>
+                        </div>
                         <div>
                             <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                 Daftar</label>
@@ -27,6 +29,12 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Tanggal Daftar" required>
                         </div>
+                    </div>
+                    <div>
+                        <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+                    <div class="grid grid-cols-1">
                         <div>
                             <label for="receipt" class="block mb-2 text-sm font-medium text-gray-900">No.
                                 Kwitansi</label>

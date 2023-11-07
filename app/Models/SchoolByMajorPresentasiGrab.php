@@ -31,7 +31,6 @@ class SchoolByMajorPresentasiGrab extends Model
         'jumlah',
     ];
 
-
     protected $table = 'schools_by_major_presentasi_grab';
 
 }

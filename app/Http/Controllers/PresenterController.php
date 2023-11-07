@@ -18,7 +18,7 @@ class PresenterController extends Controller
      */
     public function index()
     {
-        $total = User::where('role','P')->count();
+        $total = User::where('role', 'P')->count();
         return view('pages.presenter.index')->with([
             'total' => $total,
         ]);
@@ -32,6 +32,31 @@ class PresenterController extends Controller
                 'presenters' => $presenters,
             ])
             ->header('Content-Type', 'application/json');
+    }
+
+    public function get_target()
+    {
+        $targetQuery = Target::query();
+
+        $identityVal = request('identity');
+        $dateVal = request('dateVal', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $sessionVal = request('sessionVal', 'all');
+
+        $targetQuery->where('identity_user', $identityVal);
+
+        if ($dateVal !== 'all') {
+            $targetQuery->where('date', $dateVal);
+        }
+        if ($pmbVal !== 'all') {
+            $targetQuery->where('pmb', $pmbVal);
+        }
+        if ($sessionVal !== 'all') {
+            $targetQuery->where('session', $sessionVal);
+        }
+
+        $targets = $targetQuery->get();
+        return response()->json(['targets' => $targets]);
     }
 
     /**
@@ -87,7 +112,7 @@ class PresenterController extends Controller
         $presenter = User::findOrFail($id);
         $targets = Target::where(['identity_user' => $presenter->identity])->get();
         return view('pages.presenter.show')->with([
-            'presenter'=> $presenter,
+            'presenter' => $presenter,
             'targets' => $targets
         ]);
     }

@@ -81,6 +81,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::resource('presenter', PresenterController::class);
     Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get');
+    Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenter.target');
 });
 
 /* Route Presenter  */

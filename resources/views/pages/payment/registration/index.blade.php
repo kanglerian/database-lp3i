@@ -191,7 +191,10 @@
                 {
                     data: 'applicant',
                     render: (data, type, row, meta) => {
-                        return `${data.name}`
+                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
+                            data.identity);
+                        return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
                     }
                 },
                 {

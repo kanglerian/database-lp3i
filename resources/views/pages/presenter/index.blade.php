@@ -133,7 +133,7 @@
                     render: (data, row) => {
                         let showUrl = "{{ route('presenter.show', ':id') }}".replace(':id',
                             data.id);
-                        return `<a href="${showUrl}" class="underline">${data.name}</a>`
+                        return `<a href="${showUrl}" class="underline font-bold">${data.name}</a>`
                     }
                 },
                 {

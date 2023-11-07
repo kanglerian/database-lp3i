@@ -98,6 +98,13 @@ class TargetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $target = Target::findOrFail($id);
+            $target->delete();
+            return session()->flash('message', 'Data target berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 }

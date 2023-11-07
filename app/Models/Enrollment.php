@@ -15,6 +15,7 @@ class Enrollment extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'pmb',
         'identity_user',
         'date',
         'receipt',

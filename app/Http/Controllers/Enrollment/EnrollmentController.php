@@ -46,9 +46,7 @@ class EnrollmentController extends Controller
             $enrollmentQuery->where('date', $dateVal);
         }
         if ($pmbVal !== 'all') {
-            $enrollmentQuery->whereHas('applicant', function ($query) use ($pmbVal) {
-                $query->where('pmb', $pmbVal);
-            });
+            $enrollmentQuery->where('pmb', $pmbVal);
         }
         if ($repaymentVal !== 'all') {
             $enrollmentQuery->where('repayment', $repaymentVal);
@@ -74,6 +72,7 @@ class EnrollmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'pmb' => ['required'],
             'date' => ['required'],
             'identity_user' => ['required'],
             'receipt' => ['required'],
@@ -83,6 +82,7 @@ class EnrollmentController extends Controller
         ]);
 
         $data = [
+            'pmb' => $request->input('pmb'),
             'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
             'receipt' => $request->input('receipt'),

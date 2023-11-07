@@ -1,0 +1,24 @@
+CREATE VIEW `target_registrations` AS
+SELECT
+    target.id,
+    target.pmb,
+    target.identity_user,
+    target.date,
+    target.session,
+    target.total,
+    COUNT(registration.identity_user) AS realization,
+    target.created_at,
+    target.updated_at
+FROM
+    target
+LEFT JOIN
+    registration ON MONTH(registration.date) = MONTH(target.date)
+GROUP BY
+    target.id,
+    target.pmb,
+    target.identity_user,
+    target.date,
+    target.session,
+    target.total,
+    target.created_at,
+    target.updated_at;

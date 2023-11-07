@@ -15,6 +15,7 @@ class CreateEnrollmentTable extends Migration
     {
         Schema::create('enrollment', function (Blueprint $table) {
             $table->id();
+            $table->year('pmb');
             $table->string('identity_user', 30);
             $table->date('date');
             $table->integer('receipt');
