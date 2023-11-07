@@ -198,6 +198,58 @@
         </div>
     @endif
 
+    @if (Auth::user()->role == 'P')
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+            <div class="flex justify-between items-center gap-3 mb-3">
+                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+                    <input type="hidden" id="identity" value="{{ Auth::user()->identity }}">
+                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                        <input type="number" id="change_pmb" onchange="changeFilterTarget()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun PMB">
+                    </div>
+                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="date" class="text-xs">Tanggal:</label>
+                        <input type="date" id="date" onchange="changeFilterTarget()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                    </div>
+                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="session" class="text-xs">Gelombang:</label>
+                        <select id="session" onchange="changeFilterTarget()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Gelombang 1</option>
+                            <option value="2">Gelombang 2</option>
+                            <option value="3">Gelombang 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="bg-sky-500 p-4 rounded-xl space-y-1">
+                        <h2 class="text-white text-xl" id="target_count">0</h2>
+                        <p class="text-white text-sm">Total Target</p>
+                    </div>
+                    <div class="bg-emerald-500 p-4 rounded-xl space-y-1">
+                        <h2 class="text-white text-xl" id="register_count">0</h2>
+                        <p class="text-white text-sm">Registrasi</p>
+                    </div>
+                    <div id="container-animate" class="relative bg-red-500 p-4 rounded-xl space-y-1">
+                        <h2 class="text-white text-xl" id="result_count">0</h2>
+                        <p class="text-white text-sm">Sisa Target</p>
+                        <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
+                            <dotlottie-player src="{{ asset('animations/win.lottie') }}" background="transparent"
+                                speed="1" style="width: 150px; height: 150px" direction="1" mode="normal"
+                                loop autoplay></dotlottie-player>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @if (Auth::user()->role !== 'S')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3" id="identity"
             data-identity="{{ Auth::user()->identity }}">
@@ -381,8 +433,7 @@
                     </div>
                 </section>
                 <section class="w-full md:w-1/3 p-3">
-                    <div class="w-full bg-white p-3 rounded-3xl border border-gray-200"
-                        id="chartPresenterContainer">
+                    <div class="w-full bg-white p-3 rounded-3xl border border-gray-200" id="chartPresenterContainer">
                         <div class="text-center py-3">
                             <h3 class="font-bold text-gray-800">Data Berdasarkan Presenter</h3>
                             <p class="text-xs text-gray-500">Berikut ini jumlah data calon mahasiswa per Presenter.</p>
@@ -399,8 +450,79 @@
 @if (Auth::user()->role !== 'S')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script>
+        const getYearPMB = () => {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth();
+            const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+            document.getElementById('change_pmb').value = startYear;
+        }
+        getYearPMB();
+    </script>
+    <script>
+        let identity = document.getElementById('identity').value;
+        let pmb = document.getElementById('change_pmb').value;
+        var urlData = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
+        const getRegistrations = async () => {
+            await axios.get(urlData)
+                .then((res) => {
+                    let dataTargets = res.data.targets;
+                    let targets = 0;
+                    let registers = res.data.registrations.length;
+                    dataTargets.forEach(data => {
+                        targets += data.total;
+                    });
+                    document.getElementById('register_count').innerText = registers;
+                    document.getElementById('target_count').innerText = targets;
+                    document.getElementById('result_count').innerText = targets - registers;
+                    if (targets - registers <= 0) {
+                        document.getElementById('animate').classList.remove('hidden');
+                        document.getElementById('container-animate').classList.remove('bg-red-500');
+                        document.getElementById('container-animate').classList.add('bg-yellow-500');
+                    } else {
+                        document.getElementById('animate').classList.add('hidden');
+                        document.getElementById('container-animate').classList.add('bg-red-500');
+                        document.getElementById('container-animate').classList.remove('bg-yellow-500');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
 
+        getRegistrations();
+
+        const changeFilterTarget = () => {
+            let queryParams = [];
+            let identity = document.getElementById('identity').value;
+            let dateVal = document.getElementById('date').value || 'all';
+            let pmbVal = document.getElementById('change_pmb').value || 'all';
+            let sessionVal = document.getElementById('session').value || 'all';
+
+            queryParams.push(`identity=${identity}`);
+
+            if (dateVal !== 'all') {
+                queryParams.push(`dateVal=${dateVal}`);
+            }
+
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+
+            if (sessionVal !== 'all') {
+                queryParams.push(`sessionVal=${sessionVal}`);
+            }
+
+            let queryString = queryParams.join('&');
+
+            urlData = `/get/targets?${queryString}`;
+
+            getRegistrations();
+        }
+    </script>
     <script>
         const quickSearch = async () => {
             let nameSearch = document.getElementById('quick-search').value;
