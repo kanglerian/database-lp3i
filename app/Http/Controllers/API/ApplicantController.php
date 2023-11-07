@@ -30,9 +30,12 @@ class ApplicantController extends Controller
     {
         try {
             $request->validate([
-                'name' => ['string', 'max:255'],
-                'phone' => ['string', 'max:15', 'min:10'],
+                'name' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'string', 'max:15', 'min:10'],
+                'school' => ['required', 'regex:/[^\s]+/'],
+                'year' => ['required'],
             ]);
+
             $min = 1;
             $max = 100000000000000;
             $random_number = mt_rand($min, $max);
