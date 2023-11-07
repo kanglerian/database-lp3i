@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use App\Models\Registration;
 use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +37,8 @@ class PresenterController extends Controller
 
     public function get_target()
     {
+        $registrationQuery = Registration::query();
+        $registrationQuery->with('applicant');
         $targetQuery = Target::query();
 
         $identityVal = request('identity');
@@ -45,18 +48,27 @@ class PresenterController extends Controller
 
         $targetQuery->where('identity_user', $identityVal);
 
+        $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
+            $query->where('identity_user', $identityVal);
+        });
+
         if ($dateVal !== 'all') {
-            $targetQuery->where('date', $dateVal);
+            $targetQuery->whereMonth('date', '=', date('m', strtotime($dateVal)));
+            $registrationQuery->whereMonth('date', '=', date('m', strtotime($dateVal)));
         }
+
         if ($pmbVal !== 'all') {
             $targetQuery->where('pmb', $pmbVal);
+            $registrationQuery->where('pmb', $pmbVal);
         }
         if ($sessionVal !== 'all') {
             $targetQuery->where('session', $sessionVal);
+            $registrationQuery->where('session', $sessionVal);
         }
 
         $targets = $targetQuery->get();
-        return response()->json(['targets' => $targets]);
+        $registrations = $registrationQuery->get();
+        return response()->json(['targets' => $targets, 'registrations' => $registrations]);
     }
 
     /**

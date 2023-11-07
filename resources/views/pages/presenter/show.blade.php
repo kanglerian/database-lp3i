@@ -51,64 +51,86 @@
                     </div>
                 </div>
             @endif
-            <button type="button" onclick="modalTarget()"
-                class="bg-lp3i-100 hover:bg-lp3i-200 mx-2 px-4 py-2 rounded-lg text-white text-sm mb-5">Tambah
-                Target</button>
-
-            <div class="flex justify-between items-center gap-3 mx-2 py-2">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
-                    <input type="hidden" id="identity" value="{{ $presenter->identity }}">
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                            placeholder="Tahun PMB">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 px-2 py-2">
+                <div class="order-2 md:order-none flex justify-between items-center gap-3">
+                    <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+                        <input type="hidden" id="identity" value="{{ $presenter->identity }}">
+                        <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                            <input type="number" id="change_pmb" onchange="changeFilter()"
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                                placeholder="Tahun PMB">
+                        </div>
+                        <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="date" class="text-xs">Tanggal:</label>
+                            <input type="date" id="date" onchange="changeFilter()"
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                        </div>
+                        <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="session" class="text-xs">Gelombang:</label>
+                            <select id="session" onchange="changeFilter()"
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="1">Gelombang 1</option>
+                                <option value="2">Gelombang 2</option>
+                                <option value="3">Gelombang 3</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
-                        <input type="date" id="date" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="session" class="text-xs">Gelombang:</label>
-                        <select id="session" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Gelombang 1</option>
-                            <option value="2">Gelombang 2</option>
-                            <option value="3">Gelombang 3</option>
-                        </select>
+                </div>
+                <div class="order-1 md:order-none">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div class="relative bg-sky-500 p-4 rounded-xl space-y-1">
+                            <h2 class="text-white text-xl" id="target_count">0</h2>
+                            <p class="text-white text-sm">Total Target</p>
+                            <div class="absolute top-2 right-4">
+                                <button type="button" onclick="modalTarget()" class="text-white">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative bg-emerald-500 p-4 rounded-xl space-y-1">
+                            <h2 class="text-white text-xl" id="register_count">0</h2>
+                            <p class="text-white text-sm">Registrasi</p>
+                            <div class="absolute top-2 right-4">
+                                <a href="{{ route('database.index') }}" class="text-white">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bg-red-500 p-4 rounded-xl space-y-1">
+                            <h2 class="text-white text-xl" id="result_count">0</h2>
+                            <p class="text-white text-sm">Sisa Target</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div class="bg-white overflow-hidden border md:rounded-xl">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <div class="relative overflow-x-auto md:rounded-xl">
-                            <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                            Tanggal
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            PMB
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Gelombang
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Jumlah
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                            Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+            <div class="bg-white overflow-hidden border md:rounded-xl">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="relative overflow-x-auto md:rounded-xl">
+                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                        Tanggal
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        PMB
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Gelombang
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Jumlah
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -121,6 +143,26 @@
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 @include('pages.presenter.js.filterjs')
+<script>
+    const getRegistrations = async () => {
+        await axios.get(urlData)
+        .then((res) => {
+            let dataTargets = res.data.targets;
+            let targets = 0;
+            let registers = res.data.registrations.length;
+            dataTargets.forEach(data => {
+                targets += data.total;
+            });
+            document.getElementById('register_count').innerText = registers;
+            document.getElementById('target_count').innerText = targets;
+            document.getElementById('result_count').innerText = targets - registers;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+    getRegistrations();
+</script>
 <script>
     const getDataTable = async () => {
         const dataTableConfig = {

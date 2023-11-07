@@ -1,6 +1,7 @@
 <script>
     let identity = document.getElementById('identity').value;
-    var urlData = `/get/targets?identity=${identity}`;
+    let pmb = document.getElementById('change_pmb').value;
+    var urlData = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
 
     var dataTableInitialized = false;
     var dataTableInstance;
@@ -53,6 +54,7 @@
 
         urlData = `/get/targets?${queryString}`;
 
+        getRegistrations();
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             hideLoadingAnimation();

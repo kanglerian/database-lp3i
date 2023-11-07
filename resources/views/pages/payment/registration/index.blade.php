@@ -237,7 +237,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
