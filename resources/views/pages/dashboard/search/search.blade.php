@@ -1,5 +1,5 @@
 @if (Auth::user()->role !== 'S')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3" id="identity" data-identity="{{ Auth::user()->identity }}">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-3">
         <div class="grid grid-cols-1 gap-4">
             <div class="bg-white relative overflow-x-auto border border-gray-200 sm:rounded-lg">
                 <header class="w-full md:w-1/2 p-5 space-y-2">

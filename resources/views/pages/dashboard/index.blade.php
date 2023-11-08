@@ -217,7 +217,7 @@
         const quickSearch = async () => {
             let nameSearch = document.getElementById('quick-search').value;
             let result = document.getElementById('result-quicksearch');
-            let identity = document.getElementById('identity').getAttribute('data-identity');
+            let identity = document.getElementById('identity').value;
             if (nameSearch) {
                 await axios.get(`quicksearch/${nameSearch}`)
                     .then((res) => {
