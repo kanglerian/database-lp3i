@@ -167,6 +167,7 @@
                             <option value="1">Gelombang 1</option>
                             <option value="2">Gelombang 2</option>
                             <option value="3">Gelombang 3</option>
+                            <option value="4">Gelombang 4</option>
                         </select>
                     </div>
                 </div>
