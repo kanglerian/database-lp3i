@@ -155,7 +155,7 @@
             let targets = 0;
             let registers = res.data.registrations.length;
             dataTargets.forEach(data => {
-                targets += data.total;
+                targets += parseInt(data.total);
             });
             document.getElementById('register_count').innerText = registers;
             document.getElementById('target_count').innerText = targets;
