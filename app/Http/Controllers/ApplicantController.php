@@ -844,8 +844,12 @@ class ApplicantController extends Controller
         $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
         $applicantMother = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 0])->first();
 
-        $applicantFather->update($data_father);
-        $applicantMother->update($data_mother);
+        if($applicantFather){
+            $applicantFather->update($data_father);
+        }
+        if($applicantMother){
+            $applicantMother->update($data_mother);
+        }
         $student->update($data_applicant);
     }
 
