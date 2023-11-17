@@ -51,6 +51,16 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                        <x-nav-link :href="route('scholarshiptest.index')" :active="request()->routeIs([
+                            'scholarshiptest.index',
+                            'scholarshiptest.create',
+                            'scholarshiptest.edit',
+                            'scholarshiptest.show',
+                        ])">
+                            {{ __('Bank Soal') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
                             {{ __('Akun') }}
                         </x-nav-link>

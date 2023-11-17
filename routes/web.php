@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ScholarshipTestController;
 use App\Http\Controllers\Target\TargetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enrollment\EnrollmentController;
@@ -139,6 +140,11 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::resource('fileupload', FileUploadController::class);
     Route::resource('applicantstatus', ApplicantStatusController::class);
     Route::resource('followup', FollowUpController::class);
+});
+
+/* Route Scholarship Test */
+Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+    Route::resource('scholarshiptest', ScholarshipTestController::class);
 });
 
 /* Route Achievement */
