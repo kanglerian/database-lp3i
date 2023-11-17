@@ -6,22 +6,14 @@
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-users"></i>
-                    <h2></h2>
-                </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-green-500"></i>
-                    <h2></h2>
-                </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
-                    <h2></h2>
+                    <i class="fa-solid fa-scroll"></i>
+                    <h2 id="count_questions"></h2>
                 </div>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-4">
+    <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
             @if (session('message'))
                 <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
@@ -50,31 +42,6 @@
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
                         <i class="fa-solid fa-tags"></i> Tambah Kategori
                     </button>
-                </div>
-                <div class="flex items-center gap-3 text-gray-500">
-                    <div class="flex items-center gap-2">
-                        <select name="role" id="change_role"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Peran</option>
-                            <option value="A">Adminstrator</option>
-                            <option value="P">Presenter</option>
-                            <option value="S">Siswa</option>
-                        </select>
-                        <select name="role" id="change_status"
-                            class="w-28 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Status</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
-                        </select>
-                        <button type="button" onclick="changeFilter()"
-                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
-                            <i class="fa-solid fa-filter"></i>
-                        </button>
-                        <button type="button" onclick="resetFilter()"
-                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
-                            <i class="fa-solid fa-filter-circle-xmark"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="bg-white overflow-hidden border md:rounded-xl">
@@ -158,7 +125,7 @@
         try {
             const response = await axios.get(urlData);
             const data = response.data;
-
+            document.getElementById('count_questions').innerText = data.length;
             const manualColumns = [
                 {
                 data: 'id',
