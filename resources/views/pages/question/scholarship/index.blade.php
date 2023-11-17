@@ -87,6 +87,9 @@
                                         #
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        ID Soal
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Nama Kategori
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -156,10 +159,16 @@
             const response = await axios.get(urlData);
             const data = response.data;
 
-            const manualColumns = [{
+            const manualColumns = [
+                {
                 data: 'id',
                 render: (data, type, row, meta) => {
                     return meta.row + 1;
+                }
+            },{
+                data: 'id',
+                render: (data, type, row, meta) => {
+                    return data;
                 }
             }, {
                 data: 'category.name',
