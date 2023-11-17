@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="mt-5 md:mt-0">
                             <label for="answer_b" class="block mb-2 text-sm font-medium text-gray-900">Jawaban B</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3 mb-4">
                         <div>
                             <label for="answer_c" class="block mb-2 text-sm font-medium text-gray-900">Jawaban C</label>
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="mt-5 md:mt-0">
                             <label for="answer_d" class="block mb-2 text-sm font-medium text-gray-900">Jawaban
                                 D</label>
                             <div class="relative">
