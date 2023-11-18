@@ -87,7 +87,7 @@
             let message = '';
             const answers = response.data;
             answers.forEach((answer, index) => {
-                message += `${index + 1}. ${answer.answer} (${answer.correct ? 'Benar' : 'Salah'})\n`
+                message += `${index + 1}. ${answer.answer} (${answer.correct ? 'benar' : 'salah'} - ${answer.id})\n`
             });
             alert(message);
         })
