@@ -177,7 +177,7 @@
                         bucket += `<option value="${category.id}">${category.name}</option>`
                     });
                 } else {
-                    bucket += `<option>Kategori belum ada</option>`
+                    bucket += `<option value="Kategori belum ada">Kategori belum ada</option>`
                 }
                 document.getElementById('category_id').innerHTML = bucket;
             })
@@ -192,50 +192,55 @@
     const handleSubmit = async (e) => {
         e.preventDefault();
         const target = e.target;
-        let dataQuestion = {
-            category_id: target[0].value,
-            question: target[1].value,
-        }
-        await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`, dataQuestion)
-            .then(async (response) => {
-                let id = response.data.id;
-                let answers = [{
-                    question_id: id,
-                    answer: target[2].value,
-                    correct: target[3].checked,
-                }, {
-                    question_id: id,
-                    answer: target[5].value,
-                    correct: target[6].checked,
-                }, {
-                    question_id: id,
-                    answer: target[8].value,
-                    correct: target[9].checked,
-                }, {
-                    question_id: id,
-                    answer: target[11].value,
-                    correct: target[12].checked,
-                }, ];
+        if (target[0].value !== 'Kategori belum ada') {
+            let dataQuestion = {
+                category_id: target[0].value,
+                question: target[1].value,
+            }
+            await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`, dataQuestion)
+                .then(async (response) => {
+                    let id = response.data.id;
+                    let answers = [{
+                        question_id: id,
+                        answer: target[2].value,
+                        correct: target[3].checked,
+                    }, {
+                        question_id: id,
+                        answer: target[5].value,
+                        correct: target[6].checked,
+                    }, {
+                        question_id: id,
+                        answer: target[8].value,
+                        correct: target[9].checked,
+                    }, {
+                        question_id: id,
+                        answer: target[11].value,
+                        correct: target[12].checked,
+                    }, ];
 
-                await Promise.all(
-                    answers.map(async (answer) => {
-                        try {
-                            const response = await axios.post(
-                                'https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers',
-                                answer
-                            );
-                            console.log(response.data);
-                            let modal = document.getElementById('modal-add-test-scholarship');
-                            modal.classList.add('hidden');
-                            getDataTable();
-                        } catch (error) {
-                            console.log(error.message);
-                        }
-                    })
-                );
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+                    await Promise.all(
+                        answers.map(async (answer) => {
+                            try {
+                                const response = await axios.post(
+                                    'https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers',
+                                    answer
+                                );
+                                console.log(response.data);
+                                let modal = document.getElementById(
+                                    'modal-add-test-scholarship');
+                                modal.classList.add('hidden');
+                                getDataTable();
+                            } catch (error) {
+                                console.log(error.message);
+                            }
+                        })
+                    );
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        } else {
+            alert('Harap isi terlebih dahulu kategori.')
+        }
     }
 </script>
