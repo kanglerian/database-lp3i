@@ -507,6 +507,32 @@ class ApplicantController extends Controller
         return view('pages.database.show.organization');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function scholarships($identity)
+    {
+        $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
+
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+
+            if (Auth::user()->role == 'P') {
+                $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
+            } elseif (Auth::user()->role == 'A') {
+                $user = Applicant::where(['identity' => $identity])->firstOrFail();
+            }
+
+            return view('pages.database.show.scholarship')->with([
+                'user' => $user,
+            ]);
+        } else {
+            return back()->with('error', 'Tidak diizinkan.');
+        }
+        return view('pages.database.show.scholarship');
+    }
 
     /**
      * Display the specified resource.

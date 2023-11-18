@@ -75,6 +75,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file');
     Route::get('achievement/{identity?}', [ApplicantController::class, 'achievements'])->name('database.achievement');
     Route::get('organization/{identity?}', [ApplicantController::class, 'organizations'])->name('database.organization');
+    Route::get('scholarship/{identity?}', [ApplicantController::class, 'scholarships'])->name('database.scholarship');
     Route::get('print/database/{id}', [ApplicantController::class, 'print'])->name('database.print');
 });
 
