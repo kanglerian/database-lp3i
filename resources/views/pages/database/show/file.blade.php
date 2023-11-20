@@ -58,12 +58,17 @@
                                     <tr class="bg-white border-b flex justify-between items-center">
                                         <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
                                         <td class="px-6 py-4">
+                                            <button
+                                                class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
+                                                    class="fa-solid fa-circle-check"></i></button>
                                             <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button
-                                                class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
-                                                    class="fa-solid fa-circle-check"></i></button>
+                                                onclick="event.preventDefault(); deleteBerkas('{{ $suc->id }}','{{ $suc->fileupload->namefile }}', '{{ $suc->typefile }}', '{{ $suc->identity_user }}')"
+                                                class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -80,7 +85,8 @@
                                                         value="{{ $upload->id }}">
                                                     <input type="hidden" name="namefile"
                                                         value="{{ $upload->namefile }}">
-                                                    <input type="file" name="berkas" onchange="notifButton('{{ $upload->namefile }}')"
+                                                    <input type="file" name="berkas"
+                                                        onchange="notifButton('{{ $upload->namefile }}')"
                                                         id="berkas-{{ $upload->namefile }}" class="text-sm"
                                                         accept="{{ $upload->accept }}" style="width:95px">
                                                     <button id="button-{{ $upload->namefile }}"
