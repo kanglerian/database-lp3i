@@ -18,6 +18,19 @@ class ApplicantController extends Controller
             'applicants' => $applicants,
         ])->header('Content-Type', 'application/json');
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($identity)
+    {
+        $user = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting','presenter'])->where('identity', $identity)->firstOrFail();
+        return response()->json([
+            'user' => $user,
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.

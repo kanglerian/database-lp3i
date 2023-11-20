@@ -22,8 +22,11 @@
                             'database.create',
                             'database.edit',
                             'database.show',
-                            'database.chats',
-                            'database.files',
+                            'database.chat',
+                            'database.file',
+                            'database.scholarship',
+                            'database.achievement',
+                            'database.organization'
                         ])">
                             {{ __('Database') }}
                         </x-nav-link>
