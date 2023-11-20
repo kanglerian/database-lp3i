@@ -583,6 +583,7 @@
             <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
                 <span id="organizations"></span>
                 <br />
+                <br />
                 <span id="achievements"></span>
             </table>
         </div>
