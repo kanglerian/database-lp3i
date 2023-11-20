@@ -109,10 +109,10 @@
                     <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="170px">
                 @else
-                <div
-                    style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
-                    <p>Pas foto 4x3</p>
-                </div>
+                    <div
+                        style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
+                        <p>Pas foto 4x3</p>
+                    </div>
                 @endif
             </header>
             <hr style="margin-top: 10px;">
@@ -579,38 +579,10 @@
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
-            <h3>DATA AKTIVITAS SOSIAL</h3>
+            <h3>PENGALAMAN ORGANISASI & PRESTASI</h3>
             <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
-                <tr>
-                    <td style="width: 200px;">Pengalaman Berorganisasi</td>
-                    <td>:</td>
-                    <td>______________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;"></td>
-                    <td></td>
-                    <td>______________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;"></td>
-                    <td></td>
-                    <td>______________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Prestasi</td>
-                    <td>:</td>
-                    <td>______________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;"></td>
-                    <td></td>
-                    <td>______________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;"></td>
-                    <td></td>
-                    <td>______________________________________________________</td>
-                </tr>
+                <span id="organizations"></span>
+                <span id="achievements"></span>
             </table>
         </div>
 
@@ -668,17 +640,17 @@
             <div style="display: flex; justify-content:space-between">
                 <div style="margin-top: 10px;text-align:center">
                     <p>Tasikmalaya, <span class="signature"></span></p>
-                    <br/>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
+                    <br />
                     <p>__________________________________</p>
                     <p>Tanda Tangan & Nama Lengkap Pendaftar</p>
                 </div>
                 <div style="margin-top: 35px;text-align:center">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                     <p>__________________________________</p>
                     <p>Tanda Tangan & Nama Lengkap Leader Presenter</p>
                 </div>
@@ -686,6 +658,7 @@
         </div>
 
     </div>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
         const isiTimestamp = () => {
             let footer = document.getElementById('footer');
@@ -719,9 +692,106 @@
         }
     </script>
     <script>
-        const getAchievements = () => {
+        const getOrganizations = async () => {
             let identity = document.getElementById('identity').getAttribute('data-user');
-            console.log(identity);
+            await axios.get(`/organizations/${identity}`)
+                .then((response) => {
+                    let organizations = response.data.organizations;
+                    if (organizations.length > 0) {
+                        let bucket = '';
+                        organizations.forEach(achievement => {
+                            bucket += `
+                        <li>
+                            ${achievement.name}
+                        </li>
+                        `
+                        });
+                        document.getElementById('organizations').innerHTML = `
+                        <tr>
+                            <td style="width: 200px;">Pengalaman Berorganisasi</td>
+                            <td>:</td>
+                            <td><ul>${bucket}</ul></td>
+                        </tr>`;
+                    } else {
+                        document.getElementById('organizations').innerHTML =
+                        `
+                        <tr>
+                            <td style="width: 200px;">Pengalaman Berorganisasi</td>
+                            <td>:</td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>`
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
+        }
+        getOrganizations();
+    </script>
+    <script>
+        const getAchievements = async () => {
+            let identity = document.getElementById('identity').getAttribute('data-user');
+            await axios.get(`/achievements/${identity}`)
+                .then((response) => {
+                    let achievements = response.data.achievements;
+                    if (achievements.length > 0) {
+                        let bucket = '';
+                        achievements.forEach(achievement => {
+                            bucket += `
+                        <li>
+                            ${achievement.name}
+                        </li>
+                        `
+                        });
+                        document.getElementById('achievements').innerHTML = `
+                        <tr>
+                            <td style="width: 200px;">Prestasi</td>
+                            <td>:</td>
+                            <td><ul>${bucket}</ul></td>
+                        </tr>`;
+                    } else {
+                        document.getElementById('achievements').innerHTML =
+                        `
+                        <tr>
+                            <td style="width: 200px;">Pengalaman Berorganisasi</td>
+                            <td>:</td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;"></td>
+                            <td></td>
+                            <td>______________________________________________________</td>
+                        </tr>`
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
         }
         getAchievements();
     </script>
