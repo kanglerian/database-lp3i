@@ -60,7 +60,11 @@ class UserUploadController extends Controller
             $dataku = [
                 'avatar' => $file->namefile . '.' . $data['typefile'],
             ];
-            $user = User::findOrFail(Auth::user()->id);
+            if(Auth::user()->role == 'S'){
+                $user = User::findOrFail(Auth::user()->id);
+            } else {
+                $user = User::where('identity', $data['identity_user']);
+            }
             $user->update($dataku);
         }
 
