@@ -88,7 +88,7 @@
                                                     <input type="file" name="berkas"
                                                         onchange="notifButton('{{ $upload->namefile }}')"
                                                         id="berkas-{{ $upload->namefile }}" class="text-sm"
-                                                        accept="{{ $upload->accept }}" style="width:95px">
+                                                        accept="{{ $upload->accept }}">
                                                     <button id="button-{{ $upload->namefile }}"
                                                         onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $user->identity }}')"
                                                         class="hidden inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
