@@ -582,7 +582,6 @@
             <h3>PENGALAMAN ORGANISASI & PRESTASI</h3>
             <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
                 <span id="organizations"></span>
-                <br/>
                 <span id="achievements"></span>
             </table>
         </div>
@@ -700,10 +699,10 @@
                     let organizations = response.data.organizations;
                     if (organizations.length > 0) {
                         let bucket = '';
-                        organizations.forEach(achievement => {
+                        organizations.forEach(organization => {
                             bucket += `
                         <li>
-                            ${achievement.name}
+                            ${organization.name} (${organization.position}) - ${organization.year}
                         </li>
                         `
                         });
@@ -748,7 +747,7 @@
                         achievements.forEach(achievement => {
                             bucket += `
                         <li>
-                            ${achievement.name}
+                            ${achievement.name} (${achievement.result}) - ${achievement.level} ${achievement.year}
                         </li>
                         `
                         });

@@ -91,6 +91,8 @@
                                 <option value="Kota / Kabupaten">Kota / Kabupaten</option>
                                 <option value="Kecamatan">Kecamatan</option>
                                 <option value="Desa / Kelurahan">Desa / Kelurahan</option>
+                                <option value="Sekolah">Sekolah</option>
+                                <option value="Jurusan">Jurusan</option>
                             </select>
                         </div>
                         <div>
