@@ -710,7 +710,7 @@
                         <tr>
                             <td style="width: 200px;">Pengalaman Berorganisasi</td>
                             <td>:</td>
-                            <td><ul>${bucket}</ul></td>
+                            <td><ul class="space-y-2">${bucket}</ul></td>
                         </tr>`;
                     } else {
                         document.getElementById('organizations').innerHTML =
@@ -719,7 +719,7 @@
                             <td style="width: 200px;">Pengalaman Berorganisasi</td>
                             <td>:</td>
                             <td>
-                                <ul>
+                                <ul class="space-y-2">
                                     <li>________________________</li>
                                     <li>________________________</li>
                                     <li>________________________</li>
@@ -755,7 +755,7 @@
                         <tr>
                             <td style="width: 200px;">Prestasi</td>
                             <td>:</td>
-                            <td><ul>${bucket}</ul></td>
+                            <td><ul class="space-y-2">${bucket}</ul></td>
                         </tr>`;
                     } else {
                         document.getElementById('achievements').innerHTML =
@@ -764,7 +764,7 @@
                             <td style="width: 200px;">Prestasi</td>
                             <td>:</td>
                             <td>
-                                <ul>
+                                <ul class="space-y-2">
                                     <li>________________________</li>
                                     <li>________________________</li>
                                     <li>________________________</li>
