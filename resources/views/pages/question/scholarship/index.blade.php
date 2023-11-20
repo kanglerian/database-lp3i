@@ -99,82 +99,87 @@
                 `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories`
             );
             let histories = responseHistories.data;
-            if (histories.length > 0) {
-                const recordPromises = histories.map((history) => getRecords(history));
-                const results = await Promise.all(recordPromises);
-                const applicants = Object.values(results.reduce((acc, item) => {
-                    const key = item.identity;
-                    if (!acc[key]) {
-                        acc[key] = [];
-                    }
-                    acc[key].push(item);
-                    return acc;
-                }, {}));
-                let applicantBucket = [];
+            const recordPromises = histories.map((history) => getRecords(history));
+            const results = await Promise.all(recordPromises);
 
-                const promiseResults = applicants.map(async (details) => {
-                    let detailBucket = details.map(detail => ({
-                        category: detail.category,
-                        score: detail.score
-                    }));
+            const applicants = Object.values(results.reduce((acc, item) => {
+                const key = item.identity;
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+                acc[key].push(item);
+                return acc;
+            }, {}));
 
-                    try {
-                        const response = await axios.get(`/api/database/${details[0].identity}`);
-                        applicantBucket.push({
-                            identity: response.data.user,
-                            detail: detailBucket,
-                        });
-                    } catch (error) {
-                        console.log(error);
-                    }
-                });
+            let applicantBucket = [];
 
-                Promise.all(promiseResults).then(() => {
-                    const data = applicantBucket;
-                    document.getElementById('count_persons').innerText = data.length;
-                    const manualColumns = [{
-                        data: 'identity',
-                        render: (data, type, row, meta) => {
-                            return meta.row + 1;
-                        }
-                    }, {
-                        data: 'identity',
-                        render: (data, type, row, meta) => {
-                            return data.name;
-                        }
-                    }, {
-                        data: 'identity',
-                        render: (data, type, row, meta) => {
-                            return data.presenter.name;
-                        }
-                    }, {
-                        data: 'identity',
-                        render: (data, type, row, meta) => {
-                            return data.school_applicant.name;
-                        }
-                    }, {
-                        data: 'detail',
-                        render: (data, type, row, meta) => {
-                            let elementBucket = '';
-                            data.forEach(element => {
-                                elementBucket +=
-                                    `<li><i class="fa-regular fa-circle-dot"></i> ${element.category}: (${element.score})</li>`
-                            });
-                            return `<ul class="space-y-2">${elementBucket}</ul>`;
-                        }
-                    }];
+            const promiseResults = applicants.map(async (details) => {
+                let detailBucket = details.map(detail => ({
+                    category: detail.category,
+                    score: detail.score
+                }));
 
-                    const dataTableConfig = {
-                        columns: manualColumns,
-                        data: data,
-                    }
+                try {
+                    const response = await axios.get(`/api/database/${details[0].identity}`);
+                    applicantBucket.push({
+                        identity: response.data.user,
+                        detail: detailBucket,
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            });
 
-                    dataTableInstance = new DataTable('#myTable', dataTableConfig);
-                });
+            await Promise.all(promiseResults);
+            var dataTableInitialized = false;
+            var dataTableInstance;
+            const data = applicantBucket;
+            document.getElementById('count_persons').innerText = data.length;
 
-            } else {
-                console.log('tidak ada');
+            const manualColumns = [{
+                data: 'identity',
+                render: (data, type, row, meta) => {
+                    return meta.row + 1;
+                }
+            }, {
+                data: 'identity',
+                render: (data, type, row, meta) => {
+                    return data.name;
+                }
+            }, {
+                data: 'identity',
+                render: (data, type, row, meta) => {
+                    return data.presenter.name;
+                }
+            }, {
+                data: 'identity',
+                render: (data, type, row, meta) => {
+                    return data.school_applicant.name;
+                }
+            }, {
+                data: 'detail',
+                render: (data, type, row, meta) => {
+                    let elementBucket = '';
+                    data.forEach(element => {
+                        elementBucket +=
+                            `<li><i class="fa-regular fa-circle-dot"></i> ${element.category}: (${element.score})</li>`
+                    });
+                    return `<ul class="space-y-2">${elementBucket}</ul>`;
+                }
+            }];
+
+            const dataTableConfig = {
+                columns: manualColumns,
+                data: data,
             }
+
+            if (dataTableInitialized) {
+                dataTableInstance.clear().destroy();
+            }
+
+            dataTableInstance = new DataTable('#myTable', dataTableConfig);
+
+            dataTableInitialized = true;
 
         } catch (error) {
             console.log(error.message);
