@@ -41,11 +41,19 @@ class UserUploadController extends Controller
 
         $berkas = $request->all();
 
-        $data = [
-            'identity_user' => Auth::user()->identity,
-            'fileupload_id' => $berkas['data']['fileupload_id'],
-            'typefile' => $berkas['data']['typefile'],
-        ];
+        if (Auth::user()->role == 'S') {
+            $data = [
+                'identity_user' => Auth::user()->identity,
+                'fileupload_id' => $berkas['data']['fileupload_id'],
+                'typefile' => $berkas['data']['typefile'],
+            ];
+        } else {
+            $data = [
+                'identity_user' => $berkas['data']['identity'],
+                'fileupload_id' => $berkas['data']['fileupload_id'],
+                'typefile' => $berkas['data']['typefile'],
+            ];
+        }
 
         if ($data['fileupload_id'] == 1) {
             $file = FileUpload::findOrFail($data['fileupload_id']);
