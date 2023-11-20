@@ -7,7 +7,6 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
 use App\Models\ApplicantFamily;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ApplicantController extends Controller

@@ -51,13 +51,12 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('scholarshiptest.index')" :active="request()->routeIs([
-                            'scholarshiptest.index',
-                            'scholarshiptest.create',
-                            'scholarshiptest.edit',
-                            'scholarshiptest.show',
+                        <x-nav-link :href="route('question.index')" :active="request()->routeIs([
+                            'question.index',
+                            'scholarship.index',
+                            'scholarship.question'
                         ])">
-                            {{ __('Bank Soal') }}
+                            {{ __('E-Assessment') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')

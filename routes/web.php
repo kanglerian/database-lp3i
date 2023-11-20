@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\ScholarshipTestController;
+use App\Http\Controllers\Question\HomeController;
+use App\Http\Controllers\Question\Scholarship\QuestionController;
+use App\Http\Controllers\Question\Scholarship\ResultController;
 use App\Http\Controllers\Target\TargetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enrollment\EnrollmentController;
@@ -143,9 +145,11 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::resource('followup', FollowUpController::class);
 });
 
-/* Route Scholarship Test */
+/* Route Scholarship */
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
-    Route::resource('scholarshiptest', ScholarshipTestController::class);
+    Route::get('questions', [HomeController::class, 'index'])->name('question.index');
+    Route::get('questions/scholarship', [ResultController::class, 'index'])->name('scholarship.index');
+    Route::get('questions/scholarship/questions', [QuestionController::class, 'index'])->name('scholarship.question');
 });
 
 /* Route Achievement */
