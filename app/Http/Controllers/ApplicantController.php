@@ -545,12 +545,14 @@ class ApplicantController extends Controller
         $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
         if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
 
-            $userupload = UserUpload::where('identity_user', $identity)->get();
+            $userupload = UserUpload::with('fileupload')->where('identity_user', $identity)->get();
             $data = [];
             foreach ($userupload as $upload) {
-                $data[] = $upload->namefile;
+                $data[] = $upload->fileupload_id;
             }
-            $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
+
+            $success = FileUpload::whereIn('id', $data)->get();
+            $fileupload = FileUpload::whereNotIn('id', $data)->get();
 
             if (Auth::user()->role == 'P') {
                 $user = Applicant::where(['identity' => $identity, 'identity_user' => Auth::user()->identity])->firstOrFail();
@@ -562,6 +564,7 @@ class ApplicantController extends Controller
                 'user' => $user,
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
+                'success' => $success,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
