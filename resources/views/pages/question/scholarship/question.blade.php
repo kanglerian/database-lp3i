@@ -207,11 +207,10 @@
         if (confirmation) {
             await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions/${id}`)
                 .then((response) => {
-                    console.log(response.data);
                     getDataTable();
                 })
                 .catch((error) => {
-                    console.log(error.message);
+                    alert(error.message);
                 });
         }
     }
