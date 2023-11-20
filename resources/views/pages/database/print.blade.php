@@ -105,15 +105,15 @@
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
                     <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}</p>
                 </div>
-                {{-- @if ($user->avatar)
+                @if ($user->avatar)
                     <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $applicant->identity }}/{{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="170px">
-                @else --}}
+                @else
                     <div
                         style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
                         <p>Pas foto 4x3</p>
                     </div>
-                {{-- @endif --}}
+                @endif
             </header>
             <hr style="margin-top: 10px;">
             <h3>Biodata Mahasiswa</h3>

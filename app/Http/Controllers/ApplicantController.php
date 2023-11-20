@@ -543,7 +543,7 @@ class ApplicantController extends Controller
     public function files($identity)
     {
         $user = Applicant::with(['SchoolApplicant', 'SourceDaftarSetting'])->where('identity', $identity)->firstOrFail();
-        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A') {
+        if (Auth::user()->identity == $user->identity_user || Auth::user()->role == 'A' || Auth::user()->role == 'P') {
 
             $userupload = UserUpload::with('fileupload')->where('identity_user', $identity)->get();
             $data = [];

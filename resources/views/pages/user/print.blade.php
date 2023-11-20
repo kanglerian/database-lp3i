@@ -105,15 +105,15 @@
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
                     <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}</p>
                 </div>
-                {{-- @if ($user->avatar)
-                    <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download/{{ $applicant->identity }}/{{ $user->identity }}-{{ $user->avatar }}"
+                @if ($user->avatar)
+                    <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="170px">
-                @else --}}
+                @else
                 <div
                     style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
                     <p>Pas foto 4x3</p>
                 </div>
-                {{-- @endif --}}
+                @endif
             </header>
             <hr style="margin-top: 10px;">
             <h3>Biodata Mahasiswa</h3>
@@ -580,7 +580,7 @@
             </table>
             <hr style="margin-top: 10px;">
             <h3>DATA AKTIVITAS SOSIAL</h3>
-            <table style="margin-top: 10px">
+            <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
                 <tr>
                     <td style="width: 200px;">Pengalaman Berorganisasi</td>
                     <td>:</td>
@@ -717,6 +717,13 @@
         const printCV = () => {
             window.print();
         }
+    </script>
+    <script>
+        const getAchievements = () => {
+            let identity = document.getElementById('identity').getAttribute('data-user');
+            console.log(identity);
+        }
+        getAchievements();
     </script>
 </body>
 

@@ -19,7 +19,6 @@ class UserUploadController extends Controller
 
     public function store(Request $request)
     {
-
         $data = [
             'identity_user' => $request->identity_user,
             'fileupload_id' => $request->fileupload_id,
