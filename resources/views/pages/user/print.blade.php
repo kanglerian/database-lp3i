@@ -582,6 +582,7 @@
             <h3>PENGALAMAN ORGANISASI & PRESTASI</h3>
             <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
                 <span id="organizations"></span>
+                <br />
                 <span id="achievements"></span>
             </table>
         </div>
