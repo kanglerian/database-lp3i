@@ -26,19 +26,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1">
+                    <div class="grid grid-cols-1 mb-10">
                         <div>
                             <label for="question" class="block mb-2 text-sm font-medium text-gray-900">
                                 Soal Beasiswa
                             </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                    <i class="fa-regular fa-circle-question text-gray-400"></i>
-                                </div>
-                                <input type="text" name="question" id="question"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-                                    placeholder="Apa soalnya?" required>
-                            </div>
+                            <div id="question_container" style="height: 150px"></div>
                         </div>
                     </div>
                     <hr>
@@ -187,35 +180,50 @@
     }
     getCategories();
 </script>
-
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script>
+    var quill = new Quill('#question_container', {
+        modules: {
+            toolbar: [
+                [{
+                    header: [1, 2, false]
+                }],
+                ['bold', 'italic', 'underline', 'strike'],
+            ]
+        },
+        placeholder: 'Tulis soal disini..',
+        theme: 'snow'
+    });
+</script>
 <script>
     const handleSubmit = async (e) => {
         e.preventDefault();
         const target = e.target;
+        const question = quill.root.innerHTML;
         if (target[0].value !== 'Kategori belum ada') {
             let dataQuestion = {
                 category_id: target[0].value,
-                question: target[1].value,
+                question: question,
             }
             await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`, dataQuestion)
                 .then(async (response) => {
                     let id = response.data.id;
                     let answers = [{
                         question_id: id,
-                        answer: target[2].value,
-                        correct: target[3].checked,
+                        answer: target[7].value,
+                        correct: target[8].checked,
                     }, {
                         question_id: id,
-                        answer: target[5].value,
-                        correct: target[6].checked,
+                        answer: target[10].value,
+                        correct: target[11].checked,
                     }, {
                         question_id: id,
-                        answer: target[8].value,
-                        correct: target[9].checked,
+                        answer: target[13].value,
+                        correct: target[14].checked,
                     }, {
                         question_id: id,
-                        answer: target[11].value,
-                        correct: target[12].checked,
+                        answer: target[16].value,
+                        correct: target[17].checked,
                     }, ];
 
                     await Promise.all(
