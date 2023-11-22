@@ -119,7 +119,7 @@
             <h3>Biodata Mahasiswa</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $applicant->name == null ? '___' : $applicant->name }}</td>
                 </tr>
@@ -141,7 +141,7 @@
                     <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">No. telepon / HP</td>
+                    <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
                     <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
                 </tr>
@@ -155,7 +155,7 @@
             <h3>Biodata Ayah</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $father->name == null ? '___' : $father->name }}</td>
                 </tr>
@@ -167,12 +167,17 @@
                         {{ $father->date_of_birth == null ? '___' : $father->date_of_birth }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Pendidikan terakhir</td>
+                    <td style="width: 200px;">Pendidikan Terakhir</td>
                     <td>:</td>
                     <td>{{ $father->education == null ? '___' : $father->education }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">No. telepon / HP</td>
+                    <td style="width: 200px;">Pekerjaan</td>
+                    <td>:</td>
+                    <td>{{ $father->job == null ? '___' : $father->job }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
                     <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
                 </tr>
@@ -186,7 +191,7 @@
             <h3>Biodata Ibu</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
                 </tr>
@@ -198,12 +203,17 @@
                         {{ $mother->date_of_birth == null ? '___' : $mother->date_of_birth }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Pendidikan terakhir</td>
+                    <td style="width: 200px;">Pendidikan Terakhir</td>
                     <td>:</td>
                     <td>{{ $mother->education == null ? '___' : $mother->education }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">No. telepon / HP</td>
+                    <td style="width: 200px;">Pekerjaan</td>
+                    <td>:</td>
+                    <td>{{ $mother->job == null ? '___' : $mother->job }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
                     <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
                 </tr>
@@ -213,9 +223,13 @@
                     <td>{{ $mother->address == null ? '___' : $mother->address }}</td>
                 </tr>
             </table>
-            {{-- <div id="print" style="position: absolute;bottom: 50px;right:50px">
-                <button onclick="printCV()">Cetak Daftar Riwayat Hidup</button>
-            </div> --}}
+            <table style="margin-top: 20px">
+                <tr>
+                    <td style="width: 200px;">Penghasilan Orang Tua</td>
+                    <td>:</td>
+                    <td>{{ $applicant->income_parent == null ? '___' : $applicant->income_parent }}</td>
+                </tr>
+            </table>
             <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
         </div>
 
@@ -238,7 +252,7 @@
             <h3>Biodata Mahasiswa</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $applicant->name == null ? '___' : $applicant->name }}</td>
                 </tr>
@@ -284,7 +298,7 @@
             <h3>Biodata Ayah</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $father->name == null ? '___' : $father->name }}</td>
                 </tr>
@@ -303,7 +317,7 @@
             <h3>Biodata Ibu</h3>
             <table style="margin-top: 10px">
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
                 </tr>
@@ -381,7 +395,7 @@
                     <td>______________________________</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Nama lengkap</td>
+                    <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>
                         <span>{{ $applicant->name == null ? '___' : $applicant->name }}</span>
@@ -580,60 +594,68 @@
             </table>
             <hr style="margin-top: 10px;">
             <h3>PENGALAMAN ORGANISASI & PRESTASI</h3>
-            <table style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
+            <div style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
                 <span id="organizations"></span>
                 <span id="achievements"></span>
-            </table>
+            </div>
+        </div>
+
+        <div class="page" id="scholarship_container">
+            <h3>HASIL TES BEASISWA</h3>
+            <p>Berikut ini adalah hasil tes beasiswa dengan beberapa kategori:</p>
+            <div id="scholarship_result"></div>
         </div>
 
         <div class="page">
             <h3>KELENGKAPAN PERSYARATAN</h3>
             <table style="margin-top: 10px">
-                <tr>
-                    <td style="width: 200px;">Salinan Ijazah Terakhir</td>
-                    <td>:</td>
-                    <td>[ ] ___________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Salinan Transkip Nilai</td>
-                    <td>:</td>
-                    <td>[ ] ___________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Salinan Akta Kelahiran</td>
-                    <td>:</td>
-                    <td>[ ] ___________________________________________________</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Pas Foto Terbaru</td>
-                    <td>:</td>
-                    <td>[ ] 2x3 / 3x4 / 4x6 (3 lembar)</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Fotokopi KTP</td>
-                    <td>:</td>
-                    <td>[ ] (3 lembar)</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">SK Kerja</td>
-                    <td>:</td>
-                    <td>[ ] (Apabila sudah bekerja)</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Fotokopi KK</td>
-                    <td>:</td>
-                    <td>[ ] (3 lembar)</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Materai Rp10.000</td>
-                    <td>:</td>
-                    <td>[ ] (3 lembar)</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Sertifikat Pendukung</td>
-                    <td>:</td>
-                    <td>[ ] (Jika ada)</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td style="width: 200px;">Salinan Ijazah Terakhir</td>
+                        <td>:</td>
+                        <td>[ ] ___________________________________________________</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Salinan Transkip Nilai</td>
+                        <td>:</td>
+                        <td>[ ] ___________________________________________________</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Salinan Akta Kelahiran</td>
+                        <td>:</td>
+                        <td>[ ] ___________________________________________________</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Pas Foto Terbaru</td>
+                        <td>:</td>
+                        <td>[ ] 2x3 / 3x4 / 4x6 (3 lembar)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Fotokopi KTP</td>
+                        <td>:</td>
+                        <td>[ ] (3 lembar)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">SK Kerja</td>
+                        <td>:</td>
+                        <td>[ ] (Apabila sudah bekerja)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Fotokopi KK</td>
+                        <td>:</td>
+                        <td>[ ] (3 lembar)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Materai Rp10.000</td>
+                        <td>:</td>
+                        <td>[ ] (3 lembar)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">Sertifikat Pendukung</td>
+                        <td>:</td>
+                        <td>[ ] (Jika ada)</td>
+                    </tr>
+                </tbody>
             </table>
             <hr style="margin-top: 30px">
 
@@ -714,7 +736,7 @@
                         </tr>`;
                     } else {
                         document.getElementById('organizations').innerHTML =
-                        `
+                            `
                         <tr>
                             <td style="width: 200px;">Pengalaman Berorganisasi</td>
                             <td>:</td>
@@ -759,7 +781,7 @@
                         </tr>`;
                     } else {
                         document.getElementById('achievements').innerHTML =
-                        `
+                            `
                         <tr>
                             <td style="width: 200px;">Prestasi</td>
                             <td>:</td>
@@ -780,6 +802,82 @@
                 })
         }
         getAchievements();
+    </script>
+    <script>
+        const getHistories = async () => {
+            try {
+                let identity = document.getElementById('identity').getAttribute('data-user');
+                const responseHistories = await axios.get(
+                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories?identity_user=${identity}`
+                );
+                let histories = responseHistories.data;
+                if (histories.length > 0) {
+                    const recordPromises = histories.map((history) => getRecords(history));
+                    const results = await Promise.all(recordPromises);
+                    let bucket = '';
+                    console.log(results);
+                    results.forEach(result => {
+                        bucket += `
+                        <div>
+                            <h3>${result.category}</h3>
+                            <ul>
+                                <li>Jumlah Soal: ${result.questions}</li>
+                                <li>Jumlah Terjawab: ${result.recordLength}</li>
+                                <li>Benar: ${result.trueResult}</li>
+                                <li>Salah: ${result.falseResult}</li>
+                                <li>Nilai: ${result.score}</li>
+                            </ul>
+                        </div>
+                    `
+                    });
+                    document.getElementById('scholarship_result').innerHTML = `
+                        <div>${bucket}</div>
+                    `;
+                } else {
+                    document.getElementById('scholarship_container').style.display = 'none';
+                    document.getElementById('scholarship_result').innerHTML = `<p>Tidak ada yang dikerjakan</p>`;
+                }
+
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        getHistories();
+    </script>
+    <script>
+        const getRecords = async (history) => {
+            try {
+                const responseRecords = await axios.get(
+                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                );
+                const responseQuestions = await axios.get(
+                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`
+                );
+
+                let category = history.category.name;
+                let records = responseRecords.data;
+                let recordLength = records.length;
+                let trueResult = records.filter((record) => record.answer.correct == true).length;
+                let falseResult = records.filter((record) => record.answer.correct == false).length;
+
+                let questions = responseQuestions.data.length;
+
+                let nilai = (trueResult / questions) * 100;
+                let score = nilai.toFixed();
+
+                return {
+                    recordLength,
+                    trueResult,
+                    falseResult,
+                    questions,
+                    score,
+                    category,
+                }
+
+            } catch (error) {
+                document.getElementById('result').innerHTML = `${error.message}`;
+            }
+        }
     </script>
 </body>
 
