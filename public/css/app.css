@@ -1802,6 +1802,11 @@ select {
   padding-bottom: 1.5rem;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .pb-1 {
   padding-bottom: 0.25rem;
 }

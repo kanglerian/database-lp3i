@@ -25,11 +25,11 @@
 
     <input type="hidden" value="{{ $user->identity }}" id="identity">
 
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto px-5">
         <div class="w-full mx-auto">
-            <div class="grid grid-cols-2 mx-auto text-center md:gap-3">
-                <span id="total_true"></span>
-                <span id="average_score"></span>
+            <div class="grid grid-cols-2 mx-auto text-center gap-3">
+                <span id="total_true" class="p-6 bg-sky-500 text-white rounded-lg"></span>
+                <span id="average_score" class="p-6 bg-emerald-500 text-white rounded-lg"></span>
             </div>
         </div>
     </div>
@@ -47,13 +47,17 @@
                 const responseHistories = await axios.get(
                     `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories?identity_user=${identity}`
                 );
+
+                const responseCategories = await axios.get(
+                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
+                );
                 let histories = responseHistories.data;
+                let categories = responseCategories.data;
                 if (histories.length > 0) {
                     const recordPromises = histories.map((history) => getRecords(history));
                     const results = await Promise.all(recordPromises);
                     let bucket = '';
-                    console.log(results);
-                    let count = results.length;
+                    let count = categories.length;
                     let totalTrue = results.filter((result) => result.trueResult).reduce((acc, result) => acc +
                         result.trueResult, 0);
                     let totalScore = results
@@ -91,7 +95,7 @@
                     `
                     });
                     document.getElementById('result').innerHTML = `
-                        <div class="grid grid-cols-2 md:grid-cols-3 mx-auto md:gap-3">
+                        <div class="grid grid-cols-2 md:grid-cols-3 mx-auto gap-3">
                             ${bucket}
                         </div>
                     `;

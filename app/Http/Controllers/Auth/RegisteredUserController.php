@@ -136,7 +136,7 @@ class RegisteredUserController extends Controller
                         'phone' => $check_phone_applicant->phone,
                         'password' => Hash::make($request->input('password')),
                         'role' => 'S',
-                        'status' => '0',
+                        'status' => '1',
                     ];
                     $user = User::create($data_user);
                     Auth::login($user);
@@ -148,7 +148,7 @@ class RegisteredUserController extends Controller
                         'phone' => $request->input('phone'),
                         'password' => Hash::make($request->input('password')),
                         'role' => 'S',
-                        'status' => '0',
+                        'status' => '1',
                     ];
                     $user = User::create($data_user);
                     Auth::login($user);
@@ -185,7 +185,7 @@ class RegisteredUserController extends Controller
                     'phone' => $check_phone_applicant->phone,
                     'password' => Hash::make($request->input('password')),
                     'role' => 'S',
-                    'status' => '0',
+                    'status' => '1',
                 ];
 
                 $user = User::create($data_user);
@@ -225,7 +225,7 @@ class RegisteredUserController extends Controller
                     'phone' => $request->input('phone'),
                     'password' => Hash::make($request->input('password')),
                     'role' => 'S',
-                    'status' => '0',
+                    'status' => '1',
                 ];
 
                 $data_father = [

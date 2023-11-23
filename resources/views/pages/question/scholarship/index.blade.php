@@ -104,7 +104,12 @@
             const responseHistories = await axios.get(
                 `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories`
             );
+            const responseCategories = await axios.get(
+                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
+            );
             let histories = responseHistories.data;
+            let categories = responseCategories.data;
+
             const recordPromises = histories.map((history) => getRecords(history));
             const results = await Promise.all(recordPromises);
 
@@ -176,7 +181,7 @@
             },{
                 data: 'detail',
                 render: (data, type, row, meta) => {
-                    let count = data.length;
+                    let count = categories.length;
                     let totalScore = data
                         .map((result) => parseInt(result.score))
                         .reduce((acc, score) => acc + score, 0);
