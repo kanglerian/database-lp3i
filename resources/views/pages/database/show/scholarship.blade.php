@@ -25,6 +25,15 @@
 
     <input type="hidden" value="{{ $user->identity }}" id="identity">
 
+    <div class="max-w-7xl mx-auto">
+        <div class="w-full mx-auto">
+            <div class="grid grid-cols-2 mx-auto text-center md:gap-3">
+                <span id="total_true"></span>
+                <span id="average_score"></span>
+            </div>
+        </div>
+    </div>
+
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5">
         <div class="w-full mx-auto space-y-5 px-5" id="result">
         </div>
@@ -43,6 +52,14 @@
                     const recordPromises = histories.map((history) => getRecords(history));
                     const results = await Promise.all(recordPromises);
                     let bucket = '';
+                    console.log(results);
+                    let count = results.length;
+                    let totalTrue = results.filter((result) => result.trueResult).reduce((acc, result) => acc +
+                        result.trueResult, 0);
+                    let totalScore = results
+                        .map((result) => parseInt(result.score))
+                        .reduce((acc, score) => acc + score, 0);
+                    let averageScore = count > 0 ? totalScore / count : 0;
                     results.forEach(result => {
                         bucket += `
                     <div class="p-6 bg-white shadow rounded-xl">
@@ -78,8 +95,11 @@
                             ${bucket}
                         </div>
                     `;
+                    document.getElementById('total_true').innerText = `Total Benar: ${totalTrue}`;
+                    document.getElementById('average_score').innerText = `Nilai Akhir: ${averageScore}`;
                 } else {
-                    document.getElementById('result').innerHTML = `<p class="text-sm text-center text-gray-600">Tidak ada yang dikerjakan.</p>`;
+                    document.getElementById('result').innerHTML =
+                        `<p class="text-sm text-center text-gray-600">Tidak ada yang dikerjakan.</p>`;
                 }
 
             } catch (error) {

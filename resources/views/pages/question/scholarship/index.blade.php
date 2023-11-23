@@ -76,6 +76,12 @@
                                     <th scope="col" class="px-6 py-3">
                                         Asal Sekolah
                                     </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Total Benar
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nilai Akhir
+                                    </th>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
                                         Hasil Tes
                                     </th>
@@ -116,7 +122,11 @@
             const promiseResults = applicants.map(async (details) => {
                 let detailBucket = details.map(detail => ({
                     category: detail.category,
-                    score: detail.score
+                    score: detail.score,
+                    trueResult: detail.trueResult,
+                    falseResult: detail.falseResult,
+                    questions: detail.questions,
+                    recordLength: detail.recordLength,
                 }));
 
                 try {
@@ -155,6 +165,23 @@
                 data: 'identity',
                 render: (data, type, row, meta) => {
                     return data.school_applicant.name;
+                }
+            },{
+                data: 'detail',
+                render: (data, type, row, meta) => {
+                    let totalTrue = data.filter((result) => result.trueResult).reduce((acc, result) => acc +
+                        result.trueResult, 0);
+                    return totalTrue;
+                }
+            },{
+                data: 'detail',
+                render: (data, type, row, meta) => {
+                    let count = data.length;
+                    let totalScore = data
+                        .map((result) => parseInt(result.score))
+                        .reduce((acc, score) => acc + score, 0);
+                    let averageScore = count > 0 ? totalScore / count : 0;
+                    return averageScore;
                 }
             }, {
                 data: 'detail',
