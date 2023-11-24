@@ -67,7 +67,7 @@
                         class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-lg text-white">
                         <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
                     </a>
-                    <button
+                    <button onclick="exportExcel()"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
                         <i class="fa-solid fa-file-excel mr-1"></i> Ekspor Excel
                     </button>
@@ -276,5 +276,10 @@
         } catch (error) {
             document.getElementById('result').innerHTML = `${error.message}`;
         }
+    }
+</script>
+<script>
+    const exportExcel = () => {
+        alert('export');
     }
 </script>
