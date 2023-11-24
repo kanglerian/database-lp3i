@@ -165,7 +165,12 @@ class DashboardController extends Controller
     {
         $applicantsQuery = Applicant::query();
 
+        $pmbVal = request('pmbVal', 'all');
         $statusApplicant = request('statusApplicant', 'all');
+
+        if (Auth::user()->role === 'P') {
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
 
         if ($statusApplicant !== 'all') {
             switch ($statusApplicant) {
@@ -184,8 +189,12 @@ class DashboardController extends Controller
             }
         }
 
-        $applicants = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->orderByDesc('created_at')->get();
+        if ($pmbVal !== 'all') {
+            $applicantsQuery->where('pmb', $pmbVal);
+        }
         
+        $applicants = $applicantsQuery->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->orderByDesc('created_at')->get();
+
         return response()->json(['applicants' => $applicants]);
     }
 

@@ -64,9 +64,9 @@ class RegisterController extends Controller
             }
         }
         $min = -100000000000000;
-$max = 100000000000000;
-$random_number = mt_rand(0, $max - $min) + $min;
-$numbers_unique = $random_number;
+        $max = 100000000000000;
+        $random_number = mt_rand(0, $max - $min) + $min;
+        $numbers_unique = $random_number;
 
         $check_email_applicant = Applicant::where('email', $request->email)->first();
         $check_phone_applicant = Applicant::where('phone', $request->phone)->first();

@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="block w-1/2 md:w-1/5 p-1">
-                <div onclick="quickSearchStatus('schoolarship')" class="flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
+                <div onclick="quickSearchStatus('schoolarship')" class="cursor-pointer flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-graduation-cap mr-1"></i>
                         <span class="text-sm">Beasiswa</span>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="block w-1/2 md:w-1/5 p-1">
-                <div onclick="quickSearchStatus('aplikan')" class="flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
+                <div onclick="quickSearchStatus('aplikan')" class="cursor-pointer flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-file-lines mr-1"></i>
                         <span class="text-sm">Aplikan</span>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="block w-1/2 md:w-1/5 p-1">
-                <div onclick="quickSearchStatus('daftar')" class="flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
+                <div onclick="quickSearchStatus('daftar')" class="cursor-pointer flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-id-badge mr-1"></i>
                         <span class="text-sm">Daftar</span>
@@ -39,7 +39,7 @@
                     <span class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg" id="enrollment_count">0</span>
                 </div>
             </div>
-            <div onclick="quickSearchStatus('registrasi')" class="block w-1/2 md:w-1/5 p-1">
+            <div onclick="quickSearchStatus('registrasi')" class="cursor-pointer block w-1/2 md:w-1/5 p-1">
                 <div class="flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-user-check mr-1"></i>
