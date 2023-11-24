@@ -48,6 +48,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
     Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget');
     Route::get('get/dashboard/presenters/{pmb?}', [DashboardController::class, 'get_presenters'])->name('dashboard.presenterget');
     Route::get('quicksearch/{name?}', [DashboardController::class, 'quick_search'])->name('quicksearch');
+    Route::get('quicksearchstatus', [DashboardController::class, 'quick_search_status'])->name('quicksearchstatus');
 });
 
 /* Route School */

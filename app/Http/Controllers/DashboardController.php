@@ -161,4 +161,32 @@ class DashboardController extends Controller
         return response()->json(['applicants' => $applicants]);
     }
 
+    public function quick_search_status()
+    {
+        $applicantsQuery = Applicant::query();
+
+        $statusApplicant = request('statusApplicant', 'all');
+
+        if ($statusApplicant !== 'all') {
+            switch ($statusApplicant) {
+                case 'aplikan':
+                    $applicantsQuery->where('is_applicant', 1);
+                    break;
+                case 'daftar':
+                    $applicantsQuery->where('is_daftar', 1);
+                    break;
+                case 'registrasi':
+                    $applicantsQuery->where('is_register', 1);
+                    break;
+                case 'schoolarship':
+                    $applicantsQuery->where('schoolarship', 1);
+                    break;
+            }
+        }
+
+        $applicants = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->orderByDesc('created_at')->get();
+        
+        return response()->json(['applicants' => $applicants]);
+    }
+
 }
