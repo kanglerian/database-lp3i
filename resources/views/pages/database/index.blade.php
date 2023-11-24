@@ -218,17 +218,17 @@
                 url: urlData,
                 dataSrc: 'applicants'
             },
-            order: [{
-                orderable: false,
-                targets: 2
-            }, ],
+            order: [
+                [2, 'desc']
+            ],
             rowCallback: function(row, data, index) {
                 if (data.presenter.phone == '6281313608558') {
                     $(row).css('background-color', '#dc2626');
                     $(row).css('color', 'white');
                 }
             },
-            columnDefs: [{
+            columnDefs: [
+                {
                     width: 10,
                     target: 0
                 },
@@ -305,8 +305,8 @@
                 {
                     data: 'created_at',
                     render: (data) => {
-                        return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
-                        // return data;
+                        // return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
+                        return data;
                     }
                 },
                 {
@@ -359,9 +359,6 @@
                     }
                 },
             ],
-            initComplete: function() {
-                this.api().column(2).order('desc').draw();
-            }
         }
         try {
             const response = await fetch(urlData);
@@ -439,8 +436,7 @@
             let fullName = applicant.name;
             let nameParts = fullName.split(' ');
             let fn = nameParts[0];
-            let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant.address
-                .split("KOTA/KAB.")[1].trim() : "") : '';
+            let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant.address.split("KOTA/KAB.")[1].trim() : "") : '';
             let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
             let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
             let genderCode = applicant.gender;
