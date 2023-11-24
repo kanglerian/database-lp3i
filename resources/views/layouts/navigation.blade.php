@@ -184,6 +184,17 @@
                     {{ __('Presenter') }}
                 </x-responsive-nav-link>
             @endif
+
+            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
+                <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs([
+                    'question.index',
+                    'scholarship.index',
+                    'scholarship.question'
+                ])">
+                    {{ __('E-Assessment') }}
+                </x-responsive-nav-link>
+            @endif
+
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
                     {{ __('Akun') }}

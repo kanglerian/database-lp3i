@@ -28,8 +28,8 @@
     <div class="max-w-7xl mx-auto px-5">
         <div class="w-full mx-auto">
             <div class="grid grid-cols-2 mx-auto text-center gap-3">
-                <span id="total_true" class="p-6 bg-sky-500 text-white rounded-lg"></span>
-                <span id="average_score" class="p-6 bg-emerald-500 text-white rounded-lg"></span>
+                <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
+                <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-star text-amber-400"></i>
-                                    Nilai: ${result.score}
+                                    Nilai: ${result.score.toFixed()}
                                 </li>
                             </ul>
                         </div>

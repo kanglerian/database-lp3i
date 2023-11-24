@@ -227,7 +227,8 @@
                     $(row).css('color', 'white');
                 }
             },
-            columnDefs: [{
+            columnDefs: [
+                {
                     width: 10,
                     target: 0
                 },
