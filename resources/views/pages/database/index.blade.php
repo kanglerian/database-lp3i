@@ -305,8 +305,8 @@
                 {
                     data: 'created_at',
                     render: (data) => {
-                        return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
-                        // return data;
+                        // return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
+                        return data;
                     }
                 },
                 {
