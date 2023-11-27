@@ -184,12 +184,14 @@
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.presenter.name;
+                    // return data.presenter.name;
+                    return data;
                 }
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.school_applicant.name;
+                    return data;
+                    // return data.school_applicant.name;
                 }
             },{
                 data: 'detail',
