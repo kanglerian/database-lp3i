@@ -147,7 +147,7 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
 });
 
 /* Route Scholarship */
-Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::get('questions', [HomeController::class, 'index'])->name('question.index');
     Route::get('questions/scholarship', [ResultController::class, 'index'])->name('scholarship.index');
     Route::get('questions/scholarship/questions', [QuestionController::class, 'index'])->name('scholarship.question');
