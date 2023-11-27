@@ -409,7 +409,7 @@ class ApplicantController extends Controller
                 $user = Applicant::where(['identity' => $identity])->firstOrFail();
             }
 
-            $account = User::where('email', $user->email)->count();
+            $account = User::where(['email' => $user->email, 'identity' => $user->identity])->count();
             $enrollment = Enrollment::where('identity_user', $identity)->first();
             $registration = Registration::where('identity_user', $identity)->first();
 
