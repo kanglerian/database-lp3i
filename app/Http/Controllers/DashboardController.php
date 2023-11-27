@@ -192,7 +192,7 @@ class DashboardController extends Controller
         if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
         }
-        
+
         $applicants = $applicantsQuery->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->orderByDesc('created_at')->get();
 
         return response()->json(['applicants' => $applicants]);

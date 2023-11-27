@@ -26,7 +26,8 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting','presenter'])->where('identity', $identity)->firstOrFail();
+        $user = Applicant::firstOrFail();
+
         return response()->json([
             'user' => $user,
         ]);

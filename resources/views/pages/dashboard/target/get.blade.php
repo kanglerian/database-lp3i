@@ -1,3 +1,4 @@
+@if (Auth::user()->role == 'P')
 <script>
     const getRegistrations = async () => {
         await axios.get(apiTargets)
@@ -31,3 +32,4 @@
     }
     getRegistrations();
 </script>
+@endif

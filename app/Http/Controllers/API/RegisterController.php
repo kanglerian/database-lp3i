@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use DateTime;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\Models\Applicant;
+use Illuminate\Support\Facades\Hash;
 use App\Models\ApplicantFamily;
+use Illuminate\Http\Request;
+use App\Models\Applicant;
 use App\Models\School;
 use App\Models\User;
-use DateTime;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -23,6 +23,31 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'nisn' => ['required', 'string', 'max:255'],
+            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => [
+                'required',
+                'string',
+            ],
+            'year' => ['required'],
+            'password' => ['required', 'confirmed'],
+        ], [
+            'name.required' => 'Nama lengkap tidak boleh kosong.',
+            'nisn.required' => 'NISN tidak boleh kosong.',
+            'school.required' => 'Sekolah tidak boleh kosong.',
+            'email.required' => 'Email tidak boleh kosong.',
+            'email.email' => 'Format email tidak valid.',
+            'phone.required' => 'Nomor telepon tidak boleh kosong.',
+            'year.required' => 'Tahun lulus tidak boleh kosong.',
+            'password.required' => 'Password tidak boleh kosong.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 422);
+        }
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],

@@ -47,4 +47,3 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
 Route::get('/database/{identity}', [ApplicantController::class, 'show'])->name('applicants.api.show');
-
