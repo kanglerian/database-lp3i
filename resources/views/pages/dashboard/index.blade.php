@@ -231,6 +231,9 @@
                                     ${i + 1}
                                 </th>
                                 <td class="px-6 py-4">
+                                    ${student.pmb}
+                                </td>
+                                <td class="px-6 py-4">
                                     ${
                                         identity === student.identity_user || identity === '6281313608558' ?
                                         (
@@ -295,6 +298,9 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     ${i + 1}
                                 </th>
+                                <td class="px-6 py-4">
+                                    ${student.pmb}
+                                </td>
                                 <td class="px-6 py-4">
                                     ${
                                         identity == student.identity_user ?

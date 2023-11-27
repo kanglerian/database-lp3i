@@ -32,6 +32,9 @@
                                 No.
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                getYearPMB
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Nama Lengkap
                             </th>
                             <th scope="col" class="px-6 py-3">
