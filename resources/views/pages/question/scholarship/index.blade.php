@@ -61,18 +61,20 @@
                 </div>
             @endif
 
-            <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('scholarship.question') }}"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-lg text-white">
-                        <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
-                    </a>
-                    <button onclick="exportExcel()"
-                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
-                        <i class="fa-solid fa-file-excel mr-1"></i> Ekspor Excel
-                    </button>
+            @if (Auth::user()->role == 'A')
+                <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
+                    <div class="flex items-center gap-3">
+                        <a href="{{ route('scholarship.question') }}"
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-lg text-white">
+                            <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
+                        </a>
+                        <button onclick="exportExcel()"
+                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
+                            <i class="fa-solid fa-file-excel mr-1"></i> Ekspor Excel
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <div class="bg-white overflow-hidden border md:rounded-xl">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -155,15 +157,15 @@
                 }));
                 let identityVal = details[0].identity;
                 await axios.get(`/api/database/${identityVal}`)
-                .then((response) => {
-                    applicantBucket.push({
-                        identity: response.data.user,
-                        detail: detailBucket,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+                    .then((response) => {
+                        applicantBucket.push({
+                            identity: response.data.user,
+                            detail: detailBucket,
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             }));
 
             var dataTableInitialized = false;
@@ -281,6 +283,6 @@
 </script>
 <script>
     const exportExcel = () => {
-        alert('export');
+        alert('Masih dalam perbaikan.');
     }
 </script>
