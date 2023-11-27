@@ -189,7 +189,9 @@
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.school_applicant.name;
+                    // return data.school_applicant.name;
+                    console.log(data);
+                    return data;
                 }
             }, {
                 data: 'detail',
