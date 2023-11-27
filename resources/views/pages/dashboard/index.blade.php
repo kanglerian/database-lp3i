@@ -262,7 +262,7 @@
                         } else {
                             bucket += `
                         <tr class="border-b bg-gray-50">
-                            <td colspan="6" class="px-6 py-4 text-center">
+                            <td colspan="7" class="px-6 py-4 text-center">
                                 Data tidak ditemukan
                             </td>
                         </tr>`
@@ -330,7 +330,7 @@
                     } else {
                         bucket += `
                         <tr class="border-b bg-gray-50">
-                            <td colspan="6" class="px-6 py-4 text-center">
+                            <td colspan="7" class="px-6 py-4 text-center">
                                 Data tidak ditemukan
                             </td>
                         </tr>`
