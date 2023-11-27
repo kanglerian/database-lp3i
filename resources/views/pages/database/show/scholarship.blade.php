@@ -63,8 +63,10 @@
                     let totalScore = results
                         .map((result) => parseInt(result.score))
                         .reduce((acc, score) => acc + score, 0);
-                    let averageScore = count > 0 ? totalScore / count : 0;
+                    let averageScore = parseInt(count > 0 ? totalScore / count : 0);
                     results.forEach(result => {
+                        let score = parseInt(result.score);
+                        let scoreResult = score.toFixed();
                         bucket += `
                     <div class="p-6 bg-white shadow rounded-xl">
                         <div>
@@ -87,7 +89,7 @@
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-star text-amber-400"></i>
-                                    Nilai: ${result.score.toFixed()}
+                                    Nilai: ${scoreResult}
                                 </li>
                             </ul>
                         </div>

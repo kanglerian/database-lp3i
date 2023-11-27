@@ -125,7 +125,7 @@
             document.getElementById('data-loading').style.display = 'block';
             let histories = responseHistories.data;
             let categories = responseCategories.data;
-            if(histories && categories){
+            if (histories && categories) {
                 document.getElementById('data-loading').style.display = 'none';
             }
 
@@ -143,9 +143,9 @@
 
             let applicantBucket = [];
 
-            const promiseResults = applicants.map(async (details) => {
-
+            await Promise.all(applicants.map(async (details) => {
                 let detailBucket = details.map(detail => ({
+                    identity: detail.identity,
                     category: detail.category,
                     score: detail.score,
                     trueResult: detail.trueResult,
@@ -153,19 +153,17 @@
                     questions: detail.questions,
                     recordLength: detail.recordLength,
                 }));
-
-                try {
-                    const response = await axios.get(`/api/database/${details[0].identity}`);
-                    applicantBucket.push({
-                        identity: response.data.user,
-                        detail: detailBucket,
-                    });
-                } catch (error) {
+                let identityVal = details[0].identity;
+                await axios.get(`/api/database/${identityVal}`)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
                     console.log(error);
-                }
-            });
+                })
+            }));
 
-            await Promise.all(promiseResults);
+            console.log(applicantBucket);
             var dataTableInitialized = false;
             var dataTableInstance;
             const data = applicantBucket;
@@ -193,14 +191,15 @@
                     return data;
                     // return data.school_applicant.name;
                 }
-            },{
+            }, {
                 data: 'detail',
                 render: (data, type, row, meta) => {
-                    let totalTrue = data.filter((result) => result.trueResult).reduce((acc, result) => acc +
+                    let totalTrue = data.filter((result) => result.trueResult).reduce((acc,
+                            result) => acc +
                         result.trueResult, 0);
                     return totalTrue;
                 }
-            },{
+            }, {
                 data: 'detail',
                 render: (data, type, row, meta) => {
                     let count = categories.length;

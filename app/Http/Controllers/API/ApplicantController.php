@@ -26,7 +26,7 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::firstOrFail();
+        $user = Applicant::where('identity', $identity)->first();
 
         return response()->json([
             'user' => $user,
