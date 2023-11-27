@@ -53,7 +53,7 @@
                             {{ __('Presenter') }}
                         </x-nav-link>
                     @endif
-                    @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P')
+                    @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                         <x-nav-link :href="route('question.index')" :active="request()->routeIs([
                             'question.index',
                             'scholarship.index',
@@ -185,7 +185,7 @@
                 </x-responsive-nav-link>
             @endif
 
-            @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P')
+            @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                 <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs([
                     'question.index',
                     'scholarship.index',
