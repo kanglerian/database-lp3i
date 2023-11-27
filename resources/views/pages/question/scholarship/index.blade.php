@@ -156,7 +156,10 @@
                 let identityVal = details[0].identity;
                 await axios.get(`/api/database/${identityVal}`)
                 .then((response) => {
-                    console.log(response);
+                    applicantBucket.push({
+                        identity: response.data.user,
+                        detail: detailBucket,
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
