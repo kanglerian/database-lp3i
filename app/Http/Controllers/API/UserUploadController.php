@@ -7,6 +7,7 @@ use App\Models\FileUpload;
 use App\Models\User;
 use App\Models\UserUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserUploadController extends Controller
 {
@@ -19,6 +20,12 @@ class UserUploadController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'identity_user' => ['required'],
+            'fileupload_id' => ['required'],
+            'typefile' => ['required'],
+        ]);
+
         $data = [
             'identity_user' => $request->identity_user,
             'fileupload_id' => $request->fileupload_id,

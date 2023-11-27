@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AchievementController extends Controller
 {
@@ -17,6 +18,23 @@ class AchievementController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'identity_user' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'level' => ['required', 'string'],
+            'year' => ['required'],
+            'result' => ['required'],
+        ], [
+            'name.required' => 'Nama prestasi tidak boleh kosong.',
+            'level.required' => 'Tingkatan tidak boleh kosong.',
+            'year.required' => 'Tahun tidak boleh kosong.',
+            'result.required' => 'Hasil tidak boleh kosong.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 422);
+        }
+
         $request->validate([
             'identity_user' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],

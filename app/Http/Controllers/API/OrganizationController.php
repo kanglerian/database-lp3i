@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationController extends Controller
 {
@@ -17,12 +18,20 @@ class OrganizationController extends Controller
 
      public function store(Request $request)
      {
-         $request->validate([
-             'identity_user' => ['required', 'string', 'max:255'],
-             'name' => ['required', 'string', 'max:255'],
-             'position' => ['required', 'string'],
-             'year' => ['required'],
-         ]);
+        $validator = Validator::make($request->all(),[
+            'identity_user' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string'],
+            'year' => ['required'],
+        ], [
+            'name.required' => 'Nama organisasi tidak boleh kosong.',
+            'position.required' => 'Jabatan tidak boleh kosong.',
+            'year.required' => 'Tahun tidak boleh kosong.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 422);
+        }
 
          $data = [
              'identity_user' => $request->identity_user,
