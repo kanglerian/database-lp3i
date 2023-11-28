@@ -116,6 +116,9 @@
 
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
+    var data;
+    var categories;
+    var histories;
     const getHistories = async () => {
         try {
             const responseHistories = await axios.get(
@@ -125,8 +128,8 @@
                 `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
             );
             document.getElementById('data-loading').style.display = 'block';
-            let histories = responseHistories.data;
-            let categories = responseCategories.data;
+            histories = responseHistories.data;
+            categories = responseCategories.data;
             if (histories && categories) {
                 document.getElementById('data-loading').style.display = 'none';
             }
@@ -170,7 +173,7 @@
 
             var dataTableInitialized = false;
             var dataTableInstance;
-            const data = applicantBucket;
+            data = applicantBucket;
             document.getElementById('count_persons').innerText = data.length;
 
             const manualColumns = [{
@@ -181,17 +184,17 @@
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.name;
+                    return data ? data.name : 'Tidak diketahui';
                 }
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.presenter.name;
+                    return data ? data.presenter.name : 'Tidak diketahui';
                 }
             }, {
                 data: 'identity',
                 render: (data, type, row, meta) => {
-                    return data.school_applicant.name;
+                    return data ? data.school_applicant.name : 'Tidak diketahui';
                 }
             }, {
                 data: 'detail',
@@ -281,8 +284,4 @@
         }
     }
 </script>
-<script>
-    const exportExcel = () => {
-        alert('Masih dalam perbaikan.');
-    }
-</script>
+@include('pages.question.scholarship.exports.excel')
