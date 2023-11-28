@@ -28,7 +28,7 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-2 md:grid-cols-3 md:gap-3">
+            <div class="grid grid-cols-2 md:grid-cols-3 md:gap-3 px-4">
                 <div class="bg-white p-5 rounded-xl border border-gray-200">
                     <h2 class="font-bold text-xl text-gray-900 mb-2">SBPMB Online</h2>
                     <p class="text-sm text-gray-600">Berikut ini adalah halaman untuk menampilkan hasil tes beasiswa dan pengaturan lainnya terkait dengan tes online beasiswa.</p>
