@@ -343,6 +343,66 @@
                 });
         }
     </script>
+    <script>
+        const quickSearchSource = async (source) => {
+            let pmbVal = document.getElementById('change_pmb').value || 'all';
+            let result = document.getElementById('result-quicksearch');
+            await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`)
+                .then((response) => {
+                    let students = response.data.applicants;
+                    let bucket = '';
+                    if (students.length > 0) {
+                        students.forEach((student, i) => {
+                            bucket += `
+                            <tr class="${i % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white'}">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    ${i + 1}
+                                </th>
+                                <td class="px-6 py-4">
+                                    ${student.pmb}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${
+                                        identity == student.identity_user ?
+                                        (
+                                            `<a class="underline font-bold" href="/database/${student.identity}">${student.name}</a>`
+                                        )
+                                        :
+                                        (
+                                            `${student.name}`
+                                        )
+                                    }
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${student.presenter.name}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${student.source_setting.name}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${student.school ? student.school_applicant.name : 'Tidak diketahui'}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${student.year || 'Tidak diketahui'}
+                                </td>
+                            </tr>`
+                        });
+                    } else {
+                        bucket += `
+                        <tr class="border-b bg-gray-50">
+                            <td colspan="7" class="px-6 py-4 text-center">
+                                Data tidak ditemukan
+                            </td>
+                        </tr>`
+                    };
+                    result.innerHTML = bucket;
+                    document.getElementById('count-quicksearch').innerText = students.length;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    </script>
     @if (Auth::user()->role == 'A')
         <script>
             const getPresenter = async () => {

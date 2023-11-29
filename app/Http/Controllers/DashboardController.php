@@ -197,5 +197,28 @@ class DashboardController extends Controller
 
         return response()->json(['applicants' => $applicants]);
     }
+    public function quick_search_source()
+    {
+        $applicantsQuery = Applicant::query();
+
+        $pmbVal = request('pmbVal', 'all');
+        $source = request('source', 'all');
+
+        if (Auth::user()->role === 'P') {
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        if ($source !== 'all') {
+            $applicantsQuery->where('source_id', $source);
+        }
+
+        if ($pmbVal !== 'all') {
+            $applicantsQuery->where('pmb', $pmbVal);
+        }
+
+        $applicants = $applicantsQuery->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->orderByDesc('created_at')->get();
+
+        return response()->json(['applicants' => $applicants]);
+    }
 
 }
