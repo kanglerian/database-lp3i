@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        {{-- <div>
                             @if (session('error'))
                                 <div id="alert"
                                     class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg"
@@ -145,7 +145,7 @@
                                     </div>
                                 @endforeach
                             @endforelse
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="w-full md:w-5/12 order-1 md:order-none">
                         <img src="{{ asset('img/payment.svg') }}" alt="">
