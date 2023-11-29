@@ -25,40 +25,42 @@
                     </p>
                 </header>
                 <hr class="mb-5">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-white">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                No.
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                getYearPMB
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Nama Lengkap
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Presenter
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Sumber Database
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Asal Sekolah
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Tahun Lulus
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="result-quicksearch">
-                        <tr class="border-b bg-gray-50">
-                            <td colspan="7" class="px-6 py-4 text-center">Silahkan untuk isi kolom
-                                pencarian.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <section class="px-5 pb-5">
+                    <table id="quickSearchTable" class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    No.
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    getYearPMB
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama Lengkap
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Presenter
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Sumber Database
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Asal Sekolah
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Tahun Lulus
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-quicksearch">
+                            <tr class="border-b bg-gray-50">
+                                <td colspan="7" class="px-6 py-4 text-center">Silahkan untuk isi kolom
+                                    pencarian.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
                 <hr class="mb-5">
                 <div class="px-5 pb-5">
                     <p class="text-gray-500 text-xs">Silahkan untuk klik nama untuk melihat informasi lebih lanjut.

@@ -37,25 +37,37 @@
                         <div class="flex flex-wrap items-end">
                             <div class="w-1/2 md:w-1/3 space-y-3 p-4">
                                 <img src="{{ asset('logo/btn.png') }}" alt="">
-                                <div onclick="copyRecord('32902384901')"
+                                <div onclick="copyRecord('0003401300001406')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                     <div>
-                                        <h1 class="font-bold text-gray-800">BANK BTN</h1>
-                                        <p class="text-sm text-gray-700">32902384901</p>
+                                        <h1 class="font-bold text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
+                                        <p class="text-sm text-gray-700">0003401300001406</p>
                                     </div>
-                                    <button onclick="copyRecord('32902384901')"><i
+                                    <button onclick="copyRecord('0003401300001406')"><i
+                                            class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
+                                </div>
+                            </div>
+                            <div class="w-1/2 md:w-1/3 space-y-3 p-4">
+                                <img src="{{ asset('logo/bsi.png') }}" alt="">
+                                <div onclick="copyRecord('1025845605')"
+                                    class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                    <div>
+                                        <h1 class="font-bold text-gray-800">BANK BSI (LPPPI TASIKMALAYA)</h1>
+                                        <p class="text-sm text-gray-700">1025845605</p>
+                                    </div>
+                                    <button onclick="copyRecord('1025845605')"><i
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
                             <div class="w-1/2 md:w-1/3 space-y-3 p-4">
                                 <img src="{{ asset('logo/bni.png') }}" alt="">
-                                <div onclick="copyRecord('32902384902')"
+                                <div onclick="copyRecord('4549998888')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                     <div>
-                                        <h1 class="font-bold text-gray-800">BANK BNI</h1>
-                                        <p class="text-sm text-gray-700">32902384902</p>
+                                        <h1 class="font-bold text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
+                                        <p class="text-sm text-gray-700">4549998888</p>
                                     </div>
-                                    <button onclick="copyRecord('32902384902')"><i
+                                    <button onclick="copyRecord('4549998888')"><i
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
@@ -214,7 +226,72 @@
     @include('pages.dashboard.database.get')
     @include('pages.dashboard.database.change')
     <script>
+        var dataTableInitialized = false;
+        var dataTableInstance;
         const quickSearch = async () => {
+            try {
+                let nameSearch = document.getElementById('quick-search').value;
+                let result = document.getElementById('result-quicksearch');
+                let identity = document.getElementById('identity').value;
+                const response = await axios.get(`quicksearch/${nameSearch}`);
+                const data = response.data.applicants;
+
+                const manualColumns = [{
+                    data: 'id',
+                    render: (data, type, row, meta) => {
+                        return meta.row + 1;
+                    }
+                }, {
+                    data: 'pmb',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: 'name',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
+                    }
+                }, {
+                    data: 'school_applicant',
+                    render: (data) => {
+                        return data == null ? 'Tidak diketahui' : data.name;
+                    }
+                }, {
+                    data: 'year',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                }];
+
+                const dataTableConfig = {
+                    columns: manualColumns,
+                    data: data,
+                }
+
+                if (dataTableInitialized) {
+                    dataTableInstance.destroy();
+                }
+
+                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                dataTableInitialized = true;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+    <script>
+        const quickSearchs = async () => {
             let nameSearch = document.getElementById('quick-search').value;
             let result = document.getElementById('result-quicksearch');
             let identity = document.getElementById('identity').value;
