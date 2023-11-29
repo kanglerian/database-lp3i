@@ -34,37 +34,37 @@
                             <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di
                                 depan mata.</p>
                         </div>
-                        <div class="grid grid-cols-1 gap-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
                             <div class="space-y-3">
-                                <img src="{{ asset('logo/btn.png') }}" alt="" width="150px">
+                                <img src="{{ asset('logo/btn.png') }}" alt="Logo BTN" width="150px">
                                 <div onclick="copyRecord('0003401300001406')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div>
-                                        <h1 class="font-bold text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
+                                    <div class="space-y-1">
+                                        <h1 class="font-bold text-sm text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
                                         <p class="text-sm text-gray-700">0003401300001406</p>
                                     </div>
                                     <button onclick="copyRecord('0003401300001406')"><i
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
-                            <div class="space-y-3 p-4">
-                                <img src="{{ asset('logo/bsi.png') }}" alt="">
+                            <div class="space-y-3">
+                                <img src="{{ asset('logo/bsi.png') }}" alt="Logo BSI" width="150px">
                                 <div onclick="copyRecord('1025845605')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div>
-                                        <h1 class="font-bold text-gray-800">BANK BSI (LPPPI TASIKMALAYA)</h1>
+                                    <div class="space-y-1">
+                                        <h1 class="font-bold text-sm text-gray-800">BANK BSI (LPPPI TASIKMALAYA)</h1>
                                         <p class="text-sm text-gray-700">1025845605</p>
                                     </div>
                                     <button onclick="copyRecord('1025845605')"><i
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
-                            <div class="space-y-3 p-4">
-                                <img src="{{ asset('logo/bni.png') }}" alt="">
+                            <div class="space-y-3">
+                                <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="150px">
                                 <div onclick="copyRecord('4549998888')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div>
-                                        <h1 class="font-bold text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
+                                    <div class="space-y-1">
+                                        <h1 class="font-bold text-sm text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
                                         <p class="text-sm text-gray-700">4549998888</p>
                                     </div>
                                     <button onclick="copyRecord('4549998888')"><i
