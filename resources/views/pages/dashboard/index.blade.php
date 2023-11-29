@@ -24,7 +24,7 @@
         </div>
     </x-slot>
 
-    @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
+    @if (Auth::user()->role == 'S')
         <div class="py-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-5 px-5 md:px-0">
