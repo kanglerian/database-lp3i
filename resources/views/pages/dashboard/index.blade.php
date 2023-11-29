@@ -34,8 +34,8 @@
                             <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di
                                 depan mata.</p>
                         </div>
-                        <div class="flex flex-wrap items-end">
-                            <div class="w-1/2 md:w-1/3 space-y-3 p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="space-y-3 p-4">
                                 <img src="{{ asset('logo/btn.png') }}" alt="">
                                 <div onclick="copyRecord('0003401300001406')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
@@ -47,7 +47,7 @@
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
-                            <div class="w-1/2 md:w-1/3 space-y-3 p-4">
+                            <div class="space-y-3 p-4">
                                 <img src="{{ asset('logo/bsi.png') }}" alt="">
                                 <div onclick="copyRecord('1025845605')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
@@ -59,7 +59,7 @@
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
-                            <div class="w-1/2 md:w-1/3 space-y-3 p-4">
+                            <div class="space-y-3 p-4">
                                 <img src="{{ asset('logo/bni.png') }}" alt="">
                                 <div onclick="copyRecord('4549998888')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
