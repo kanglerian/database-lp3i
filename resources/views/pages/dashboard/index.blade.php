@@ -34,9 +34,9 @@
                             <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di
                                 depan mata.</p>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            <div class="space-y-3 p-4">
-                                <img src="{{ asset('logo/btn.png') }}" alt="">
+                        <div class="grid grid-cols-1 gap-5">
+                            <div class="space-y-3">
+                                <img src="{{ asset('logo/btn.png') }}" alt="" width="150px">
                                 <div onclick="copyRecord('0003401300001406')"
                                     class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
                                     <div>
