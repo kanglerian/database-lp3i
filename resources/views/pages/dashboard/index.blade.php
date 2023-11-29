@@ -71,18 +71,6 @@
                                             class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
                                 </div>
                             </div>
-                            <div class="w-1/2 md:w-1/3 space-y-3 p-4">
-                                <img src="{{ asset('logo/bsi.png') }}" alt="">
-                                <div onclick="copyRecord('32902384903')"
-                                    class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div>
-                                        <h1 class="font-bold text-gray-800">BANK BSI</h1>
-                                        <p class="text-sm text-gray-700">32902384903</p>
-                                    </div>
-                                    <button onclick="copyRecord('32902384903')"><i
-                                            class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
-                                </div>
-                            </div>
                         </div>
                         {{-- <div>
                             @if (session('error'))
