@@ -80,7 +80,7 @@
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <span class="text-sm text-gray-500">Rp</span>
                                 </div>
-                                <input type="number" name="nominal" id="nominal"
+                                <input type="text" name="nominal" id="nominal" onkeyup="validateNumber(event)"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
                                     required>
                             </div>
@@ -100,7 +100,7 @@
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <span class="text-sm text-gray-500">Rp</span>
                                 </div>
-                                <input type="number" name="debit" id="debit"
+                                <input type="text" name="debit" id="debit" onkeyup="validateNumber(event)"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                     placeholder="0">
                             </div>

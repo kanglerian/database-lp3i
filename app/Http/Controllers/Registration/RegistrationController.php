@@ -71,9 +71,9 @@ class RegistrationController extends Controller
             'pmb' => ['required'],
             'date' => ['required'],
             'identity_user' => ['required'],
-            'nominal' => ['required', 'integer'],
-            'deal' => ['required', 'integer'],
-            'discount' => ['required', 'integer'],
+            'nominal' => ['required'],
+            'deal' => ['required'],
+            'discount' => ['required'],
             'session' => ['required'],
         ]);
 
@@ -81,9 +81,9 @@ class RegistrationController extends Controller
             'pmb' => $request->input('pmb'),
             'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
-            'nominal' => $request->input('nominal'),
-            'deal' => $request->input('deal'),
-            'discount' => $request->input('discount'),
+            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
+            'deal' => (int) str_replace('.', '', $request->input('deal')),
+            'discount' => (int) str_replace('.', '', $request->input('discount')),
             'desc_discount' => $request->input('desc_discount'),
             'session' => $request->input('session'),
         ];

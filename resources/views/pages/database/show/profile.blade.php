@@ -421,7 +421,19 @@
     @include('pages.database.show.modal.daftar')
     @include('pages.database.show.modal.registrasi')
 </x-app-layout>
+<script>
+    const validateNumber = (e) => {
+        let number = e.target.value.replace(/[^0-9]/g, '');
+        let parsedNumber = parseInt(number);
 
+        if (!isNaN(parsedNumber)) {
+            let formattedNumber = parsedNumber.toLocaleString('id-ID');
+            e.target.value = formattedNumber;
+        } else {
+            e.target.value = null;
+        }
+    }
+</script>
 <script>
     const modalAccount = () => {
         let modal = document.getElementById('modal-account');

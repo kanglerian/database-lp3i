@@ -88,9 +88,9 @@ class EnrollmentController extends Controller
             'receipt' => $request->input('receipt'),
             'register' => $request->input('register'),
             'register_end' => $request->input('register_end'),
-            'nominal' => $request->input('nominal'),
+            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
             'repayment' => $request->input('repayment'),
-            'debit' => $request->input('debit'),
+            'debit' => (int) str_replace('.', '', $request->input('debit')),
         ];
 
         Enrollment::create($data);
