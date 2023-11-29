@@ -219,60 +219,62 @@
         const quickSearch = async () => {
             try {
                 let nameSearch = document.getElementById('quick-search').value;
-                let result = document.getElementById('result-quicksearch');
-                let identity = document.getElementById('identity').value;
-                const response = await axios.get(`quicksearch/${nameSearch}`);
-                const data = response.data.applicants;
+                if (nameSearch != '') {
+                    let result = document.getElementById('result-quicksearch');
+                    let identity = document.getElementById('identity').value;
+                    const response = await axios.get(`quicksearch/${nameSearch}`);
+                    const data = response.data.applicants;
 
-                const manualColumns = [{
-                    data: 'id',
-                    render: (data, type, row, meta) => {
-                        return meta.row + 1;
-                    }
-                }, {
-                    data: 'pmb',
-                    render: (data, type, row, meta) => {
-                        return data;
-                    }
-                }, {
-                    data: 'name',
-                    render: (data, type, row, meta) => {
-                        return data;
-                    }
-                }, {
-                    data: 'presenter',
-                    render: (data) => {
-                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
-                    }
-                }, {
-                    data: 'source_setting',
-                    render: (data, type, row) => {
-                        return data.name;
-                    }
-                }, {
-                    data: 'school_applicant',
-                    render: (data) => {
-                        return data == null ? 'Tidak diketahui' : data.name;
-                    }
-                }, {
-                    data: 'year',
-                    render: (data, row) => {
-                        return data != null ? data : 'Tidak diketahui';
-                    }
-                }];
+                    const manualColumns = [{
+                        data: 'id',
+                        render: (data, type, row, meta) => {
+                            return meta.row + 1;
+                        }
+                    }, {
+                        data: 'pmb',
+                        render: (data, type, row, meta) => {
+                            return data;
+                        }
+                    }, {
+                        data: 'name',
+                        render: (data, type, row, meta) => {
+                            return data;
+                        }
+                    }, {
+                        data: 'presenter',
+                        render: (data) => {
+                            return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                        }
+                    }, {
+                        data: 'source_setting',
+                        render: (data, type, row) => {
+                            return data.name;
+                        }
+                    }, {
+                        data: 'school_applicant',
+                        render: (data) => {
+                            return data == null ? 'Tidak diketahui' : data.name;
+                        }
+                    }, {
+                        data: 'year',
+                        render: (data, row) => {
+                            return data != null ? data : 'Tidak diketahui';
+                        }
+                    }];
 
-                const dataTableConfig = {
-                    columns: manualColumns,
-                    data: data,
+                    const dataTableConfig = {
+                        columns: manualColumns,
+                        data: data,
+                    }
+
+                    if (dataTableInitialized) {
+                        dataTableInstance.destroy();
+                    }
+
+                    dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                    dataTableInitialized = true;
                 }
-
-                if (dataTableInitialized) {
-                    dataTableInstance.destroy();
-                }
-
-                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
-
-                dataTableInitialized = true;
             } catch (error) {
                 console.log(error);
             }
@@ -517,16 +519,16 @@
     @endif
 @endif
 @if (Auth::user()->role == 'S')
-<script>
-    const copyRecord = (number) => {
-        const textarea = document.createElement("textarea");
-        textarea.value = number;
-        textarea.style.position = "fixed";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert('Nomor rekening sudah disalin!');
-    }
-</script>
+    <script>
+        const copyRecord = (number) => {
+            const textarea = document.createElement("textarea");
+            textarea.value = number;
+            textarea.style.position = "fixed";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert('Nomor rekening sudah disalin!');
+        }
+    </script>
 @endif
