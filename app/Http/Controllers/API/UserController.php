@@ -226,6 +226,7 @@ class UserController extends Controller
         $data_father = [
             'name' => ucwords($request->fatherName),
             'job' => $request->fatherJob,
+            'phone' => $request->fatherPhone,
             'place_of_birth' => $request->fatherPlaceOfBirth,
             'date_of_birth' => $request->fatherDateOfBirth,
             'education' => $request->fatherEducation,
@@ -235,6 +236,7 @@ class UserController extends Controller
         $data_mother = [
             'name' => ucwords($request->motherName),
             'job' => $request->motherJob,
+            'phone' => $request->motherPhone,
             'place_of_birth' => $request->motherPlaceOfBirth,
             'date_of_birth' => $request->motherDateOfBirth,
             'education' => $request->motherEducation,
