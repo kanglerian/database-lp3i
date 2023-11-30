@@ -1,5 +1,5 @@
 @if (Auth::user()->role !== 'S')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-5 px-2">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-5 px-2 space-y-5">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
             <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-xl">
                 <h4>
@@ -40,13 +40,26 @@
                 </h4>
                 <span class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg" id="registration_count">0</span>
             </div>
-            <div onclick="quickSearchSource(8)"
-                class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
-                <h4>
-                    <i class="fa-solid fa-user-check mr-1"></i>
-                    <span class="text-sm">Daftar Online</span>
-                </h4>
-            </div>
         </div>
+        <section>
+            <h2 class="font-bold text-gray-900 text-xl">Sumber Informasi</h2>
+            <p class="text-sm text-gray-700">Berikut ini adalah <i>Quick Search</i> untuk data dari sumber informasi.</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mt-3">
+                <div onclick="quickSearchSource(8)"
+                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
+                    <h4>
+                        <i class="fa-solid fa-database mr-1"></i>
+                        <span class="text-sm">Daftar Online</span>
+                    </h4>
+                </div>
+                <div onclick="quickSearchSource(10)"
+                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
+                    <h4>
+                        <i class="fa-solid fa-database mr-1"></i>
+                        <span class="text-sm">Beasiswa</span>
+                    </h4>
+                </div>
+            </div>
+        </section>
     </div>
 @endif
