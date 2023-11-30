@@ -181,13 +181,15 @@
                             identity_user: 'identity_user'
                         },
                         render: (data, type, row, meta) => {
-
                             let editUrl = "{{ route('database.show', ':identity') }}".replace(
                                 ':identity',
                                 data.identity);
-                            return data.identity_user == identity || data.identity_user == '6281313608558' ?
-                                `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
-                                `<span>${data.name}</span>`;
+                            if (data.identity_user == identity || data.identity_user ==
+                                '6281313608558') {
+                                return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                            } else {
+                                return `<span>${data.name}</span>`;
+                            }
                         }
                     }, {
                         data: 'presenter',
@@ -258,9 +260,11 @@
                         let editUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.identity_user == identity || data.identity_user == '6281313608558' ?
-                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
-                            `<span>${data.name}</span>`;
+                        if (data.identity_user == identity || data.identity_user == '6281313608558') {
+                            return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                        } else {
+                            return `<span>${data.name}</span>`;
+                        }
                     }
                 }, {
                     data: 'presenter',
@@ -330,9 +334,12 @@
                         let editUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.identity_user == identity || data.identity_user == '6281313608558' ?
-                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
-                            `<span>${data.name}</span>`;
+                        if (data.identity_user == identity || data.identity_user == '6281313608558') {
+                            return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                        } else {
+                            return `<span>${data.name}</span>`;
+                        }
+
                     }
                 }, {
                     data: 'presenter',
