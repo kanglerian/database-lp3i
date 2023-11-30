@@ -816,7 +816,6 @@
                     const results = await Promise.all(recordPromises);
                     let bucket = '';
                     let nilai = 0;
-                    console.log(results);
                     results.forEach(result => {
                         nilai += parseInt(result.score);
                         bucket += `

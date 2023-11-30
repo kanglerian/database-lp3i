@@ -22,7 +22,7 @@
                     <h1 class="my-2 font-bold text-gray-700">Total Sumber Database:</h1>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         @foreach ($sourcesIdCount as $sourcesid)
-                            <div @if($sourcesid->source_id != 7) onclick="quickSearchSource('{{ $sourcesid->source_id }}')" @endif
+                            <div
                                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-xl">
                                 <h4>
                                     <i class="fa-solid fa-database mr-1"></i>
