@@ -8,14 +8,14 @@
                 </h4>
                 <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg" id="database_count">0</span>
             </div>
-            <div onclick="quickSearchStatus('schoolarship')"
+            <a href="#quicksearch_container" onclick="quickSearchStatus('schoolarship')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-cyan-500 text-white rounded-xl">
                 <h4>
                     <i class="fa-solid fa-graduation-cap mr-1"></i>
                     <span class="text-sm">Beasiswa</span>
                 </h4>
                 <span class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg" id="schoolarship_count">0</span>
-            </div>
+            </a>
             <div onclick="quickSearchStatus('aplikan')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
                 <h4>
