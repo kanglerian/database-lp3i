@@ -23,6 +23,11 @@
     <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     @stack('styles')
     <style>
+        html,
+        body {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Roboto Mono', monospace;
             font-family: 'Source Code Pro', monospace;

@@ -16,49 +16,49 @@
                 </h4>
                 <span class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg" id="schoolarship_count">0</span>
             </a>
-            <div onclick="quickSearchStatus('aplikan')"
+            <a href="#quicksearch_container" onclick="quickSearchStatus('aplikan')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-yellow-500 text-white rounded-xl">
                 <h4>
                     <i class="fa-solid fa-file-lines mr-1"></i>
                     <span class="text-sm">Aplikan</span>
                 </h4>
                 <span class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg" id="applicant_count">0</span>
-            </div>
-            <div onclick="quickSearchStatus('daftar')"
+            </a>
+            <a href="#quicksearch_container" onclick="quickSearchStatus('daftar')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-xl">
                 <h4>
                     <i class="fa-solid fa-id-badge mr-1"></i>
                     <span class="text-sm">Daftar</span>
                 </h4>
                 <span class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg" id="enrollment_count">0</span>
-            </div>
-            <div onclick="quickSearchStatus('registrasi')"
+            </a>
+            <a href="#quicksearch_container" onclick="quickSearchStatus('registrasi')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-emerald-500 text-white rounded-xl">
                 <h4>
                     <i class="fa-solid fa-user-check mr-1"></i>
                     <span class="text-sm">Registrasi</span>
                 </h4>
                 <span class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg" id="registration_count">0</span>
-            </div>
+            </a>
         </div>
         <section>
             <h2 class="font-bold text-gray-900 text-xl">Sumber Informasi</h2>
             <p class="text-sm text-gray-700">Berikut ini adalah <i>Quick Search</i> untuk data dari sumber informasi.</p>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mt-3">
-                <div onclick="quickSearchSource(8)"
+                <a href="#quicksearch_container" onclick="quickSearchSource(8)"
                     class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-database mr-1"></i>
                         <span class="text-sm">Daftar Online</span>
                     </h4>
-                </div>
-                <div onclick="quickSearchSource(10)"
+                </a>
+                <a href="#quicksearch_container" onclick="quickSearchSource(10)"
                     class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-database mr-1"></i>
                         <span class="text-sm">Beasiswa</span>
                     </h4>
-                </div>
+                </a>
             </div>
         </section>
     </div>
