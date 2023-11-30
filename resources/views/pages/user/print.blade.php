@@ -818,7 +818,7 @@
                     let nilai = 0;
                     console.log(results);
                     results.forEach(result => {
-                        nilai += result.score;
+                        nilai += parseInt(result.score);
                         bucket += `
                         <div>
                             <h3>${result.category}</h3>
