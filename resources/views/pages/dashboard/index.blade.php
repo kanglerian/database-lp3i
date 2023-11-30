@@ -185,7 +185,7 @@
                             let editUrl = "{{ route('database.show', ':identity') }}".replace(
                                 ':identity',
                                 data.identity);
-                            return data.identity_user == identity ?
+                            return data.identity_user == identity || data.identity_user == '6281286501015' ?
                                 `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
                                 `<span>${data.name}</span>`;
                         }
@@ -255,11 +255,10 @@
                         identity_user: 'identity_user'
                     },
                     render: (data, type, row, meta) => {
-
                         let editUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.identity_user == identity ?
+                        return data.identity_user == identity || data.identity_user == '6281286501015' ?
                             `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
                             `<span>${data.name}</span>`;
                     }
@@ -332,7 +331,7 @@
                         let editUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return data.identity_user == identity ?
+                        return data.identity_user == identity || data.identity_user == '6281286501015' ?
                             `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
                             `<span>${data.name}</span>`;
                     }

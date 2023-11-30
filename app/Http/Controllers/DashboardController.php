@@ -209,7 +209,7 @@ class DashboardController extends Controller
         }
 
         if ($source !== 'all') {
-            $applicantsQuery->where('source_id', $source);
+            $applicantsQuery->where('source_daftar_id', $source);
         }
 
         if ($pmbVal !== 'all') {
