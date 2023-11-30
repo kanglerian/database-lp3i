@@ -815,8 +815,10 @@
                     const recordPromises = histories.map((history) => getRecords(history));
                     const results = await Promise.all(recordPromises);
                     let bucket = '';
+                    let nilai = 0;
                     console.log(results);
                     results.forEach(result => {
+                        nilai += result.score;
                         bucket += `
                         <div>
                             <h3>${result.category}</h3>
@@ -831,7 +833,12 @@
                     `
                     });
                     document.getElementById('scholarship_result').innerHTML = `
-                        <div>${bucket}</div>
+                        <div>
+                            ${bucket}
+                            <div>
+                                <h3>Nilai Akhir: ${nilai / 3}</h3>
+                            </div>
+                        </div>
                     `;
                 } else {
                     document.getElementById('scholarship_container').style.display = 'none';
