@@ -72,68 +72,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div>
-                            @if (session('error'))
-                                <div id="alert"
-                                    class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg"
-                                    role="alert">
-                                    <i class="fa-solid fa-circle-exclamation"></i>
-                                    <div class="ml-3 text-sm font-medium">
-                                        {{ session('error') }}
-                                    </div>
-                                </div>
-                            @endif
-                            @if (session('message'))
-                                <div id="alert"
-                                    class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
-                                    role="alert">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    <div class="ml-3 text-sm font-medium">
-                                        {{ session('message') }}
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($errors->first('berkas'))
-                                <div id="alert"
-                                    class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg"
-                                    role="alert">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                    <div class="ml-3 text-sm font-medium">
-                                        {{ $errors->first('berkas') }}
-                                    </div>
-                                </div>
-                            @endif
-                            @forelse ($userupload as $suc)
-                                <div class="flex items-center gap-2">
-                                    <button
-                                        class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-sm text-white">Bukti
-                                        pembayaran sudah di unggah <i class="fa-solid fa-circle-check"></i></button>
-                                </div>
-                            @empty
-                                @foreach ($fileupload as $upload)
-                                    <div class="flex flex-wrap md:items-center gap-2">
-                                        <h2 class="w-full font-bold text-gray-800">Upload Bukti Pembayaran:</h2>
-                                        <form action="{{ route('upload.payment') }}" enctype="multipart/form-data"
-                                            class="w-full flex flex-wrap gap-2 items-center" method="POST">
-                                            @csrf
-                                            <div class="flex items-center gap-2">
-                                                <input type="hidden" name="name" value="{{ $upload->name }}">
-                                                <input type="hidden" name="fileupload_id" value="11">
-                                                <input type="hidden" name="namefile" value="{{ $upload->namefile }}">
-                                                <input type="file" name="berkas" id="berkas"
-                                                    class="text-sm border border-gray-200 bg-white px-2 py-2 rounded-md"
-                                                    accept="{{ $upload->accept }}">
-                                                <button type="submit"
-                                                    class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
-                                                    <i class="fa-solid fa-upload"></i>
-                                                </button>
-                                            </div>
-                                            <small>Maks: 1MB</small>
-                                        </form>
-                                    </div>
-                                @endforeach
-                            @endforelse
-                        </div> --}}
                     </div>
                     <div class="w-full md:w-5/12 order-1 md:order-none">
                         <img src="{{ asset('img/payment.svg') }}" alt="">
@@ -224,6 +162,7 @@
                     let identity = document.getElementById('identity').value;
                     const response = await axios.get(`quicksearch/${nameSearch}`);
                     const data = response.data.applicants;
+                    document.getElementById('count-quicksearch').innerText = data.length;
 
                     const manualColumns = [{
                         data: 'id',
@@ -236,9 +175,19 @@
                             return data;
                         }
                     }, {
-                        data: 'name',
+                        data: {
+                            name: 'name',
+                            identity: 'identity',
+                            identity_user: 'identity_user'
+                        },
                         render: (data, type, row, meta) => {
-                            return data;
+
+                            let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                                ':identity',
+                                data.identity);
+                            return data.identity_user == identity ?
+                                `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
+                                `<span>${data.name}</span>`;
                         }
                     }, {
                         data: 'presenter',
@@ -281,193 +230,149 @@
         }
     </script>
     <script>
-        const quickSearchs = async () => {
-            let nameSearch = document.getElementById('quick-search').value;
-            let result = document.getElementById('result-quicksearch');
-            let identity = document.getElementById('identity').value;
-            if (nameSearch) {
-                await axios.get(`quicksearch/${nameSearch}`)
-                    .then((res) => {
-                        let students = res.data.applicants;
-                        let bucket = '';
-                        if (students.length > 0) {
-                            students.forEach((student, i) => {
-                                bucket += `
-                            <tr class="${i % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white'}">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    ${i + 1}
-                                </th>
-                                <td class="px-6 py-4">
-                                    ${student.pmb}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${
-                                        identity === student.identity_user || identity === '6281313608558' ?
-                                        (
-                                            `<a class="underline font-bold" href="/database/${student.identity}">${student.name}</a>`
-                                        )
-                                        :
-                                        (
-                                            `${student.name}`
-                                        )
-                                    }
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.presenter.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.source_setting.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.school ? student.school_applicant.name : 'Tidak diketahui'}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.year || 'Tidak diketahui'}
-                                </td>
-                            </tr>`
-                            });
-                        } else {
-                            bucket += `
-                        <tr class="border-b bg-gray-50">
-                            <td colspan="7" class="px-6 py-4 text-center">
-                                Data tidak ditemukan
-                            </td>
-                        </tr>`
-                        };
-                        result.innerHTML = bucket;
-                        document.getElementById('count-quicksearch').innerText = students.length;
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            } else {
-                let bucket = `
-                    <tr class="border-b bg-gray-50">
-                        <td colspan="6" class="px-6 py-4 text-center">Silahkan untuk isi kolom pencarian.</td>
-                    </tr>`
-                result.innerHTML = bucket;
-                document.getElementById('count-quicksearch').innerText = 0;
+        const quickSearchStatus = async (status) => {
+            try {
+                let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let result = document.getElementById('result-quicksearch');
+                const response = await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`);
+                const data = response.data.applicants;
+                document.getElementById('count-quicksearch').innerText = data.length;
+
+                const manualColumns = [{
+                    data: 'id',
+                    render: (data, type, row, meta) => {
+                        return meta.row + 1;
+                    }
+                }, {
+                    data: 'pmb',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: {
+                        name: 'name',
+                        identity: 'identity',
+                        identity_user: 'identity_user'
+                    },
+                    render: (data, type, row, meta) => {
+
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
+                            data.identity);
+                        return data.identity_user == identity ?
+                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
+                            `<span>${data.name}</span>`;
+                    }
+                }, {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
+                    }
+                }, {
+                    data: 'school_applicant',
+                    render: (data) => {
+                        return data == null ? 'Tidak diketahui' : data.name;
+                    }
+                }, {
+                    data: 'year',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                }];
+
+                const dataTableConfig = {
+                    columns: manualColumns,
+                    data: data,
+                }
+
+                if (dataTableInitialized) {
+                    dataTableInstance.destroy();
+                }
+
+                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                dataTableInitialized = true;
+            } catch (error) {
+                console.log(error);
             }
         }
     </script>
     <script>
-        const quickSearchStatus = async (status) => {
-            let pmbVal = document.getElementById('change_pmb').value || 'all';
-            let result = document.getElementById('result-quicksearch');
-            await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`)
-                .then((response) => {
-                    let students = response.data.applicants;
-                    let bucket = '';
-                    if (students.length > 0) {
-                        students.forEach((student, i) => {
-                            bucket += `
-                            <tr class="${i % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white'}">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    ${i + 1}
-                                </th>
-                                <td class="px-6 py-4">
-                                    ${student.pmb}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${
-                                        identity == student.identity_user ?
-                                        (
-                                            `<a class="underline font-bold" href="/database/${student.identity}">${student.name}</a>`
-                                        )
-                                        :
-                                        (
-                                            `${student.name}`
-                                        )
-                                    }
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.presenter.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.source_setting.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.school ? student.school_applicant.name : 'Tidak diketahui'}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.year || 'Tidak diketahui'}
-                                </td>
-                            </tr>`
-                        });
-                    } else {
-                        bucket += `
-                        <tr class="border-b bg-gray-50">
-                            <td colspan="7" class="px-6 py-4 text-center">
-                                Data tidak ditemukan
-                            </td>
-                        </tr>`
-                    };
-                    result.innerHTML = bucket;
-                    document.getElementById('count-quicksearch').innerText = students.length;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    </script>
-    <script>
         const quickSearchSource = async (source) => {
-            let pmbVal = document.getElementById('change_pmb').value || 'all';
-            let result = document.getElementById('result-quicksearch');
-            await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`)
-                .then((response) => {
-                    let students = response.data.applicants;
-                    let bucket = '';
-                    if (students.length > 0) {
-                        students.forEach((student, i) => {
-                            bucket += `
-                            <tr class="${i % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white'}">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    ${i + 1}
-                                </th>
-                                <td class="px-6 py-4">
-                                    ${student.pmb}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${
-                                        identity == student.identity_user ?
-                                        (
-                                            `<a class="underline font-bold" href="/database/${student.identity}">${student.name}</a>`
-                                        )
-                                        :
-                                        (
-                                            `${student.name}`
-                                        )
-                                    }
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.presenter.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.source_setting.name}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.school ? student.school_applicant.name : 'Tidak diketahui'}
-                                </td>
-                                <td class="px-6 py-4">
-                                    ${student.year || 'Tidak diketahui'}
-                                </td>
-                            </tr>`
-                        });
-                    } else {
-                        bucket += `
-                        <tr class="border-b bg-gray-50">
-                            <td colspan="7" class="px-6 py-4 text-center">
-                                Data tidak ditemukan
-                            </td>
-                        </tr>`
-                    };
-                    result.innerHTML = bucket;
-                    document.getElementById('count-quicksearch').innerText = students.length;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            try {
+                let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let result = document.getElementById('result-quicksearch');
+                const response = await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`);
+                const data = response.data.applicants;
+
+                document.getElementById('count-quicksearch').innerText = data.length;
+                const manualColumns = [{
+                    data: 'id',
+                    render: (data, type, row, meta) => {
+                        return meta.row + 1;
+                    }
+                }, {
+                    data: 'pmb',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: {
+                        name: 'name',
+                        identity: 'identity',
+                        identity_user: 'identity_user'
+                    },
+                    render: (data, type, row, meta) => {
+
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
+                            data.identity);
+                        return data.identity_user == identity ?
+                            `<a href="${editUrl}" class="font-bold underline">${data.name}</a>` :
+                            `<span>${data.name}</span>`;
+                    }
+                }, {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
+                    }
+                }, {
+                    data: 'school_applicant',
+                    render: (data) => {
+                        return data == null ? 'Tidak diketahui' : data.name;
+                    }
+                }, {
+                    data: 'year',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                }];
+
+                const dataTableConfig = {
+                    columns: manualColumns,
+                    data: data,
+                }
+
+                if (dataTableInitialized) {
+                    dataTableInstance.destroy();
+                }
+
+                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                dataTableInitialized = true;
+            } catch (error) {
+                console.log(error);
+            }
         }
     </script>
     @if (Auth::user()->role == 'A')
