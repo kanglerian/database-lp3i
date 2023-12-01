@@ -27,7 +27,7 @@
 
     <div class="max-w-7xl mx-auto px-5">
         <div class="w-full mx-auto">
-            <div class="grid grid-cols-2 mx-auto text-center gap-3">
+            <div class="grid grid-cols-2 mx-auto text-center gap-3" id="score_container">
                 <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
                 <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
             </div>
@@ -104,6 +104,7 @@
                     document.getElementById('total_true').innerText = `Total Benar: ${totalTrue}`;
                     document.getElementById('average_score').innerText = `Nilai Akhir: ${averageScore}`;
                 } else {
+                    document.getElementById('score_container').style.display = 'none';
                     document.getElementById('result').innerHTML =
                         `<p class="text-sm text-center text-gray-600">Tidak ada yang dikerjakan.</p>`;
                 }
