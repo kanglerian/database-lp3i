@@ -21,7 +21,7 @@
 
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
                 <div role="status" id="data-loading">
-                    <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-blue-600"
+                    <svg class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-blue-600"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -34,7 +34,7 @@
                 </div>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-users"></i>
-                    <h2 id="count_persons"></h2>
+                    <h2 id="count_persons">0</h2>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-tl-lg">
                                         #
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -100,11 +100,15 @@
                                     <th scope="col" class="px-6 py-3">
                                         Nilai Akhir
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-tr-lg">
                                         Hasil Tes
                                     </th>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" class="text-center px-6 py-4 text-gray-600 whitespace-nowrap">Data belum ditemukan.</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -127,12 +131,9 @@
             const responseCategories = await axios.get(
                 `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
             );
-            document.getElementById('data-loading').style.display = 'block';
+
             histories = responseHistories.data;
             categories = responseCategories.data;
-            if (histories && categories) {
-                document.getElementById('data-loading').style.display = 'none';
-            }
 
             const recordPromises = histories.map((history) => getRecords(history));
             const results = await Promise.all(recordPromises);
@@ -237,6 +238,7 @@
 
             dataTableInstance = new DataTable('#myTable', dataTableConfig);
 
+            document.getElementById('data-loading').style.display = 'none';
             dataTableInitialized = true;
 
         } catch (error) {
