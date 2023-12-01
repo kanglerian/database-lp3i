@@ -265,8 +265,8 @@
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2({
-            tags: true,
-        });
+                tags: true,
+            });
         });
 
         const saveDatabase = () => {
@@ -277,8 +277,13 @@
         let phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', function() {
             let phone = phoneInput.value;
-
-            if (phone.startsWith('62')) {} else if (phone.startsWith('0')) {
+            if (phone.startsWith("62")) {
+                if (phone.length === 3 && phone[2] === "0") {
+                    phoneInput.value = '62';
+                } else {
+                    phoneInput.value = phone;
+                }
+            } else if (phone.startsWith("0")) {
                 phoneInput.value = '62' + phone.substring(1);
             } else {
                 phoneInput.value = '62';
