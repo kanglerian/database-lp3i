@@ -46,14 +46,14 @@
             <p class="text-sm text-gray-700">Berikut ini adalah <i>Quick Search</i> untuk data dari sumber informasi.</p>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mt-3">
                 <a href="#quicksearch_container" onclick="quickSearchSource(8)"
-                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
+                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-lp3i-100 hover:bg-lp3i-200 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-database mr-1"></i>
                         <span class="text-sm">Daftar Online</span>
                     </h4>
                 </a>
                 <a href="#quicksearch_container" onclick="quickSearchSource(10)"
-                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-blue-500 text-white rounded-xl">
+                    class="cursor-pointer flex justify-between items-center px-5 py-3 bg-lp3i-100 hover:bg-lp3i-200 text-white rounded-xl">
                     <h4>
                         <i class="fa-solid fa-database mr-1"></i>
                         <span class="text-sm">Beasiswa</span>
