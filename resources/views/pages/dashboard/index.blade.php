@@ -162,7 +162,7 @@
                     let identity = document.getElementById('identity').value;
                     const response = await axios.get(`quicksearch/${nameSearch}`);
                     const data = response.data.applicants;
-                    document.getElementById('count-quicksearch').innerText = data.length;
+                    document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
 
                     const manualColumns = [{
                         data: 'id',
@@ -237,7 +237,7 @@
                 let result = document.getElementById('result-quicksearch');
                 const response = await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`);
                 const data = response.data.applicants;
-                document.getElementById('count-quicksearch').innerText = data.length;
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
 
                 const manualColumns = [{
                     data: 'id',
@@ -312,7 +312,7 @@
                 const response = await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`);
                 const data = response.data.applicants;
 
-                document.getElementById('count-quicksearch').innerText = data.length;
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
                 const manualColumns = [{
                     data: 'id',
                     render: (data, type, row, meta) => {
