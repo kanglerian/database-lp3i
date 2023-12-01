@@ -504,36 +504,38 @@
         downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
     }
 
-    const exportExcel = () => {
-        $.ajax({
-            url: urlExcel,
-            method: 'GET',
-            xhrFields: {
-                responseType: 'blob'
-            },
-            success: (response, status, xhr) => {
-                console.log('Berhasil!');
-                const filename = xhr.getResponseHeader('Content-Disposition')
-                    .split(';')[1]
-                    .trim()
-                    .split('=')[1];
-                const blob = new Blob([response], {
-                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            },
-            error: () => {
-                console.log('Terjadi kesalahan saat melakukan eksport');
-            }
-        });
-    }
+    // const exportExcel = () => {
+        // console.log(dataApplicants);
+        // $.ajax({
+        //     url: urlExcel,
+        //     method: 'GET',
+        //     xhrFields: {
+        //         responseType: 'blob'
+        //     },
+        //     success: (response, status, xhr) => {
+        //         console.log('Berhasil!');
+        //         const filename = xhr.getResponseHeader('Content-Disposition')
+        //             .split(';')[1]
+        //             .trim()
+        //             .split('=')[1];
+        //         const blob = new Blob([response], {
+        //             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        //         });
+        //         const url = window.URL.createObjectURL(blob);
+        //         const a = document.createElement('a');
+        //         a.href = url;
+        //         a.download = filename;
+        //         document.body.appendChild(a);
+        //         a.click();
+        //         window.URL.revokeObjectURL(url);
+        //     },
+        //     error: () => {
+        //         console.log('Terjadi kesalahan saat melakukan eksport');
+        //     }
+        // });
+    // }
 </script>
+@include('pages.database.exports.excel')
 @push('scripts')
     <script>
         $(document).ready(function() {
