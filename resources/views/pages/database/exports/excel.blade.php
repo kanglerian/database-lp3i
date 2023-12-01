@@ -4,7 +4,7 @@
         try {
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Data');
-            let header = ['No', 'Nama Lengkap', 'No. Telpon' 'Presenter', 'Asal Sekolah', 'Jurusan', 'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database', 'Sumber Informasi'];
+            let header = ['No', 'Nama Lengkap', 'No. Telpon', 'Presenter', 'Asal Sekolah', 'Jurusan', 'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database', 'Sumber Informasi'];
             let dataExcel = [
                 header,
             ];
