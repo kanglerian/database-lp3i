@@ -102,7 +102,7 @@ class RegisterController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['message' => 'Email sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                    return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
                     return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 }
@@ -160,10 +160,10 @@ class RegisterController extends Controller
             }
         } else {
             if ($check_email_user) {
-                return response()->json(['message' => 'Email sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
             } else {
                 if ($check_phone_user) {
-                    return response()->json(['message' => 'No. Telpon sudah digunakan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                    return response()->json(['message' => 'No. Telpon sudah terdaftar. Silahkan hubungi Admin.'], 401);
                 } else {
                     if ($check_phone_applicant) {
                         $data_applicant = [
