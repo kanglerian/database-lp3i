@@ -113,7 +113,7 @@
             let phone = phoneInput.value;
 
             if (phone.startsWith("62")) {
-            if (phone.length === 3 && phone[2] === "0") {
+            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
                 phoneInput.value = '62';
             } else {
                 phoneInput.value = phone;
