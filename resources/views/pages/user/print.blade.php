@@ -831,11 +831,12 @@
                         </div>
                     `
                     });
+                    let resultNilai = nilai / 3;
                     document.getElementById('scholarship_result').innerHTML = `
                         <div>
                             ${bucket}
                             <div>
-                                <h3>Nilai Akhir: ${nilai / 3}</h3>
+                                <h3>Nilai Akhir: ${resultNilai.toFixed()}</h3>
                             </div>
                         </div>
                     `;
