@@ -67,27 +67,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email',
-            'phone' => 'required',
-            'nisn' => 'required',
-            'religion' => 'required',
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'min:10', 'max:15'],
+            'nik' => ['required', 'min:16', 'max:16'],
+            'nisn' => ['required', 'min:10', 'max:10'],
+            'religion' => ['required'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
-            'year' => ['required'],
+            'year' => ['required', 'min:4', 'max:4'],
             'placeOfBirth' => ['required'],
             'dateOfBirth' => ['required'],
             'address' => ['required'],
         ], [
-            'nisn.required' => 'NISN tidak boleh kosong.',
-            'religion.required' => 'Agama tidak boleh kosong.',
-            'school.required' => 'Sekolah tidak boleh kosong.',
-            'year.required' => 'Tahun lulus tidak boleh kosong.',
-            'placeOfBirth.required' => 'Tempat lahir tidak boleh kosong.',
-            'dateOfBirth.required' => 'Tanggal lahir tidak boleh kosong.',
-            'email.required' => 'Email tidak boleh kosong.',
-            'email.email' => 'Format email tidak valid.',
-            'phone.required' => 'Nomor telepon tidak boleh kosong.',
-            'address.required' => 'Alamat tidak boleh kosong.',
+            'nik.required' => 'NIK-nya jangan lupa diisi ya, nggak boleh kosong.',
+            'nisn.required' => 'Ups, NISN-nya jangan dikosongin ya.',
+            'religion.required' => 'Wajib isi bagian agama nih.',
+            'school.required' => 'Pilih sekolah dulu dong, jangan dikosongin.',
+            'year.required' => 'Wajib isi tahun lulus, jangan lupa ya.',
+            'placeOfBirth.required' => 'Tempat lahir jangan sampai kosong ya.',
+            'dateOfBirth.required' => 'Tanggal lahir wajib diisi, jangan dilupakan.',
+            'email.required' => 'Email nggak boleh kosong, nih. Harap diisi ya.',
+            'email.email' => 'Format email nggak valid nih, coba dicek lagi.',
+            'phone.required' => 'Nomor telepon jangan lupa diisi ya.',
+            'address.required' => 'Alamat juga jangan sampai kosong, nih.',
         ]);
 
         if ($validator->fails()) {
@@ -135,6 +137,7 @@ class UserController extends Controller
             'school' => $school,
             'year' => $request->year,
             'nisn' => $request->nisn,
+            'nik' => $request->nik,
             'kip' => $request->kip,
         ];
 
@@ -152,12 +155,12 @@ class UserController extends Controller
      */
     public function update_program(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'program' => ['required'],
             'program_second' => ['required'],
         ], [
-            'program.required' => 'Program studi tidak boleh kosong.',
-            'program_second.required' => 'Program studi ke 2 tidak boleh kosong.',
+            'program.required' => 'Wajib pilih program studi, jangan sampe kosong ya!',
+            'program_second.required' => 'Pilih program studi ke-2 dong, jangan sampai kosong!',
         ]);
 
         if ($validator->fails()) {
@@ -178,7 +181,7 @@ class UserController extends Controller
 
     public function update_family(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             // Ayah
             'fatherName' => ['required'],
             'fatherPlaceOfBirth' => ['required'],
@@ -195,19 +198,19 @@ class UserController extends Controller
             'motherAddress' => ['required'],
         ], [
             // Ayah
-            'fatherName.required' => 'Nama ayah tidak boleh kosong.',
-            'fatherPlaceOfBirth.required' => 'Tempat lahir ayah tidak boleh kosong.',
-            'fatherDateOfBirth.required' => 'Tanggal lahir ayah tidak boleh kosong.',
-            'fatherEducation.required' => 'Pendidikan ayah tidak boleh kosong.',
-            'fatherJob.required' => 'Pekerjaan ayah tidak boleh kosong.',
-            'fatherAddress.required' => 'Alamat ayah tidak boleh kosong.',
-            // Mother
-            'motherName.required' => 'Nama ibu tidak boleh kosong.',
-            'motherPlaceOfBirth.required' => 'Tempat lahir ibu tidak boleh kosong.',
-            'motherDateOfBirth.required' => 'Tanggal lahir ibu tidak boleh kosong.',
-            'motherEducation.required' => 'Pendidikan ibu tidak boleh kosong.',
-            'motherJob.required' => 'Pekerjaan ibu tidak boleh kosong.',
-            'motherAddress.required' => 'Alamat ibu tidak boleh kosong.',
+            'fatherName.required' => 'Nama Ayah wajib diisi, jangan lupa ya!',
+            'fatherPlaceOfBirth.required' => 'Tempat lahir Ayah nggak boleh kosong, diisi dong!',
+            'fatherDateOfBirth.required' => 'Tanggal lahir Ayah harus diisi nih, jangan kelewat!',
+            'fatherEducation.required' => 'Pendidikan Ayah nggak boleh kosong, diisi yang bener ya!',
+            'fatherJob.required' => 'Pekerjaan Ayah harus diisi, jangan lupa!',
+            'fatherAddress.required' => 'Alamat Ayah nggak boleh kosong, diisi yang lengkap ya!',
+            // Ibu
+            'motherName.required' => 'Nama Ibu wajib diisi, jangan sampai kosong!',
+            'motherPlaceOfBirth.required' => 'Tempat lahir Ibu harus diisi, jangan lupa ya!',
+            'motherDateOfBirth.required' => 'Tanggal lahir Ibu nggak boleh kosong, diisi yang bener!',
+            'motherEducation.required' => 'Pendidikan Ibu harus diisi, jangan lupa ya!',
+            'motherJob.required' => 'Pekerjaan Ibu nggak boleh kosong, diisi yang bener!',
+            'motherAddress.required' => 'Alamat Ibu wajib diisi, jangan sampai kelewat!',
         ]);
 
         if ($validator->fails()) {
