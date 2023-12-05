@@ -70,9 +70,9 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'phone' => ['required', 'min:10', 'max:15'],
-            'nik' => ['required', 'min:16', 'max:16', 'unique:applicants'],
-            'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
-            'kip' => ['nullable', 'min:16', 'max:16', 'unique:applicants'],
+            'nik' => ['required', 'min:16', 'max:16'],
+            'nisn' => ['required', 'min:10', 'max:10'],
+            'kip' => ['nullable', 'min:16', 'max:16'],
             'religion' => ['required'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'year' => ['required', 'min:4', 'max:4'],
