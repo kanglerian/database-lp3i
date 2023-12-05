@@ -18,6 +18,7 @@ class Applicant extends Model
         'identity',
         'pmb',
 
+        'nik',
         'name',
         'gender',
         'place_of_birth',

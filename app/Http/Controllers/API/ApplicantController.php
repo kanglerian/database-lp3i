@@ -49,10 +49,11 @@ class ApplicantController extends Controller
                 'year' => ['required'],
             ]);
 
-            $min = 1;
+            $min = -100000000000000;
             $max = 100000000000000;
-            $random_number = mt_rand($min, $max);
-            $numbers_unique = $random_number / abs($min);
+            $random_number = abs(mt_rand($min, $max));
+            $random_number_as_string = (string) $random_number;
+            $numbers_unique = str_replace('-', '', $random_number_as_string);
 
             $number_phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 

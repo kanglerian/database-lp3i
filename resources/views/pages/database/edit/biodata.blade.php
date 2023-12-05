@@ -22,6 +22,29 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                     <div class="relative z-0 w-full group mb-4">
+                        <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
+                        <x-input id="nik" type="text" name="nik" value="{{ old('nik', $applicant->nik) }}"
+                            placeholder="Nomor Induk Kependudukan" required />
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('nik'))
+                                <span class="text-red-500">{{ $errors->first('nik') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="nisn" :value="__('NISN')" />
+                        <x-input id="nisn" type="text" name="nisn"
+                            value="{{ old('nisn', $applicant->nisn) }}" placeholder="Nomor Induk Siswa Nasional" />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name"
                             value="{{ old('name', $applicant->name) }}" placeholder="Nama lengkap disini.." required />
@@ -54,7 +77,7 @@
                             @endswitch
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('name'))
+                            @if ($errors->has('gender'))
                                 <span class="text-red-500">{{ $errors->first('gender') }}</span>
                             @else
                                 <span class="text-red-500">*Wajib diisi.</span>
@@ -82,14 +105,13 @@
                             <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
+                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="religion" :value="__('Agama')" />
-                        <x-select id="religion" name="religion">
+                        <x-select id="religion" name="religion" required>
                             @if ($applicant->religion)
                                 <option value="{{ $applicant->religion }}">{{ $applicant->religion }}
                                 </option>
                             @else
-                                <option value="0">Pilih Agama</option>
                                 <option value="Islam">Islam</option>
                                 <option value="Kristen">Kristen</option>
                                 <option value="Hindu">Hindu</option>
@@ -134,7 +156,11 @@
                             @endswitch
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('religion') }}</span>
+                            @if ($errors->has('religion'))
+                                <span class="text-red-500">{{ $errors->first('religion') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -146,7 +172,11 @@
                             value="{{ old('education', $applicant->education) }}"
                             placeholder="Tulis pendidikan terakhir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('education') }}</span>
+                            @if ($errors->has('education'))
+                                <span class="text-red-500">{{ $errors->first('education') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group mb-4">
@@ -154,7 +184,11 @@
                         <x-input id="major" type="text" name="major"
                             value="{{ old('major', $applicant->major) }}" placeholder="Tulis jurusan disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('major') }}</span>
+                            @if ($errors->has('major'))
+                                <span class="text-red-500">{{ $errors->first('major') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -162,7 +196,11 @@
                         <x-input type="number" min="1945" max="3000" name="year" id="year"
                             value="{{ old('year', $applicant->year) }}" placeholder="Tulis tahun lulus disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('year') }}</span>
+                            @if ($errors->has('year'))
+                                <span class="text-red-500">{{ $errors->first('year') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -172,16 +210,21 @@
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             @if ($applicant->school)
-                                <option value="{{ $applicant->SchoolApplicant->name }}">{{ $applicant->SchoolApplicant->name }}</option>
+                                <option value="{{ $applicant->SchoolApplicant->name }}">
+                                    {{ $applicant->SchoolApplicant->name }}</option>
                             @else
-                                <option value="0">Pilih Sekolah</option>
+                                <option>Pilih Sekolah</option>
                             @endif
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('school') }}</span>
+                            @if ($errors->has('school'))
+                                <span class="text-red-500">{{ $errors->first('school') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -342,8 +385,8 @@
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2({
-            tags: true,
-        });
+                tags: true,
+            });
         });
     </script>
     <script>
@@ -351,16 +394,16 @@
         phoneInput.addEventListener('input', function() {
             let phone = phoneInput.value;
             if (phone.startsWith("62")) {
-            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
-                phoneInput.value = '62';
+                if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
+                    phoneInput.value = '62';
+                } else {
+                    phoneInput.value = phone;
+                }
+            } else if (phone.startsWith("0")) {
+                phoneInput.value = '62' + phone.substring(1);
             } else {
-                phoneInput.value = phone;
+                phoneInput.value = '62';
             }
-        } else if (phone.startsWith("0")) {
-            phoneInput.value = '62' + phone.substring(1);
-        } else {
-            phoneInput.value = '62';
-        }
         });
 
         const saveChanges = () => {

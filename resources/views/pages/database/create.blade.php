@@ -31,8 +31,10 @@
         <form method="POST" action="{{ route('database.store') }}" id="formDatabase">
             @csrf
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @include('pages.database.create.information')
-            @include('pages.database.create.biodata')
+                <section class="grid md:grid-cols-2 gap-5">
+                    @include('pages.database.create.information')
+                    @include('pages.database.create.biodata')
+                </section>
             </div>
         </form>
     </div>

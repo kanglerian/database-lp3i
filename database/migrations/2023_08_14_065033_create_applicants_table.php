@@ -19,6 +19,7 @@ class CreateApplicantsTable extends Migration
             $table->string('identity', 50)->nullable();
             $table->year('pmb')->nullable();
 
+            $table->string('nik', 16)->nullable();
             $table->string('name', 150);
             $table->tinyInteger('gender')->nullable();
             $table->string('religion', 100)->nullable();

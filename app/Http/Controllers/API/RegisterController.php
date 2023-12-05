@@ -23,43 +23,36 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'string', 'max:255'],
+            'nisn' => ['required', 'string', 'min:10', 'max:15'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
                 'required',
                 'string',
+                'min:10',
+                'max:15'
             ],
-            'year' => ['required'],
+            'year' => ['required', 'min:4','max:4'],
             'password' => ['required', 'confirmed'],
         ], [
-            'name.required' => 'Nama lengkap tidak boleh kosong.',
-            'nisn.required' => 'NISN tidak boleh kosong.',
-            'school.required' => 'Sekolah tidak boleh kosong.',
-            'email.required' => 'Email tidak boleh kosong.',
-            'email.email' => 'Format email tidak valid.',
-            'phone.required' => 'Nomor telepon tidak boleh kosong.',
-            'year.required' => 'Tahun lulus tidak boleh kosong.',
-            'password.required' => 'Password tidak boleh kosong.',
+            'name.required' => 'Oopss, sepertinya Nama Lengkap lupa diisi ya!',
+            'nisn.required' => 'Hei, NISN harus diisi nih, jangan lupa!',
+            'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
+            'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
+            'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
+            'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',
+            'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
+            'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+            'year.required' => 'Jangan lupa isi tahun lulus, pasti penting!',
+            'password.required' => 'Password jangan lupa diisi, ya!',
+            'password.confirmed' => 'Ups, konfirmasi password tidak sesuai, cek lagi ya!',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()], 422);
         }
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'string', 'max:255'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => [
-                'required',
-                'string',
-            ],
-            'password' => ['required', 'confirmed'],
-        ]);
 
         function getYearPMB()
         {
@@ -90,8 +83,9 @@ class RegisterController extends Controller
         }
         $min = -100000000000000;
         $max = 100000000000000;
-        $random_number = mt_rand(0, $max - $min) + $min;
-        $numbers_unique = $random_number;
+        $random_number = abs(mt_rand($min, $max));
+        $random_number_as_string = (string) $random_number;
+        $numbers_unique = str_replace('-', '', $random_number_as_string);
 
         $check_email_applicant = Applicant::where('email', $request->email)->first();
         $check_phone_applicant = Applicant::where('phone', $request->phone)->first();

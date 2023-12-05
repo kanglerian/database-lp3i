@@ -284,29 +284,44 @@ class ApplicantController extends Controller
             $request->validate([
                 'pmb' => ['required', 'integer'],
                 'programtype_id' => ['required', 'not_in:0'],
+                'program' => ['required', 'string', 'not_in:Pilih program'],
+                'program_second' => ['nullable', 'string', 'not_in:Pilih program'],
                 'name' => ['required', 'string', 'max:255'],
                 'gender' => ['required', 'string', 'not_in:null'],
                 'source_id' => ['required', 'not_in:0'],
                 'status_id' => ['required', 'not_in:0'],
                 'followup_id' => ['not_in:null'],
-                'program' => ['required', 'string', 'not_in:0'],
                 'identity_user' => ['required', 'string', 'not_in:0'],
+            ], [
+                'pmb.required' => 'Kolom PMB tidak boleh kosong, harap isi dengan angka.',
+                'pmb.integer' => 'Kolom PMB harus berupa angka.',
+                'programtype_id.required' => 'Pilih tipe program terlebih dahulu.',
+                'programtype_id.not_in' => 'Pilih tipe program yang valid.',
+                'program.required' => 'Kolom program tidak boleh kosong, harap pilih program yang diinginkan.',
+                'program.string' => 'Kolom program harus berupa teks.',
+                'program.not_in' => 'Pilih program yang valid.',
+                'program_second.string' => 'Kolom program kedua harus berupa teks.',
+                'program_second.not_in' => 'Pilih program kedua yang valid.',
+                'name.required' => 'Kolom nama tidak boleh kosong.',
+                'name.string' => 'Kolom nama harus berupa teks.',
+                'name.max' => 'Panjang nama tidak boleh melebihi 255 karakter.',
+                'gender.required' => 'Pilih jenis kelamin.',
+                'gender.not_in' => 'Pilih jenis kelamin yang valid.',
+                'source_id.required' => 'Pilih sumber informasi Anda.',
+                'source_id.not_in' => 'Pilih sumber informasi yang valid.',
+                'status_id.required' => 'Pilih status Anda.',
+                'status_id.not_in' => 'Pilih status yang valid.',
+                'followup_id.not_in' => 'Pilih opsi tindak lanjut yang valid.',
+                'identity_user.required' => 'Kolom identitas pengguna tidak boleh kosong.',
+                'identity_user.string' => 'Kolom identitas pengguna harus berupa teks.',
+                'identity_user.not_in' => 'Pilih jenis identitas pengguna yang valid.',
             ]);
 
-            $min = 1;
+            $min = -100000000000000;
             $max = 100000000000000;
-            $random_number = mt_rand($min, $max);
-            $numbers_unique = $random_number / abs($min);
-
-            $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
-            $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
-            $kel = $request->input('villages') !== null ? 'DESA/KEL. ' . $request->input('villages') . ' ' : null;
-            $kec = $request->input('districts') !== null ? 'KEC. ' . $request->input('districts') . ' ' : null;
-            $reg = $request->input('regencies') !== null ? 'KOTA/KAB. ' . $request->input('regencies') . ' ' : null;
-            $prov = $request->input('provinces') !== null ? 'PROVINSI ' . $request->input('provinces') . ' ' : null;
-            $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
-
-            $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+            $random_number = abs(mt_rand($min, $max));
+            $random_number_as_string = (string) $random_number;
+            $numbers_unique = str_replace('-', '', $random_number_as_string);
 
             $schoolCheck = School::where('id', $request->input('school'))->first();
             $schoolNameCheck = School::where('name', $request->input('school'))->first();
@@ -331,36 +346,14 @@ class ApplicantController extends Controller
                 'pmb' => $request->input('pmb'),
                 'name' => ucwords(strtolower($request->input('name'))),
                 'gender' => $request->input('gender'),
-                'place_of_birth' => $request->input('place_of_birth'),
-                'date_of_birth' => $request->input('date_of_birth'),
-                'religion' => $request->input('religion'),
-                'address' => $address_applicant,
-                'social_media' => $request->input('social_media'),
-
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
-
-                'education' => $request->input('education'),
                 'school' => $school,
-                'major' => $request->input('major'),
-                'class' => $request->input('class'),
-                'year' => $request->input('year'),
-                'achievement' => $request->input('achievement'),
-                'kip' => $request->input('kip'),
-
                 'note' => $request->input('note'),
-                'relation' => $request->input('relation'),
-
                 'identity_user' => $request->input('identity_user'),
                 'program' => $request->input('program'),
+                'program_second' => $request->input('program_second'),
                 'isread' => '0',
-                'come' => $request->input('come') == "null" ? null : $request->input('come'),
-
-                'known' => $request->input('known') == "null" ? null : $request->input('known'),
-                'planning' => $request->input('planning') == "null" ? null : $request->input('planning'),
-                'other_campus' => $request->input('other_campus'),
-                'income_parent' => $request->input('income_parent') == "null" ? null : $request->input('income_parent'),
-
                 'followup_id' => $request->input('followup_id'),
                 'programtype_id' => $request->input('programtype_id'),
                 'source_id' => $request->input('source_id'),
@@ -629,23 +622,50 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $applicant = Applicant::findOrFail($id);
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-        $user_detail = User::where('identity', $applicant->identity)->first();
-
         $request->validate([
             'pmb' => ['required', 'integer'],
-            'programtype_id' => ['required', 'not_in:0'],
+            'programtype_id' => ['required', 'not_in:null'],
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
             'source_id' => ['required', 'not_in:0'],
             'source_daftar_id' => ['required', 'not_in:0'],
             'status_id' => ['required', 'not_in:0'],
             'followup_id' => ['not_in:null'],
-            'program' => ['required', 'string', 'not_in:0'],
+            'program' => ['required', 'string', 'not_in:Pilih program'],
+            'program_second' => ['required', 'string', 'not_in:Pilih program'],
             'identity_user' => ['required', 'string', 'not_in:0'],
+        ], [
+            'pmb.required' => 'Kolom PMB tidak boleh kosong, harap isi dengan angka.',
+            'pmb.integer' => 'Kolom PMB harus berupa angka.',
+            'programtype_id.required' => 'Pilih tipe program terlebih dahulu.',
+            'programtype_id.not_in' => 'Pilih tipe program yang valid.',
+            'name.required' => 'Kolom nama tidak boleh kosong.',
+            'name.string' => 'Kolom nama harus berupa teks.',
+            'name.max' => 'Panjang nama tidak boleh melebihi 255 karakter.',
+            'gender.required' => 'Pilih jenis kelamin.',
+            'gender.not_in' => 'Pilih jenis kelamin yang valid.',
+            'source_id.required' => 'Pilih sumber informasi Anda.',
+            'source_id.not_in' => 'Pilih sumber informasi yang valid.',
+            'source_daftar_id.required' => 'Pilih sumber pendaftaran Anda.',
+            'source_daftar_id.not_in' => 'Pilih sumber pendaftaran yang valid.',
+            'status_id.required' => 'Pilih status Anda.',
+            'status_id.not_in' => 'Pilih status yang valid.',
+            'followup_id.not_in' => 'Pilih opsi tindak lanjut yang valid.',
+            'program.required' => 'Kolom program tidak boleh kosong, harap pilih program yang diinginkan.',
+            'program.string' => 'Kolom program harus berupa teks.',
+            'program.not_in' => 'Pilih program yang valid.',
+            'program_second.required' => 'Kolom program kedua tidak boleh kosong, harap pilih program kedua yang diinginkan.',
+            'program_second.string' => 'Kolom program kedua harus berupa teks.',
+            'program_second.not_in' => 'Pilih program kedua yang valid.',
+            'identity_user.required' => 'Kolom identitas pengguna tidak boleh kosong.',
+            'identity_user.string' => 'Kolom identitas pengguna harus berupa teks.',
+            'identity_user.not_in' => 'Pilih jenis identitas pengguna yang valid.',
         ]);
+
+        $applicant = Applicant::findOrFail($id);
+        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+        $user_detail = User::where('identity', $applicant->identity)->first();
 
         if ($user_detail !== null) {
             $data_user = [
@@ -712,6 +732,7 @@ class ApplicantController extends Controller
 
             'identity_user' => $request->input('identity_user'),
             'program' => $request->input('program'),
+            'program_second' => $request->input('program_second'),
             'isread' => $request->input('isread'),
             'come' => $request->input('come') == "null" ? null : $request->input('come'),
 
@@ -873,10 +894,10 @@ class ApplicantController extends Controller
         $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
         $applicantMother = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 0])->first();
 
-        if($applicantFather){
+        if ($applicantFather) {
             $applicantFather->update($data_father);
         }
-        if($applicantMother){
+        if ($applicantMother) {
             $applicantMother->update($data_mother);
         }
         $student->update($data_applicant);

@@ -13,8 +13,8 @@
             </header>
             <hr class="my-2">
             <section>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                    <div class="relative z-0 w-full group">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
                         <x-input id="pmb" type="number" name="pmb" :value="old('pmb')"
                             placeholder="Tahun Akademik" required />
@@ -46,11 +46,11 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="program" :value="__('Program')" />
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="program" :value="__('Program Studi 1')" />
                         <x-select id="program" name="program" required>
-                            <option value="0">Pilih program</option>
+                            <option>Pilih program</option>
                             @if ($programs == null)
                                 <option value="Belum diketahui">Belum diketahui</option>
                             @else
@@ -70,6 +70,32 @@
                             @endif
                         </p>
                     </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="program_second" :value="__('Program Studi 2')" />
+                        <x-select id="program_second" name="program_second" required>
+                            <option>Pilih program</option>
+                            @if ($programs == null)
+                                <option value="Belum diketahui">Belum diketahui</option>
+                            @else
+                                <option value="Belum diketahui">Belum diketahui</option>
+                                @foreach ($programs as $prog)
+                                    <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
+                                        {{ $prog['level'] }}
+                                        {{ $prog['title'] }}</option>
+                                @endforeach
+                            @endif
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('program_second'))
+                                <span class="text-red-500">{{ $errors->first('program_second') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
                     @if (Auth::check() && Auth::user()->role == 'P')
                         <input type="hidden" value="{{ Auth::user()->identity }}" name="identity_user">
                     @else
@@ -91,59 +117,7 @@
                             </p>
                         </div>
                     @endif
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="known" :value="__('Mengetahui LP3I')" />
-                        <x-select id="known" name="known">
-                            <option value="null">Pilih</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('known') }}</span>
-                        </p>
-                    </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="come" :value="__('Datang Ke Kampus?')" />
-                        <x-select id="come" name="come">
-                            <option value="null">Pilih</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('come') }}</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="planning" :value="__('Rencana Setelah Lulus')" />
-                        <x-select id="planning" name="planning">
-                            <option value="null">Pilih</option>
-                            <option value="Kuliah">Kuliah</option>
-                            <option value="Kerja">Kerja</option>
-                            <option value="Bisnis">Bisnis</option>
-                            <option value="Nikah">Nikah</option>
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('planning') }}</span>
-                        </p>
-                    </div>
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="other_campus" :value="__('Pilihan Kampus Selain LP3I')" />
-                        <x-input id="other_campus" type="text" name="other_campus" placeholder="Kampus Pilihan Lain" />
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('other_campus') }}</span>
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
                         <x-label for="source_id" :value="__('Sumber')" />
                         <x-select id="source_id" name="source_id" required>
                             <option value="0">Pilih sumber</option>
@@ -161,7 +135,10 @@
                             @endif
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group mb-4">
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                    <div class="relative z-0 w-full group">
                         <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
                         <x-select id="followup_id" name="followup_id" required>
                             <option value="null">Pilih keterangan</option>
@@ -195,7 +172,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-1 md:gap-6 mb-4">
+                <div class="grid md:grid-cols-1 md:gap-6">
                     <div class="relative z-0 w-full group">
                         <x-label for="note" :value="__('Catatan')" />
                         <x-textarea id="note" type="note" name="note" value="{{ old('note') }}"

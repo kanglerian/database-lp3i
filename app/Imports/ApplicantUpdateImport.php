@@ -28,8 +28,9 @@ class ApplicantUpdateImport implements ToModel
     {
         $min = -100000000000000;
 $max = 100000000000000;
-$random_number = mt_rand(0, $max - $min) + $min;
-$numbers_unique = $random_number;
+$random_number = abs(mt_rand($min, $max));
+ $random_number_as_string = (string) $random_number;
+        $numbers_unique = str_replace('-', '', $random_number_as_string);
         $phone = !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null;
         $applicant = Applicant::where('phone', $phone)->first();
         $schoolName = $row[6];

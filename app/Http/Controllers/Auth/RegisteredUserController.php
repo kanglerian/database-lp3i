@@ -74,16 +74,42 @@ class RegisteredUserController extends Controller
             'religion' => ['required'],
             'education' => ['required'],
             'major' => ['required'],
-            'year' => ['required'],
+            'year' => ['required', 'min:4','max:4'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
 
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
                 'required',
                 'string',
+                'min:10',
+                'max:15'
             ],
 
             'password' => ['required', 'confirmed'],
+        ], [
+            'programtype_id.required' => 'Oopss, sepertinya kamu lupa memilih Program Kuliah, yuk isi!',
+            'programtype_id.not_in' => 'Ayo pilih Program Kuliah yang valid, pasti bisa!',
+            'program.required' => 'Program Studi wajib diisi, nih!',
+            'program.not_in' => 'Jangan lupa pilih Program Studi yang valid, ya!',
+            'name.required' => 'Hei, Nama Lengkap jangan sampai kosong ya!',
+            'gender.required' => 'Jenis Kelamin juga penting, lho. Isi dong!',
+            'place_of_birth.required' => 'Tempat Lahir jangan terlupakan ya!',
+            'date_of_birth.required' => 'Tanggal Lahir harus diisi, nih!',
+            'religion.required' => 'Agama jangan lupa diisi, ya!',
+            'education.required' => 'Pendidikanmu jangan sampai terlewat!',
+            'major.required' => 'Jurusan wajib diisi, pasti pilihan yang bagus!',
+            'year.required' => 'Tahun lulus jangan sampai kosong, ya!',
+            'year.min' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
+            'school.required' => 'Sekolah juga jangan terlupakan, lho!',
+            'school.not_in' => 'Ayo pilih Sekolah yang valid, pasti oke!',
+            'email.required' => 'Email jangan sampai kosong, ya!',
+            'email.email' => 'Format email sepertinya kurang benar, cek lagi ya!',
+            'phone.required' => 'Nomor Telepon jangan sampai kosong, ya!',
+            'phone.string' => 'Nomor Telepon harus berupa string, nih!',
+            'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
+            'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+            'password.required' => 'Password jangan sampai kosong, ya!',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai, cek lagi ya!',
         ]);
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
@@ -102,7 +128,7 @@ class RegisteredUserController extends Controller
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if($schoolNameCheck){
+            if ($schoolNameCheck) {
                 $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
@@ -121,12 +147,13 @@ class RegisteredUserController extends Controller
 
         $min = -100000000000000;
         $max = 100000000000000;
-        $random_number = mt_rand(0, $max - $min) + $min;
-        $numbers_unique = $random_number;
+        $random_number = abs(mt_rand($min, $max));
+        $random_number_as_string = (string) $random_number;
+        $numbers_unique = str_replace('-', '', $random_number_as_string);
 
         if ($check_email_applicant) {
             if ($check_email_user) {
-            return back()->with('error', 'Akun sudah ditambahkan. Jika anda lupa Email dan Kata Sandi silahkan hubungi Panitia PMB melalui tombol Whatsapp.');
+                return back()->with('error', 'Akun sudah ditambahkan. Jika anda lupa Email dan Kata Sandi silahkan hubungi Panitia PMB melalui tombol Whatsapp.');
             } else {
                 if ($check_phone_applicant) {
                     $data_user = [

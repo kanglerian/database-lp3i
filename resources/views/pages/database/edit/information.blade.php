@@ -58,7 +58,7 @@
                             <x-label for="program" :value="__('Program Pilihan 1')" />
                             <x-select id="program" name="program" required>
                                 @if ($applicant->program == null)
-                                    <option value="Pilih program">Pilih program</option>
+                                    <option>Pilih program</option>
                                     <option value="Belum diketahui">Belum diketahui</option>
                                     @foreach ($programs as $prog)
                                         <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
@@ -90,7 +90,7 @@
                             <x-label for="program_second" :value="__('Program Pilihan 2')" />
                             <x-select id="program_second" name="program_second">
                                 @if ($applicant->program_second == null)
-                                    <option value="Pilih program">Pilih program</option>
+                                    <option>Pilih program</option>
                                     <option value="Belum diketahui">Belum diketahui</option>
                                     @foreach ($programs as $prog)
                                         <option value="{{ $prog['level'] }} {{ $prog['title'] }}">

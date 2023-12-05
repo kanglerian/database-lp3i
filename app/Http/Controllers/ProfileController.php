@@ -139,18 +139,52 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nik' => ['required', 'min:16', 'max:16'],
+            'nisn' => ['nullable','min:10', 'max:10'],
+            'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'not_in:null'],
+            'religion' => ['required', 'string'],
+            'education' => ['required'],
+            'major' => ['required'],
+            'year' => ['required', 'min:4', 'max:4'],
+            'school' => ['required', 'not_in:Pilih Sekolah'],
+
+            'father_phone' => ['nullable', 'min:10', 'max:15'],
+            'mother_phone' => ['nullable', 'min:10', 'max:15'],
+        ], [
+            'nik.required' => 'Ups, sepertinya NIK belum diisi ya!',
+            'nik.min' => 'Panjang NIK harus tepat 16 karakter, pastikan benar ya!',
+            'nik.max' => 'Panjang NIK harus tepat 16 karakter, pastikan benar ya!',
+
+            'nisn.min' => 'Panjang NISN harus tepat 10 karakter, pastikan benar ya!',
+            'nisn.max' => 'Panjang NISN harus tepat 10 karakter, pastikan benar ya!',
+
+            'name.required' => 'Nama Lengkap wajib diisi, nih!',
+            'gender.required' => 'Jenis Kelamin wajib diisi, jangan terlewat!',
+            'religion.required' => 'Agama wajib diisi, pastikan benar ya!',
+            'education.required' => 'Pendidikan wajib diisi, jangan sampai terlewatkan!',
+            'major.required' => 'Jurusan wajib diisi, pastikan benar ya!',
+            'year.required' => 'Tahun lulus wajib diisi, nih!',
+            'year.min' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
+            'year.max' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
+
+            'school.required' => 'Pilih Sekolah wajib diisi, jangan sampai terlewat!',
+
+            'father_phone.string' => 'Nomor Telepon harus berupa string, nih!',
+            'father_phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
+            'father_phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+            'mother_phone.string' => 'Nomor Telepon harus berupa string, nih!',
+            'mother_phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
+            'mother_phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+        ]);
+
         $user = User::findOrFail($id);
         $user_detail = Applicant::where('identity', $user->identity)->first();
         $applicant = Applicant::findOrFail($user_detail->id);
 
         $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
         $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-
-        $request->validate([
-            'gender' => ['required', 'not_in:Pilih gender'],
-            'program' => ['string', 'not_in:Pilih program'],
-            'religion' => ['string', 'not_in:null'],
-        ]);
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
         $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
@@ -163,7 +197,7 @@ class ProfileController extends Controller
 
         $schoolCheck = School::where('id', $request->input('school'))->first();
 
-        if($schoolCheck){
+        if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
             $dataSchool = [
@@ -175,13 +209,14 @@ class ProfileController extends Controller
         }
 
         $data = [
+            'nik' => $request->input('nik'),
+            'nisn' => $request->input('nisn'),
             'name' => ucwords(strtolower($request->input('name'))),
             'education' => $request->input('education'),
             'major' => $request->input('major'),
             'year' => $request->input('year'),
             'school' => $school,
             'class' => $request->input('class'),
-            'program' => $request->input('program'),
             'place_of_birth' => $request->input('place_of_birth'),
             'date_of_birth' => $request->input('date_of_birth'),
             'gender' => $request->input('gender'),
