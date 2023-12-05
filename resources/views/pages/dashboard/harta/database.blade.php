@@ -39,7 +39,7 @@
                                     {{ $number + 1 }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $database->name }}
+                                    <a href="{{ route('database.show', $database->identity) }}">{{ $database->name }}</a>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $database->sourceSetting->name }}
