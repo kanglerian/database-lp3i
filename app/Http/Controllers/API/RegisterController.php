@@ -27,12 +27,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
-            'email' => ['required', 'email', 'max:255',],
+            'email' => ['required', 'email', 'max:255','unique:applicants'],
             'phone' => [
                 'required',
                 'string',
                 'min:10',
                 'max:15',
+                'unique:applicants',
             ],
             'year' => ['required', 'min:4','max:4'],
             'password' => ['required', 'confirmed'],
@@ -43,9 +44,11 @@ class RegisterController extends Controller
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
+            'email.unique' => 'Waduh, Email sudah terdaftar nih, cari yang lain ya!',
             'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',
             'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+            'phone.unique' => 'Waduh, No. Telpon sudah terdaftar nih, cari yang lain ya!',
             'year.required' => 'Jangan lupa isi tahun lulus, pasti penting!',
             'password.required' => 'Password jangan lupa diisi, ya!',
             'password.confirmed' => 'Ups, konfirmasi password tidak sesuai, cek lagi ya!',
@@ -97,9 +100,9 @@ class RegisterController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['registered' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                    return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
-                    return response()->json(['forgot' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                    return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 }
             } else {
                 if ($check_phone_applicant) {
