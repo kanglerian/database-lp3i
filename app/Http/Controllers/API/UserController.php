@@ -70,7 +70,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'phone' => ['required', 'min:10', 'max:15'],
-            'nik' => ['required', 'min:16', 'max:16'],
+            'nik' => ['required', 'min:16', 'max:16','unique:applicants'],
             'nisn' => ['required', 'min:10', 'max:10'],
             'religion' => ['required'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
@@ -80,6 +80,7 @@ class UserController extends Controller
             'address' => ['required'],
         ], [
             'nik.required' => 'NIK-nya jangan lupa diisi ya, nggak boleh kosong.',
+            'nik.unique' => 'Nomor Induk Kependudukan (NIK) sudah terdaftar.',
             'nisn.required' => 'Ups, NISN-nya jangan dikosongin ya.',
             'religion.required' => 'Wajib isi bagian agama nih.',
             'school.required' => 'Pilih sekolah dulu dong, jangan dikosongin.',
