@@ -27,14 +27,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
-            'email' => ['required', 'email', 'max:255','unique:applicants','unique:users'],
+            'email' => ['required', 'email', 'max:255','unique:applicants'],
             'phone' => [
                 'required',
                 'string',
                 'min:10',
                 'max:15',
                 'unique:applicants',
-                'unique:users'
             ],
             'year' => ['required', 'min:4','max:4'],
             'password' => ['required', 'confirmed'],
@@ -101,7 +100,7 @@ class RegisterController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                    return response()->json(['message_' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
                     return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 }
