@@ -100,9 +100,9 @@ class RegisterController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['message_' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                    return response()->json(['registered' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
-                    return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                    return response()->json(['forgot' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
                 }
             } else {
                 if ($check_phone_applicant) {
