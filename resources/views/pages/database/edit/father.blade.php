@@ -9,10 +9,10 @@
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
                 </p>
             </header>
-            <hr class="mt-2 mb-8">
+            <hr class="mt-2 mb-5">
             <section>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="father_name" :value="__('Nama Lengkap')" />
                         <x-input id="father_name" type="text" name="father_name"
                             value="{{ old('father_name', $father->name) }}" placeholder="Nama lengkap disini.." />
@@ -29,8 +29,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="father_place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="father_place_of_birth" type="text" name="father_place_of_birth"
                             value="{{ old('father_place_of_birth', $father->place_of_birth) }}"
@@ -49,8 +49,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="father_education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="father_education" type="text" name="father_education"
                             value="{{ old('father_education', $father->education) }}"
@@ -59,28 +59,26 @@
                             <span class="text-red-500">{{ $errors->first('father_education') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full mb-4 group">
-                        <div class="relative z-0 w-full group">
-                            <x-label for="father_phone" :value="__('No. Whatsapp')" />
-                            <x-input id="father_phone" type="number" name="father_phone" value="{{ $father->phone }}"
-                                placeholder="Tulis no. Whatsapp disini..." />
-                            <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('father_phone') }}</span>
-                            </p>
-                        </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="father_phone" :value="__('No. Whatsapp')" />
+                        <x-input id="father_phone" type="number" name="father_phone" value="{{ $father->phone }}"
+                            placeholder="Tulis no. Whatsapp disini..." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('father_phone') }}</span>
+                        </p>
                     </div>
                 </div>
-                    <div class="grid md:grid-cols-1 md:gap-6">
-                        <div class="relative z-0 w-full group">
-                            <x-label for="father_address" :value="__('Alamat')" />
-                            <x-textarea id="father_address" type="father_address" name="father_address"
-                                value="{{ old('father_address', $father->address) }}"
-                                placeholder="Tulis alamat disini...">{{ $father->address }}</x-textarea>
-                            <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('father_address') }}</span>
-                            </p>
-                        </div>
+                <div class="grid grid-cols-1">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="father_address" :value="__('Alamat')" />
+                        <x-textarea id="father_address" type="father_address" name="father_address"
+                            value="{{ old('father_address', $father->address) }}"
+                            placeholder="Tulis alamat disini...">{{ $father->address }}</x-textarea>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('father_address') }}</span>
+                        </p>
                     </div>
+                </div>
             </section>
         </section>
     </div>

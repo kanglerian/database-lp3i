@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\ApplicantUpdateImport;
 use App\Models\Enrollment;
 use App\Models\Registration;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\FollowUp;
@@ -625,6 +626,24 @@ class ApplicantController extends Controller
         $request->validate([
             'pmb' => ['required', 'integer'],
             'programtype_id' => ['required', 'not_in:null'],
+            'nik' => [
+                'nullable',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($id, 'id'),
+            ],
+            'nisn' => [
+                'nullable',
+                'min:10',
+                'max:10',
+                Rule::unique('applicants')->ignore($id, 'id'),
+            ],
+            'kip' => [
+                'nullable',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($id, 'id'),
+            ],
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
             'source_id' => ['required', 'not_in:0'],
@@ -639,6 +658,15 @@ class ApplicantController extends Controller
             'pmb.integer' => 'Kolom PMB harus berupa angka.',
             'programtype_id.required' => 'Pilih tipe program terlebih dahulu.',
             'programtype_id.not_in' => 'Pilih tipe program yang valid.',
+            'nik.unique' => 'Oops, Nomor Induk Kependudukan (NIK) sudah terdaftar nih, coba yang lain!',
+            'nik.min' => 'Format NIK nggak bener, harus :min digit ya!',
+            'nik.max' => 'Format NIK nggak bener, maksimal :max digit ya!',
+            'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
+            'nisn.min' => 'Format NISN nggak bener, harus :min digit ya!',
+            'nisn.max' => 'Format NISN nggak bener, maksimal :max digit ya!',
+            'kip.unique' => 'Waduh, Nomor Kartu Indonesia Pintar (KIP) sudah terdaftar nih, cari yang lain ya!',
+            'kip.min' => 'Format KIP nggak bener, harus :min digit ya!',
+            'kip.max' => 'Format KIP nggak bener, maksimal :max digit ya!',
             'name.required' => 'Kolom nama tidak boleh kosong.',
             'name.string' => 'Kolom nama harus berupa teks.',
             'name.max' => 'Panjang nama tidak boleh melebihi 255 karakter.',

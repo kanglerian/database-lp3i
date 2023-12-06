@@ -57,14 +57,14 @@
             @csrf
             @method('PATCH')
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                @include('pages.database.edit.information')
-                @include('pages.database.edit.biodata')
-
-                <div class="flex flex-col md:flex-row items-start gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    @include('pages.database.edit.information')
+                    @include('pages.database.edit.biodata')
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @include('pages.database.edit.father')
                     @include('pages.database.edit.mother')
                 </div>
-
             </div>
         </form>
     </div>

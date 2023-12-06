@@ -139,9 +139,32 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+        $user_detail = Applicant::where('identity', $user->identity)->first();
+        $applicant = Applicant::findOrFail($user_detail->id);
+
+        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+
         $request->validate([
-            'nik' => ['required', 'min:16', 'max:16'],
-            'nisn' => ['nullable','min:10', 'max:10'],
+            'nik' => [
+                'required',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($user->identity, 'identity'),
+            ],
+            'nisn' => [
+                'required',
+                'min:10',
+                'max:10',
+                Rule::unique('applicants')->ignore($user->identity, 'identity'),
+            ],
+            'kip' => [
+                'nullable',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($id, 'id'),
+            ],
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
             'religion' => ['required', 'string'],
@@ -154,11 +177,18 @@ class ProfileController extends Controller
             'mother_phone' => ['nullable', 'min:10', 'max:15'],
         ], [
             'nik.required' => 'Ups, sepertinya NIK belum diisi ya!',
-            'nik.min' => 'Panjang NIK harus tepat 16 karakter, pastikan benar ya!',
-            'nik.max' => 'Panjang NIK harus tepat 16 karakter, pastikan benar ya!',
+            'nik.unique' => 'Oops, Nomor Induk Kependudukan (NIK) sudah terdaftar nih, coba yang lain!',
+            'nik.min' => 'Format NIK nggak bener, harus :min digit ya!',
+            'nik.max' => 'Format NIK nggak bener, maksimal :max digit ya!',
 
-            'nisn.min' => 'Panjang NISN harus tepat 10 karakter, pastikan benar ya!',
-            'nisn.max' => 'Panjang NISN harus tepat 10 karakter, pastikan benar ya!',
+            'nisn.required' => 'Ups, sepertinya NISN belum diisi ya!',
+            'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
+            'nisn.min' => 'Format NISN nggak bener, harus :min digit ya!',
+            'nisn.max' => 'Format NISN nggak bener, maksimal :max digit ya!',
+
+            'kip.unique' => 'Waduh, Nomor Kartu Indonesia Pintar (KIP) sudah terdaftar nih, cari yang lain ya!',
+            'kip.min' => 'Format KIP nggak bener, harus :min digit ya!',
+            'kip.max' => 'Format KIP nggak bener, maksimal :max digit ya!',
 
             'name.required' => 'Nama Lengkap wajib diisi, nih!',
             'gender.required' => 'Jenis Kelamin wajib diisi, jangan terlewat!',
@@ -178,13 +208,6 @@ class ProfileController extends Controller
             'mother_phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'mother_phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
         ]);
-
-        $user = User::findOrFail($id);
-        $user_detail = Applicant::where('identity', $user->identity)->first();
-        $applicant = Applicant::findOrFail($user_detail->id);
-
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
 
         $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
         $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;

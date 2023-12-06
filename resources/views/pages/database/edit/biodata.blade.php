@@ -9,42 +9,84 @@
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
                 </p>
             </header>
-            <hr class="mt-2 mb-8">
+            <hr class="mt-2 mb-5">
             <section>
-                <div class="grid md:grid-cols-1 md:gap-6 mb-7 lg:mb-0">
+                <div class="grid grid-cols-1 mb-4">
                     @if ($applicant->program)
-                        <div class="relative z-0 w-full group lg:mb-7">
+                        <div class="relative z-0 w-full group">
                             <h4 class="text-sm text-gray-700 mb-1">Program Studi:</h4>
                             <h2 class="text-lg font-bold text-gray-900">{{ $applicant->program }}</h2>
                         </div>
                     @endif
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                    <div class="relative z-0 w-full group">
                         <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
-                        <x-input id="nik" type="text" name="nik" value="{{ old('nik', $applicant->nik) }}"
-                            placeholder="Nomor Induk Kependudukan" required />
+                        <x-input id="nik" type="number" name="nik" value="{{ old('nik', $applicant->nik) }}"
+                            placeholder="Nomor Induk Kependudukan" />
                         <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('nik'))
-                                <span class="text-red-500">{{ $errors->first('nik') }}</span>
+                            @if (Auth::user()->role == 'S')
+                                @if ($errors->has('nik'))
+                                    <span class="text-red-500">{{ $errors->first('nik') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500">{{ $errors->first('nik') }}</span>
                             @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="nisn" :value="__('NISN')" />
-                        <x-input id="nisn" type="text" name="nisn"
+                        <x-label for="nisn" :value="__('Nomor Induk Siswa Nasional')" />
+                        <x-input id="nisn" type="number" name="nisn"
                             value="{{ old('nisn', $applicant->nisn) }}" placeholder="Nomor Induk Siswa Nasional" />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                            @if (Auth::user()->role == 'S')
+                                @if ($errors->has('nisn'))
+                                    <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                                @else
+                                    <span class="text-red-500">*Wajib diisi.</span>
+                                @endif
+                            @else
+                                <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                            @endif
                         </p>
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="kip" :value="__('No. Kartu Indonesia Pintar')" />
+                        <x-input id="kip" type="number" name="kip" value="{{ old('kip', $applicant->kip) }}"
+                            placeholder="Nomor Kartu Indonesia Pintar" />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('kip') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="income_parent" :value="__('Penghasilan Orang Tua')" />
+                        <x-select id="income_parent" name="income_parent">
+                            @if ($applicant->income_parent)
+                                <option value="{{ $applicant->income_parent }}">{{ $applicant->income_parent }}
+                                </option>
+                            @else
+                                <option value="null">Pilih</option>
+                            @endif
+                            <option value="< 1.000.000">
+                                < 1.000.000</option>
+                            <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
+                            <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
+                            <option value="> 5.000.000">> 5.000.000</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('income_parent') }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name"
                             value="{{ old('name', $applicant->name) }}" placeholder="Nama lengkap disini.." required />
@@ -86,8 +128,8 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="place_of_birth" type="text" name="place_of_birth"
                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
@@ -96,7 +138,7 @@
                             <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
                         <x-input id="date_of_birth" type="date" name="date_of_birth"
                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
@@ -105,7 +147,7 @@
                             <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="religion" :value="__('Agama')" />
                         <x-select id="religion" name="religion" required>
                             @if ($applicant->religion)
@@ -165,8 +207,8 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="education" type="text" name="education"
                             value="{{ old('education', $applicant->education) }}"
@@ -179,7 +221,31 @@
                             @endif
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group mb-4">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="school" :value="__('Sekolah')" />
+                        <x-select id="school" name="school" class="js-example-input-single">
+                            @if ($applicant->school)
+                                <option value="{{ $applicant->SchoolApplicant->name }}">
+                                    {{ $applicant->SchoolApplicant->name }}</option>
+                            @else
+                                <option>Pilih Sekolah</option>
+                            @endif
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('school'))
+                                <span class="text-red-500">{{ $errors->first('school') }}</span>
+                            @else
+                                <span class="text-red-500">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <x-label for="major" :value="__('Jurusan')" />
                         <x-input id="major" type="text" name="major"
                             value="{{ old('major', $applicant->major) }}" placeholder="Tulis jurusan disini..." />
@@ -203,30 +269,6 @@
                             @endif
                         </p>
                     </div>
-                </div>
-
-                <div class="grid md:grid-cols-3 md:gap-6">
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="school" :value="__('Sekolah')" />
-                        <x-select id="school" name="school" class="js-example-input-single">
-                            @if ($applicant->school)
-                                <option value="{{ $applicant->SchoolApplicant->name }}">
-                                    {{ $applicant->SchoolApplicant->name }}</option>
-                            @else
-                                <option>Pilih Sekolah</option>
-                            @endif
-                            @foreach ($schools as $school)
-                                <option value="{{ $school->id }}">{{ $school->name }}</option>
-                            @endforeach
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('school'))
-                                <span class="text-red-500">{{ $errors->first('school') }}</span>
-                            @else
-                                <span class="text-red-500">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="class" :value="__('Kelas')" />
                         <x-input id="class" type="text" name="class"
@@ -235,59 +277,26 @@
                             <span class="text-red-500">{{ $errors->first('class') }}</span>
                         </p>
                     </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="kip" :value="__('Nomor KIP')" />
-                        <x-input id="kip" type="number" name="kip"
-                            value="{{ old('kip', $applicant->kip) }}" placeholder="Tulis nomor KIP disini..." />
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('kip') }}</span>
-                        </p>
-                    </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
                         <div class="relative z-0 w-full group">
                             <x-label for="social_media" :value="__('Sosial Media')" />
                             <x-input id="social_media" type="text" name="social_media"
-                                value="{{ old('social_media', $applicant->social_media) }}"
-                                placeholder="Tulis username sosial media disini..." />
+                                value="{{ old('social_media', $applicant->social_media) }}" placeholder="@" />
                             <p class="mt-2 text-xs text-gray-500">
                                 <span class="text-red-500">{{ $errors->first('social_media') }}</span>
                             </p>
                         </div>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <div class="relative z-0 w-full group">
-                            <x-label for="achievement" :value="__('Prestasi')" />
-                            <x-input id="achievement" type="text" name="achievement"
-                                value="{{ old('achievement', $applicant->achievement) }}"
-                                placeholder="Tulis prestasi disini..." />
-                            <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('achievement') }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                    <div class="relative z-0 w-full group mb-4">
-                        <x-label for="income_parent" :value="__('Penghasilan Orang Tua')" />
-                        <x-select id="income_parent" name="income_parent">
-                            @if ($applicant->income_parent)
-                                <option value="{{ $applicant->income_parent }}">{{ $applicant->income_parent }}
-                                </option>
-                            @else
-                                <option value="null">Pilih</option>
-                            @endif
-                            <option value="< 1.000.000">
-                                < 1.000.000</option>
-                            <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
-                            <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
-                            <option value="> 5.000.000">> 5.000.000</option>
-                        </x-select>
+                        <x-label for="achievement" :value="__('Prestasi')" />
+                        <x-input id="achievement" type="text" name="achievement"
+                            value="{{ old('achievement', $applicant->achievement) }}"
+                            placeholder="Tulis prestasi disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('income_parent') }}</span>
+                            <span class="text-red-500">{{ $errors->first('achievement') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -300,78 +309,16 @@
                         </p>
                     </div>
                 </div>
-                @if ($applicant->address == null)
-                    <div id="address-container" class="hidden">
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full group mb-4">
-                                <x-label for="provinces" :value="__('Provinsi')" />
-                                <x-select id="provinces" name="provinces">
-                                    <option value="">Pilih Provinsi</option>
-                                </x-select>
-                            </div>
-                            <div class="relative z-0 w-full group">
-                                <x-label for="regencies" :value="__('Kota')" />
-                                <x-select id="regencies" name="regencies">
-                                    <option value="">Pilih Kota / Kabupaten</option>
-                                </x-select>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full group mb-4">
-                                <x-label for="districts" :value="__('Kecamatan')" />
-                                <x-select id="districts" name="districts">
-                                    <option value="">Pilih Kecamatan</option>
-                                </x-select>
-                            </div>
-                            <div class="relative z-0 w-full group">
-                                <x-label for="villages" :value="__('Kelurahan')" />
-                                <x-select id="villages" name="villages">
-                                    <option value="">Pilih Desa / Kelurahan</option>
-                                </x-select>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-3 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full group mb-4">
-                                <x-label for="rt" :value="__('RT')" />
-                                <x-input id="rt" type="number" name="rt" :value="old('rt')"
-                                    placeholder="Tulis RT disini..." />
-                                <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('rt') }}</span>
-                                </p>
-                            </div>
-                            <div class="relative z-0 w-full group mb-4">
-                                <x-label for="rw" :value="__('RW')" />
-                                <x-input id="rw" type="number" name="rw" :value="old('rw')"
-                                    placeholder="Tulis RW disini..." />
-                                <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('rw') }}</span>
-                                </p>
-                            </div>
-                            <div class="relative z-0 w-full group">
-                                <x-label for="postal_code" :value="__('Kode Pos')" />
-                                <x-input id="postal_code" type="number" name="postal_code" :value="old('postal_code')"
-                                    placeholder="Tulis kode pos disini..." />
-                                <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('postal_code') }}</span>
-                                </p>
-                            </div>
-                        </div>
+                <div class="grid grid-cols-1">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="address" :value="__('Alamat')" />
+                        <x-textarea id="address" type="address" name="address" value="{{ $applicant->address }}"
+                            placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500">{{ $errors->first('address') }}</span>
+                        </p>
                     </div>
-                @else
-                    <div class="grid md:grid-cols-1 md:gap-6">
-                        <div class="relative z-0 w-full group">
-                            <x-label for="address" :value="__('Alamat')" />
-                            <x-textarea id="address" type="address" name="address"
-                                value="{{ $applicant->address }}"
-                                placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
-                            <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('address') }}</span>
-                            </p>
-                        </div>
-                    </div>
-                @endif
+                </div>
             </section>
         </section>
     </div>
