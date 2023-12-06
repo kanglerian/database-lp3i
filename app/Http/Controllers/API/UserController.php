@@ -13,6 +13,7 @@ use App\Models\UserUpload;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -70,9 +71,24 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'phone' => ['required', 'min:10', 'max:15'],
-            'nik' => ['required', 'min:16', 'max:16'],
-            'nisn' => ['required', 'min:10', 'max:10'],
-            'kip' => ['nullable', 'min:16', 'max:16'],
+            'nik' => [
+                'required',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($id, 'identity'),
+            ],
+            'nisn' => [
+                'required',
+                'min:10',
+                'max:10',
+                Rule::unique('applicants')->ignore($id, 'identity'),
+            ],
+            'kip' => [
+                'nullable',
+                'min:16',
+                'max:16',
+                Rule::unique('applicants')->ignore($id, 'identity'),
+            ],
             'religion' => ['required'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'year' => ['required', 'min:4', 'max:4'],
