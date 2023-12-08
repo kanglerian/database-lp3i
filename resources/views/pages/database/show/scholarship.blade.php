@@ -35,7 +35,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="result"></div>
+        <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
     </div>
 
     <script src="{{ asset('js/axios.min.js') }}"></script>
