@@ -925,14 +925,6 @@ select {
   margin-bottom: 1.5rem;
 }
 
-.mb-7 {
-  margin-bottom: 1.75rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -2750,10 +2742,6 @@ select {
     order: 0;
   }
 
-  .md\:mb-0 {
-    margin-bottom: 0px;
-  }
-
   .md\:ml-2 {
     margin-left: 0.5rem;
   }
@@ -2918,10 +2906,6 @@ select {
 
   .lg\:mb-4 {
     margin-bottom: 1rem;
-  }
-
-  .lg\:mb-7 {
-    margin-bottom: 1.75rem;
   }
 
   .lg\:w-7\/12 {

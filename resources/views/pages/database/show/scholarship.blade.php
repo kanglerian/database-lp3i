@@ -35,8 +35,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5">
-        <div class="w-full mx-auto space-y-5 px-5" id="result">
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="result"></div>
     </div>
 
     <script src="{{ asset('js/axios.min.js') }}"></script>
@@ -68,8 +67,7 @@
                         let score = parseInt(result.score);
                         let scoreResult = score.toFixed();
                         bucket += `
-                    <div class="p-6 bg-white shadow rounded-xl">
-                        <div>
+                        <div class="p-6 bg-white shadow rounded-xl">
                             <h2 class="text-lg font-bold">${result.category}</h2>
                             <ul class="text-sm space-y-1 mt-2">
                                 <li>
@@ -93,11 +91,10 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
                     `
                     });
                     document.getElementById('result').innerHTML = `
-                        <div class="grid grid-cols-2 md:grid-cols-3 mx-auto gap-3">
+                        <div class="grid grid-cols-1 md:grid-cols-3 mx-auto gap-3">
                             ${bucket}
                         </div>
                     `;

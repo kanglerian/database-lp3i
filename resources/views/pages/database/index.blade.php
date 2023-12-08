@@ -173,8 +173,7 @@
                             <tbody>
                                 <tr>
                                     <td colspan="9" class="text-center py-5 px-6">Belum ada data yang sesuai dengan
-                                        filter yang diterapkan. <span onclick="changeFilter()"
-                                            class="underline cursor-pointer">Lihat semua.</span></td>
+                                        filter yang diterapkan.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -227,8 +226,7 @@
                     $(row).css('color', 'white');
                 }
             },
-            columnDefs: [
-                {
+            columnDefs: [{
                     width: 10,
                     target: 0
                 },
@@ -411,98 +409,116 @@
     }
 
     const downloadBlast = () => {
-        let content = '';
-        let schoolSelect = document.getElementById('school');
-        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-        let schoolVal = selectedSchoolOption.innerText || 'all';
-        let majorVal = document.getElementById('change_major').value || 'all';
-        console.log(schoolVal);
-        dataApplicants.forEach(applicant => {
-            content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
-        });
-        var downloadBlast = document.getElementById('downloadBlast');
-        var blob = new Blob([content], {
-            type: "text/plain"
-        });
-        downloadBlast.href = URL.createObjectURL(blob);
-        downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
+        if (dataApplicants) {
+            let content = '';
+            let schoolSelect = document.getElementById('school');
+            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+            let schoolVal = selectedSchoolOption.innerText || 'all';
+            let majorVal = document.getElementById('change_major').value || 'all';
+            dataApplicants.forEach(applicant => {
+                content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
+            });
+            var downloadBlast = document.getElementById('downloadBlast');
+            var blob = new Blob([content], {
+                type: "text/plain"
+            });
+            downloadBlast.href = URL.createObjectURL(blob);
+            downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
+        } else {
+            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+        }
     }
 
     const downloadDP = () => {
-        let content =
-            'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
-        dataApplicants.forEach(applicant => {
-            let fullName = applicant.name;
-            let nameParts = fullName.split(' ');
-            let fn = nameParts[0];
-            let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant.address.split("KOTA/KAB.")[1].trim() : "") : '';
-            let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
-            let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
-            let genderCode = applicant.gender;
-            let gender = genderCode === 1 ? 'M' : 'F';
-            let tahunSekarang = new Date().getFullYear();
+        if (dataApplicants) {
+            let content =
+                'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
+            dataApplicants.forEach(applicant => {
+                let fullName = applicant.name;
+                let nameParts = fullName.split(' ');
+                let fn = nameParts[0];
+                let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant
+                    .address
+                    .split("KOTA/KAB.")[1].trim() : "") : '';
+                let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
+                let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
+                let genderCode = applicant.gender;
+                let gender = genderCode === 1 ? 'M' : 'F';
+                let tahunSekarang = new Date().getFullYear();
 
-            let ln = nameParts.slice(1).join(' ');
+                let ln = nameParts.slice(1).join(' ');
 
-            let phoneNumber = applicant.phone;
-            let formattedPhoneNumber = phoneNumber !== null ?
-                `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
-                "";
-            content +=
-                `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},Jawa Barat,ID,${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
+                let phoneNumber = applicant.phone;
+                let formattedPhoneNumber = phoneNumber !== null ?
+                    `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
+                    "";
+                content +=
+                    `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},Jawa Barat,ID,${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
 
-        });
-        var downloadDP = document.getElementById('downloadDP');
-        var blob = new Blob([content], {
-            type: "text/plain"
-        });
-        downloadDP.href = URL.createObjectURL(blob);
-        downloadDP.download = `IKLAN.txt`;
-        content = '';
+            });
+            var downloadDP = document.getElementById('downloadDP');
+            var blob = new Blob([content], {
+                type: "text/plain"
+            });
+            downloadDP.href = URL.createObjectURL(blob);
+            downloadDP.download = `IKLAN.txt`;
+            content = '';
+        } else {
+            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+        }
     }
 
     const downloadCSV = () => {
-        let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
-        let schoolSelect = document.getElementById('school');
-        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-        let schoolVal = selectedSchoolOption.innerText || 'all';
-        let majorVal = document.getElementById('change_major').value || 'all';
-        dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
-                .replace(/[\s-]/g, '') : null;
-            let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
-            content +=
-                `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
-        });
-        var downloadCSV = document.getElementById('downloadCSV');
-        var blob = new Blob([content], {
-            type: "text/plain"
-        });
-        downloadCSV.href = URL.createObjectURL(blob);
-        downloadCSV.download = `${schoolVal}-${majorVal}-FILECONTACT.csv`;
+        if (dataApplicants) {
+            let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
+            let schoolSelect = document.getElementById('school');
+            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+            let schoolVal = selectedSchoolOption.innerText || 'all';
+            let majorVal = document.getElementById('change_major').value || 'all';
+            dataApplicants.forEach(applicant => {
+                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+                    .replace(/[\s-]/g, '') : null;
+                let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
+                    '');
+                content +=
+                    `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
+            });
+            var downloadCSV = document.getElementById('downloadCSV');
+            var blob = new Blob([content], {
+                type: "text/plain"
+            });
+            downloadCSV.href = URL.createObjectURL(blob);
+            downloadCSV.download = `${schoolVal}-${majorVal}-FILECONTACT.csv`;
+        } else {
+            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+        }
     }
 
     const downloadVCF = () => {
-        let content = '';
-        let schoolSelect = document.getElementById('school');
-        let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-        let schoolVal = selectedSchoolOption.innerText || 'all';
-        let majorVal = document.getElementById('change_major').value || 'all';
-        dataApplicants.forEach(applicant => {
-            let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
-                .replace(/[\s-]/g, '') : null;
-            let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g, '');
-            content +=
-                `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
-        });
-        var downloadVCF = document.getElementById('downloadVCF');
-        var blob = new Blob([content], {
-            type: "text/vcard"
-        });
-        downloadVCF.href = URL.createObjectURL(blob);
-        downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
+        if (dataApplicants) {
+            let content = '';
+            let schoolSelect = document.getElementById('school');
+            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+            let schoolVal = selectedSchoolOption.innerText || 'all';
+            let majorVal = document.getElementById('change_major').value || 'all';
+            dataApplicants.forEach(applicant => {
+                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+                    .replace(/[\s-]/g, '') : null;
+                let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
+                    '');
+                content +=
+                    `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+            });
+            var downloadVCF = document.getElementById('downloadVCF');
+            var blob = new Blob([content], {
+                type: "text/vcard"
+            });
+            downloadVCF.href = URL.createObjectURL(blob);
+            downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
+        } else {
+            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+        }
     }
-
 </script>
 @include('pages.database.exports.excel')
 @push('scripts')

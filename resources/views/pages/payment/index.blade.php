@@ -52,15 +52,15 @@
                     <i class="fa-solid fa-arrow-right-long ml-2"></i>
                 </a>
             </div>
-            <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-xl m-1">
-                <h5 class="mb-2 text-md font-medium text-gray-500">Total Potensi Omset</h5>
-                <div class="flex items-baseline text-gray-900 mb-3">
-                    <span class="text-xl font-semibold">Rp</span>
-                    <span class="text-3xl text-gray-800 font-extrabold tracking-tight">
+            <div class="max-w-sm p-6 bg-white dark:bg-gray-700 border border-gray-200 rounded-xl m-1">
+                <h5 class="mb-2 text-md font-medium text-gray-500 dark:text-white">Total Potensi Omset</h5>
+                <div class="flex items-baseline text-gray-900 dark:text-white mb-3">
+                    <span class="text-xl font-semibold text-gray-900 dark:text-white">Rp</span>
+                    <span class="text-3xl text-gray-800 dark:text-white font-extrabold tracking-tight">
                         {{ number_format($turnover, 0, ',', '.') }}
                     </span>
                 </div>
-                <p class="mb-3 font-normal text-xs text-gray-700">Berikut ini adalah informasi total potensi omset.
+                <p class="mb-3 font-normal text-xs text-gray-700 dark:text-white">Berikut ini adalah informasi total potensi omset.
                     Untuk selengkapnya klik tombol di bawah ini.</p>
                 <a href="{{ route('registration.index') }}"
                     class="inline-flex items-center px-3 py-2 text-xs font-medium text-center text-white bg-lp3i-100 hover:bg-lp3i-200 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
