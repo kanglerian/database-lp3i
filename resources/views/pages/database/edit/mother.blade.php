@@ -1,4 +1,4 @@
-<div class="w-full px-6 py-6 bg-white shadow sm:rounded-lg">
+<div class="w-full px-6 py-6 bg-white shadow-sm sm:rounded-lg">
     <div class="w-full">
         <section>
             <header>

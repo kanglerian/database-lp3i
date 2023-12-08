@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-            {{ __('Edit Akun') }}
+            {{ __('Ubah Informasi Akun') }}
         </h2>
     </x-slot>
     <div class="py-5">

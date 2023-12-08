@@ -72,7 +72,7 @@
                 <div class="px-5 pb-5">
                     <p class="text-gray-500 text-xs">Silahkan untuk dibagikan melalui menu <a
                             href="{{ route('database.index') }}" class="underline">Database</a>, kemudian
-                        edit Presenter di profil calon mahasiswa baru oleh Administrator.</p>
+                        ubah presenter di profil calon mahasiswa baru oleh Administrator.</p>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@
 
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3">
         <div class="w-full md:w-4/6 mx-auto space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
                 <div class="w-full">
                     <section>
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
@@ -46,12 +46,13 @@
                             </div>
                             <div class="flex gap-2">
                                 @if ($account > 0)
-                                <a href="{{ route('database.print', $user->identity) }}"
-                                    class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
-                                        class="fa-solid fa-print"></i></a>
+                                    <a href="{{ route('database.print', $user->identity) }}"
+                                        class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
+                                            class="fa-solid fa-print"></i></a>
                                 @else
-                                <button onclick="return alert('Buatlah akun terlebih dahulu!')"
-                                    class="inline-block bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-xs"><i class="fa-solid fa-print"></i></button>
+                                    <button onclick="return alert('Buatlah akun terlebih dahulu!')"
+                                        class="inline-block bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-xs"><i
+                                            class="fa-solid fa-print"></i></button>
                                 @endif
                                 <a href="{{ route('database.edit', $user->id) }}"
                                     class="inline-block bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md text-xs text-white"><i
@@ -199,7 +200,7 @@
             </div>
         </div>
         <div class="w-full md:w-2/6 mx-auto space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
                 <div class="w-full">
                     <section>
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
@@ -237,58 +238,62 @@
                                     </label>
                                 </form>
                             </div>
-                            <div class="flex justify-between items-center gap-2">
-                                <form action="{{ route('database.is_daftar', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->is_daftar }}" class="sr-only peer"
-                                            {{ $user->is_daftar == 1 ? 'checked' : '' }}>
-                                        <button {{ $enrollment ? 'disabled' : '' }} type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span
-                                            class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
-                                    </label>
-                                </form>
-                                @if ($user->is_daftar)
-                                    @if ($enrollment)
-                                        <div class="flex items-center gap-3 mt-1">
-                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                        </div>
-                                    @else
-                                        <button type="button" onclick="modalDaftar()"
-                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                class="fa-solid fa-receipt mr-1"></i>
-                                            Masukan nominal
-                                        </button>
+                            @if ($user->is_applicant == 1)
+                                <div class="flex justify-between items-center gap-2">
+                                    <form action="{{ route('database.is_daftar', $user->id) }}" method="get">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="{{ $user->is_daftar }}"
+                                                class="sr-only peer" {{ $user->is_daftar == 1 ? 'checked' : '' }}>
+                                            <button {{ $enrollment ? 'disabled' : '' }} type="submit"
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                            </button>
+                                            <span
+                                                class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
+                                        </label>
+                                    </form>
+                                    @if ($user->is_daftar)
+                                        @if ($enrollment)
+                                            <div class="flex items-center gap-3 mt-1">
+                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                            </div>
+                                        @else
+                                            <button type="button" onclick="modalDaftar()"
+                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                    class="fa-solid fa-receipt mr-1"></i>
+                                                Masukan nominal
+                                            </button>
+                                        @endif
                                     @endif
-                                @endif
-                            </div>
-                            <div class="flex justify-between items-center gap-2">
-                                <form action="{{ route('database.is_register', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->is_register }}" class="sr-only peer"
-                                            {{ $user->is_register == 1 ? 'checked' : '' }}>
-                                        <button {{ $registration ? 'disabled' : '' }} type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span
-                                            class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
-                                    </label>
-                                </form>
-                                @if ($user->is_register)
-                                    @if ($registration)
-                                        <div class="flex items-center gap-3 mt-1">
-                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                        </div>
-                                    @else
-                                        <button type="button" onclick="modalRegistrasi()"
-                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                class="fa-solid fa-receipt mr-1"></i>
-                                            Masukan nominal
-                                        </button>
+                                </div>
+                            @endif
+                            @if ($user->is_applicant == 1 && $user->is_daftar == 1)
+                                <div class="flex justify-between items-center gap-2">
+                                    <form action="{{ route('database.is_register', $user->id) }}" method="get">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="{{ $user->is_register }}"
+                                                class="sr-only peer" {{ $user->is_register == 1 ? 'checked' : '' }}>
+                                            <button {{ $registration ? 'disabled' : '' }} type="submit"
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                            </button>
+                                            <span
+                                                class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
+                                        </label>
+                                    </form>
+                                    @if ($user->is_register)
+                                        @if ($registration)
+                                            <div class="flex items-center gap-3 mt-1">
+                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                            </div>
+                                        @else
+                                            <button type="button" onclick="modalRegistrasi()"
+                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                    class="fa-solid fa-receipt mr-1"></i>
+                                                Masukan nominal
+                                            </button>
+                                        @endif
                                     @endif
-                                @endif
-                            </div>
+                                </div>
+                            @endif
                             <div>
                                 <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
                                     <label class="relative inline-flex items-center cursor-pointer">
@@ -305,7 +310,7 @@
                     </section>
                 </div>
             </div>
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
                 <div class="w-full">
                     <section>
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">

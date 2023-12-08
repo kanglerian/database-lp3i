@@ -9,11 +9,11 @@
             </h2>
             @if ($user->role == 'S')
                 <div class="flex items-center gap-2">
-                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">
                         <i class="fa-solid fa-map-location-dot text-gray-700"></i>
                         <span class="text-sm" id="wilayah"></span>
                     </div>
-                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">
                         <i class="fa-solid fa-rectangle-list text-gray-700"></i>
                         <span class="text-sm">
                             @if ($programs == null)
@@ -27,7 +27,6 @@
             @endif
         </div>
     </x-slot>
-    {{--  --}}
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
@@ -58,7 +57,7 @@
                     </div>
                 @endif
                 <div class="w-full md:w-1/3 flex flex-col gap-3">
-                    <form method="POST" class="p-6 bg-white border-b border-gray-200 rounded-xl"
+                    <form method="POST" class="p-6 bg-white shadow-sm rounded-xl"
                         action="{{ route('profile.update_account', $user->id) }}">
                         @csrf
                         @method('PATCH')
@@ -105,7 +104,7 @@
                                 class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan</button>
                     </form>
 
-                    <form method="POST" class="p-6 bg-white border-b border-gray-200 rounded-xl"
+                    <form method="POST" class="p-6 bg-white shadow-sm rounded-xl"
                         action="{{ route('profile.change_password', $user->id) }}">
                         @csrf
                         @method('PATCH')

@@ -404,6 +404,7 @@ class ApplicantController extends Controller
             }
 
             $account = User::where(['email' => $user->email, 'identity' => $user->identity])->count();
+            $profile = User::where(['identity' => $user->identity])->first();
             $enrollment = Enrollment::where('identity_user', $identity)->first();
             $registration = Registration::where('identity_user', $identity)->first();
 
@@ -413,7 +414,8 @@ class ApplicantController extends Controller
                 'registration' => $registration,
                 'father' => $father,
                 'mother' => $mother,
-                'account' => $account
+                'account' => $account,
+                'profile' => $profile
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');

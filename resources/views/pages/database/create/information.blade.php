@@ -1,7 +1,7 @@
-<div class="px-6 py-6 bg-white shadow sm:rounded-lg">
+<div class="p-6 bg-white shadow-sm sm:rounded-lg">
     <div class="w-full">
         <section>
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5 py-3">
+            <header class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="w-full md:w-auto">
                     <h2 class="text-xl font-bold text-gray-900">
                         Informasi Aplikan
@@ -11,7 +11,7 @@
                     </p>
                 </div>
             </header>
-            <hr class="my-2">
+            <hr class="my-3">
             <section>
                 <div class="grid md:grid-cols-2 gap-3 mb-3">
                     <div class="relative z-0 w-full group">
