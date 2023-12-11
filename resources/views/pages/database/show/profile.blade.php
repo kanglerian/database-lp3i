@@ -223,7 +223,7 @@
                                 </button>
                             @elseif($account > 0)
                                 <span
-                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2 text-center"><i
                                         class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
                             @endif
                             <div>

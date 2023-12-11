@@ -23,7 +23,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                     <div class="relative z-0 w-full group">
                         <div id="popover-nik" role="tooltip"
-                            class="absolute hidden top-[-75px] z-10 visible inline-block w-72 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm">
+                            class="absolute hidden top-[-75px] right-[-7px] z-10 visible inline-block w-72 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm">
                             <div
                                 class="flex justify-between items-center px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
                                 <h3 class="font-semibold text-gray-900">Bagaimana Cek NIK?</h3>
@@ -31,7 +31,7 @@
                                         class="fa-solid fa-xmark"></i></span>
                             </div>
                             <div class="px-3 py-2">
-                                <p>Kalo belum punya KTP, bisa cek di <span class="font-medium">Kartu Keluarga</span> sih. EZ banget, bro!</p>
+                                <p>Kalo belum punya KTP, bisa cek di <span class="font-medium">Kartu Keluarga</span> sih.</p>
                             </div>
                         </div>
                         <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
