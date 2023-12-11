@@ -183,7 +183,7 @@
 
 <!-- Main modal -->
 <div id="modal-registrasi" tabindex="-1" aria-hidden="true"
-    class=" flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="hidden flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
     <div class="relative w-full max-w-5xl max-h-full">
         <!-- Modal content -->
