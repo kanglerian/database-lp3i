@@ -265,6 +265,11 @@
                                         class="underline font-medium">{{ $user->gender ? 'Laki-laki' : 'Perempuan' }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
+                            <li>
+                                <a href="{{ route('database.edit', $user->id) }}"
+                                    class="cursor-pointer text-center inline-block md:block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
+                                        class="fa-regular fa-pen-to-square"></i> Ubah data</a>
+                            </li>
                         </ul>
                         @if ($profile->avatar)
                             <div class="flex flex-col items-center w-full md:w-1/4 space-y-2 order-1">
@@ -282,7 +287,8 @@
                     <ul class="w-full space-y-1.5 text-sm">
                         @if ($user->programtype_id)
                             <li>
-                                <span>Program Kuliah: <span class="underline font-medium">{{ $user->programtype->name }}</span></span>
+                                <span>Program Kuliah: <span
+                                        class="underline font-medium">{{ $user->programtype->name }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
                         @else
@@ -293,7 +299,8 @@
                         @endif
                         @if ($user->program)
                             <li>
-                                <span>Program Studi: <span class="underline font-medium">{{ $user->program }}</span></span>
+                                <span>Program Studi: <span
+                                        class="underline font-medium">{{ $user->program }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
                         @else
@@ -304,7 +311,8 @@
                         @endif
                         @if ($user->presenter)
                             <li>
-                                <span>Presenter: <span class="underline font-medium">{{ $user->presenter->name }}</span></span>
+                                <span>Presenter: <span
+                                        class="underline font-medium">{{ $user->presenter->name }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
                         @else
@@ -315,7 +323,8 @@
                         @endif
                         @if ($user->school)
                             <li>
-                                <span>Asal Sekolah: <span class="underline font-medium">{{ $user->SchoolApplicant->name }}</span></span>
+                                <span>Asal Sekolah: <span
+                                        class="underline font-medium">{{ $user->SchoolApplicant->name }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
                         @else
@@ -352,7 +361,8 @@
                         @endif
                         @if ($user->phone)
                             <li>
-                                <span>No. Telpon: <span class="underline font-medium">{{ $user->phone }}</span></span>
+                                <span>No. Telpon: <span
+                                        class="underline font-medium">{{ $user->phone }}</span></span>
                                 <i class="fa-solid fa-circle-check text-green-500"></i>
                             </li>
                         @else
@@ -362,11 +372,6 @@
                             </li>
                         @endif
                     </ul>
-                    <div class="mt-3">
-                        <a href="{{ route('database.edit', $user->id) }}"
-                            class="cursor-pointer text-center inline-block md:block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
-                                class="fa-regular fa-pen-to-square"></i> Ubah data</a>
-                    </div>
                 </section>
                 @if ($user->nik && $user->nisn && $user->name && $user->gender !== null && $user->date_of_birth && $user->place_of_birth)
                     <section>
