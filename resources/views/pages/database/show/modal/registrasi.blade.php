@@ -373,7 +373,7 @@
                         @endif
                     </ul>
                 </section>
-                @if ($user->nik && $user->nisn && $user->name && $user->gender !== null && $user->date_of_birth && $user->place_of_birth)
+                @if ($user->nik && $user->nisn && $user->name && $user->gender !== null && $user->date_of_birth && $user->place_of_birth && $user->programtype_id && $user->program !== null && $user->presenter !== null && $user->school !== null && $user->major && $user->email && $user->phone )
                     <section>
                         <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                             @csrf
