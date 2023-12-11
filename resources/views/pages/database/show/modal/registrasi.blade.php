@@ -18,10 +18,23 @@
                             <p class="text-gray-600 text-sm">Harap diperiksa kembali data diri calon mahasiswa.</p>
                         </header>
                         <hr class="my-3">
-                        @if ($user->nik && $user->name && $user->gender && $user->date_of_birth)
+                        @if ($user->nik &&
+                        $user->nisn &&
+                        $user->name &&
+                        $user->gender !== null &&
+                        $user->date_of_birth &&
+                        $user->place_of_birth &&
+                        $user->programtype_id &&
+                        $user->program !== null &&
+                        $user->presenter !== null &&
+                        $user->school !== null &&
+                        $user->major &&
+                        $user->email &&
+                        $user->phone)
                             <section>
-                                <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
+                                <form class="space-y-4" action="{{ route('registration.update', $registration->id) }}" method="POST">
                                     @csrf
+                                    @method('PATCH')
                                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                                         <div>
                                             <label for="pmb"

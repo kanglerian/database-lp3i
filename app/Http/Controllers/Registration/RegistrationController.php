@@ -75,6 +75,13 @@ class RegistrationController extends Controller
             'deal' => ['required'],
             'discount' => ['required'],
             'session' => ['required'],
+        ],[
+            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
+            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
+            'nominal.required' => 'Oops! Kolom Nominal Registrasi gak boleh kosong,',
+            'deal.required' => 'Oops! Kolom Harga Deal gak boleh kosong.',
+            'discount.required' => 'Oops! Kolom Diskon gak boleh kosong.',
+            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
         ]);
 
         $data = [
@@ -123,7 +130,37 @@ class RegistrationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'pmb' => ['required'],
+            'date' => ['required'],
+            'identity_user' => ['required'],
+            'nominal' => ['required'],
+            'deal' => ['required'],
+            'discount' => ['required'],
+            'session' => ['required'],
+        ],[
+            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
+            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
+            'nominal.required' => 'Oops! Kolom Nominal Registrasi gak boleh kosong,',
+            'deal.required' => 'Oops! Kolom Harga Deal gak boleh kosong.',
+            'discount.required' => 'Oops! Kolom Diskon gak boleh kosong.',
+            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
+        ]);
+
+        $data = [
+            'pmb' => $request->input('pmb'),
+            'date' => $request->input('date'),
+            'identity_user' => $request->input('identity_user'),
+            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
+            'deal' => (int) str_replace('.', '', $request->input('deal')),
+            'discount' => (int) str_replace('.', '', $request->input('discount')),
+            'desc_discount' => $request->input('desc_discount'),
+            'session' => $request->input('session'),
+        ];
+
+        $registration = Registration::findOrFail($id);
+        $registration->update($data);
+        return back()->with('message', 'Data registrasi berhasil diubah!');
     }
 
     /**

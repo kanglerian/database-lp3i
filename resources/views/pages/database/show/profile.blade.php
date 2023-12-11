@@ -221,12 +221,25 @@
                                     <i class="fa-solid fa-user-plus mr-1"></i>
                                     <span>Buat Akun</span>
                                 </button>
-                                <p class="text-xs text-center text-gray-700">Untuk registrasi, buat akun terlebih dahulu.</p>
+                                <p class="text-xs text-center text-gray-700">Untuk registrasi, buat akun terlebih
+                                    dahulu.</p>
                             @elseif($account > 0)
                                 <span
-                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2 text-center"><i
+                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
                                         class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
                             @endif
+                            <div>
+                                <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="{{ $user->schoolarship }}"
+                                            class="sr-only peer" {{ $user->schoolarship == 1 ? 'checked' : '' }}>
+                                        <button type="submit"
+                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                        </button>
+                                        <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
+                                    </label>
+                                </form>
+                            </div>
                             <div>
                                 <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
                                     <label class="relative inline-flex items-center cursor-pointer">
@@ -256,7 +269,8 @@
                                         @if ($enrollment)
                                             <div class="flex items-center gap-3 mt-1">
                                                 <button onclick="modalEditDaftar()">
-                                                    <i class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                    <i
+                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                 </button>
                                                 <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                             </div>
@@ -292,27 +306,24 @@
                                                 <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                             </div>
                                         @else
-                                            <button type="button" onclick="modalRegistrasi()"
-                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                    class="fa-solid fa-receipt mr-1"></i>
-                                                Masukan nominal
-                                            </button>
+                                            @if ($enrollment)
+                                                <button type="button" onclick="modalRegistrasi()"
+                                                    class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                        class="fa-solid fa-receipt mr-1"></i>
+                                                    Masukan nominal
+                                                </button>
+                                            @else
+                                                <button type="button" onclick="alert('Daftar terlebih dahulu!')"
+                                                    class="text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2">
+                                                    <i class="fa-solid fa-circle-xmark mr-1"></i>
+                                                    Belum daftar
+                                                </button>
+                                            @endif
                                         @endif
                                     @endif
                                 </div>
                             @endif
-                            <div>
-                                <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->schoolarship }}"
-                                            class="sr-only peer" {{ $user->schoolarship == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
-                                    </label>
-                                </form>
-                            </div>
+                            <button>Integrasi dengan MISIL</button>
                         </section>
                     </section>
                 </div>
