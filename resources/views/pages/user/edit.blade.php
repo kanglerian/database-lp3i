@@ -43,7 +43,7 @@
                                             @endif
                                         </x-select>
                                         <p class="mt-2 text-xs text-gray-500">
-                                            <span class="text-red-500">{{ $errors->first('program') }}</span>
+                                            <span class="text-red-500 text-xs">{{ $errors->first('program') }}</span>
                                         </p>
                                     </div>
                                 @else

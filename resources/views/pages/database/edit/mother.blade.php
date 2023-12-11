@@ -17,7 +17,7 @@
                         <x-input id="mother_name" type="text" name="mother_name"
                             value="{{ old('mother_name', $mother->name) }}" placeholder="Nama lengkap disini.." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_name') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_name') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -25,7 +25,7 @@
                         <x-input id="mother_job" type="text" name="mother_job"
                             value="{{ old('mother_job', $mother->job) }}" placeholder="Tulis pekerjaan ibu disini.." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_job') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_job') }}</span>
                         </p>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             value="{{ old('mother_place_of_birth', $mother->place_of_birth) }}"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_place_of_birth') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_place_of_birth') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -45,7 +45,7 @@
                             value="{{ old('mother_date_of_birth', $mother->date_of_birth) }}"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_date_of_birth') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_date_of_birth') }}</span>
                         </p>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                             value="{{ old('mother_education', $mother->education) }}"
                             placeholder="Tulis pendidikan terakhir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_education') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_education') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -64,7 +64,7 @@
                         <x-input id="mother_phone" type="number" name="mother_phone" value="{{ $mother->phone }}"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_phone') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_phone') }}</span>
                         </p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                             value="{{ old('mother_address', $mother->address) }}"
                             placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('mother_address') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('mother_address') }}</span>
                         </p>
                     </div>
                 </div>

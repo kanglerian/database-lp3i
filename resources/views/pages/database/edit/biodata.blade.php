@@ -22,34 +22,83 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                     <div class="relative z-0 w-full group">
+                        <div id="popover-nik" role="tooltip"
+                            class="absolute hidden top-[-75px] z-10 visible inline-block w-72 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <div
+                                class="flex justify-between items-center px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
+                                <h3 class="font-semibold text-gray-900">Bagaimana Cek NIK?</h3>
+                                <span class="cursor-pointer" onclick="popoverNik()"><i
+                                        class="fa-solid fa-xmark"></i></span>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Kalo belum punya KTP, bisa cek di <span class="font-medium">Kartu Keluarga</span> sih. EZ banget, bro!</p>
+                            </div>
+                        </div>
                         <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
                         <x-input id="nik" type="number" name="nik" value="{{ old('nik', $applicant->nik) }}"
                             placeholder="Nomor Induk Kependudukan" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if (Auth::user()->role == 'S')
                                 @if ($errors->has('nik'))
-                                    <span class="text-red-500">{{ $errors->first('nik') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('nik') }}</span>
+                                    <span onclick="popoverNik()" class="cursor-pointer text-sm text-yellow-500">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="text-xs">Gatau? Cek disini!</span>
+                                    </span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                    <span onclick="popoverNik()" class="cursor-pointer text-sm text-yellow-500">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="text-xs">Gatau? Cek disini!</span>
+                                    </span>
                                 @endif
                             @else
-                                <span class="text-red-500">{{ $errors->first('nik') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('nik') }}</span>
+                                <span onclick="popoverNik()" class="cursor-pointer text-sm text-yellow-500">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span class="text-xs">Gatau? Cek disini!</span>
+                                </span>
                             @endif
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
+                        <div id="popover-nisn" role="tooltip"
+                            class="absolute hidden top-[-75px] z-10 visible inline-block w-72 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <div
+                                class="flex justify-between items-center px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg">
+                                <h3 class="font-semibold text-gray-900">Bagaimana Cek NISN?</h3>
+                                <span class="cursor-pointer" onclick="popoverNisn()">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                            </div>
+                            <div class="px-3 py-2">
+                                <p>Bro, mampir ke web <a class="underline font-medium" href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama">NISN Kemendikbud</a> ya, terus isi data dirimu.</p>
+                            </div>
+                        </div>
                         <x-label for="nisn" :value="__('Nomor Induk Siswa Nasional')" />
                         <x-input id="nisn" type="number" name="nisn"
                             value="{{ old('nisn', $applicant->nisn) }}" placeholder="Nomor Induk Siswa Nasional" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if (Auth::user()->role == 'S')
                                 @if ($errors->has('nisn'))
-                                    <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('nisn') }}</span>
+                                    <span onclick="popoverNisn()" class="cursor-pointer text-sm text-yellow-500">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="text-xs">Gatau? Cek disini!</span>
+                                    </span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                    <span onclick="popoverNisn()" class="cursor-pointer text-sm text-yellow-500">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="text-xs">Gatau? Cek disini!</span>
+                                    </span>
                                 @endif
                             @else
-                                <span class="text-red-500">{{ $errors->first('nisn') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('nisn') }}</span>
+                                <span onclick="popoverNisn()" class="cursor-pointer text-sm text-yellow-500">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span class="text-xs">Gatau? Cek disini!</span>
+                                </span>
                             @endif
                         </p>
                     </div>
@@ -61,7 +110,7 @@
                         <x-input id="kip" type="number" name="kip" value="{{ old('kip', $applicant->kip) }}"
                             placeholder="Nomor Kartu Indonesia Pintar" />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('kip') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('kip') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -80,7 +129,7 @@
                             <option value="> 5.000.000">> 5.000.000</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('income_parent') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('income_parent') }}</span>
                         </p>
                     </div>
                 </div>
@@ -92,9 +141,9 @@
                             value="{{ old('name', $applicant->name) }}" placeholder="Nama lengkap disini.." required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('name'))
-                                <span class="text-red-500">{{ $errors->first('name') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -120,9 +169,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('gender'))
-                                <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('gender') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -135,7 +184,7 @@
                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('place_of_birth') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('place_of_birth') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -144,7 +193,7 @@
                             value="{{ old('date_of_birth', $applicant->date_of_birth) }}"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('date_of_birth') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('date_of_birth') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -199,9 +248,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('religion'))
-                                <span class="text-red-500">{{ $errors->first('religion') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('religion') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -215,9 +264,9 @@
                             placeholder="Tulis pendidikan terakhir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('education'))
-                                <span class="text-red-500">{{ $errors->first('education') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -236,9 +285,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('school'))
-                                <span class="text-red-500">{{ $errors->first('school') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('school') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -251,9 +300,9 @@
                             value="{{ old('major', $applicant->major) }}" placeholder="Tulis jurusan disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('major'))
-                                <span class="text-red-500">{{ $errors->first('major') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('major') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -263,9 +312,9 @@
                             value="{{ old('year', $applicant->year) }}" placeholder="Tulis tahun lulus disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('year'))
-                                <span class="text-red-500">{{ $errors->first('year') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('year') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -274,7 +323,7 @@
                         <x-input id="class" type="text" name="class"
                             value="{{ old('class', $applicant->class) }}" placeholder="Tulis kelas disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('class') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('class') }}</span>
                         </p>
                     </div>
                 </div>
@@ -286,7 +335,7 @@
                             <x-input id="social_media" type="text" name="social_media"
                                 value="{{ old('social_media', $applicant->social_media) }}" placeholder="@" />
                             <p class="mt-2 text-xs text-gray-500">
-                                <span class="text-red-500">{{ $errors->first('social_media') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('social_media') }}</span>
                             </p>
                         </div>
                     </div>
@@ -296,7 +345,7 @@
                             value="{{ old('achievement', $applicant->achievement) }}"
                             placeholder="Tulis prestasi disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('achievement') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('achievement') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -305,7 +354,7 @@
                             value="{{ old('relation', $applicant->relation) }}"
                             placeholder="Tulis relasi disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('relation') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
                         </p>
                     </div>
                 </div>
@@ -315,7 +364,7 @@
                         <x-textarea id="address" type="address" name="address" value="{{ $applicant->address }}"
                             placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('address') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('address') }}</span>
                         </p>
                     </div>
                 </div>
@@ -356,6 +405,24 @@
         const saveChanges = () => {
             const form = document.getElementById('formChanges');
             form.submit();
+        }
+    </script>
+    <script>
+        const popoverNisn = () => {
+            let popover = document.getElementById('popover-nisn');
+            if (popover.classList.contains('hidden')) {
+                popover.classList.remove('hidden');
+            } else {
+                popover.classList.add('hidden');
+            }
+        }
+        const popoverNik = () => {
+            let popover = document.getElementById('popover-nik');
+            if (popover.classList.contains('hidden')) {
+                popover.classList.remove('hidden');
+            } else {
+                popover.classList.add('hidden');
+            }
         }
     </script>
 @endpush

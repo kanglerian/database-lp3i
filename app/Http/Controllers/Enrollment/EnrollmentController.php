@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Enrollment;
 use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
 {
@@ -75,10 +76,20 @@ class EnrollmentController extends Controller
             'pmb' => ['required'],
             'date' => ['required'],
             'identity_user' => ['required'],
-            'receipt' => ['required'],
+            'receipt' => ['required', 'min:5', 'max:10', 'unique:enrollment'],
             'register' => ['required'],
             'register_end' => ['required'],
             'nominal' => ['required'],
+        ],[
+            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
+            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
+            'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
+            'receipt.min' => 'No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!',
+            'receipt.max' => 'No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!',
+            'receipt.unique' => 'Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.',
+            'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
+            'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
+            'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
         ]);
 
         $data = [
@@ -128,7 +139,47 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'pmb' => ['required'],
+            'date' => ['required'],
+            'identity_user' => ['required'],
+            'receipt' => [
+                'required',
+                'min:5',
+                'max:10',
+                Rule::unique('enrollment')->ignore($id, 'id'),
+            ],
+            'register' => ['required'],
+            'register_end' => ['required'],
+            'nominal' => ['required'],
+        ],[
+            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
+            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
+            'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
+            'receipt.min' => 'No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!',
+            'receipt.max' => 'No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!',
+            'receipt.unique' => 'Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.',
+            'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
+            'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
+            'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
+        ]);
+
+        $data = [
+            'pmb' => $request->input('pmb'),
+            'date' => $request->input('date'),
+            'identity_user' => $request->input('identity_user'),
+            'receipt' => $request->input('receipt'),
+            'register' => $request->input('register'),
+            'register_end' => $request->input('register_end'),
+            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
+            'repayment' => $request->input('repayment'),
+            'debit' => (int) str_replace('.', '', $request->input('debit')),
+        ];
+
+        $enrollment = Enrollment::findOrFail($id);
+        $enrollment->update($data);
+
+        return back()->with('message', 'Data daftar berhasil diubah!');
     }
 
     /**

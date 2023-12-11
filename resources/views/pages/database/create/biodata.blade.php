@@ -20,9 +20,9 @@
                             placeholder="Nama lengkap disini.." required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('name'))
-                                <span class="text-red-500">{{ $errors->first('name') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -38,9 +38,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('gender'))
-                                <span class="text-red-500">{{ $errors->first('gender') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('gender') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -53,7 +53,7 @@
                             @endforeach
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('school') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('school') }}</span>
                         </p>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <x-input id="email" type="email" name="email" :value="old('email')"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('email') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -72,7 +72,7 @@
                         <x-input id="phone" type="number" name="phone" :value="old('phone')"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
                         </p>
                     </div>
                 </div>

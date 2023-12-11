@@ -41,9 +41,9 @@
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
                                 @if ($errors->has('identity_user'))
-                                    <span class="text-red-500">{{ $errors->first('identity_user') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('identity_user') }}</span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
                         </div>
@@ -56,9 +56,9 @@
                             placeholder="Tahun Akademik" required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('pmb'))
-                                <span class="text-red-500">{{ $errors->first('pmb') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -78,9 +78,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('programtype_id'))
-                                <span class="text-red-500">{{ $errors->first('programtype_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('programtype_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -110,9 +110,9 @@
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
                                 @if ($errors->has('program'))
-                                    <span class="text-red-500">{{ $errors->first('program') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('program') }}</span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
                         </div>
@@ -142,9 +142,9 @@
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
                                 @if ($errors->has('program_second'))
-                                    <span class="text-red-500">{{ $errors->first('program_second') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('program_second') }}</span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
                         </div>
@@ -173,9 +173,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('source_id'))
-                                <span class="text-red-500">{{ $errors->first('source_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('source_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -197,9 +197,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('source_daftar_id'))
-                                <span class="text-red-500">{{ $errors->first('source_daftar_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('source_daftar_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -221,9 +221,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('followup_id'))
-                                <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('followup_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -241,9 +241,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('status_id'))
-                                <span class="text-red-500">{{ $errors->first('status_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('status_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -256,9 +256,9 @@
                             placeholder="Email" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('email'))
-                                <span class="text-red-500">{{ $errors->first('email') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -268,9 +268,9 @@
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('phone'))
-                                <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -297,7 +297,7 @@
                             <option value="0">Tidak</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('known') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('known') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -320,7 +320,7 @@
                             <option value="0">Tidak</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('come') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('come') }}</span>
                         </p>
                     </div>
                 </div>
@@ -340,7 +340,7 @@
                             <option value="Nikah">Nikah</option>
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('planning') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('planning') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -348,7 +348,7 @@
                         <x-input id="other_campus" type="text" name="other_campus"
                             value="{{ $applicant->other_campus }}" placeholder="Kampus Pilihan Lain" />
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('other_campus') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('other_campus') }}</span>
                         </p>
                     </div>
                 </div>
@@ -360,7 +360,7 @@
                             {{ $applicant->note }}
                         </x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('note') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('note') }}</span>
                         </p>
                     </div>
                 </div>

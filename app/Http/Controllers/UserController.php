@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Database\QueryException;
 use Illuminate\Validation\Rule;
 use App\Models\ApplicantFamily;
 use App\Models\Applicant;

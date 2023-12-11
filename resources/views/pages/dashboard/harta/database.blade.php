@@ -41,7 +41,7 @@
                                 <td class="px-6 py-4">
                                     @if (Auth::user()->role == 'A')
                                         <a href="{{ route('database.show', $database->identity) }}"
-                                            class="underline">{{ $database->name }}</a>
+                                            class="underline font-bold">{{ $database->name }}</a>
                                     @else
                                         {{ $database->name }}
                                     @endif

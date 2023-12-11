@@ -28,7 +28,7 @@
                                 <x-input id="name" type="text" name="name" :value="old('name')"
                                     placeholder="Tulis nama lengkap disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('name') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                 <x-input id="phone" type="text" name="phone" :value="old('phone')"
                                     placeholder="Tulis no. telpon / whatsapp disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('phone') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
                                 </p>
                             </div>
                             <div class="relative z-0 w-full group">
@@ -46,7 +46,7 @@
                                 <x-input id="email" type="email" name="email" :value="old('email')"
                                     placeholder="Tulis no. telpon / whatsapp disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('email') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
                                 </p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 <x-input id="password" type="password" name="password" :value="old('password')"
                                     placeholder="Tulis password disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('password') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('password') }}</span>
                                 </p>
                             </div>
                             <div class="relative z-0 w-full group">
@@ -64,7 +64,7 @@
                                 <x-input id="password_confirmation" type="password" name="password_confirmation"
                                     placeholder="Tulis konfirmasi password disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
-                                    <span class="text-red-500">{{ $errors->first('password_confirmation') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('password_confirmation') }}</span>
                                 </p>
                             </div>
                         </div>

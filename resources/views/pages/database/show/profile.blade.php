@@ -254,6 +254,9 @@
                                     @if ($user->is_daftar)
                                         @if ($enrollment)
                                             <div class="flex items-center gap-3 mt-1">
+                                                <button onclick="modalEditDaftar()">
+                                                    <i class="fa-solid fa-pen-to-square text-yellow-500"></i>
+                                                </button>
                                                 <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                             </div>
                                         @else
@@ -282,6 +285,9 @@
                                     @if ($user->is_register)
                                         @if ($registration)
                                             <div class="flex items-center gap-3 mt-1">
+                                                <button onclick="modalEditRegistrasi()">
+                                                    <i class="fa-solid fa-pen-to-square text-yellow-500"></i>
+                                                </button>
                                                 <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                             </div>
                                         @else
@@ -463,8 +469,26 @@
         }
     }
 
+    const modalEditRegistrasi = () => {
+        let modal = document.getElementById('modal-edit-registrasi');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
     const modalDaftar = () => {
         let modal = document.getElementById('modal-daftar');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
+    const modalEditDaftar = () => {
+        let modal = document.getElementById('modal-edit-daftar');
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
         } else {

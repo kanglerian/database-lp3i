@@ -20,9 +20,9 @@
                             placeholder="Tahun Akademik" required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('pmb'))
-                                <span class="text-red-500">{{ $errors->first('pmb') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -38,9 +38,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('programtype_id'))
-                                <span class="text-red-500">{{ $errors->first('programtype_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('programtype_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -64,9 +64,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('program'))
-                                <span class="text-red-500">{{ $errors->first('program') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('program') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -87,9 +87,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('program_second'))
-                                <span class="text-red-500">{{ $errors->first('program_second') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('program_second') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -110,9 +110,9 @@
                             </x-select>
                             <p class="mt-2 text-xs text-gray-500">
                                 @if ($errors->has('identity_user'))
-                                    <span class="text-red-500">{{ $errors->first('identity_user') }}</span>
+                                    <span class="text-red-500 text-xs">{{ $errors->first('identity_user') }}</span>
                                 @else
-                                    <span class="text-red-500">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
                         </div>
@@ -129,9 +129,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('source_id'))
-                                <span class="text-red-500">{{ $errors->first('source_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('source_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -148,9 +148,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('followup_id'))
-                                <span class="text-red-500">{{ $errors->first('followup_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('followup_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -164,9 +164,9 @@
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('status_id'))
-                                <span class="text-red-500">{{ $errors->first('status_id') }}</span>
+                                <span class="text-red-500 text-xs">{{ $errors->first('status_id') }}</span>
                             @else
-                                <span class="text-red-500">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </p>
                     </div>
@@ -179,7 +179,7 @@
                             placeholder="Catatan">
                         </x-textarea>
                         <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500">{{ $errors->first('note') }}</span>
+                            <span class="text-red-500 text-xs">{{ $errors->first('note') }}</span>
                         </p>
                     </div>
                 </div>
