@@ -323,7 +323,8 @@
                                     @endif
                                 </div>
                             @endif
-                            <button>Integrasi dengan MISIL</button>
+                            <hr class="my-2">
+                            <button onclick="alert('Mohon maaf fitur ini belum tersedia.')" class="text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
                         </section>
                     </section>
                 </div>
