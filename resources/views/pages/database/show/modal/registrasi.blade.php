@@ -18,7 +18,7 @@
                             <p class="text-gray-600 text-sm">Harap diperiksa kembali data diri calon mahasiswa.</p>
                         </header>
                         <hr class="my-3">
-                        @if ($user->nik && $user->name && $user->gender && $user->date_of_birth && $user->place_of_birth)
+                        @if ($user->nik && $user->name && $user->gender && $user->date_of_birth)
                             <section>
                                 <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                                     @csrf
@@ -178,6 +178,7 @@
         </div>
     </div>
 @endif
+
 <!-- Main modal -->
 <div id="modal-registrasi" tabindex="-1" aria-hidden="true"
     class="hidden flex justify-center items-center fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -222,15 +223,27 @@
                                     <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                 </li>
                             @endif
+                            @if ($user->place_of_birth)
+                                <li>
+                                    <span>Tempat Lahir: <span
+                                            class="underline font-medium">{{ $user->place_of_birth }}</span></span>
+                                    <i class="fa-solid fa-circle-check text-green-500"></i>
+                                </li>
+                            @else
+                                <li>
+                                    <span>Tempat Lahir: ___________________</span>
+                                    <i class="fa-solid fa-circle-check text-red-500"></i>
+                                </li>
+                            @endif
                             @if ($user->date_of_birth)
                                 <li>
-                                    <span>Tempat/Tgl Lahir: <span
+                                    <span>Tanggal Lahir: <span
                                             class="underline font-medium">{{ $user->date_of_birth }}</span></span>
                                     <i class="fa-solid fa-circle-check text-green-500"></i>
                                 </li>
                             @else
                                 <li>
-                                    <span>Tempat/Tgl Lahir: ___________________</span>
+                                    <span>Tanggal Lahir: ___________________</span>
                                     <i class="fa-solid fa-circle-check text-red-500"></i>
                                 </li>
                             @endif
@@ -279,7 +292,7 @@
                     </div>
                 </section>
                 <hr class="my-3">
-                @if ($user->nik && $user->name && $user->gender && $user->date_of_birth && $user->place_of_birth)
+                @if ($user->nik && $user->name && $user->gender && $user->date_of_birth && $user->place_of_birth )
                     <section>
                         <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                             @csrf
