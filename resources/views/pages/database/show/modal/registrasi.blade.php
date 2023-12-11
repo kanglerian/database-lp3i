@@ -292,7 +292,7 @@
                     </div>
                 </section>
                 <hr class="my-3">
-                @if ($user->nik && $user->name && $user->gender && $user->date_of_birth && $user->place_of_birth )
+                @if ($user->nik && $user->name && $user->gender !== null && $user->date_of_birth && $user->place_of_birth )
                     <section>
                         <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                             @csrf
