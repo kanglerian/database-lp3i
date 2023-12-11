@@ -267,7 +267,7 @@
                             </li>
                             <li>
                                 <a href="{{ route('database.edit', $user->id) }}"
-                                    class="cursor-pointer text-center inline-block md:block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
+                                    class="cursor-pointer text-center inline-block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
                                         class="fa-regular fa-pen-to-square"></i> Ubah data</a>
                             </li>
                         </ul>
