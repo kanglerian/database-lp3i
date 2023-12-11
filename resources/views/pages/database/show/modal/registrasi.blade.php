@@ -193,7 +193,7 @@
                 data-modal-hide="modal-registrasi">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-5 p-8">
                 <section>
                     <header>
                         <h2 class="font-bold text-gray-900 text-lg">Registrasi Mahasiswa Baru</h2>
@@ -372,8 +372,22 @@
                             </li>
                         @endif
                     </ul>
+                    <hr class="my-3">
                 </section>
-                @if ($user->nik && $user->nisn && $user->name && $user->gender !== null && $user->date_of_birth && $user->place_of_birth && $user->programtype_id && $user->program !== null && $user->presenter !== null && $user->school !== null && $user->major && $user->email && $user->phone )
+                @if (
+                    $user->nik &&
+                        $user->nisn &&
+                        $user->name &&
+                        $user->gender !== null &&
+                        $user->date_of_birth &&
+                        $user->place_of_birth &&
+                        $user->programtype_id &&
+                        $user->program !== null &&
+                        $user->presenter !== null &&
+                        $user->school !== null &&
+                        $user->major &&
+                        $user->email &&
+                        $user->phone)
                     <section>
                         <form class="space-y-4" action="{{ route('registration.store') }}" method="POST">
                             @csrf
@@ -475,8 +489,9 @@
                         </form>
                     </section>
                 @else
-                    <p class="text-center text-sm text-gray-700"><i class="fa-solid fa-circle-xmark text-red-500"></i>
-                        Belum lengkap</p>
+                    <p class="text-center text-sm text-gray-700 py-3">
+                        <i class="fa-solid fa-circle-xmark text-red-500"></i> Bro, data siswa belum komplit nih!
+                    </p>
                 @endif
             </div>
         </div>
