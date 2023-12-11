@@ -6,10 +6,10 @@ const selectVillages = document.getElementById('villages');
 const addressContainer = document.getElementById('address-container');
 
 const getProvinces = async () => {
-  await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces`)
+  await axios.get(`/api/provinces.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
-      let data = response.data.provinces;
+      let data = response.data;
       for (let i = 0; i < data.length; i++) {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}</option>`;
       }
@@ -44,10 +44,11 @@ selectProvinces.addEventListener('change', async (e) => {
   selectVillages.innerHTML = `<option>Pilih Desa / Kelurahan</option>`;
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
-  await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/regencies/${dataTarget}`)
+  await axios.get(`/api/regencies/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Kota / Kabupaten</option>';
-      let data = response.data.regencies;
+      let data = response.data;
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
         ${data[i].name}</option>`;
@@ -70,7 +71,7 @@ selectRegencies.addEventListener('change', async (e) => {
   selectVillages.innerHTML = `<option value="">Pilih Desa / Kelurahan</option>`;
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
-  await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/districts/${dataTarget}`)
+  await axios.get(`/api/districts/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option>Pilih Kecamatan</option>';
       let data = response.data.districts;
@@ -92,7 +93,7 @@ selectDistricts.addEventListener('change', async (e) => {
   selectVillages.removeAttribute('disabled');
 
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
-  await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/villages/${dataTarget}`)
+  await axios.get(`/api/villages/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Desa / Kelurahan</option>';
       let data = response.data.villages;

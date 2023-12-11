@@ -737,7 +737,10 @@ class ApplicantController extends Controller
 
         $data = [
             'pmb' => $request->input('pmb'),
+
             'nik' => $request->input('nik'),
+            'nisn' => $request->input('nisn'),
+
             'name' => ucwords(strtolower($request->input('name'))),
             'gender' => $request->input('gender'),
             'place_of_birth' => $request->input('place_of_birth'),

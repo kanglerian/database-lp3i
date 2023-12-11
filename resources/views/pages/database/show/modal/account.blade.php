@@ -36,7 +36,7 @@
                                     <i class="fa-brands fa-whatsapp text-gray-500"></i>
                                 </div>
                                 <input type="number" name="phone" id="phone" value="{{ $user->phone }}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Alamat Email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="No. Whatsapp"
                                     required>
                             </div>
                         </div>
@@ -49,3 +49,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    let phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function() {
+        let phone = phoneInput.value;
+        if (phone.startsWith("62")) {
+            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
+                phoneInput.value = '62';
+            } else {
+                phoneInput.value = phone;
+            }
+        } else if (phone.startsWith("0")) {
+            phoneInput.value = '62' + phone.substring(1);
+        } else {
+            phoneInput.value = '62';
+        }
+    });
+
+    const saveChanges = () => {
+        const form = document.getElementById('formChanges');
+        form.submit();
+    }
+</script>

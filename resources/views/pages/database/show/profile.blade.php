@@ -323,8 +323,10 @@
                                     @endif
                                 </div>
                             @endif
-                            <hr class="my-2">
-                            <button onclick="alert('Mohon maaf fitur ini belum tersedia.')" class="text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                            @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
+                                <hr class="my-2">
+                                <button class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                            @endif
                         </section>
                     </section>
                 </div>

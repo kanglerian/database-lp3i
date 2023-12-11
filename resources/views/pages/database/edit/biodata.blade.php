@@ -358,6 +358,45 @@
                         </p>
                     </div>
                 </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="place" :value="__('Jl/Kp/Perum')" />
+                        <x-input id="place" type="text" name="place"
+                            placeholder="Jl. / Kp. / Perum" />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="rt" :value="__('RT')" />
+                        <x-input id="rt" type="text" name="rt"
+                            placeholder="RT." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <x-label for="rw" :value="__('RW')" />
+                        <x-input id="rw" type="text" name="rw"
+                            placeholder="RW." />
+                        <p class="mt-2 text-xs text-gray-500">
+                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="provinces" :value="__('Provinsi')" />
+                        <x-select id="provinces" name="provinces" required></x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('religion'))
+                                <span class="text-red-500 text-xs">{{ $errors->first('religion') }}</span>
+                            @else
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
                 <div class="grid grid-cols-1">
                     <div class="relative z-0 w-full group">
                         <x-label for="address" :value="__('Alamat')" />
