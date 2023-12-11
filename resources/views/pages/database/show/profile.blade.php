@@ -221,6 +221,7 @@
                                     <i class="fa-solid fa-user-plus mr-1"></i>
                                     <span>Buat Akun</span>
                                 </button>
+                                <p class="text-xs text-center text-gray-700">Untuk registrasi, buat akun terlebih dahulu.</p>
                             @elseif($account > 0)
                                 <span
                                     class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2 text-center"><i
@@ -255,7 +256,7 @@
                                         @if ($enrollment)
                                             <div class="flex items-center gap-3 mt-1">
                                                 <button onclick="modalEditDaftar()">
-                                                    <i class="fa-solid fa-pen-to-square text-yellow-500"></i>
+                                                    <i class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                 </button>
                                                 <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                             </div>
@@ -269,7 +270,7 @@
                                     @endif
                                 </div>
                             @endif
-                            @if ($user->is_applicant == 1 && $user->is_daftar == 1)
+                            @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
                                 <div class="flex justify-between items-center gap-2">
                                     <form action="{{ route('database.is_register', $user->id) }}" method="get">
                                         <label class="relative inline-flex items-center cursor-pointer">
