@@ -120,7 +120,7 @@
                     <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
                     <h2>DAFTAR RIWAYAT HIDUP</h2>
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
-                    <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}</p>
+                    <p>Program Studi {{ $applicant->program == null ? '_______________' : $applicant->program }}</p>
                 </div>
                 @if ($user->avatar)
                     <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
@@ -138,35 +138,35 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $applicant->name == null ? '___' : $applicant->name }}</td>
+                    <td>{{ $applicant->name == null ? '_______________' : $applicant->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
-                    <td>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}
+                    <td>{{ $applicant->place_of_birth == null ? '_______________' : $applicant->place_of_birth }}
                         /
-                        {{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}
+                        {{ $applicant->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Agama</td>
                     <td>:</td>
-                    <td>{{ $applicant->religion == null ? '___' : $applicant->religion }}</td>
+                    <td>{{ $applicant->religion == null ? '_______________' : $applicant->religion }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
                     <td>:</td>
-                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
+                    <td>{{ $applicant->school == null ? '_______________' : $applicant->SchoolApplicant->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
-                    <td>{{ $applicant->phone == null ? '___' : $applicant->phone }}</td>
+                    <td>{{ $applicant->phone == null ? '_______________' : $applicant->phone }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
+                    <td>{{ $applicant->address == null ? '_______________' : $applicant->address }}</td>
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
@@ -175,34 +175,34 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $father->name == null ? '___' : $father->name }}</td>
+                    <td>{{ $father->name == null ? '_______________' : $father->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
-                    <td>{{ $father->place_of_birth == null ? '___' : $father->place_of_birth }}
+                    <td>{{ $father->place_of_birth == null ? '_______________' : $father->place_of_birth }}
                         /
-                        {{ $father->date_of_birth == null ? '___' : \Carbon\Carbon::parse($father->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($father->date_of_birth)->format('m')] . \Carbon\Carbon::parse($father->date_of_birth)->format(' Y') }}
+                        {{ $father->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($father->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($father->date_of_birth)->format('m')] . \Carbon\Carbon::parse($father->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pendidikan Terakhir</td>
                     <td>:</td>
-                    <td>{{ $father->education == null ? '___' : $father->education }}</td>
+                    <td>{{ $father->education == null ? '_______________' : $father->education }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $father->job == null ? '___' : $father->job }}</td>
+                    <td>{{ $father->job == null ? '_______________' : $father->job }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
-                    <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
+                    <td>{{ $father->phone == null ? '_______________' : $father->phone }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $father->address == null ? '___' : $father->address }}</td>
+                    <td>{{ $father->address == null ? '_______________' : $father->address }}</td>
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
@@ -211,41 +211,41 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
+                    <td>{{ $mother->name == null ? '_______________' : $mother->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
-                    <td>{{ $mother->place_of_birth == null ? '___' : $mother->place_of_birth }}
+                    <td>{{ $mother->place_of_birth == null ? '_______________' : $mother->place_of_birth }}
                         /
-                        {{ $mother->date_of_birth == null ? '___' : \Carbon\Carbon::parse($mother->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($mother->date_of_birth)->format('m')] . \Carbon\Carbon::parse($mother->date_of_birth)->format(' Y') }}
+                        {{ $mother->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($mother->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($mother->date_of_birth)->format('m')] . \Carbon\Carbon::parse($mother->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pendidikan Terakhir</td>
                     <td>:</td>
-                    <td>{{ $mother->education == null ? '___' : $mother->education }}</td>
+                    <td>{{ $mother->education == null ? '_______________' : $mother->education }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $mother->job == null ? '___' : $mother->job }}</td>
+                    <td>{{ $mother->job == null ? '_______________' : $mother->job }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. Telepon / HP</td>
                     <td>:</td>
-                    <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
+                    <td>{{ $mother->phone == null ? '_______________' : $mother->phone }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $mother->address == null ? '___' : $mother->address }}</td>
+                    <td>{{ $mother->address == null ? '_______________' : $mother->address }}</td>
                 </tr>
             </table>
             <table style="margin-top: 20px">
                 <tr>
                     <td style="width: 200px;">Penghasilan Orang Tua</td>
                     <td>:</td>
-                    <td>Rp {{ $applicant->income_parent == null ? '___' : $applicant->income_parent }}</td>
+                    <td>Rp {{ $applicant->income_parent == null ? '_______________' : $applicant->income_parent }}</td>
                 </tr>
             </table>
             <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
@@ -257,12 +257,12 @@
                     <img src="{{ asset('img/lp3i.png') }}" alt="" width="30%" style="text-align: center">
                     <h2>SEKILAS TENTANG ANDA</h2>
                     <p>Mahasiswa Politeknik LP3I Kampus Tasikmalaya</p>
-                    <p>Program Studi {{ $applicant->program == null ? '___' : $applicant->program }}
+                    <p>Program Studi {{ $applicant->program == null ? '_______________' : $applicant->program }}
                         ({{ $applicant->programtype->name }})</p>
                     <p>
-                        <span>Relasi: {{ $applicant->relation == null ? '___' : $applicant->relation }}</span> |
+                        <span>Relasi: {{ $applicant->relation == null ? '_______________' : $applicant->relation }}</span> |
                         <span>Sumber:
-                            {{ $applicant->source_id == null ? '___' : $applicant->SourceSetting->name }}</span>
+                            {{ $applicant->source_id == null ? '_______________' : $applicant->SourceSetting->name }}</span>
                     </p>
                 </div>
             </header>
@@ -272,51 +272,51 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $applicant->name == null ? '___' : $applicant->name }}</td>
+                    <td>{{ $applicant->name == null ? '_______________' : $applicant->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
+                        <span>{{ $applicant->place_of_birth == null ? '_______________' : $applicant->place_of_birth }}</span>
                         /
-                        <span>{{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
+                        <span>{{ $applicant->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Agama</td>
                     <td>:</td>
-                    <td>{{ $applicant->religion == null ? '___' : $applicant->religion }}</td>
+                    <td>{{ $applicant->religion == null ? '_______________' : $applicant->religion }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</span>
-                        (<span>{{ $applicant->major == null ? '___' : $applicant->major }}</span>
-                        <span>{{ $applicant->year == null ? '___' : $applicant->year }}</span>)
+                        <span>{{ $applicant->school == null ? '_______________' : $applicant->SchoolApplicant->name }}</span>
+                        (<span>{{ $applicant->major == null ? '_______________' : $applicant->major }}</span>
+                        <span>{{ $applicant->year == null ? '_______________' : $applicant->year }}</span>)
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Prestasi</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->achievement == null ? '___' : $applicant->achievement }}</span>
+                        <span>{{ $applicant->achievement == null ? '_______________' : $applicant->achievement }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. HP / Email</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->phone == null ? '___' : $applicant->phone }}</span>
+                        <span>{{ $applicant->phone == null ? '_______________' : $applicant->phone }}</span>
                         /
-                        <span>{{ $applicant->email == null ? '___' : $applicant->email }}</span>
+                        <span>{{ $applicant->email == null ? '_______________' : $applicant->email }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
+                    <td>{{ $applicant->address == null ? '_______________' : $applicant->address }}</td>
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
@@ -325,17 +325,17 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $father->name == null ? '___' : $father->name }}</td>
+                    <td>{{ $father->name == null ? '_______________' : $father->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pekerjaan Ayah</td>
                     <td>:</td>
-                    <td>{{ $father->job == null ? '___' : $father->job }}</td>
+                    <td>{{ $father->job == null ? '_______________' : $father->job }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. HP</td>
                     <td>:</td>
-                    <td>{{ $father->phone == null ? '___' : $father->phone }}</td>
+                    <td>{{ $father->phone == null ? '_______________' : $father->phone }}</td>
                 </tr>
             </table>
             <hr style="margin-top: 10px;">
@@ -344,17 +344,17 @@
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
-                    <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
+                    <td>{{ $mother->name == null ? '_______________' : $mother->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pekerjaan Ibu</td>
                     <td>:</td>
-                    <td>{{ $mother->job == null ? '___' : $mother->job }}</td>
+                    <td>{{ $mother->job == null ? '_______________' : $mother->job }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. HP</td>
                     <td>:</td>
-                    <td>{{ $mother->phone == null ? '___' : $mother->phone }}</td>
+                    <td>{{ $mother->phone == null ? '_______________' : $mother->phone }}</td>
                 </tr>
             </table>
 
@@ -407,7 +407,7 @@
                 <tr>
                     <td style="width: 200px;">Program Studi</td>
                     <td>:</td>
-                    <td>{{ $applicant->program == null ? '___' : $applicant->program }}
+                    <td>{{ $applicant->program == null ? '_______________' : $applicant->program }}
                         ({{ $applicant->programtype->name }})</td>
                 </tr>
             </table>
@@ -417,13 +417,18 @@
                 <tr>
                     <td style="width: 200px;">No. KTP</td>
                     <td>:</td>
-                    <td>______________________________</td>
+                    <td>{{ $applicant->ktp == null ? '_______________' : $applicant->ktp }}</td>
+                </tr>
+                <tr>
+                    <td style="width: 200px;">NISN</td>
+                    <td>:</td>
+                    <td>{{ $applicant->nisn == null ? '_______________' : $applicant->nisn }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Nama Lengkap</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->name == null ? '___' : $applicant->name }}</span>
+                        <span>{{ $applicant->name == null ? '_______________' : $applicant->name }}</span>
                         <span>
                             @switch($applicant->gender)
                                 @case(1)
@@ -444,18 +449,18 @@
                     <td style="width: 200px;">Tempat, Tanggal Lahir</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
+                        <span>{{ $applicant->place_of_birth == null ? '_______________' : $applicant->place_of_birth }}</span>
                         /
-                        <span>{{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
+                        <span>{{ $applicant->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. HP / Email</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $applicant->phone == null ? '___' : $applicant->phone }}</span>
+                        <span>{{ $applicant->phone == null ? '_______________' : $applicant->phone }}</span>
                         /
-                        <span>{{ $applicant->email == null ? '___' : $applicant->email }}</span>
+                        <span>{{ $applicant->email == null ? '_______________' : $applicant->email }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -466,7 +471,7 @@
                 <tr>
                     <td style="width: 200px;">Agama</td>
                     <td>:</td>
-                    <td>{{ $applicant->religion == null ? '___' : $applicant->religion }}</td>
+                    <td>{{ $applicant->religion == null ? '_______________' : $applicant->religion }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Warga Negara</td>
@@ -481,7 +486,7 @@
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $applicant->address == null ? '___' : $applicant->address }}</td>
+                    <td>{{ $applicant->address == null ? '_______________' : $applicant->address }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">*Status Alamat</td>
@@ -500,40 +505,40 @@
                 <tr>
                     <td style="width: 200px;">Nama Ayah</td>
                     <td>:</td>
-                    <td>{{ $father->name == null ? '___' : $father->name }}</td>
+                    <td>{{ $father->name == null ? '_______________' : $father->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Nama Ibu</td>
                     <td>:</td>
-                    <td>{{ $mother->name == null ? '___' : $mother->name }}</td>
+                    <td>{{ $mother->name == null ? '_______________' : $mother->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. HP Ayah / Ibu</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $father->phone == null ? '___' : $father->phone }}</span> /
-                        <span>{{ $mother->phone == null ? '___' : $mother->phone }}</span>
+                        <span>{{ $father->phone == null ? '__________________' : $father->phone }}</span> /
+                        <span>{{ $mother->phone == null ? '__________________' : $mother->phone }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat</td>
                     <td>:</td>
-                    <td>{{ $father->address == null ? '___' : $father->address }}</td>
+                    <td>{{ $father->address == null ? '_______________' : $father->address }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pekerjaan Ayah / Ibu</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $father->job == null ? '___' : $father->job }}</span> /
-                        <span>{{ $mother->job == null ? '___' : $mother->job }}</span>
+                        <span>{{ $father->job == null ? '_______________' : $father->job }}</span> /
+                        <span>{{ $mother->job == null ? '_______________' : $mother->job }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pendidikan Ayah / Ibu</td>
                     <td>:</td>
                     <td>
-                        <span>{{ $father->education == null ? '___' : $father->education }}</span> /
-                        <span>{{ $mother->education == null ? '___' : $mother->education }}</span>
+                        <span>{{ $father->education == null ? '_______________' : $father->education }}</span> /
+                        <span>{{ $mother->education == null ? '_______________' : $mother->education }}</span>
                     </td>
                 </tr>
             </table>
@@ -546,17 +551,17 @@
                 <tr>
                     <td style="width: 200px;">Asal SMA / SMK. Sederajat</td>
                     <td>:</td>
-                    <td>{{ $applicant->school == null ? '___' : $applicant->SchoolApplicant->name }}</td>
+                    <td>{{ $applicant->school == null ? '_______________' : $applicant->SchoolApplicant->name }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Jurusan</td>
                     <td>:</td>
-                    <td>{{ $applicant->major == null ? '___' : $applicant->major }}</td>
+                    <td>{{ $applicant->major == null ? '_______________' : $applicant->major }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Tahun Lulus</td>
                     <td>:</td>
-                    <td>{{ $applicant->year == null ? '___' : $applicant->year }}</td>
+                    <td>{{ $applicant->year == null ? '_______________' : $applicant->year }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Alamat Sekolah</td>
