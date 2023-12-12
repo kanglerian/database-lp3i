@@ -31,10 +31,6 @@
             <div class="flex flex-col md:flex-row items-center gap-2">
                 <div class="flex items-center gap-2">
                     <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                        <i class="fa-solid fa-map-location-dot text-gray-700"></i>
-                        <span class="text-sm" id="wilayah"></span>
-                    </div>
-                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
                         <i class="fa-solid fa-rectangle-list text-gray-700"></i>
                         <span class="text-sm">
                             @if ($programs == null)
@@ -69,6 +65,8 @@
         </form>
     </div>
 </x-app-layout>
-@push('scripts')
-    <script src="{{ asset('js/api-notif.js') }}"></script>
-@endpush
+
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script src="{{ asset('js/indonesia.js') }}"></script>
+<script src="{{ asset('js/indonesia-father.js') }}"></script>
+<script src="{{ asset('js/indonesia-mother.js') }}"></script>

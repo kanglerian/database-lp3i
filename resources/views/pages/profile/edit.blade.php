@@ -10,10 +10,6 @@
             @if ($user->role == 'S')
                 <div class="flex items-center gap-2">
                     <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">
-                        <i class="fa-solid fa-map-location-dot text-gray-700"></i>
-                        <span class="text-sm" id="wilayah"></span>
-                    </div>
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">
                         <i class="fa-solid fa-rectangle-list text-gray-700"></i>
                         <span class="text-sm">
                             @if ($programs == null)
@@ -142,8 +138,12 @@
     </div>
 </x-app-layout>
 
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script src="{{ asset('js/indonesia.js') }}"></script>
+<script src="{{ asset('js/indonesia-father.js') }}"></script>
+<script src="{{ asset('js/indonesia-mother.js') }}"></script>
+
 @push('scripts')
-    <script src="{{ asset('js/api-notif.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2({

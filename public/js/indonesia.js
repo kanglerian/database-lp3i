@@ -3,17 +3,14 @@ const selectRegencies = document.getElementById('regencies');
 const selectDistricts = document.getElementById('districts');
 const selectVillages = document.getElementById('villages');
 
-const addressContainer = document.getElementById('address-container');
-
 const getProvinces = async () => {
   await axios.get(`/api/provinces.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Provinsi</option>';
-      let data = response.data;
-      for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">${data[i].name}</option>`;
-      }
-      addressContainer.classList.remove('hidden');
+      let provinces = response.data;
+      provinces.forEach(province => {
+        bucket += `<option data-id="${province.id}" value="${province.name}">${province.name}</option>`;
+      });
       selectProvinces.innerHTML = bucket;
       if (selectProvinces.hasAttribute('disabled')) {
         selectProvinces.removeAttribute('disabled');
@@ -47,12 +44,11 @@ selectProvinces.addEventListener('change', async (e) => {
   await axios.get(`/api/regencies/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Kota / Kabupaten</option>';
-      let data = response.data;
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
-        ${data[i].name}</option>`;
-      }
+      let regencies = response.data;
+      regencies.forEach(regency => {
+        bucket += `<option data-id="${regency.id}" value="${regency.name}">
+        ${regency.name}</option>`;
+      });
       selectRegencies.innerHTML = bucket;
     })
     .catch((err) => {
@@ -74,11 +70,11 @@ selectRegencies.addEventListener('change', async (e) => {
   await axios.get(`/api/districts/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option>Pilih Kecamatan</option>';
-      let data = response.data.districts;
-      for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
-            ${data[i].name}</option>`;
-      }
+      let districts = response.data;
+      districts.forEach(district => {
+        bucket += `<option data-id="${district.id}" value="${district.name}">
+        ${district.name}</option>`;
+      });
       selectDistricts.innerHTML = bucket;
     })
     .catch((err) => {
@@ -96,11 +92,11 @@ selectDistricts.addEventListener('change', async (e) => {
   await axios.get(`/api/villages/${dataTarget}.json`)
     .then((response) => {
       let bucket = '<option value="">Pilih Desa / Kelurahan</option>';
-      let data = response.data.villages;
-      for (let i = 0; i < data.length; i++) {
-        bucket += `<option data-id="${data[i].id}" value="${data[i].name}">
-                ${data[i].name}</option>`;
-      }
+      let villages = response.data;
+      villages.forEach(village => {
+        bucket += `<option data-id="${village.id}" value="${village.name}">
+        ${village.name}</option>`;
+      });
       selectVillages.innerHTML = bucket;
     })
     .catch((err) => {
@@ -109,3 +105,9 @@ selectDistricts.addEventListener('change', async (e) => {
       selectVillages.innerHTML = bucket;
     });
 });
+
+const editAddress = () => {
+    document.getElementById('address-container').classList.remove('hidden');
+    document.getElementById('address-content').classList.add('hidden');
+    document.getElementById('address').value = null;
+}

@@ -707,15 +707,19 @@ class ApplicantController extends Controller
             $user->update($data_user);
         }
 
-        $rt = $request->input('rt') !== null ? 'RT. ' . $request->input('rt') . ' ' : null;
-        $rw = $request->input('rw') !== null ? 'RW. ' . $request->input('rw') . ' ' : null;
-        $kel = $request->input('villages') !== null ? 'DESA/KEL. ' . $request->input('villages') . ' ' : null;
-        $kec = $request->input('districts') !== null ? 'KEC. ' . $request->input('districts') . ' ' : null;
-        $reg = $request->input('regencies') !== null ? 'KOTA/KAB. ' . $request->input('regencies') . ' ' : null;
-        $prov = $request->input('provinces') !== null ? 'PROVINSI ' . $request->input('provinces') . ' ' : null;
-        $postal = $request->input('postal_code') !== null ? 'KODE POS ' . $request->input('postal_code') : null;
+        $rt_digit = (strlen($request->input('rt')) < 2) ? '0' . $request->input('rt') : $request->input('rt');
+        $rw_digit = (strlen($request->input('rw')) < 2) ? '0' . $request->input('rw') : $request->input('rw');
 
-        $address_applicant = $rt . $rw . $kel . $kec . $reg . $prov . $postal;
+        $place = $request->input('place') !== null ? ucwords(strtolower($request->input(('place')))) . ', ' : null;
+        $rt = $request->input('rt') !== null ? 'RT. ' . $rt_digit . ' ' : null;
+        $rw = $request->input('rw') !== null ? 'RW. ' . $rw_digit . ', ' : null;
+        $kel = $request->input('villages') !== null ? 'Desa/Kelurahan ' . ucwords(strtolower($request->input(('villages')))) . ', ' : null;
+        $kec = $request->input('districts') !== null ? 'Kecamatan ' . ucwords(strtolower($request->input(('districts')))) . ', ' : null;
+        $reg = $request->input('regencies') !== null ? 'Kota/Kabupaten ' . ucwords(strtolower($request->input(('regencies')))) . ', ' : null;
+        $prov = $request->input('provinces') !== null ? 'Provinsi ' . ucwords(strtolower($request->input(('provinces')))) . ', ' : null;
+        $postal = $request->input('postal_code') !== null ? 'Kode Pos ' . $request->input('postal_code') : null;
+
+        $address_applicant = $place . $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
         $schoolCheck = School::where('id', $request->input('school'))->first();
         $schoolNameCheck = School::where('name', $request->input('school'))->first();
@@ -781,15 +785,19 @@ class ApplicantController extends Controller
             'status_id' => $request->input('status_id'),
         ];
 
-        $father_rt = $request->input('father_rt') !== null ? 'RT. ' . $request->input('father_rt') . ' ' : null;
-        $father_rw = $request->input('father_rw') !== null ? 'RW. ' . $request->input('father_rw') . ' ' : null;
-        $father_kel = $request->input('father_villages') !== null ? 'DESA/KEL. ' . $request->input('father_villages') . ' ' : null;
-        $father_kec = $request->input('father_districts') !== null ? 'KEC. ' . $request->input('father_districts') . ' ' : null;
-        $father_reg = $request->input('father_regencies') !== null ? 'KOTA/KAB. ' . $request->input('father_regencies') . ' ' : null;
-        $father_prov = $request->input('father_provinces') !== null ? 'PROVINSI ' . $request->input('father_provinces') . ' ' : null;
-        $father_postal = $request->input('father_postal_code') !== null ? 'KODE POS ' . $request->input('father_postal_code') : null;
+        $father_rt_digit = (strlen($request->input('father_rt')) < 2) ? '0' . $request->input('father_rt') : $request->input('father_rt');
+        $father_rw_digit = (strlen($request->input('father_rw')) < 2) ? '0' . $request->input('father_rw') : $request->input('father_rw');
 
-        $address_father = $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
+        $father_place = $request->input('father_rt') !== null ? ucwords(strtolower($request->input(('father_place')))) . ', ' : null;
+        $father_rt = $request->input('father_rt') !== null ? 'RT. ' . $father_rt_digit . ' ' : null;
+        $father_rw = $request->input('father_rw') !== null ? 'RW. ' . $father_rw_digit . ', ' : null;
+        $father_kel = $request->input('father_villages') !== null ? 'Desa/Kelurahan ' . ucwords(strtolower($request->input(('father_villages')))) . ', ' : null;
+        $father_kec = $request->input('father_districts') !== null ? 'Kecamatan ' . ucwords(strtolower($request->input(('father_districts')))) . ', ' : null;
+        $father_reg = $request->input('father_regencies') !== null ? 'Kota/Kabupaten ' . ucwords(strtolower($request->input(('father_regencies')))) . ', ' : null;
+        $father_prov = $request->input('father_provinces') !== null ? 'Provinsi ' . ucwords(strtolower($request->input(('father_provinces')))) . ', ' : null;
+        $father_postal = $request->input('father_postal_code') !== null ? 'Kode Pos ' . ucwords(strtolower($request->input(('father_postal_code')))) : null;
+
+        $address_father = $father_place . $father_rt . $father_rw . $father_kel . $father_kec . $father_reg . $father_prov . $father_postal;
 
         $data_father = [
             'name' => ucwords($request->input('father_name')),
@@ -801,15 +809,19 @@ class ApplicantController extends Controller
             'address' => $request->input('father_address') == null ? $address_father : $request->input('father_address'),
         ];
 
-        $mother_rt = $request->input('mother_rt') !== null ? 'RT. ' . $request->input('mother_rt') . ' ' : null;
-        $mother_rw = $request->input('mother_rw') !== null ? 'RW. ' . $request->input('mother_rw') . ' ' : null;
-        $mother_kel = $request->input('mother_villages') !== null ? 'DESA/KEL. ' . $request->input('mother_villages') . ' ' : null;
-        $mother_kec = $request->input('mother_districts') !== null ? 'KEC. ' . $request->input('mother_districts') . ' ' : null;
-        $mother_reg = $request->input('mother_regencies') !== null ? 'KOTA/KAB. ' . $request->input('mother_regencies') . ' ' : null;
-        $mother_prov = $request->input('mother_provinces') !== null ? 'PROVINSI ' . $request->input('mother_provinces') . ' ' : null;
-        $mother_postal = $request->input('mother_postal_code') !== null ? 'KODE POS ' . $request->input('mother_postal_code') : null;
+        $mother_rt_digit = (strlen($request->input('mother_rt')) < 2) ? '0' . $request->input('mother_rt') : $request->input('mother_rt');
+        $mother_rw_digit = (strlen($request->input('mother_rw')) < 2) ? '0' . $request->input('mother_rw') : $request->input('mother_rw');
 
-        $address_father = $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
+        $mother_place = $request->input('mother_rt') !== null ? ucwords(strtolower($request->input(('mother_place')))) . ', ' : null;
+        $mother_rt = $request->input('mother_rt') !== null ? 'RT. ' . $mother_rt_digit . ' ' : null;
+        $mother_rw = $request->input('mother_rw') !== null ? 'RW. ' . $mother_rw_digit . ', ' : null;
+        $mother_kel = $request->input('mother_villages') !== null ? 'Desa/Kelurahan ' . ucwords(strtolower($request->input(('mother_villages')))) . ', ' : null;
+        $mother_kec = $request->input('mother_districts') !== null ? 'Kecamatan ' . ucwords(strtolower($request->input(('mother_districts')))) . ', ' : null;
+        $mother_reg = $request->input('mother_regencies') !== null ? 'Kota/Kabupaten ' . ucwords(strtolower($request->input(('mother_regencies')))) . ', ' : null;
+        $mother_prov = $request->input('mother_provinces') !== null ? 'Provinsi ' . ucwords(strtolower($request->input(('mother_provinces')))) . ', ' : null;
+        $mother_postal = $request->input('mother_postal_code') !== null ? 'Kode Pos ' . ucwords(strtolower($request->input(('mother_postal_code')))) : null;
+
+        $address_father = $mother_place . $mother_rt . $mother_rw . $mother_kel . $mother_kec . $mother_reg . $mother_prov . $mother_postal;
 
         $data_mother = [
             'name' => ucwords($request->input('mother_name')),

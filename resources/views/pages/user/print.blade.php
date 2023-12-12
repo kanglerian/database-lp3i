@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <title>Cetak Dokumen</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon/favicon.png') }}">
+    <title>Cetak Dokumen - Politeknik LP3I Kampus Tasikmalaya</title>
     <style>
         body {
             width: 100%;
@@ -94,6 +95,22 @@
         }
     </style>
 </head>
+@php
+    $monthsInIndonesian = [
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember',
+    ];
+@endphp
 
 <body>
     <div class="book">
@@ -128,7 +145,8 @@
                     <td>:</td>
                     <td>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}
                         /
-                        {{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</td>
+                        {{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">Agama</td>
@@ -164,7 +182,7 @@
                     <td>:</td>
                     <td>{{ $father->place_of_birth == null ? '___' : $father->place_of_birth }}
                         /
-                        {{ $father->date_of_birth == null ? '___' : $father->date_of_birth }}</td>
+                        {{ $father->date_of_birth == null ? '___' : \Carbon\Carbon::parse($father->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($father->date_of_birth)->format('m')] . \Carbon\Carbon::parse($father->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pendidikan Terakhir</td>
@@ -200,7 +218,7 @@
                     <td>:</td>
                     <td>{{ $mother->place_of_birth == null ? '___' : $mother->place_of_birth }}
                         /
-                        {{ $mother->date_of_birth == null ? '___' : $mother->date_of_birth }}</td>
+                        {{ $mother->date_of_birth == null ? '___' : \Carbon\Carbon::parse($mother->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($mother->date_of_birth)->format('m')] . \Carbon\Carbon::parse($mother->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
                     <td style="width: 200px;">Pendidikan Terakhir</td>
@@ -262,7 +280,7 @@
                     <td>
                         <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
                         /
-                        <span>{{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</span>
+                        <span>{{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -428,7 +446,7 @@
                     <td>
                         <span>{{ $applicant->place_of_birth == null ? '___' : $applicant->place_of_birth }}</span>
                         /
-                        <span>{{ $applicant->date_of_birth == null ? '___' : $applicant->date_of_birth }}</span>
+                        <span>{{ $applicant->date_of_birth == null ? '___' : \Carbon\Carbon::parse($applicant->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($applicant->date_of_birth)->format('m')] . \Carbon\Carbon::parse($applicant->date_of_birth)->format(' Y') }}</span>
                     </td>
                 </tr>
                 <tr>

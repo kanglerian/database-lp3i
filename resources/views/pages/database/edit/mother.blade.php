@@ -68,18 +68,65 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="mother_address" :value="__('Alamat')" />
-                        <x-textarea id="mother_address" type="mother_address" name="mother_address"
-                            value="{{ old('mother_address', $mother->address) }}"
-                            placeholder="Tulis alamat disini...">{{ $mother->address }}</x-textarea>
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500 text-xs">{{ $errors->first('mother_address') }}</span>
-                        </p>
+
+                <div class="@if ($mother->address) hidden @endif" id="address-container-mother">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_place" :value="__('Jl/Kp/Perum')" />
+                            <x-input id="mother_place" type="text" name="mother_place" placeholder="Jl. / Kp. / Perum"
+                                required />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_rt" :value="__('RT')" />
+                            <x-input id="mother_rt" type="text" name="mother_rt" placeholder="RT." required />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_rw" :value="__('RW')" />
+                            <x-input id="mother_rw" type="text" name="mother_rw" placeholder="RW." required />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_provinces" :value="__('Provinsi')" />
+                            <x-select id="mother_provinces" name="mother_provinces" required disabled></x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_regencies" :value="__('Kota/Kabupaten')" />
+                            <x-select id="mother_regencies" name="mother_regencies" required disabled>
+                                <option>Pilih Kota / Kabupaten</option>
+                            </x-select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_districts" :value="__('Kecamatan')" />
+                            <x-select id="mother_districts" name="mother_districts" required disabled>
+                                <option>Pilih Kecamatan</option>
+                            </x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_villages" :value="__('Desa/Kelurahan')" />
+                            <x-select id="mother_villages" name="mother_villages" required disabled>
+                                <option>Pilih Desa / Kelurahan</option>
+                            </x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="mother_postal_code" :value="__('Kode Pos')" />
+                            <x-input id="mother_postal_code" type="text" name="mother_postal_code" placeholder="Kode Pos"
+                                required />
+                        </div>
                     </div>
                 </div>
-
+                @if ($mother->address)
+                <div class="space-y-2" id="address-content-mother">
+                    <h3 class="font-bold text-gray-900 text-sm">Alamat:</h3>
+                    <input type="hidden" id="mother_address" name="mother_address" value="{{ $mother->address }}">
+                    <p class="text-sm text-gray-700">{{ $mother->address }}</p>
+                    <span onclick="editAddressMother()"
+                        class="inline-block cursor-pointer text-xs bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1.5 rounded-lg">Ubah
+                        Alamat</span>
+                </div>
+                @endif
             </section>
         </section>
     </div>

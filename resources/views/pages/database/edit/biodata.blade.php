@@ -31,7 +31,8 @@
                                         class="fa-solid fa-xmark"></i></span>
                             </div>
                             <div class="px-3 py-2">
-                                <p>Kalo belum punya KTP, bisa cek di <span class="font-medium">Kartu Keluarga</span> sih.</p>
+                                <p>Kalo belum punya KTP, bisa cek di <span class="font-medium">Kartu Keluarga</span>
+                                    sih.</p>
                             </div>
                         </div>
                         <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
@@ -72,7 +73,9 @@
                                 </span>
                             </div>
                             <div class="px-3 py-2">
-                                <p>Bro, mampir ke web <a class="underline font-medium" href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama">NISN Kemendikbud</a> ya, terus isi data dirimu.</p>
+                                <p>Bro, mampir ke web <a class="underline font-medium"
+                                        href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama">NISN
+                                        Kemendikbud</a> ya, terus isi data dirimu.</p>
                             </div>
                         </div>
                         <x-label for="nisn" :value="__('Nomor Induk Siswa Nasional')" />
@@ -138,7 +141,8 @@
                     <div class="relative z-0 w-full group">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name"
-                            value="{{ old('name', $applicant->name) }}" placeholder="Nama lengkap disini.." required />
+                            value="{{ old('name', $applicant->name) }}" placeholder="Nama lengkap disini.."
+                            required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('name'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
@@ -358,65 +362,71 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="place" :value="__('Jl/Kp/Perum')" />
-                        <x-input id="place" type="text" name="place"
-                            placeholder="Jl. / Kp. / Perum" />
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
-                        </p>
+
+                <div class="@if ($applicant->address) hidden @endif" id="address-container">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="place" :value="__('Jl/Kp/Perum')" />
+                            <x-input id="place" type="text" name="place" placeholder="Jl. / Kp. / Perum"
+                                required />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="rt" :value="__('RT')" />
+                            <x-input id="rt" type="text" name="rt" placeholder="RT." required />
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="rw" :value="__('RW')" />
+                            <x-input id="rw" type="text" name="rw" placeholder="RW." required />
+                        </div>
                     </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="rt" :value="__('RT')" />
-                        <x-input id="rt" type="text" name="rt"
-                            placeholder="RT." />
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
-                        </p>
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="provinces" :value="__('Provinsi')" />
+                            <x-select id="provinces" name="provinces" required disabled></x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="regencies" :value="__('Kota/Kabupaten')" />
+                            <x-select id="regencies" name="regencies" required disabled>
+                                <option>Pilih Kota / Kabupaten</option>
+                            </x-select>
+                        </div>
                     </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="rw" :value="__('RW')" />
-                        <x-input id="rw" type="text" name="rw"
-                            placeholder="RW." />
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500 text-xs">{{ $errors->first('relation') }}</span>
-                        </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="districts" :value="__('Kecamatan')" />
+                            <x-select id="districts" name="districts" required disabled>
+                                <option>Pilih Kecamatan</option>
+                            </x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="villages" :value="__('Desa/Kelurahan')" />
+                            <x-select id="villages" name="villages" required disabled>
+                                <option>Pilih Desa / Kelurahan</option>
+                            </x-select>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="postal_code" :value="__('Kode Pos')" />
+                            <x-input id="postal_code" type="text" name="postal_code" placeholder="Kode Pos"
+                                required />
+                        </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="provinces" :value="__('Provinsi')" />
-                        <x-select id="provinces" name="provinces" required></x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('religion'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('religion') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
+                @if ($applicant->address)
+                    <div class="space-y-2" id="address-content">
+                        <h3 class="font-bold text-gray-900 text-sm">Alamat:</h3>
+                        <input type="hidden" id="address" name="address" value="{{ $applicant->address }}">
+                        <p class="text-sm text-gray-700">{{ $applicant->address }}</p>
+                        <span onclick="editAddress()"
+                            class="inline-block cursor-pointer text-xs bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1.5 rounded-lg">Ubah
+                            Alamat</span>
                     </div>
-                </div>
-                <div class="grid grid-cols-1">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="address" :value="__('Alamat')" />
-                        <x-textarea id="address" type="address" name="address" value="{{ $applicant->address }}"
-                            placeholder="Tulis alamat disini...">{{ $applicant->address }}</x-textarea>
-                        <p class="mt-2 text-xs text-gray-500">
-                            <span class="text-red-500 text-xs">{{ $errors->first('address') }}</span>
-                        </p>
-                    </div>
-                </div>
+                @endif
             </section>
         </section>
     </div>
 </div>
 
 @push('scripts')
-    <script src="{{ asset('js/api-notif.js') }}"></script>
-    @if ($applicant->address == null)
-        <script src="{{ asset('js/indonesia.js') }}"></script>
-    @endif
     <script>
         $(document).ready(function() {
             $('.js-example-input-single').select2({
