@@ -35,7 +35,12 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             position: relative;
+            background-image: url('/img/wattermark.svg');
+            background-size: 200px;
+            background-repeat: no-repeat;
+            background-position: center center;
         }
+
 
         .subpage {
             padding: 1cm;
@@ -74,6 +79,10 @@
                 box-shadow: initial;
                 background: initial;
                 page-break-after: always;
+                background-image: url('/img/wattermark.svg');
+                background-size: 200px;
+                background-repeat: no-repeat;
+                background-position: center center;
             }
 
             #print {
@@ -260,7 +269,8 @@
                     <p>Program Studi {{ $applicant->program == null ? '_______________' : $applicant->program }}
                         ({{ $applicant->programtype->name }})</p>
                     <p>
-                        <span>Relasi: {{ $applicant->relation == null ? '_______________' : $applicant->relation }}</span> |
+                        <span>Relasi:
+                            {{ $applicant->relation == null ? '_______________' : $applicant->relation }}</span> |
                         <span>Sumber:
                             {{ $applicant->source_id == null ? '_______________' : $applicant->SourceSetting->name }}</span>
                     </p>
