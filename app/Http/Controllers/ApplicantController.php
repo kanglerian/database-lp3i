@@ -1015,9 +1015,9 @@ class ApplicantController extends Controller
 
             $kip = null;
             if (!empty($applicants[$i][25])) {
-                if (strcasecmp($applicants[$i][25]) === 'YA') {
+                if (strtoupper($applicants[$i][25]) === 'YA') {
                     $kip = 1;
-                } elseif(strcasecmp($applicants[$i][25]) === 'TIDAK') {
+                } elseif(strtoupper($applicants[$i][25]) === 'TIDAK') {
                     $kip = 0;
                 } else {
                     $kip = null;
