@@ -293,8 +293,7 @@
                     <td>:</td>
                     <td>
                         <span>{{ $applicant->school == null ? '_______________' : $applicant->SchoolApplicant->name }}</span>
-                        (<span>{{ $applicant->major == null ? '_______________' : $applicant->major }}</span>
-                        <span>{{ $applicant->year == null ? '_______________' : $applicant->year }}</span>)
+                        (<span>{{ $applicant->year == null ? '_______________' : $applicant->year }}</span>)
                     </td>
                 </tr>
                 <tr>
