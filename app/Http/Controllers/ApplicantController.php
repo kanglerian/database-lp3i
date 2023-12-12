@@ -1014,21 +1014,17 @@ class ApplicantController extends Controller
             }
 
             $kip = null;
-            if (!empty($applicants[$i][25])) {
-                if (strtoupper($applicants[$i][25]) === 'YA') {
-                    $kip = 1;
-                } elseif(strtoupper($applicants[$i][25]) === 'TIDAK') {
-                    $kip = 0;
-                } else {
-                    $kip = null;
-                }
+            if (strcasecmp($applicants[$i][24], 'YA') === 0) {
+                $kip = 1;
+            } elseif (strcasecmp($applicants[$i][24], 'TIDAK') === 0) {
+                $kip = 0;
             }
 
             $known = null;
 
-            if (strcasecmp($applicants[$i][25], 'YA') === 0) {
+            if (strcasecmp($applicants[$i][26], 'YA') === 0) {
                 $known = 1;
-            } elseif (strcasecmp($applicants[$i][25], 'TIDAK') === 0) {
+            } elseif (strcasecmp($applicants[$i][26], 'TIDAK') === 0) {
                 $known = 0;
             }
 
