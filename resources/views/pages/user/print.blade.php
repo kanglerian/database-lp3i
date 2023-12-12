@@ -245,7 +245,7 @@
                 <tr>
                     <td style="width: 200px;">Penghasilan Orang Tua</td>
                     <td>:</td>
-                    <td>Rp{{ $applicant->income_parent == null ? '___' : $applicant->income_parent }}</td>
+                    <td>Rp {{ $applicant->income_parent == null ? '___' : $applicant->income_parent }}</td>
                 </tr>
             </table>
             <footer id="footer" style="margin-top: 25px;font-size:10px;text-align:right"></footer>
