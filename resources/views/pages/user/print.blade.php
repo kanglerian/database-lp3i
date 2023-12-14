@@ -411,7 +411,11 @@
                 <tr>
                     <td style="width: 200px;">No. Kwitansi Pendaftaran</td>
                     <td>:</td>
-                    <td>{{ $enrollment->receipt == null ? '________________________' : $enrollment->receipt }}</td>
+                    @if ($enrollment)
+                    <td>{{ $enrollment->receipt }}</td>
+                    @else
+                    <td>________________________</td>
+                    @endif
                 </tr>
                 <tr>
                     <td style="width: 200px;">Program Studi</td>
