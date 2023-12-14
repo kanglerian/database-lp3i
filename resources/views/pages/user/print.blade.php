@@ -407,9 +407,9 @@
                     <td style="width: 200px;">Status Aplikan</td>
                     <td>:</td>
                     <td>
-                        <span>A {{ $applicant->is_applicant == null ? '[  ]' : '[ √ ]' }}</span> |
-                        <span>D {{ $applicant->is_daftar == null ? '[  ]' : '[ √ ]' }}</span> |
-                        <span>R {{ $applicant->is_register == null ? '[  ]' : '[ √ ]' }}</span>
+                        <span>A {{ $applicant->is_applicant == null ? '[  ]' : ' √ ' }}</span> |
+                        <span>D {{ $applicant->is_daftar == null ? '[  ]' : ' √ ' }}</span> |
+                        <span>R {{ $applicant->is_register == null ? '[  ]' : ' √ ' }}</span>
                     </td>
                 </tr>
                 <tr>
