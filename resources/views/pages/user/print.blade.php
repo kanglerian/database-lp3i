@@ -368,7 +368,7 @@
             </table>
 
             <hr style="margin-top: 10px;">
-            <div style="display: flex; justify-content:space-between" style="margin-top: 30px">
+            <div style="display: flex; justify-content:space-between;gap:30px" style="margin-top: 30px">
                 <div style="margin-top: 10px">
                     <p>Keterangan:</p>
                     @if ($applicant->note)
