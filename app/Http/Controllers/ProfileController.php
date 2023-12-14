@@ -360,4 +360,5 @@ class ProfileController extends Controller
         $account->update($data);
         return back()->with('message', 'Password berhasil diubah!');
     }
+
 }

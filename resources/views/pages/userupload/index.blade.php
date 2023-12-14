@@ -59,7 +59,8 @@
                                                         value="{{ $upload->id }}">
                                                     <input type="hidden" name="namefile"
                                                         value="{{ $upload->namefile }}">
-                                                    <input type="file" name="berkas" onchange="notifButton('{{ $upload->namefile }}')"
+                                                    <input type="file" name="berkas"
+                                                        onchange="notifButton('{{ $upload->namefile }}')"
                                                         id="berkas-{{ $upload->namefile }}" class="text-sm"
                                                         accept="{{ $upload->accept }}">
                                                     <button id="button-{{ $upload->namefile }}"
@@ -198,16 +199,14 @@
                                 '_token': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(response) {
-                                if (response.status == 'success') {
-                                    location.reload();
-                                } else {
-                                    console.log('Ada kesalahan dalam permintaan.');
-                                }
+                                location.reload();
                             },
                             error: function(xhr, status, error) {
                                 console.log(error);
                             }
-                        })
+                        });
+
+
                     })
                     .catch((err) => {
                         let bucket =

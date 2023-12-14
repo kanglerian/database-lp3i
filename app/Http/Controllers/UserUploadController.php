@@ -138,7 +138,7 @@ class UserUploadController extends Controller
             $dataku = [
                 'avatar' => null,
             ];
-            $user = User::findOrFail($user_upload->id);
+            $user = User::where('identity', $user_upload->identity_user);
             $user->update($dataku);
         }
 
