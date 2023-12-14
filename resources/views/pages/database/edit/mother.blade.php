@@ -131,3 +131,24 @@
         </section>
     </div>
 </div>
+
+
+@push('scripts')
+<script>
+    let motherPhoneInput = document.getElementById('mother_phone');
+    motherPhoneInput.addEventListener('input', function() {
+        let phone = motherPhoneInput.value;
+        if (phone.startsWith("62")) {
+            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
+                motherPhoneInput.value = '62';
+            } else {
+                motherPhoneInput.value = phone;
+            }
+        } else if (phone.startsWith("0")) {
+            motherPhoneInput.value = '62' + phone.substring(1);
+        } else {
+            motherPhoneInput.value = '62';
+        }
+    });
+</script>
+@endpush

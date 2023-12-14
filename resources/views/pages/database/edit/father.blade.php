@@ -130,3 +130,23 @@
         </section>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    let fatherPhoneInput = document.getElementById('father_phone');
+    fatherPhoneInput.addEventListener('input', function() {
+        let phone = fatherPhoneInput.value;
+        if (phone.startsWith("62")) {
+            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
+                fatherPhoneInput.value = '62';
+            } else {
+                fatherPhoneInput.value = phone;
+            }
+        } else if (phone.startsWith("0")) {
+            fatherPhoneInput.value = '62' + phone.substring(1);
+        } else {
+            fatherPhoneInput.value = '62';
+        }
+    });
+</script>
+@endpush
