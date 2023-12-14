@@ -38,35 +38,35 @@
         <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
     </div>
 
-    <script src="{{ asset('js/axios.min.js') }}"></script>
-    <script>
-        const getHistories = async () => {
-            try {
-                let identity = document.getElementById('identity').value;
-                const responseHistories = await axios.get(
-                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories?identity_user=${identity}`
-                );
+    @push('scripts')
+        <script>
+            const getHistories = async () => {
+                try {
+                    let identity = document.getElementById('identity').value;
+                    const responseHistories = await axios.get(
+                        `${URL_API_LP3I}/scholarship/histories?identity_user=${identity}`
+                    );
 
-                const responseCategories = await axios.get(
-                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
-                );
-                let histories = responseHistories.data;
-                let categories = responseCategories.data;
-                if (histories.length > 0) {
-                    const recordPromises = histories.map((history) => getRecords(history));
-                    const results = await Promise.all(recordPromises);
-                    let bucket = '';
-                    let count = categories.length;
-                    let totalTrue = results.filter((result) => result.trueResult).reduce((acc, result) => acc +
-                        result.trueResult, 0);
-                    let totalScore = results
-                        .map((result) => parseInt(result.score))
-                        .reduce((acc, score) => acc + score, 0);
-                    let averageScore = parseInt(count > 0 ? totalScore / count : 0);
-                    results.forEach(result => {
-                        let score = parseInt(result.score);
-                        let scoreResult = score.toFixed();
-                        bucket += `
+                    const responseCategories = await axios.get(
+                        `${URL_API_LP3I}/scholarship/categories`
+                    );
+                    let histories = responseHistories.data;
+                    let categories = responseCategories.data;
+                    if (histories.length > 0) {
+                        const recordPromises = histories.map((history) => getRecords(history));
+                        const results = await Promise.all(recordPromises);
+                        let bucket = '';
+                        let count = categories.length;
+                        let totalTrue = results.filter((result) => result.trueResult).reduce((acc, result) => acc +
+                            result.trueResult, 0);
+                        let totalScore = results
+                            .map((result) => parseInt(result.score))
+                            .reduce((acc, score) => acc + score, 0);
+                        let averageScore = parseInt(count > 0 ? totalScore / count : 0);
+                        results.forEach(result => {
+                            let score = parseInt(result.score);
+                            let scoreResult = score.toFixed();
+                            bucket += `
                         <div class="p-6 bg-white shadow rounded-xl">
                             <h2 class="text-lg font-bold">${result.category}</h2>
                             <ul class="text-sm space-y-1 mt-2">
@@ -92,60 +92,60 @@
                             </ul>
                         </div>
                     `
-                    });
-                    document.getElementById('result').innerHTML = `
+                        });
+                        document.getElementById('result').innerHTML = `
                         <div class="grid grid-cols-1 md:grid-cols-3 mx-auto gap-3">
                             ${bucket}
                         </div>
                     `;
-                    document.getElementById('total_true').innerText = `Total Benar: ${totalTrue}`;
-                    document.getElementById('average_score').innerText = `Nilai Akhir: ${averageScore}`;
-                } else {
-                    document.getElementById('score_container').style.display = 'none';
-                    document.getElementById('result').innerHTML =
-                        `<p class="text-sm text-center text-gray-600">Tidak ada yang dikerjakan.</p>`;
+                        document.getElementById('total_true').innerText = `Total Benar: ${totalTrue}`;
+                        document.getElementById('average_score').innerText = `Nilai Akhir: ${averageScore}`;
+                    } else {
+                        document.getElementById('score_container').style.display = 'none';
+                        document.getElementById('result').innerHTML =
+                            `<p class="text-sm text-center text-gray-600">Tidak ada yang dikerjakan.</p>`;
+                    }
+
+                } catch (error) {
+                    console.log(error.message);
                 }
-
-            } catch (error) {
-                console.log(error.message);
             }
-        }
-        getHistories();
-    </script>
-    <script>
-        const getRecords = async (history) => {
-            try {
-                const responseRecords = await axios.get(
-                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
-                );
-                const responseQuestions = await axios.get(
-                    `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`
-                );
+            getHistories();
+        </script>
+        <script>
+            const getRecords = async (history) => {
+                try {
+                    const responseRecords = await axios.get(
+                        `${URL_API_LP3I}/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                    );
+                    const responseQuestions = await axios.get(
+                        `${URL_API_LP3I}/scholarship/questions?category=${history.category_id}`
+                    );
 
-                let category = history.category.name;
-                let records = responseRecords.data;
-                let recordLength = records.length;
-                let trueResult = records.filter((record) => record.answer.correct == true).length;
-                let falseResult = records.filter((record) => record.answer.correct == false).length;
+                    let category = history.category.name;
+                    let records = responseRecords.data;
+                    let recordLength = records.length;
+                    let trueResult = records.filter((record) => record.answer.correct == true).length;
+                    let falseResult = records.filter((record) => record.answer.correct == false).length;
 
-                let questions = responseQuestions.data.length;
+                    let questions = responseQuestions.data.length;
 
-                let nilai = (trueResult / questions) * 100;
-                let score = nilai.toFixed();
+                    let nilai = (trueResult / questions) * 100;
+                    let score = nilai.toFixed();
 
-                return {
-                    recordLength,
-                    trueResult,
-                    falseResult,
-                    questions,
-                    score,
-                    category,
+                    return {
+                        recordLength,
+                        trueResult,
+                        falseResult,
+                        questions,
+                        score,
+                        category,
+                    }
+
+                } catch (error) {
+                    document.getElementById('result').innerHTML = `${error.message}`;
                 }
-
-            } catch (error) {
-                document.getElementById('result').innerHTML = `${error.message}`;
             }
-        }
-    </script>
-
+        </script>
+    @endpush
 </x-app-layout>

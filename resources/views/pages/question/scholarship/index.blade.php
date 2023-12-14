@@ -21,8 +21,8 @@
 
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
                 <div role="status" id="data-loading">
-                    <svg class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-blue-600"
-                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                             fill="currentColor" />
@@ -106,7 +106,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="7" class="text-center px-6 py-4 text-gray-600 whitespace-nowrap">Data belum ditemukan.</td>
+                                    <td colspan="7" class="text-center px-6 py-4 text-gray-600 whitespace-nowrap">
+                                        Data belum ditemukan.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -118,6 +119,7 @@
     </div>
 </x-app-layout>
 
+@include('pages.question.scholarship.exports.excel')
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
     var data;
@@ -125,12 +127,10 @@
     var histories;
     const getHistories = async () => {
         try {
-            const responseHistories = await axios.get(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories`
-            );
-            const responseCategories = await axios.get(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
-            );
+            const [responseHistories, responseCategories] = await Promise.all([
+                axios.get(`${URL_API_LP3I}/scholarship/histories`),
+                axios.get(`${URL_API_LP3I}/scholarship/categories`)
+            ]);
 
             histories = responseHistories.data;
             categories = responseCategories.data;
@@ -150,7 +150,7 @@
             let applicantBucket = [];
 
             await Promise.all(applicants.map(async (details) => {
-                let detailBucket = details.map(detail => ({
+                const detailBucket = details.map(detail => ({
                     identity: detail.identity,
                     category: detail.category,
                     score: detail.score,
@@ -159,17 +159,19 @@
                     questions: detail.questions,
                     recordLength: detail.recordLength,
                 }));
-                let identityVal = details[0].identity;
-                await axios.get(`/api/database/${identityVal}`)
-                    .then((response) => {
+
+                const identityVal = details[0].identity;
+
+                try {
+                        const response = await axios.get(
+                        `/api/database/${identityVal}`);
                         applicantBucket.push({
                             identity: response.data.user,
                             detail: detailBucket,
                         });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    })
+                } catch (error) {
+                    console.log(error);
+                }
             }));
 
             var dataTableInitialized = false;
@@ -251,12 +253,12 @@
 <script>
     const getRecords = async (history) => {
         try {
-            const responseRecords = await axios.get(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
-            );
-            const responseQuestions = await axios.get(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`
-            );
+            const [responseRecords, responseQuestions] = await Promise.all([
+                axios.get(
+                    `${URL_API_LP3I}/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                ),
+                axios.get(`${URL_API_LP3I}/scholarship/questions?category=${history.category_id}`)
+            ]);
 
             let identity = history.identity_user;
             let category = history.category.name;
@@ -286,4 +288,3 @@
         }
     }
 </script>
-@include('pages.question.scholarship.exports.excel')

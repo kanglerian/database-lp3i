@@ -61,7 +61,7 @@
                                             <button
                                                 class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
                                                     class="fa-solid fa-circle-check"></i></button>
-                                            <a href="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
+                                            <a href="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             <button
@@ -168,7 +168,7 @@
                     typefile: berkas.name.split('.').pop(),
                 }
 
-                await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/upload`, data)
+                await axios.post(`${URL_API_LP3I}/pmbonline/upload`, data)
                     .then((res) => {
                         alert('Berhasil diupload!');
                         loadingForm.removeChild(loadingElement);
@@ -216,7 +216,7 @@
                 namefile: namefile,
                 typefile: typefile,
             }
-            await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/delete`, {
+            await axios.delete(`${URL_API_LP3I}/pmbonline/delete`, {
                     params: data
                 })
                 .then((res) => {

@@ -4,9 +4,31 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center gap-3">
-            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-                Edit Profil
-            </h2>
+            <nav class="flex">
+                <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        @if (Auth::user()->role == 'S')
+                        <a href="{{ route('dashboard.index') }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                            <i class="fa-solid fa-gauge mr-2"></i>
+                            Dashboard
+                        </a>
+                        @else
+                        <a href="{{ route('user.index') }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                            <i class="fa-solid fa-users mr-2"></i>
+                            Akun
+                        </a>
+                        @endif
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Ubah Profil</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
             @if ($user->role == 'S')
                 <div class="flex items-center gap-2">
                     <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">

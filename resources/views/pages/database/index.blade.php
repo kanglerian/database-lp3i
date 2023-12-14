@@ -187,30 +187,8 @@
 {{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
-<script src="{{ asset('js/axios.min.js') }}"></script>
 @include('pages.database.database.filterjs')
 <script>
-    const handleWhatsapp = async (target, message) => {
-        await axios
-            .post(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/whatsappbot/send`, {
-                    target: target,
-                    message: message,
-                }
-            )
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-</script>
-<script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-
     const getDataTable = async () => {
         const dataTableConfig = {
             ajax: {

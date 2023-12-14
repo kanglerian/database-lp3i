@@ -161,7 +161,7 @@
 
 <script>
     const getCategories = async () => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`)
+        await axios.get(`${URL_API_LP3I}/scholarship/categories`)
             .then((response) => {
                 let bucket = '';
                 let categories = response.data;
@@ -205,7 +205,7 @@
                 category_id: target[0].value,
                 question: question,
             }
-            await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`, dataQuestion)
+            await axios.post(`${URL_API_LP3I}/scholarship/questions`, dataQuestion)
                 .then(async (response) => {
                     let id = response.data.id;
                     let answers = [{
@@ -230,7 +230,7 @@
                         answers.map(async (answer) => {
                             try {
                                 const response = await axios.post(
-                                    'https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers',
+                                    '${URL_API_LP3I}/scholarship/answers',
                                     answer
                                 );
                                 console.log(response.data);

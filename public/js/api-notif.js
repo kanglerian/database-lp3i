@@ -1,7 +1,7 @@
 const wilayah = document.getElementById('wilayah');
 
 const getWilayah = async () => {
-  await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/region/provinces`)
+  await axios.get(`${URL_API_LP3I}/region/provinces`)
     .then(() => {
       wilayah.innerHTML = '<i class="fa-solid fa-wifi text-green-500"></i>';
     })

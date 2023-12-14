@@ -154,33 +154,6 @@ class UserUploadController extends Controller
      */
     public function upload_pembayaran(Request $request)
     {
-        $request->validate([
-            'berkas' => 'required|max:1024',
-        ]);
 
-        $data = [
-            'identity_user' => Auth::user()->identity,
-            'fileupload_id' => $request->input('fileupload_id'),
-            'typefile' => $request->berkas->extension(),
-        ];
-
-        $encodedFile = base64_encode(file_get_contents($request->berkas->getPathName()));
-
-        $payload = [
-            'identity' => Auth::user()->identity,
-            'namefile' => $request->input('namefile'),
-            'typefile' => $request->berkas->extension(),
-            'image' => $encodedFile,
-        ];
-
-        $response = Http::post('https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/pmbupload', $payload);
-        $status = $response->status();
-        switch ($status) {
-            case 200:
-                UserUpload::create($data);
-                return back()->with('message', 'Berkas berhasil ditambahkan!');
-            case 500:
-                return back()->with('error', 'Server belum dijalankan');
-        }
     }
 }

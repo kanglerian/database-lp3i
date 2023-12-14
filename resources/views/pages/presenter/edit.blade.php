@@ -1,8 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-            {{ __('Ubah Presenter') }}
-        </h2>
+        <nav class="flex">
+            <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{{ route('presenter.index') }}"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <i class="fa-solid fa-users mr-2"></i>
+                        Presenter
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Ubah Presenter</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
     </x-slot>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -104,23 +118,20 @@
         </div>
     </div>
 </x-app-layout>
-@push('scripts')
-    <script>
-        let phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('input', function() {
-            let phone = phoneInput.value;
-
-            if (phone.startsWith("62")) {
-                if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
-                    phoneInput.value = '62';
-                } else {
-                    phoneInput.value = phone;
-                }
-            } else if (phone.startsWith("0")) {
-                phoneInput.value = '62' + phone.substring(1);
-            } else {
+<script>
+    let phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', function() {
+        let phone = phoneInput.value;
+        if (phone.startsWith("62")) {
+            if (phone.length === 3 && (phone[2] === "0" || phone[2] !== "8")) {
                 phoneInput.value = '62';
+            } else {
+                phoneInput.value = phone;
             }
-        });
-    </script>
-@endpush
+        } else if (phone.startsWith("0")) {
+            phoneInput.value = '62' + phone.substring(1);
+        } else {
+            phoneInput.value = '62';
+        }
+    });
+</script>

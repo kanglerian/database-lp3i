@@ -16,7 +16,6 @@ use App\Http\Controllers\ProgramTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ApplicantStatusController;
-use App\Http\Controllers\ApplicantHistoryController;
 use App\Http\Controllers\PresenterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -62,7 +61,6 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
 /* Route Database  */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('database', ApplicantController::class);
-    Route::resource('histories', ApplicantHistoryController::class);
     /* Import from Spreadsheet */
     Route::get('import/applicants', [ApplicantController::class, 'import'])->name('applicant.import');
     Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->name('applicant.importupdate');
@@ -96,7 +94,6 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account');
     Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password');
     Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change');
-    Route::get('print/user/{id}', [UserController::class, 'print'])->name('user.print');
     Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change');
     Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password');
 });

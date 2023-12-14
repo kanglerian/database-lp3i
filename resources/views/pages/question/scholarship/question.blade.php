@@ -102,7 +102,7 @@
 
 <script>
     const showAnswers = async (question) => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers/question/${question}`)
+        await axios.get(`${URL_API_LP3I}/scholarship/answers/question/${question}`)
             .then((response) => {
                 let message = '';
                 const answers = response.data;
@@ -138,7 +138,7 @@
 </script>
 
 <script>
-    var urlData = 'https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions';
+    var urlData = `${URL_API_LP3I}/scholarship/questions`;
     var dataTableInitialized = false;
     var dataTableInstance;
 
@@ -205,7 +205,7 @@
     const deleteRecord = async (id) => {
         const confirmation = confirm('Apakah anda yakin untuk menghapus pertanyaan ini?');
         if (confirmation) {
-            await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions/${id}`)
+            await axios.delete(`${URL_API_LP3I}/scholarship/questions/${id}`)
                 .then((response) => {
                     getDataTable();
                 })

@@ -106,24 +106,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $applicant = Applicant::where('identity', $user->identity)->firstOrFail();
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-        $userupload = UserUpload::where('identity_user', $user->identity)->get();
-        $data = [];
-        foreach ($userupload as $upload) {
-            $data[] = $upload->namefile;
-        }
-        $fileupload = FileUpload::whereNotIn('namefile', $data)->get();
-        return view('pages.user.show')->with([
-            'userupload' => $userupload,
-            'fileupload' => $fileupload,
-            'applicant' => $applicant,
-            'user' => $user,
-            'father' => $father,
-            'mother' => $mother,
-        ]);
+
     }
 
     /**
@@ -361,16 +344,7 @@ class UserController extends Controller
      */
     public function print($id)
     {
-        $applicant = Applicant::where('identity', $id)->firstOrFail();
-        $user = User::where('identity', $id)->firstOrFail();
-        $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
-        $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-        return view('pages.user.print')->with([
-            'applicant' => $applicant,
-            'father' => $father,
-            'mother' => $mother,
-            'user' => $user,
-        ]);
+
     }
 
     /**

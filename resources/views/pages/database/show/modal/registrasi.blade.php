@@ -298,7 +298,7 @@
                             </ul>
                             @if ($profile->avatar)
                                 <div class="flex flex-col items-center w-full md:w-1/4 space-y-2 order-1">
-                                    <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
+                                    <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
                                         alt="Avatar" width="150px" height="150px" class="items-right rounded-xl">
                                     <a href="{{ route('database.edit', $user->id) }}"
                                         class="cursor-pointer text-center inline-block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i

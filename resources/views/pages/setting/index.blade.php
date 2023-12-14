@@ -4,12 +4,6 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Pengaturan') }}
             </h2>
-            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
-                    <i class="fa-solid fa-database"></i>
-                    <h2 id="count_filter">0</h2>
-                </div>
-            </div>
         </div>
     </x-slot>
 
@@ -24,9 +18,9 @@
                     </div>
                 </div>
             @endif
-            <div class="flex flex-wrap">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {{-- Source --}}
-                <div class="w-full md:w-1/2 space-y-5 p-2">
+                <div class="space-y-5">
                     <div class="px-2">
                         <button type="button" data-modal-target="sourceModal" onclick="changeSourceModal(this)"
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
@@ -85,7 +79,7 @@
                     </div>
                 </div>
                 {{-- Data Upload --}}
-                <div class="w-full md:w-1/2 space-y-5 p-2">
+                <div class="space-y-5">
                     <div class="px-2">
                         <button type="button" data-modal-target="fileModal" onclick="changeFileModal(this)"
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
@@ -150,7 +144,7 @@
                     </div>
                 </div>
                 {{-- Status --}}
-                <div class="w-full md:w-1/2 space-y-5 p-2">
+                <div class="space-y-5">
                     <div class="px-2">
                         <button type="button" data-modal-target="statusModal" onclick="changeStatusModal(this)"
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
@@ -184,7 +178,7 @@
                                                 </td>
                                                 <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $status->id }}"
-                                                        data-modal-target="statusModal" data-name="{{ $status->name }}" 
+                                                        data-modal-target="statusModal" data-name="{{ $status->name }}"
                                                         onclick="editStatusModal(this)"
                                                         class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
@@ -209,7 +203,7 @@
                     </div>
                 </div>
                 {{-- Program Type --}}
-                <div class="w-full md:w-1/2 space-y-5 p-2">
+                <div class="space-y-5">
                     <div class="px-2">
                         <button type="button" data-modal-target="programTypeModal" onclick="changeProgramTypeModal(this)"
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
@@ -243,7 +237,7 @@
                                                 </td>
                                                 <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $programtype->id }}"
-                                                        data-modal-target="programTypeModal" data-name="{{ $programtype->name }}" 
+                                                        data-modal-target="programTypeModal" data-name="{{ $programtype->name }}"
                                                         onclick="editProgramTypeModal(this)"
                                                         class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>
@@ -268,7 +262,7 @@
                     </div>
                 </div>
                 {{-- Follow Up --}}
-                <div class="w-full md:w-1/2 space-y-5 p-2">
+                <div class="space-y-5">
                     <div class="px-2">
                         <button type="button" data-modal-target="followModal" onclick="changeFollowModal(this)"
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white">
@@ -302,7 +296,7 @@
                                                 </td>
                                                 <td class="flex gap-1 items-center px-6 py-3">
                                                     <button type="button" data-id="{{ $follow->id }}"
-                                                        data-modal-target="followModal" data-name="{{ $follow->name }}" 
+                                                        data-modal-target="followModal" data-name="{{ $follow->name }}"
                                                         onclick="editFollowModal(this)"
                                                         class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-edit"></i>

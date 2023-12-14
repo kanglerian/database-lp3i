@@ -74,6 +74,8 @@
     <div class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
         @include('layouts.navigation')
 
+        <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
+
         <!-- Page Heading -->
         <header class="bg-white shadow-sm">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -91,6 +93,9 @@
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script>
+        const URL_API_LP3I = document.getElementById('api_endpoint_lp3i').innerText;
+    </script>
     @stack('scripts')
 </body>
 

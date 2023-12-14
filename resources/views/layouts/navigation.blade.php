@@ -63,7 +63,7 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit'])">
                             {{ __('Akun') }}
                         </x-nav-link>
                     @endif
@@ -92,7 +92,7 @@
                         <button
                             class="flex overflow-hidden gap-3 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
+                                <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
                                     alt="Avatar" class="h-8 rounded-full">
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
@@ -196,7 +196,7 @@
             @endif
 
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit', 'user.show'])">
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit'])">
                     {{ __('Akun') }}
                 </x-responsive-nav-link>
             @endif

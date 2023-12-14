@@ -4,14 +4,24 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
-                Tambah Database Baru
-            </h2>
+            <nav class="flex">
+                <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="{{ route('database.index') }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                            <i class="fa-solid fa-database mr-2"></i>
+                            Database
+                        </a>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Tambah Calon Mahasiswa</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                    <i class="fa-solid fa-map-location-dot text-gray-700"></i>
-                    <span class="text-sm" id="wilayah"></span>
-                </div>
                 <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
                     <i class="fa-solid fa-rectangle-list text-gray-700"></i>
                     <span class="text-sm">

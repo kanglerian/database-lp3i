@@ -15,6 +15,7 @@
         }
         let queryString = queryParams.join('&');
         apiDashboard = `get/dashboard/all?${queryString}`;
+        console.log(apiDashboard);
         getDatabases();
     }
 </script>

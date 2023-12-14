@@ -194,7 +194,6 @@
                     },
                     render: (data, type, row) => {
                         let editUrl = "{{ route('user.edit', ':id') }}".replace(':id', data.id);
-                        let showUrl = "{{ route('user.show', ':id') }}".replace(':id', data.id);
                         let status = data.status === "1" ?
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
                             `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`

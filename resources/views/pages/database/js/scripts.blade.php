@@ -1,4 +1,4 @@
-<script src="{{ asset('js/axios.min.js') }}"></script>
+@push('scripts')
 <script>
     const modalFunction = (type, id, date, title, result, report) => {
         let modalChat = document.getElementById('modalChat');
@@ -44,7 +44,7 @@
 
         switch (type) {
             case 'Simpan':
-                await axios.post('https://api.politekniklp3i-tasikmalaya.ac.id/history/store', formData)
+                await axios.post(`${URL_API_LP3I}/history/store`, formData)
                     .then((res) => {
                         alert('Berhasil disimpan!');
                         location.reload();
@@ -55,8 +55,7 @@
                 break;
             case 'Simpan Perubahan':
                 const id = document.getElementById('id').value;
-                await axios.post(`
-                https://api.politekniklp3i-tasikmalaya.ac.id/history/update/${id}`, formData)
+                await axios.post(`${URL_API_LP3I}/history/update/${id}`, formData)
                     .then((res) => {
                         alert('Berhasil diupdate!');
                         location.reload();
@@ -72,8 +71,7 @@
     const deleteChat = async (id) => {
         let confirmed = confirm('Apakah yakin akan dihapus?');
         if (confirmed) {
-            await axios.post(`
-                https://api.politekniklp3i-tasikmalaya.ac.id/history/delete/${id}`)
+            await axios.post(`${URL_API_LP3I}/history/delete/${id}`)
                 .then((res) => {
                     alert('Berhasil dihapus!');
                     location.reload();
@@ -88,7 +86,7 @@
         let phone = document.getElementById('phone').getAttribute('data-phone');
         if (phone) {
             let bucket = '';
-            await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/history/phone/${phone}`)
+            await axios.get(`${URL_API_LP3I}/history/phone/${phone}`)
                 .then((response) => {
                     let histories = response.data;
                     if (histories.length > 0) {
@@ -140,3 +138,4 @@
     }
     getChats();
 </script>
+@endpush

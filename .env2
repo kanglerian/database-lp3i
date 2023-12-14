@@ -4,6 +4,8 @@ APP_KEY=base64:ZIKzJxlKqu8uYS6W7E7iHoBoSw3MroocM6E6R60G6A4=
 APP_DEBUG=true
 APP_URL=http://localhost
 
+API_LP3I="https://api.politekniklp3i-tasikmalaya.ac.id"
+
 LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug

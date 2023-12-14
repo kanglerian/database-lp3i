@@ -876,7 +876,7 @@ class ApplicantController extends Controller
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
-            return view('pages.user.print')->with([
+            return view('pages.database.print')->with([
                 'applicant' => $applicant,
                 'father' => $father,
                 'mother' => $mother,
