@@ -871,6 +871,8 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
         $user = User::where('identity', $id)->firstOrFail();
+        $enrollment = Enrollment::where('identity_user', $id)->firstOrFail();
+        $registration = Registration::where('identity_user', $id)->firstOrFail();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -879,6 +881,8 @@ class ApplicantController extends Controller
                 'father' => $father,
                 'mother' => $mother,
                 'user' => $user,
+                'enrollment' => $enrollment,
+                'registration' => $registration,
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');
