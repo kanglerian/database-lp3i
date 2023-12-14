@@ -426,7 +426,7 @@
                 <tr>
                     <td style="width: 200px;">No. KTP</td>
                     <td>:</td>
-                    <td>{{ $applicant->ktp == null ? '_______________' : $applicant->ktp }}</td>
+                    <td>{{ $applicant->nik == null ? '_______________' : $applicant->nik }}</td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">NISN</td>
