@@ -871,8 +871,8 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
         $user = User::where('identity', $id)->firstOrFail();
-        $enrollment = Enrollment::where('identity_user', $id)->firstOrFail();
-        $registration = Registration::where('identity_user', $id)->firstOrFail();
+        $enrollment = Enrollment::where('identity_user', $id)->first();
+        $registration = Registration::where('identity_user', $id)->first();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
