@@ -371,9 +371,13 @@
             <div style="display: flex; justify-content:space-between" style="margin-top: 30px">
                 <div style="margin-top: 10px">
                     <p>Keterangan:</p>
-                    <p>__________________________________</p>
-                    <p>__________________________________</p>
-                    <p>__________________________________</p>
+                    @if ($applicant->note)
+                        {{ $applicant->note }}
+                    @else
+                        <p>__________________________________</p>
+                        <p>__________________________________</p>
+                        <p>__________________________________</p>
+                    @endif
                 </div>
                 <div style="margin-top: 10px;text-align:center">
                     <p>Tasikmalaya, <span class="signature"></span></p>
@@ -412,9 +416,9 @@
                     <td style="width: 200px;">No. Kwitansi Pendaftaran</td>
                     <td>:</td>
                     @if ($enrollment)
-                    <td>{{ $enrollment->receipt }}</td>
+                        <td>{{ $enrollment->receipt }}</td>
                     @else
-                    <td>________________________</td>
+                        <td>________________________</td>
                     @endif
                 </tr>
                 <tr>
