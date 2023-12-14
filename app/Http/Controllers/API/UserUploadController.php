@@ -54,8 +54,15 @@ class UserUploadController extends Controller
      */
     public function destroy($id)
     {
-        $upload = UserUpload::findOrFail($id);
-        $upload->delete();
+        $user_upload = UserUpload::with('fileupload')->findOrFail($id);
+        if ($user_upload->fileupload->namefile == 'foto') {
+            $dataku = [
+                'avatar' => null,
+            ];
+            $user = User::where('identity', $user_upload->identity_user);
+            $user->update($dataku);
+        }
+        $user_upload->delete();
         return response()->json(['success' => true, 'message' => 'Data berkas sudah dihapus.']);
     }
 }
