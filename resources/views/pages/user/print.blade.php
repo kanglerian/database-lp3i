@@ -487,11 +487,6 @@
                     <td>{{ $applicant->religion == null ? '_______________' : $applicant->religion }}</td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Warga Negara</td>
-                    <td>:</td>
-                    <td>______________________________</td>
-                </tr>
-                <tr>
                     <td style="width: 200px;">*Penanggung Jawab Kuliah</td>
                     <td>:</td>
                     <td>Orang Tua / Wali / Sendiri / Beasiswa</td>
