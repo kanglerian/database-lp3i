@@ -30,6 +30,8 @@
         @endif
     </div>
 
+    <div id="identity_user" class="hidden">{{ $user->identity }}</div>
+
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3">
         <div class="w-full md:w-4/6 mx-auto space-y-6">
             <div class="p-8 bg-white shadow-sm sm:rounded-lg">
@@ -325,7 +327,9 @@
                             @endif
                             @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
                                 <hr class="my-2">
-                                <button class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                <button onclick="getTokenMisil()"
+                                    class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i
+                                        class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
                             @endif
                         </section>
                     </section>
@@ -529,5 +533,122 @@
                 }
             })
         }
+    }
+</script>
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script>
+    const getTokenMisil = async () => {
+        let identityVal = document.getElementById('identity_user').innerText;
+        await axios.get(`/api/database/${identityVal}`)
+            .then((response) => {
+                // Aplikan Datang
+                let method = 'simpan';
+                let tahun_akademik = `${response.data.user.pmb}/${response.data.user.pmb + 1}`;
+                let nama_lengkap = response.data.user.name;
+                let tempat_lahir = response.data.user.place_of_birth;
+                let tgl_lahir = response.data.user.date_of_birth;
+                let jenis_kelamin = response.data.user.gender == 1 ? 'L' : 'P';
+                let no_hp = response.data.user.phone;
+                let whatsapp = response.data.user.phone;
+                let facebook = '-';
+                let instagram = '-';
+                let pendidikan_terakhir = response.data.user.education;
+                let asal_sekolah = response.data.user.school_applicant.name;
+                let jurusan_sekolah = response.data.user.major;
+                let tahun_lulus = response.data.user.year;
+                let email = response.data.user.email;
+                let nama_ortu = response.data.user.father.name;
+                let pekerjaan_ortu = response.data.user.father.job;
+                let penghasilan_ortu = response.data.user.income_parent;
+                let nohp_ortu = response.data.user.father.phone;
+                let kode_jurusan = response.data.user.program; // tidak aman
+                let sumber_informasi = response.data.user.source_daftar_setting.name;
+                let sumber_aplikan = response.data.user.source_setting.name;
+                let kode_presenter = response.data.user.presenter.code; // belum aman
+                let gelombang = "1";
+                let tgl_datang = "2023-12-23";
+                let kode_siswa = "-";
+
+                // Daftar
+                let isnew = true;
+                let kode_aplikan = null;
+                let tgl_daftar = response.data.enrollment.date;
+                let gelombang_daftar = response.data.registration.session;
+                let nomor_bukti = response.data.enrollment.receipt;
+                let biaya_pendaftaran = response.data.enrollment.nominal;
+                let diskon = 0;
+                let sumber_daftar = sumber_informasi;
+                let keterangan = response.data.enrollment.register;
+                let ket_daftar = response.data.enrollment.register_end;
+
+                const addressParts = response.data.user.address.split(', ');
+
+                const data = {
+                    // Aplikan datang
+                    method,
+                    tahun_akademik,
+                    nama_lengkap,
+                    tempat_lahir,
+                    tgl_lahir,
+                    jenis_kelamin,
+                    no_hp,
+                    dusun: addressParts[0],
+                    rtrw: addressParts[1],
+                    kelurahan: addressParts[2].replace('Desa/Kelurahan ',
+                        ''),
+                    kecamatan: addressParts[3].replace('Kecamatan ',
+                        ''),
+                    kota: addressParts[4].replace('Kota/Kabupaten ',
+                        ''),
+                    kode_pos: addressParts[5].replace('Provinsi ', '').replace('Kode Pos ',
+                        ''),
+                    whatsapp,
+                    facebook,
+                    instagram,
+                    pendidikan_terakhir,
+                    asal_sekolah,
+                    jurusan_sekolah,
+                    tahun_lulus,
+                    email,
+                    nama_ortu,
+                    pekerjaan_ortu,
+                    penghasilan_ortu,
+                    nohp_ortu,
+                    kode_jurusan,
+                    sumber_informasi,
+                    sumber_aplikan,
+                    kode_presenter,
+                    gelombang,
+                    tgl_datang,
+                    kode_siswa,
+                    // Aplikan Daftar
+                    isnew,
+                    kode_aplikan,
+                    tgl_daftar,
+                    gelombang_daftar,
+                    nomor_bukti,
+                    biaya_pendaftaran,
+                    diskon,
+                    sumber_daftar,
+                    keterangan,
+                    ket_daftar,
+                }
+
+
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        // await axios.post(`http://misil.politekniklp3i-tasikmalaya.ac.id:8000/service/auth/sign-in`, {
+        //     namaUser: "integrasi",
+        //     kataSandi: "IntegrasiMisil311"
+        // })
+        // .then((response) => {
+        //     console.log(response.data.messages['X-AUTH-TOKEN']);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
     }
 </script>
