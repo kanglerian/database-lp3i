@@ -134,4 +134,9 @@ class Applicant extends Model
     {
         return $this->hasOne(Enrollment::class, 'identity_user', 'identity');
     }
+
+    public function integration()
+    {
+        return $this->hasOne(Integration::class, 'identity_user', 'identity');
+    }
 }

@@ -24,6 +24,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 
 use App\Exports\ApplicantsExport;
+use App\Models\Integration;
 
 class ApplicantController extends Controller
 {
@@ -408,6 +409,8 @@ class ApplicantController extends Controller
             $enrollment = Enrollment::where('identity_user', $identity)->first();
             $registration = Registration::where('identity_user', $identity)->first();
 
+            $integration_misil = Integration::where(['identity_user' => $identity, 'platform' => 'misil'])->first();
+
             return view('pages.database.show.profile')->with([
                 'user' => $user,
                 'enrollment' => $enrollment,
@@ -415,7 +418,8 @@ class ApplicantController extends Controller
                 'father' => $father,
                 'mother' => $mother,
                 'account' => $account,
-                'profile' => $profile
+                'profile' => $profile,
+                'integration_misil' => $integration_misil
             ]);
         } else {
             return back()->with('error', 'Tidak diizinkan.');

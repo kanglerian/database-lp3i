@@ -330,6 +330,11 @@
                                 <button onclick="getTokenMisil()"
                                     class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i
                                         class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                @if ($integration_misil)
+                                    <p class="text-xs text-center text-gray-500">Aplikan sudah terintegrasi.<br />Jika
+                                        ada
+                                        perubahan boleh klik lagi!</p>
+                                @endif
                             @endif
                         </section>
                     </section>
@@ -537,118 +542,157 @@
 </script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
-    const getTokenMisil = async () => {
-        let identityVal = document.getElementById('identity_user').innerText;
-        await axios.get(`/api/database/${identityVal}`)
-            .then((response) => {
-                // Aplikan Datang
-                let method = 'simpan';
-                let tahun_akademik = `${response.data.user.pmb}/${response.data.user.pmb + 1}`;
-                let nama_lengkap = response.data.user.name;
-                let tempat_lahir = response.data.user.place_of_birth;
-                let tgl_lahir = response.data.user.date_of_birth;
-                let jenis_kelamin = response.data.user.gender == 1 ? 'L' : 'P';
-                let no_hp = response.data.user.phone;
-                let whatsapp = response.data.user.phone;
-                let facebook = '-';
-                let instagram = '-';
-                let pendidikan_terakhir = response.data.user.education;
-                let asal_sekolah = response.data.user.school_applicant.name;
-                let jurusan_sekolah = response.data.user.major;
-                let tahun_lulus = response.data.user.year;
-                let email = response.data.user.email;
-                let nama_ortu = response.data.user.father.name;
-                let pekerjaan_ortu = response.data.user.father.job;
-                let penghasilan_ortu = response.data.user.income_parent;
-                let nohp_ortu = response.data.user.father.phone;
-                let kode_jurusan = response.data.user.program; // tidak aman
-                let sumber_informasi = response.data.user.source_daftar_setting.name;
-                let sumber_aplikan = response.data.user.source_setting.name;
-                let kode_presenter = response.data.user.presenter.code; // belum aman
-                let gelombang = "1";
-                let tgl_datang = "2023-12-23";
-                let kode_siswa = "-";
-
-                // Daftar
-                let isnew = true;
-                let kode_aplikan = null;
-                let tgl_daftar = response.data.enrollment.date;
-                let gelombang_daftar = response.data.registration.session;
-                let nomor_bukti = response.data.enrollment.receipt;
-                let biaya_pendaftaran = response.data.enrollment.nominal;
-                let diskon = 0;
-                let sumber_daftar = sumber_informasi;
-                let keterangan = response.data.enrollment.register;
-                let ket_daftar = response.data.enrollment.register_end;
-
-                const addressParts = response.data.user.address.split(', ');
-
-                const data = {
-                    // Aplikan datang
-                    method,
-                    tahun_akademik,
-                    nama_lengkap,
-                    tempat_lahir,
-                    tgl_lahir,
-                    jenis_kelamin,
-                    no_hp,
-                    dusun: addressParts[0],
-                    rtrw: addressParts[1],
-                    kelurahan: addressParts[2].replace('Desa/Kelurahan ',
-                        ''),
-                    kecamatan: addressParts[3].replace('Kecamatan ',
-                        ''),
-                    kota: addressParts[4].replace('Kota/Kabupaten ',
-                        ''),
-                    kode_pos: addressParts[5].replace('Provinsi ', '').replace('Kode Pos ',
-                        ''),
-                    whatsapp,
-                    facebook,
-                    instagram,
-                    pendidikan_terakhir,
-                    asal_sekolah,
-                    jurusan_sekolah,
-                    tahun_lulus,
-                    email,
-                    nama_ortu,
-                    pekerjaan_ortu,
-                    penghasilan_ortu,
-                    nohp_ortu,
-                    kode_jurusan,
-                    sumber_informasi,
-                    sumber_aplikan,
-                    kode_presenter,
-                    gelombang,
-                    tgl_datang,
-                    kode_siswa,
-                    // Aplikan Daftar
-                    isnew,
-                    kode_aplikan,
-                    tgl_daftar,
-                    gelombang_daftar,
-                    nomor_bukti,
-                    biaya_pendaftaran,
-                    diskon,
-                    sumber_daftar,
-                    keterangan,
-                    ket_daftar,
-                }
-
-
-                console.log(data);
+    const saveAplikan = async (data, token, identity) => {
+        const headers = {
+            'X-Auth-Token': `${token}`,
+            'X-Fullname': 'Database Marketing',
+            'X-Url': '#/dashboard-mkt',
+            'X-User': 'integrasi',
+            'Content-Type': 'application/json',
+        };
+        await axios.post(
+                `http://misil.politekniklp3i-tasikmalaya.ac.id:8000/service/integration/marketing/save-aplikan`,
+                data, {
+                    headers
+                })
+            .then(async (response) => {
+                alert(response.data.message);
+                await axios.post(`/integration`, {
+                        identity_user: identity,
+                        platform: 'misil',
+                    })
+                    .then((response) => {
+                        location.reload();
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.message);
             });
-        // await axios.post(`http://misil.politekniklp3i-tasikmalaya.ac.id:8000/service/auth/sign-in`, {
-        //     namaUser: "integrasi",
-        //     kataSandi: "IntegrasiMisil311"
-        // })
-        // .then((response) => {
-        //     console.log(response.data.messages['X-AUTH-TOKEN']);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
+    }
+    const getTokenMisil = async () => {
+        let identityVal = document.getElementById('identity_user').innerText;
+
+        try {
+            const database = axios.get(`/api/database/${identityVal}`);
+            const programs = axios.get(`https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs`);
+            const misilAuth = axios.post(
+                `http://misil.politekniklp3i-tasikmalaya.ac.id:8000/service/auth/sign-in`, {
+                    namaUser: "integrasi",
+                    kataSandi: "IntegrasiMisil311"
+                });
+            await axios.all([database, programs, misilAuth])
+                .then(axios.spread((database, programs, misilAuth) => {
+                    let token = misilAuth.data.messages['X-AUTH-TOKEN']
+                    let program_studi = database.data.user.program;
+                    let program = programs.data.find((result) =>
+                        `${result.level} ${result.title}` == program_studi)
+
+                    // Aplikan Datang
+                    let method = 'simpan';
+                    let nik = database.data.user.nik;
+                    let tahun_akademik = `${database.data.user.pmb}/${database.data.user.pmb + 1}`;
+                    let nama_lengkap = database.data.user.name;
+                    let tempat_lahir = database.data.user.place_of_birth;
+                    let tgl_lahir = database.data.user.date_of_birth;
+                    let jenis_kelamin = database.data.user.gender == 1 ? 'L' : 'P';
+                    let no_hp = database.data.user.phone;
+                    let whatsapp = database.data.user.phone;
+                    let facebook = '-';
+                    let instagram = '-';
+                    let pendidikan_terakhir = database.data.user.education;
+                    let asal_sekolah = database.data.user.school_applicant.name;
+                    let jurusan_sekolah = database.data.user.major;
+                    let tahun_lulus = database.data.user.year;
+                    let email = database.data.user.email;
+                    let nama_ortu = database.data.user.father.name || database.data.user.mother.name;
+                    let pekerjaan_ortu = database.data.user.father.job || database.data.user.mother.job;
+                    let penghasilan_ortu = database.data.user.income_parent;
+                    let nohp_ortu = database.data.user.father.phone || database.data.user.mother.phone;
+                    let kode_jurusan = program.code; // tidak aman
+                    let sumber_informasi = database.data.user.source_daftar_setting.name;
+                    let sumber_aplikan = database.data.user.source_setting.name;
+                    let kode_presenter = database.data.user.presenter.code; // belum aman
+                    let gelombang = "1";
+                    let tgl_datang = "2023-12-23";
+                    let kode_siswa = "-";
+
+                    // Daftar
+                    let isnew = true;
+                    let kode_aplikan = null;
+                    let tgl_daftar = database.data.enrollment.date;
+                    let gelombang_daftar = database.data.registration.session;
+                    let nomor_bukti = database.data.enrollment.receipt;
+                    let biaya_pendaftaran = database.data.enrollment.nominal;
+                    let diskon = 0;
+                    let sumber_daftar = sumber_informasi;
+                    let keterangan = database.data.enrollment.register;
+                    let ket_daftar = database.data.enrollment.register_end;
+
+                    const addressParts = database.data.user.address.split(', ');
+                    const addressRtRw = addressParts[1].split(' ');
+
+                    const data = {
+                        // Aplikan datang
+                        method,
+                        nik,
+                        tahun_akademik,
+                        tahun_akademik,
+                        nama_lengkap,
+                        tempat_lahir,
+                        tgl_lahir,
+                        jenis_kelamin,
+                        no_hp,
+                        dusun: addressParts[0],
+                        rtrw: `${addressRtRw[1]}/${addressRtRw[3]}`,
+                        kelurahan: addressParts[2].replace('Desa/Kelurahan ',
+                            ''),
+                        kecamatan: addressParts[3].replace('Kecamatan ',
+                            ''),
+                        kota: addressParts[4].replace('Kota/Kabupaten ',
+                            ''),
+                        kode_pos: addressParts[6].replace('Kode Pos ',
+                            ''),
+                        whatsapp,
+                        facebook,
+                        instagram,
+                        pendidikan_terakhir,
+                        asal_sekolah,
+                        jurusan_sekolah,
+                        tahun_lulus,
+                        email,
+                        nama_ortu,
+                        pekerjaan_ortu,
+                        penghasilan_ortu,
+                        nohp_ortu,
+                        kode_jurusan,
+                        sumber_informasi,
+                        sumber_aplikan,
+                        kode_presenter,
+                        gelombang,
+                        tgl_datang,
+                        kode_siswa,
+                        // Aplikan Daftar
+                        isnew,
+                        kode_aplikan,
+                        tgl_daftar,
+                        gelombang_daftar,
+                        nomor_bukti,
+                        biaya_pendaftaran,
+                        diskon,
+                        sumber_daftar,
+                        keterangan,
+                        ket_daftar,
+                    }
+                    saveAplikan(data, token, identityVal);
+                }))
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
     }
 </script>

@@ -23,6 +23,7 @@ use App\Http\Controllers\UserUploadController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\IntegrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +122,11 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('registration', RegistrationController::class);
     Route::get('get/registrations', [RegistrationController::class, 'get_all'])->name('registration.get');
+});
+
+/* Route Integration */
+Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
+    Route::resource('integration', IntegrationController::class);
 });
 
 /* Route Target */
