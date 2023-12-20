@@ -551,7 +551,7 @@
             'Content-Type': 'application/json',
         };
         let bucket = [data, headers];
-        await axios.post(`http://localhost:3000/misil/integration`, bucket)
+        await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
             .then(async (response) => {
                 alert(response.data.message);
                 await axios.post(`/integration`, {
@@ -576,7 +576,7 @@
             const database = axios.get(`/api/database/${identityVal}`);
             const programs = axios.get(`https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs`);
             const misilAuth = axios.post(
-                `http://localhost:3000/misil/token`, {
+                `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
                     namaUser: "integrasi",
                     kataSandi: "IntegrasiMisil311"
                 });
