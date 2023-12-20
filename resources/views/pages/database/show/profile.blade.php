@@ -553,6 +553,7 @@
         let bucket = [data, headers];
         await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
             .then(async (response) => {
+                console.log(response.data);
                 alert(response.data.message);
                 await axios.post(`/integration`, {
                         identity_user: identity,
