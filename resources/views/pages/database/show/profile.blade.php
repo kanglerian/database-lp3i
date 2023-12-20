@@ -591,7 +591,7 @@
                     // Aplikan Datang
                     let method = 'simpan';
                     let nik = database.data.user.nik;
-                    let tahun_akademik = `${database.data.user.pmb}/${database.data.user.pmb + 1}`;
+                    let tahun_akademik = `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`;
                     let nama_lengkap = database.data.user.name;
                     let tempat_lahir = database.data.user.place_of_birth;
                     let tgl_lahir = database.data.user.date_of_birth;
