@@ -59,11 +59,11 @@
                                 <a href="{{ route('database.edit', $user->id) }}"
                                     class="inline-block bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md text-xs text-white"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
-                                @if (Auth::user()->role == 'A' && (!$user->is_daftar || !$user->is_register))
-                                <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"
-                                    onclick="event.preventDefault(); deleteRecord({{ $user->id }})">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @if (!$user->is_daftar || !$user->is_register || Auth::user()->role == 'A')
+                                    <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"
+                                        onclick="event.preventDefault(); deleteRecord({{ $user->id }})">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 @endif
                             </div>
                         </header>
@@ -334,16 +334,44 @@
                                     @endif
                                 </div>
                             @endif
-                            @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
-                                <hr class="my-2">
-                                <button onclick="getTokenMisil()"
-                                    class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i
-                                        class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
-                                @if ($integration_misil)
-                                    <p class="text-xs text-center text-gray-500">Aplikan sudah terintegrasi.<br />Jika
-                                        ada
-                                        perubahan boleh klik lagi!</p>
+                            @if (
+                                $user->pmb &&
+                                    $user->nik &&
+                                    $user->nisn &&
+                                    $user->name &&
+                                    $user->gender !== null &&
+                                    $user->date_of_birth &&
+                                    $user->place_of_birth &&
+                                    $user->programtype_id &&
+                                    $user->address &&
+                                    $user->program &&
+                                    $user->presenter &&
+                                    $user->school &&
+                                    $user->education &&
+                                    $user->year &&
+                                    $user->major &&
+                                    $user->email &&
+                                    $user->phone)
+                                @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
+                                    <hr class="my-2">
+                                    <button onclick="getTokenMisil()"
+                                        class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i
+                                            class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                    @if ($integration_misil)
+                                        <p class="text-xs text-center text-gray-500">Aplikan sudah
+                                            terintegrasi.<br />Jika
+                                            ada
+                                            perubahan boleh klik lagi!</p>
+                                    @endif
                                 @endif
+                            @else
+                                <hr class="my-2">
+                                <button
+                                    class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg"><i
+                                        class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                <p class="text-xs text-center text-gray-500">Fitur ini belum dapat dilakukan karena
+                                    biodata belum lengkap. <a href="{{ route('database.edit', $user->id) }}"
+                                        class="underline">Ubah sekarang</a></p>
                             @endif
                         </section>
                     </section>

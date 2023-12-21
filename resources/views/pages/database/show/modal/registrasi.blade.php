@@ -392,11 +392,11 @@
                             $user->date_of_birth &&
                             $user->place_of_birth &&
                             $user->programtype_id &&
-                            $user->program !== null &&
-                            $user->presenter !== null &&
-                            $user->school !== null &&
-                            $user->education !== null &&
-                            $user->year !== null &&
+                            $user->program &&
+                            $user->presenter &&
+                            $user->school &&
+                            $user->education &&
+                            $user->year &&
                             $user->major &&
                             $user->email &&
                             $user->phone)
