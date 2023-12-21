@@ -625,19 +625,19 @@
 
                     {{-- Info Siswa --}}
                     <section class="flex flex-col md:flex-row justify-between gap-5" id="page-1">
-                        @if ($profile->avatar)
+                        {{-- @if ($profile->avatar)
                             <div class="flex flex-col items-center w-full md:w-1/4 space-y-2">
                                 <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
                                     alt="Avatar" width="100%" height="100%" class="items-right rounded-xl">
                             </div>
-                        @else
+                        @else --}}
                             <div class="flex flex-col items-center w-full md:w-1/4 space-y-2">
                                 <div
                                     style="border: 1px dotted black; height: 130px; width: 130px;display: flex;justify-content: center;align-items:center">
                                     <p>Pas foto 4x3</p>
                                 </div>
                             </div>
-                        @endif
+                        {{-- @endif --}}
                         <div class="w-full md:w-3/4 text-sm">
                             <section class="space-y-2">
                                 <div>
