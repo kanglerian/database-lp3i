@@ -369,8 +369,11 @@
                         </div>
 
                         <a href="{{ route('database.edit', $user->id) }}"
-                            class="mt-4 cursor-pointer text-center inline-block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
+                            class="cursor-pointer text-center inline-block bg-yellow-500 hover:bg-yellow-600 text-xs text-white px-5 py-2 rounded-lg"><i
                                 class="fa-regular fa-pen-to-square"></i> Ubah data</a>
+                        <button onclick="modalCheck()"
+                            class="mt-4 bg-sky-500 hover:bg-sky-600 px-5 py-2 text-xs rounded-lg text-white">Lanjutkan Integrasi
+                            <i class="fa-solid fa-arrow-right-long"></i></button>
                     </section>
 
                 </section>
