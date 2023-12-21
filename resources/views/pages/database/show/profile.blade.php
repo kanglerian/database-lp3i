@@ -365,13 +365,16 @@
                                     @endif
                                 @endif
                             @else
-                                <hr class="my-2">
-                                <button onclick="modalCheck()"
-                                    class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg"><i
-                                        class="fa-solid fa-circle-nodes"></i> Periksa Kelengkapan Integrasi</button>
-                                <p class="text-xs text-center text-gray-500">Fitur ini belum dapat dilakukan karena
-                                    biodata belum lengkap. <a href="{{ route('database.edit', $user->id) }}"
-                                        class="underline">Ubah sekarang</a></p>
+                                @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
+                                    <hr class="my-2">
+                                    <button onclick="modalCheck()"
+                                        class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg"><i
+                                            class="fa-solid fa-circle-nodes"></i> Periksa Kelengkapan
+                                        Integrasi</button>
+                                    <p class="text-xs text-center text-gray-500">Fitur ini belum dapat dilakukan karena
+                                        biodata belum lengkap. <a href="{{ route('database.edit', $user->id) }}"
+                                            class="underline">Ubah sekarang</a></p>
+                                @endif
                             @endif
                         </section>
                     </section>
@@ -499,7 +502,7 @@
         @include('pages.database.show.modal.daftar')
         @include('pages.database.show.modal.registrasi')
     @endif
-    @if ($registration && $enrollment)
+    @if ($registration && $enrollment && $account)
         @include('pages.database.show.modal.check')
     @endif
 </x-app-layout>
