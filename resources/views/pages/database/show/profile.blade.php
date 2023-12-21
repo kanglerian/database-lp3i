@@ -498,6 +498,8 @@
     @if ($account)
         @include('pages.database.show.modal.daftar')
         @include('pages.database.show.modal.registrasi')
+    @endif
+    @if ($registration && $enrollment)
         @include('pages.database.show.modal.check')
     @endif
 </x-app-layout>
