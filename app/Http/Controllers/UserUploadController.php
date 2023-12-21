@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -98,6 +99,7 @@ class UserUploadController extends Controller
             foreach ($userupload as $upload) {
                 $data[] = $upload->fileupload_id;
             }
+            $applicant = Applicant::where('identity', $identity)->first();
             $success = FileUpload::whereIn('id', $data)->get();
             $fileupload = FileUpload::whereNotIn('id', $data)->get();
             return view('pages.userupload.index')->with([
@@ -105,6 +107,7 @@ class UserUploadController extends Controller
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
                 'success' => $success,
+                'applicant' => $applicant,
             ]);
         } else {
             return back();
