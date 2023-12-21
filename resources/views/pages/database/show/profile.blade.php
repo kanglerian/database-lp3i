@@ -366,9 +366,9 @@
                                 @endif
                             @else
                                 <hr class="my-2">
-                                <button
+                                <button onclick="modalCheck()"
                                     class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg"><i
-                                        class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                        class="fa-solid fa-circle-nodes"></i> Periksa Kelengkapan Integrasi</button>
                                 <p class="text-xs text-center text-gray-500">Fitur ini belum dapat dilakukan karena
                                     biodata belum lengkap. <a href="{{ route('database.edit', $user->id) }}"
                                         class="underline">Ubah sekarang</a></p>
@@ -498,6 +498,7 @@
     @if ($account)
         @include('pages.database.show.modal.daftar')
         @include('pages.database.show.modal.registrasi')
+        @include('pages.database.show.modal.check')
     @endif
 </x-app-layout>
 <script>
@@ -552,6 +553,15 @@
 
     const modalEditDaftar = () => {
         let modal = document.getElementById('modal-edit-daftar');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
+    const modalCheck = () => {
+        let modal = document.getElementById('modal-check');
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
         } else {
