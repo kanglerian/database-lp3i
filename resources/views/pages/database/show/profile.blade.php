@@ -229,6 +229,11 @@
                                 <span
                                     class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
                                         class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
+                                @if ($user->identity_user === '6281313608558')
+                                    <p class="text-xs text-center text-gray-500">Belum bisa dijadikan aplikan, karena
+                                        presenter belum diubah dari
+                                        Administrator.</p>
+                                @endif
                             @endif
                             <div>
                                 <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
@@ -242,18 +247,20 @@
                                     </label>
                                 </form>
                             </div>
-                            <div>
-                                <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->is_applicant }}"
-                                            class="sr-only peer" {{ $user->is_applicant == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
-                                    </label>
-                                </form>
-                            </div>
+                            @if ($user->identity_user !== '6281313608558')
+                                <div>
+                                    <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="{{ $user->is_applicant }}"
+                                                class="sr-only peer" {{ $user->is_applicant == 1 ? 'checked' : '' }}>
+                                            <button type="submit"
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                            </button>
+                                            <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                        </label>
+                                    </form>
+                                </div>
+                            @endif
                             @if ($user->is_applicant == 1)
                                 <div class="flex justify-between items-center gap-2">
                                     <form action="{{ route('database.is_daftar', $user->id) }}" method="get">
@@ -553,7 +560,6 @@
         let bucket = [data, headers];
         await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
             .then(async (response) => {
-                console.log(response.data);
                 alert(response.data.message);
                 await axios.post(`/integration`, {
                         identity_user: identity,
@@ -591,7 +597,8 @@
                     // Aplikan Datang
                     let method = 'simpan';
                     let nik = database.data.user.nik;
-                    let tahun_akademik = `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`;
+                    let tahun_akademik =
+                        `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`;
                     let nama_lengkap = database.data.user.name;
                     let tempat_lahir = database.data.user.place_of_birth;
                     let tgl_lahir = database.data.user.date_of_birth;
@@ -609,12 +616,12 @@
                     let pekerjaan_ortu = database.data.user.father.job || database.data.user.mother.job;
                     let penghasilan_ortu = database.data.user.income_parent;
                     let nohp_ortu = database.data.user.father.phone || database.data.user.mother.phone;
-                    let kode_jurusan = program.code; // tidak aman
+                    let kode_jurusan = program.code;
                     let sumber_informasi = database.data.user.source_daftar_setting.name;
                     let sumber_aplikan = database.data.user.source_setting.name;
-                    let kode_presenter = database.data.user.presenter.code; // belum aman
-                    let gelombang = "1";
-                    let tgl_datang = "2023-12-23";
+                    let kode_presenter = database.data.user.presenter.code;
+                    let gelombang = database.data.registration.session;
+                    let tgl_datang = database.data.registration.date;
                     let kode_siswa = "-";
 
                     // Daftar
