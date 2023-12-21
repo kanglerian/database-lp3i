@@ -495,8 +495,10 @@
         </div>
     </div>
     @include('pages.database.show.modal.account')
-    @include('pages.database.show.modal.daftar')
-    @include('pages.database.show.modal.registrasi')
+    @if ($account)
+        @include('pages.database.show.modal.daftar')
+        @include('pages.database.show.modal.registrasi')
+    @endif
 </x-app-layout>
 <script>
     const validateNumber = (e) => {
