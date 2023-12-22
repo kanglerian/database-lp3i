@@ -44,8 +44,10 @@ class ApplicantController extends Controller
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
+            $nophone = Applicant::where(['phone' => null])->count();
         } else {
             $total = Applicant::where('identity_user', Auth::user()->identity)->count();
+            $nophone = Applicant::where(['phone' => null, 'identity_user' => Auth::user()->identity])->count();
         }
 
         return view('pages.database.index')->with([
@@ -55,7 +57,8 @@ class ApplicantController extends Controller
             'schools' => $schools,
             'follows' => $follows,
             'users' => $users,
-            'nopresenter' => $nopresenter
+            'nopresenter' => $nopresenter,
+            'nophone' => $nophone,
         ]);
     }
 

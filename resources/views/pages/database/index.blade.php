@@ -51,6 +51,13 @@
                         </button>
                     </form>
                 </div>
+                <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-lg items-center gap-2">
+                    <span>
+                        <i class="fa-solid fa-phone"></i>
+                        <i class="fa-solid fa-xmark"></i>
+                    </span>
+                    <h2 id="count_filter">{{ $nophone }}</h2>
+                </div>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
