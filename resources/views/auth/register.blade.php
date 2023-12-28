@@ -27,7 +27,7 @@
                         @forelse ($programtypes as $programtype)
                             <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
                         @empty
-                            <option value="Reguler Pagi">Reguler Pagi</option>
+                            <option value="Reguler">Reguler</option>
                         @endforelse
                     </x-select>
                     <p class="mt-2 text-xs text-gray-500">
@@ -391,13 +391,14 @@
                 }
                 if (programType != 0) {
                     results.map((result) => {
+                        console.log(result);
                         let option = '';
                         result.interest.map((inter, index) => {
                             option +=
                                 `<option value="${result.level} ${result.title}">${inter.name}</option>`;
                         })
                         bucket += `
-                    <optgroup label="${result.level} ${result.title}">
+                    <optgroup label="${result.level} ${result.title} (${result.campus})">
                         ${option}
                     </optgroup>`;
                     });

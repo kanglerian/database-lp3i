@@ -211,6 +211,18 @@ Table applicants {
     note: "table 'applicants' contains applicant informations"
 }
 
+Table achievements {
+    id int [pk, increment]
+    identity_user varchar(30) [null]
+    name text [null]
+    level varchar(150) [null]
+    year date [null]
+    result varchar(255) [null]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'achievements' contains applicant achievements"
+}
+
 // Applicants
 Ref: applicants.identity_user > users.identity
 Ref: applicants.school > schools.id
@@ -235,3 +247,5 @@ Ref: registration.identity_user > applicants.identity
 Ref: enrollment.identity_user > applicants.identity
 // Target
 Ref: target.identity_user > applicants.identity
+// Achievements
+Ref: achievements.identity_user > applicants.identity
