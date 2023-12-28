@@ -79,6 +79,7 @@ class ApplicantController extends Controller
         $schoolVal = request('schoolVal', 'all');
         $majorVal = request('majorVal', 'all');
         $birthdayVal = request('birthdayVal', 'all');
+        $phoneVal = request('phoneVal', 'all');
         $pmbVal = request('pmbVal', 'all');
         $followVal = request('followVal', 'all');
         $comeVal = request('comeVal', 'all');
@@ -144,6 +145,14 @@ class ApplicantController extends Controller
 
         if ($birthdayVal !== 'all') {
             $applicantsQuery->where('date_of_birth', $birthdayVal);
+        }
+
+        if ($phoneVal !== 'all') {
+            if($phoneVal == '1'){
+                $applicantsQuery->whereNotNull('phone');
+            } else {
+                $applicantsQuery->whereNull('phone');
+            }
         }
 
         if ($pmbVal !== 'all') {

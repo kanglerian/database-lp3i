@@ -118,6 +118,14 @@
             placeholder="Tanggal Lahir">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+        <label for="change_phone" class="text-xs">No. Telpon:</label>
+        <select name="change_phone" id="change_phone" class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+            <option value="all">Pilih</option>
+            <option value="1">Valid</option>
+            <option value="0">Tidak Valid</option>
+        </select>
+    </div>
+    <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="change_achievement" class="text-xs">Prestasi:</label>
         <input type="text" id="change_achievement"
             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"

@@ -47,6 +47,7 @@
         let schoolVal = document.getElementById('school').value || 'all';
         let majorVal = document.getElementById('change_major').value || 'all';
         let birthdayVal = document.getElementById('birthday').value || 'all';
+        let phoneVal = document.getElementById('change_phone').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let comeVal = document.getElementById('change_come').value || 'all';
         let planVal = document.getElementById('change_plan').value || 'all';
@@ -83,6 +84,10 @@
         if (birthdayVal !== 'all') {
             queryParams.push(`birthdayVal=${birthdayVal}`);
         }
+        if (phoneVal !== 'all') {
+            queryParams.push(`phoneVal=${phoneVal}`);
+        }
+        console.log(phoneVal);
         if (achievementVal !== 'all') {
             queryParams.push(`achievementVal=${achievementVal}`);
         }
@@ -154,6 +159,7 @@
             document.getElementById('change_pmb').value = '';
             document.getElementById('change_achievement').value = '';
             document.getElementById('change_relation').value = '';
+            document.getElementById('change_phone').value = 'all';
             document.getElementById('change_kip').value = 'all';
             document.getElementById('change_plan').value = 'all';
             document.getElementById('change_come').value = 'all';
