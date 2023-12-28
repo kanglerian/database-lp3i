@@ -1,0 +1,237 @@
+Project DatabaseLP3I {
+    database_type: 'mySQL'
+    Note: '''
+    # PMB Politeknik LP3I Kampus Tasikmalaya
+    **markdown content here**
+    '''
+}
+
+Table users {
+    id int [pk, increment]
+    identity varchar(30) [unique, null]
+    code varchar(10) [null]
+    avatar varchar(100) [null]
+    name varchar(150)
+    email varchar(100) [unique, null]
+    phone varchar(20) [unique, null]
+    role char(1)
+    token text [null]
+    password varchar(255)
+    status char(1)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'users' contains user information and account"
+}
+
+Table users_upload {
+    id int [pk, increment]
+    identity_user varchar(30) [null]
+    fileupload_id int [unique]
+    typefile varchar(10) [null]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'users_upload' contains user upload"
+}
+
+Table file_upload {
+    id int [pk, increment]
+    name varchar(150)
+    namefile varchar(150)
+    accept varchar(150)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'file_upload' contains file upload"
+}
+
+Table target {
+    id int [pk, increment]
+    pmb year(4)
+    identity_user varchar(30)
+    date date
+    session tinyint(4)
+    total int(11)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'target' contains target presenter"
+}
+
+Table source_setting {
+    id int [pk, increment]
+    name varchar(150)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'source_setting' contains source applicants"
+}
+
+Table schools {
+    id int [pk, increment]
+    name varchar(255)
+    region varchar(255)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'schools' contains schools"
+}
+
+Table registration {
+    id int [pk, increment]
+    pmb year(4)
+    identity_user varchar(30)
+    date date
+    nominal int
+    deal int
+    discount int [null]
+    desc_discount varchar(255) [null]
+    session tinyint(4)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'registration' contains applicant with registration"
+}
+
+Table program_type {
+    id int [pk, increment]
+    name varchar(255)
+    status tinyint(1)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'program_type' contains program type"
+}
+
+Table organizations {
+    id int [pk, increment]
+    identity_user varchar(30) [null]
+    name text [null]
+    position varchar(255) [null]
+    year date [null]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'organizations' contains applicant organization"
+}
+
+Table integration {
+    id int [pk, increment]
+    identity_user varchar(30)
+    platform varchar(100)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'integration' contains integration information"
+}
+
+Table followup {
+    id int [pk, increment]
+    name varchar(255)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'followup' contains applicant status followup"
+}
+
+Table enrollment {
+    id int [pk, increment]
+    pmb year(4)
+    identity_user varchar(30)
+    date date
+    receipt int
+    register varchar(255)
+    register_end varchar(255)
+    nominal int
+    repayment date [null]
+    debit int [null]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'enrollment' contains applicant with enrollment"
+}
+
+Table applicants_status {
+    id int [pk, increment]
+    name varchar(100)
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'applicants_status' contains applicant status"
+}
+
+Table applicants_family {
+    id int [pk, increment]
+    identity_user varchar(30) [null]
+    name varchar(150) [null]
+    job varchar(150) [null]
+    phone varchar(150) [unique, null]
+    gender tinyint(1) [null]
+    place_of_birth text [null]
+    date_of_birth date [null]
+    education varchar(255) [null]
+    address text [null]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'applicants_family' contains applicant family"
+}
+
+Table applicants {
+    id int [pk, increment]
+    identity varchar(50) [null]
+    pmb year(4) [null]
+    name varchar(150)
+    gender tinyint(4) [null]
+    religion varchar(100) [null]
+    place_of_birth text [null]
+    date_of_birth text [null]
+    address text [null]
+    social_media varchar(255) [null]
+    email varchar(100) [unique, null]
+    phone varchar(20) [unique, null]
+    education varchar(255) [null]
+    school int [null]
+    major varchar(100) [null]
+    class varchar(100) [null]
+    year year(4) [null]
+    achievement text [null]
+    kip varchar(16) [unique, null]
+    nisn varchar(10) [unique, null]
+    nik varchar(16) [unique, null]
+    schoolarship boolean [default: false]
+    note text [null]
+    relation text [null]
+    identity_user varchar(30) [null]
+    program varchar(255) [null]
+    program_second varchar(255) [null]
+    isread boolean [default: false]
+    come boolean [default: false]
+    is_applicant boolean [default: false]
+    is_daftar boolean [default: false]
+    is_register boolean [default: false]
+    known boolean [default: false]
+    planning varchar(255) [null]
+    other_campus text [null]
+    income_parent varchar(255) [null]
+    followup_id int [null]
+    programtype_id int [null]
+    source_daftar_id int [null]
+    source_id int [null]
+    status_id int [default: 1]
+    created_at timestamp [null]
+    updated_at timestamp [null]
+    note: "table 'applicants' contains applicant informations"
+}
+
+// Applicants
+Ref: applicants.identity_user > users.identity
+Ref: applicants.school > schools.id
+Ref: applicants.followup_id > followup.id
+Ref: applicants.programtype_id > program_type.id
+Ref: applicants.source_daftar_id > source_setting.id
+Ref: applicants.source_id > source_setting.id
+Ref: applicants.status_id > applicants_status.id
+// Applicants Family
+Ref: applicants_family.identity_user > applicants.identity
+// Organizations
+Ref: organizations.identity_user > applicants.identity
+// Users Upload
+Ref: users_upload.identity_user > applicants.identity
+// File Upload
+Ref: users_upload.fileupload_id > file_upload.id
+// Integration
+Ref: integration.identity_user > applicants.identity
+// Registration
+Ref: registration.identity_user > applicants.identity
+// Enrollment
+Ref: enrollment.identity_user > applicants.identity
+// Target
+Ref: target.identity_user > applicants.identity

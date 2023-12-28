@@ -75,6 +75,7 @@
                                 <x-select id="role" name="role" required>
                                     <option>Pilih peran</option>
                                     <option value="P">Presenter</option>
+                                    <option value="K">Kepala Kampus</option>
                                     <option value="A">Administrator</option>
                                 </x-select>
                             </div>
