@@ -34,31 +34,32 @@
                     </thead>
                     <tbody>
                         @forelse ($databasesAdministrator as $number => $database)
-                        <tr class="{{ $number % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white' }}">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{ $number + 1 }}
-                            </th>
-                            <td class="px-6 py-4">
-                                @if (Auth::user()->role == 'A')
-                                    <a href="{{ route('database.show', $database->identity) }}"
-                                        class="underline font-bold">{{ $database->name }}</a>
-                                @else
-                                    {{ $database->name }}
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $database->sourceSetting->name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $database->school ? $database->schoolApplicant->name : 'Tidak diketahui' }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $database->year ? $database->year : 'Tidak diketahui' }}
-                            </td>
-                        </tr>
+                            <tr class="{{ $number % 2 == 0 ? 'border-b bg-gray-50' : 'bg-white' }}">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $number + 1 }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    @if (Auth::user()->role == 'A')
+                                        <a href="{{ route('database.show', $database->identity) }}"
+                                            class="underline font-bold">{{ $database->name }}</a>
+                                    @else
+                                        {{ $database->name }}
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $database->sourceSetting->name }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $database->school ? $database->schoolApplicant->name : 'Tidak diketahui' }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $database->year ? $database->year : 'Tidak diketahui' }}
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="5" class="text-center">Data belum ada.</td>
+                        <tr class="border-b">
+                            <td colspan="5" class="px-6 py-3 text-center">Data belumada
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>
