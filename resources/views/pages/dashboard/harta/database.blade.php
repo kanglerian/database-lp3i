@@ -57,10 +57,9 @@
                                 </td>
                             </tr>
                         @empty
-                        <tr class="border-b">
-                            <td colspan="5" class="px-6 py-3 text-center">Data belumada
-                            </td>
-                        </tr>
+                            <tr class="border-b">
+                                <td colspan="5" class="px-6 py-3 text-center">Data belum ada</td>
+                            </tr>
                         @endforelse
                     </tbody>
                     @if ($databasesAdminstratorCount > count($databasesAdministrator))
