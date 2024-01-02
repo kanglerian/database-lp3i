@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody id="result-quicksearch">
-                            <tr class="border-b bg-gray-50">
+                            <tr class="border-b border-t">
                                 <td colspan="7" class="px-6 py-4 text-center">Silahkan untuk isi kolom
                                     pencarian.
                                 </td>

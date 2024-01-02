@@ -57,8 +57,8 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr class="border-b">
-                                <td colspan="5" class="px-6 py-3 text-center">Data belum ada</td>
+                            <tr class="border-b border-t">
+                                <td colspan="5" class="px-6 py-4 text-center">Data belum ada</td>
                             </tr>
                         @endforelse
                     </tbody>
