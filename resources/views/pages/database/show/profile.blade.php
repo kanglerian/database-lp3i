@@ -47,7 +47,7 @@
                                 </p>
                             </div>
                             <div class="flex gap-2">
-                                @if ($account > 0)
+                                @if ($account > 0 && $user->programtype_id && $user->program)
                                     <a href="{{ route('database.print', $user->identity) }}"
                                         class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
                                             class="fa-solid fa-print"></i></a>
