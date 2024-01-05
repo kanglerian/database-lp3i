@@ -1014,7 +1014,7 @@ class ApplicantController extends Controller
 
             $phone = null;
 
-            if (!empty($applicants[$i][4])) {
+            if (!empty($applicants[$i][4]) && strlen($applicants[$i][4]) > 10) {
                 if (substr($applicants[$i][4], 0, 1) === '0') {
                     $phone = '62' . substr($applicants[$i][4], 1);
                 } else {

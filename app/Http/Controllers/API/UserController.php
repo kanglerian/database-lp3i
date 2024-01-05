@@ -32,6 +32,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function info_user($identity)
+    {
+        $user = User::where(['identity' => $identity])->first();
+        $name = $user ? $user->name : 'Tidak diketahui';
+        return response()->json([
+            'name' => $name,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function get_user(Request $request)
     {
         $account = $request->user();

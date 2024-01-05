@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/organization/{id}', [OrganizationController::class, 'destroy']);
 });
 
+Route::get('/user/info/{identity}', [UserController::class, 'info_user']);
+
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
 

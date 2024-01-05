@@ -60,7 +60,9 @@ class DashboardController extends Controller
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
+            // Database
             'databaseCount' => $databaseCount,
+            // Applicant
             'applicantCount' => $applicantCount,
             'registrationCount' => $registrationCount,
             'schoolarshipCount' => $schoolarshipCount,
@@ -105,12 +107,20 @@ class DashboardController extends Controller
         }
 
         $databaseCount = $databaseQuery->count();
+        $databasePhone = $databaseQuery->whereNotNull('phone')->get();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
         $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
-        return response()->json(['database_count' => $databaseCount, 'schoolarship_count' => $schoolarshipCount, 'applicant_count' => $applicantCount,'enrollment_count' => $enrollmentCount, 'registration_count' => $registrationCount]);
+        return response()->json([
+            'database_count' => $databaseCount,
+            'databasePhone' => $databasePhone,
+            'schoolarship_count' => $schoolarshipCount,
+            'applicant_count' => $applicantCount,
+            'enrollment_count' => $enrollmentCount,
+            'registration_count' => $registrationCount
+        ]);
     }
 
     /**
