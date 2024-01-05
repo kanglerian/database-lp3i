@@ -2,6 +2,13 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-5 px-2 space-y-2">
         <button onclick="updateHistories()">Update</button>
         <ul>
+            <li id="database">0</li>
+            <li id="database_phone">0</li>
+            <li id="database_nophone">0</li>
+            <li id="not_blash">0</li>
+        </ul>
+        <hr>
+        <ul>
             <li id="category_1">0</li>
             <li id="category_2">0</li>
             <li id="category_3">0</li>
