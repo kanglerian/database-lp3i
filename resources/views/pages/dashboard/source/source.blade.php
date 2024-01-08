@@ -1,5 +1,5 @@
 @if (Auth::user()->role == 'A')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 space-y-5">
+    <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row gap-3">
             <section class="w-full md:w-2/3 p-3 space-y-5">
                 <div>

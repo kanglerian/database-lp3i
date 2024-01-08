@@ -9,6 +9,19 @@
                 @endif
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
+                {{-- Loading animation --}}
+                <div role="status" class="hidden" id="data-loading">
+                    <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-blue-600"
+                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="currentColor" />
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentFill" />
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                </div>
                 @if (Auth::user()->status != 1)
                     <div class="px-6 py-2 rounded-lg bg-red-500 text-white text-sm">
                         <p><i class="fa-solid fa-lock mr-1"></i> Akun anda belum di aktifkan.</p>
@@ -24,100 +37,74 @@
         </div>
     </x-slot>
 
-    @if (Auth::user()->role == 'S')
-        <div class="py-10">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-5 px-5 md:px-0">
-                    <div class="w-full md:w-6/12 space-y-5 order-2 md:order-none">
-                        <div class="space-y-1">
-                            <h3 class="text-2xl font-bold text-gray-800">Silahkan untuk lakukan Transfer!</h3>
-                            <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di
-                                depan mata.</p>
+    <section class="space-y-5 py-8">
+        @if (Auth::user()->role == 'S')
+            <div class="py-10">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-5 px-5 md:px-0">
+                        <div class="w-full md:w-6/12 space-y-5 order-2 md:order-none">
+                            <div class="space-y-1">
+                                <h3 class="text-2xl font-bold text-gray-800">Silahkan untuk lakukan Transfer!</h3>
+                                <p class="text-gray-700">Isi formulir pendaftaran dan raih kesempatan yang luar biasa di
+                                    depan mata.</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
+                                <div class="space-y-3">
+                                    <img src="{{ asset('logo/btn.png') }}" alt="Logo BTN" width="150px">
+                                    <div onclick="copyRecord('0003401300001406')"
+                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        <div class="space-y-1">
+                                            <h1 class="font-bold text-sm text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
+                                            <p class="text-sm text-gray-700">0003401300001406</p>
+                                        </div>
+                                        <button onclick="copyRecord('0003401300001406')"><i
+                                                class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <img src="{{ asset('logo/bsi.png') }}" alt="Logo BSI" width="150px">
+                                    <div onclick="copyRecord('1025845605')"
+                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        <div class="space-y-1">
+                                            <h1 class="font-bold text-sm text-gray-800">BANK BSI (LPPPI TASIKMALAYA)
+                                            </h1>
+                                            <p class="text-sm text-gray-700">1025845605</p>
+                                        </div>
+                                        <button onclick="copyRecord('1025845605')"><i
+                                                class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="150px">
+                                    <div onclick="copyRecord('4549998888')"
+                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        <div class="space-y-1">
+                                            <h1 class="font-bold text-sm text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
+                                            <p class="text-sm text-gray-700">4549998888</p>
+                                        </div>
+                                        <button onclick="copyRecord('4549998888')"><i
+                                                class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
-                            <div class="space-y-3">
-                                <img src="{{ asset('logo/btn.png') }}" alt="Logo BTN" width="150px">
-                                <div onclick="copyRecord('0003401300001406')"
-                                    class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div class="space-y-1">
-                                        <h1 class="font-bold text-sm text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
-                                        <p class="text-sm text-gray-700">0003401300001406</p>
-                                    </div>
-                                    <button onclick="copyRecord('0003401300001406')"><i
-                                            class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <img src="{{ asset('logo/bsi.png') }}" alt="Logo BSI" width="150px">
-                                <div onclick="copyRecord('1025845605')"
-                                    class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div class="space-y-1">
-                                        <h1 class="font-bold text-sm text-gray-800">BANK BSI (LPPPI TASIKMALAYA)</h1>
-                                        <p class="text-sm text-gray-700">1025845605</p>
-                                    </div>
-                                    <button onclick="copyRecord('1025845605')"><i
-                                            class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="150px">
-                                <div onclick="copyRecord('4549998888')"
-                                    class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
-                                    <div class="space-y-1">
-                                        <h1 class="font-bold text-sm text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
-                                        <p class="text-sm text-gray-700">4549998888</p>
-                                    </div>
-                                    <button onclick="copyRecord('4549998888')"><i
-                                            class="fa-solid fa-clipboard text-gray-500 hover:text-blue-500"></i></button>
-                                </div>
-                            </div>
+                        <div class="w-full md:w-5/12 order-1 md:order-none">
+                            <img src="{{ asset('img/payment.svg') }}" alt="">
                         </div>
-                    </div>
-                    <div class="w-full md:w-5/12 order-1 md:order-none">
-                        <img src="{{ asset('img/payment.svg') }}" alt="">
                     </div>
                 </div>
             </div>
-        </div>
-    @endif
+        @endif
 
-    @if (Auth::user()->role !== 'S')
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-5 px-2">
-            <div class="flex justify-between items-center gap-3">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
-                    <input type="hidden" id="identity" value="{{ Auth::user()->identity }}">
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
-                            placeholder="Tahun PMB">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
-                        <input type="date" id="date" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="session" class="text-xs">Gelombang:</label>
-                        <select id="session" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Gelombang 1</option>
-                            <option value="2">Gelombang 2</option>
-                            <option value="3">Gelombang 3</option>
-                            <option value="4">Gelombang 4</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
+        @include('pages.dashboard.database.filter')
+        @include('pages.dashboard.database.database')
+        @include('pages.dashboard.target.target')
+        @include('pages.dashboard.search.search')
+        @include('pages.dashboard.database.history')
+        @include('pages.dashboard.harta.database')
+        @include('pages.dashboard.source.source')
 
-    @include('pages.dashboard.database.database')
-    @include('pages.dashboard.target.target')
-    @include('pages.dashboard.search.search')
-    @include('pages.dashboard.harta.database')
-    @include('pages.dashboard.source.source')
+    </section>
 
 </x-app-layout>
 @if (Auth::user()->role !== 'S')
@@ -125,6 +112,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script>
+        const showLoadingAnimation = () => {
+            document.getElementById('data-loading').style.display = 'block';
+        }
+
+        const hideLoadingAnimation = () => {
+            document.getElementById('data-loading').style.display = 'none';
+        }
+    </script>
     <script>
         const getYearPMB = () => {
             const currentDate = new Date();
@@ -141,12 +137,23 @@
         var apiTargets = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
         var apiDashboard = `/get/dashboard/all?identity=${identity}&pmbVal=${pmb}`
     </script>
-    <script>
-        const changeTrigger = () => {
-            changeFilterDatabase();
-            changeFilterTarget();
-        }
-    </script>
+
+    @if (Auth::user()->role == 'A')
+        <script>
+            const changeTrigger = () => {
+                getHistories();
+                changeFilterDatabase();
+            }
+        </script>
+    @else
+        <script>
+            const changeTrigger = () => {
+                getHistories();
+                changeFilterTarget();
+                changeFilterDatabase();
+            }
+        </script>
+    @endif
     @include('pages.dashboard.target.get')
     @include('pages.dashboard.target.change')
     @include('pages.dashboard.database.get')
@@ -162,7 +169,8 @@
                     let identity = document.getElementById('identity').value;
                     const response = await axios.get(`quicksearch/${nameSearch}`);
                     const data = response.data.applicants;
-                    document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
+                    document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                        'id-ID');
 
                     const manualColumns = [{
                         data: 'id',
@@ -237,7 +245,8 @@
                 let result = document.getElementById('result-quicksearch');
                 const response = await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`);
                 const data = response.data.applicants;
-                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                    'id-ID');
 
                 const manualColumns = [{
                     data: 'id',
@@ -312,7 +321,8 @@
                 const response = await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`);
                 const data = response.data.applicants;
 
-                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString('id-ID');
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                    'id-ID');
                 const manualColumns = [{
                     data: 'id',
                     render: (data, type, row, meta) => {

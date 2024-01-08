@@ -13,7 +13,7 @@
         if (sessionVal !== 'all') {
             queryParams.push(`sessionVal=${sessionVal}`);
         }
-        
+
         let queryString = queryParams.join('&');
         apiDashboard = `get/dashboard/all?${queryString}`;
         getDatabases();

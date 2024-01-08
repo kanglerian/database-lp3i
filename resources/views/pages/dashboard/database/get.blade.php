@@ -21,14 +21,14 @@
     const updateHistories = async () => {
         try {
             const responseDatabase = await axios.get(apiDashboard);
-            const database = responseDatabase.data.databasePhone;
-
+            const database = responseDatabase.data.database_phone;
+            console.log(database.length);
             for (let i = 0; i < database.length; i++) {
                 let data = {
                     identity: identity,
                     pmb: 2024
                 }
-                await axios.patch(`http://localhost:4004/update/${database[i].phone}`, data)
+                await axios.patch(`https://api.politekniklp3i-tasikmalaya.ac.id/history/update/${database[i].phone}`, data)
                     .then((response) => {
                         console.log(response.data.message);
                     })
@@ -42,115 +42,92 @@
         }
     }
 
-    const showData = async (i) => {
-        try {
-            const responseHistories = await axios.get(`http://localhost:4004/detail/${pmb}/${identity}`);
-            const responseDatabase = await axios.get(apiDashboard);
-            const histories = responseHistories.data;
-            const database = responseDatabase.data.databasePhone;
-
-
-            const data = histories.filter((history) => history.category == i);
-
-            document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
-                'id-ID');
-
-            const manualColumns = [{
-                data: 'id',
-                render: (data, type, row, meta) => {
-                    return meta.row + 1;
-                }
-            }, {
-                data: 'pmb',
-                render: (data, type, row, meta) => {
-                    return data;
-                }
-            }, {
-                data: {
-                    name: 'name',
-                    identity: 'identity',
-                    identity_user: 'identity_user'
-                },
-                render: (data, type, row, meta) => {
-                    let editUrl = "{{ route('database.show', ':identity') }}".replace(
-                        ':identity',
-                        data.identity);
-                    if (data.identity_user == identity || identity == '6281313608558') {
-                        return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
-                    } else {
-                        return `<span>${data.name}</span>`;
-                    }
-                }
-            }, {
-                data: 'presenter',
-                render: (data) => {
-                    return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
-                }
-            }, {
-                data: 'source_setting',
-                render: (data, type, row) => {
-                    return 'oey';
-                }
-            }, {
-                data: 'school_applicant',
-                render: (data) => {
-                    return data == null ? 'Tidak diketahui' : 'Tidak diketahui';
-                }
-            }, {
-                data: 'year',
-                render: (data, row) => {
-                    return data != null ? data : 'Tidak diketahui';
-                }
-            }];
-
-            const dataTableConfig = {
-                columns: manualColumns,
-                data: data,
-            }
-
-            if (dataTableInitialized) {
-                dataTableInstance.destroy();
-            }
-
-            dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
-
-            dataTableInitialized = true;
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     const getHistories = async () => {
         try {
-            const responseHistories = await axios.get(`http://localhost:4004/detail/${pmb}/${identity}`);
+            showLoadingAnimation();
+            const responsePresenters = await axios.get(`get/presenter`);
             const responseDatabase = await axios.get(apiDashboard);
-            const histories = responseHistories.data;
-            const database = responseDatabase.data;
+            const presenters = responsePresenters.data.presenters;
+            const pmb = document.getElementById('change_pmb').value;
 
-            for (let i = 1; i < 13; i++) {
+            document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count;
+            document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone.length;
+            document.getElementById('phonehistory_nonvalid').innerText = responseDatabase.data.database_count - responseDatabase.data.database_phone.length;
 
-                let category = histories.filter((history) => history.category == i);
-                let percent = (category.length / database.databasePhone.length) * 100;
+            let buckets = [];
+            for (let i = 0; i < presenters.length; i++) {
+                const responseHistories = await axios.get(
+                    `https://api.politekniklp3i-tasikmalaya.ac.id/history/detail/${pmb}/${presenters[i].identity}`);
+                const databasesPhone = responseDatabase.data.database_phone;
+                const databasesCount = responseDatabase.data.database_count;
+                const databasePhone = databasesPhone.filter((data) => data.identity_user == presenters[i]
+                    .identity);
+                const histories = responseHistories.data;
+                let categoriesBucket = [];
+                for (let i = 1; i < 13; i++) {
+                    let categoryCount = histories.filter((history) => history.category == i);
+                    let percent = (categoryCount.length / databasePhone.length) * 100;
+                    categoriesBucket.push({
+                        category: categoryCount,
+                        percent: percent,
+                        databases_count: databasesCount,
+                        database_phone: databasePhone.length,
+                    });
+                }
+                let data = {
+                    name: presenters[i].name,
+                    categories: categoriesBucket
+                }
+                buckets.push(data);
 
-                document.getElementById(`category_${i}`).innerHTML =
-                    `<p>Kategori ${i}: <button onclick="showData('${i}');">${category.length} (${percent.toFixed()}%)</button></p>`;
             }
 
-
-            let percentDatabase = database.databasePhone.length / database.database_count * 100;
-            document.getElementById('database').innerText = `Database: ${database.database_count}`
-            document.getElementById('database_phone').innerText =
-                `Database Phone: ${database.databasePhone.length} (${percentDatabase.toFixed()}%)`
-            document.getElementById('database_nophone').innerText =
-                `Database No Phone: ${database.database_count - database.databasePhone.length}`
+            let content = '';
+            buckets.forEach((bucket) => {
+                let contentBucket = '';
+                let categoriesBucket = '';
+                let categories = bucket.categories;
+                if(categories.length > 0){
+                    categories.forEach((category, i) => {
+                    categoriesBucket += `
+                    <td class="px-6 py-4 text-center ${i % 2 == 0 ? 'bg-white' : 'bg-gray-50'}">
+                        <ul class="space-y-1">
+                            <li class="font-bold">${category.percent.toFixed()}%</li>
+                            <li class="text-xs">${category.category.length}/${category.database_phone}</li>
+                            <li class="text-xs">Total: ${category.database_phone} (${category.category.length - category.database_phone})</li>
+                        </ul>
+                    </td>`
+                });
+                content += `
+                    <tr>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                            ${bucket.name}
+                        </td>
+                        ${categoriesBucket}
+                    </tr>
+                `
+                } else {
+                content += `
+                    <tr>
+                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">Tidak ada data.</td>
+                    </tr>
+                `
+                }
+            });
+            document.getElementById('history_chat_presenter').innerHTML = content;
+            hideLoadingAnimation();
 
         } catch (error) {
-            console.log(error);
+            let content = `
+                    <tr>
+                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
+                    </tr>
+                `
+            document.getElementById('history_chat_presenter').innerHTML = content;
+            hideLoadingAnimation();
         }
     }
 
     getHistories();
-
     getDatabases();
 </script>
