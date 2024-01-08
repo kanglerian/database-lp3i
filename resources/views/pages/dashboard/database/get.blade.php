@@ -22,7 +22,6 @@
         try {
             const responseDatabase = await axios.get(apiDashboard);
             const database = responseDatabase.data.database_phone;
-            console.log(database.length);
             for (let i = 0; i < database.length; i++) {
                 let data = {
                     identity: identity,
@@ -50,9 +49,9 @@
             const presenters = responsePresenters.data.presenters;
             const pmb = document.getElementById('change_pmb').value;
 
-            document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count;
-            document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone.length;
-            document.getElementById('phonehistory_nonvalid').innerText = responseDatabase.data.database_count - responseDatabase.data.database_phone.length;
+            document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count.toLocaleString('id-ID');
+            document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone.length.toLocaleString('id-ID');
+            document.getElementById('phonehistory_nonvalid').innerText = (responseDatabase.data.database_count - responseDatabase.data.database_phone.length).toLocaleString('id-ID');
 
             let buckets = [];
             for (let i = 0; i < presenters.length; i++) {
