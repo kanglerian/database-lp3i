@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 py-3">
-            <div class="flex">
+            <div class="flex overflow-x-auto">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard.index') }}">
@@ -97,16 +97,16 @@
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
                             @endif
-                            <div class="flex flex-col items-start">
+                            <div class="w-full flex flex-col items-start">
                                 <span class="font-bold">{{ Auth::user()->name }}</span>
                                 <span class="text-xs">
                                     @switch(Auth::user()->role)
                                         @case('A')
-                                            Administrator (ID: {{ Auth::user()->identity }})
+                                            Administrator
                                         @break
 
                                         @case('P')
-                                            Presenter (ID: {{ Auth::user()->identity }})
+                                            Presenter
                                         @break
 
                                         @case('S')
