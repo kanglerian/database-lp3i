@@ -27,11 +27,19 @@
                         <p><i class="fa-solid fa-lock mr-1"></i> Akun anda belum di aktifkan.</p>
                     </div>
                 @else
-                    <div class="px-6 py-2 rounded-lg text-sm bg-white">
-                        <p><i class="fa-regular fa-face-smile-beam mr-1"></i> Selamat datang,
-                            {{ Auth::user()->name }}
-                        </p>
-                    </div>
+                    @if (Auth::user()->role !== 'S')
+                        <div class="px-6 py-2 rounded-lg text-sm bg-white">
+                            <div>
+                                <span class="font-bold">{{ Auth::user()->name }}</span>
+                                (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
+                                    {{ Auth::user()->identity }}</span>)
+                                <button onclick="copyIdentity('{{ Auth::user()->identity }}')" class="text-blue-500"><i
+                                        class="fa-regular fa-copy"></i></button>
+                            </div>
+                            <span class="text-xs text-gray-600">Gunakan Key Identity ini di aplikasi Whatsapp
+                                Sender.</span>
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
@@ -113,6 +121,18 @@
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script>
+        const copyIdentity = (identity) => {
+            const textarea = document.createElement("textarea");
+            textarea.value = identity;
+            textarea.style.position = "fixed";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert('ID sudah disalin!');
+        }
+    </script>
+    <script>
         const showLoadingAnimation = () => {
             document.getElementById('data-loading').style.display = 'block';
         }
@@ -137,7 +157,6 @@
         var apiTargets = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
         var apiDashboard = `/get/dashboard/all?identity=${identity}&pmbVal=${pmb}`
     </script>
-
     @if (Auth::user()->role == 'A')
         <script>
             const changeTrigger = () => {

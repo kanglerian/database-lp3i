@@ -102,11 +102,11 @@
                                 <span class="text-xs">
                                     @switch(Auth::user()->role)
                                         @case('A')
-                                            Administrator
+                                            Administrator (ID: {{ Auth::user()->identity }})
                                         @break
 
                                         @case('P')
-                                            Presenter
+                                            Presenter (ID: {{ Auth::user()->identity }})
                                         @break
 
                                         @case('S')
