@@ -261,22 +261,18 @@
                         return `
                         <div class="flex items-center gap-1">
                             <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord(
-                            '${escapeString(data.name)}',
-                            '${escapeString(data.phone)}',
-                            '${escapeString(data.school_applicant ? data.school_applicant.name : 'Tidak diketahui')}',
-                            '${escapeString(data.year ? data.year : 'Tidak diketahui')}',
-                            '${escapeString(data.program ? data.program : 'Tidak diketahui')}',
-                            '${escapeString(data.source_setting.name)}',
-                            '${escapeString(data.programtype_id ? data.program_type.name : '')}',
-                            '${escapeString(data.status_id ? data.applicant_status.name : '')}'
+                            '${data.name}',
+                            '${data.phone}',
+                            '${data.school_applicant ? data.school_applicant.name : 'Tidak diketahui'}',
+                            '${data.year ? data.year : 'Tidak diketahui'}',
+                            '${data.program ? data.program : 'Tidak diketahui'}',
+                            '${data.source_setting.name}',
+                            '${data.programtype_id ? data.program_type.name : ''}',
+                            '${data.status_id ? data.applicant_status.name : ''}'
                             );">
                             <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>`;
-
-                        function escapeString(str) {
-                        return str.replace(/'/g, "\\'");
-                        }
                     }
                 },
                 {
