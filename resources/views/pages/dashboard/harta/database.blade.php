@@ -1,7 +1,7 @@
 @if (Auth::user()->role !== 'S')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+    <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-200 sm:rounded-lg">
+            <div class="bg-white relative overflow-x-auto border border-gray-100 sm:rounded-xl">
                 <header class="p-5 space-y-1">
                     <h1 class="flex items-center gap-2 font-bold text-gray-700">
                         <span>Database: Harta Gono Gini</span>

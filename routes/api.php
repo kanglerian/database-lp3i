@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
+use App\Http\Controllers\API\PresenterController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -38,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/organization', [OrganizationController::class, 'store']);
     Route::delete('/organization/{id}', [OrganizationController::class, 'destroy']);
 });
+
+Route::get('/user/info/{identity}', [UserController::class, 'info_user']);
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');

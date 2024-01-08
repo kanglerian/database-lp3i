@@ -106,7 +106,7 @@ class UserSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'identity' => 6281286501015,
+                'identity' => 6281286501013,
                 'name' => 'Check',
                 'email' => 'check.lp3i@gmail.com',
                 'password' => Hash::make('check123'),

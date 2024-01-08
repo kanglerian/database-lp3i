@@ -50,6 +50,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
     Route::get('quicksearch/{name?}', [DashboardController::class, 'quick_search'])->name('quicksearch');
     Route::get('quicksearchstatus', [DashboardController::class, 'quick_search_status'])->name('quicksearchstatus');
     Route::get('quicksearchsource', [DashboardController::class, 'quick_search_source'])->name('quicksearchsource');
+    Route::get('get/presenter', [DashboardController::class, 'get_presenter'])->name('dashboard.presenter');
 });
 
 /* Route School */

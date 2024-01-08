@@ -52,15 +52,17 @@ class DashboardController extends Controller
         $databasesAdminstratorCount = Applicant::where('identity_user', '6281313608558')->count();
 
         $databasesAdministrator = Applicant::where('identity_user', '6281313608558')
-        ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
-        ->orderByDesc('created_at')
-        ->take(10)
-        ->get();
+            ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
+            ->orderByDesc('created_at')
+            ->take(10)
+            ->get();
 
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
+            // Database
             'databaseCount' => $databaseCount,
+            // Applicant
             'applicantCount' => $applicantCount,
             'registrationCount' => $registrationCount,
             'schoolarshipCount' => $schoolarshipCount,
@@ -68,10 +70,10 @@ class DashboardController extends Controller
             'sourcesIdCount' => $sourcesIdCount,
             'sourcesIdEnrollmentCount' => $sourcesIdEnrollmentCount,
             'databasesAdminstratorCount' => $databasesAdminstratorCount,
-            'databasesAdministrator' => $databasesAdministrator
+            'databasesAdministrator' => $databasesAdministrator,
         ]);
     }
-/**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -105,12 +107,43 @@ class DashboardController extends Controller
         }
 
         $databaseCount = $databaseQuery->count();
+        $databasePhone = $databaseQuery->whereNotNull('phone')->get();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
         $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
-        return response()->json(['database_count' => $databaseCount, 'schoolarship_count' => $schoolarshipCount, 'applicant_count' => $applicantCount,'enrollment_count' => $enrollmentCount, 'registration_count' => $registrationCount]);
+        $presenters = [];
+
+        return response()->json([
+            'database_count' => $databaseCount,
+            'database_phone' => $databasePhone,
+            'schoolarship_count' => $schoolarshipCount,
+            'applicant_count' => $applicantCount,
+            'enrollment_count' => $enrollmentCount,
+            'registration_count' => $registrationCount,
+            'presenters' => $presenters,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_presenter()
+    {
+        $presenters = [];
+        if (Auth::user()->role == 'A') {
+            $presenters = User::where('role', 'P')->get();
+        } elseif (Auth::user()->role == 'P') {
+            $presenters = User::where('identity', Auth::user()->identity)->get();
+        }
+
+        return response()->json([
+            'presenters' => $presenters
+        ]);
     }
 
     /**

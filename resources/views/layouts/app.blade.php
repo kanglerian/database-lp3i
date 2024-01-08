@@ -64,6 +64,9 @@
             margin: 5px !important;
             border-radius: 10px !important;
         }
+        #progress_bar {
+            transition: width 0.5s ease;
+        }
     </style>
 
     <!-- Scripts -->
@@ -71,8 +74,7 @@
 </head>
 
 <body class="font-sans">
-    <div
-     class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
+    <div class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
         @include('layouts.navigation')
 
         <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
