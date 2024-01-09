@@ -112,6 +112,10 @@
                                         @case('S')
                                             Siswa
                                         @break
+
+                                        @case('K')
+                                            Kepala Kampus
+                                        @break
                                     @endswitch
                                 </span>
                             </div>

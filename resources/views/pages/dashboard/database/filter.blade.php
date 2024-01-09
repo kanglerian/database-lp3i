@@ -1,7 +1,7 @@
 @if (Auth::user()->role !== 'S')
     <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between items-center gap-3">
-            <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
                 <input type="hidden" id="identity" value="{{ Auth::user()->identity }}">
                 <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                     <label for="change_pmb" class="text-xs">Periode PMB:</label>
@@ -25,6 +25,17 @@
                         <option value="4">Gelombang 4</option>
                     </select>
                 </div>
+            </div>
+            <div class="px-6 py-2 rounded-xl text-sm bg-white border border-gray-100 order-1 md:order-none">
+                <div>
+                    <span class="font-bold">{{ Auth::user()->name }}</span>
+                    (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
+                        {{ Auth::user()->identity }}</span>)
+                    <button onclick="copyIdentity('{{ Auth::user()->identity }}')" class="text-blue-500"><i
+                            class="fa-regular fa-copy"></i></button>
+                </div>
+                <span class="text-xs text-gray-600">Gunakan Key Identity ini di aplikasi Whatsapp
+                    Sender.</span>
             </div>
         </div>
     </div>

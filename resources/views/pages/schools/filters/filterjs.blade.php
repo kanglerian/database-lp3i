@@ -10,10 +10,10 @@
         showLoadingAnimation();
         fetch(urlData)
             .then(response => {
-                hideLoadingAnimation();
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                hideLoadingAnimation();
                 return response.json();
             })
             .then(data => {
@@ -28,7 +28,6 @@
 
     const changeFilter = () => {
         showLoadingAnimation();
-
         let queryParams = [];
 
         let regionCheck = document.getElementById('change_region').value || 'all';
@@ -61,15 +60,5 @@
         } else {
             getDataTable();
         }
-    }
-</script>
-
-<script>
-    const showLoadingAnimation = () => {
-        document.getElementById('data-loading').style.display = 'block';
-    }
-
-    const hideLoadingAnimation = () => {
-        document.getElementById('data-loading').style.display = 'none';
     }
 </script>

@@ -838,6 +838,14 @@ select {
   top: -75px;
 }
 
+.top-\[-100px\] {
+  top: -100px;
+}
+
+.top-\[-50px\] {
+  top: -50px;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -1091,6 +1099,18 @@ select {
   height: 100vh;
 }
 
+.h-\[500px\] {
+  height: 500px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1169,18 +1189,6 @@ select {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[200px\] {
-  width: 200px;
-}
-
-.w-\[100px\] {
-  width: 100px;
-}
-
-.w-\[150px\] {
-  width: 150px;
 }
 
 .max-w-4xl {
@@ -1707,8 +1715,25 @@ select {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
+}
+
+.bg-opacity-60 {
+  --tw-bg-opacity: 0.6;
 }
 
 .bg-\[url\(\'\/img\/pattern\.svg\'\)\] {

@@ -113,8 +113,6 @@ class DashboardController extends Controller
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
         $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
-        $presenters = [];
-
         return response()->json([
             'database_count' => $databaseCount,
             'database_phone' => $databasePhone,
@@ -122,7 +120,6 @@ class DashboardController extends Controller
             'applicant_count' => $applicantCount,
             'enrollment_count' => $enrollmentCount,
             'registration_count' => $registrationCount,
-            'presenters' => $presenters,
         ]);
     }
 
@@ -139,6 +136,8 @@ class DashboardController extends Controller
             $presenters = User::where('role', 'P')->get();
         } elseif (Auth::user()->role == 'P') {
             $presenters = User::where('identity', Auth::user()->identity)->get();
+        } elseif (Auth::user()->role == 'K'){
+            $presenters = User::where('role', 'P')->get();
         }
 
         return response()->json([

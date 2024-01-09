@@ -64,6 +64,7 @@
             margin: 5px !important;
             border-radius: 10px !important;
         }
+
         #progress_bar {
             transition: width 0.5s ease;
         }
@@ -74,6 +75,12 @@
 </head>
 
 <body class="font-sans">
+    <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 w-full h-full z-10 fixed hidden"
+        id="data-loadin">
+        <lottie-player src="{{ asset('animations/astronout.json') }}" background="Transparent" speed="1"
+            style="width: 200px; height: 200px" direction="1" mode="normal" loop autoplay></lottie-player>
+        <h1 class="text-white relative top-[-50px] text-sm">Sedang memuat data...</h1>
+    </div>
     <div class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
         @include('layouts.navigation')
 
@@ -96,8 +103,24 @@
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="{{ asset('js/lottie.js') }}"></script>
+    <script>
+        const showLoadingAnimation = () => {
+            document.getElementById('data-loading').classList.remove('hidden');
+        }
+
+        const hideLoadingAnimation = () => {
+            document.getElementById('data-loading').classList.add('hidden');
+        }
+    </script>
     <script>
         const URL_API_LP3I = document.getElementById('api_endpoint_lp3i').innerText;
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            $('.js-example-input-single').select2();
+        });
     </script>
     @stack('scripts')
 </body>

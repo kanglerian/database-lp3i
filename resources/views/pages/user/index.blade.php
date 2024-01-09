@@ -114,29 +114,34 @@
     var dataTableInstance;
 
     const changeFilter = () => {
+        showLoadingAnimation();
         let roleVal = document.getElementById('change_role').value;
         let statusVal = document.getElementById('change_status').value;
         urlData = `get/users/${roleVal}/${statusVal}`;
 
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            hideLoadingAnimation();
         } else {
             getDataTable();
         }
     }
 
     const resetFilter = () => {
+        showLoadingAnimation();
         document.getElementById('change_role').value = 'all';
         document.getElementById('change_status').value = 'all';
         urlData = `get/users/all/all`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
+            hideLoadingAnimation();
         } else {
             getDataTable();
         }
     }
 
     const getDataTable = () => {
+        showLoadingAnimation();
         dataTableInstance = $('#myTable').DataTable({
             ajax: {
                 url: urlData,
@@ -218,6 +223,7 @@
             ],
         });
         dataTableInitialized = true;
+        hideLoadingAnimation();
     }
 
     getDataTable();
