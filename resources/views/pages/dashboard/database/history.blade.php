@@ -28,11 +28,11 @@
                 </div>
             </div>
             <div class="relative overflow-x-auto border border-gray-200 rounded-xl">
-                {{-- @if (Auth::user()->role == 'P')
+                @if (Auth::user()->role == 'P')
                     <button onclick="updateHistories()"
                         class="text-sm bg-red-500 hover:bg-red-600 rounded-lg px-4 py-2 text-white">Jangan ditekan,
                         bahaya!</button>
-                @endif --}}
+                @endif
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase">
                         <tr>
