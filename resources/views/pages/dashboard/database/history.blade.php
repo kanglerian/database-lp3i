@@ -75,11 +75,14 @@
                             <th scope="col" class="px-6 py-4 text-center bg-gray-50">
                                 Kategori 12
                             </th>
+                            <th scope="col" class="px-6 py-4 text-center bg-gray-50">
+                                Lebih dari kategori 12
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="history_chat_presenter">
                         <tr>
-                            <td colspan="13" class="bg-white text-center text-sm px-6 py-4">Tidak ada data.</td>
+                            <td colspan="14" class="bg-white text-center text-sm px-6 py-4">Tidak ada data.</td>
                         </tr>
                     </tbody>
                 </table>

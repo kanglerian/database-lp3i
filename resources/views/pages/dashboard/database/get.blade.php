@@ -30,7 +30,7 @@
                 }
                 await axios.patch(
                         `https://api.politekniklp3i-tasikmalaya.ac.id/history/update/${database[i].phone}`, data
-                        )
+                    )
                     .then((response) => {
                         console.log(response.data.message);
                     })
@@ -63,15 +63,20 @@
             for (let i = 0; i < presenters.length; i++) {
                 const responseHistories = await axios.get(
                     `https://api.politekniklp3i-tasikmalaya.ac.id/history/detail/${pmb}/${presenters[i].identity}`
-                    );
+                );
                 const databasesPhone = responseDatabase.data.database_phone;
                 const databasesCount = responseDatabase.data.database_count;
                 const databasePhone = databasesPhone.filter((data) => data.identity_user == presenters[i]
                     .identity);
                 const histories = responseHistories.data;
                 let categoriesBucket = [];
-                for (let i = 1; i < 13; i++) {
-                    let categoryCount = histories.filter((history) => history.category == i);
+                for (let i = 1; i < 14; i++) {
+                    let categoryCount;
+                    if (i > 12) {
+                        categoryCount = histories.filter((history) => history.category > i);
+                    } else {
+                        categoryCount = histories.filter((history) => history.category == i);
+                    }
                     let percent = (categoryCount.length / databasePhone.length) * 100;
                     categoriesBucket.push({
                         category: categoryCount,
@@ -85,7 +90,6 @@
                     categories: categoriesBucket
                 }
                 buckets.push(data);
-
             }
 
             let content = '';
@@ -101,6 +105,8 @@
                             <li class="font-bold">${category.percent.toFixed()}%</li>
                             <li class="text-xs">${category.category.length}/${category.database_phone}</li>
                             <li class="text-xs">Total: ${category.database_phone} (${category.category.length - category.database_phone})</li>
+                            ${category.database_phone > category.category.length - category.database_phone ?
+                            `<li onclick="informationText()" class="text-xs cursor-pointer hover:text-sky-600 transition"><i class="fa-solid fa-circle-info"></i>  Informasi</li>` : ''}
                         </ul>
                     </td>`
                     });
@@ -115,7 +121,7 @@
                 } else {
                     content += `
                     <tr>
-                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">Tidak ada data.</td>
+                        <td colspan="14" class="text-center bg-white text-sm px-6 py-4">Tidak ada data.</td>
                     </tr>
                 `
                 }
@@ -130,6 +136,13 @@
                 `
             document.getElementById('history_chat_presenter').innerHTML = content;
         }
+    }
+
+    const informationText = () => {
+        let message = `Persentase data > 100% mungkin disebabkan oleh:
+        1. Pengiriman pesan ke nomor tidak terdaftar.
+        2. Penghapusan nomor setelah pengiriman pesan.`;
+        alert(message);
     }
 
     getHistories();
