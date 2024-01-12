@@ -15,6 +15,7 @@ class DatabaseByPresenterSource extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'pmb',
         'identity_user',
         'presenter',
         'presentasi',

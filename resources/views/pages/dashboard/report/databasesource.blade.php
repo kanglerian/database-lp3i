@@ -70,10 +70,38 @@
     @push('scripts')
         <script src="{{ asset('js/axios.min.js') }}"></script>
         <script>
-            let urlData = 'api/report/database/presenter/source';
+            let pmbVal = document.getElementById('change_pmb').value;
+            let urlData = `api/report/database/presenter/source?pmbVal=${pmbVal}`;
             let dataTableRekapInitialized = false;
             let dataTableRekapInstance;
             let databases;
+
+            const getAPIRekap = async () => {
+                await axios.get(urlData)
+                    .then((response) => {
+                        databases = response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
+            const changeFilterRekap = () => {
+                let queryParams = [];
+                let pmbVal = document.getElementById('change_pmb').value;
+                if (pmbVal !== 'all') {
+                    queryParams.push(`pmbVal=${pmbVal}`);
+                }
+                let queryString = queryParams.join('&');
+
+                urlData = `api/report/database/presenter/source?${queryString}`;
+                if (dataTableRekapInstance) {
+                    dataTableRekapInstance.ajax.url(urlData).load();
+                    getAPIRekap();
+                } else {
+                    getDataTable();
+                }
+            }
 
             const getDataTable = async () => {
                 const dataTableConfig = {

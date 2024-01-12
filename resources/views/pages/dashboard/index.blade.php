@@ -77,9 +77,11 @@
             </div>
         @endif
 
+        @include('pages.dashboard.database.filter')
+        @include('pages.dashboard.utilities.scripts')
+
         @include('pages.dashboard.report.databasesource')
 
-        @include('pages.dashboard.database.filter')
         @include('pages.dashboard.database.database')
         @include('pages.dashboard.target.target')
         @include('pages.dashboard.search.search')
@@ -107,16 +109,6 @@
         }
     </script>
     <script>
-        const getYearPMB = () => {
-            const currentDate = new Date();
-            const currentYear = currentDate.getFullYear();
-            const currentMonth = currentDate.getMonth();
-            const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-            document.getElementById('change_pmb').value = startYear;
-        }
-        getYearPMB();
-    </script>
-    <script>
         let identity = document.getElementById('identity').value;
         let pmb = document.getElementById('change_pmb').value;
         let apiTargets = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
@@ -125,6 +117,7 @@
     @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
         <script>
             const changeTrigger = () => {
+                changeFilterRekap();
                 getHistories();
                 changeFilterDatabase();
             }
