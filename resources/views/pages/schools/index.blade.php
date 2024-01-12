@@ -7,8 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <form action="{{ route('school.import') }}" id="form-school" method="post"
-                    enctype="multipart/form-data">
+                <form action="{{ route('school.import') }}" id="form-school" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="berkas" id="berkas"
                         class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
@@ -79,6 +78,12 @@
                                         Total
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Valid
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Non Valid
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Jumlah Kelas
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -125,6 +130,7 @@
 @include('pages.schools.filters.filterjs')
 
 <script>
+
     const getDataTable = async () => {
         const dataTableConfig = {
             ajax: {
@@ -155,6 +161,12 @@
                 },
                 {
                     data: 'jumlah'
+                },
+                {
+                    data: 'valid'
+                },
+                {
+                    data: 'nonvalid'
                 },
                 {
                     data: 'kelas',

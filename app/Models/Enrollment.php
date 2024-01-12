@@ -24,6 +24,7 @@ class Enrollment extends Model
         'nominal',
         'repayment',
         'debit',
+        'session'
     ];
 
 

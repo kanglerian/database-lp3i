@@ -80,7 +80,7 @@ return array(
     'App\\Models\\ProgramType' => $baseDir . '/app/Models/ProgramType.php',
     'App\\Models\\Registration' => $baseDir . '/app/Models/Registration.php',
     'App\\Models\\School' => $baseDir . '/app/Models/School.php',
-    'App\\Models\\SchoolByMajorPresentasiGrab' => $baseDir . '/app/Models/SchoolByMajorPresentasiGrab.php',
+    // 'App\\Models\\Report\\SchoolBySourcePresenter' => $baseDir . '/app/Models/Report/SchoolBySourcePresenter.php',
     'App\\Models\\SchoolByRegion' => $baseDir . '/app/Models/SchoolByRegion.php',
     'App\\Models\\SourceSetting' => $baseDir . '/app/Models/SourceSetting.php',
     'App\\Models\\Target' => $baseDir . '/app/Models/Target.php',

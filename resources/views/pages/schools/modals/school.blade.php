@@ -19,15 +19,21 @@
                     <div>
                         <label for="name_school" class="block mb-2 text-sm font-medium text-gray-900">Nama
                             Sekolah</label>
-                        <input type="text" id="name_school" name="name" placeholder="Isi nama sekolah disini.."
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                         required>
+                        <input type="text" id="name_school" name="name" placeholder="Isi nama sekolah disini.."class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                     </div>
                     <div>
                         <label for="region_school" class="block mb-2 text-sm font-medium text-gray-900">Wilayah</label>
-                        <input type="text" id="region_school" name="region" placeholder="Isi wilayah disini.."
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
+                        <select name="region" id="region_school"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option selected>Pilih Wilayah</option>
+                            <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
+                            <option value="TASIKMALAYA">TASIKMALAYA</option>
+                            <option value="GARUT">GARUT</option>
+                            <option value="BANJAR">BANJAR</option>
+                            <option value="CIAMIS">CIAMIS</option>
+                            <option value="PANGANDARAN">PANGANDARAN</option>
+                        </select>
+
                     </div>
                 </div>
                 <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">

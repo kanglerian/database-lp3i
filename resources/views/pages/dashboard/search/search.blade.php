@@ -1,5 +1,5 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
-    <div class="max-w-7xl mx-auto" id="quicksearch_container">
+    <div class="max-w-7xl px-5 mx-auto" id="quicksearch_container">
         <div class="grid grid-cols-1 gap-4">
             <div class="bg-white relative overflow-x-auto border border-gray-100 md:rounded-xl">
                 <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 p-5">
