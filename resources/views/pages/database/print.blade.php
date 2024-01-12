@@ -134,7 +134,7 @@
                 </div>
                 @if ($user->avatar)
                     <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
-                        alt="Avatar" width="130px">
+                        alt="Avatar" width="110px">
                 @else
                     <div
                         style="border: 1px dotted black; height: 180px; width: 420px;display: flex;justify-content: center;align-items:center">
