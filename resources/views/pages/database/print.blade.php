@@ -71,6 +71,7 @@
             }
 
             .page {
+                font-size: 12px;
                 margin: 0;
                 border: initial;
                 border-radius: initial;
