@@ -15,10 +15,10 @@ SELECT
     SUM(CASE WHEN applicants.source_id = 10 THEN 1 ELSE 0 END) AS beasiswa,
     SUM(CASE WHEN applicants.phone IS NOT NULL THEN 1 ELSE 0 END) AS valid,
     SUM(CASE WHEN applicants.phone IS NULL THEN 1 ELSE 0 END) AS nonvalid,
-    COUNT(DISTINCT applicants.identity_user) AS jumlah
+    COUNT(DISTINCT applicants.identity) AS jumlah
 FROM
     applicants
 LEFT JOIN
     users ON users.identity = applicants.identity_user
 GROUP BY
-    identity_user, pmb;
+    identity_user, pmb, presenter;
