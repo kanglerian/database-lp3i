@@ -90,6 +90,9 @@
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Gelombang
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Nama Lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -145,15 +148,15 @@
                     target: 0
                 },
                 {
-                    width: 200,
+                    width: 100,
                     target: 1
                 },
                 {
-                    width: 100,
+                    width: 200,
                     target: 2
                 },
                 {
-                    width: 150,
+                    width: 100,
                     target: 3
                 },
                 {
@@ -161,7 +164,7 @@
                     target: 4
                 },
                 {
-                    width: 100,
+                    width: 150,
                     target: 5
                 },
                 {
@@ -173,13 +176,20 @@
                     target: 7
                 },
                 {
-                    width: 50,
+                    width: 100,
                     target: 8
+                },
+                {
+                    width: 50,
+                    target: 9
                 },
             ],
             columns: [
                 {
                     data: 'date'
+                },
+                {
+                    data: 'session'
                 },
                 {
                     data: 'applicant',

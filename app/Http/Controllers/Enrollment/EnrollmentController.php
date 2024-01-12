@@ -80,6 +80,7 @@ class EnrollmentController extends Controller
             'register' => ['required'],
             'register_end' => ['required'],
             'nominal' => ['required'],
+            'session' => ['required']
         ],[
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
@@ -90,6 +91,7 @@ class EnrollmentController extends Controller
             'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
             'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
             'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
+            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
         ]);
 
         $data = [
@@ -102,6 +104,7 @@ class EnrollmentController extends Controller
             'nominal' => (int) str_replace('.', '', $request->input('nominal')),
             'repayment' => $request->input('repayment'),
             'debit' => (int) str_replace('.', '', $request->input('debit')),
+            'session' => $request->input('session'),
         ];
 
         Enrollment::create($data);
@@ -152,6 +155,7 @@ class EnrollmentController extends Controller
             'register' => ['required'],
             'register_end' => ['required'],
             'nominal' => ['required'],
+            'session' => ['required']
         ],[
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
@@ -162,6 +166,7 @@ class EnrollmentController extends Controller
             'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
             'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
             'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
+            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
         ]);
 
         $data = [
@@ -174,6 +179,7 @@ class EnrollmentController extends Controller
             'nominal' => (int) str_replace('.', '', $request->input('nominal')),
             'repayment' => $request->input('repayment'),
             'debit' => (int) str_replace('.', '', $request->input('debit')),
+            'session' => $request->input('session'),
         ];
 
         $enrollment = Enrollment::findOrFail($id);

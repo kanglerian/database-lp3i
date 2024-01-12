@@ -1,5 +1,5 @@
 @if (Auth::user()->role !== 'S')
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl px-5 mx-auto">
         <section class="bg-white p-5 md:rounded-xl border border-gray-100">
             <header class="space-y-1">
                 <h2 class="font-bold text-gray-800">Riwayat Target Pengiriman Pesan</h2>

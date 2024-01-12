@@ -411,6 +411,12 @@
                                         </span>
                                     </li>
                                     <li class="flex items-center space-x-2">
+                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
+                                        <span class="inline-block mr-2">Gelombang:
+                                            <span class="underline">{{ $enrollment->session }}</span>
+                                        </span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
                                         <i class="fa-regular fa-note-sticky block text-gray-400"></i>
                                         <span class="inline-block mr-2">Keterangan:
                                             <span class="underline">{{ $enrollment->register }}</span>
@@ -498,8 +504,8 @@
         </div>
     </div>
     @include('pages.database.show.modal.account')
+    @include('pages.database.show.modal.daftar')
     @if ($account)
-        @include('pages.database.show.modal.daftar')
         @include('pages.database.show.modal.registrasi')
     @endif
     @if ($registration && $enrollment && $account)

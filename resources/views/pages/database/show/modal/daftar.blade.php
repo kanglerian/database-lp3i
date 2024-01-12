@@ -17,7 +17,7 @@
                     <form class="space-y-4" action="{{ route('enrollment.update', $enrollment->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-3">
                             <div>
                                 <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                     PMB</label>
@@ -38,6 +38,29 @@
                                     placeholder="Tanggal Daftar" required>
                                 @if ($errors->has('date'))
                                     <span class="text-red-500 text-xs">{{ $errors->first('date') }}</span>
+                                @else
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                @endif
+                            </div>
+                            <div>
+                                <label for="session"
+                                    class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
+                                <select id="session" name="session"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    required>
+                                    @if ($enrollment->session)
+                                        <option value="{{ $enrollment->session }}">
+                                            {{ $enrollment->session }}
+                                        </option>
+                                    @endif
+                                    <hr>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                @if ($errors->has('session'))
+                                    <span class="text-red-500 text-xs">{{ $errors->first('session') }}</span>
                                 @else
                                     <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
@@ -65,7 +88,7 @@
                                 @if ($errors->has('receipt'))
                                     <span class="text-red-500 text-xs">{{ $errors->first('receipt') }}</span>
                                 @else
-                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi 5 - 10 digit.</span>
                                 @endif
                             </div>
                         </div>
@@ -77,7 +100,8 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required>
                                     @if ($enrollment->register)
-                                        <option value="{{ $enrollment->register }}">{{ $enrollment->register }}</option>
+                                        <option value="{{ $enrollment->register }}">{{ $enrollment->register }}
+                                        </option>
                                     @endif
                                     <hr>
                                     <option value="Daftar Kampus">Daftar Kampus</option>
@@ -136,7 +160,8 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                             <div>
-                                <label for="repayment" class="block mb-2 text-sm font-medium text-gray-900">Pengembalian
+                                <label for="repayment"
+                                    class="block mb-2 text-sm font-medium text-gray-900">Pengembalian
                                     BK</label>
                                 <input type="date" name="repayment" id="repayment"
                                     value="{{ $enrollment->repayment }}"
@@ -197,7 +222,7 @@
                 <hr class="mb-3">
                 <form class="space-y-4" action="{{ route('enrollment.store') }}" method="POST">
                     @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-3 md:gap-3">
                         <div>
                             <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                 PMB</label>
@@ -222,6 +247,18 @@
                                 <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </div>
+                        <div>
+                            <label for="session"
+                                class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
+                            <select id="session" name="session"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
                         <input type="hidden" value="{{ $user->identity }}" name="identity_user" id="identity_user"
@@ -243,7 +280,7 @@
                             @if ($errors->has('receipt'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('receipt') }}</span>
                             @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                <span class="text-red-500 text-xs">*Wajib diisi 5 - 10 digit.</span>
                             @endif
                         </div>
                     </div>

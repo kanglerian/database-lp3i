@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Imports\SchoolsImport;
 use App\Models\Applicant;
+use App\Models\Report\SchoolBySourceAll;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
-use App\Models\SchoolByMajorPresentasiGrab;
 use App\Models\SchoolByRegion;
 use App\Models\School;
 
@@ -31,7 +31,7 @@ class SchoolController extends Controller
 
     public function get_all()
     {
-        $schoolsQuery = SchoolByMajorPresentasiGrab::query();
+        $schoolsQuery = SchoolBySourceAll::query();
         $regionCheck = request('regionCheck', 'all');
 
         if ($regionCheck !== 'all') {

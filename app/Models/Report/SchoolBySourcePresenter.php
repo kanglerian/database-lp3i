@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Report;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolByMajorPresentasiGrab extends Model
+class SchoolBySourcePresenter extends Model
 {
     use HasFactory;
 
@@ -18,19 +18,23 @@ class SchoolByMajorPresentasiGrab extends Model
         'id',
         'wilayah',
         'nama',
+        'identity_user',
+        'presenter',
+        'presentasi',
+        'grab',
         'website',
         'mgm',
         'sosmed',
         'sekolah',
         'jadwaldatang',
         'gurubk',
-        'presentasi',
         'daftaronline',
-        'grab',
+        'beasiswa',
+        'valid',
+        'nonvalid',
         'kelas',
-        'jumlah',
+        'jumlah'
     ];
 
-    protected $table = 'schools_by_major_presentasi_grab';
-
+    protected $table = 'schools_by_source_presenter';
 }

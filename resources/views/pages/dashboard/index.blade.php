@@ -78,6 +78,10 @@
         @endif
 
         @include('pages.dashboard.database.filter')
+        @include('pages.dashboard.utilities.scripts')
+
+        @include('pages.dashboard.report.databasesource')
+
         @include('pages.dashboard.database.database')
         @include('pages.dashboard.target.target')
         @include('pages.dashboard.search.search')
@@ -89,10 +93,9 @@
 
 </x-app-layout>
 @if (Auth::user()->role !== 'S')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script src="{{ asset('js/chart.umd.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
-    {{-- <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> --}}
     <script>
         const copyIdentity = (identity) => {
             const textarea = document.createElement("textarea");
@@ -106,24 +109,15 @@
         }
     </script>
     <script>
-        const getYearPMB = () => {
-            const currentDate = new Date();
-            const currentYear = currentDate.getFullYear();
-            const currentMonth = currentDate.getMonth();
-            const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-            document.getElementById('change_pmb').value = startYear;
-        }
-        getYearPMB();
-    </script>
-    <script>
         let identity = document.getElementById('identity').value;
         let pmb = document.getElementById('change_pmb').value;
-        var apiTargets = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
-        var apiDashboard = `/get/dashboard/all?identity=${identity}&pmbVal=${pmb}`
+        let apiTargets = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
+        let apiDashboard = `/get/dashboard/all?identity=${identity}&pmbVal=${pmb}`
     </script>
     @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
         <script>
             const changeTrigger = () => {
+                changeFilterRekap();
                 getHistories();
                 changeFilterDatabase();
             }
@@ -142,8 +136,8 @@
     @include('pages.dashboard.database.get')
     @include('pages.dashboard.database.change')
     <script>
-        var dataTableInitialized = false;
-        var dataTableInstance;
+        let dataTableInitialized = false;
+        let dataTableInstance;
         const quickSearch = async () => {
             try {
                 let nameSearch = document.getElementById('quick-search').value;

@@ -24,6 +24,7 @@ class CreateEnrollmentTable extends Migration
             $table->integer('nominal');
             $table->date('repayment')->nullable();
             $table->integer('debit')->nullable();
+            $table->tinyInteger('session')->default(1);
             $table->timestamps();
         });
     }
