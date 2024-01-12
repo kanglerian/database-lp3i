@@ -195,14 +195,13 @@
                         {{ $father->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($father->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($father->date_of_birth)->format('m')] . \Carbon\Carbon::parse($father->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Pendidikan Terakhir</td>
+                    <td style="width: 200px;">Pendidikan / Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $father->education == null ? '_______________' : $father->education }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Pekerjaan</td>
-                    <td>:</td>
-                    <td>{{ $father->job == null ? '_______________' : $father->job }}</td>
+                    <td>
+                        {{ $father->education == null ? '_______________' : $father->education }}
+                        /
+                        {{ $father->job == null ? '_______________' : $father->job }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. Telepon / HP</td>
@@ -231,14 +230,13 @@
                         {{ $mother->date_of_birth == null ? '_______________' : \Carbon\Carbon::parse($mother->date_of_birth)->format('d ') . $monthsInIndonesian[\Carbon\Carbon::parse($mother->date_of_birth)->format('m')] . \Carbon\Carbon::parse($mother->date_of_birth)->format(' Y') }}
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Pendidikan Terakhir</td>
+                    <td style="width: 200px;">Pendidikan / Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $mother->education == null ? '_______________' : $mother->education }}</td>
-                </tr>
-                <tr>
-                    <td style="width: 200px;">Pekerjaan</td>
-                    <td>:</td>
-                    <td>{{ $mother->job == null ? '_______________' : $mother->job }}</td>
+                    <td>
+                        {{ $mother->education == null ? '_______________' : $mother->education }}
+                        /
+                        {{ $mother->job == null ? '_______________' : $mother->job }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="width: 200px;">No. Telepon / HP</td>
