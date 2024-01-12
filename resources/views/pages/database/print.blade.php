@@ -308,13 +308,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 200px;">Prestasi</td>
-                    <td>:</td>
-                    <td>
-                        <span>{{ $applicant->achievement == null ? '_______________' : $applicant->achievement }}</span>
-                    </td>
-                </tr>
-                <tr>
                     <td style="width: 200px;">No. HP / Email</td>
                     <td>:</td>
                     <td>
