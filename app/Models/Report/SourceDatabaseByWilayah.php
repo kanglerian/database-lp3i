@@ -5,7 +5,7 @@ namespace App\Models\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseByPresenterSource extends Model
+class SourceDatabaseByWilayah extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,7 @@ class DatabaseByPresenterSource extends Model
      */
     protected $fillable = [
         'pmb',
-        'identity_user',
-        'presenter',
+        'wilayah',
         'presentasi',
         'grab',
         'website',
@@ -30,8 +29,9 @@ class DatabaseByPresenterSource extends Model
         'beasiswa',
         'valid',
         'nonvalid',
+        'kelas',
         'jumlah'
     ];
 
-    protected $table = 'view_database_by_presenter_source';
+    protected $table = 'source_database_by_wilayah';
 }

@@ -5,14 +5,15 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\RegisterController;
-use App\Http\Controllers\API\Report\DatabaseByPresenterSourceController;
 use App\Http\Controllers\API\SchoolController;
 use App\Http\Controllers\API\UserUploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
-use App\Http\Controllers\API\PresenterController;
+use App\Http\Controllers\API\Report\SourceDatabaseByPresenterController;
+use App\Http\Controllers\API\Report\SourceDatabaseByWilayahController;
+use App\Http\Controllers\API\Report\WilayahDatabaseByPresenterController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -52,4 +53,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
 Route::get('/database/{identity}', [ApplicantController::class, 'show'])->name('applicants.api.show');
 
-Route::get('/report/database/presenter/source', [DatabaseByPresenterSourceController::class, 'get_all']);
+Route::get('/report/database/presenter/source', [SourceDatabaseByPresenterController::class, 'get_all']);
+Route::get('/report/database/wilayah/source', [SourceDatabaseByWilayahController::class, 'get_all']);
+
+Route::get('/report/database/presenter/wilayah', [WilayahDatabaseByPresenterController::class, 'get_all']);

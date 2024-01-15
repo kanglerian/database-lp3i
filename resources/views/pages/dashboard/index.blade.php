@@ -80,11 +80,28 @@
         @include('pages.dashboard.database.filter')
         @include('pages.dashboard.utilities.scripts')
 
-        @include('pages.dashboard.report.databasesource')
-
         @include('pages.dashboard.database.database')
         @include('pages.dashboard.target.target')
         @include('pages.dashboard.search.search')
+
+        <div class="max-w-7xl px-5 mx-auto">
+            <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
+                <header class="space-y-1">
+                    <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
+                    <p class="text-sm text-gray-700 text-sm">
+                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                    </p>
+                </header>
+                <hr>
+                @include('pages.dashboard.report.main')
+                @include('pages.dashboard.report.sourcedatabasebywilayah')
+                <hr>
+                @include('pages.dashboard.report.sourcedatabasebypresenter')
+                <hr>
+                @include('pages.dashboard.report.wilayahdatabasebypresenter')
+            </section>
+        </div>
+
         @include('pages.dashboard.database.history')
         @include('pages.dashboard.harta.database')
         @include('pages.dashboard.source.source')
@@ -117,7 +134,9 @@
     @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
         <script>
             const changeTrigger = () => {
-                changeFilterRekap();
+                changeFilterDatabasePresenter();
+                changeFilterDatabasePresenterWilayah();
+                changeFilterDatabaseSchool();
                 getHistories();
                 changeFilterDatabase();
             }
@@ -125,6 +144,9 @@
     @else
         <script>
             const changeTrigger = () => {
+                changeFilterDatabasePresenter();
+                changeFilterDatabasePresenterWilayah();
+                changeFilterDatabaseSchool();
                 getHistories();
                 changeFilterTarget();
                 changeFilterDatabase();

@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\API\Report;
 
 use App\Http\Controllers\Controller;
-use App\Models\Report\DatabaseByPresenterSource;
+use App\Models\Report\SourceDatabaseByPresenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class DatabaseByPresenterSourceController extends Controller
+class SourceDatabaseByPresenterController extends Controller
 {
     public function get_all() {
-        $databaseQuery = DatabaseByPresenterSource::query();
+        $databaseQuery = SourceDatabaseByPresenter::query();
 
         $pmbVal = request('pmbVal', 'all');
+
+        if (Auth::user()->role === 'P') {
+            $databaseQuery->where('identity_user', Auth::user()->identity);
+        }
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);

@@ -1,8 +1,7 @@
-CREATE VIEW `view_database_by_presenter_source` AS
+CREATE VIEW `source_database_by_wilayah` AS
 SELECT
     applicants.pmb AS pmb,
-    applicants.identity_user AS identity_user,
-    users.name AS presenter,
+    schools.region AS wilayah,
     SUM(CASE WHEN applicants.source_id = 7 THEN 1 ELSE 0 END) AS presentasi,
     SUM(CASE WHEN applicants.source_id = 9 THEN 1 ELSE 0 END) AS grab,
     SUM(CASE WHEN applicants.source_id = 1 THEN 1 ELSE 0 END) AS website,
@@ -15,10 +14,11 @@ SELECT
     SUM(CASE WHEN applicants.source_id = 10 THEN 1 ELSE 0 END) AS beasiswa,
     SUM(CASE WHEN applicants.phone IS NOT NULL THEN 1 ELSE 0 END) AS valid,
     SUM(CASE WHEN applicants.phone IS NULL THEN 1 ELSE 0 END) AS nonvalid,
-    COUNT(DISTINCT applicants.identity) AS jumlah
+    COUNT(DISTINCT applicants.major) AS kelas,
+    COUNT(applicants.identity) AS jumlah
 FROM
-    applicants
+    schools
 LEFT JOIN
-    users ON users.identity = applicants.identity_user
+    applicants ON schools.id = applicants.school
 GROUP BY
-    identity_user, pmb, presenter;
+    pmb, wilayah;
