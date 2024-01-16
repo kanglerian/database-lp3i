@@ -58,30 +58,26 @@
                     </th>
                 </tr>
             </thead>
-            <tbody id="history_chat_presente">
-                <tr>
-                    <td colspan="14" class="bg-white text-center text-sm px-6 py-4">Tidak ada data.</td>
-                </tr>
-            </tbody>
+            <tbody id="history_chat_presente"></tbody>
             @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
                 <tfoot>
                     <tr>
                         <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
                             Total Database
                         </th>
-                        <td scope="col" id="school_jumlah" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_valid" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_nonvalid" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_presentasi" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_grab" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_daftaronline" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_website" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_beasiswa" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_sosmed" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_mgm" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_sekolah" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_jadwaldatang" class="px-6 py-4 text-center"></td>
-                        <td scope="col" id="school_gurubk" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_jumlah" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_valid" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_nonvalid" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_presentasi" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_grab" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_daftaronline" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_website" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_beasiswa" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_sosmed" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_mgm" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_sekolah" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_jadwaldatang" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="wilayah_gurubk" class="px-6 py-4 text-center"></td>
                     </tr>
                 </tfoot>
             @endif
@@ -124,19 +120,19 @@
                                 jadwaldatang += parseInt(database.jadwaldatang);
                                 gurubk += parseInt(database.gurubk);
                             });
-                            document.getElementById('school_jumlah').innerText = jumlah;
-                            document.getElementById('school_valid').innerText = valid;
-                            document.getElementById('school_nonvalid').innerText = nonvalid;
-                            document.getElementById('school_presentasi').innerText = presentasi;
-                            document.getElementById('school_grab').innerText = grab;
-                            document.getElementById('school_daftaronline').innerText = daftaronline;
-                            document.getElementById('school_website').innerText = website;
-                            document.getElementById('school_beasiswa').innerText = beasiswa;
-                            document.getElementById('school_sosmed').innerText = sosmed;
-                            document.getElementById('school_mgm').innerText = mgm;
-                            document.getElementById('school_sekolah').innerText = sekolah;
-                            document.getElementById('school_jadwaldatang').innerText = jadwaldatang;
-                            document.getElementById('school_gurubk').innerText = gurubk;
+                            document.getElementById('wilayah_jumlah').innerText = jumlah;
+                            document.getElementById('wilayah_valid').innerText = valid;
+                            document.getElementById('wilayah_nonvalid').innerText = nonvalid;
+                            document.getElementById('wilayah_presentasi').innerText = presentasi;
+                            document.getElementById('wilayah_grab').innerText = grab;
+                            document.getElementById('wilayah_daftaronline').innerText = daftaronline;
+                            document.getElementById('wilayah_website').innerText = website;
+                            document.getElementById('wilayah_beasiswa').innerText = beasiswa;
+                            document.getElementById('wilayah_sosmed').innerText = sosmed;
+                            document.getElementById('wilayah_mgm').innerText = mgm;
+                            document.getElementById('wilayah_sekolah').innerText = sekolah;
+                            document.getElementById('wilayah_jadwaldatang').innerText = jadwaldatang;
+                            document.getElementById('wilayah_gurubk').innerText = gurubk;
                         })
                         .catch((error) => {
                             console.log(error);

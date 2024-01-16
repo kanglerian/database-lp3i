@@ -97,11 +97,9 @@
                 @if (Auth::user()->role == 'P')
                     @include('pages.dashboard.report.sourcedatabasebywilayah')
                 @endif
-                <hr>
                 @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
                     @include('pages.dashboard.report.sourcedatabasebypresenter')
                 @endif
-                <hr>
                 @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
                     @include('pages.dashboard.report.wilayahdatabasebypresenter')
                 @endif
