@@ -94,11 +94,17 @@
                 </header>
                 <hr>
                 @include('pages.dashboard.report.main')
-                @include('pages.dashboard.report.sourcedatabasebywilayah')
+                @if (Auth::user()->role == 'P')
+                    @include('pages.dashboard.report.sourcedatabasebywilayah')
+                @endif
                 <hr>
-                @include('pages.dashboard.report.sourcedatabasebypresenter')
+                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
+                    @include('pages.dashboard.report.sourcedatabasebypresenter')
+                @endif
                 <hr>
-                @include('pages.dashboard.report.wilayahdatabasebypresenter')
+                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
+                    @include('pages.dashboard.report.wilayahdatabasebypresenter')
+                @endif
             </section>
         </div>
 

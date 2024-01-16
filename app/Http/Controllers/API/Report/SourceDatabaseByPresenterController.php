@@ -24,7 +24,7 @@ class SourceDatabaseByPresenterController extends Controller
         if ($roleVal === 'P') {
             $databaseQuery->where('identity_user', $identityUserVal);
         }
-
+        
         $databases = $databaseQuery->get();
         return response()->json([
             'databases' => $databases
