@@ -104,6 +104,9 @@
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script src="{{ asset('js/lottie.js') }}"></script>
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script src="{{ asset('js/chart.umd.js') }}"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
         const showLoadingAnimation = () => {
             document.getElementById('data-loading').classList.remove('hidden');
@@ -122,6 +125,7 @@
             $('.js-example-input-single').select2();
         });
     </script>
+    @stack('utilities')
     @stack('scripts')
 </body>
 

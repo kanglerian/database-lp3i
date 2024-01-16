@@ -22,7 +22,7 @@ class CreateRegistrationTable extends Migration
             $table->integer('deal');
             $table->integer('discount')->nullable();
             $table->string('desc_discount')->nullable();
-            $table->tinyInteger('session')->default(1);
+            $table->tinyInteger('session');
             $table->timestamps();
         });
     }

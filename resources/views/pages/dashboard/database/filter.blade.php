@@ -2,7 +2,8 @@
     <div class="max-w-7xl px-5 mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
-                <input type="hidden" id="identity" value="{{ Auth::user()->identity }}">
+                <input type="hidden" id="identity_val" value="{{ Auth::user()->identity }}">
+                <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
                 <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                     <label for="change_pmb" class="text-xs">Periode PMB:</label>
                     <input type="number" id="change_pmb" onchange="changeTrigger()"
@@ -35,3 +36,46 @@
         </div>
     </div>
 @endif
+
+@push('scripts')
+    @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
+        <script>
+            const changeTrigger = () => {
+                changeFilterDatabasePresenter();
+                changeFilterDatabasePresenterWilayah();
+                getHistories();
+                changeFilterDatabase();
+            }
+        </script>
+    @else
+        <script>
+            const changeTrigger = () => {
+                getHistories();
+                changeFilterTarget();
+                changeFilterDatabase();
+            }
+        </script>
+    @endif
+
+    <script>
+        const changeFilterDatabase = () => {
+            let queryParams = [];
+            let identityVal = document.getElementById('identity_val').value || 'all';
+            let pmbVal = document.getElementById('change_pmb').value || 'all';
+            let sessionVal = document.getElementById('session').value || 'all';
+
+            queryParams.push(`identity=${identityVal}`);
+
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+            if (sessionVal !== 'all') {
+                queryParams.push(`sessionVal=${sessionVal}`);
+            }
+
+            let queryString = queryParams.join('&');
+            apiDashboard = `get/dashboard/all?${queryString}`;
+            getDatabases();
+        }
+    </script>
+@endpush

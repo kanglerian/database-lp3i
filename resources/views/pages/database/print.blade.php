@@ -628,7 +628,7 @@
             </table>
             <hr style="margin-top: 10px;">
             <h3>PENGALAMAN ORGANISASI & PRESTASI</h3>
-            <div style="margin-top: 10px" id="identity" data-user="{{ $applicant->identity }}">
+            <div style="margin-top: 10px" id="identity_val" data-user="{{ $applicant->identity }}">
                 <span id="organizations"></span>
                 <span id="achievements"></span>
             </div>
@@ -752,7 +752,7 @@
     </script>
     <script>
         const getOrganizations = async () => {
-            let identity = document.getElementById('identity').getAttribute('data-user');
+            let identity = document.getElementById('identity_val').getAttribute('data-user');
             await axios.get(`/organizations/${identity}`)
                 .then((response) => {
                     let organizations = response.data.organizations;
@@ -797,7 +797,7 @@
     </script>
     <script>
         const getAchievements = async () => {
-            let identity = document.getElementById('identity').getAttribute('data-user');
+            let identity = document.getElementById('identity_val').getAttribute('data-user');
             await axios.get(`/achievements/${identity}`)
                 .then((response) => {
                     let achievements = response.data.achievements;
@@ -843,7 +843,7 @@
     <script>
         const getHistories = async () => {
             try {
-                let identity = document.getElementById('identity').getAttribute('data-user');
+                let identity = document.getElementById('identity_val').getAttribute('data-user');
                 const responseHistories = await axios.get(
                     `${URL_API_LP3I}/scholarship/histories?identity_user=${identity}`
                 );

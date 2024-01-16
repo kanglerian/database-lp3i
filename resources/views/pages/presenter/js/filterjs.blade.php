@@ -1,5 +1,5 @@
 <script>
-    let identity = document.getElementById('identity').value;
+    let identity = document.getElementById('identity_val').value;
     let pmb = document.getElementById('change_pmb').value;
     var urlData = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
 
@@ -31,8 +31,7 @@
     const changeFilter = () => {
         showLoadingAnimation();
         let queryParams = [];
-        let identity = document.getElementById('identity').value;
-        let dateVal = document.getElementById('date').value || 'all';
+        let identity = document.getElementById('identity_val').value;
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let sessionVal = document.getElementById('session').value || 'all';
 

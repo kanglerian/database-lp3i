@@ -300,10 +300,10 @@
                         phone: 'phone'
                     },
                     render: (data, type, row) => {
-                        let editUrl = "{{ route('database.edit', ':identity') }}".replace(
+                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
                             ':identity',
                             data.identity);
-                        return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`;
+                        return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
                     }
                 },
                 {

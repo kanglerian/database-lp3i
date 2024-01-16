@@ -48,3 +48,51 @@
         </div>
     </div>
 @endif
+
+@push('scripts')
+    <script>
+        const getPresenter = async () => {
+            let data;
+            const chartPresenter = document.getElementById('chartPresenter');
+            const chartPresenterContainer = document.getElementById('chartPresenterContainer');
+            await axios.get('get/dashboard/presenters')
+                .then(async (res) => {
+                    data = res.data.presenters;
+                    if (data.length > 0) {
+                        let labels = data.map(element => element.name);
+                        let dataPresenter = data.map(element => element.count);
+                        await new Chart(chartPresenter, {
+                            type: 'doughnut',
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false,
+                                    },
+                                },
+                            },
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Hasil',
+                                    data: dataPresenter,
+                                }]
+                            }
+                        });
+                    } else {
+                        let content =
+                            `<div class="text-center py-3">
+                    <h3 class="font-bold text-gray-800">Aplikan Berdasarkan Sumber Database</h3>
+                </div>
+                <hr>
+                <p class="text-center text-gray-700 text-sm py-3 px-3">Data tidak ada</p>`;
+                        chartPresenterContainer.innerHTML = content;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+        getPresenter();
+    </script>
+@endpush

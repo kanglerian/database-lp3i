@@ -12,7 +12,7 @@ class WilayahDatabaseByPresenterController extends Controller
         $databaseQuery = WilayahDatabaseByPresenter::query();
 
         $pmbVal = request('pmbVal', 'all');
-        $identityUserVal = request('identityUserVal', 'all');
+        $identityVal = request('identityVal', 'all');
         $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
@@ -20,7 +20,7 @@ class WilayahDatabaseByPresenterController extends Controller
         }
 
         if ($roleVal === 'P') {
-            $databaseQuery->where('identity_user', $identityUserVal);
+            $databaseQuery->where('identity_user', $identityVal);
         }
 
         $databases = $databaseQuery->get();

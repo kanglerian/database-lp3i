@@ -23,7 +23,7 @@
         @endif
     </div>
 
-    <input type="hidden" value="{{ $user->identity }}" id="identity">
+    <input type="hidden" value="{{ $user->identity }}" id="identity_val">
 
     <div class="max-w-7xl mx-auto px-5">
         <div class="w-full mx-auto">
@@ -42,7 +42,7 @@
         <script>
             const getHistories = async () => {
                 try {
-                    let identity = document.getElementById('identity').value;
+                    let identity = document.getElementById('identity_val').value;
                     const responseHistories = await axios.get(
                         `${URL_API_LP3I}/scholarship/histories?identity_user=${identity}`
                     );

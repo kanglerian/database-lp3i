@@ -6,8 +6,7 @@
                     <i class="fa-solid fa-database mr-1"></i>
                     <span class="text-sm">Database</span>
                 </h4>
-                <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg"
-                    id="database_count">0</span>
+                <span class="bg-lp3i-100 text-white text-sm px-2 py-1 rounded-lg" id="database_count">0</span>
             </div>
             <a href="#quicksearch_container" onclick="quickSearchStatus('schoolarship')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-cyan-500 hover:bg-cyan-600 text-white transition rounded-xl">
@@ -15,8 +14,7 @@
                     <i class="fa-solid fa-graduation-cap mr-1"></i>
                     <span class="text-sm">Beasiswa</span>
                 </h4>
-                <span class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg"
-                    id="schoolarship_count">0</span>
+                <span class="bg-cyan-600 text-white text-sm px-2 py-1 rounded-lg" id="schoolarship_count">0</span>
             </a>
             <a href="#quicksearch_container" onclick="quickSearchStatus('aplikan')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-yellow-500 hover:bg-yellow-600 transition text-white rounded-xl">
@@ -24,8 +22,7 @@
                     <i class="fa-solid fa-file-lines mr-1"></i>
                     <span class="text-sm">Aplikan</span>
                 </h4>
-                <span class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg"
-                    id="applicant_count">0</span>
+                <span class="bg-yellow-600 text-white text-sm px-2 py-1 rounded-lg" id="applicant_count">0</span>
             </a>
             <a href="#quicksearch_container" onclick="quickSearchStatus('daftar')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-sky-500 hover:bg-sky-600  transition text-white rounded-xl">
@@ -33,8 +30,7 @@
                     <i class="fa-solid fa-id-badge mr-1"></i>
                     <span class="text-sm">Daftar</span>
                 </h4>
-                <span class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg"
-                    id="enrollment_count">0</span>
+                <span class="bg-sky-600 text-white text-sm px-2 py-1 rounded-lg" id="enrollment_count">0</span>
             </a>
             <a href="#quicksearch_container" onclick="quickSearchStatus('registrasi')"
                 class="cursor-pointer flex justify-between items-center px-5 py-3 bg-emerald-500 hover:bg-emerald-600 transition text-white rounded-xl">
@@ -42,9 +38,33 @@
                     <i class="fa-solid fa-user-check mr-1"></i>
                     <span class="text-sm">Registrasi</span>
                 </h4>
-                <span class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg"
-                    id="registration_count">0</span>
+                <span class="bg-emerald-600 text-white text-sm px-2 py-1 rounded-lg" id="registration_count">0</span>
             </a>
         </div>
     </section>
 @endif
+
+@push('scripts')
+    <script>
+        const getDatabases = async () => {
+            await axios.get(apiDashboard)
+                .then((res) => {
+                    document.getElementById('database_count').innerText = parseInt(res.data.database_count)
+                        .toLocaleString('id-ID');
+                    document.getElementById('schoolarship_count').innerText = parseInt(res.data
+                        .schoolarship_count).toLocaleString('id-ID');
+                    document.getElementById('applicant_count').innerText = parseInt(res.data.applicant_count)
+                        .toLocaleString('id-ID');
+                    document.getElementById('enrollment_count').innerText = parseInt(res.data.enrollment_count)
+                        .toLocaleString('id-ID');
+                    document.getElementById('registration_count').innerText = parseInt(res.data
+                        .registration_count).toLocaleString('id-ID');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        getDatabases();
+    </script>
+@endpush

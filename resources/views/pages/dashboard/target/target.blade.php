@@ -35,3 +35,66 @@
         </div>
     </section>
 @endif
+
+@push('scripts')
+    <script>
+        const changeFilterTarget = () => {
+            let queryParams = [];
+            let identity = document.getElementById('identity_val').value;
+            let pmbVal = document.getElementById('change_pmb').value || 'all';
+            let sessionVal = document.getElementById('session').value || 'all';
+
+            queryParams.push(`identity=${identity}`);
+
+            if (dateVal !== 'all') {
+                queryParams.push(`dateVal=${dateVal}`);
+            }
+
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+
+            if (sessionVal !== 'all') {
+                queryParams.push(`sessionVal=${sessionVal}`);
+            }
+
+            let queryString = queryParams.join('&');
+
+            apiTargets = `/get/targets?${queryString}`;
+            getRegistrations();
+        }
+    </script>
+    <script>
+        const getRegistrations = async () => {
+            await axios.get(apiTargets)
+                .then((res) => {
+                    let dataTargets = res.data.targets;
+                    let targets = 0;
+                    let registers = res.data.registrations.length;
+                    dataTargets.forEach(data => {
+                        targets += parseInt(data.total);
+                    });
+                    document.getElementById('register_count').innerText = registers;
+                    document.getElementById('target_count').innerText = targets;
+                    document.getElementById('result_count').innerText = targets - registers;
+                    if (targets - registers <= 0) {
+                        document.getElementById('animate').classList.remove('hidden');
+                        document.getElementById('container-animate').classList.remove('bg-red-500');
+                        document.getElementById('container-animate').classList.add('bg-yellow-500');
+                        document.getElementById('result_count').classList.remove('bg-red-600');
+                        document.getElementById('result_count').classList.add('bg-yellow-600');
+                    } else {
+                        document.getElementById('animate').classList.add('hidden');
+                        document.getElementById('container-animate').classList.remove('bg-yellow-500');
+                        document.getElementById('container-animate').classList.add('bg-red-500');
+                        document.getElementById('result_count').classList.add('bg-red-600');
+                        document.getElementById('result_count').classList.remove('bg-yellow-600');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        getRegistrations();
+    </script>
+@endpush

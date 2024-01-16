@@ -51,6 +51,9 @@ class CreateApplicantsTable extends Migration
             $table->char('come', 1)->nullable();
 
             $table->char('is_applicant', 1)->default('0');
+            $table->date('is_applicant_date')->nullable();
+            $table->tinyInteger('is_applicant_session')->nullable();
+
             $table->char('is_daftar', 1)->default('0');
             $table->char('is_register', 1)->default('0');
 

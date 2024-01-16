@@ -88,3 +88,237 @@
         </div>
     </div>
 @endif
+
+@push('scripts')
+    <script>
+        let dataTableInitialized = false;
+        let dataTableInstance;
+        const quickSearch = async () => {
+            try {
+                let nameSearch = document.getElementById('quick-search').value;
+                if (nameSearch != '') {
+                    let result = document.getElementById('result-quicksearch');
+                    let identity = document.getElementById('identity_val').value;
+                    const response = await axios.get(`quicksearch/${nameSearch}`);
+                    const data = response.data.applicants;
+                    document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                        'id-ID');
+
+                    const manualColumns = [{
+                        data: 'id',
+                        render: (data, type, row, meta) => {
+                            return meta.row + 1;
+                        }
+                    }, {
+                        data: 'pmb',
+                        render: (data, type, row, meta) => {
+                            return data;
+                        }
+                    }, {
+                        data: {
+                            name: 'name',
+                            identity: 'identity',
+                            identity_user: 'identity_user'
+                        },
+                        render: (data, type, row, meta) => {
+                            let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                                ':identity',
+                                data.identity);
+                            if (data.identity_user == identity || identity == '6281313608558') {
+                                return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                            } else {
+                                return `<span>${data.name}</span>`;
+                            }
+                        }
+                    }, {
+                        data: 'presenter',
+                        render: (data) => {
+                            return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                        }
+                    }, {
+                        data: 'source_setting',
+                        render: (data, type, row) => {
+                            return data.name;
+                        }
+                    }, {
+                        data: 'school_applicant',
+                        render: (data) => {
+                            return data == null ? 'Tidak diketahui' : data.name;
+                        }
+                    }, {
+                        data: 'year',
+                        render: (data, row) => {
+                            return data != null ? data : 'Tidak diketahui';
+                        }
+                    }];
+
+                    const dataTableConfig = {
+                        columns: manualColumns,
+                        data: data,
+                    }
+
+                    if (dataTableInitialized) {
+                        dataTableInstance.destroy();
+                    }
+
+                    dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                    dataTableInitialized = true;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+    <script>
+        const quickSearchStatus = async (status) => {
+            try {
+                let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let result = document.getElementById('result-quicksearch');
+                const response = await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`);
+                const data = response.data.applicants;
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                    'id-ID');
+
+                const manualColumns = [{
+                    data: 'id',
+                    render: (data, type, row, meta) => {
+                        return meta.row + 1;
+                    }
+                }, {
+                    data: 'pmb',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: {
+                        name: 'name',
+                        identity: 'identity',
+                        identity_user: 'identity_user'
+                    },
+                    render: (data, type, row, meta) => {
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
+                            data.identity);
+                        if (data.identity_user == identity || identity == '6281313608558') {
+                            return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                        } else {
+                            return `<span>${data.name}</span>`;
+                        }
+                    }
+                }, {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
+                    }
+                }, {
+                    data: 'school_applicant',
+                    render: (data) => {
+                        return data == null ? 'Tidak diketahui' : data.name;
+                    }
+                }, {
+                    data: 'year',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                }];
+
+                const dataTableConfig = {
+                    columns: manualColumns,
+                    data: data,
+                }
+
+                if (dataTableInitialized) {
+                    dataTableInstance.destroy();
+                }
+
+                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                dataTableInitialized = true;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+    <script>
+        const quickSearchSource = async (source) => {
+            try {
+                let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let result = document.getElementById('result-quicksearch');
+                const response = await axios.get(`quicksearchsource?source=${source}&pmbVal=${pmbVal}`);
+                const data = response.data.applicants;
+
+                document.getElementById('count-quicksearch').innerText = parseInt(data.length).toLocaleString(
+                    'id-ID');
+                const manualColumns = [{
+                    data: 'id',
+                    render: (data, type, row, meta) => {
+                        return meta.row + 1;
+                    }
+                }, {
+                    data: 'pmb',
+                    render: (data, type, row, meta) => {
+                        return data;
+                    }
+                }, {
+                    data: {
+                        name: 'name',
+                        identity: 'identity',
+                        identity_user: 'identity_user'
+                    },
+                    render: (data, type, row, meta) => {
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
+                            ':identity',
+                            data.identity);
+                        if (data.identity_user == identity || identity == '6281313608558') {
+                            return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
+                        } else {
+                            return `<span>${data.name}</span>`;
+                        }
+
+                    }
+                }, {
+                    data: 'presenter',
+                    render: (data) => {
+                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'source_setting',
+                    render: (data, type, row) => {
+                        return data.name;
+                    }
+                }, {
+                    data: 'school_applicant',
+                    render: (data) => {
+                        return data == null ? 'Tidak diketahui' : data.name;
+                    }
+                }, {
+                    data: 'year',
+                    render: (data, row) => {
+                        return data != null ? data : 'Tidak diketahui';
+                    }
+                }];
+
+                const dataTableConfig = {
+                    columns: manualColumns,
+                    data: data,
+                }
+
+                if (dataTableInitialized) {
+                    dataTableInstance.destroy();
+                }
+
+                dataTableInstance = new DataTable('#quickSearchTable', dataTableConfig);
+
+                dataTableInitialized = true;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+@endpush
