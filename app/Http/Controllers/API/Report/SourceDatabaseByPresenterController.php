@@ -14,9 +14,9 @@ class SourceDatabaseByPresenterController extends Controller
 
         $pmbVal = request('pmbVal', 'all');
 
-        // if (Auth::user()->role === 'P') {
-        //     $databaseQuery->where('identity_user', Auth::user()->identity);
-        // }
+        if (Auth::user()->role == 'P') {
+            $databaseQuery->where('identity_user', Auth::user()->identity);
+        }
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
