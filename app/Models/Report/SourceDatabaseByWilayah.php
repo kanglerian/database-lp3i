@@ -16,6 +16,8 @@ class SourceDatabaseByWilayah extends Model
      */
     protected $fillable = [
         'pmb',
+        'identity_user',
+        'presenter',
         'wilayah',
         'presentasi',
         'grab',

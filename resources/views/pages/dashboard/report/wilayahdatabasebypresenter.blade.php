@@ -135,7 +135,20 @@
                         url: urlDatabasePresenterWilayah,
                         dataSrc: 'databases'
                     },
-
+                    columnDefs: [{
+                            width: 10,
+                            target: 0
+                        },
+                        {
+                            width: 100,
+                            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        },
+                    ],
+                    createdRow: function(row, data, index) {
+                        if (index % 2 === 0) {
+                            $(row).css('background-color', '#f9fafb');
+                        }
+                    },
                     columns: [
                         {
                             data: 'presenter',

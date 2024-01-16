@@ -12,14 +12,20 @@ class SourceDatabaseByWilayahController extends Controller
         $databaseQuery = SourceDatabaseByWilayah::query();
 
         $pmbVal = request('pmbVal', 'all');
+        $identityUserVal = request('identityUserVal', 'all');
+        $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
         }
 
+        if ($roleVal === 'P') {
+            $databaseQuery->where('identity_user', $identityUserVal);
+        }
+
         $databases = $databaseQuery->get();
         return response()->json([
-            'databases' => $databases,
+            'databases' => $databases
         ]);
     }
 }
