@@ -120,6 +120,7 @@
                                 jadwaldatang += parseInt(database.jadwaldatang);
                                 gurubk += parseInt(database.gurubk);
                             });
+                            console.log(jumlah);
                             document.getElementById('wilayah_jumlah').innerText = jumlah;
                             document.getElementById('wilayah_valid').innerText = valid;
                             document.getElementById('wilayah_nonvalid').innerText = nonvalid;
