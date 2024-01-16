@@ -2,7 +2,8 @@
     <section>
         <header class="space-y-1 mb-5">
             <div class="flex items-center gap-2">
-                <i class="fa-regular fa-circle-dot"></i><h2 class="font-bold text-gray-800">Sumber Database Berdasarkan Presenter</h2>
+                <i class="fa-regular fa-circle-dot"></i>
+                <h2 class="font-bold text-gray-800">Sumber Database Berdasarkan Presenter</h2>
             </div>
             <p class="text-sm text-gray-700 text-sm">
                 Berikut ini adalah hasil perhitungan dari riwayat pesan.
@@ -58,93 +59,86 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody id="history_chat_presente">
+                <tbody></tbody>
+                <tfoot>
                     <tr>
-                        <td colspan="14" class="bg-white text-center text-sm px-6 py-4">Tidak ada data.</td>
+                        <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
+                            Total Database
+                        </th>
+                        <td scope="col" id="presenter_jumlah" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_valid" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_nonvalid" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_presentasi" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_grab" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_daftaronline" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_website" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_beasiswa" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_sosmed" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_mgm" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_sekolah" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_jadwaldatang" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_gurubk" class="px-6 py-4 text-center"></td>
                     </tr>
-                </tbody>
-                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-                    <tfoot>
-                        <tr>
-                            <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
-                                Total Database
-                            </th>
-                            <td scope="col" id="presenter_jumlah" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_valid" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_nonvalid" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_presentasi" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_grab" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_daftaronline" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_website" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_beasiswa" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_sosmed" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_mgm" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_sekolah" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_jadwaldatang" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_gurubk" class="px-6 py-4 text-center"></td>
-                        </tr>
-                    </tfoot>
-                @endif
+                </tfoot>
             </table>
         </div>
     </section>
 
     @push('scripts')
-        @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-            <script>
-                const getAPIDatabasePresenter = async () => {
-                    await axios.get(urlDatabasePresenter)
-                        .then((response) => {
-                            let jumlah = 0;
-                            let valid = 0;
-                            let nonvalid = 0;
-                            let presentasi = 0;
-                            let grab = 0;
-                            let daftaronline = 0;
-                            let website = 0;
-                            let beasiswa = 0;
-                            let sosmed = 0;
-                            let mgm = 0;
-                            let sekolah = 0;
-                            let jadwaldatang = 0;
-                            let gurubk = 0;
-                            databasesSourceDatabasePresenter = response.data;
-                            databasesSourceDatabasePresenter.databases.forEach(database => {
-                                jumlah += parseInt(database.jumlah);
-                                valid += parseInt(database.valid);
-                                nonvalid += parseInt(database.nonvalid);
-                                presentasi += parseInt(database.presentasi);
-                                grab += parseInt(database.grab);
-                                daftaronline += parseInt(database.daftaronline);
-                                website += parseInt(database.website);
-                                beasiswa += parseInt(database.beasiswa);
-                                sosmed += parseInt(database.sosmed);
-                                mgm += parseInt(database.mgm);
-                                sekolah += parseInt(database.sekolah);
-                                jadwaldatang += parseInt(database.jadwaldatang);
-                                gurubk += parseInt(database.gurubk);
-                            });
-                            document.getElementById('presenter_jumlah').innerText = jumlah;
-                            document.getElementById('presenter_valid').innerText = valid;
-                            document.getElementById('presenter_nonvalid').innerText = nonvalid;
-                            document.getElementById('presenter_presentasi').innerText = presentasi;
-                            document.getElementById('presenter_grab').innerText = grab;
-                            document.getElementById('presenter_daftaronline').innerText = daftaronline;
-                            document.getElementById('presenter_website').innerText = website;
-                            document.getElementById('presenter_beasiswa').innerText = beasiswa;
-                            document.getElementById('presenter_sosmed').innerText = sosmed;
-                            document.getElementById('presenter_mgm').innerText = mgm;
-                            document.getElementById('presenter_sekolah').innerText = sekolah;
-                            document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
-                            document.getElementById('presenter_gurubk').innerText = gurubk;
-                        })
-                        .catch((error) => {
-                            console.log(error);
+        <script>
+            const getAPIDatabasePresenter = async () => {
+                await axios.get(urlDatabasePresenter)
+                    .then((response) => {
+                        let jumlah = 0;
+                        let valid = 0;
+                        let nonvalid = 0;
+                        let presentasi = 0;
+                        let grab = 0;
+                        let daftaronline = 0;
+                        let website = 0;
+                        let beasiswa = 0;
+                        let sosmed = 0;
+                        let mgm = 0;
+                        let sekolah = 0;
+                        let jadwaldatang = 0;
+                        let gurubk = 0;
+                        databasesSourceDatabasePresenter = response.data;
+                        databasesSourceDatabasePresenter.databases.forEach(database => {
+                            jumlah += parseInt(database.jumlah);
+                            valid += parseInt(database.valid);
+                            nonvalid += parseInt(database.nonvalid);
+                            presentasi += parseInt(database.presentasi);
+                            grab += parseInt(database.grab);
+                            daftaronline += parseInt(database.daftaronline);
+                            website += parseInt(database.website);
+                            beasiswa += parseInt(database.beasiswa);
+                            sosmed += parseInt(database.sosmed);
+                            mgm += parseInt(database.mgm);
+                            sekolah += parseInt(database.sekolah);
+                            jadwaldatang += parseInt(database.jadwaldatang);
+                            gurubk += parseInt(database.gurubk);
                         });
-                }
-                getAPIDatabasePresenter();
-            </script>
-        @endif
+                        document.getElementById('presenter_jumlah').innerText = jumlah;
+                        document.getElementById('presenter_valid').innerText = valid;
+                        document.getElementById('presenter_nonvalid').innerText = nonvalid;
+                        document.getElementById('presenter_presentasi').innerText = presentasi;
+                        document.getElementById('presenter_grab').innerText = grab;
+                        document.getElementById('presenter_daftaronline').innerText = daftaronline;
+                        document.getElementById('presenter_website').innerText = website;
+                        document.getElementById('presenter_beasiswa').innerText = beasiswa;
+                        document.getElementById('presenter_sosmed').innerText = sosmed;
+                        document.getElementById('presenter_mgm').innerText = mgm;
+                        document.getElementById('presenter_sekolah').innerText = sekolah;
+                        document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
+                        document.getElementById('presenter_gurubk').innerText = gurubk;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            getAPIDatabasePresenter();
+        </script>
+
         <script>
             const changeFilterDatabasePresenter = () => {
                 let queryParams = [];
@@ -237,7 +231,8 @@
                     const response = await fetch(urlDatabasePresenter);
                     const data = await response.json();
                     databasesSourceDatabasePresenter = data.databases;
-                    dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(dataTableConfig);
+                    dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(
+                    dataTableConfig);
                     dataTableSourceDatabasePresenterInitialized = true;
                 } catch (error) {
                     console.error("Error fetching data:", error);

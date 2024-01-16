@@ -2,7 +2,8 @@
     <section>
         <header class="space-y-1 mb-5">
             <div class="flex items-center gap-2">
-                <i class="fa-regular fa-circle-dot"></i><h2 class="font-bold text-gray-800">Wilayah Berdasarkan Presenter</h2>
+                <i class="fa-regular fa-circle-dot"></i>
+                <h2 class="font-bold text-gray-800">Wilayah Berdasarkan Presenter</h2>
             </div>
             <p class="text-sm text-gray-700 text-sm">
                 Berikut ini adalah hasil perhitungan dari riwayat pesan.
@@ -44,73 +45,65 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody></tbody>
+                <tfoot>
                     <tr>
-                        <td colspan="10" class="bg-white text-center text-sm px-6 py-4">Tidak ada data.</td>
+                        <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
+                            Total Database
+                        </th>
+                        <td scope="col" id="presenter_wilayah_total" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_tasikmalaya" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_kabtasikmalaya" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_ciamis" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_banjar" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_garut" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_pangandaran" class="px-6 py-4 text-center"></td>
+                        <td scope="col" id="presenter_wilayah_tidakdiketahui" class="px-6 py-4 text-center"></td>
                     </tr>
-                </tbody>
-                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-                    <tfoot>
-                        <tr>
-                            <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
-                                Total Database
-                            </th>
-                            <td scope="col" id="presenter_wilayah_total" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_tasikmalaya" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_kabtasikmalaya" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_ciamis" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_banjar" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_garut" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_pangandaran" class="px-6 py-4 text-center"></td>
-                            <td scope="col" id="presenter_wilayah_tidakdiketahui" class="px-6 py-4 text-center"></td>
-                        </tr>
-                    </tfoot>
-                @endif
+                </tfoot>
             </table>
         </div>
     </section>
 
     @push('scripts')
-        @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-            <script>
-                const getAPIDatabasePresenterWilayah = async () => {
-                    await axios.get(urlDatabasePresenterWilayah)
-                        .then((response) => {
-                            let jumlah = 0;
-                            let tasikmalaya = 0;
-                            let kabtasikmalaya = 0;
-                            let ciamis = 0;
-                            let banjar = 0;
-                            let garut = 0;
-                            let pangandaran = 0;
-                            let tidakdiketahui = 0;
-                            databasesSourceDatabaseWilayah = response.data;
-                            databasesSourceDatabaseWilayah.databases.forEach(database => {
-                                jumlah += parseInt(database.jumlah);
-                                tasikmalaya += parseInt(database.tasikmalaya);
-                                kabtasikmalaya += parseInt(database.kabtasikmalaya);
-                                ciamis += parseInt(database.ciamis);
-                                banjar += parseInt(database.banjar);
-                                garut += parseInt(database.garut);
-                                pangandaran += parseInt(database.pangandaran);
-                                tidakdiketahui += parseInt(database.tidakdiketahui);
-                            });
-                            document.getElementById('presenter_wilayah_total').innerText = jumlah;
-                            document.getElementById('presenter_wilayah_tasikmalaya').innerText = tasikmalaya;
-                            document.getElementById('presenter_wilayah_kabtasikmalaya').innerText = kabtasikmalaya;
-                            document.getElementById('presenter_wilayah_ciamis').innerText = ciamis;
-                            document.getElementById('presenter_wilayah_banjar').innerText = banjar;
-                            document.getElementById('presenter_wilayah_garut').innerText = garut;
-                            document.getElementById('presenter_wilayah_pangandaran').innerText = pangandaran;
-                            document.getElementById('presenter_wilayah_tidakdiketahui').innerText = tidakdiketahui;
-                        })
-                        .catch((error) => {
-                            console.log(error);
+        <script>
+            const getAPIDatabasePresenterWilayah = async () => {
+                await axios.get(urlDatabasePresenterWilayah)
+                    .then((response) => {
+                        let jumlah = 0;
+                        let tasikmalaya = 0;
+                        let kabtasikmalaya = 0;
+                        let ciamis = 0;
+                        let banjar = 0;
+                        let garut = 0;
+                        let pangandaran = 0;
+                        let tidakdiketahui = 0;
+                        databasesSourceDatabaseWilayah = response.data;
+                        databasesSourceDatabaseWilayah.databases.forEach(database => {
+                            jumlah += parseInt(database.jumlah);
+                            tasikmalaya += parseInt(database.tasikmalaya);
+                            kabtasikmalaya += parseInt(database.kabtasikmalaya);
+                            ciamis += parseInt(database.ciamis);
+                            banjar += parseInt(database.banjar);
+                            garut += parseInt(database.garut);
+                            pangandaran += parseInt(database.pangandaran);
+                            tidakdiketahui += parseInt(database.tidakdiketahui);
                         });
-                }
-                getAPIDatabasePresenterWilayah();
-            </script>
-        @endif
+                        document.getElementById('presenter_wilayah_total').innerText = jumlah;
+                        document.getElementById('presenter_wilayah_tasikmalaya').innerText = tasikmalaya;
+                        document.getElementById('presenter_wilayah_kabtasikmalaya').innerText = kabtasikmalaya;
+                        document.getElementById('presenter_wilayah_ciamis').innerText = ciamis;
+                        document.getElementById('presenter_wilayah_banjar').innerText = banjar;
+                        document.getElementById('presenter_wilayah_garut').innerText = garut;
+                        document.getElementById('presenter_wilayah_pangandaran').innerText = pangandaran;
+                        document.getElementById('presenter_wilayah_tidakdiketahui').innerText = tidakdiketahui;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            getAPIDatabasePresenterWilayah();
+        </script>
         <script>
             const changeFilterDatabasePresenterWilayah = () => {
                 let queryParams = [];
@@ -149,8 +142,7 @@
                             $(row).css('background-color', '#f9fafb');
                         }
                     },
-                    columns: [
-                        {
+                    columns: [{
                             data: 'presenter',
                             render: (data, type, row, meta) => {
                                 return meta.row + 1;
@@ -189,7 +181,8 @@
                     const response = await fetch(urlDatabasePresenterWilayah);
                     const data = await response.json();
                     databasesSourceDatabaseWilayahPresenter = data.databases;
-                    dataTableSourceDatabaseWilayahPresenterInstance = $('#table-database-presenter-wilayah').DataTable(dataTableConfig);
+                    dataTableSourceDatabaseWilayahPresenterInstance = $('#table-database-presenter-wilayah').DataTable(
+                        dataTableConfig);
                     dataTableSourceDatabaseWilayahPresenterInitialized = true;
                 } catch (error) {
                     console.error("Error fetching data:", error);
