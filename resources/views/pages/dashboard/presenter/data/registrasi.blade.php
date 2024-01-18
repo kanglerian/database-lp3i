@@ -153,12 +153,11 @@
                     {
                         data: 'applicant',
                         render: (data) => {
-                            console.log(data.father);
-                            // let result = `
-                            // <p>Ayah: ${data.father.job == null ? 'Tidak diketahui' : data.father.job}</p>
-                            // <p>Ibu: ${data.mother.job == null ? 'Tidak diketahui' : data.mother.job}</p>
-                            // `
-                            return data;
+                            let result = `
+                            <p>Ayah: ${data.father == null ? 'Tidak diketahui' : data.father.job}</p>
+                            <p>Ibu: ${data.mother == null ? 'Tidak diketahui' : data.mother.job}</p>
+                            `
+                            return result;
                         }
                     },
                     {
