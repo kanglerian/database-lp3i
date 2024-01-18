@@ -151,12 +151,8 @@
                         }
                     },
                     {
-                        data: {
-                            applicant: 'applicant',
-                            id: 'identity_user',
-                        },
+                        data: 'id',
                         render: (data) => {
-                            console.log(data.applicant, data.id);
                             return data;
                         }
                     },
@@ -180,7 +176,13 @@
                     {
                         data: 'applicant',
                         render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.mgm;
+                            let result;
+                            if(data){
+                                result = data.mgm || 'Tidak diketahui'
+                            } else {
+                                result =' Tidak diketahui'
+                            }
+                            return result;
                         }
                     },
                     {
