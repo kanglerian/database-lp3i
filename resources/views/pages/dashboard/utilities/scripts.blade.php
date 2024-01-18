@@ -33,7 +33,6 @@
         let identityVal = document.getElementById('identity_val').value;
         let roleVal = document.getElementById('role_val').value;
         let sessionVal = document.getElementById('session').value;
-        console.log(sessionVal);
     </script>
     <script>
         let apiTargets = `/get/targets?identity=${identityVal}&pmbVal=${pmbVal}`;
