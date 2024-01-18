@@ -198,7 +198,7 @@
                     databasesDataAplikanRegistrasi = data.databases;
                     let totalkas = 0;
                     databasesDataAplikanRegistrasi.forEach(database => {
-                        totalkas += database.nominal
+                        totalkas += parseInt(database.nominal)
                     });
                     document.getElementById('total_kas_registrasi').innerText = `Rp${totalkas.toLocaleString('id-ID')}`
                     let results = {
