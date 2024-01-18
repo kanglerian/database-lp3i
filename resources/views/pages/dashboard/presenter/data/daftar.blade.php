@@ -180,7 +180,7 @@
                             debit: 'debit'
                         },
                         render: (data) => {
-                            let result = parseInt(data.nominal) - parseInt(data.debit);
+                            let result = parseInt(data.nominal) - data.debit ? parseInt(data.debit) || 0;
                             return `Rp${result.toLocaleString('id-ID')}`;
                         }
                     },
