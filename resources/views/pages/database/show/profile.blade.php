@@ -456,7 +456,7 @@
                             @else
                                 <p class="text-sm text-gray-600">
                                     <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
-                                    <span>Belum jadi aplikan</span>
+                                    <span>Belum aplikan</span>
                                 </p>
                             @endif
                             @if ($enrollment)
