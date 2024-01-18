@@ -153,7 +153,7 @@
                     {
                         data: {
                             applicant: 'applicant',
-                            id: 'id',
+                            id: 'identity_user',
                         },
                         render: (data) => {
                             console.log(data.applicant, id);
