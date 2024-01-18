@@ -156,7 +156,7 @@
                             id: 'identity_user',
                         },
                         render: (data) => {
-                            console.log(data.applicant, id);
+                            console.log(data.applicant, data.id);
                             return data;
                         }
                     },
