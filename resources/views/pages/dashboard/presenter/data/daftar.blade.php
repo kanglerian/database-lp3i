@@ -161,7 +161,8 @@
                     {
                         data: 'nominal',
                         render: (data) => {
-                            return `Rp${data.toLocaleString('id-ID')}`;
+                            let result = parseInt(data);
+                            return `Rp${result.toLocaleString('id-ID')}`;
                         }
                     },
                     {
