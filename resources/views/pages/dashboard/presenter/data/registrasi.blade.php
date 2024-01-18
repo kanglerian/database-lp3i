@@ -159,10 +159,7 @@
                             let mother = data.mother || 'Tidak diketahui';
                             let father = data.father || 'Tidak diketahui';
                             return `
-                            <p>
-                                Ayah: ${father}
-                                Ibu: ${mother}
-                            </p>`;
+                            <p>Ayah: ${father} | Ibu: ${mother}</p>`;
                         }
                     },
                     {
