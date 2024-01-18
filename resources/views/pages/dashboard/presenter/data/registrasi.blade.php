@@ -154,8 +154,8 @@
                         data: 'applicant',
                         render: (data) => {
                             let result = `
-                            <p>Ayah: ${data.father.job || 'Tidak diketahui'}</p>
-                            <p>Ibu: ${data.mother.job || 'Tidak diketahui'}</p>
+                            <p>Ayah: ${data.father.job == null ? 'Tidak diketahui' : data.father.job}</p>
+                            <p>Ibu: ${data.mother.job == null ? 'Tidak diketahui' : data.mother.job}</p>
                             `
                             return result;
                         }
