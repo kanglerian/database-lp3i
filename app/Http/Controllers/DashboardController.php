@@ -253,4 +253,18 @@ class DashboardController extends Controller
         return response()->json(['applicants' => $applicants]);
     }
 
+    public function history_page()
+    {
+        return view('pages.dashboard.history');
+    }
+
+    public function rekapitulasi_page()
+    {
+        return view('pages.dashboard.rekapitulasi');
+    }
+
+    public function aplikan_page()
+    {
+        return view('pages.dashboard.aplikan');
+    }
 }

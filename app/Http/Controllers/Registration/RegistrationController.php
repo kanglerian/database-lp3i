@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Registration;
 
 use App\Http\Controllers\Controller;
-use App\Models\Registration;
+use App\Models\Applicant;
+use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -15,7 +16,7 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $total =  Registration::count();
+        $total =  StatusApplicantsRegistration::count();
         return view('pages.payment.registration.index')->with([
             'total' => $total,
         ]);
@@ -33,7 +34,7 @@ class RegistrationController extends Controller
 
     public function get_all()
     {
-        $registrationQuery = Registration::query();
+        $registrationQuery = StatusApplicantsRegistration::query();
         $registrationQuery->with('applicant');
 
         $dateVal = request('date', 'all');
@@ -95,7 +96,15 @@ class RegistrationController extends Controller
             'session' => $request->input('session'),
         ];
 
-        Registration::create($data);
+        $applicant = Applicant::where('identity', $request->input('identity_user'))->first();
+
+        $data_applicant = [
+            'is_register' => 1,
+        ];
+
+        $applicant->update($data_applicant);
+
+        StatusApplicantsRegistration::create($data);
         return back()->with('message', 'Data registrasi berhasil ditambahkan!');
     }
 
@@ -158,7 +167,7 @@ class RegistrationController extends Controller
             'session' => $request->input('session'),
         ];
 
-        $registration = Registration::findOrFail($id);
+        $registration = StatusApplicantsRegistration::findOrFail($id);
         $registration->update($data);
         return back()->with('message', 'Data registrasi berhasil diubah!');
     }
@@ -172,7 +181,7 @@ class RegistrationController extends Controller
     public function destroy($id)
     {
         try {
-            $registration = Registration::findOrFail($id);
+            $registration = StatusApplicantsRegistration::findOrFail($id);
             $registration->delete();
             return session()->flash('message', 'Data registrasi berhasil dihapus!');
         } catch (\Throwable $th) {

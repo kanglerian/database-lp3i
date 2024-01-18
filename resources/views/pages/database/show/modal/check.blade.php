@@ -5,7 +5,7 @@
         <div class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
         <div class="relative w-full max-w-4xl max-h-full">
             <!-- Modal content -->
-            <div class="w-full bg-white rounded-lg shadow">
+            <div class="w-full bg-white rounded-2xl shadow">
                 <div class="flex justify-between items-center p-5">
                     <div>
                         <h2 class="font-bold text-gray-900 text-lg">Periksa Mahasiswa Baru</h2>

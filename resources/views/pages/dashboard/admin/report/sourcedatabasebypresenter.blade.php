@@ -85,60 +85,6 @@
 
 @push('scripts')
     <script>
-        const getAPIDatabasePresenter = async () => {
-            await axios.get(urlDatabasePresenter)
-                .then((response) => {
-                    let jumlah = 0;
-                    let valid = 0;
-                    let nonvalid = 0;
-                    let presentasi = 0;
-                    let grab = 0;
-                    let daftaronline = 0;
-                    let website = 0;
-                    let beasiswa = 0;
-                    let sosmed = 0;
-                    let mgm = 0;
-                    let sekolah = 0;
-                    let jadwaldatang = 0;
-                    let gurubk = 0;
-                    databasesSourceDatabasePresenter = response.data;
-                    databasesSourceDatabasePresenter.databases.forEach(database => {
-                        jumlah += parseInt(database.jumlah);
-                        valid += parseInt(database.valid);
-                        nonvalid += parseInt(database.nonvalid);
-                        presentasi += parseInt(database.presentasi);
-                        grab += parseInt(database.grab);
-                        daftaronline += parseInt(database.daftaronline);
-                        website += parseInt(database.website);
-                        beasiswa += parseInt(database.beasiswa);
-                        sosmed += parseInt(database.sosmed);
-                        mgm += parseInt(database.mgm);
-                        sekolah += parseInt(database.sekolah);
-                        jadwaldatang += parseInt(database.jadwaldatang);
-                        gurubk += parseInt(database.gurubk);
-                    });
-                    document.getElementById('presenter_jumlah').innerText = jumlah;
-                    document.getElementById('presenter_valid').innerText = valid;
-                    document.getElementById('presenter_nonvalid').innerText = nonvalid;
-                    document.getElementById('presenter_presentasi').innerText = presentasi;
-                    document.getElementById('presenter_grab').innerText = grab;
-                    document.getElementById('presenter_daftaronline').innerText = daftaronline;
-                    document.getElementById('presenter_website').innerText = website;
-                    document.getElementById('presenter_beasiswa').innerText = beasiswa;
-                    document.getElementById('presenter_sosmed').innerText = sosmed;
-                    document.getElementById('presenter_mgm').innerText = mgm;
-                    document.getElementById('presenter_sekolah').innerText = sekolah;
-                    document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
-                    document.getElementById('presenter_gurubk').innerText = gurubk;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        getAPIDatabasePresenter();
-    </script>
-
-    <script>
         const changeFilterDatabasePresenter = () => {
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
@@ -147,16 +93,16 @@
             }
             let queryString = queryParams.join('&');
 
-            urlDatabasePresenter = `api/report/database/presenter/source?${queryString}`;
+            urlDatabasePresenter = `/api/report/database/presenter/source?${queryString}`;
             if (dataTableSourceDatabasePresenterInstance) {
                 dataTableSourceDatabasePresenterInstance.ajax.url(urlDatabasePresenter).load();
-                getAPIDatabasePresenter();
+                getDataTableDatabasePresenter();
             } else {
                 getDataTableDatabasePresenter();
             }
         }
 
-        const getDataTableDatabasePresenter = async () => {
+        const getDataTableDatabasePresenter = () => {
             const dataTableConfig = {
                 ajax: {
                     url: urlDatabasePresenter,
@@ -226,21 +172,67 @@
                     },
                 ],
             }
-            try {
-                const response = await fetch(urlDatabasePresenter);
-                const data = await response.json();
-                databasesSourceDatabasePresenter = data.databases;
-                dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(
-                    dataTableConfig);
-                dataTableSourceDatabasePresenterInitialized = true;
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                if (response) {
-                    const text = await response.text();
-                    console.error("Response text:", text);
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await fetch(urlDatabasePresenter);
+                    const data = await response.json();
+                    databasesSourceDatabasePresenter = data.databases;
+
+                    let jumlah = 0;
+                    let valid = 0;
+                    let nonvalid = 0;
+                    let presentasi = 0;
+                    let grab = 0;
+                    let daftaronline = 0;
+                    let website = 0;
+                    let beasiswa = 0;
+                    let sosmed = 0;
+                    let mgm = 0;
+                    let sekolah = 0;
+                    let jadwaldatang = 0;
+                    let gurubk = 0;
+
+                    databasesSourceDatabasePresenter = data;
+                    databasesSourceDatabasePresenter.databases.forEach(database => {
+                        jumlah += parseInt(database.jumlah);
+                        valid += parseInt(database.valid);
+                        nonvalid += parseInt(database.nonvalid);
+                        presentasi += parseInt(database.presentasi);
+                        grab += parseInt(database.grab);
+                        daftaronline += parseInt(database.daftaronline);
+                        website += parseInt(database.website);
+                        beasiswa += parseInt(database.beasiswa);
+                        sosmed += parseInt(database.sosmed);
+                        mgm += parseInt(database.mgm);
+                        sekolah += parseInt(database.sekolah);
+                        jadwaldatang += parseInt(database.jadwaldatang);
+                        gurubk += parseInt(database.gurubk);
+                    });
+
+                    document.getElementById('presenter_jumlah').innerText = jumlah;
+                    document.getElementById('presenter_valid').innerText = valid;
+                    document.getElementById('presenter_nonvalid').innerText = nonvalid;
+                    document.getElementById('presenter_presentasi').innerText = presentasi;
+                    document.getElementById('presenter_grab').innerText = grab;
+                    document.getElementById('presenter_daftaronline').innerText = daftaronline;
+                    document.getElementById('presenter_website').innerText = website;
+                    document.getElementById('presenter_beasiswa').innerText = beasiswa;
+                    document.getElementById('presenter_sosmed').innerText = sosmed;
+                    document.getElementById('presenter_mgm').innerText = mgm;
+                    document.getElementById('presenter_sekolah').innerText = sekolah;
+                    document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
+                    document.getElementById('presenter_gurubk').innerText = gurubk;
+
+                    let results = {
+                        data: databasesSourceDatabasePresenter,
+                        config: dataTableConfig,
+                        initialized: true
+                    }
+                    resolve(results);
+                } catch (error) {
+                    reject(error);
                 }
-            }
+            })
         }
-        getDataTableDatabasePresenter();
     </script>
 @endpush

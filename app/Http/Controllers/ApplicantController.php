@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ApplicantUpdateImport;
-use App\Models\Enrollment;
-use App\Models\Registration;
+use App\Models\StatusApplicantsEnrollment;
+use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -25,6 +25,7 @@ use Illuminate\Database\QueryException;
 
 use App\Exports\ApplicantsExport;
 use App\Models\Integration;
+use App\Models\StatusApplicantsApplicant;
 
 class ApplicantController extends Controller
 {
@@ -418,8 +419,10 @@ class ApplicantController extends Controller
 
             $account = User::where(['email' => $user->email, 'identity' => $user->identity])->count();
             $profile = User::where(['identity' => $user->identity])->first();
-            $enrollment = Enrollment::where('identity_user', $identity)->first();
-            $registration = Registration::where('identity_user', $identity)->first();
+
+            $status_applicant = StatusApplicantsApplicant::where('identity_user', $identity)->first();
+            $enrollment = StatusApplicantsEnrollment::where('identity_user', $identity)->first();
+            $registration = StatusApplicantsRegistration::where('identity_user', $identity)->first();
 
             $integration_misil = Integration::where(['identity_user' => $identity, 'platform' => 'misil'])->first();
 
@@ -427,6 +430,7 @@ class ApplicantController extends Controller
                 'user' => $user,
                 'enrollment' => $enrollment,
                 'registration' => $registration,
+                'status_applicant' => $status_applicant,
                 'father' => $father,
                 'mother' => $mother,
                 'account' => $account,
@@ -887,8 +891,8 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $id)->firstOrFail();
         $user = User::where('identity', $id)->firstOrFail();
-        $enrollment = Enrollment::where('identity_user', $id)->first();
-        $registration = Registration::where('identity_user', $id)->first();
+        $enrollment = StatusApplicantsEnrollment::where('identity_user', $id)->first();
+        $registration = StatusApplicantsRegistration::where('identity_user', $id)->first();
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
@@ -1241,44 +1245,24 @@ class ApplicantController extends Controller
      */
     public function is_applicant(Request $request, $id)
     {
-        $applicant = Applicant::findOrFail($id);
-        $data = [
-            'is_applicant' => $applicant->is_applicant == 1 ? 0 : 1,
-        ];
-        $applicant->update($data);
-        return back()->with('message', 'Data aplikan berhasil diupdate');
-    }
+        $request->validate([
+            'change_pmb' => ['required'],
+            'identity_user' => ['required'],
+            'session' => ['required'],
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function is_daftar(Request $request, $id)
-    {
         $applicant = Applicant::findOrFail($id);
-        $data = [
-            'is_daftar' => $applicant->is_daftar == 1 ? 0 : 1,
+        $data_applicant = [
+            'is_applicant' => 1,
         ];
-        $applicant->update($data);
-        return back()->with('message', 'Data aplikan berhasil diupdate');
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function is_register(Request $request, $id)
-    {
-        $applicant = Applicant::findOrFail($id);
-        $data = [
-            'is_register' => $applicant->is_register == 1 ? 0 : 1,
+        $status_applicant = [
+            'pmb' => $request->input('change_pmb'),
+            'identity_user' => $request->input('identity_user'),
+            'session' => $request->input('session'),
+            'date' => now()->format('Y-m-d'),
         ];
-        $applicant->update($data);
+        $applicant->update($data_applicant);
+        StatusApplicantsApplicant::create($status_applicant);
         return back()->with('message', 'Data aplikan berhasil diupdate');
     }
 

@@ -203,6 +203,7 @@
                 </div>
             </div>
         </div>
+
         <div class="w-full md:w-2/6 mx-auto space-y-6">
             <div class="p-8 bg-white shadow-sm sm:rounded-lg">
                 <div class="w-full">
@@ -250,87 +251,126 @@
                                 </form>
                             </div>
                             @if ($user->identity_user !== '6281313608558')
-                                <div>
-                                    <form action="{{ route('database.is_applicant', $user->id) }}" method="get">
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="{{ $user->is_applicant }}"
-                                                class="sr-only peer" {{ $user->is_applicant == 1 ? 'checked' : '' }}>
-                                            <button {{ $enrollment ? 'disabled' : '' }} type="submit"
-                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                <div class="flex justify-between items-center gap-2">
+                                    @if ($user->is_applicant)
+                                        <form class="space-y-3"
+                                            action="{{ route('statusdatabaseaplikan.destroy', $user->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" checked>
+                                                <button type="submit"
+                                                    {{ $user->is_register || $user->is_daftar ? 'disabled' : '' }}
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                <span class="ml-3 text-sm font-medium text-emerald-600">Aplikan</span>
+                                            </label>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('database.is_applicant', $user->id) }}"
+                                            method="get">
+                                            <input type="hidden" id="change_pmb" name="change_pmb">
+                                            <input type="hidden" id="session" name="session">
+                                            <input type="hidden" name="identity_user" value="{{ $user->identity }}">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer">
+                                                <button type="submit"
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                </button>
+                                                <span
+                                                    class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                            </label>
+                                        </form>
+                                    @endif
+                                    @if ($user->is_applicant && $status_applicant)
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <button onclick="modalEditAplikan()">
+                                                <i
+                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                             </button>
-                                            <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
-                                        </label>
-                                    </form>
+                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                        </div>
+                                    @endif
                                 </div>
                             @endif
                             @if ($user->is_applicant == 1)
                                 <div class="flex justify-between items-center gap-2">
-                                    <form action="{{ route('database.is_daftar', $user->id) }}" method="get">
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="{{ $user->is_daftar }}"
-                                                class="sr-only peer" {{ $user->is_daftar == 1 ? 'checked' : '' }}>
-                                            <button {{ $enrollment ? 'disabled' : '' }} type="submit"
-                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                    @if ($user->is_daftar && $enrollment)
+                                        <form class="space-y-3"
+                                            action="{{ route('statusdatabasedaftar.destroy', $user->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" checked>
+                                                <button type="submit"
+                                                  {{ $user->is_register ? 'disabled' : '' }}
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                <span class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
+                                            </label>
+                                        </form>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <button onclick="modalEditDaftar()">
+                                                <i
+                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                             </button>
-                                            <span
-                                                class="ml-3 text-sm font-medium {{ $enrollment ? 'text-emerald-600' : 'text-gray-900' }}">Daftar</span>
-                                        </label>
-                                    </form>
-                                    @if ($user->is_daftar)
-                                        @if ($enrollment)
-                                            <div class="flex items-center gap-3 mt-1">
-                                                <button onclick="modalEditDaftar()">
-                                                    <i
-                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                        </div>
+                                    @else
+                                        <div class="mt-1">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox"class="sr-only peer">
+                                                <button disabled
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                                 </button>
-                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            </div>
-                                        @else
-                                            <button type="button" onclick="modalDaftar()"
-                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                    class="fa-solid fa-receipt mr-1"></i>
-                                                Masukan nominal
-                                            </button>
-                                        @endif
+                                                <span class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
+                                            </label>
+                                        </div>
+                                        <button type="button" onclick="modalDaftar()"
+                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                class="fa-solid fa-receipt mr-1"></i>
+                                            Masukan nominal
+                                        </button>
                                     @endif
                                 </div>
                             @endif
                             @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
                                 <div class="flex justify-between items-center gap-2">
-                                    <form action="{{ route('database.is_register', $user->id) }}" method="get">
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="{{ $user->is_register }}"
-                                                class="sr-only peer" {{ $user->is_register == 1 ? 'checked' : '' }}>
-                                            <button {{ $registration ? 'disabled' : '' }} type="submit"
-                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                    @if ($user->is_register && $registration)
+                                        <form class="space-y-3"
+                                            action="{{ route('statusdatabaseregistrasi.destroy', $user->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" class="sr-only peer" checked>
+                                                <button type="submit"
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                <span class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
+                                            </label>
+                                        </form>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <button onclick="modalEditRegistrasi()">
+                                                <i
+                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                             </button>
-                                            <span
-                                                class="ml-3 text-sm font-medium {{ $registration ? 'text-emerald-600' : 'text-gray-900' }}">Registrasi</span>
-                                        </label>
-                                    </form>
-                                    @if ($user->is_register)
-                                        @if ($registration)
-                                            <div class="flex items-center gap-3 mt-1">
-                                                <button onclick="modalEditRegistrasi()">
-                                                    <i class="fa-solid fa-pen-to-square text-yellow-500"></i>
+                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                        </div>
+                                    @else
+                                        <div class="mt-1">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox"class="sr-only peer">
+                                                <button disabled
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                                 </button>
-                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            </div>
-                                        @else
-                                            @if ($enrollment)
-                                                <button type="button" onclick="modalRegistrasi()"
-                                                    class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                        class="fa-solid fa-receipt mr-1"></i>
-                                                    Masukan nominal
-                                                </button>
-                                            @else
-                                                <button type="button" onclick="alert('Daftar terlebih dahulu!')"
-                                                    class="text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2">
-                                                    <i class="fa-solid fa-circle-xmark mr-1"></i>
-                                                    Belum daftar
-                                                </button>
-                                            @endif
-                                        @endif
+                                                <span class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
+                                            </label>
+                                        </div>
+                                        <button type="button" onclick="modalRegistrasi()"
+                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                class="fa-solid fa-receipt mr-1"></i>
+                                            Masukan nominal
+                                        </button>
                                     @endif
                                 </div>
                             @endif
@@ -386,116 +426,148 @@
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
                             <div>
                                 <h2 class="text-xl font-bold text-gray-900">
-                                    Daftar & Registrasi
+                                    Informasi Aplikan
                                 </h2>
                                 <p class="mt-1 text-sm text-gray-600">
-                                    Berikut ini biaya dari daftar & registrasi.
+                                    Berikut ini adalah informasi tentang status aplikan.
                                 </p>
                             </div>
                         </header>
                         <hr class="my-3">
                         <section class="flex flex-col gap-3">
-                            @if ($enrollment)
-                                <h2 class="text-base font-semibold text-gray-900">Daftar:</h2>
-                                <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-receipt text-gray-400"></i>
-                                        <span class="inline-block mr-2">No. Kwitansi:
-                                            <span class="underline">{{ $enrollment->receipt }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
-                                        <span class="inline-block mr-2">Tanggal:
-                                            <span class="underline">{{ $enrollment->date }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
-                                        <span class="inline-block mr-2">Gelombang:
-                                            <span class="underline">{{ $enrollment->session }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="fa-regular fa-note-sticky block text-gray-400"></i>
-                                        <span class="inline-block mr-2">Keterangan:
-                                            <span class="underline">{{ $enrollment->register }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="fa-regular fa-note-sticky block text-gray-400"></i>
-                                        <span class="inline-block mr-2">Keterangan Daftar:
-                                            <span class="underline">{{ $enrollment->register_end }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="fa-solid fa-coins block text-gray-400"></i>
-                                        <span class="inline-block mr-2">Nominal:
-                                            <span
-                                                class="underline">Rp{{ number_format($enrollment->nominal, 0, ',', '.') }}</span>
-                                        </span>
-                                    </li>
-                                    @if ($enrollment->repayment)
+                            @if ($user->is_applicant && $status_applicant)
+                                <div class="space-y-2">
+                                    <h2 class="text-sm font-semibold text-gray-900">Aplikan:</h2>
+                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
                                         <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-calendar-day text-gray-400"></i>
-                                            <span class="inline-block mr-2">Pengembalian BK:
-                                                <span class="underline">{{ $enrollment->repayment }}</span>
+                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                            <span class="inline-block mr-2">Tanggal:
+                                                <span class="underline">{{ $status_applicant->date }}</span>
                                             </span>
                                         </li>
                                         <li class="flex items-center space-x-2">
-                                            <i class="fa-solid fa-money-bill-transfer block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Debit:
-                                                <span
-                                                    class="underline">Rp{{ number_format($enrollment->debit, 0, ',', '.') }}</span>
+                                            <i class="block fa-solid fa-timeline text-gray-400"></i>
+                                            <span class="inline-block mr-2">Gelombang:
+                                                <span class="underline">{{ $status_applicant->session }}</span>
                                             </span>
                                         </li>
-                                    @endif
-                                    <li class="flex items-center space-x-2">
-                                        <i class="fa-regular fa-credit-card block text-gray-400"></i>
-                                        <span class="inline-block mr-2">Kas Pendaftaran:
-                                            <span
-                                                class="underline">Rp{{ number_format($enrollment->nominal - $enrollment->debit, 0, ',', '.') }}</span>
-                                        </span>
-                                    </li>
-                                </ul>
+                                    </ul>
+                                </div>
                             @else
-                                <p class="text-sm text-gray-600"><i
-                                        class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum daftar</p>
+                                <p class="text-sm text-gray-600">
+                                    <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
+                                    <span>Belum jadi aplikan</span>
+                                </p>
+                            @endif
+                            @if ($enrollment)
+                                <div class="space-y-2">
+                                    <h2 class="text-sm font-semibold text-gray-900">Daftar:</h2>
+                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-solid fa-receipt text-gray-400"></i>
+                                            <span class="inline-block mr-2">No. Kwitansi:
+                                                <span class="underline">{{ $enrollment->receipt }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                            <span class="inline-block mr-2">Tanggal:
+                                                <span class="underline">{{ $enrollment->date }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-solid fa-timeline text-gray-400"></i>
+                                            <span class="inline-block mr-2">Gelombang:
+                                                <span class="underline">{{ $enrollment->session }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Keterangan:
+                                                <span class="underline">{{ $enrollment->register }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Keterangan Daftar:
+                                                <span class="underline">{{ $enrollment->register_end }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-coins block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Nominal:
+                                                <span
+                                                    class="underline">Rp{{ number_format($enrollment->nominal, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                        @if ($enrollment->repayment)
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                                <span class="inline-block mr-2">Pengembalian BK:
+                                                    <span class="underline">{{ $enrollment->repayment }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-solid fa-money-bill-transfer block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Debit:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($enrollment->debit, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                        @endif
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-regular fa-credit-card block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Kas Pendaftaran:
+                                                <span
+                                                    class="underline">Rp{{ number_format($enrollment->nominal - $enrollment->debit, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @else
+                                <p class="text-sm text-gray-600">
+                                    <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
+                                    <span>Belum daftar</span>
+                                </p>
                             @endif
                             @if ($registration)
-                                <h2 class="text-base font-semibold text-gray-900">Registrasi:</h2>
-                                <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-calendar-day text-gray-400"></i>
-                                        <span class="inline-block mr-2">Tanggal:
-                                            <span class="underline">{{ $registration->date }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="fa-solid fa-coins block text-gray-400"></i>
-                                        <span class="inline-block mr-2">Nominal:
-                                            <span
-                                                class="underline">Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-money-bills text-gray-400"></i>
-                                        <span class="inline-block mr-2">Harga Deal:
-                                            <span
-                                                class="underline">Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center space-x-2">
-                                        <i class="block fa-solid fa-percent text-gray-400"></i>
-                                        <span class="inline-block mr-2">Potongan:
-                                            <span
-                                                class="underline">Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
-                                        </span>
-                                    </li>
-                                </ul>
+                                <div class="space-y-2">
+                                    <h2 class="text-sm font-semibold text-gray-900">Registrasi:</h2>
+                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                            <span class="inline-block mr-2">Tanggal:
+                                                <span class="underline">{{ $registration->date }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-coins block text-gray-400"></i>
+                                            <span class="inline-block mr-2">Nominal:
+                                                <span
+                                                    class="underline">Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-solid fa-money-bills text-gray-400"></i>
+                                            <span class="inline-block mr-2">Harga Deal:
+                                                <span
+                                                    class="underline">Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="flex items-center space-x-2">
+                                            <i class="block fa-solid fa-percent text-gray-400"></i>
+                                            <span class="inline-block mr-2">Potongan:
+                                                <span
+                                                    class="underline">Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
                             @else
-                                <p class="text-sm text-gray-600"><i
-                                        class="fa-solid fa-circle-xmark text-red-500 mr-1"></i> Belum registrasi</p>
+                                <p class="text-sm text-gray-600">
+                                    <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
+                                    <span>Belum registrasi</span>
+                                </p>
                             @endif
                         </section>
                     </section>
@@ -504,6 +576,7 @@
         </div>
     </div>
     @include('pages.database.show.modal.account')
+    @include('pages.database.show.modal.aplikan')
     @include('pages.database.show.modal.daftar')
     @if ($account)
         @include('pages.database.show.modal.registrasi')
@@ -512,6 +585,35 @@
         @include('pages.database.show.modal.check')
     @endif
 </x-app-layout>
+<script>
+    const getYearPMB = () => {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+        document.getElementById('change_pmb').value = startYear;
+    }
+
+    getYearPMB();
+
+    const getSessionPMB = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        let session = 'all';
+        if (currentMonth >= 1 && currentMonth <= 3) {
+            session = 2;
+        } else if (currentMonth >= 4 && currentMonth <= 6) {
+            session = 3;
+        } else if (currentMonth >= 7 && currentMonth <= 9) {
+            session = 4;
+        } else if (currentMonth >= 10 && currentMonth <= 12) {
+            session = 1;
+        }
+        document.getElementById('session').value = session;
+    }
+
+    getSessionPMB();
+</script>
 <script>
     const validateNumber = (e) => {
         let number = e.target.value.replace(/[^0-9]/g, '');
@@ -546,6 +648,15 @@
 
     const modalEditRegistrasi = () => {
         let modal = document.getElementById('modal-edit-registrasi');
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+
+    const modalEditAplikan = () => {
+        let modal = document.getElementById('modal-edit-aplikan');
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
         } else {

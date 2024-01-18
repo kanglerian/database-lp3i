@@ -13,7 +13,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-5 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                    <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs([
+                        'dashboard.index',
+                        'dashboard.rekapitulasi_page',
+                        'dashboard.history_page',
+                        'dashboard.aplikan_page',
+                    ])">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if ((Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'P') || Auth::user()->role == 'A')

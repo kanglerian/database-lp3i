@@ -90,13 +90,40 @@
         </section>
     </div>
 @endif
-
 @push('scripts')
     <script>
+        const changeTrigger = () => {
+            getHistories();
+            changeFilterDatabase();
+        }
+    </script>
+    <script>
+        const changeFilterDatabasePresenter = () => {
+            let queryParams = [];
+            let pmbVal = document.getElementById('change_pmb').value;
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+            let queryString = queryParams.join('&');
+
+            urlDatabasePresenter = `/api/report/database/presenter/source?${queryString}`;
+        }
+
+        const changeFilterDatabasePresenterWilayah = () => {
+            let queryParams = [];
+            let pmbVal = document.getElementById('change_pmb').value;
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+            let queryString = queryParams.join('&');
+
+            urlDatabasePresenterWilayah = `/api/report/database/presenter/wilayah?${queryString}`;
+        }
+
         const getHistories = async () => {
             try {
                 showLoadingAnimation();
-                const responsePresenters = await axios.get(`get/presenter`);
+                const responsePresenters = await axios.get(`/get/presenter`);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
                 const pmbVal = document.getElementById('change_pmb').value;

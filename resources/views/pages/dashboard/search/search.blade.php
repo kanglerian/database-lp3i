@@ -174,6 +174,7 @@
         const quickSearchStatus = async (status) => {
             try {
                 let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let identity = document.getElementById('identity_val').value;
                 let result = document.getElementById('result-quicksearch');
                 const response = await axios.get(`quicksearchstatus?statusApplicant=${status}&pmbVal=${pmbVal}`);
                 const data = response.data.applicants;
@@ -197,9 +198,7 @@
                         identity_user: 'identity_user'
                     },
                     render: (data, type, row, meta) => {
-                        let editUrl = "{{ route('database.show', ':identity') }}".replace(
-                            ':identity',
-                            data.identity);
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(':identity',data.identity);
                         if (data.identity_user == identity || identity == '6281313608558') {
                             return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
                         } else {

@@ -127,12 +127,12 @@ class Applicant extends Model
 
     public function registration()
     {
-        return $this->hasOne(Registration::class, 'identity_user', 'identity');
+        return $this->hasOne(StatusApplicantsRegistration::class, 'identity_user', 'identity');
     }
 
     public function enrollment()
     {
-        return $this->hasOne(Enrollment::class, 'identity_user', 'identity');
+        return $this->hasOne(StatusApplicantsEnrollment::class, 'identity_user', 'identity');
     }
 
     public function integration()

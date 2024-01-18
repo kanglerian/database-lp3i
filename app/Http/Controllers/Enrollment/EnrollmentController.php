@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Enrollment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Enrollment;
+use App\Models\Applicant;
+use App\Models\StatusApplicantsEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -16,7 +17,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $total =  Enrollment::count();
+        $total =  StatusApplicantsEnrollment::count();
         return view('pages.payment.enrollment.index')->with([
             'total' => $total,
         ]);
@@ -34,7 +35,7 @@ class EnrollmentController extends Controller
 
     public function get_all()
     {
-        $enrollmentQuery = Enrollment::query();
+        $enrollmentQuery = StatusApplicantsEnrollment::query();
         $enrollmentQuery->with('applicant');
 
         $dateVal = request('date', 'all');
@@ -94,7 +95,7 @@ class EnrollmentController extends Controller
             'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
         ]);
 
-        $data = [
+        $data_enrollment = [
             'pmb' => $request->input('pmb'),
             'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
@@ -107,7 +108,14 @@ class EnrollmentController extends Controller
             'session' => $request->input('session'),
         ];
 
-        Enrollment::create($data);
+        $applicant = Applicant::where('identity', $request->input('identity_user'))->first();
+        $data_applicant = [
+            'is_daftar' => 1,
+        ];
+
+        $applicant->update($data_applicant);
+
+        StatusApplicantsEnrollment::create($data_enrollment);
         return back()->with('message', 'Data daftar berhasil ditambahkan!');
     }
 
@@ -169,7 +177,9 @@ class EnrollmentController extends Controller
             'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
         ]);
 
-        $data = [
+        $enrollment = StatusApplicantsEnrollment::findOrFail($id);
+
+        $data_enrollment = [
             'pmb' => $request->input('pmb'),
             'date' => $request->input('date'),
             'identity_user' => $request->input('identity_user'),
@@ -182,8 +192,7 @@ class EnrollmentController extends Controller
             'session' => $request->input('session'),
         ];
 
-        $enrollment = Enrollment::findOrFail($id);
-        $enrollment->update($data);
+        $enrollment->update($data_enrollment);
 
         return back()->with('message', 'Data daftar berhasil diubah!');
     }
@@ -197,7 +206,7 @@ class EnrollmentController extends Controller
     public function destroy($id)
     {
         try {
-            $enrollment = Enrollment::findOrFail($id);
+            $enrollment = StatusApplicantsEnrollment::findOrFail($id);
             $enrollment->delete();
             return session()->flash('message', 'Data pendaftaran berhasil dihapus!');
         } catch (\Throwable $th) {

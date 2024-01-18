@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Enrollment;
-use App\Models\Registration;
+use App\Models\StatusApplicantsEnrollment;
+use App\Models\StatusApplicantsRegistration;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
@@ -28,8 +28,8 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $identity)->first();$enrollment = Enrollment::where('identity_user', $identity)->first();
-        $registration = Registration::where('identity_user', $identity)->first();
+        $user = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $identity)->first();$enrollment = StatusApplicantsEnrollment::where('identity_user', $identity)->first();
+        $registration = StatusApplicantsRegistration::where('identity_user', $identity)->first();
 
         return response()->json([
             'user' => $user,

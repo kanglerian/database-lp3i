@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
+use App\Http\Controllers\API\Report\ReportAplikanController;
 use App\Http\Controllers\API\Report\SourceDatabaseByPresenterController;
 use App\Http\Controllers\API\Report\SourceDatabaseByWilayahController;
 use App\Http\Controllers\API\Report\WilayahDatabaseByPresenterController;
@@ -57,3 +58,5 @@ Route::get('/report/database/presenter/source', [SourceDatabaseByPresenterContro
 Route::get('/report/database/wilayah/source', [SourceDatabaseByWilayahController::class, 'get_all']);
 
 Route::get('/report/database/presenter/wilayah', [WilayahDatabaseByPresenterController::class, 'get_all']);
+
+Route::get('/report/database/aplikan/aplikan', [ReportAplikanController::class, 'aplikan']);

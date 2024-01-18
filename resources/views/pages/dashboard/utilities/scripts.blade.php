@@ -38,11 +38,11 @@
         let apiDashboard = `/get/dashboard/all?identity=${identityVal}&pmbVal=${pmbVal}`
 
         let urlSourceDatabaseWilayah =
-            `api/report/database/wilayah/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+            `/api/report/database/wilayah/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
         let urlDatabasePresenter =
-            `api/report/database/presenter/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+            `/api/report/database/presenter/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
         let urlDatabasePresenterWilayah =
-            `api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+            `/api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;

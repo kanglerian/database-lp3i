@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 h-10">
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
                     Registrasi Pembayaran
@@ -79,44 +79,47 @@
 
         @include('pages.dashboard.database.filter')
         @include('pages.dashboard.database.database')
+        @include('pages.dashboard.database.scripts')
+
+        <section class="max-w-7xl px-5 mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <a href="{{ route('dashboard.rekapitulasi_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    <div class="space-y-1 z-10">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-database"></i>
+                            <h2 class="font-bold">Rekapitulasi Database</h2>
+                        </div>
+                        <p class="text-xs">Menu tampilkan jumlah data wilayah dan presenter secara lengkap.</p>
+                    </div>
+                    <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                </a>
+                <a href="{{ route('dashboard.history_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    <div class="space-y-1 z-10">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-comments"></i>
+                            <h2 class="font-bold">Riwayat Pengiriman Pesan</h2>
+                        </div>
+                        <p class="text-xs">Menu ini menampilkan riwayat pesan berdasarkan presenter dengan rinci.</p>
+                    </div>
+                    <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                </a>
+                <a href="{{ route('dashboard.aplikan_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    <div class="space-y-1 z-10">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-users"></i>
+                            <h2 class="font-bold">Data Aplikan</h2>
+                        </div>
+                        <p class="text-xs">Menu ini tampilkan data aplikan, daftar, dan registrasi secara lengkap.</p>
+                    </div>
+                    <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                </a>
+            </div>
+        </section>
+
         @include('pages.dashboard.target.target')
         @include('pages.dashboard.search.search')
 
-        <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
-                <header class="space-y-1">
-                    <h2 class="font-bold text-xl text-gray-800">Data Aplikan</h2>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
-                    </p>
-                </header>
-                <hr>
-                @include('pages.dashboard.presenter.data.aplikan')
-            </section>
-        </div>
 
-        <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
-                <header class="space-y-1">
-                    <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
-                    </p>
-                </header>
-                <hr>
-                @if (Auth::user()->role == 'P')
-                    @include('pages.dashboard.presenter.report.sourcedatabasebywilayah')
-                @endif
-                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-                    @include('pages.dashboard.admin.report.sourcedatabasebypresenter')
-                @endif
-                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-                    @include('pages.dashboard.admin.report.wilayahdatabasebypresenter')
-                @endif
-            </section>
-        </div>
-
-        @include('pages.dashboard.database.history')
         @include('pages.dashboard.harta.database')
         @include('pages.dashboard.source.source')
 

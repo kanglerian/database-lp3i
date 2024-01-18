@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Applicant\Status\StatusDaftarController;
+use App\Http\Controllers\Applicant\Status\StatusRegistrasiController;
 use App\Http\Controllers\Question\HomeController;
 use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\AchivementController;
+use App\Http\Controllers\Applicant\Status\StatusApplicantController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\SchoolController;
@@ -43,6 +46,10 @@ Route::get('/', function () {
 /* Route Dashboard */
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
+    Route::get('dashboard/page/history', [DashboardController::class, 'history_page'])->name('dashboard.history_page');
+    Route::get('dashboard/page/rekapitulasi', [DashboardController::class, 'rekapitulasi_page'])->name('dashboard.rekapitulasi_page');
+    Route::get('dashboard/page/aplikan', [DashboardController::class, 'aplikan_page'])->name('dashboard.aplikan_page');
+    //
     Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all');
     Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget');
     Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget');
@@ -63,6 +70,11 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
 /* Route Database  */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('database', ApplicantController::class);
+    /* Status Database */
+    Route::patch('status/database/aplikan/{id}', [StatusApplicantController::class, 'update'])->name('statusdatabaseaplikan.update');
+    Route::delete('status/database/aplikan/{id}', [StatusApplicantController::class, 'destroy'])->name('statusdatabaseaplikan.destroy');
+    Route::delete('status/database/daftar/{id}', [StatusDaftarController::class, 'destroy'])->name('statusdatabasedaftar.destroy');
+    Route::delete('status/database/registrasi/{id}', [StatusRegistrasiController::class, 'destroy'])->name('statusdatabaseregistrasi.destroy');
     /* Import from Spreadsheet */
     Route::get('import/applicants', [ApplicantController::class, 'import'])->name('applicant.import');
     Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->name('applicant.importupdate');
@@ -72,8 +84,6 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get');
     Route::get('get/databasesbeasiswa', [ApplicantController::class, 'get_beasiswa'])->name('database.getbeasiswa');
     Route::get('isapplicant/{identity?}', [ApplicantController::class, 'is_applicant'])->name('database.is_applicant');
-    Route::get('isregister/{identity?}', [ApplicantController::class, 'is_register'])->name('database.is_register');
-    Route::get('isdaftar/{identity?}', [ApplicantController::class, 'is_daftar'])->name('database.is_daftar');
     Route::get('isschoolarship/{identity?}', [ApplicantController::class, 'is_schoolarship'])->name('database.is_schoolarship');
     Route::get('chat/{identity?}', [ApplicantController::class, 'chats'])->name('database.chat');
     Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file');

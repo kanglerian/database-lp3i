@@ -66,44 +66,6 @@
 
 @push('scripts')
     <script>
-        const getAPIDatabasePresenterWilayah = async () => {
-            await axios.get(urlDatabasePresenterWilayah)
-                .then((response) => {
-                    let jumlah = 0;
-                    let tasikmalaya = 0;
-                    let kabtasikmalaya = 0;
-                    let ciamis = 0;
-                    let banjar = 0;
-                    let garut = 0;
-                    let pangandaran = 0;
-                    let tidakdiketahui = 0;
-                    databasesSourceDatabaseWilayah = response.data;
-                    databasesSourceDatabaseWilayah.databases.forEach(database => {
-                        jumlah += parseInt(database.jumlah);
-                        tasikmalaya += parseInt(database.tasikmalaya);
-                        kabtasikmalaya += parseInt(database.kabtasikmalaya);
-                        ciamis += parseInt(database.ciamis);
-                        banjar += parseInt(database.banjar);
-                        garut += parseInt(database.garut);
-                        pangandaran += parseInt(database.pangandaran);
-                        tidakdiketahui += parseInt(database.tidakdiketahui);
-                    });
-                    document.getElementById('presenter_wilayah_total').innerText = jumlah;
-                    document.getElementById('presenter_wilayah_tasikmalaya').innerText = tasikmalaya;
-                    document.getElementById('presenter_wilayah_kabtasikmalaya').innerText = kabtasikmalaya;
-                    document.getElementById('presenter_wilayah_ciamis').innerText = ciamis;
-                    document.getElementById('presenter_wilayah_banjar').innerText = banjar;
-                    document.getElementById('presenter_wilayah_garut').innerText = garut;
-                    document.getElementById('presenter_wilayah_pangandaran').innerText = pangandaran;
-                    document.getElementById('presenter_wilayah_tidakdiketahui').innerText = tidakdiketahui;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        getAPIDatabasePresenterWilayah();
-    </script>
-    <script>
         const changeFilterDatabasePresenterWilayah = () => {
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
@@ -115,13 +77,13 @@
             urlDatabasePresenterWilayah = `/api/report/database/presenter/wilayah?${queryString}`;
             if (dataTableSourceDatabaseWilayahPresenterInstance) {
                 dataTableSourceDatabaseWilayahPresenterInstance.ajax.url(urlDatabasePresenterWilayah).load();
-                getAPIDatabasePresenterWilayah();
+                getDataTableDatabasePresenterWilayah();
             } else {
                 getDataTableDatabasePresenterWilayah();
             }
         }
 
-        const getDataTableDatabasePresenterWilayah = async () => {
+        const getDataTableDatabasePresenterWilayah = () => {
             const dataTableConfig = {
                 ajax: {
                     url: urlDatabasePresenterWilayah,
@@ -176,21 +138,52 @@
                     },
                 ],
             }
-            try {
-                const response = await fetch(urlDatabasePresenterWilayah);
-                const data = await response.json();
-                databasesSourceDatabaseWilayahPresenter = data.databases;
-                dataTableSourceDatabaseWilayahPresenterInstance = $('#table-database-presenter-wilayah').DataTable(
-                    dataTableConfig);
-                dataTableSourceDatabaseWilayahPresenterInitialized = true;
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                if (response) {
-                    const text = await response.text();
-                    console.error("Response text:", text);
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const response = await fetch(urlDatabasePresenterWilayah);
+                    const data = await response.json();
+                    databasesSourceDatabaseWilayahPresenter = data.databases;
+
+                    let jumlah = 0;
+                    let tasikmalaya = 0;
+                    let kabtasikmalaya = 0;
+                    let ciamis = 0;
+                    let banjar = 0;
+                    let garut = 0;
+                    let pangandaran = 0;
+                    let tidakdiketahui = 0;
+
+                    databasesSourceDatabaseWilayahPresenter = data;
+                    databasesSourceDatabaseWilayahPresenter.databases.forEach(database => {
+                        jumlah += parseInt(database.jumlah);
+                        tasikmalaya += parseInt(database.tasikmalaya);
+                        kabtasikmalaya += parseInt(database.kabtasikmalaya);
+                        ciamis += parseInt(database.ciamis);
+                        banjar += parseInt(database.banjar);
+                        garut += parseInt(database.garut);
+                        pangandaran += parseInt(database.pangandaran);
+                        tidakdiketahui += parseInt(database.tidakdiketahui);
+                    });
+
+                    document.getElementById('presenter_wilayah_total').innerText = jumlah;
+                    document.getElementById('presenter_wilayah_tasikmalaya').innerText = tasikmalaya;
+                    document.getElementById('presenter_wilayah_kabtasikmalaya').innerText = kabtasikmalaya;
+                    document.getElementById('presenter_wilayah_ciamis').innerText = ciamis;
+                    document.getElementById('presenter_wilayah_banjar').innerText = banjar;
+                    document.getElementById('presenter_wilayah_garut').innerText = garut;
+                    document.getElementById('presenter_wilayah_pangandaran').innerText = pangandaran;
+                    document.getElementById('presenter_wilayah_tidakdiketahui').innerText = tidakdiketahui;
+
+                    let results = {
+                        data: databasesSourceDatabaseWilayahPresenter,
+                        config: dataTableConfig,
+                        initialized: true
+                    }
+                    resolve(results);
+                } catch (error) {
+                    reject(error);
                 }
-            }
+            })
         }
-        getDataTableDatabasePresenterWilayah();
     </script>
 @endpush

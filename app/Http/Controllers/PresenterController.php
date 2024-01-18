@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
-use App\Models\Registration;
+use App\Models\StatusApplicantsRegistration;
 use App\Models\Target;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,12 +37,11 @@ class PresenterController extends Controller
 
     public function get_target()
     {
-        $registrationQuery = Registration::query();
+        $registrationQuery = StatusApplicantsRegistration::query();
         $registrationQuery->with('applicant');
         $targetQuery = Target::query();
 
         $identityVal = request('identity');
-        $dateVal = request('dateVal', 'all');
         $pmbVal = request('pmbVal', 'all');
         $sessionVal = request('sessionVal', 'all');
 
@@ -51,11 +50,6 @@ class PresenterController extends Controller
         $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
             $query->where('identity_user', $identityVal);
         });
-
-        if ($dateVal !== 'all') {
-            $targetQuery->whereMonth('date', '=', date('m', strtotime($dateVal)));
-            $registrationQuery->whereMonth('date', '=', date('m', strtotime($dateVal)));
-        }
 
         if ($pmbVal !== 'all') {
             $targetQuery->where('pmb', $pmbVal);

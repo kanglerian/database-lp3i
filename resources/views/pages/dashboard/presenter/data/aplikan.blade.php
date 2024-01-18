@@ -9,7 +9,7 @@
         </p>
     </header>
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-source-database-wilaya">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-data-aplikan">
             <thead class="text-xs text-gray-700 uppercase">
                 <tr>
                     <th scope="col" class="px-6 py-4 text-center">

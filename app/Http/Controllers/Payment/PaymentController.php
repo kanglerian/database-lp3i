@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Enrollment;
-use App\Models\Registration;
+use App\Models\StatusApplicantsEnrollment;
+use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -16,11 +16,11 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $daftar_total_nominal = Enrollment::sum('nominal');
-        $daftar_total_debit = Enrollment::sum('debit');
+        $daftar_total_nominal = StatusApplicantsEnrollment::sum('nominal');
+        $daftar_total_debit = StatusApplicantsEnrollment::sum('debit');
         $cash = $daftar_total_nominal - $daftar_total_debit;
-        $total = Registration::sum('nominal');
-        $turnover = Registration::sum('deal');
+        $total = StatusApplicantsRegistration::sum('nominal');
+        $turnover = StatusApplicantsRegistration::sum('deal');
         return view('pages.payment.index')->with([
             'total' => $total,
             'turnover'=> $turnover,
@@ -93,7 +93,7 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         try {
-            $presenter = Enrollment::findOrFail($id);
+            $presenter = StatusApplicantsEnrollment::findOrFail($id);
             $presenter->delete();
             return session()->flash('message', 'Data pendaftaran berhasil dihapus!');
         } catch (\Throwable $th) {

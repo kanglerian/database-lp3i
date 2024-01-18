@@ -38,25 +38,6 @@
 @endif
 
 @push('scripts')
-    @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-        <script>
-            const changeTrigger = () => {
-                changeFilterDatabasePresenter();
-                changeFilterDatabasePresenterWilayah();
-                getHistories();
-                changeFilterDatabase();
-            }
-        </script>
-    @else
-        <script>
-            const changeTrigger = () => {
-                getHistories();
-                changeFilterTarget();
-                changeFilterDatabase();
-            }
-        </script>
-    @endif
-
     <script>
         const changeFilterDatabase = () => {
             let queryParams = [];
@@ -74,7 +55,7 @@
             }
 
             let queryString = queryParams.join('&');
-            apiDashboard = `get/dashboard/all?${queryString}`;
+            apiDashboard = `/get/dashboard/all?${queryString}`;
             getDatabases();
         }
     </script>

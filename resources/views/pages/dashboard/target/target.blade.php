@@ -45,10 +45,6 @@
 
                 queryParams.push(`identity=${identity}`);
 
-                if (dateVal !== 'all') {
-                    queryParams.push(`dateVal=${dateVal}`);
-                }
-
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
                 }

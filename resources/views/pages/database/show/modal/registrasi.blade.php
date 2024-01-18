@@ -5,7 +5,7 @@
         <div class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
         <div class="relative w-full max-w-4xl max-h-full">
             <!-- Modal content -->
-            <div class="w-full bg-white rounded-lg shadow">
+            <div class="w-full bg-white rounded-2xl shadow">
                 <div class="flex justify-between items-center p-5">
                     <div>
                         <h2 class="font-bold text-gray-900 text-lg">Ubah Registrasi Mahasiswa Baru</h2>
@@ -570,7 +570,7 @@
         <div class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
         <div class="relative w-full max-w-4xl max-h-full">
             <!-- Modal content -->
-            <div class="w-full bg-white rounded-lg shadow">
+            <div class="w-full bg-white rounded-2xl shadow">
                 <div class="flex justify-between items-center p-5">
                     <div>
                         <h2 class="font-bold text-gray-900 text-lg">Registrasi Mahasiswa Baru</h2>
@@ -1050,7 +1050,7 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <span class="text-sm text-gray-500">Rp</span>
                                             </div>
-                                            <input type="text" name="discount" id="discount"
+                                            <input type="text" name="discount" id="discount" value="0"
                                                 onkeyup="validateNumber(event)"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                                 placeholder="0" required>
