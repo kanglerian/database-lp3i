@@ -151,9 +151,12 @@
                         }
                     },
                     {
-                        data: 'applicant',
+                        data: {
+                            applicant: 'applicant',
+                            id: 'id',
+                        },
                         render: (data) => {
-                            console.log(data);
+                            console.log(data.applicant, id);
                             return data;
                         }
                     },
