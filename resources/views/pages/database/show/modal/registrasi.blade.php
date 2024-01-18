@@ -7,9 +7,9 @@
             <!-- Modal content -->
             <div class="w-full bg-white rounded-2xl shadow">
                 <div class="flex justify-between items-center p-5">
-                    <div>
-                        <h2 class="font-bold text-gray-900 text-lg">Ubah Registrasi Mahasiswa Baru</h2>
-                        <p class="text-sm text-gray-500">Harap diperiksa kembali data diri calon mahasiswa.</p>
+                    <div class="space-y-1 mb-3">
+                        <h3 class="text-lg font-bold text-gray-900">Ubah Registrasi Mahasiswa Baru</h3>
+                        <p class="text-sm text-gray-600">Harap diperiksa kembali data diri calon mahasiswa.</p>
                     </div>
                     <div class="relative">
                         <button type="button" onclick="modalEditRegistrasi()"
@@ -442,7 +442,8 @@
                                         @else
                                             <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                         @endif
-                                    </div><div>
+                                    </div>
+                                    <div>
                                         <label for="date"
                                             class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                             Registrasi</label>

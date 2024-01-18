@@ -19,7 +19,6 @@ class SourceDatabaseByWilayahController extends Controller
             $databaseQuery->where('pmb', $pmbVal);
         }
 
-
         if ($roleVal === 'P') {
             $databaseQuery->where('identity_user', $identityVal);
         }

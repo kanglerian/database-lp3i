@@ -2,14 +2,14 @@
     <header class="space-y-1 mb-5">
         <div class="flex items-center gap-2">
             <i class="fa-regular fa-circle-dot"></i>
-            <h2 class="font-bold text-gray-800">Aplikan</h2>
+            <h2 class="font-bold text-gray-800">Daftar</h2>
         </div>
         <p class="text-sm text-gray-700 text-sm">
             Berikut ini adalah hasil perhitungan dari riwayat pesan.
         </p>
     </header>
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-data-aplikan">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-data-daftar">
             <thead class="text-xs text-gray-700 uppercase">
                 <tr>
                     <th scope="col" class="px-6 py-4 text-center">
@@ -19,7 +19,7 @@
                         Gelombang
                     </th>
                     <th scope="col" class="px-6 py-4 text-center">
-                        Tanggal
+                        Tanggal Daftar
                     </th>
                     <th scope="col" class="px-6 py-4 text-center">
                         Nama Aplikan
@@ -31,21 +31,43 @@
                         Lulusan
                     </th>
                     <th scope="col" class="px-6 py-4 text-center">
-                        Jenis Kelamin
+                        Keterangan
                     </th>
                     <th scope="col" class="px-6 py-4 text-center">
-                        Sumber Database
+                        Keterangan Daftar
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Nominal Daftar
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Tanggal Pengembalian BK
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Debit
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Kas Pendaftaran
                     </th>
                 </tr>
             </thead>
             <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <p class="text-sm text-gray-700 bg-yellow-300 space-x-1 py-3 px-4 rounded-lg">
+                            <span>Total Kas Pendaftaran:</span>
+                            <span class="font-bold underline" id="total_kas_daftar">
+                        </p>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </section>
 
 @push('scripts')
     <script>
-        const changeFilterDataAplikanAplikan = () => {
+        const changeFilterDataAplikanDaftar = () => {
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
             let sessionVal = document.getElementById('session').value;
@@ -70,19 +92,20 @@
 
             let queryString = queryParams.join('&');
 
-            urlDataAplikanAplikan = `/api/report/database/aplikan/aplikan?${queryString}`;
-            if (dataTableDataAplikanAplikanInstance) {
-                dataTableDataAplikanAplikanInstance.ajax.url(urlDataAplikanAplikan).load();
-                getDataTableDataAplikanAplikan();
+            urlDataAplikanDaftar = `/api/report/database/aplikan/daftar?${queryString}`;
+            console.log(urlDataAplikanDaftar);
+            if (dataTableDataAplikanDaftarInstance) {
+                dataTableDataAplikanDaftarInstance.ajax.url(urlDataAplikanDaftar).load();
+                getDataTableDataAplikanDaftar();
             } else {
-                getDataTableDataAplikanAplikan();
+                getDataTableDataAplikanDaftar();
             }
         }
 
-        const getDataTableDataAplikanAplikan = async () => {
+        const getDataTableDataAplikanDaftar = async () => {
             const dataTableConfig = {
                 ajax: {
-                    url: urlDataAplikanAplikan,
+                    url: urlDataAplikanDaftar,
                     dataSrc: 'databases'
                 },
                 columnDefs: [{
@@ -91,7 +114,7 @@
                     },
                     {
                         width: 100,
-                        targets: [1, 2, 3, 4, 5, 6, 7]
+                        targets: [1, 2, 3, 4, 5, 6, 7, ]
                     },
                 ],
                 createdRow: function(row, data, index) {
@@ -130,36 +153,50 @@
                         }
                     },
                     {
-                        data: 'applicant',
+                        data: 'register',
+                    },
+                    {
+                        data: 'register_end',
+                    },
+                    {
+                        data: 'nominal',
                         render: (data) => {
-                            let gender;
-                            if (data == null) {
-                                gender = 'Tidak diketahui'
-                            } else {
-                                if (data) {
-                                    gender = 'Laki-laki'
-                                } else {
-                                    gender = 'Perempuan'
-                                }
-                            }
-                            return gender;
+                            return `Rp${data.toLocaleString('id-ID')}`;
                         }
                     },
                     {
-                        data: 'sourcesetting',
+                        data: 'repayment',
+                    },
+                    {
+                        data: 'debit',
                         render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.name;
+                            return `Rp${data.toLocaleString('id-ID')}`;
+                        }
+                    },
+                    {
+                        data: {
+                            nominal: 'nominal',
+                            debit: 'debit'
+                        },
+                        render: (data) => {
+                            let result = data.nominal - data.debit;
+                            return `Rp${result.toLocaleString('id-ID')}`;
                         }
                     },
                 ],
             }
             return new Promise(async (resolve, reject) => {
                 try {
-                    const response = await fetch(urlDataAplikanAplikan);
+                    const response = await fetch(urlDataAplikanDaftar);
                     const data = await response.json();
-                    databasesDataAplikanAplikan = data.databases;
+                    databasesDataAplikanDaftar = data.databases;
+                    let totalkas = 0;
+                    databasesDataAplikanDaftar.forEach(database => {
+                        totalkas += database.nominal - database.debit
+                    });
+                    document.getElementById('total_kas_daftar').innerText = `Rp${totalkas.toLocaleString('id-ID')}`
                     let results = {
-                        data: databasesDataAplikanAplikan,
+                        data: databasesDataAplikanDaftar,
                         config: dataTableConfig,
                         initialized: true
                     }

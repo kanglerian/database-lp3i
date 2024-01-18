@@ -44,6 +44,10 @@
         let urlDatabasePresenterWilayah =
             `/api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
+        let urlDataAplikanAplikan =`/api/report/database/aplikan/aplikan?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+        let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+        let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;
         let databasesSourceDatabaseWilayah;
@@ -55,6 +59,18 @@
         let dataTableSourceDatabaseWilayahPresenterInitialized = false;
         let dataTableSourceDatabaseWilayahPresenterInstance;
         let databasesSourceDatabaseWilayahPresenter;
+
+        let dataTableDataAplikanAplikanInitialized = false;
+        let dataTableDataAplikanAplikanInstance;
+        let databasesDataAplikanAplikan;
+
+        let dataTableDataAplikanDaftarInitialized = false;
+        let dataTableDataAplikanDaftarInstance;
+        let databasesDataAplikanDaftar;
+
+        let dataTableDataAplikanRegistrasiInitialized = false;
+        let dataTableDataAplikanRegistrasiInstance;
+        let databasesDataAplikanRegistrasi;
     </script>
 @endpush
 

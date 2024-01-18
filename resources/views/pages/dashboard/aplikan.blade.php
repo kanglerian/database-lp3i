@@ -33,6 +33,11 @@
                 </header>
                 <hr>
                 @include('pages.dashboard.presenter.data.aplikan')
+                <hr>
+                @include('pages.dashboard.presenter.data.daftar')
+                <hr>
+                @include('pages.dashboard.presenter.data.registrasi')
+                @include('pages.dashboard.presenter.data.scripts')
             </section>
         </div>
     </section>

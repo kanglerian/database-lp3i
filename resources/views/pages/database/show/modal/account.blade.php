@@ -11,6 +11,10 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="px-6 py-6 lg:px-8">
+                <div class="space-y-1 mb-3">
+                    <h3 class="text-lg font-bold text-gray-900">Buat Akun Baru</h3>
+                    <p class="text-sm text-gray-600">Berikut ini adalah menu untuk membuat akun baru.</p>
+                </div>
                 <h3 class="mb-4 text-xl font-medium text-gray-900">Buat Akun Baru</h3>
                 <hr class="mb-3">
                 <form class="space-y-4" action="{{ route('profile.store') }}" method="POST">
