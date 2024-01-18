@@ -3,6 +3,7 @@
         let pmbVal = document.getElementById('change_pmb').value;
         let identityVal = document.getElementById('identity_val').value;
         let roleVal = document.getElementById('role_val').value;
+        let sessionVal = document.getElementById('session').value;
     </script>
     <script>
         const getYearPMB = () => {
@@ -44,9 +45,9 @@
         let urlDatabasePresenterWilayah =
             `/api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
-        let urlDataAplikanAplikan =`/api/report/database/aplikan/aplikan?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
-        let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
-        let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+        let urlDataAplikanAplikan =`/api/report/database/aplikan/aplikan?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
+        let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
+        let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
 
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;
