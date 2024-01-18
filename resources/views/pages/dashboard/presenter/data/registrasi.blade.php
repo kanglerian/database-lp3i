@@ -151,9 +151,18 @@
                         }
                     },
                     {
-                        data: 'id',
+                        data: {
+                            father: 'father',
+                            mother: 'mother'
+                        },
                         render: (data) => {
-                            return data;
+                            let mother = data.mother || 'Tidak diketahui';
+                            let father = data.father || 'Tidak diketahui';
+                            return `
+                            <p>
+                                Ayah: ${father}
+                                Ibu: ${mother}
+                            </p>`;
                         }
                     },
                     {
