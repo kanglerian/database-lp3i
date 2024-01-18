@@ -166,6 +166,9 @@
                     },
                     {
                         data: 'repayment',
+                        render: (data) => {
+                            return data || 'Tidak ada';
+                        }
                     },
                     {
                         data: 'debit',
