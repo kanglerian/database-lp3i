@@ -177,7 +177,7 @@
                     {
                         data: 'applicant',
                         render: (data) => {
-                            return data.mgm == null ? 'Tidak diketahui' : data.mgm;
+                            return data == null ? 'Tidak diketahui' : data.mgm;
                         }
                     },
                     {
