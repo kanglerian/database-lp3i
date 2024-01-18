@@ -166,7 +166,7 @@
                     {
                         data: 'applicant',
                         render: (data) => {
-                            return data.program;
+                            return data == null ?  'Tidak diketahui' : data.program;
                         }
                     }, {
                         data: 'sourcesetting',
