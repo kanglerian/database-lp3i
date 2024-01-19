@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API\Report;
 
 use App\Http\Controllers\Controller;
+use App\Models\FileUpload;
 use App\Models\StatusApplicantsApplicant;
 use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
+use App\Models\UserUpload;
 use Illuminate\Http\Request;
 
 class ReportAplikanController extends Controller
@@ -31,10 +33,10 @@ class ReportAplikanController extends Controller
             $databaseQuery->where('identity_user', $identityVal);
         }
 
-        $databases = $databaseQuery->with(['applicant','applicant.sourcesetting','applicant.schoolapplicant'])->get();
+        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant'])->get();
 
         return response()->json([
-            'databases' => $databases
+            'databases' => $databases,
         ]);
     }
 
@@ -59,10 +61,10 @@ class ReportAplikanController extends Controller
             $databaseQuery->where('identity_user', $identityVal);
         }
 
-        $databases = $databaseQuery->with(['applicant','applicant.sourcesetting','applicant.schoolapplicant'])->get();
+        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant'])->get();
 
         return response()->json([
-            'databases' => $databases
+            'databases' => $databases,
         ]);
     }
 
@@ -87,10 +89,21 @@ class ReportAplikanController extends Controller
             $databaseQuery->where('identity_user', $identityVal);
         }
 
-        $databases = $databaseQuery->with(['applicant','applicant.sourcesetting','applicant.schoolapplicant','applicant.father','applicant.mother','applicant.programtype'])->get();
+        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant', 'applicant.father', 'applicant.mother', 'applicant.programtype'])->get();
 
         return response()->json([
-            'databases' => $databases
+            'databases' => $databases,
+        ]);
+    }
+
+    public function files()
+    {
+        $file_uploads = FileUpload::all();
+        $users_upload = UserUpload::all();
+
+        return response()->json([
+            'file_uploads' => $file_uploads,
+            'users_upload' => $users_upload,
         ]);
     }
 }

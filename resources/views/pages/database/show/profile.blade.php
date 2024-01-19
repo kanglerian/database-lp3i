@@ -220,7 +220,7 @@
                         </header>
                         <hr class="my-3">
                         <section class="flex flex-col justify-between gap-3">
-                            @if ($account == 0 && ($user->is_register == 1 || $user->is_daftar == 1))
+                            @if ($account == 0 && ($user->is_daftar == 1))
                                 <button type="button" onclick="modalAccount()"
                                     class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-white text-sm">
                                     <i class="fa-solid fa-user-plus mr-1"></i>

@@ -62,3 +62,4 @@ Route::get('/report/database/presenter/wilayah', [WilayahDatabaseByPresenterCont
 Route::get('/report/database/aplikan/aplikan', [ReportAplikanController::class, 'aplikan']);
 Route::get('/report/database/aplikan/daftar', [ReportAplikanController::class, 'daftar']);
 Route::get('/report/database/aplikan/registrasi', [ReportAplikanController::class, 'registrasi']);
+Route::get('/report/database/aplikan/files', [ReportAplikanController::class, 'files']);
