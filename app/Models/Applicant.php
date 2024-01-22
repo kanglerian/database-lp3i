@@ -76,6 +76,11 @@ class Applicant extends Model
 
     ];
 
+    public function userupload()
+    {
+        return $this->belongsTo(UserUpload::class, 'identity_user', 'identity');
+    }
+
     public function presenter()
     {
         return $this->belongsTo(User::class, 'identity_user', 'identity');
@@ -139,4 +144,5 @@ class Applicant extends Model
     {
         return $this->hasOne(Integration::class, 'identity_user', 'identity');
     }
+
 }

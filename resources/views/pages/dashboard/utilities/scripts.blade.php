@@ -49,6 +49,8 @@
         let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
         let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
 
+        let urlDataPersyaratanAplikan = `/api/report/database/aplikan/files?pmbVal=${pmbVal}`;
+
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;
         let databasesSourceDatabaseWilayah;
@@ -72,6 +74,10 @@
         let dataTableDataAplikanRegistrasiInitialized = false;
         let dataTableDataAplikanRegistrasiInstance;
         let databasesDataAplikanRegistrasi;
+
+        let dataTableDataPersyaratanAplikanInitialized = false;
+        let dataTableDataPersyaratanAplikanInstance;
+        let databasesDataPersyaratanAplikan;
     </script>
 @endpush
 

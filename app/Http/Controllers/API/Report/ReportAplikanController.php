@@ -98,8 +98,21 @@ class ReportAplikanController extends Controller
 
     public function files()
     {
-        $file_uploads = FileUpload::all();
-        $users_upload = UserUpload::all();
+        $fileUploadsQuery = FileUpload::query();
+        $usersUploadQuery = UserUpload::query();
+
+        $usersUploadQuery->with(['userupload', 'applicant']);
+
+        $pmbVal = request('pmbVal', 'all');
+
+        if ($pmbVal !== 'all') {
+            $usersUploadQuery->whereHas('applicant', function ($query) use ($pmbVal) {
+                $query->where('pmb', $pmbVal);
+            });
+        }
+
+        $file_uploads = $fileUploadsQuery->get();
+        $users_upload = $usersUploadQuery->get();
 
         return response()->json([
             'file_uploads' => $file_uploads,

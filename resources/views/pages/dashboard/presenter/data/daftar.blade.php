@@ -93,7 +93,6 @@
             let queryString = queryParams.join('&');
 
             urlDataAplikanDaftar = `/api/report/database/aplikan/daftar?${queryString}`;
-            console.log(urlDataAplikanDaftar);
             if (dataTableDataAplikanDaftarInstance) {
                 dataTableDataAplikanDaftarInstance.ajax.url(urlDataAplikanDaftar).load();
                 getDataTableDataAplikanDaftar();

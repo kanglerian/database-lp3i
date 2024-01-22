@@ -26,6 +26,10 @@ class UserUpload extends Model
         return $this->belongsTo(User::class,'identity_user','identity');
     }
 
+    public function applicant(){
+        return $this->belongsTo(Applicant::class,'identity_user','identity');
+    }
+
     public function fileupload(){
         return $this->belongsTo(FileUpload::class,'fileupload_id','id');
     }
