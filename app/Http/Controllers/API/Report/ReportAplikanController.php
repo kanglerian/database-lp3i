@@ -104,10 +104,18 @@ class ReportAplikanController extends Controller
         $usersUploadQuery->with(['userupload', 'applicant']);
 
         $pmbVal = request('pmbVal', 'all');
+        $identityVal = request('identityVal', 'all');
+        $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
             $usersUploadQuery->whereHas('applicant', function ($query) use ($pmbVal) {
                 $query->where('pmb', $pmbVal);
+            });
+        }
+
+        if ($roleVal === 'P') {
+            $usersUploadQuery->whereHas('applicant', function ($query) use ($identityVal) {
+                $query->where('identity_user', $identityVal);
             });
         }
 

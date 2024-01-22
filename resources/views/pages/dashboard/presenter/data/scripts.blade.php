@@ -1,9 +1,9 @@
 @push('scripts')
     <script>
         const changeTrigger = () => {
-            // changeFilterDataAplikanAplikan(),
-            // changeFilterDataAplikanDaftar(),
-            // changeFilterDataAplikanRegistrasi(),
+            changeFilterDataAplikanAplikan(),
+            changeFilterDataAplikanDaftar(),
+            changeFilterDataAplikanRegistrasi(),
             changeFilterDataPersyaratanAplikan()
         }
     </script>

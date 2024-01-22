@@ -2,7 +2,7 @@
     <header class="space-y-1 mb-5">
         <div class="flex items-center gap-2">
             <i class="fa-regular fa-circle-dot"></i>
-            <h2 class="font-bold text-gray-800">Aplikan</h2>
+            <h2 class="font-bold text-gray-800">Kelengkapan Persyaratan Aplikan</h2>
         </div>
         <p class="text-sm text-gray-700 text-sm">
             Berikut ini adalah hasil perhitungan dari riwayat pesan.
@@ -48,9 +48,19 @@
         const changeFilterDataPersyaratanAplikan = () => {
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
+            let identityVal = document.getElementById('identity_val').value;
+            let roleVal = document.getElementById('role_val').value;
 
             if (pmbVal !== 'all') {
                 queryParams.push(`pmbVal=${pmbVal}`);
+            }
+
+            if (identityVal !== 'all') {
+                queryParams.push(`identityVal=${identityVal}`);
+            }
+
+            if (roleVal !== 'all') {
+                queryParams.push(`roleVal=${roleVal}`);
             }
 
             let queryString = queryParams.join('&');

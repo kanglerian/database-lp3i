@@ -37,7 +37,8 @@
                 @include('pages.dashboard.presenter.data.daftar')
                 <hr>
                 @include('pages.dashboard.presenter.data.registrasi')
-                @include('pages.dashboard.presenter.data.check')
+                <hr>
+                @include('pages.dashboard.presenter.data.persyaratan')
                 @include('pages.dashboard.presenter.data.scripts')
             </section>
         </div>
