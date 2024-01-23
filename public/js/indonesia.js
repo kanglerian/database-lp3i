@@ -91,6 +91,7 @@ selectDistricts.addEventListener('change', async (e) => {
   let dataTarget = e.target.options[e.target.selectedIndex].dataset.id;
   await axios.get(`/api/villages/${dataTarget}.json`)
     .then((response) => {
+        console.log(response);
       let bucket = '<option value="">Pilih Desa / Kelurahan</option>';
       let villages = response.data;
       villages.forEach(village => {
