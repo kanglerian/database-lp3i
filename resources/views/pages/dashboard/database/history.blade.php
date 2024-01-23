@@ -2,7 +2,7 @@
     <div class="max-w-7xl px-5 mx-auto">
         <section class="bg-white p-5 md:rounded-xl border border-gray-100">
             <header class="space-y-1">
-                <h2 class="font-bold text-gray-800">Riwayat Target Pengiriman Pesan</h2>
+                <h2 class="font-bold text-gray-800">Rekapitulasi Follow Up Presenter</h2>
                 <p class="text-sm text-gray-700 text-sm">
                     Berikut ini adalah hasil perhitungan dari riwayat pesan.
                 </p>

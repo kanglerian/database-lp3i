@@ -1,0 +1,84 @@
+SELECT
+	applicants.pmb AS pmb,
+    status_applicants_applicant.date AS tanggal_aplikan,
+    status_applicants_enrollment.date AS tanggal_daftar,
+	applicants.identity_user AS identity_user,
+	users.name AS presenter,
+    SUM(CASE WHEN applicants.is_applicant = 1 THEN 1 ELSE 0 END) AS aplikan,
+    SUM(CASE WHEN applicants.is_daftar = 1 THEN 1 ELSE 0 END) AS daftar,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 1 THEN 1 ELSE 0 END) AS register_regular,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 2 THEN 1 ELSE 0 END) AS register_nonreguler,
+    SUM(CASE WHEN applicants.programtype_id = 1 THEN status_applicants_registration.deal ELSE 0 END) AS omset_reguler,
+    SUM(CASE WHEN applicants.programtype_id = 2 THEN status_applicants_registration.deal ELSE 0 END) AS omset_nonreguler,
+    COUNT(applicants.identity) AS total
+FROM
+	applicants
+LEFT JOIN
+	users ON users.identity = applicants.identity_user
+LEFT JOIN
+	status_applicants_applicant ON status_applicants_applicant.identity_user = applicants.identity
+LEFT JOIN
+	status_applicants_enrollment ON status_applicants_enrollment.identity_user = applicants.identity
+LEFT JOIN
+	status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity
+GROUP BY pmb, tanggal_aplikan, tanggal_daftar, identity_user, presenter;
+
+
+SELECT
+    applicants.pmb AS pmb,
+    DATE_FORMAT(status_applicants_applicant.date, '%Y-%m') AS tanggal_aplikan,
+    DATE_FORMAT(status_applicants_enrollment.date, '%Y-%m') AS tanggal_daftar,
+    applicants.identity_user AS identity_user,
+    users.name AS presenter,
+    SUM(CASE WHEN applicants.is_applicant = 1 THEN 1 ELSE 0 END) AS aplikan,
+    SUM(CASE WHEN applicants.is_daftar = 1 THEN 1 ELSE 0 END) AS daftar,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 1 THEN 1 ELSE 0 END) AS register_regular,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 2 THEN 1 ELSE 0 END) AS register_nonreguler,
+    SUM(CASE WHEN applicants.programtype_id = 1 THEN status_applicants_registration.deal ELSE 0 END) AS omset_reguler,
+    SUM(CASE WHEN applicants.programtype_id = 2 THEN status_applicants_registration.deal ELSE 0 END) AS omset_nonreguler,
+    COUNT(applicants.identity) AS total
+FROM
+    applicants
+LEFT JOIN
+    users ON users.identity = applicants.identity_user
+LEFT JOIN
+    status_applicants_applicant ON status_applicants_applicant.identity_user = applicants.identity
+LEFT JOIN
+    status_applicants_enrollment ON status_applicants_enrollment.identity_user = applicants.identity
+LEFT JOIN
+    status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity
+WHERE
+    (DATE_FORMAT(status_applicants_applicant.date, '%Y-%m') = '2023-12'
+     OR DATE_FORMAT(status_applicants_enrollment.date, '%Y-%m') = '2023-12')
+GROUP BY
+    pmb, tanggal_aplikan, tanggal_daftar, identity_user, presenter;
+
+SELECT
+    applicants.pmb AS pmb,
+    DATE_FORMAT(status_applicants_applicant.date, '%Y-%m') AS tanggal_aplikan,
+    status_applicants_applicant.session AS session_aplikan,
+    DATE_FORMAT(status_applicants_enrollment.date, '%Y-%m') AS tanggal_daftar,
+    status_applicants_enrollment.session AS session_daftar,
+    applicants.identity_user AS identity_user,
+    users.name AS presenter,
+    SUM(CASE WHEN applicants.is_applicant = 1 THEN 1 ELSE 0 END) AS aplikan,
+    SUM(CASE WHEN applicants.is_daftar = 1 THEN 1 ELSE 0 END) AS daftar,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 1 THEN 1 ELSE 0 END) AS register_regular,
+    SUM(CASE WHEN applicants.is_register = 1 AND applicants.programtype_id = 2 THEN 1 ELSE 0 END) AS register_nonreguler,
+    SUM(CASE WHEN applicants.programtype_id = 1 THEN status_applicants_registration.deal ELSE 0 END) AS omset_reguler,
+    SUM(CASE WHEN applicants.programtype_id = 2 THEN status_applicants_registration.deal ELSE 0 END) AS omset_nonreguler,
+    COUNT(applicants.identity) AS total
+FROM
+    applicants
+LEFT JOIN
+    users ON users.identity = applicants.identity_user
+LEFT JOIN
+    status_applicants_applicant ON status_applicants_applicant.identity_user = applicants.identity
+LEFT JOIN
+    status_applicants_enrollment ON status_applicants_enrollment.identity_user = applicants.identity
+LEFT JOIN
+    status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity
+WHERE
+    status_applicants_applicant.date IS NOT NULL
+GROUP BY
+    pmb, tanggal_aplikan, tanggal_daftar, session_aplikan, session_daftar, identity_user, presenter;

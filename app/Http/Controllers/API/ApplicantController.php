@@ -28,7 +28,8 @@ class ApplicantController extends Controller
      */
     public function show($identity)
     {
-        $user = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $identity)->first();$enrollment = StatusApplicantsEnrollment::where('identity_user', $identity)->first();
+        $user = Applicant::with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])->where('identity', $identity)->first();
+        $enrollment = StatusApplicantsEnrollment::where('identity_user', $identity)->first();
         $registration = StatusApplicantsRegistration::where('identity_user', $identity)->first();
 
         return response()->json([

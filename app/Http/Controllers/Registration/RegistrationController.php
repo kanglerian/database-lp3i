@@ -182,6 +182,11 @@ class RegistrationController extends Controller
     {
         try {
             $registration = StatusApplicantsRegistration::findOrFail($id);
+            $data = [
+                'is_register' => 0,
+            ];
+            $applicant = Applicant::where('identity', $registration->identity_user)->first();
+            $applicant->update($data);
             $registration->delete();
             return session()->flash('message', 'Data registrasi berhasil dihapus!');
         } catch (\Throwable $th) {

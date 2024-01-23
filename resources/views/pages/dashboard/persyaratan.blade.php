@@ -13,7 +13,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Rekapitulasi Database</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Kelengkapan Persyaratan Aplikan</span>
                         </div>
                     </li>
                 </ol>
@@ -22,31 +22,14 @@
     </x-slot>
 
     <section class="space-y-5 py-8">
-
         @include('pages.dashboard.database.filter')
-
         <div class="max-w-7xl px-5 mx-auto">
             <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
-                @if (Auth::user()->role == 'A')
-                <header class="space-y-1">
-                    <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
-                    </p>
-                </header>
-                <hr>
-                @endif
-                @if (Auth::user()->role == 'P')
-                    @include('pages.dashboard.presenter.report.sourcedatabasebywilayah')
-                    @include('pages.dashboard.presenter.report.scripts')
-                @endif
-                @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
-                    @include('pages.dashboard.admin.report.sourcedatabasebypresenter')
-                    @include('pages.dashboard.admin.report.wilayahdatabasebypresenter')
-                    @include('pages.dashboard.admin.report.scripts')
-                @endif
+                @include('pages.dashboard.presenter.persyaratan.persyaratan')
+                @include('pages.dashboard.presenter.persyaratan.scripts')
             </section>
         </div>
     </section>
+
     @include('pages.dashboard.utilities.scripts')
 </x-app-layout>

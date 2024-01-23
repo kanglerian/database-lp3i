@@ -267,4 +267,9 @@ class DashboardController extends Controller
     {
         return view('pages.dashboard.aplikan');
     }
+
+    public function persyaratan_page()
+    {
+        return view('pages.dashboard.persyaratan');
+    }
 }

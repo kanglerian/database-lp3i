@@ -59,7 +59,7 @@
                                 <a href="{{ route('database.edit', $user->id) }}"
                                     class="inline-block bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md text-xs text-white"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
-                                @if (!$user->is_daftar || !$user->is_register || Auth::user()->role == 'A')
+                                @if (!$user->is_daftar && !$user->is_register)
                                     <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"
                                         onclick="event.preventDefault(); deleteRecord({{ $user->id }})">
                                         <i class="fa-solid fa-trash"></i>
@@ -787,6 +787,8 @@
                     let gelombang = database.data.registration.session;
                     let tgl_datang = database.data.registration.date;
                     let kode_siswa = "-";
+
+                    console.log(database.data.user.presenter.code);
 
                     // Daftar
                     let isnew = true;

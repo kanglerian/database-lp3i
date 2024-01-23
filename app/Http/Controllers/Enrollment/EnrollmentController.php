@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Enrollment;
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
 use App\Models\StatusApplicantsEnrollment;
+use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -207,8 +208,26 @@ class EnrollmentController extends Controller
     {
         try {
             $enrollment = StatusApplicantsEnrollment::findOrFail($id);
-            $enrollment->delete();
-            return session()->flash('message', 'Data pendaftaran berhasil dihapus!');
+            $registration = StatusApplicantsRegistration::where('identity_user', $enrollment->identity_user)->first();
+            if(!$registration){
+                $data = [
+                    'is_daftar' => 0,
+                ];
+                $applicant = Applicant::where('identity', $enrollment->identity_user)->first();
+                $applicant->update($data);
+                $enrollment->delete();
+                $message = [
+                    'status' => 'message',
+                    'message' => 'Data pendaftaran berhasil dihapus!'
+                ];
+            } else {
+
+                $message = [
+                    'status' => 'error',
+                    'message' => 'Tidak bisa menghapus pendaftaran. Hapus data registrasi terlebih dahulu!'
+                ];
+            }
+            return session()->flash($message['status'], $message['message']);
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
             return back()->with('error', $errorMessage);

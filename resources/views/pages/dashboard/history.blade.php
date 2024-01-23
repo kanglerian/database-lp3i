@@ -13,7 +13,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Riwayat Pengiriman Pesan</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Rekapitulasi Follow Up Presenter</span>
                         </div>
                     </li>
                 </ol>

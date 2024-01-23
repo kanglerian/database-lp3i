@@ -39,6 +39,16 @@
                 </div>
             @endif
 
+            @if (session('error'))
+                <div id="alert" class="mx-2 mb-3 flex items-center p-4 mb-3 bg-red-500 text-white rounded-lg"
+                    role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-medium">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
+
             <div class="flex justify-between items-center gap-3 mx-2 py-2">
                 <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                     <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
@@ -142,8 +152,7 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [
-                {
+            columnDefs: [{
                     width: 100,
                     target: 0
                 },
@@ -184,8 +193,7 @@
                     target: 9
                 },
             ],
-            columns: [
-                {
+            columns: [{
                     data: 'date'
                 },
                 {

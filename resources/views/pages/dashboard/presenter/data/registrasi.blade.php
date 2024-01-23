@@ -48,12 +48,20 @@
                     <th scope="col" class="px-6 py-4 text-center">
                         Registrasi
                     </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Keterangan Potongan
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        Harga Deal
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-center">
+                        < 30% </th>
                 </tr>
             </thead>
             <tbody></tbody>
             <tfoot>
                 <tr>
-                    <td colspan="12">
+                    <td colspan="15">
                         <p class="text-sm text-gray-700 bg-yellow-300 space-x-1 py-3 px-4 rounded-lg">
                             <span>Total Kas Registrasi:</span>
                             <span class="font-bold underline" id="total_kas_registrasi">
@@ -171,7 +179,7 @@
                     {
                         data: 'applicant',
                         render: (data) => {
-                            return data == null ?  'Tidak diketahui' : data.program;
+                            return data == null ? 'Tidak diketahui' : data.program;
                         }
                     }, {
                         data: 'sourcesetting',
@@ -183,10 +191,10 @@
                         data: 'applicant',
                         render: (data) => {
                             let result;
-                            if(data){
+                            if (data) {
                                 result = data.mgm || 'Tidak diketahui'
                             } else {
-                                result =' Tidak diketahui'
+                                result = ' Tidak diketahui'
                             }
                             return result;
                         }
@@ -196,6 +204,29 @@
                         render: (data) => {
                             let result = parseInt(data);
                             return `Rp${result.toLocaleString('id-ID')}`;
+                        }
+                    },
+                    {
+                        data: 'desc_discount',
+                        render: (data) => {
+                            return data == null ? 'Tidak diketahui' : data.year;
+                        }
+                    }, {
+                        data: 'deal',
+                        render: (data) => {
+                            let result = parseInt(data);
+                            return `Rp${result.toLocaleString('id-ID')}`;
+                        }
+                    },
+                    {
+                        data: {
+                            nominal: 'nominal',
+                            deal: 'deal'
+                        },
+                        render: (data, type, row) => {
+                            let dataPercent = parseInt(data.deal) * 0.3;
+                            let percent = parseInt(data.nominal) < dataPercent;
+                            return ` ${percent ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' : '<i class="fa-solid fa-circle-xmark text-red-500"></i>'}`
                         }
                     },
                 ],
@@ -209,7 +240,8 @@
                     databasesDataAplikanRegistrasi.forEach(database => {
                         totalkas += parseInt(database.nominal)
                     });
-                    document.getElementById('total_kas_registrasi').innerText = `Rp${totalkas.toLocaleString('id-ID')}`
+                    document.getElementById('total_kas_registrasi').innerText =
+                        `Rp${totalkas.toLocaleString('id-ID')}`
                     let results = {
                         data: databasesDataAplikanRegistrasi,
                         config: dataTableConfig,
