@@ -272,4 +272,8 @@ class DashboardController extends Controller
     {
         return view('pages.dashboard.persyaratan');
     }
+    public function perolehan_pmb_page()
+    {
+        return view('pages.dashboard.perolehan-pmb');
+    }
 }

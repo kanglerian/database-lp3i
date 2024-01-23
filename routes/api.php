@@ -5,6 +5,7 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\Report\ReportStudentsAdmissionController;
 use App\Http\Controllers\API\SchoolController;
 use App\Http\Controllers\API\UserUploadController;
 use Illuminate\Http\Request;
@@ -63,3 +64,6 @@ Route::get('/report/database/aplikan/aplikan', [ReportAplikanController::class, 
 Route::get('/report/database/aplikan/daftar', [ReportAplikanController::class, 'daftar']);
 Route::get('/report/database/aplikan/registrasi', [ReportAplikanController::class, 'registrasi']);
 Route::get('/report/database/aplikan/files', [ReportAplikanController::class, 'files']);
+
+
+Route::get('/report/database/perolehanpmb', [ReportStudentsAdmissionController::class, 'get_all']);

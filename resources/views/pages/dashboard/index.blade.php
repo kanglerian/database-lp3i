@@ -93,6 +93,16 @@
                     </div>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
+                <a href="{{ route('dashboard.perolehan_pmb_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    <div class="space-y-1 z-10">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-coins"></i>
+                            <h2 class="font-bold">Rekap Perolehan PMB</h2>
+                        </div>
+                        <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan berdasarkan PMB.</p>
+                    </div>
+                    <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                </a>
                 <a href="{{ route('dashboard.history_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
