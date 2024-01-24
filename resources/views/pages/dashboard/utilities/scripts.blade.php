@@ -35,8 +35,8 @@
         let sessionVal = document.getElementById('session').value;
     </script>
     <script>
-        let apiTargets = `/get/targets?identity=${identityVal}&pmbVal=${pmbVal}`;
-        let apiDashboard = `/get/dashboard/all?identity=${identityVal}&pmbVal=${pmbVal}`
+        let apiTargets = `/get/targets?identityVal=${identityVal}&pmbVal=${pmbVal}`;
+        let apiDashboard = `/get/dashboard/all?identityVal=${identityVal}&pmbVal=${pmbVal}`
 
         let urlSourceDatabaseWilayah =
             `/api/report/database/wilayah/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;

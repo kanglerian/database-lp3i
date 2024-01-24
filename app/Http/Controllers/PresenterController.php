@@ -41,7 +41,7 @@ class PresenterController extends Controller
         $registrationQuery->with('applicant');
         $targetQuery = Target::query();
 
-        $identityVal = request('identity');
+        $identityVal = request('identityVal');
         $pmbVal = request('pmbVal', 'all');
         $sessionVal = request('sessionVal', 'all');
 
