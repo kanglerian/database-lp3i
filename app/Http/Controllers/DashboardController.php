@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\ApplicantBySourceDaftarId;
 use App\Models\ApplicantBySourceId;
+use App\Models\ProgramType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -274,6 +275,9 @@ class DashboardController extends Controller
     }
     public function perolehan_pmb_page()
     {
-        return view('pages.dashboard.perolehan-pmb');
+        $program_types = ProgramType::all();
+        return view('pages.dashboard.perolehan-pmb')->with([
+            'program_types' => $program_types,
+        ]);
     }
 }

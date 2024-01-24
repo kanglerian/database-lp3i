@@ -1,11 +1,13 @@
 CREATE VIEW `report_students_admission` AS
 SELECT
     applicants.pmb AS pmb,
+    EXTRACT(MONTH FROM status_applicants_applicant.date) AS month_number,
     DATE_FORMAT(status_applicants_applicant.date, '%Y-%m') AS tanggal_aplikan,
     status_applicants_applicant.session AS session_aplikan,
     DATE_FORMAT(status_applicants_enrollment.date, '%Y-%m') AS tanggal_daftar,
     status_applicants_enrollment.session AS session_daftar,
     applicants.identity_user AS identity_user,
+    applicants.programtype_id AS programtype_id,
     users.name AS presenter,
     SUM(CASE WHEN applicants.is_applicant = 1 THEN 1 ELSE 0 END) AS aplikan,
     SUM(CASE WHEN applicants.is_daftar = 1 THEN 1 ELSE 0 END) AS daftar,
@@ -26,5 +28,8 @@ LEFT JOIN
     status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity
 WHERE
     status_applicants_applicant.date IS NOT NULL
+    AND EXTRACT(MONTH FROM status_applicants_applicant.date) IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 GROUP BY
-    pmb, tanggal_aplikan, tanggal_daftar, session_aplikan, session_daftar, identity_user, presenter;
+    pmb, month_number, tanggal_aplikan, session_aplikan, tanggal_daftar, session_daftar, identity_user, programtype_id, presenter
+ORDER BY
+    pmb, month_number;

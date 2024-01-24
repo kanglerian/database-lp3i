@@ -263,9 +263,54 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                     <div class="relative z-0 w-full group">
                         <x-label for="education" :value="__('Pendidikan Terakhir')" />
-                        <x-input id="education" type="text" name="education"
-                            value="{{ old('education', $applicant->education) }}"
-                            placeholder="Tulis pendidikan terakhir disini..." />
+                        <x-select id="education" name="education" required>
+                            @if ($applicant->education)
+                                <option value="{{ $applicant->education }}">{{ $applicant->education }}
+                                </option>
+                            @else
+                                <option value="MA">MA</option>
+                                <option value="SMA">SMA</option>
+                                <option value="SMK">SMK</option>
+                                <option value="PKBM">PKBM</option>
+                                <option value="D3">D3</option>
+                            @endif
+                            @switch($applicant->education)
+                                @case('SMA')
+                                    <option value="MA">MA</option>
+                                    <option value="SMK">SMK</option>
+                                    <option value="PKBM">PKBM</option>
+                                    <option value="D3">D3</option>
+                                @break
+
+                                @case('MA')
+                                    <option value="SMA">SMA</option>
+                                    <option value="SMK">SMK</option>
+                                    <option value="PKBM">PKBM</option>
+                                    <option value="D3">D3</option>
+                                @break
+
+                                @case('SMK')
+                                    <option value="SMA">SMA</option>
+                                    <option value="MA">MA</option>
+                                    <option value="PKBM">PKBM</option>
+                                    <option value="D3">D3</option>
+                                @break
+
+                                @case('PKBM')
+                                    <option value="MA">MA</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="SMK">SMK</option>
+                                    <option value="D3">D3</option>
+                                @break
+
+                                @case('D3')
+                                    <option value="MA">MA</option>
+                                    <option value="PKBM">PKBM</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="SMK">SMK</option>
+                                @break
+                            @endswitch
+                        </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('education'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>

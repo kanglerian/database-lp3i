@@ -51,6 +51,8 @@
 
         let urlDataPersyaratanAplikan = `/api/report/database/aplikan/files?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
+        let urlPerolehanPMB = `/api/report/database/perolehanpmb?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
+
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;
         let databasesSourceDatabaseWilayah;

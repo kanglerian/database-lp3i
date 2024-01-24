@@ -14,11 +14,13 @@ class ReportStudentsAdmission extends Model
      */
     protected $fillable = [
         'pmb',
+        'month_number',
         'tanggal_aplikan',
         'session_aplikan',
         'tanggal_daftar',
         'session_daftar',
         'identity_user',
+        'programtype_id',
         'presenter',
         'aplikan',
         'daftar',

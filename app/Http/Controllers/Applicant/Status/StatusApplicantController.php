@@ -27,14 +27,17 @@ class StatusApplicantController extends Controller
             'is_applicant_date.required' => 'Kolom Tanggal tidak boleh kosong, harap isi dengan tanggal.',
         ]);
 
+
+
         $applicant = Applicant::findOrFail($id);
+        $status_applicant = StatusApplicantsApplicant::where('identity_user', $applicant->identity)->first();
 
         $data = [
-            'is_applicant_session' => $request->input('is_applicant_session'),
-            'is_applicant_date' => $request->input('is_applicant_date'),
+            'session' => $request->input('is_applicant_session'),
+            'date' => $request->input('is_applicant_date'),
         ];
 
-        $applicant->update($data);
+        $status_applicant->update($data);
 
         return back()->with('message', 'Data aplikan berhasil diupdate');
     }
