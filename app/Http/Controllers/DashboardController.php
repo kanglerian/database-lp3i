@@ -116,11 +116,11 @@ class DashboardController extends Controller
 
         return response()->json([
             'database_count' => $databaseCount,
-            'database_phone' => $databasePhone,
-            'schoolarship_count' => $schoolarshipCount,
-            'applicant_count' => $applicantCount,
-            'enrollment_count' => $enrollmentCount,
-            'registration_count' => $registrationCount,
+            // 'database_phone' => $databasePhone,
+            // 'schoolarship_count' => $schoolarshipCount,
+            // 'applicant_count' => $applicantCount,
+            // 'enrollment_count' => $enrollmentCount,
+            // 'registration_count' => $registrationCount,
         ]);
     }
 
