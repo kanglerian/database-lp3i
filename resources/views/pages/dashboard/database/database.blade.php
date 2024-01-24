@@ -49,7 +49,6 @@
         const getDatabases = async () => {
             await axios.get(apiDashboard)
                 .then((res) => {
-                    console.log(res);
                     document.getElementById('database_count').innerText = parseInt(res.data.database_count)
                         .toLocaleString('id-ID');
                     document.getElementById('schoolarship_count').innerText = parseInt(res.data
