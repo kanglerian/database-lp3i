@@ -108,7 +108,7 @@ class DashboardController extends Controller
         // }
 
         $databaseCount = $databaseQuery->count();
-        $databasePhone = $databaseQuery->whereNotNull('phone')->get();
+        // $databasePhone = $databaseQuery->whereNotNull('phone')->get();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
@@ -116,11 +116,11 @@ class DashboardController extends Controller
 
         return response()->json([
             'database_count' => $databaseCount,
-            'database_phone' => $databasePhone,
-            // 'schoolarship_count' => $schoolarshipCount,
-            // 'applicant_count' => $applicantCount,
-            // 'enrollment_count' => $enrollmentCount,
-            // 'registration_count' => $registrationCount,
+            // 'database_phone' => $databasePhone,
+            'schoolarship_count' => $schoolarshipCount,
+            'applicant_count' => $applicantCount,
+            'enrollment_count' => $enrollmentCount,
+            'registration_count' => $registrationCount,
         ]);
     }
 
