@@ -91,21 +91,21 @@ class DashboardController extends Controller
         $identityVal = request('identityVal', 'all');
         $pmbVal = request('pmbVal', 'all');
 
-        if (Auth::user()->role === 'P') {
-            $databaseQuery->where('identity_user', $identityVal);
-            $applicantQuery->where('identity_user', $identityVal);
-            $enrollmentQuery->where('identity_user', $identityVal);
-            $registrasiQuery->where('identity_user', $identityVal);
-            $schoolarshipQuery->where('identity_user', $identityVal);
-        }
+        // if (Auth::user()->role === 'P') {
+        //     $databaseQuery->where('identity_user', $identityVal);
+        //     $applicantQuery->where('identity_user', $identityVal);
+        //     $enrollmentQuery->where('identity_user', $identityVal);
+        //     $registrasiQuery->where('identity_user', $identityVal);
+        //     $schoolarshipQuery->where('identity_user', $identityVal);
+        // }
 
-        if ($pmbVal !== 'all') {
-            $databaseQuery->where('pmb', $pmbVal);
-            $applicantQuery->where('pmb', $pmbVal);
-            $enrollmentQuery->where('pmb', $pmbVal);
-            $registrasiQuery->where('pmb', $pmbVal);
-            $schoolarshipQuery->where('pmb', $pmbVal);
-        }
+        // if ($pmbVal !== 'all') {
+        //     $databaseQuery->where('pmb', $pmbVal);
+        //     $applicantQuery->where('pmb', $pmbVal);
+        //     $enrollmentQuery->where('pmb', $pmbVal);
+        //     $registrasiQuery->where('pmb', $pmbVal);
+        //     $schoolarshipQuery->where('pmb', $pmbVal);
+        // }
 
         $databaseCount = $databaseQuery->count();
         $databasePhone = $databaseQuery->whereNotNull('phone')->get();
