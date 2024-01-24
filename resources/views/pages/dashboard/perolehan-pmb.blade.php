@@ -254,8 +254,8 @@
                                         data: 'month_number',
                                         render: (data, type, row, meta) => {
                                             let result;
-                                            let conver = parseInt(data);
-                                            switch (data) {
+                                            let convert = parseInt(data);
+                                            switch (convert) {
                                                 case 1:
                                                     result = 'Januari';
                                                     break;
