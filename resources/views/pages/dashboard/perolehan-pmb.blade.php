@@ -154,6 +154,7 @@
                 let queryParams = [];
                 let pmbVal = document.getElementById('change_pmb').value;
                 let identityVal = document.getElementById('identity_val').value;
+                let roleVal = document.getElementById('role_val').value;
                 let sessionVal = document.getElementById('session').value;
                 let programTypeVal = document.getElementById('programtype_id').value;
 
@@ -161,7 +162,17 @@
                     queryParams.push(`pmbVal=${pmbVal}`);
                 }
 
-                queryParams.push(`identityVal=${identityVal}`);
+                if (sessionVal !== 'all') {
+                    queryParams.push(`sessionVal=${sessionVal}`);
+                }
+
+                if (identityVal !== 'all') {
+                    queryParams.push(`identityVal=${identityVal}`);
+                }
+
+                if (roleVal !== 'all') {
+                    queryParams.push(`roleVal=${roleVal}`);
+                }
 
                 if (sessionVal !== 'all') {
                     queryParams.push(`sessionVal=${sessionVal}`);
@@ -198,7 +209,6 @@
                 showLoadingAnimation();
                 return new Promise(async (resolve, reject) => {
                     let database;
-                    console.log(urlPerolehanPMB);
                     fetch(urlPerolehanPMB)
                         .then((response) => {
                             if (!response.ok) {

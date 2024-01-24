@@ -15,6 +15,7 @@ class ReportStudentsAdmissionController extends Controller
 
         $pmbVal = request('pmbVal', 'all');
         $identityVal = request('identityVal', 'all');
+        $roleVal = request('roleVal', 'all');
         $sessionVal = request('sessionVal', 'all');
         $programTypeVal = request('programTypeVal', 'all');
 
@@ -27,7 +28,7 @@ class ReportStudentsAdmissionController extends Controller
             $databaseQuery->where('session_daftar', $sessionVal);
         }
 
-        if ($identityVal !== 'all') {
+        if ($roleVal === 'P') {
             $databaseQuery->where('identity_user', $identityVal);
         }
 
