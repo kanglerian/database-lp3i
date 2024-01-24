@@ -47,7 +47,6 @@
 @push('scripts')
     <script>
         const getDatabases = async () => {
-            console.log(apiDashboard);
             await axios.get(apiDashboard)
                 .then((res) => {
                     document.getElementById('database_count').innerText = parseInt(res.data.database_count)
