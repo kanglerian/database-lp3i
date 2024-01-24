@@ -88,7 +88,7 @@ class DashboardController extends Controller
         $registrasiQuery = Applicant::query();
         $schoolarshipQuery = Applicant::query();
 
-        $identityVal = request('identity');
+        $identityVal = request('identity', 'all');
         $pmbVal = request('pmbVal', 'all');
 
         if (Auth::user()->role === 'P') {
