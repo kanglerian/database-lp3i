@@ -90,6 +90,9 @@
                                     No
                                 </th>
                                 <th rowspan="2" scope="col" class="px-6 py-4 text-center">
+                                    Presenter
+                                </th>
+                                <th rowspan="2" scope="col" class="px-6 py-4 text-center">
                                     Bulan
                                 </th>
                                 <th rowspan="2" scope="col" class="px-6 py-4 text-center">
@@ -254,10 +257,17 @@
                                     width: 10,
                                     target: 0
                                 }, ],
-                                columns: [{
+                                columns: [
+                                    {
                                         data: 'pmb',
                                         render: (data, type, row, meta) => {
                                             return meta.row + 1;
+                                        }
+                                    },
+                                    {
+                                        data: 'presenter',
+                                        render: (data, type, row, meta) => {
+                                            return data;
                                         }
                                     },
                                     {
