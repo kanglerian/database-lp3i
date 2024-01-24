@@ -309,6 +309,14 @@
                                     <option value="SMA">SMA</option>
                                     <option value="SMK">SMK</option>
                                 @break
+
+                                @default
+                                    <option value="MA">MA</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="SMK">SMK</option>
+                                    <option value="PKBM">PKBM</option>
+                                    <option value="D3">D3</option>
+                                @break
                             @endswitch
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
