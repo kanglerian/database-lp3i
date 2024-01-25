@@ -45,13 +45,13 @@
         let urlDatabasePresenterWilayah =
             `/api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
-        let urlDataAplikanAplikan =`/api/report/database/aplikan/aplikan?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
-        let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
-        let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
+        let urlDataAplikanAplikan =`/api/report/database/aplikan/aplikan?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
+        let urlDataAplikanDaftar =`/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
+        let urlDataAplikanRegistrasi =`/api/report/database/aplikan/registrasi?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
 
         let urlDataPersyaratanAplikan = `/api/report/database/aplikan/files?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
 
-        let urlPerolehanPMB = `/api/report/database/perolehanpmb?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
+        let urlPerolehanPMB = `/api/report/database/perolehanpmb?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&sessionVal=${sessionVal}`;
 
         let dataTableSourceDatabaseWilayahInitialized = false;
         let dataTableSourceDatabaseWilayahInstance;

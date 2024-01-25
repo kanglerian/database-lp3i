@@ -26,16 +26,22 @@
     <section class="space-y-5 py-8">
         <div class="max-w-7xl px-5 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center gap-3">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
+                <div class="flex justify-center items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
                     <input type="hidden" id="identity_val" value="{{ Auth::user()->identity }}">
                     <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="month" class="text-xs">Bulan:</label>
+                        <input type="month" name="month" id="month" onchange="changeTrigger()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun PMB">
+                    </div>
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="session" class="text-xs">Gelombang:</label>
                         <select id="session" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
@@ -46,7 +52,7 @@
                             <option value="4">Gelombang 4</option>
                         </select>
                     </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="programtype_id" class="text-xs">Program Kuliah:</label>
                         <select id="programtype_id" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
@@ -57,7 +63,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="px-6 py-2 rounded-xl text-sm bg-white border border-gray-100 order-1 md:order-none">
+                <div class="px-4 py-2 rounded-xl text-sm bg-white border border-gray-100 order-1 md:order-none">
                     <div>
                         <span class="font-bold">{{ Auth::user()->name }}</span>
                         (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
@@ -142,6 +148,22 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="font-bold">Total</td>
+                                <td id="aplikan_foot">0</td>
+                                <td id="daftar_foot">0</td>
+                                <td id="register_reguler_foot">0</td>
+                                <td id="register_nonreguler_foot">0</td>
+                                <td id="register_foot">0</td>
+                                <td id="omset_reguler_foot">0</td>
+                                <td id="omset_nonreguler_foot">0</td>
+                                <td id="omset_foot">0</td>
+                                <td id="harga_reguler_foot">0</td>
+                                <td id="harga_nonreguler_foot">0</td>
+                                <td id="harga_foot">0</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -161,12 +183,17 @@
                 let sessionVal = document.getElementById('session').value;
                 let programTypeVal = document.getElementById('programtype_id').value;
 
+                let monthVal = document.getElementById('month').value;
+
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
                 }
 
-                if (sessionVal !== 'all') {
-                    queryParams.push(`sessionVal=${sessionVal}`);
+                if (monthVal) {
+                    let monthSplit = monthVal.split('-');
+                    let monthReturn = parseInt(monthSplit[1], 10).toString();
+                    pmbVal = document.getElementById('change_pmb').value = monthSplit[0];
+                    queryParams.push(`monthVal=${monthReturn}`);
                 }
 
                 if (identityVal !== 'all') {
@@ -250,6 +277,33 @@
                                 return accumulator;
                             }, []);
 
+                            let aplikan_total = 0;
+                            let daftar_total = 0;
+                            let register_reguler_total = 0;
+                            let register_nonreguler_total = 0;
+                            let omset_reguler_total = 0;
+                            let omset_nonreguler_total = 0;
+                            mergedData.forEach(merged => {
+                                aplikan_total += parseInt(merged.aplikan) || 0;
+                                daftar_total += parseInt(merged.daftar) || 0;
+                                register_reguler_total += parseInt(merged.register_regular) || 0;
+                                register_nonreguler_total += parseInt(merged.register_nonreguler) || 0;
+                                omset_reguler_total += parseInt(merged.omset_reguler) || 0;
+                                omset_nonreguler_total += parseInt(merged.omset_nonreguler) || 0;
+                            });
+
+                            document.getElementById('aplikan_foot').innerText = aplikan_total;
+                            document.getElementById('daftar_foot').innerText = daftar_total;
+                            document.getElementById('register_reguler_foot').innerText = register_reguler_total;
+                            document.getElementById('register_nonreguler_foot').innerText = register_nonreguler_total;
+                            document.getElementById('register_foot').innerText = register_reguler_total + register_nonreguler_total;
+                            document.getElementById('omset_reguler_foot').innerText = `Rp${omset_reguler_total.toLocaleString('id-ID')}`;
+                            document.getElementById('omset_nonreguler_foot').innerText = `Rp${omset_nonreguler_total.toLocaleString('id-ID')}`;
+                            document.getElementById('omset_foot').innerText = `Rp${(omset_reguler_total + omset_nonreguler_total).toLocaleString('id-ID')}`;
+
+                            document.getElementById('harga_reguler_foot').innerText = `Rp${(omset_reguler_total / register_reguler_total).toLocaleString('id-ID')}`;
+                            document.getElementById('harga_nonreguler_foot').innerText = `Rp${(omset_nonreguler_total / register_nonreguler_total).toLocaleString('id-ID')}`;
+                            document.getElementById('harga_foot').innerText = `Rp${((omset_reguler_total + omset_nonreguler_total) / (register_reguler_total + register_nonreguler_total)).toLocaleString('id-ID')}`;
 
                             const dataTableConfig = {
                                 data: mergedData,
@@ -257,8 +311,7 @@
                                     width: 10,
                                     target: 0
                                 }, ],
-                                columns: [
-                                    {
+                                columns: [{
                                         data: 'pmb',
                                         render: (data, type, row, meta) => {
                                             return meta.row + 1;

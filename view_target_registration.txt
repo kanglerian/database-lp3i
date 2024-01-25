@@ -6,13 +6,13 @@ SELECT
     target.date,
     target.session,
     target.total,
-    COUNT(registration.identity_user) AS realization,
+    COUNT(status_applicants_registration.identity_user) AS realization,
     target.created_at,
     target.updated_at
 FROM
     target
 LEFT JOIN
-    registration ON MONTH(registration.date) = MONTH(target.date)
+    status_applicants_registration ON MONTH(status_applicants_registration.date) = MONTH(target.date)
 GROUP BY
     target.id,
     target.pmb,

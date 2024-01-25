@@ -18,9 +18,14 @@ class ReportStudentsAdmissionController extends Controller
         $roleVal = request('roleVal', 'all');
         $sessionVal = request('sessionVal', 'all');
         $programTypeVal = request('programTypeVal', 'all');
+        $monthVal = request('monthVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
+        }
+
+        if ($monthVal !== 'all') {
+            $databaseQuery->where('month_number', $monthVal);
         }
 
         if ($sessionVal !== 'all') {

@@ -1,0 +1,14 @@
+SELECT
+	applicants.pmb AS pmb,
+    schools.region AS wilayah,
+    schools.status AS status,
+    schools.type AS tipe,
+    COUNT(applicants.school) AS jumlah
+FROM
+	applicants
+LEFT JOIN
+	schools ON schools.id = applicants.school
+WHERE
+	schools.region IS NOT NULL AND schools.status IS NOT NULL AND schools.type IS NOT NULL
+GROUP BY
+	pmb, status, tipe, wilayah;

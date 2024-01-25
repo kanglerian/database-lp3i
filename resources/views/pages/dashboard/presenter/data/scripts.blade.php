@@ -3,7 +3,7 @@
         const changeTrigger = () => {
             changeFilterDataAplikanAplikan(),
             changeFilterDataAplikanDaftar(),
-            changeFilterDataAplikanRegistrasi(),
+            changeFilterDataAplikanRegistrasi()
         }
     </script>
     <script>

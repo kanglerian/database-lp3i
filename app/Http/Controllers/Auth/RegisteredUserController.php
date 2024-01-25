@@ -72,7 +72,8 @@ class RegisteredUserController extends Controller
             'place_of_birth' => ['required'],
             'date_of_birth' => ['required'],
             'religion' => ['required'],
-            'education' => ['required'],
+            'education' => ['required','not_in:Pilih'],
+            'status_education' => ['required','not_in:Pilih'],
             'major' => ['required'],
             'year' => ['required', 'min:4','max:4'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
@@ -97,6 +98,9 @@ class RegisteredUserController extends Controller
             'date_of_birth.required' => 'Tanggal Lahir harus diisi, nih!',
             'religion.required' => 'Agama jangan lupa diisi, ya!',
             'education.required' => 'Pendidikanmu jangan sampai terlewat!',
+            'education.not_in' => 'Pilih pendidikan terakhir yang valid, pasti oke!',
+            'status_education.required' => 'Status pendidikan terakhir jangan sampai terlewat!',
+            'status_education.not_in' => 'Pilih status pendidikan terakhir yang valid, pasti oke!',
             'major.required' => 'Jurusan wajib diisi, pasti pilihan yang bagus!',
             'year.required' => 'Tahun lulus jangan sampai kosong, ya!',
             'year.min' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
@@ -133,6 +137,7 @@ class RegisteredUserController extends Controller
             } else {
                 $dataSchool = [
                     'name' => strtoupper($request->input('school')),
+                    'status' => $request->input('status_education'),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
                 $schoolCreate = School::create($dataSchool);

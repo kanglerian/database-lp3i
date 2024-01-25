@@ -19,7 +19,6 @@ class ReportAplikanController extends Controller
         $pmbVal = request('pmbVal', 'all');
         $identityVal = request('identityVal', 'all');
         $sessionVal = request('sessionVal', 'all');
-        $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
@@ -29,11 +28,13 @@ class ReportAplikanController extends Controller
             $databaseQuery->where('session', $sessionVal);
         }
 
-        if ($roleVal === 'P') {
-            $databaseQuery->where('identity_user', $identityVal);
-        }
+        $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant', 'applicant.father', 'applicant.mother', 'applicant.programtype']);
 
-        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant'])->get();
+        $databaseQuery->whereHas('applicant', function ($query) use ($identityVal) {
+            $query->where('identity_user', $identityVal);
+        });
+
+        $databases = $databaseQuery->get();
 
         return response()->json([
             'databases' => $databases,
@@ -47,7 +48,6 @@ class ReportAplikanController extends Controller
         $pmbVal = request('pmbVal', 'all');
         $identityVal = request('identityVal', 'all');
         $sessionVal = request('sessionVal', 'all');
-        $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
@@ -57,12 +57,13 @@ class ReportAplikanController extends Controller
             $databaseQuery->where('session', $sessionVal);
         }
 
-        if ($roleVal === 'P') {
-            $databaseQuery->where('identity_user', $identityVal);
-        }
+        $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant', 'applicant.father', 'applicant.mother', 'applicant.programtype']);
 
-        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant'])->get();
+        $databaseQuery->whereHas('applicant', function ($query) use ($identityVal) {
+            $query->where('identity_user', $identityVal);
+        });
 
+        $databases = $databaseQuery->get();
         return response()->json([
             'databases' => $databases,
         ]);
@@ -75,7 +76,6 @@ class ReportAplikanController extends Controller
         $pmbVal = request('pmbVal', 'all');
         $identityVal = request('identityVal', 'all');
         $sessionVal = request('sessionVal', 'all');
-        $roleVal = request('roleVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
@@ -84,12 +84,13 @@ class ReportAplikanController extends Controller
         if ($sessionVal !== 'all') {
             $databaseQuery->where('session', $sessionVal);
         }
+        $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant', 'applicant.father', 'applicant.mother', 'applicant.programtype']);
 
-        if ($roleVal === 'P') {
-            $databaseQuery->where('identity_user', $identityVal);
-        }
+        $databaseQuery->whereHas('applicant', function ($query) use ($identityVal) {
+            $query->where('identity_user', $identityVal);
+        });
 
-        $databases = $databaseQuery->with(['applicant', 'applicant.sourcesetting', 'applicant.schoolapplicant', 'applicant.father', 'applicant.mother', 'applicant.programtype'])->get();
+        $databases = $databaseQuery->get();
 
         return response()->json([
             'databases' => $databases,
