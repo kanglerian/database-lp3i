@@ -18,6 +18,7 @@ class School extends Model
         'name',
         'status',
         'region',
+        'type'
     ];
 
 

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantBySourceDaftarId;
 use App\Models\ApplicantBySourceId;
 use App\Models\ProgramType;
+use App\Models\Report\RegisterBySchool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -276,6 +277,14 @@ class DashboardController extends Controller
         $program_types = ProgramType::all();
         return view('pages.dashboard.perolehan-pmb')->with([
             'program_types' => $program_types,
+        ]);
+    }
+
+    public function register_school()
+    {
+        $registers = RegisterBySchool::all();
+        return view('pages.dashboard.register-school')->with([
+            'registers' => $registers,
         ]);
     }
 }

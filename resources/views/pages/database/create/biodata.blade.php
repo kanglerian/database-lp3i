@@ -45,6 +45,42 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
+                        <x-label for="education" :value="__('Pendidikan Terakhir')" />
+                        <x-select id="education" name="education" required>
+                            <option>Pilih</option>
+                            <option value="MA">MA</option>
+                            <option value="SMA">SMA</option>
+                            <option value="SMK">SMK</option>
+                            <option value="PKBM">PKBM</option>
+                            <option value="D3">D3</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('education'))
+                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
+                            @else
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                    <div class="relative z-0 w-full group">
+                        <x-label for="status_education" :value="__('Status Sekolah')" />
+                        <x-select id="status_education" name="status_education" required>
+                            <option>Pilih</option>
+                            <option value="S">Swasta</option>
+                            <option value="N">Negeri</option>
+                        </x-select>
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('education'))
+                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
+                            @else
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="relative z-0 w-full group">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             <option value="TIDAK DIKETAHUI">Pilih Sekolah</option>

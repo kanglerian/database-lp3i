@@ -1,0 +1,16 @@
+CREATE VIEW `report_register_by_school` AS
+SELECT
+	applicants.pmb AS pmb,
+    applicants.identity_user AS identity_user,
+    SUM(CASE WHEN applicants.is_register = 1 THEN 1 ELSE 0 END) as register,
+    schools.region AS wilayah,
+    schools.status AS status,
+    schools.type AS tipe
+FROM
+	applicants
+LEFT JOIN
+	schools ON schools.id = applicants.school
+WHERE
+	schools.region IS NOT NULL AND schools.status IS NOT NULL AND schools.type IS NOT NULL AND applicants.is_register = 1
+GROUP BY
+	pmb, identity_user, status, tipe, wilayah;

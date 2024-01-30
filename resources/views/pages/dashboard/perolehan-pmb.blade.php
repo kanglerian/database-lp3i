@@ -42,17 +42,6 @@
                             placeholder="Tahun PMB">
                     </div>
                     <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="session" class="text-xs">Gelombang:</label>
-                        <select id="session" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Gelombang 1</option>
-                            <option value="2">Gelombang 2</option>
-                            <option value="3">Gelombang 3</option>
-                            <option value="4">Gelombang 4</option>
-                        </select>
-                    </div>
-                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="programtype_id" class="text-xs">Program Kuliah:</label>
                         <select id="programtype_id" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">

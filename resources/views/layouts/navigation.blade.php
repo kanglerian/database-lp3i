@@ -19,6 +19,8 @@
                         'dashboard.history_page',
                         'dashboard.aplikan_page',
                         'dashboard.persyaratan_page',
+                        'dashboard.perolehan_pmb_page',
+                        'dashboard.register_school'
                     ])">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -171,6 +173,8 @@
                 'dashboard.history_page',
                 'dashboard.aplikan_page',
                 'dashboard.persyaratan_page',
+                'dashboard.perolehan_pmb_page',
+                'dashboard.register_school'
             ])">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>

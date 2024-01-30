@@ -139,6 +139,7 @@ class RegisteredUserController extends Controller
                     'name' => strtoupper($request->input('school')),
                     'status' => $request->input('status_education'),
                     'region' => 'TIDAK DIKETAHUI',
+                    'type' => $request->input('education'),
                 ];
                 $schoolCreate = School::create($dataSchool);
                 $school = $schoolCreate->id;

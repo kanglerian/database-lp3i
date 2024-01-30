@@ -51,6 +51,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
     Route::get('dashboard/page/aplikan', [DashboardController::class, 'aplikan_page'])->name('dashboard.aplikan_page');
     Route::get('dashboard/page/persyaratan', [DashboardController::class, 'persyaratan_page'])->name('dashboard.persyaratan_page');
     Route::get('dashboard/page/perolehanpmb', [DashboardController::class, 'perolehan_pmb_page'])->name('dashboard.perolehan_pmb_page');
+    Route::get('dashboard/page/register/school', [DashboardController::class, 'register_school'])->name('dashboard.register_school');
     //
     Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all');
     Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget');
