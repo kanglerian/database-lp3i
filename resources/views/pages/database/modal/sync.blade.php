@@ -54,14 +54,17 @@
 
 <script>
     let total;
+    let standart;
     const syncSpreadsheet = async (sheet) => {
         showLoadingAnimation();
         try {
             const response = await axios.get(`import/check-spreadsheet/${sheet}`);
-            document.getElementById('start').value = (response.data.applicants - 1) - 2000;
-            document.getElementById('count-sync').innerText = `2000 data`;
-            document.getElementById('end').value = response.data.applicants - 1;
-            total = response.data.applicants - 1;
+            total = response.data.applicants;
+            standart = total > 2000 ? 2000 : 1;
+            document.getElementById('start').value = total - standart;
+            document.getElementById('count-sync').innerText = `${standart} data`;
+            document.getElementById('end').value = total;
+            total = total - 1;
             let modalElement = document.getElementById('modal-sync');
             modalElement.classList.toggle('hidden');
             hideLoadingAnimation();
@@ -79,7 +82,7 @@
             document.getElementById('end').value = total;
         }
         if (start > total) {
-            document.getElementById('start').value = 2000;
+            document.getElementById('start').value = standart;
         }
         if (start == 0) {
             document.getElementById('start').value = 1;
