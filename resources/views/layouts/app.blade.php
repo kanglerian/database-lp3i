@@ -75,7 +75,7 @@
 </head>
 
 <body class="font-sans">
-    <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 w-full h-full z-10 fixed hidden"
+    <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 w-full h-full z-50 fixed hidden"
         id="data-loading">
         <lottie-player src="{{ asset('animations/astronout.json') }}" background="Transparent" speed="1"
             style="width: 200px; height: 200px" direction="1" mode="normal" loop autoplay></lottie-player>

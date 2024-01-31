@@ -80,7 +80,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::delete('status/database/registrasi/{id}', [StatusRegistrasiController::class, 'destroy'])->name('statusdatabaseregistrasi.destroy');
     /* Import from Spreadsheet */
     Route::get('import/applicants', [ApplicantController::class, 'import'])->name('applicant.import');
-    Route::post('importupdate/applicants', [ApplicantController::class, 'import_update'])->name('applicant.importupdate');
+    Route::get('import/check-spreadsheet/{sheet}', [ApplicantController::class, 'check_spreadsheet'])->name('applicant.check-spreadsheet');
     /* Export to Excel */
     Route::get('applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}', [ApplicantController::class, 'export'])->name('applicants.export');
     /* Get data from Javascript in blade */
