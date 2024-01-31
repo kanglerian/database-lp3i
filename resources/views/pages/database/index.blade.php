@@ -81,10 +81,12 @@
                     @else
                         <input type="hidden" id="database_online" value="all">
                     @endif
-                    <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
-                        class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
-                        <i class="fa-solid fa-rotate"></i>
-                    </button>
+                    @if (Auth::user()->role == 'P' && Auth::user()->sheet)
+                        <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
+                            class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                    @endif
                     <button type="button" onclick="changeFilter()"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-lg text-white">
                         <i class="fa-solid fa-filter"></i>
@@ -473,5 +475,7 @@
         }
     }
 </script>
-@include('pages.database.modal.sync')
+@if (Auth::user()->role == 'P' && Auth::user()->sheet)
+    @include('pages.database.modal.sync')
+@endif
 @include('pages.database.exports.excel')
