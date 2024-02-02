@@ -83,100 +83,53 @@
     </div>
 </section>
 
+@include('pages.dashboard.utilities.all')
+@include('pages.dashboard.utilities.pmb')
 @push('scripts')
     <script>
-        const changeFilterDatabaseSchool = () => {
+        let dataTableSourceDatabaseWilayahInstance;
+        let dataTableSourceDatabaseWilayahInitialized = false;
+        let urlSourceDatabaseWilayah =
+            `/api/report/database/wilayah/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+    </script>
+
+    <script>
+        const changeFilterSourceDatabaseWilayah = () => {
             let queryParams = [];
+
             let pmbVal = document.getElementById('change_pmb').value;
+
             if (pmbVal !== 'all') {
                 queryParams.push(`pmbVal=${pmbVal}`);
             }
+
             let queryString = queryParams.join('&');
 
             urlSourceDatabaseWilayah = `/api/report/database/wilayah/source?${queryString}`;
+
             if (dataTableSourceDatabaseWilayahInstance) {
-                dataTableSourceDatabaseWilayahInstance.ajax.url(urlSourceDatabaseWilayah).load();
-                getDataTableDatabaseSchool();
-            } else {
-                getDataTableDatabaseSchool();
+                showLoadingAnimation();
+                dataTableSourceDatabaseWilayahInstance.clear();
+                dataTableSourceDatabaseWilayahInstance.destroy();
+                getDataTableSourceDatabaseWilayah()
+                    .then((response) => {
+                        dataTableSourceDatabaseWilayahInstance = $('#table-source-database-wilayah').DataTable(
+                            response.config);
+                        dataTableSourceDatabaseWilayahInitialized = response.initialized;
+                        hideLoadingAnimation();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        hideLoadingAnimation();
+                    });
             }
         }
 
-        const getDataTableDatabaseSchool = async () => {
-            const dataTableConfig = {
-                ajax: {
-                    url: urlSourceDatabaseWilayah,
-                    dataSrc: 'databases'
-                },
-                columnDefs: [{
-                        width: 10,
-                        target: 0
-                    },
-                    {
-                        width: 100,
-                        targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-                    },
-                ],
-                createdRow: function(row, data, index) {
-                    if (index % 2 === 0) {
-                        $(row).css('background-color', '#f9fafb');
-                    }
-                },
-                columns: [{
-                        data: 'wilayah',
-                        render: (data, type, row, meta) => {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: 'wilayah',
-                    },
-                    {
-                        data: 'jumlah',
-                    },
-                    {
-                        data: 'valid',
-                    },
-                    {
-                        data: 'nonvalid',
-                    },
-                    {
-                        data: 'presentasi',
-                    },
-                    {
-                        data: 'grab',
-                    },
-                    {
-                        data: 'daftaronline',
-                    },
-                    {
-                        data: 'website',
-                    },
-                    {
-                        data: 'beasiswa',
-                    },
-                    {
-                        data: 'sosmed',
-                    },
-                    {
-                        data: 'mgm',
-                    },
-                    {
-                        data: 'sekolah',
-                    },
-                    {
-                        data: 'jadwaldatang',
-                    },
-                    {
-                        data: 'gurubk',
-                    },
-                ],
-            }
+        const getDataTableSourceDatabaseWilayah = async () => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const response = await fetch(urlSourceDatabaseWilayah);
-                    const data = await response.json();
-                    databasesSourceDatabaseWilayah = data.databases;
+                    const response = await axios.get(urlSourceDatabaseWilayah);
+                    let databases = response.data.databases;
 
                     let jumlah = 0;
                     let valid = 0;
@@ -192,8 +145,7 @@
                     let jadwaldatang = 0;
                     let gurubk = 0;
 
-                    databasesSourceDatabaseWilayah = data;
-                    databasesSourceDatabaseWilayah.databases.forEach(database => {
+                    databases.forEach(database => {
                         jumlah += parseInt(database.jumlah);
                         valid += parseInt(database.valid);
                         nonvalid += parseInt(database.nonvalid);
@@ -222,16 +174,102 @@
                     document.getElementById('wilayah_jadwaldatang').innerText = jadwaldatang;
                     document.getElementById('wilayah_gurubk').innerText = gurubk;
 
+                    let columnConfigs = [{
+                            data: 'wilayah',
+                            render: (data, type, row, meta) => {
+                                return meta.row + 1;
+                            }
+                        },
+                        {
+                            data: 'wilayah',
+                        },
+                        {
+                            data: 'jumlah',
+                        },
+                        {
+                            data: 'valid',
+                        },
+                        {
+                            data: 'nonvalid',
+                        },
+                        {
+                            data: 'presentasi',
+                        },
+                        {
+                            data: 'grab',
+                        },
+                        {
+                            data: 'daftaronline',
+                        },
+                        {
+                            data: 'website',
+                        },
+                        {
+                            data: 'beasiswa',
+                        },
+                        {
+                            data: 'sosmed',
+                        },
+                        {
+                            data: 'mgm',
+                        },
+                        {
+                            data: 'sekolah',
+                        },
+                        {
+                            data: 'jadwaldatang',
+                        },
+                        {
+                            data: 'gurubk',
+                        },
+                    ];
+
+                    const dataTableConfig = {
+                        data: databases,
+                        createdRow: (row, data, index) => {
+                            if (index % 2 === 0) {
+                                $(row).css('background-color', '#f9fafb');
+                            }
+                        },
+                        columns: columnConfigs,
+                    }
+
                     let results = {
-                        data: databasesSourceDatabaseWilayah,
                         config: dataTableConfig,
                         initialized: true
                     }
+
                     resolve(results);
                 } catch (error) {
                     reject(error)
                 }
             });
         }
+    </script>
+
+    <script>
+        const changeTrigger = () => {
+            changeFilterSourceDatabaseWilayah()
+        }
+    </script>
+    <script>
+        const promiseDataSourceDatabaseWilayah = () => {
+            showLoadingAnimation();
+            Promise.all([
+                    getDataTableSourceDatabaseWilayah(),
+                ])
+                .then((response) => {
+                    let responses = response[0];
+                    dataTableSourceDatabaseWilayahInstance = $('#table-source-database-wilayah').DataTable(responses
+                        .config);
+                    dataTableSourceDatabaseWilayahInitialized = responses.initialized;
+                    hideLoadingAnimation();
+                })
+                .catch((error) => {
+                    console.log(error);
+                    hideLoadingAnimation();
+                });
+        }
+        promiseDataSourceDatabaseWilayah();
     </script>
 @endpush

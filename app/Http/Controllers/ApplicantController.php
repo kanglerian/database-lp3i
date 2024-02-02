@@ -959,11 +959,11 @@ class ApplicantController extends Controller
         ];
 
         $data_father = [
-            'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
+            'job' => null,
         ];
 
         $data_mother = [
-            'job' => !empty($applicants[$i][22]) ? $applicants[$i][22] : null,
+            'job' => null,
         ];
 
         $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
@@ -1110,12 +1110,12 @@ class ApplicantController extends Controller
             $create_father = [
                 'identity_user' => $applicants[$i][1],
                 'gender' => 1,
-                'job' => !empty($applicants[$i][21]) ? $applicants[$i][21] : null,
+                'job' => null,
             ];
             $create_mother = [
                 'identity_user' => $applicants[$i][1],
                 'gender' => 0,
-                'job' => !empty($applicants[$i][22]) ? $applicants[$i][22] : null,
+                'job' => null,
             ];
 
             if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {

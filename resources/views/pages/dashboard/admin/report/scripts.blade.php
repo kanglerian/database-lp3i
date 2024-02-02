@@ -1,28 +1,29 @@
 @push('scripts')
     <script>
         const changeTrigger = () => {
-            changeFilterDatabasePresenter();
-            changeFilterDatabasePresenterWilayah();
+            changeFilterSourceDatabasePresenterWilayah();
+            changeFilterSourceDatabasePresenter();
         }
     </script>
     <script>
         const promiseRekapitulasi = () => {
             showLoadingAnimation();
             Promise.all([
-                    getDataTableDatabasePresenter(),
-                    getDataTableDatabasePresenterWilayah(),
+                    getDataTableSourceDatabasePresenter(),
+                    getDataTableSourceDatabasePresenterWilayah(),
                 ])
                 .then((response) => {
-                    const responseDTDP = response[0];
-                    const responseDTDPW = response[1];
+                    let responseDTSDP = response[0];
+                    let responseDTSDPW = response[1];
 
-                    dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(responseDTDP
+                    dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(responseDTSDP
                         .config);
-                    dataTableSourceDatabasePresenterInitialized = responseDTDP.initialized;
+                    dataTableSourceDatabasePresenterInitialized = responseDTSDP.initialized;
 
                     dataTableSourceDatabaseWilayahPresenterInstance = $('#table-database-presenter-wilayah')
-                        .DataTable(responseDTDPW.config);
-                    dataTableSourceDatabaseWilayahPresenterInitialized = responseDTDPW.initialized;
+                        .DataTable(responseDTSDPW
+                            .config);
+                    dataTableSourceDatabaseWilayahPresenterInitialized = responseDTSDPW.initialized;
 
                     hideLoadingAnimation();
                 })

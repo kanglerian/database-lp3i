@@ -411,7 +411,6 @@
                                             class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                             PMB</label>
                                         <input type="number" value="{{ $registration->pmb }}" name="pmb"
-                                            id="pmb"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tahun PMB" required>
                                         @if ($errors->has('pmb'))
@@ -423,7 +422,7 @@
                                     <div>
                                         <label for="session"
                                             class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
-                                        <select id="session" name="session"
+                                        <select name="session"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             required>
                                             @if ($registration->pmb)
@@ -447,8 +446,7 @@
                                         <label for="date"
                                             class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                             Registrasi</label>
-                                        <input type="date" name="date" id="date"
-                                            value="{{ $registration->date }}"
+                                        <input type="date" name="date" value="{{ $registration->date }}"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tanggal Registrasi" required>
                                         @if ($errors->has('date'))
@@ -470,8 +468,8 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <span class="text-sm text-gray-500">Rp</span>
                                             </div>
-                                            <input type="text" name="nominal" id="nominal"
-                                                onkeyup="validateNumber(event)" value="{{ $registration->nominal }}"
+                                            <input type="text" name="nominal" onkeyup="validateNumber(event)"
+                                                value="{{ $registration->nominal }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
                                                 required>
                                         </div>
@@ -490,8 +488,8 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <span class="text-sm text-gray-500">Rp</span>
                                             </div>
-                                            <input type="text" name="deal" id="deal"
-                                                onkeyup="validateNumber(event)" value="{{ $registration->deal }}"
+                                            <input type="text" name="deal" onkeyup="validateNumber(event)"
+                                                value="{{ $registration->deal }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                                 placeholder="0" required>
                                         </div>
@@ -511,8 +509,8 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <span class="text-sm text-gray-500">Rp</span>
                                             </div>
-                                            <input type="text" name="discount" id="discount"
-                                                onkeyup="validateNumber(event)" value="{{ $registration->discount }}"
+                                            <input type="text" name="discount" onkeyup="validateNumber(event)"
+                                                value="{{ $registration->discount }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                                 placeholder="0" required>
                                         </div>
@@ -531,7 +529,7 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <i class="fa-solid fa-note-sticky text-gray-400"></i>
                                             </div>
-                                            <input type="text" name="desc_discount" id="desc_discount"
+                                            <input type="text" name="desc_discount"
                                                 value="{{ $registration->desc_discount }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                                 placeholder="Keterangan Potongan">
@@ -983,14 +981,13 @@
                                             class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                             PMB</label>
                                         <input type="number" value="{{ $user->pmb }}" name="pmb"
-                                            id="pmb"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tahun PMB" required>
                                     </div>
                                     <div>
-                                        <label for="session"
+                                        <label for="session_register"
                                             class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
-                                        <select id="session" name="session"
+                                        <select id="session_register" name="session"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             required>
                                             <option value="1">1</option>
@@ -1003,7 +1000,7 @@
                                         <label for="date"
                                             class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                             Registrasi</label>
-                                        <input type="date" name="date" id="date"
+                                        <input type="date" name="date" id="date_register"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tanggal Registrasi" required>
                                     </div>
@@ -1020,7 +1017,7 @@
                                                 class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                                 <span class="text-sm text-gray-500">Rp</span>
                                             </div>
-                                            <input type="text" name="nominal" id="nominal"
+                                            <input type="text" name="nominal" id="nominal" value="5.000.000"
                                                 onkeyup="validateNumber(event)"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
                                                 required>
@@ -1131,6 +1128,30 @@
                 document.getElementById('page-4-title').style.color = '#374151';
                 break;
             case 4:
+
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth() + 1;
+
+                const currentYear = currentDate.getFullYear();
+                const currentMonths = currentDate.getMonth();
+                const startYear = currentMonths >= 9 ? currentYear + 1 : currentYear;
+
+                let session = 'all';
+
+                if (currentMonth >= 1 && currentMonth <= 3) {
+                    session = 2;
+                } else if (currentMonth >= 4 && currentMonth <= 6) {
+                    session = 3;
+                } else if (currentMonth >= 7 && currentMonth <= 9) {
+                    session = 4;
+                } else if (currentMonth >= 10 && currentMonth <= 12) {
+                    session = 1;
+                }
+
+                console.log(session);
+                document.getElementById('session_register').value = session;
+                document.getElementById('date_register').value = currentDate.toISOString().slice(0, 10);
+
                 document.getElementById('page-1').style.display = 'none';
                 document.getElementById('page-2').style.display = 'none';
                 document.getElementById('page-3').style.display = 'none';

@@ -85,98 +85,49 @@
 
 @push('scripts')
     <script>
-        const changeFilterDatabasePresenter = () => {
+        let dataTableSourceDatabasePresenterInstance;
+        let dataTableSourceDatabasePresenterInitialized = false;
+        let urlDatabasePresenter =
+            `/api/report/database/presenter/source?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+    </script>
+
+    <script>
+        const changeFilterSourceDatabasePresenter = () => {
             let queryParams = [];
+
             let pmbVal = document.getElementById('change_pmb').value;
+
             if (pmbVal !== 'all') {
                 queryParams.push(`pmbVal=${pmbVal}`);
             }
+
             let queryString = queryParams.join('&');
 
             urlDatabasePresenter = `/api/report/database/presenter/source?${queryString}`;
+
             if (dataTableSourceDatabasePresenterInstance) {
-                dataTableSourceDatabasePresenterInstance.ajax.url(urlDatabasePresenter).load();
-                getDataTableDatabasePresenter();
-            } else {
-                getDataTableDatabasePresenter();
+                showLoadingAnimation();
+                dataTableSourceDatabasePresenterInstance.clear();
+                dataTableSourceDatabasePresenterInstance.destroy();
+                getDataTableSourceDatabasePresenter()
+                    .then((response) => {
+                        dataTableSourceDatabasePresenterInstance = $('#table-database-presenter').DataTable(response
+                            .config);
+                        dataTableSourceDatabasePresenterInitialized = response.initialized;
+                        hideLoadingAnimation();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        hideLoadingAnimation();
+                    });
             }
         }
 
-        const getDataTableDatabasePresenter = () => {
-            const dataTableConfig = {
-                ajax: {
-                    url: urlDatabasePresenter,
-                    dataSrc: 'databases'
-                },
-                columnDefs: [{
-                        width: 10,
-                        target: 0
-                    },
-                    {
-                        width: 100,
-                        targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-                    },
-                ],
-                createdRow: function(row, data, index) {
-                    if (index % 2 === 0) {
-                        $(row).css('background-color', '#f9fafb');
-                    }
-                },
-                columns: [{
-                        data: 'presenter',
-                        render: (data, type, row, meta) => {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: 'presenter',
-                    },
-                    {
-                        data: 'jumlah',
-                    },
-                    {
-                        data: 'valid',
-                    },
-                    {
-                        data: 'nonvalid',
-                    },
-                    {
-                        data: 'presentasi',
-                    },
-                    {
-                        data: 'grab',
-                    },
-                    {
-                        data: 'daftaronline',
-                    },
-                    {
-                        data: 'website',
-                    },
-                    {
-                        data: 'beasiswa',
-                    },
-                    {
-                        data: 'sosmed',
-                    },
-                    {
-                        data: 'mgm',
-                    },
-                    {
-                        data: 'sekolah',
-                    },
-                    {
-                        data: 'jadwaldatang',
-                    },
-                    {
-                        data: 'gurubk',
-                    },
-                ],
-            }
+        const getDataTableSourceDatabasePresenter = async () => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const response = await fetch(urlDatabasePresenter);
-                    const data = await response.json();
-                    databasesSourceDatabasePresenter = data.databases;
+                    const response = await axios.get(urlDatabasePresenter);
+                    let databases = response.data.databases;
 
                     let jumlah = 0;
                     let valid = 0;
@@ -192,8 +143,7 @@
                     let jadwaldatang = 0;
                     let gurubk = 0;
 
-                    databasesSourceDatabasePresenter = data;
-                    databasesSourceDatabasePresenter.databases.forEach(database => {
+                    databases.forEach(database => {
                         jumlah += parseInt(database.jumlah);
                         valid += parseInt(database.valid);
                         nonvalid += parseInt(database.nonvalid);
@@ -223,16 +173,77 @@
                     document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
                     document.getElementById('presenter_gurubk').innerText = gurubk;
 
+                    let columnConfigs = [
+                        {
+                            data: 'presenter',
+                            render: (data, type, row, meta) => {
+                                return meta.row + 1;
+                            }
+                        },
+                        {
+                            data: 'presenter',
+                        },
+                        {
+                            data: 'jumlah',
+                        },
+                        {
+                            data: 'valid',
+                        },
+                        {
+                            data: 'nonvalid',
+                        },
+                        {
+                            data: 'presentasi',
+                        },
+                        {
+                            data: 'grab',
+                        },
+                        {
+                            data: 'daftaronline',
+                        },
+                        {
+                            data: 'website',
+                        },
+                        {
+                            data: 'beasiswa',
+                        },
+                        {
+                            data: 'sosmed',
+                        },
+                        {
+                            data: 'mgm',
+                        },
+                        {
+                            data: 'sekolah',
+                        },
+                        {
+                            data: 'jadwaldatang',
+                        },
+                        {
+                            data: 'gurubk',
+                        },
+                    ];
+
+                    const dataTableConfig = {
+                        data: databases,
+                        createdRow: (row, data, index) => {
+                            if (index % 2 === 0) {
+                                $(row).css('background-color', '#f9fafb');
+                            }
+                        },
+                        columns: columnConfigs,
+                    }
+
                     let results = {
-                        data: databasesSourceDatabasePresenter,
                         config: dataTableConfig,
                         initialized: true
                     }
+
                     resolve(results);
                 } catch (error) {
-                    reject(error);
+                    reject(error)
                 }
-            })
+            });
         }
     </script>
 @endpush

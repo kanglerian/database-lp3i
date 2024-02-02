@@ -90,34 +90,39 @@
         </section>
     </div>
 @endif
+
+@include('pages.dashboard.utilities.all')
+@include('pages.dashboard.utilities.pmb')
 @push('scripts')
     <script>
+        let apiDashboard = `/get/dashboard/all?identityVal=${identityVal}&roleVal=${roleVal}&pmbVal=${pmbVal}`
         const changeTrigger = () => {
-            getHistories();
-            changeFilterDatabase();
+            changeHistories();
         }
     </script>
     <script>
-        const changeFilterDatabasePresenter = () => {
+        const changeHistories = () => {
             let queryParams = [];
+            let identityVal = document.getElementById('identity_val').value;
             let pmbVal = document.getElementById('change_pmb').value;
+            let roleVal = document.getElementById('role_val').value;
+
             if (pmbVal !== 'all') {
                 queryParams.push(`pmbVal=${pmbVal}`);
             }
-            let queryString = queryParams.join('&');
 
-            urlDatabasePresenter = `/api/report/database/presenter/source?${queryString}`;
-        }
-
-        const changeFilterDatabasePresenterWilayah = () => {
-            let queryParams = [];
-            let pmbVal = document.getElementById('change_pmb').value;
-            if (pmbVal !== 'all') {
-                queryParams.push(`pmbVal=${pmbVal}`);
+            if (identityVal !== 'all') {
+                queryParams.push(`identityVal=${identityVal}`);
             }
+
+            if (roleVal !== 'all') {
+                queryParams.push(`roleVal=${roleVal}`);
+            }
+
             let queryString = queryParams.join('&');
 
-            urlDatabasePresenterWilayah = `/api/report/database/presenter/wilayah?${queryString}`;
+            apiDashboard = `/get/dashboard/all?${queryString}`;
+            getHistories();
         }
 
         const getHistories = async () => {
@@ -136,7 +141,9 @@
                     responseDatabase.data.database_phone.length).toLocaleString('id-ID');
 
                 let buckets = [];
+
                 for (let i = 0; i < presenters.length; i++) {
+
                     const responseHistories = await axios.get(
                         `https://api.politekniklp3i-tasikmalaya.ac.id/history/detail/${pmbVal}/${presenters[i].identity}`
                     );
@@ -145,6 +152,7 @@
                     const databasePhone = databasesPhone.filter((data) => data.identity_user == presenters[i]
                         .identity);
                     const histories = responseHistories.data;
+
                     let categoriesBucket = [];
                     for (let i = 1; i < 14; i++) {
                         let categoryCount;
@@ -222,32 +230,5 @@
         }
 
         getHistories();
-    </script>
-    <script>
-        const updateHistories = async () => {
-            try {
-                showLoadingAnimation();
-                const responseDatabase = await axios.get(apiDashboard);
-                const database = responseDatabase.data.database_phone;
-                for (let i = 0; i < database.length; i++) {
-                    let data = {
-                        identity: identity,
-                        pmb: 2024
-                    }
-                    await axios.patch(
-                            `https://api.politekniklp3i-tasikmalaya.ac.id/history/update/${database[i].phone}`, data
-                        )
-                        .then((response) => {
-                            console.log(response.data.message);
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                }
-                hideLoadingAnimation();
-            } catch (error) {
-                console.log(error);
-            }
-        }
     </script>
 @endpush

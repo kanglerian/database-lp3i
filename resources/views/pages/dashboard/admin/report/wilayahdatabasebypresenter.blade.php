@@ -66,83 +66,47 @@
 
 @push('scripts')
     <script>
-        const changeFilterDatabasePresenterWilayah = () => {
+        let dataTableSourceDatabaseWilayahPresenterInstance;
+        let dataTableSourceDatabaseWilayahPresenterInitialized = false;
+        let urlDatabasePresenterWilayah = `/api/report/database/presenter/wilayah?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+    </script>
+
+    <script>
+        const changeFilterSourceDatabasePresenterWilayah = () => {
             let queryParams = [];
+
             let pmbVal = document.getElementById('change_pmb').value;
+
             if (pmbVal !== 'all') {
                 queryParams.push(`pmbVal=${pmbVal}`);
             }
+
             let queryString = queryParams.join('&');
 
             urlDatabasePresenterWilayah = `/api/report/database/presenter/wilayah?${queryString}`;
+
             if (dataTableSourceDatabaseWilayahPresenterInstance) {
-                dataTableSourceDatabaseWilayahPresenterInstance.ajax.url(urlDatabasePresenterWilayah).load();
-                getDataTableDatabasePresenterWilayah();
-            } else {
-                getDataTableDatabasePresenterWilayah();
+                showLoadingAnimation();
+                dataTableSourceDatabaseWilayahPresenterInstance.clear();
+                dataTableSourceDatabaseWilayahPresenterInstance.destroy();
+                getDataTableSourceDatabasePresenterWilayah()
+                    .then((response) => {
+                        dataTableSourceDatabaseWilayahPresenterInstance = $('#table-database-presenter-wilayah').DataTable(response.config);
+                        dataTableSourceDatabaseWilayahPresenterInitialized = response.initialized;
+                        hideLoadingAnimation();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        hideLoadingAnimation();
+                    });
             }
         }
 
-        const getDataTableDatabasePresenterWilayah = () => {
-            const dataTableConfig = {
-                ajax: {
-                    url: urlDatabasePresenterWilayah,
-                    dataSrc: 'databases'
-                },
-                columnDefs: [{
-                        width: 10,
-                        target: 0
-                    },
-                    {
-                        width: 100,
-                        targets: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                    },
-                ],
-                createdRow: function(row, data, index) {
-                    if (index % 2 === 0) {
-                        $(row).css('background-color', '#f9fafb');
-                    }
-                },
-                columns: [{
-                        data: 'presenter',
-                        render: (data, type, row, meta) => {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: 'presenter',
-                    },
-                    {
-                        data: 'jumlah',
-                    },
-                    {
-                        data: 'kabtasikmalaya',
-                    },
-                    {
-                        data: 'tasikmalaya',
-                    },
-                    {
-                        data: 'ciamis',
-                    },
-                    {
-                        data: 'banjar',
-                    },
-                    {
-                        data: 'garut',
-                    },
-                    {
-                        data: 'pangandaran',
-                    },
-                    {
-                        data: 'tidakdiketahui',
-                    },
-                ],
-            }
+        const getDataTableSourceDatabasePresenterWilayah = async () => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const response = await fetch(urlDatabasePresenterWilayah);
-                    const data = await response.json();
-                    databasesSourceDatabaseWilayahPresenter = data.databases;
+                    const response = await axios.get(urlDatabasePresenterWilayah);
+                    let databases = response.data.databases;
 
                     let jumlah = 0;
                     let tasikmalaya = 0;
@@ -153,8 +117,7 @@
                     let pangandaran = 0;
                     let tidakdiketahui = 0;
 
-                    databasesSourceDatabaseWilayahPresenter = data;
-                    databasesSourceDatabaseWilayahPresenter.databases.forEach(database => {
+                    databases.forEach(database => {
                         jumlah += parseInt(database.jumlah);
                         tasikmalaya += parseInt(database.tasikmalaya);
                         kabtasikmalaya += parseInt(database.kabtasikmalaya);
@@ -174,16 +137,62 @@
                     document.getElementById('presenter_wilayah_pangandaran').innerText = pangandaran;
                     document.getElementById('presenter_wilayah_tidakdiketahui').innerText = tidakdiketahui;
 
+
+                    let columnConfigs = [{
+                            data: 'presenter',
+                            render: (data, type, row, meta) => {
+                                return meta.row + 1;
+                            }
+                        },
+                        {
+                            data: 'presenter',
+                        },
+                        {
+                            data: 'jumlah',
+                        },
+                        {
+                            data: 'kabtasikmalaya',
+                        },
+                        {
+                            data: 'tasikmalaya',
+                        },
+                        {
+                            data: 'ciamis',
+                        },
+                        {
+                            data: 'banjar',
+                        },
+                        {
+                            data: 'garut',
+                        },
+                        {
+                            data: 'pangandaran',
+                        },
+                        {
+                            data: 'tidakdiketahui',
+                        },
+                    ];
+
+                    const dataTableConfig = {
+                        data: databases,
+                        createdRow: (row, data, index) => {
+                            if (index % 2 === 0) {
+                                $(row).css('background-color', '#f9fafb');
+                            }
+                        },
+                        columns: columnConfigs,
+                    }
+
                     let results = {
-                        data: databasesSourceDatabaseWilayahPresenter,
                         config: dataTableConfig,
                         initialized: true
                     }
+
                     resolve(results);
                 } catch (error) {
-                    reject(error);
+                    reject(error)
                 }
-            })
+            });
         }
     </script>
 @endpush

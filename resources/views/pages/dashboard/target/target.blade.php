@@ -34,23 +34,20 @@
             </div>
         </div>
     </section>
-
     @push('scripts')
+        <script>
+            let apiTargets = `/get/targets?identityVal=${identityVal}&pmbVal=${pmbVal}`;
+        </script>
         <script>
             const changeFilterTarget = () => {
                 let queryParams = [];
                 let identity = document.getElementById('identity_val').value;
                 let pmbVal = document.getElementById('change_pmb').value || 'all';
-                let sessionVal = document.getElementById('session').value || 'all';
 
                 queryParams.push(`identity=${identity}`);
 
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
-                }
-
-                if (sessionVal !== 'all') {
-                    queryParams.push(`sessionVal=${sessionVal}`);
                 }
 
                 let queryString = queryParams.join('&');

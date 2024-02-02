@@ -21,7 +21,7 @@
                             <div>
                                 <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                     PMB</label>
-                                <input type="number" value="{{ $enrollment->pmb }}" name="pmb" id="pmb"
+                                <input type="number" value="{{ $enrollment->pmb }}" name="pmb"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Tahun PMB" required>
                                 @if ($errors->has('pmb'))
@@ -33,7 +33,7 @@
                             <div>
                                 <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                     Daftar</label>
-                                <input type="date" name="date" id="date" value="{{ $enrollment->date }}"
+                                <input type="date" name="date" value="{{ $enrollment->date }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Tanggal Daftar" required>
                                 @if ($errors->has('date'))
@@ -45,7 +45,7 @@
                             <div>
                                 <label for="session"
                                     class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
-                                <select id="session" name="session"
+                                <select name="session"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required>
                                     @if ($enrollment->session)
@@ -80,8 +80,7 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <i class="fa-solid fa-receipt text-gray-400"></i>
                                     </div>
-                                    <input type="number" name="receipt" id="receipt"
-                                        value="{{ $enrollment->receipt }}"
+                                    <input type="number" name="receipt" value="{{ $enrollment->receipt }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                         placeholder="No. Kwitansi" required>
                                 </div>
@@ -96,7 +95,7 @@
                             <div>
                                 <label for="register"
                                     class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
-                                <select id="register" name="register"
+                                <select name="register"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required>
                                     @if ($enrollment->register)
@@ -118,7 +117,7 @@
                                 <label for="register_end"
                                     class="block mb-2 text-sm font-medium text-gray-900">Keterangan
                                     Daftar</label>
-                                <select id="register_end" name="register_end"
+                                <select name="register_end"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required>
                                     @if ($enrollment->register_end)
@@ -146,8 +145,8 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <span class="text-sm text-gray-500">Rp</span>
                                     </div>
-                                    <input type="text" name="nominal" id="nominal"
-                                        value="{{ $enrollment->nominal }}" onkeyup="validateNumber(event)"
+                                    <input type="text" name="nominal" value="{{ $enrollment->nominal }}"
+                                        onkeyup="validateNumber(event)"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"placeholder="0"
                                         required>
                                 </div>
@@ -163,8 +162,7 @@
                                 <label for="repayment"
                                     class="block mb-2 text-sm font-medium text-gray-900">Pengembalian
                                     BK</label>
-                                <input type="date" name="repayment" id="repayment"
-                                    value="{{ $enrollment->repayment }}"
+                                <input type="date" name="repayment" value="{{ $enrollment->repayment }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Tanggal Pengembalian BK">
                             </div>
@@ -176,8 +174,8 @@
                                         class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <span class="text-sm text-gray-500">Rp</span>
                                     </div>
-                                    <input type="text" name="debit" id="debit"
-                                        value="{{ $enrollment->debit }}" onkeyup="validateNumber(event)"
+                                    <input type="text" name="debit" value="{{ $enrollment->debit }}"
+                                        onkeyup="validateNumber(event)"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                         placeholder="0">
                                 </div>
@@ -189,7 +187,7 @@
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <i class="fa-solid fa-note-sticky text-gray-400"></i>
                                 </div>
-                                <input type="text" name="note" id="note" value="{{ $enrollment->note }}"
+                                <input type="text" name="note" value="{{ $enrollment->note }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                     placeholder="Catatan">
                             </div>
@@ -239,9 +237,9 @@
                             @endif
                         </div>
                         <div>
-                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
+                            <label for="date_daftar" class="block mb-2 text-sm font-medium text-gray-900">Tanggal
                                 Daftar</label>
-                            <input type="date" name="date" id="date"
+                            <input type="date" name="date" id="date_daftar"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Tanggal Daftar" required>
                             @if ($errors->has('date'))
@@ -251,9 +249,9 @@
                             @endif
                         </div>
                         <div>
-                            <label for="session"
+                            <label for="session_daftar"
                                 class="block mb-2 text-sm font-medium text-gray-900">Gelombang</label>
-                            <select id="session" name="session"
+                            <select id="session_daftar" name="session"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="1">1</option>
@@ -380,3 +378,33 @@
         </div>
     </div>
 </div>
+
+@if (!$enrollment)
+<script>
+    const daftarSetting = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+
+        const currentYear = currentDate.getFullYear();
+        const currentMonths = currentDate.getMonth();
+        const startYear = currentMonths >= 9 ? currentYear + 1 : currentYear;
+
+        let session = 'all';
+
+        if (currentMonth >= 1 && currentMonth <= 3) {
+            session = 2;
+        } else if (currentMonth >= 4 && currentMonth <= 6) {
+            session = 3;
+        } else if (currentMonth >= 7 && currentMonth <= 9) {
+            session = 4;
+        } else if (currentMonth >= 10 && currentMonth <= 12) {
+            session = 1;
+        }
+
+        document.getElementById('session_daftar').value = session;
+        document.getElementById('date_daftar').value = currentDate.toISOString().slice(0, 10);
+    }
+
+    daftarSetting();
+</script>
+@endif

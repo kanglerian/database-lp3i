@@ -108,6 +108,8 @@ class DashboardController extends Controller
             $schoolarshipQuery->where('pmb', $pmbVal);
         }
 
+
+        $databasePhone = $databaseQuery->get();
         $databaseCount = $databaseQuery->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
@@ -115,6 +117,7 @@ class DashboardController extends Controller
         $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
         return response()->json([
+            'database_phone' => $databasePhone,
             'database_count' => $databaseCount,
             'schoolarship_count' => $schoolarshipCount,
             'applicant_count' => $applicantCount,

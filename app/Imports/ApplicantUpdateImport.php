@@ -69,12 +69,12 @@ $random_number = abs(mt_rand($min, $max));
         $create_father = [
             'identity_user' => $numbers_unique,
             'gender' => 1,
-            'job' => !empty($row[20]) ? $row[20] : null,
+            'job' => null,
         ];
         $create_mother = [
             'identity_user' => $numbers_unique,
             'gender' => 0,
-            'job' => !empty($row[21]) ? $row[21] : null,
+            'job' => null,
         ];
 
         if (!empty($row[0])) {
@@ -109,11 +109,11 @@ $random_number = abs(mt_rand($min, $max));
                 ];
 
                 $data_father = [
-                    'job' => !empty($row[20]) ? $row[20] : null,
+                    'job' => null,
                 ];
 
                 $data_mother = [
-                    'job' => !empty($row[21]) ? $row[21] : null,
+                    'job' => null,
                 ];
 
                 $applicantFather = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();

@@ -32,13 +32,13 @@
                     <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
                     <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeTriger()"
+                        <input type="number" id="change_pmb" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
                     <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="status" class="text-xs">Status Sekolah:</label>
-                        <select id="status" onchange="changeTriger()"
+                        <select id="status" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">Pilih</option>
                             <option value="N">Negeri</option>
@@ -73,9 +73,7 @@
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500"
                         id="table-report-register-school">
-                        <thead class="text-xs text-gray-700 uppercase" id="table-header-register-school">
-
-                        </thead>
+                        <thead class="text-xs text-gray-700 uppercase" id="table-header-register-school"></thead>
                         <tbody></tbody>
                     </table>
                 </div>
@@ -86,16 +84,22 @@
     @include('pages.dashboard.utilities.pmb')
     @push('scripts')
         <script>
+            let statusVal = document.getElementById('status').value;
+
+            let databasesDataRegisterSchool;
             let dataTableDataRegisterSchoolInstance;
             let dataTableDataRegisterSchoolInitialized = false;
-            let urlRegisterSchool = '/api/report/database/register/school';
+            let urlRegisterSchool = `/api/report/database/register/school?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&statusVal=${statusVal}`;
+
         </script>
+
         <script>
-            const changeTriger = () => {
+            const changeFilterDataRegisterSchool = () => {
                 let queryParams = [];
 
                 let pmbVal = document.getElementById('change_pmb').value;
                 let identityVal = document.getElementById('identity_val').value;
+                let statusVal = document.getElementById('status').value;
 
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
@@ -105,8 +109,8 @@
                     queryParams.push(`identityVal=${identityVal}`);
                 }
 
-                if (roleVal !== 'all') {
-                    queryParams.push(`roleVal=${roleVal}`);
+                if (statusVal !== 'all') {
+                    queryParams.push(`statusVal=${statusVal}`);
                 }
 
                 let queryString = queryParams.join('&');
@@ -114,35 +118,38 @@
                 urlRegisterSchool = `/api/report/database/register/school?${queryString}`;
 
                 if (dataTableDataRegisterSchoolInstance) {
+                    showLoadingAnimation();
+                    dataTableDataRegisterSchoolInstance.clear();
                     dataTableDataRegisterSchoolInstance.destroy();
                     getDataTableRegisterSchool()
                         .then((response) => {
                             dataTableDataRegisterSchoolInstance = $('#table-report-register-school').DataTable(response
                                 .config);
                             dataTableDataRegisterSchoolInitialized = response.initialized;
+                            hideLoadingAnimation();
                         })
                         .catch((error) => {
                             console.log(error);
-                        })
+                            hideLoadingAnimation();
+                        });
                 }
-
             }
-        </script>
-        <script>
+
             const getDataTableRegisterSchool = async () => {
                 return new Promise(async (resolve, reject) => {
                     try {
-                        let database;
-                        const response = await fetch(urlRegisterSchool);
+                        const response = await axios.get(urlRegisterSchool);
+                        let registers = response.data;
 
-                        if (!response.ok) {
-                            console.log('Network response was not ok.');
-                        }
-
-                        database = await response.json();
-
-                        let types =
+                        let schoolBucket =
                             '<th scope="col" class="px-6 py-4 text-center">No</th><th scope="col" class="px-6 py-4 text-center">Wilayah</th>';
+
+                        registers.forEach(register => {
+                            schoolBucket +=
+                                `<th scope="col" class="px-6 py-4 text-center">${register.tipe}</th>`
+                        });
+
+                        document.getElementById('table-header-register-school').innerHTML = schoolBucket;
 
                         let columnConfigs = [{
                                 data: 'pmb',
@@ -158,9 +165,7 @@
                             },
                         ];
 
-                        database.forEach((data) => {
-                            types +=
-                                `<th scope="col" class="px-6 py-4 text-center">${data.tipe}</th>`;
+                        registers.forEach((register) => {
                             columnConfigs.push({
                                 data: 'register',
                                 render: (data, type, row, meta) => {
@@ -169,35 +174,54 @@
                             });
                         });
 
+
                         const dataTableConfig = {
-                            data: database,
+                            data: registers,
+                            createdRow: (row, data, index) => {
+                                if (index % 2 === 0) {
+                                    $(row).css('background-color', '#f9fafb');
+                                }
+                            },
                             columns: columnConfigs,
                         }
 
-                        document.getElementById('table-header-register-school').innerHTML =
-                            `<tr>${types}</tr>`;
-
-                        let result = {
+                        let results = {
                             config: dataTableConfig,
                             initialized: true
                         }
-                        resolve(result);
 
+                        resolve(results);
                     } catch (error) {
-                        reject(error);
+                        reject(error)
                     }
                 });
             }
-            getDataTableRegisterSchool()
-                .then((response) => {
-                    console.log(response);
-                    dataTableDataRegisterSchoolInstance = $('#table-report-register-school').DataTable(response
-                        .config);
-                    dataTableDataRegisterSchoolInitialized = response.initialized;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        </script>
+
+        <script>
+            const changeTrigger = () => {
+                changeFilterDataRegisterSchool()
+            }
+        </script>
+        <script>
+            const promiseDataRegisterSchool = () => {
+                showLoadingAnimation();
+                Promise.all([
+                        getDataTableRegisterSchool(),
+                    ])
+                    .then((response) => {
+                        let responseDTRS = response[0];
+                        dataTableDataRegisterSchoolInstance = $('#table-report-register-school').DataTable(responseDTRS
+                            .config);
+                        dataTableDataRegisterSchoolInitialized = responseDTRS.initialized;
+                        hideLoadingAnimation();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        hideLoadingAnimation();
+                    });
+            }
+            promiseDataRegisterSchool();
         </script>
     @endpush
 </x-app-layout>

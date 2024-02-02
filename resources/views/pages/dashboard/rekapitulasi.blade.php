@@ -23,22 +23,47 @@
 
     <section class="space-y-5 py-8">
 
-        @include('pages.dashboard.database.filter')
+        <div class="max-w-7xl px-5 mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-3">
+                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
+                    <input type="hidden" id="identity_val" value="{{ Auth::user()->identity }}">
+                    <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
+                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                        <input type="number" id="change_pmb" onchange="changeTrigger()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            placeholder="Tahun PMB">
+                    </div>
+                </div>
+                <div class="px-6 py-2 rounded-xl text-sm bg-white border border-gray-100 order-1 md:order-none">
+                    <div>
+                        <span class="font-bold">{{ Auth::user()->name }}</span>
+                        (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
+                            {{ Auth::user()->identity }}</span>)
+                        <button onclick="copyIdentity('{{ Auth::user()->identity }}')" class="text-blue-500"><i
+                                class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <span class="text-xs text-gray-600">Gunakan Key Identity ini di aplikasi Whatsapp
+                        Sender.</span>
+                </div>
+            </div>
+        </div>
 
         <div class="max-w-7xl px-5 mx-auto">
             <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
                 @if (Auth::user()->role == 'A')
-                <header class="space-y-1">
-                    <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
-                    </p>
-                </header>
-                <hr>
+                    <header class="space-y-1">
+                        <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
+                        <p class="text-sm text-gray-700 text-sm">
+                            Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                        </p>
+                    </header>
+                    <hr>
                 @endif
+                @include('pages.dashboard.utilities.all')
+                @include('pages.dashboard.utilities.pmb')
                 @if (Auth::user()->role == 'P')
                     @include('pages.dashboard.presenter.report.sourcedatabasebywilayah')
-                    @include('pages.dashboard.presenter.report.scripts')
                 @endif
                 @if (Auth::user()->role == 'A' || Auth::user()->role == 'K')
                     @include('pages.dashboard.admin.report.sourcedatabasebypresenter')
@@ -48,5 +73,4 @@
             </section>
         </div>
     </section>
-    @include('pages.dashboard.utilities.scripts')
 </x-app-layout>

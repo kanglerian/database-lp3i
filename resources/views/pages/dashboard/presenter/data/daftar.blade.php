@@ -64,8 +64,17 @@
         </table>
     </div>
 </section>
-
+@include('pages.dashboard.utilities.all')
+@include('pages.dashboard.utilities.pmb')
+@include('pages.dashboard.utilities.session')
 @push('scripts')
+    <script>
+        let dataTableDataAplikanDaftarInitialized = false;
+        let dataTableDataAplikanDaftarInstance;
+        let databasesDataAplikanDaftar;
+        let urlDataAplikanDaftar =
+            `/api/report/database/aplikan/daftar?pmbVal=${pmbVal}&identityVal=${identityVal}&sessionVal=${sessionVal}`;
+    </script>
     <script>
         const changeFilterDataAplikanDaftar = () => {
             let queryParams = [];
@@ -93,120 +102,130 @@
             let queryString = queryParams.join('&');
 
             urlDataAplikanDaftar = `/api/report/database/aplikan/daftar?${queryString}`;
+
             if (dataTableDataAplikanDaftarInstance) {
-                dataTableDataAplikanDaftarInstance.ajax.url(urlDataAplikanDaftar).load();
-                getDataTableDataAplikanDaftar();
-            } else {
-                getDataTableDataAplikanDaftar();
+                dataTableDataAplikanDaftarInstance.clear();
+                dataTableDataAplikanDaftarInstance.destroy();
+                getDataTableDataAplikanDaftar()
+                    .then((response) => {
+                        dataTableDataAplikanDaftarInstance = $('#table-report-data-daftar').DataTable(response
+                            .config);
+                        dataTableDataAplikanDaftarInitialized = response.initialized;
+                        hideLoadingAnimation();
+                    })
+                    .catch((error) => {
+                        hideLoadingAnimation();
+                    });
             }
         }
 
-        const getDataTableDataAplikanDaftar = async () => {
-            const dataTableConfig = {
-                ajax: {
-                    url: urlDataAplikanDaftar,
-                    dataSrc: 'databases'
-                },
-                columnDefs: [{
-                        width: 10,
-                        target: 0
-                    },
-                    {
-                        width: 100,
-                        targets: [1, 2, 3, 4, 5, 6, 7, ]
-                    },
-                ],
-                createdRow: function(row, data, index) {
-                    if (index % 2 === 0) {
-                        $(row).css('background-color', '#f9fafb');
-                    }
-                },
-                columns: [{
-                        data: 'id',
-                        render: (data, type, row, meta) => {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: 'session',
-                    },
-                    {
-                        data: 'date',
-                    },
-                    {
-                        data: 'applicant',
-                        render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.name;
-                        }
-                    },
-                    {
-                        data: 'schoolapplicant',
-                        render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.name;
-                        }
-                    },
-                    {
-                        data: 'applicant',
-                        render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.year;
-                        }
-                    },
-                    {
-                        data: 'register',
-                    },
-                    {
-                        data: 'register_end',
-                    },
-                    {
-                        data: 'nominal',
-                        render: (data) => {
-                            let result = parseInt(data);
-                            return `Rp${result.toLocaleString('id-ID')}`;
-                        }
-                    },
-                    {
-                        data: 'repayment',
-                        render: (data) => {
-                            return data || 'Tidak ada';
-                        }
-                    },
-                    {
-                        data: 'debit',
-                        render: (data) => {
-                            let result = parseInt(data) || 0;
-                            return `Rp${result.toLocaleString('id-ID')}`;
-                        }
-                    },
-                    {
-                        data: {
-                            nominal: 'nominal',
-                            debit: 'debit'
-                        },
-                        render: (data) => {
-                            let result = (parseInt(data.nominal) || 0) - (parseInt(data.debit) || 0);
-                            return `Rp${result.toLocaleString('id-ID')}`;
-                        }
-                    },
-                ],
-            }
+        const getDataTableDataAplikanDaftar = () => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const response = await fetch(urlDataAplikanDaftar);
-                    const data = await response.json();
-                    databasesDataAplikanDaftar = data.databases;
+                    const response = await axios.get(urlDataAplikanDaftar);
+                    let databases = response.data.databases;
+
+
                     let totalkas = 0;
-                    databasesDataAplikanDaftar.forEach(database => {
+                    databases.forEach(database => {
                         totalkas += database.nominal - database.debit
                     });
-                    document.getElementById('total_kas_daftar').innerText = `Rp${totalkas.toLocaleString('id-ID')}`
+                    document.getElementById('total_kas_daftar').innerText =
+                        `Rp${totalkas.toLocaleString('id-ID')}`
+
+                    const dataTableConfig = {
+                        data: databases,
+                        columnDefs: [{
+                                width: 10,
+                                target: 0
+                            },
+                            {
+                                width: 100,
+                                targets: [1, 2, 3, 4, 5, 6, 7, ]
+                            },
+                        ],
+                        createdRow: function(row, data, index) {
+                            if (index % 2 === 0) {
+                                $(row).css('background-color', '#f9fafb');
+                            }
+                        },
+                        columns: [{
+                                data: 'id',
+                                render: (data, type, row, meta) => {
+                                    return meta.row + 1;
+                                }
+                            },
+                            {
+                                data: 'session',
+                            },
+                            {
+                                data: 'date',
+                            },
+                            {
+                                data: 'applicant',
+                                render: (data) => {
+                                    return data == null ? 'Tidak diketahui' : data.name;
+                                }
+                            },
+                            {
+                                data: 'schoolapplicant',
+                                render: (data) => {
+                                    return data == null ? 'Tidak diketahui' : data.name;
+                                }
+                            },
+                            {
+                                data: 'applicant',
+                                render: (data) => {
+                                    return data == null ? 'Tidak diketahui' : data.year;
+                                }
+                            },
+                            {
+                                data: 'register',
+                            },
+                            {
+                                data: 'register_end',
+                            },
+                            {
+                                data: 'nominal',
+                                render: (data) => {
+                                    let result = parseInt(data);
+                                    return `Rp${result.toLocaleString('id-ID')}`;
+                                }
+                            },
+                            {
+                                data: 'repayment',
+                                render: (data) => {
+                                    return data || 'Tidak ada';
+                                }
+                            },
+                            {
+                                data: 'debit',
+                                render: (data) => {
+                                    let result = parseInt(data) || 0;
+                                    return `Rp${result.toLocaleString('id-ID')}`;
+                                }
+                            },
+                            {
+                                data: {
+                                    nominal: 'nominal',
+                                    debit: 'debit'
+                                },
+                                render: (data) => {
+                                    let result = (parseInt(data.nominal) || 0) - (parseInt(data
+                                        .debit) || 0);
+                                    return `Rp${result.toLocaleString('id-ID')}`;
+                                }
+                            },
+                        ]
+                    }
+
                     let results = {
-                        data: databasesDataAplikanDaftar,
                         config: dataTableConfig,
                         initialized: true
                     }
                     resolve(results);
                 } catch (error) {
-                    reject(error)
+                    reject(error);
                 }
             });
         }

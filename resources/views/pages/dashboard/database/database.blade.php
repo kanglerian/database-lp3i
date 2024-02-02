@@ -46,6 +46,26 @@
 
 @push('scripts')
     <script>
+        let apiDashboard = `/get/dashboard/all?identityVal=${identityVal}&roleVal=${roleVal}&pmbVal=${pmbVal}`
+    </script>
+    <script>
+        const changeFilterDatabase = () => {
+            let queryParams = [];
+            let identityVal = document.getElementById('identity_val').value || 'all';
+            let pmbVal = document.getElementById('change_pmb').value || 'all';
+
+            queryParams.push(`identityVal=${identityVal}`);
+
+            if (pmbVal !== 'all') {
+                queryParams.push(`pmbVal=${pmbVal}`);
+            }
+
+            let queryString = queryParams.join('&');
+            apiDashboard = `/get/dashboard/all?${queryString}`;
+            getDatabases();
+        }
+    </script>
+    <script>
         const getDatabases = async () => {
             await axios.get(apiDashboard)
                 .then((res) => {

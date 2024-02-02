@@ -42,8 +42,16 @@
         </table>
     </div>
 </section>
-
+@include('pages.dashboard.utilities.all')
+@include('pages.dashboard.utilities.pmb')
+@include('pages.dashboard.utilities.session')
 @push('scripts')
+    <script>
+        let dataTableDataPersyaratanAplikanInitialized = false;
+        let dataTableDataPersyaratanAplikanInstance;
+        let databasesDataPersyaratanAplikan;
+        let urlDataPersyaratanAplikan = `/api/report/database/aplikan/files?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+    </script>
     <script>
         const changeFilterDataPersyaratanAplikan = () => {
             let queryParams = [];

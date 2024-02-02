@@ -52,9 +52,11 @@
                                         class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
                                             class="fa-solid fa-print"></i></a>
                                 @else
-                                    <button onclick="return alert('Buatlah akun terlebih dahulu!')"
-                                        class="inline-block bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-xs"><i
-                                            class="fa-solid fa-print"></i></button>
+                                    @if (!$user->programtype_id && !$user->program)
+                                        <button onclick="return alert('Program Studi / Program Kuliah belum dipilih.')"
+                                            class="inline-block bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-xs"><i
+                                                class="fa-solid fa-print"></i></button>
+                                    @endif
                                 @endif
                                 <a href="{{ route('database.edit', $user->id) }}"
                                     class="inline-block bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md text-xs text-white"><i
@@ -271,16 +273,16 @@
                                     @else
                                         <form action="{{ route('database.is_applicant', $user->id) }}"
                                             method="get">
-                                            <input type="hidden" id="change_pmb" name="change_pmb">
-                                            <input type="hidden" id="session" name="session">
-                                            <input type="hidden" name="identity_user" value="{{ $user->identity }}">
+                                            <input type="hidden" name="change_pmb" value="{{ $user->pmb }}">
+                                            <input type="hidden" id="session_aplikan" name="session">
+                                            <input type="hidden" name="identity_user"
+                                                value="{{ $user->identity }}">
                                             <label class="relative inline-flex items-center cursor-pointer">
                                                 <input type="checkbox" class="sr-only peer">
                                                 <button type="submit"
                                                     class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
                                                 </button>
-                                                <span
-                                                    class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                                <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
                                             </label>
                                         </form>
                                     @endif
@@ -305,8 +307,7 @@
                                             @method('DELETE')
                                             <label class="relative inline-flex items-center cursor-pointer">
                                                 <input type="checkbox" class="sr-only peer" checked>
-                                                <button type="submit"
-                                                  {{ $user->is_register ? 'disabled' : '' }}
+                                                <button type="submit" {{ $user->is_register ? 'disabled' : '' }}
                                                     class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
                                                 <span class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
                                             </label>
@@ -348,7 +349,8 @@
                                                 <input type="checkbox" class="sr-only peer" checked>
                                                 <button type="submit"
                                                     class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                <span class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
+                                                <span
+                                                    class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
                                             </label>
                                         </form>
                                         <div class="flex items-center gap-3 mt-1">
@@ -587,35 +589,32 @@
         @include('pages.database.show.modal.check')
     @endif
 </x-app-layout>
-<script>
-    const getYearPMB = () => {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-        document.getElementById('change_pmb').value = startYear;
-    }
 
-    getYearPMB();
+@if (!$user->is_applicant && !$status_applicant)
+    <script>
+        const aplikanSetting = () => {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
 
-    const getSessionPMB = () => {
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-        let session = 'all';
-        if (currentMonth >= 1 && currentMonth <= 3) {
-            session = 2;
-        } else if (currentMonth >= 4 && currentMonth <= 6) {
-            session = 3;
-        } else if (currentMonth >= 7 && currentMonth <= 9) {
-            session = 4;
-        } else if (currentMonth >= 10 && currentMonth <= 12) {
-            session = 1;
+            let session = 'all';
+
+            if (currentMonth >= 1 && currentMonth <= 3) {
+                session = 2;
+            } else if (currentMonth >= 4 && currentMonth <= 6) {
+                session = 3;
+            } else if (currentMonth >= 7 && currentMonth <= 9) {
+                session = 4;
+            } else if (currentMonth >= 10 && currentMonth <= 12) {
+                session = 1;
+            }
+
+            document.getElementById('session_aplikan').value = session;
         }
-        document.getElementById('session').value = session;
-    }
 
-    getSessionPMB();
-</script>
+        aplikanSetting();
+    </script>
+@endif
+
 <script>
     const validateNumber = (e) => {
         let number = e.target.value.replace(/[^0-9]/g, '');

@@ -17,13 +17,16 @@
                         <p class="text-sm text-gray-600">Berikut ini adalah menu untuk mengubah status aplikan.</p>
                     </div>
                     <hr class="mb-4">
-                    <form class="space-y-3" action="{{ route('statusdatabaseaplikan.update', $user->id) }}" method="POST">
+                    <form class="space-y-3" action="{{ route('statusdatabaseaplikan.update', $user->id) }}"
+                        method="POST">
                         @csrf
                         @method('PATCH')
                         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                             <div>
-                                <label for="is_applicant_date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal Aplikan</label>
-                                <input type="date" name="is_applicant_date" id="is_applicant_date" value="{{ $status_applicant->date }}"
+                                <label for="is_applicant_date"
+                                    class="block mb-2 text-sm font-medium text-gray-900">Tanggal Aplikan</label>
+                                <input type="date" name="is_applicant_date" id="is_applicant_date"
+                                    value="{{ $status_applicant->date }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Tanggal Daftar" required>
                                 @if ($errors->has('is_applicant_date'))
@@ -50,14 +53,16 @@
                                     <option value="4">4</option>
                                 </select>
                                 @if ($errors->has('is_applicant_session'))
-                                    <span class="text-red-500 text-xs">{{ $errors->first('is_applicant_session') }}</span>
+                                    <span
+                                        class="text-red-500 text-xs">{{ $errors->first('is_applicant_session') }}</span>
                                 @else
                                     <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </div>
                         </div>
                         <button type="submit"
-                            class="w-full text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2 text-center">Simpan Perubahan</button>
+                            class="w-full text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2 text-center">Simpan
+                            Perubahan</button>
                         <p class="text-xs text-gray-600 text-center">Periksa terlebih dahulu apakah sudah benar?</p>
                     </form>
                 </div>

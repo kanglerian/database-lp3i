@@ -27,9 +27,9 @@ class ApplicantsImport implements ToModel
     public function model(array $row)
     {
         $min = -100000000000000;
-$max = 100000000000000;
-$random_number = abs(mt_rand($min, $max));
- $random_number_as_string = (string) $random_number;
+        $max = 100000000000000;
+        $random_number = abs(mt_rand($min, $max));
+        $random_number_as_string = (string) $random_number;
         $numbers_unique = str_replace('-', '', $random_number_as_string);
         $schoolName = $row[6];
         $school = School::where('name', $schoolName)->first();
@@ -37,16 +37,15 @@ $random_number = abs(mt_rand($min, $max));
         $data_father = [
             'identity_user' => $numbers_unique,
             'gender' => 1,
-            'job'=> $row[20],
+            'job' => $row[20],
         ];
         $data_mother = [
             'identity_user' => $numbers_unique,
             'gender' => 0,
-            'job'=> $row[21],
+            'job' => $row[21],
         ];
 
         if (!empty($row[0])) {
-
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
             return new Applicant([
@@ -57,21 +56,15 @@ $random_number = abs(mt_rand($min, $max));
                 'education' => !empty($row[5]) ? $row[5] : null,
                 'school' => $school ? $school->id : null,
                 'major' => !empty($row[7]) ? $row[7] : null,
-                // 'email' => !empty($row[8]) && !Applicant::where('email', $row[8])->exists() ? $row[8] : null,
                 'year' => !empty($row[9]) ? $row[9] : null,
                 'place_of_birth' => !empty($row[10]) ? $row[10] : null,
                 'date_of_birth' => !empty($row[11]) ? Date::excelToDateTimeObject($row[11])->format('Y-m-d') : null,
-                'gender' =>  ($row[12] === 'WANITA' || $row[12] === 'PEREMPUAN') ? 0 : ($row[12] === null ? null : 1)
-                ,
+                'gender' => $row[12] === 'WANITA' || $row[12] === 'PEREMPUAN' ? 0 : ($row[12] === null ? null : 1),
                 'religion' => !empty($row[13]) ? $row[13] : null,
                 'identity_user' => $this->identityUser,
                 'source_id' => 7,
-                'status_id' => !empty($row[16]) ?
-                    (ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1) :
-                    1,
-                'followup_id' => $row[17] ?
-                    (FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1) :
-                    1,
+                'status_id' => !empty($row[16]) ? ApplicantStatus::whereRaw('LOWER(name) = ?', [strtolower($row[16])])->value('id') ?? 1 : 1,
+                'followup_id' => $row[17] ? FollowUp::whereRaw('LOWER(name) = ?', [strtolower($row[17])])->value('id') ?? 1 : 1,
                 'come' => strcasecmp($row[18], 'SUDAH') === 0 ? 1 : 0,
                 'achievement' => !empty($row[19]) ? $row[19] : null,
                 'kip' => !empty($row[22]) ? (strcasecmp($row[22], 'YA') === 0 ? 1 : 0) : null,
