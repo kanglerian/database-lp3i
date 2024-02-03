@@ -73,8 +73,20 @@
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500"
                         id="table-report-register-school">
-                        <thead class="text-xs text-gray-700 uppercase" id="table-header-register-school"></thead>
+                        <thead class="text-xs text-gray-700 uppercase">
+                            <th scope="col" class="px-6 py-4 text-center">No</th>
+                            <th scope="col" class="px-6 py-4 text-center">Wilayah</th>
+                            <th scope="col" class="px-6 py-4 text-center">Tipe Sekolah</th>
+                            <th scope="col" class="px-6 py-4 text-center">Status</th>
+                            <th scope="col" class="px-6 py-4 text-center">Total</th>
+                        </thead>
                         <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="font-bold">Total</td>
+                                <td id="total_foot">0</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -89,8 +101,8 @@
             let databasesDataRegisterSchool;
             let dataTableDataRegisterSchoolInstance;
             let dataTableDataRegisterSchoolInitialized = false;
-            let urlRegisterSchool = `/api/report/database/register/school?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&statusVal=${statusVal}`;
-
+            let urlRegisterSchool =
+                `/api/report/database/register/school?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&statusVal=${statusVal}`;
         </script>
 
         <script>
@@ -99,6 +111,7 @@
 
                 let pmbVal = document.getElementById('change_pmb').value;
                 let identityVal = document.getElementById('identity_val').value;
+                let roleVal = document.getElementById('role_val').value;
                 let statusVal = document.getElementById('status').value;
 
                 if (pmbVal !== 'all') {
@@ -107,6 +120,10 @@
 
                 if (identityVal !== 'all') {
                     queryParams.push(`identityVal=${identityVal}`);
+                }
+
+                if (roleVal !== 'all') {
+                    queryParams.push(`roleVal=${roleVal}`);
                 }
 
                 if (statusVal !== 'all') {
@@ -141,15 +158,8 @@
                         const response = await axios.get(urlRegisterSchool);
                         let registers = response.data;
 
-                        let schoolBucket =
-                            '<th scope="col" class="px-6 py-4 text-center">No</th><th scope="col" class="px-6 py-4 text-center">Wilayah</th>';
-
-                        registers.forEach(register => {
-                            schoolBucket +=
-                                `<th scope="col" class="px-6 py-4 text-center">${register.tipe}</th>`
-                        });
-
-                        document.getElementById('table-header-register-school').innerHTML = schoolBucket;
+                        let total = registers.length;
+                        document.getElementById('total_foot').innerText = total;
 
                         let columnConfigs = [{
                                 data: 'pmb',
@@ -163,20 +173,44 @@
                                     return data;
                                 }
                             },
-                        ];
-
-                        registers.forEach((register) => {
-                            columnConfigs.push({
+                            {
+                                data: 'tipe',
+                                render: (data, type, row, meta) => {
+                                    return data;
+                                }
+                            },
+                            {
+                                data: 'status',
+                                render: (data, type, row, meta) => {
+                                    let result;
+                                    switch (data) {
+                                        case 'N':
+                                            result = 'Negeri';
+                                            break;
+                                        case 'S':
+                                            result = 'Swasta';
+                                            break;
+                                        default:
+                                            result = 'Tidak diketahui';
+                                            break;
+                                    }
+                                    return result;
+                                },
+                            },{
                                 data: 'register',
                                 render: (data, type, row, meta) => {
                                     return parseInt(data);
                                 }
-                            });
-                        });
+                            }
+                        ];
 
 
                         const dataTableConfig = {
                             data: registers,
+                            columnDefs: [{
+                                width: 50,
+                                target: 0
+                            }],
                             createdRow: (row, data, index) => {
                                 if (index % 2 === 0) {
                                     $(row).css('background-color', '#f9fafb');
