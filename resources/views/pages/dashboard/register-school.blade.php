@@ -37,6 +37,31 @@
                             placeholder="Tahun PMB">
                     </div>
                     <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="wilayah" class="text-xs">Wilayah:</label>
+                        <select id="wilayah" onchange="changeTrigger()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
+                            <option value="TASIKMALAYA">TASIKMALAYA</option>
+                            <option value="CIAMIS">CIAMIS</option>
+                            <option value="BANJAR">BANJAR</option>
+                            <option value="PANGANDARAN">PANGANDARAN</option>
+                            <option value="GARUT">GARUT</option>
+                            <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
+                        </select>
+                    </div>
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="tipe" class="text-xs">Tipe Sekolah:</label>
+                        <select id="tipe" onchange="changeTrigger()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="SMA">SMA</option>
+                            <option value="SMK">SMK</option>
+                            <option value="MA">MA</option>
+                            <option value="PAKET">PAKET</option>
+                        </select>
+                    </div>
+                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="status" class="text-xs">Status Sekolah:</label>
                         <select id="status" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
@@ -96,13 +121,14 @@
     @include('pages.dashboard.utilities.pmb')
     @push('scripts')
         <script>
+            let tipeVal = document.getElementById('tipe').value;
+            let wilayahVal = document.getElementById('wilayah').value;
             let statusVal = document.getElementById('status').value;
 
             let databasesDataRegisterSchool;
             let dataTableDataRegisterSchoolInstance;
             let dataTableDataRegisterSchoolInitialized = false;
-            let urlRegisterSchool =
-                `/api/report/database/register/school?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&statusVal=${statusVal}`;
+            let urlRegisterSchool = `/api/report/database/register/school?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}&statusVal=${statusVal}&tipeVal=${tipeVal}&wilayahVal=${wilayahVal}`;
         </script>
 
         <script>
@@ -113,6 +139,8 @@
                 let identityVal = document.getElementById('identity_val').value;
                 let roleVal = document.getElementById('role_val').value;
                 let statusVal = document.getElementById('status').value;
+                let wilayahVal = document.getElementById('wilayah').value;
+                let tipeVal = document.getElementById('tipe').value;
 
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
@@ -124,6 +152,14 @@
 
                 if (roleVal !== 'all') {
                     queryParams.push(`roleVal=${roleVal}`);
+                }
+
+                if (tipeVal !== 'all') {
+                    queryParams.push(`tipeVal=${tipeVal}`);
+                }
+
+                if (wilayahVal !== 'all') {
+                    queryParams.push(`wilayahVal=${wilayahVal}`);
                 }
 
                 if (statusVal !== 'all') {
@@ -196,7 +232,7 @@
                                     }
                                     return result;
                                 },
-                            },{
+                            }, {
                                 data: 'register',
                                 render: (data, type, row, meta) => {
                                     return parseInt(data);

@@ -17,6 +17,8 @@ class RegisterBySchoolController extends Controller
         $identityVal = request('identityVal', 'all');
         $roleVal = request('roleVal', 'all');
         $statusVal = request('statusVal', 'all');
+        $wilayahVal = request('wilayahVal', 'all');
+        $tipeVal = request('tipeVal', 'all');
 
         if ($pmbVal !== 'all') {
             $databaseQuery->where('pmb', $pmbVal);
@@ -24,6 +26,14 @@ class RegisterBySchoolController extends Controller
 
         if($roleVal == 'P'){
             $databaseQuery->where('identity_user', $identityVal);
+        }
+
+        if ($wilayahVal !== 'all') {
+            $databaseQuery->where('wilayah', $wilayahVal);
+        }
+
+        if ($tipeVal !== 'all') {
+            $databaseQuery->where('tipe', $tipeVal);
         }
 
         if ($statusVal !== 'all') {
