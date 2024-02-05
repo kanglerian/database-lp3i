@@ -36,22 +36,6 @@ class SchoolController extends Controller
         ]);
     }
 
-    public function get_all()
-    {
-        $schoolsQuery = SchoolBySourceAll::query();
-        $pmbVal = request('pmbVal', 'all');
-        $regionVal = request('regionVal', 'all');
-
-
-        if ($regionVal !== 'all') {
-            $schoolsQuery->where('wilayah', $regionVal);
-        }
-
-        $schools = $schoolsQuery->get();
-
-        return response()->json(['schools' => $schools]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *

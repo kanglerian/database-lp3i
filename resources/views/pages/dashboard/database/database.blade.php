@@ -67,6 +67,7 @@
     </script>
     <script>
         const getDatabases = async () => {
+            showLoadingAnimation();
             await axios.get(apiDashboard)
                 .then((res) => {
                     document.getElementById('database_count').innerText = parseInt(res.data.database_count)
@@ -79,6 +80,7 @@
                         .toLocaleString('id-ID');
                     document.getElementById('registration_count').innerText = parseInt(res.data
                         .registration_count).toLocaleString('id-ID');
+                    hideLoadingAnimation();
                 })
                 .catch((err) => {
                     console.log(err);
