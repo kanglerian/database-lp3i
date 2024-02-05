@@ -92,7 +92,7 @@
                         <h2 class="font-bold text-gray-800">Rekap Data Registrasi Per Tingkat Sekolah</h2>
                     </div>
                     <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                        Berikut ini adalah hasil perhitungan data registrasi per tingkat sekolah.
                     </p>
                 </header>
                 <div class="relative overflow-x-auto">
@@ -183,7 +183,6 @@
                         })
                         .catch((error) => {
                             console.log(error);
-                            hideLoadingAnimation();
                         });
                 }
             }
@@ -288,7 +287,6 @@
                     })
                     .catch((error) => {
                         console.log(error);
-                        hideLoadingAnimation();
                     });
             }
             promiseDataRegisterSchool();

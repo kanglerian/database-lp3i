@@ -44,7 +44,6 @@
 </section>
 @include('pages.dashboard.utilities.all')
 @include('pages.dashboard.utilities.pmb')
-@include('pages.dashboard.utilities.session')
 @push('scripts')
     <script>
         let dataTableDataPersyaratanAplikanInitialized = false;
@@ -54,6 +53,7 @@
     </script>
     <script>
         const changeFilterDataPersyaratanAplikan = () => {
+            showLoadingAnimation();
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
             let identityVal = document.getElementById('identity_val').value;
@@ -82,6 +82,7 @@
                         dataTableDataPersyaratanAplikanInstance = $('#table-report-persyaratan-aplikan')
                             .DataTable(response.config);
                         dataTableDataPersyaratanAplikanInitialized = response.initialized;
+                        hideLoadingAnimation();
                     })
                     .catch((error) => {
                         console.log(error);

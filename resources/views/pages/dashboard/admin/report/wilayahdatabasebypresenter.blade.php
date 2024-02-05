@@ -97,7 +97,6 @@
                     })
                     .catch((error) => {
                         console.log(error);
-                        hideLoadingAnimation();
                     });
             }
         }

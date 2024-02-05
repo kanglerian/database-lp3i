@@ -23,19 +23,23 @@ class SchoolController extends Controller
     {
         $total = School::count();
         $schools_by_region = SchoolByRegion::all();
+        $slepets = School::where('region', 'TIDAK DIKETAHUI')->count();
         return view('pages.schools.index')->with([
             'total' => $total,
-            'schools_by_region' => $schools_by_region
+            'schools_by_region' => $schools_by_region,
+            'slepets' => $slepets
         ]);
     }
 
     public function get_all()
     {
         $schoolsQuery = SchoolBySourceAll::query();
-        $regionCheck = request('regionCheck', 'all');
+        $pmbVal = request('pmbVal', 'all');
+        $regionVal = request('regionVal', 'all');
 
-        if ($regionCheck !== 'all') {
-            $schoolsQuery->where('wilayah', $regionCheck);
+
+        if ($regionVal !== 'all') {
+            $schoolsQuery->where('wilayah', $regionVal);
         }
 
         $schools = $schoolsQuery->get();
@@ -84,13 +88,8 @@ class SchoolController extends Controller
     public function show($id)
     {
         $school = School::findOrFail($id);
-        $details = Applicant::select('major', DB::raw('count(*) as total'))
-        ->where('school', $id)
-        ->groupBy('major')
-        ->get();
         return view('pages.schools.show')->with([
             'school' => $school,
-            'details' => $details,
         ]);
     }
 
@@ -117,7 +116,32 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'type' => ['required', 'not_in:Pilih'],
+            'status' => ['required', 'not_in:Pilih'],
+            'region' => ['required', 'not_in:Pilih'],
+        ],[
+            'name.required' => 'Kolom nama sekolah tidak boleh kosong.',
+            'type.required' => 'Kolom tipe sekolah tidak boleh kosong.',
+            'type.not_in' => 'Pilih tipe sekolah tidak valid.',
+            'status.required' => 'Kolom status sekolah tidak boleh kosong.',
+            'status.not_in' => 'Pilih status sekolah tidak valid.',
+            'region.required' => 'Kolom wilayah sekolah tidak boleh kosong.',
+            'region.not_in' => 'Pilih wilayah sekolah tidak valid.',
+        ]);
+
+        $data = [
+            'name' => strtoupper($request->input('name')),
+            'type' => strtoupper($request->input('type')),
+            'status' => strtoupper($request->input('status')),
+            'region' => strtoupper($request->input('region')),
+        ];
+
+        $school = School::findOrFail($id);
+        $school->update($data);
+
+        return back()->with('message', 'Data sekolah berhasil diubah!');
     }
 
     /**

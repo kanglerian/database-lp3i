@@ -1,5 +1,6 @@
 CREATE VIEW `schools_by_source_all` AS
 SELECT
+    applicants.pmb AS pmb,
     schools.id AS id,
     schools.region AS wilayah,
     schools.name AS nama,
@@ -22,4 +23,4 @@ FROM
 LEFT JOIN
     applicants ON schools.id = applicants.school
 GROUP BY
-    schools.id, schools.region, schools.name;
+    pmb, schools.id, schools.region, schools.name;

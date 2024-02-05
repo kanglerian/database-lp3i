@@ -15,6 +15,7 @@ class SchoolBySourceAll extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'pmb',
         'id',
         'wilayah',
         'nama',

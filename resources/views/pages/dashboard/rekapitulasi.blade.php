@@ -55,7 +55,7 @@
                     <header class="space-y-1">
                         <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Sumber Database</h2>
                         <p class="text-sm text-gray-700 text-sm">
-                            Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                            Berikut ini adalah hasil perhitungan data berdasarkan sumber database.
                         </p>
                     </header>
                     <hr>

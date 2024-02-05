@@ -64,9 +64,6 @@
         </table>
     </div>
 </section>
-@include('pages.dashboard.utilities.all')
-@include('pages.dashboard.utilities.pmb')
-@include('pages.dashboard.utilities.session')
 @push('scripts')
     <script>
         let dataTableDataAplikanDaftarInitialized = false;
@@ -77,6 +74,7 @@
     </script>
     <script>
         const changeFilterDataAplikanDaftar = () => {
+            showLoadingAnimation();
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
             let sessionVal = document.getElementById('session').value;

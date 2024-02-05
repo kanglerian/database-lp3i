@@ -72,9 +72,6 @@
         </table>
     </div>
 </section>
-@include('pages.dashboard.utilities.all')
-@include('pages.dashboard.utilities.pmb')
-@include('pages.dashboard.utilities.session')
 @push('scripts')
     <script>
         let dataTableDataAplikanRegistrasiInitialized = false;
@@ -85,6 +82,7 @@
     </script>
     <script>
         const changeFilterDataAplikanRegistrasi = () => {
+            showLoadingAnimation();
             let queryParams = [];
             let pmbVal = document.getElementById('change_pmb').value;
             let sessionVal = document.getElementById('session').value;
@@ -183,7 +181,7 @@
                             {
                                 data: 'applicant',
                                 render: (data) => {
-                                    return data == null ? 'Tidak diketahui' : data.year;
+                                    return data.year == null ? 'Tidak diketahui' : data.year;
                                 }
                             },
                             {

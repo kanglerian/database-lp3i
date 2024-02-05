@@ -52,7 +52,7 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
+                        <x-nav-link :href="route('schools.index')" :active="request()->routeIs(['schools.index', 'schools.create', 'schools.edit', 'schools.show'])">
                             {{ __('Sekolah') }}
                         </x-nav-link>
                     @endif
@@ -206,7 +206,7 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('school.index')" :active="request()->routeIs(['school.index', 'school.create', 'school.edit', 'school.show'])">
+                <x-responsive-nav-link :href="route('schools.index')" :active="request()->routeIs(['schools.index', 'schools.create', 'schools.edit', 'schools.show'])">
                     {{ __('Sekolah') }}
                 </x-responsive-nav-link>
             @endif

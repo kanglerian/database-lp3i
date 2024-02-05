@@ -13,7 +13,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <form method="POST" action="{{ route('school.store') }}" id="formSchoolModal">
+            <form method="POST" action="{{ route('schools.store') }}" id="formSchoolModal">
                 @csrf
                 <div class="p-4 space-y-6">
                     <div>
@@ -51,7 +51,7 @@
     const changeSchoolModal = (button) => {
         const modalTarget = button.dataset.modalTarget;
         let status = document.getElementById(modalTarget);
-        let url = "{{ route('school.store') }}";
+        let url = "{{ route('schools.store') }}";
         document.getElementById('title_school').innerText = `Tambah Sekolah`;
         document.getElementById('name_school').value = '';
         document.getElementById('region_school').value = '';
@@ -75,7 +75,7 @@
         const id = button.dataset.id;
         const name = button.dataset.name;
         const region = button.dataset.region;
-        let url = "{{ route('school.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('schools.update', ':id') }}".replace(':id', id);
         let status = document.getElementById(modalTarget);
         document.getElementById('title_school').innerText = `Edit Sekolah ${name}`;
         document.getElementById('name_school').value = name;

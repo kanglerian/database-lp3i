@@ -74,7 +74,7 @@
                         <h2 class="font-bold text-gray-800">Rekap Perolehan PMB</h2>
                     </div>
                     <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                        Berikut ini adalah hasil perhitungan dari perolehan PMB.
                     </p>
                 </header>
                 <div class="relative overflow-x-auto">
@@ -530,7 +530,6 @@
                     })
                     .catch((error) => {
                         console.log(error);
-                        hideLoadingAnimation();
                     });
             }
             promiseDataRekapPerolehan();
