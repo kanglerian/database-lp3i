@@ -27,7 +27,7 @@ class PresenterController extends Controller
 
     public function get_all()
     {
-        $presenters = User::where(['role' => 'P', 'status' => 1])->get();
+        $presenters = User::where(['role' => 'P', 'status' => '1'])->get();
         return response()
             ->json([
                 'presenters' => $presenters,
