@@ -23,7 +23,12 @@ class SchoolController extends Controller
     {
         $total = School::count();
         $schools_by_region = SchoolByRegion::all();
-        $slepets = School::where('region', 'TIDAK DIKETAHUI')->count();
+        $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
+            ->orWhereNull('name')
+            ->orWhereNull('region')
+            ->orWhereNull('type')
+            ->orWhereNull('status')
+            ->count();
         return view('pages.schools.index')->with([
             'total' => $total,
             'schools_by_region' => $schools_by_region,
@@ -121,7 +126,7 @@ class SchoolController extends Controller
             'type' => ['required', 'not_in:Pilih'],
             'status' => ['required', 'not_in:Pilih'],
             'region' => ['required', 'not_in:Pilih'],
-        ],[
+        ], [
             'name.required' => 'Kolom nama sekolah tidak boleh kosong.',
             'type.required' => 'Kolom tipe sekolah tidak boleh kosong.',
             'type.not_in' => 'Pilih tipe sekolah tidak valid.',
