@@ -74,11 +74,8 @@
                         <span class="sr-only">Info</span>
                         <h3 class="text-lg font-medium">Lakukan Update Data Sekolah!</h3>
                     </div>
-                    <div class="mt-2 mb-4 text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non animi
-                        esse adipisci est sit deleniti officia consectetur rem ipsam, eum, ducimus sequi laboriosam
-                        deserunt perspiciatis dolore totam aliquid itaque modi minus in fuga? Ipsam, esse dolorem
-                        laboriosam odio nisi voluptatum error consectetur officiis provident optio omnis praesentium
-                        inventore modi in?
+                    <div class="mt-2 mb-4 text-sm">
+                        Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk mengubahnya agar laporan menjadi lebih akurat.
                     </div>
                     <div class="flex">
                         <button onclick="showUpdate()"
