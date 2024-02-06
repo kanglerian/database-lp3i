@@ -22,7 +22,7 @@ class SchoolController extends Controller
     public function index()
     {
         $total = School::count();
-        $schools_by_region = SchoolByRegion::all();
+        $schools_by_region = School::select('region')->groupBy('region')->get();
         $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
             ->orWhereNull('name')
             ->orWhereNull('region')

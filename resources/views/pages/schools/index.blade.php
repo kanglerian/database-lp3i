@@ -40,13 +40,9 @@
                         <select id="region" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
                             <option value="all">Pilih wilayah</option>
-                            <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                            <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                            <option value="TASIKMALAYA">TASIKMALAYA</option>
-                            <option value="CIAMIS">CIAMIS</option>
-                            <option value="BANJAR">BANJAR</option>
-                            <option value="PANGANDARAN">PANGANDARAN</option>
-                            <option value="GARUT">GARUT</option>
+                            @foreach ($schools_by_region as $region)
+                            <option value="{{ $region->region }}">{{ $region->region }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
