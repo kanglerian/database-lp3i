@@ -78,12 +78,6 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5" class="font-bold">Total</td>
-                                <td id="total_foot">0</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -147,11 +141,6 @@
                     try {
                         const response = await axios.get(urlRegisterProgram);
                         let registers = response.data;
-
-                        console.log(registers);
-
-                        let total = registers.length;
-                        document.getElementById('total_foot').innerText = total;
 
                         let columnConfigs = [{
                                 data: 'pmb',
