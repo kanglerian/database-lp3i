@@ -1,3 +1,6 @@
+@push('styles')
+    <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet" />
+@endpush
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 h-10">
@@ -45,22 +48,19 @@
                             @csrf
                             @method('PATCH')
                             <div class="grid grid-cols-1 gap-4">
-                                <div>
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                        Sekolah</label>
-                                    <input type="text" id="name" name="name" value="{{ $school->name }}"
-                                        class="bg-gray-50 border border-gray-300  @error('name') border-red-500 @enderror text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="name" :value="__('Nama Sekolah')" />
+                                    <x-input id="name" type="text" name="name" value="{{ $school->name }}"
+                                        placeholder="Nama sekolah disini.." required />
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('name') }}
                                     </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Jenis
-                                        Sekolah</label>
-                                    <select name="type" id="type"
-                                        class="bg-gray-50 border border-gray-300 @error('type') border-red-500 @enderror text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="type" :value="__('Jenis Sekolah')" />
+                                    <x-select id="type" name="type" required>
                                         @switch($school->type)
                                             @case('SMA')
                                                 <option value="SMA" selected>SMA</option>
@@ -98,17 +98,14 @@
                                                 <option value="Paket">Paket</option>
                                             @break
                                         @endswitch
-                                    </select>
+                                    </x-select>
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('type') }}
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="status" class="block mb-2 text-sm font-medium text-gray-900">
-                                        Status Sekolah
-                                    </label>
-                                    <select name="status" id="status"
-                                        class="bg-gray-50 border border-gray-300 @error('status') border-red-500 @enderror text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="status" :value="__('Status Sekolah')" />
+                                    <x-select id="status" name="status" required>
                                         @switch($school->status)
                                             @case('N')
                                                 <option value="N" selected>Negeri</option>
@@ -126,17 +123,14 @@
                                                 <option value="S">Swasta</option>
                                             @break
                                         @endswitch
-                                    </select>
+                                    </x-select>
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('status') }}
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="region" class="block mb-2 text-sm font-medium text-gray-900">
-                                        Wilayah Sekolah
-                                    </label>
-                                    <select name="region" id="region"
-                                        class="bg-gray-50 border border-gray-300 @error('region') border-red-500 @enderror text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="region" :value="__('Wilayah Sekolah')" />
+                                    <x-select name="region" id="region" class="js-example-input-single" required>
                                         @switch($school->region)
                                             @case('KAB. TASIKMALAYA')
                                                 <option value="KAB. TASIKMALAYA" selected>KAB. TASIKMALAYA</option>
@@ -219,7 +213,7 @@
                                                 <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
                                             @break
                                         @endswitch
-                                    </select>
+                                    </x-select>
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('region') }}
                                     </div>
@@ -240,5 +234,13 @@
 
     </section>
 
-
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('.js-example-input-single').select2({
+                    tags: true,
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>
