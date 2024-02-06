@@ -128,91 +128,22 @@
                                         {{ $errors->first('status') }}
                                     </div>
                                 </div>
+                                {{ $school->region }}
                                 <div class="relative z-0 w-full group">
                                     <x-label for="region" :value="__('Wilayah Sekolah')" />
                                     <x-select name="region" id="region" class="js-example-input-single" required>
-                                        @switch($school->region)
-                                            @case('KAB. TASIKMALAYA')
-                                                <option value="KAB. TASIKMALAYA" selected>KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('TASIKMALAYA')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA" selected>TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('CIAMIS')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS" selected>CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('BANJAR')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR" selected>BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('PANGANDARAN')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN" selected>PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('GARUT')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT" selected>GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @case('TIDAK DIKETAHUI')
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI" selected>TIDAK DIKETAHUI</option>
-                                            @break
-
-                                            @default
-                                                <option>Pilih</option>
-                                                <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                                <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                                <option value="CIAMIS">CIAMIS</option>
-                                                <option value="BANJAR">BANJAR</option>
-                                                <option value="PANGANDARAN">PANGANDARAN</option>
-                                                <option value="GARUT">GARUT</option>
-                                                <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
-                                            @break
-                                        @endswitch
+                                        @if ($school->region)
+                                            <option value="{{ $school->region }}" selected>{{ $school->region }}</option>
+                                        @else
+                                            <option>Pilih</option>
+                                        @endif
+                                        <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
+                                        <option value="TASIKMALAYA">TASIKMALAYA</option>
+                                        <option value="CIAMIS">CIAMIS</option>
+                                        <option value="BANJAR">BANJAR</option>
+                                        <option value="PANGANDARAN">PANGANDARAN</option>
+                                        <option value="GARUT">GARUT</option>
+                                        <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
                                     </x-select>
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('region') }}
