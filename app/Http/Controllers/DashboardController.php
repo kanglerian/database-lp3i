@@ -301,4 +301,13 @@ class DashboardController extends Controller
             'registers' => $registers,
         ]);
     }
+
+
+    public function register_program()
+    {
+        $registers = RegisterBySchool::all();
+        return view('pages.dashboard.register-program')->with([
+            'registers' => $registers,
+        ]);
+    }
 }
