@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\UserUpload;
 use App\Models\FileUpload;
+use App\Models\School;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -33,6 +34,14 @@ class DashboardController extends Controller
         $schoolarshipQuery = Applicant::query();
         $sourcesIdQuery = ApplicantBySourceId::query();
         $sourcesIdEnrollmentQuery = ApplicantBySourceDaftarId::query();
+
+
+        $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
+            ->orWhereNull('name')
+            ->orWhereNull('region')
+            ->orWhereNull('type')
+            ->orWhereNull('status')
+            ->count();
 
         if (Auth::user()->role === 'P') {
             $databaseQuery->where('identity_user', Auth::user()->identity);
@@ -73,6 +82,8 @@ class DashboardController extends Controller
             'sourcesIdEnrollmentCount' => $sourcesIdEnrollmentCount,
             'databasesAdminstratorCount' => $databasesAdminstratorCount,
             'databasesAdministrator' => $databasesAdministrator,
+            // School
+            'slepets' => $slepets
         ]);
     }
     /**

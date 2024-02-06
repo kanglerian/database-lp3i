@@ -107,6 +107,36 @@
         @include('pages.dashboard.database.database')
         @include('pages.dashboard.database.scripts')
 
+        @if ($slepets > 0)
+            <section class="max-w-7xl px-5 mx-auto">
+                <div class="p-4 mb-4 text-red-800 border border-red-300 rounded-xl bg-red-50">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-circle-info mr-2"></i>
+                        <span class="sr-only">Info</span>
+                        <h3 class="text-lg font-medium">Lakukan Update Data Sekolah!</h3>
+                    </div>
+                    <div class="mt-2 mb-4 text-sm">
+                        Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk mengubahnya agar laporan menjadi lebih akurat.
+                    </div>
+                    @if (Auth::user()->role == 'A')
+                    <div class="flex">
+                        <a href="{{ route('schools.index') }}"
+                            class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
+                            <i class="fa-solid fa-eye mr-2"></i>
+                            lihat selengkapnya
+                        </a>
+                    </div>
+                    @else
+                    <div class="flex">
+                        <span class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
+                            Segera ubah data, hubungi Administrator.
+                        </span>
+                    </div>
+                    @endif
+                </div>
+            </section>
+        @endif
+
         <section class="max-w-7xl px-5 mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <a href="{{ route('dashboard.rekapitulasi_page') }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
