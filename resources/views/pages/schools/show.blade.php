@@ -128,7 +128,6 @@
                                         {{ $errors->first('status') }}
                                     </div>
                                 </div>
-                                {{ $school->region }}
                                 <div class="relative z-0 w-full group">
                                     <x-label for="region" :value="__('Wilayah Sekolah')" />
                                     <x-select name="region" id="region" class="js-example-input-single" required>
