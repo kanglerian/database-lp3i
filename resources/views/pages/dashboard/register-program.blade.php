@@ -78,6 +78,15 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="font-bold">Total</td>
+                                <td id="total_beasiswa_reguler">0</td>
+                                <td id="total_nonbeasiswa_reguler">0</td>
+                                <td id="total_nonreguler">0</td>
+                                <td id="total">0</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -141,6 +150,23 @@
                     try {
                         const response = await axios.get(urlRegisterProgram);
                         let registers = response.data;
+
+                        let total_beasiswa_reguler = 0;
+                        let total_nonbeasiswa_reguler = 0;
+                        let total_nonreguler = 0;
+                        let total = 0;
+
+                        registers.forEach(register => {
+                            total_beasiswa_reguler += parseInt(register.register_reguler_beasiswa);
+                            total_nonbeasiswa_reguler += parseInt(register.register_reguler_nonbeasiswa);
+                            total_nonreguler += parseInt(register.register_nonreguler);
+                            total += parseInt(register.register_reguler_beasiswa) + parseInt(register.register_reguler_nonbeasiswa) + parseInt(register.register_nonreguler);
+                        });
+
+                        document.getElementById('total_beasiswa_reguler').innerText = total_beasiswa_reguler;
+                        document.getElementById('total_nonbeasiswa_reguler').innerText = total_nonbeasiswa_reguler;
+                        document.getElementById('total_nonreguler').innerText = total_nonreguler;
+                        document.getElementById('total').innerText = total;
 
                         let columnConfigs = [{
                                 data: 'pmb',
