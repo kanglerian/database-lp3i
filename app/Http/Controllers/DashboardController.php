@@ -7,6 +7,7 @@ use App\Models\ApplicantBySourceDaftarId;
 use App\Models\ApplicantBySourceId;
 use App\Models\ProgramType;
 use App\Models\Report\RegisterBySchool;
+use App\Models\Report\RegisterBySchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -307,6 +308,13 @@ class DashboardController extends Controller
     {
         $registers = RegisterBySchool::all();
         return view('pages.dashboard.register-program')->with([
+            'registers' => $registers,
+        ]);
+    }
+    public function register_school_year()
+    {
+        $registers = RegisterBySchoolYear::all();
+        return view('pages.dashboard.register-school-year')->with([
             'registers' => $registers,
         ]);
     }

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
+use App\Http\Controllers\API\Report\RegisterBySchoolYearController;
 use App\Http\Controllers\API\Report\ReportAplikanController;
 use App\Http\Controllers\API\Report\SourceDatabaseByPresenterController;
 use App\Http\Controllers\API\Report\SourceDatabaseByWilayahController;
@@ -73,3 +74,4 @@ Route::get('/report/database/perolehanpmb', [ReportStudentsAdmissionController::
 
 Route::get('/report/database/register/school', [RegisterBySchoolController::class, 'get_all']);
 Route::get('/report/database/register/program', [RegisterByProgramController::class, 'get_all']);
+Route::get('/report/database/register/school/year', [RegisterBySchoolYearController::class, 'get_all']);
