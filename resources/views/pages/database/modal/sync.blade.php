@@ -106,7 +106,7 @@
                 hideLoadingAnimation();
             })
             .catch((error) => {
-                alert(error);
+                alert(error.message);
                 hideLoadingAnimation();
             });
         document.getElementById('modal-sync').classList.toggle('hidden');
