@@ -1173,9 +1173,7 @@ class ApplicantController extends Controller
                 'applicants' => count($applicants)
             ]);
         } catch (\Throwable $th) {
-            return response()->json([
-                'error' => 'Network Error',
-            ]);
+            return response()->json($th);
         }
     }
 
