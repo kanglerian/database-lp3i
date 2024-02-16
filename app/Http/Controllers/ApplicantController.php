@@ -370,11 +370,11 @@ class ApplicantController extends Controller
                 'education' => $request->input('education'),
                 'note' => $request->input('note'),
                 'identity_user' => $request->input('identity_user'),
-                'program' => $request->input('program'),
-                'program_second' => $request->input('program_second'),
+                'program' => $request->input('programtype_id') == 3 ? null : $request->input('program'),
+                'program_second' => $request->input('programtype_id') == 3 ? null : $request->input('program_second'),
                 'isread' => '0',
                 'followup_id' => $request->input('followup_id'),
-                'programtype_id' => $request->input('programtype_id'),
+                'programtype_id' => $request->input('programtype_id') == 3 ? null : $request->input('programtype_id'),
                 'source_id' => $request->input('source_id'),
                 'status_id' => $request->input('status_id'),
             ];
@@ -784,8 +784,8 @@ class ApplicantController extends Controller
             'relation' => $request->input('relation'),
 
             'identity_user' => $request->input('identity_user'),
-            'program' => $request->input('programtype_id') == 0 ? null : $request->input('program'),
-            'program_second' => $request->input('programtype_id') == 0 ? null : $request->input('program_second'),
+            'program' => $request->input('programtype_id') == 3 ? null : $request->input('program'),
+            'program_second' => $request->input('programtype_id') == 3 ? null : $request->input('program_second'),
             'isread' => $request->input('isread'),
             'come' => $request->input('come') == 'null' ? null : $request->input('come'),
 
