@@ -8,17 +8,17 @@
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
                         @if (Auth::user()->role == 'S')
-                        <a href="{{ route('dashboard.index') }}"
-                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-                            <i class="fa-solid fa-gauge mr-2"></i>
-                            Dashboard
-                        </a>
+                            <a href="{{ route('dashboard.index') }}"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                                <i class="fa-solid fa-gauge mr-2"></i>
+                                Dashboard
+                            </a>
                         @else
-                        <a href="{{ route('user.index') }}"
-                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-                            <i class="fa-solid fa-users mr-2"></i>
-                            Akun
-                        </a>
+                            <a href="{{ route('user.index') }}"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                                <i class="fa-solid fa-users mr-2"></i>
+                                Akun
+                            </a>
                         @endif
                     </li>
                     <li aria-current="page">
@@ -29,20 +29,6 @@
                     </li>
                 </ol>
             </nav>
-            @if ($user->role == 'S')
-                <div class="flex items-center gap-2">
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg">
-                        <i class="fa-solid fa-rectangle-list text-gray-700"></i>
-                        <span class="text-sm">
-                            @if ($programs == null)
-                                <i class="fa-solid fa-wifi text-red-500"></i>
-                            @else
-                                <i class="fa-solid fa-wifi text-green-500"></i>
-                            @endif
-                        </span>
-                    </div>
-                </div>
-            @endif
         </div>
     </x-slot>
     <div class="py-5">
@@ -75,6 +61,24 @@
                     </div>
                 @endif
                 <div class="w-full md:w-1/3 flex flex-col gap-3">
+                    <div class="w-full bg-white border border-gray-100 p-4 space-y-2 rounded-xl">
+                        <header>
+                            <h2 class="text-xl font-bold text-gray-900">
+                                Program Studi
+                            </h2>
+                            <p class="mt-1 text-sm text-gray-600">
+                                Ini adalah program studi yang dipilih:
+                            </p>
+                        </header>
+                        <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
+                            <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
+                            <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
+                            <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
+                        </ul>
+                        <hr>
+                        <p class="text-xs text-gray-700">Catatan: untuk mengubah program studi silahkan hubungi <a href="https://wa.me/{{ $applicant->presenter->phone }}">{{ $applicant->presenter->name }}</a></p>
+                    </div>
+
                     <form method="POST" class="p-6 bg-white shadow-sm rounded-xl"
                         action="{{ route('profile.update_account', $user->id) }}">
                         @csrf

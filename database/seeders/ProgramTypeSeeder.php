@@ -27,6 +27,12 @@ class ProgramTypeSeeder extends Seeder
                 'status' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Belum diketahui',
+                'status' => 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         ]);
     }

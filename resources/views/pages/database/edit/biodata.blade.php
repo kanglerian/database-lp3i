@@ -11,15 +11,6 @@
             </header>
             <hr class="mt-2 mb-5">
             <section>
-                <div class="grid grid-cols-1 mb-4">
-                    @if ($applicant->program)
-                        <div class="relative z-0 w-full group">
-                            <h4 class="text-sm text-gray-700 mb-1">Program Studi:</h4>
-                            <h2 class="text-lg font-bold text-gray-900">{{ $applicant->program }}</h2>
-                        </div>
-                    @endif
-                </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                     <div class="relative z-0 w-full group">
                         <div id="popover-nik" role="tooltip"

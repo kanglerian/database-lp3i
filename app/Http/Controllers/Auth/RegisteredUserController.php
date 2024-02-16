@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
-            $programtypes = ProgramType::all();
+            $programtypes = ProgramType::where('status', 1)->get();
             $schools = School::all();
 
             if ($response->successful()) {
@@ -72,8 +72,6 @@ class RegisteredUserController extends Controller
             'place_of_birth' => ['required'],
             'date_of_birth' => ['required'],
             'religion' => ['required'],
-            'education' => ['required','not_in:Pilih'],
-            'status_education' => ['required','not_in:Pilih'],
             'major' => ['required'],
             'year' => ['required', 'min:4','max:4'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
@@ -94,13 +92,10 @@ class RegisteredUserController extends Controller
             'program.not_in' => 'Jangan lupa pilih Program Studi yang valid, ya!',
             'name.required' => 'Hei, Nama Lengkap jangan sampai kosong ya!',
             'gender.required' => 'Jenis Kelamin juga penting, lho. Isi dong!',
+            'gender.not_in' => 'Jenis Kelamin juga penting, lho. Isi dong!',
             'place_of_birth.required' => 'Tempat Lahir jangan terlupakan ya!',
             'date_of_birth.required' => 'Tanggal Lahir harus diisi, nih!',
             'religion.required' => 'Agama jangan lupa diisi, ya!',
-            'education.required' => 'Pendidikanmu jangan sampai terlewat!',
-            'education.not_in' => 'Pilih pendidikan terakhir yang valid, pasti oke!',
-            'status_education.required' => 'Status pendidikan terakhir jangan sampai terlewat!',
-            'status_education.not_in' => 'Pilih status pendidikan terakhir yang valid, pasti oke!',
             'major.required' => 'Jurusan wajib diisi, pasti pilihan yang bagus!',
             'year.required' => 'Tahun lulus jangan sampai kosong, ya!',
             'year.min' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
@@ -137,9 +132,7 @@ class RegisteredUserController extends Controller
             } else {
                 $dataSchool = [
                     'name' => strtoupper($request->input('school')),
-                    'status' => $request->input('status_education'),
                     'region' => 'TIDAK DIKETAHUI',
-                    'type' => $request->input('education'),
                 ];
                 $schoolCreate = School::create($dataSchool);
                 $school = $schoolCreate->id;
@@ -193,12 +186,12 @@ class RegisteredUserController extends Controller
                     'identity' => $check_phone_applicant->identity,
                     'programtype_id' => $request->input('programtype_id'),
                     'program' => $request->input('program'),
+                    'program_second' => $request->input('program'),
                     'name' => $check_phone_applicant->name,
                     'gender' => $request->input('gender'),
                     'place_of_birth' => $request->input('place_of_birth'),
                     'date_of_birth' => $request->input('date_of_birth'),
                     'religion' => $request->input('religion'),
-                    'education' => $request->input('education'),
                     'major' => $request->input('major'),
                     'year' => $request->input('year'),
                     'school' => $school,
@@ -229,12 +222,12 @@ class RegisteredUserController extends Controller
                     'identity' => $numbers_unique,
                     'programtype_id' => $request->input('programtype_id'),
                     'program' => $request->input('program'),
+                    'program_second' => $request->input('program'),
                     'name' => ucwords(strtolower($request->input('name'))),
                     'gender' => $request->input('gender'),
                     'place_of_birth' => $request->input('place_of_birth'),
                     'date_of_birth' => $request->input('date_of_birth'),
                     'religion' => $request->input('religion'),
-                    'education' => $request->input('education'),
                     'major' => $request->input('major'),
                     'year' => $request->input('year'),
                     'school' => $school,

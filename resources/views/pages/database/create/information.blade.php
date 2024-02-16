@@ -28,7 +28,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="programtype_id" :value="__('Program Kuliah')" />
-                        <x-select id="programtype_id" name="programtype_id" required>
+                        <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
                             <option value="0">Pilih program</option>
                             @forelse ($programtypes as $programtype)
                                 <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
@@ -49,18 +49,8 @@
                 <div class="grid md:grid-cols-2 gap-3 mb-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="program" :value="__('Program Studi 1')" />
-                        <x-select id="program" name="program" required>
+                        <x-select id="program" name="program" disabled>
                             <option>Pilih program</option>
-                            @if ($programs == null)
-                                <option value="Belum diketahui">Belum diketahui</option>
-                            @else
-                                <option value="Belum diketahui">Belum diketahui</option>
-                                @foreach ($programs as $prog)
-                                    <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                        {{ $prog['level'] }}
-                                        {{ $prog['title'] }}</option>
-                                @endforeach
-                            @endif
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('program'))
@@ -72,18 +62,8 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="program_second" :value="__('Program Studi 2')" />
-                        <x-select id="program_second" name="program_second" required>
+                        <x-select id="program_second" name="program_second" disabled>
                             <option>Pilih program</option>
-                            @if ($programs == null)
-                                <option value="Belum diketahui">Belum diketahui</option>
-                            @else
-                                <option value="Belum diketahui">Belum diketahui</option>
-                                @foreach ($programs as $prog)
-                                    <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                        {{ $prog['level'] }}
-                                        {{ $prog['title'] }}</option>
-                                @endforeach
-                            @endif
                         </x-select>
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('program_second'))
@@ -189,7 +169,53 @@
     </div>
 </div>
 @push('scripts')
-    <script src="{{ asset('js/api-notif.js') }}"></script>
+    <script>
+        const filterProgram = async () => {
+            let programType = document.getElementById('programtype_id').value;
+            await axios.get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs')
+                .then((res) => {
+                    let programs = res.data;
+                    var results;
+                    let bucket = '';
+                    switch (programType) {
+                        case "1":
+                            results = programs.filter(program => program.regular === "1");
+                            break;
+                        case "2":
+                            results = programs.filter(program => program.employee === "1");
+                            break;
+                        default:
+                            document.getElementById('program').innerHTML = `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program').disabled = true;
+                            document.getElementById('program_second').innerHTML = `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program_second').disabled = true;
+                            break;
+                    }
+                    if (programType != 0) {
+                        results.map((result) => {
+                            console.log(result);
+                            let option = '';
+                            result.interest.map((inter, index) => {
+                                option +=
+                                    `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                            })
+                            bucket += `
+                    <optgroup label="${result.level} ${result.title} (${result.campus})">
+                        ${option}
+                    </optgroup>`;
+                        });
+                        document.getElementById('program').innerHTML = bucket;
+                        document.getElementById('program').disabled = false;
+                        document.getElementById('program_second').innerHTML = bucket;
+                        document.getElementById('program_second').disabled = false;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+
+        }
+    </script>
     <script>
         const getYearPMB = () => {
             const currentDate = new Date();

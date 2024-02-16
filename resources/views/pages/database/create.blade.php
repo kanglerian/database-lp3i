@@ -21,18 +21,6 @@
                     </li>
                 </ol>
             </nav>
-            <div class="flex items-center gap-2">
-                <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                    <i class="fa-solid fa-rectangle-list text-gray-700"></i>
-                    <span class="text-sm">
-                        @if ($programs == null)
-                            <i class="fa-solid fa-wifi text-red-500"></i>
-                        @else
-                            <i class="fa-solid fa-wifi text-green-500"></i>
-                        @endif
-                    </span>
-                </div>
-            </div>
         </div>
     </x-slot>
     <div class="py-4">

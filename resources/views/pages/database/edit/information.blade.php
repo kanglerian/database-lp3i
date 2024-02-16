@@ -1,7 +1,7 @@
 <div class="px-6 py-6 bg-white shadow sm:rounded-lg">
     <div class="w-full">
         <section>
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-3">
                 <div class="w-full md:w-auto">
                     <h2 class="text-xl font-bold text-gray-900">
                         Informasi Aplikan
@@ -11,10 +11,91 @@
                     </p>
                 </div>
             </header>
-            <hr class="mt-2 mb-4">
-            <section>
+            <hr>
+            <section class="my-4 space-y-4">
+                @if ($applicant->program && $applicant->program_second && $applicant->programtype_id)
+                    <header>
+                        <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
+                            <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
+                            <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
+                            <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
+                        </ul>
+                        <button onclick="majorSetting()" type="button"
+                            class="mt-2 text-xs text-white bg-yellow-500 hover:bg-yellow-600 px-5 py-1 rounded-lg">Ubah</button>
+                    </header>
+                    <div id="major-selected">
+                        <input type="hidden" name="programtype_id" value="{{ $applicant->programtype_id }}">
+                        <input type="hidden" name="program" value="{{ $applicant->program }}">
+                        <input type="hidden" name="program_second" value="{{ $applicant->program_second }}">
+                    </div>
+                @endif
+                <div class="@if ($applicant->programtype_id && $applicant->program && $applicant->program_second) hidden @endif space-y-2 bg-gray-50 border p-4 rounded-xl"
+                    id="major-options">
+                    <div class="grid grid-cols-1">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="programtype_id" :value="__('Program Kuliah')" />
+                            @if ($applicant->programtype_id && $applicant->program && $applicant->program_second)
+                                <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required disabled>
+                                    <option>Pilih program</option>
+                                    @foreach ($programtypes as $programtype)
+                                        <option value="{{ $programtype->id }}">
+                                            {{ $programtype->name }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                            @else
+                                <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
+                                    <option>Pilih program</option>
+                                    @foreach ($programtypes as $programtype)
+                                        <option value="{{ $programtype->id }}">
+                                            {{ $programtype->name }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                            @endif
+                            <p class="mt-2 text-xs text-gray-500">
+                                @if ($errors->has('programtype_id'))
+                                    <span class="text-red-500 text-xs">{{ $errors->first('programtype_id') }}</span>
+                                @else
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="relative z-0 w-full group">
+                            <x-label for="program" :value="__('Program Pilihan 1')" />
+                            <x-select id="program" name="program" disabled>
+                                <option>Pilih Program Studi</option>
+                            </x-select>
+                            <p class="mt-2 text-xs text-gray-500">
+                                @if ($errors->has('program'))
+                                    <span class="text-red-500 text-xs">{{ $errors->first('program') }}</span>
+                                @else
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                @endif
+                            </p>
+                        </div>
+                        <div class="relative z-0 w-full group">
+                            <x-label for="program_second" :value="__('Program Pilihan 2')" />
+                            <x-select id="program_second" name="program_second" disabled>
+                                <option>Pilih Program Studi</option>
+                            </x-select>
+                            <p class="mt-2 text-xs text-gray-500">
+                                @if ($errors->has('program_second'))
+                                    <span class="text-red-500 text-xs">{{ $errors->first('program_second') }}</span>
+                                @else
+                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section class="mt-3 space-y-4">
                 <x-input class="hidden" name="isread" value="{{ $applicant->isread }}" />
-                <div class="grid grid-cols-1 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @if (Auth::check() && Auth::user()->role == 'P')
                         <input type="hidden" value="{{ $applicant->identity_user }}" name="identity_user">
                     @else
@@ -46,115 +127,21 @@
                                     <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
-                        </div>
-                    @endif
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="pmb" :value="__('Tahun Akademik')" />
-                        <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
-                            placeholder="Tahun Akademik" required />
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('pmb'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="programtype_id" :value="__('Program Kuliah')" />
-                        <x-select id="programtype_id" name="programtype_id" required>
-                            @if ($applicant->programtype_id !== null)
-                                <option value="{{ $applicant->programtype_id }}" selected>
-                                    {{ $applicant->programType->name }}
-                                </option>
-                            @endif
-                            @foreach ($programtypes as $programtype)
-                                <option value="{{ $programtype->id }}">
-                                    {{ $programtype->name }}
-                                </option>
-                            @endforeach
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('programtype_id'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('programtype_id') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    @if ($programs !== null)
-                        <div class="relative z-0 w-full group">
-                            <x-label for="program" :value="__('Program Pilihan 1')" />
-                            <x-select id="program" name="program" required>
-                                @if ($applicant->program == null)
-                                    <option>Pilih program</option>
-                                    <option value="Belum diketahui">Belum diketahui</option>
-                                    @foreach ($programs as $prog)
-                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                    @endforeach
-                                @else
-                                    <option value="{{ $applicant->program }}">
-                                        {{ $applicant->program }}
-                                    </option>
-                                    @foreach ($programs as $prog)
-                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                    @endforeach
-                                @endif
-                            </x-select>
+                        </div><div class="relative z-0 w-full group">
+                            <x-label for="pmb" :value="__('Tahun Akademik')" />
+                            <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
+                                placeholder="Tahun Akademik" required />
                             <p class="mt-2 text-xs text-gray-500">
-                                @if ($errors->has('program'))
-                                    <span class="text-red-500 text-xs">{{ $errors->first('program') }}</span>
+                                @if ($errors->has('pmb'))
+                                    <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
                                 @else
                                     <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
                         </div>
-                    @else
-                        <input type="hidden" name="program" id="program" value="{{ $applicant->program }}">
-                    @endif
-                    @if ($programs !== null)
-                        <div class="relative z-0 w-full group">
-                            <x-label for="program_second" :value="__('Program Pilihan 2')" />
-                            <x-select id="program_second" name="program_second">
-                                @if ($applicant->program_second == null)
-                                    <option>Pilih program</option>
-                                    <option value="Belum diketahui">Belum diketahui</option>
-                                    @foreach ($programs as $prog)
-                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                    @endforeach
-                                @else
-                                    <option value="{{ $applicant->program_second }}">
-                                        {{ $applicant->program_second }}
-                                    </option>
-                                    @foreach ($programs as $prog)
-                                        <option value="{{ $prog['level'] }} {{ $prog['title'] }}">
-                                            {{ $prog['level'] }} {{ $prog['title'] }}</option>
-                                    @endforeach
-                                @endif
-                            </x-select>
-                            <p class="mt-2 text-xs text-gray-500">
-                                @if ($errors->has('program_second'))
-                                    <span class="text-red-500 text-xs">{{ $errors->first('program_second') }}</span>
-                                @else
-                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                                @endif
-                            </p>
-                        </div>
-                    @else
-                        <input type="hidden" name="program_second" id="program_second"
-                            value="{{ $applicant->program_second }}">
                     @endif
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="source_id" :value="__('Sumber Database')" />
                         <x-select id="source_id" name="source_id" required>
@@ -205,7 +192,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
                         <x-select id="followup_id" name="followup_id">
@@ -249,7 +236,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="email" :value="__('Email')" />
                         <x-input id="email" type="email" name="email" value="{{ $applicant->email }}"
@@ -276,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="known" :value="__('Mengetahui LP3I?')" />
                         <x-select id="known" name="known">
@@ -325,7 +312,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="planning" :value="__('Rencana Setelah Lulus')" />
                         <x-select id="planning" name="planning">
@@ -368,3 +355,71 @@
         </section>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        const majorSetting = () => {
+            let majorOptionsElement = document.getElementById('major-options');
+            let majorSelectedElement = document.getElementById('major-selected');
+            majorOptionsElement.classList.toggle('hidden');
+            majorSelectedElement.classList.toggle('hidden');
+
+            if (!majorOptionsElement.classList.contains('hidden')) {
+                let programType = majorOptionsElement.querySelector('[name="programtype_id"]');
+                let program = majorOptionsElement.querySelector('[name="program"]');
+                let programSecond = majorOptionsElement.querySelector('[name="program_second"]');
+                programType.disabled = false;
+                program.disabled = true;
+                programSecond.disabled = true;
+            }
+        }
+    </script>
+    <script>
+        const filterProgram = async () => {
+            let programType = document.getElementById('programtype_id').value;
+            await axios.get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs')
+                .then((res) => {
+                    let programs = res.data;
+                    var results;
+                    let bucket = '';
+                    switch (programType) {
+                        case "1":
+                            results = programs.filter(program => program.regular === "1");
+                            break;
+                        case "2":
+                            results = programs.filter(program => program.employee === "1");
+                            break;
+                        default:
+                            document.getElementById('program').innerHTML =
+                                `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program').disabled = true;
+                            document.getElementById('program_second').innerHTML =
+                                `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program_second').disabled = true;
+                            break;
+                    }
+                    if (programType != 0 && programType != 3) {
+                        results.map((result) => {
+                            let option = '';
+                            result.interest.map((inter, index) => {
+                                option +=
+                                    `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                            })
+                            bucket += `
+                                <optgroup label="${result.level} ${result.title} (${result.campus})">
+                                    ${option}
+                                </optgroup>`;
+                        });
+                        document.getElementById('program').innerHTML = bucket;
+                        document.getElementById('program').disabled = false;
+                        document.getElementById('program_second').innerHTML = bucket;
+                        document.getElementById('program_second').disabled = false;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+
+        }
+    </script>
+@endpush

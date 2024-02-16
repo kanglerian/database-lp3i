@@ -259,7 +259,6 @@ class ApplicantController extends Controller
     public function create()
     {
         try {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
@@ -267,14 +266,7 @@ class ApplicantController extends Controller
             $schools = School::all();
             $follows = FollowUp::all();
 
-            if ($response->successful()) {
-                $programs = $response->json();
-            } else {
-                $programs = null;
-            }
-
             return view('pages.database.create')->with([
-                'programs' => $programs,
                 'statuses' => $statuses,
                 'programtypes' => $programtypes,
                 'sources' => $sources,
@@ -300,7 +292,7 @@ class ApplicantController extends Controller
                 [
                     'pmb' => ['required', 'integer'],
                     'programtype_id' => ['required', 'not_in:0'],
-                    'program' => ['required', 'string', 'not_in:Pilih program'],
+                    'program' => ['nullable','string', 'not_in:Pilih program'],
                     'program_second' => ['nullable', 'string', 'not_in:Pilih program'],
                     'name' => ['required', 'string', 'max:255'],
                     'gender' => ['required', 'string', 'not_in:null'],
@@ -663,10 +655,11 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate(
             [
                 'pmb' => ['required', 'integer'],
-                'programtype_id' => ['required', 'not_in:null'],
+                'programtype_id' => ['not_in:Pilih program'],
                 'nik' => ['nullable', 'min:16', 'max:16', Rule::unique('applicants')->ignore($id, 'id')],
                 'nisn' => ['nullable', 'min:10', 'max:10', Rule::unique('applicants')->ignore($id, 'id')],
                 'kip' => ['nullable', 'min:16', 'max:16', Rule::unique('applicants')->ignore($id, 'id')],
@@ -676,14 +669,13 @@ class ApplicantController extends Controller
                 'source_daftar_id' => ['required', 'not_in:0'],
                 'status_id' => ['required', 'not_in:0'],
                 'followup_id' => ['not_in:null'],
-                'program' => ['required', 'string', 'not_in:Pilih program'],
-                'program_second' => ['required', 'string', 'not_in:Pilih program'],
+                'program' => ['string'],
+                'program_second' => ['string'],
                 'identity_user' => ['required', 'string', 'not_in:0'],
             ],
             [
                 'pmb.required' => 'Kolom PMB tidak boleh kosong, harap isi dengan angka.',
                 'pmb.integer' => 'Kolom PMB harus berupa angka.',
-                'programtype_id.required' => 'Pilih tipe program terlebih dahulu.',
                 'programtype_id.not_in' => 'Pilih tipe program yang valid.',
                 'nik.unique' => 'Oops, Nomor Induk Kependudukan (NIK) sudah terdaftar nih, coba yang lain!',
                 'nik.min' => 'Format NIK nggak bener, harus :min digit ya!',
@@ -706,10 +698,8 @@ class ApplicantController extends Controller
                 'status_id.required' => 'Pilih status Anda.',
                 'status_id.not_in' => 'Pilih status yang valid.',
                 'followup_id.not_in' => 'Pilih opsi tindak lanjut yang valid.',
-                'program.required' => 'Kolom program tidak boleh kosong, harap pilih program yang diinginkan.',
                 'program.string' => 'Kolom program harus berupa teks.',
                 'program.not_in' => 'Pilih program yang valid.',
-                'program_second.required' => 'Kolom program kedua tidak boleh kosong, harap pilih program kedua yang diinginkan.',
                 'program_second.string' => 'Kolom program kedua harus berupa teks.',
                 'program_second.not_in' => 'Pilih program kedua yang valid.',
                 'identity_user.required' => 'Kolom identitas pengguna tidak boleh kosong.',
@@ -794,8 +784,8 @@ class ApplicantController extends Controller
             'relation' => $request->input('relation'),
 
             'identity_user' => $request->input('identity_user'),
-            'program' => $request->input('program'),
-            'program_second' => $request->input('program_second'),
+            'program' => $request->input('programtype_id') == 0 ? null : $request->input('program'),
+            'program_second' => $request->input('programtype_id') == 0 ? null : $request->input('program'),
             'isread' => $request->input('isread'),
             'come' => $request->input('come') == 'null' ? null : $request->input('come'),
 
@@ -805,7 +795,7 @@ class ApplicantController extends Controller
             'income_parent' => $request->input('income_parent') == 'null' ? null : $request->input('income_parent'),
 
             'followup_id' => $request->input('followup_id'),
-            'programtype_id' => $request->input('programtype_id'),
+            'programtype_id' => $request->input('programtype_id') == 3 ? null : $request->input('programtype_id'),
             'source_id' => $request->input('source_id'),
             'source_daftar_id' => $request->input('source_daftar_id'),
             'status_id' => $request->input('status_id'),
