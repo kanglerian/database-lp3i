@@ -785,7 +785,7 @@ class ApplicantController extends Controller
 
             'identity_user' => $request->input('identity_user'),
             'program' => $request->input('programtype_id') == 0 ? null : $request->input('program'),
-            'program_second' => $request->input('programtype_id') == 0 ? null : $request->input('program'),
+            'program_second' => $request->input('programtype_id') == 0 ? null : $request->input('program_second'),
             'isread' => $request->input('isread'),
             'come' => $request->input('come') == 'null' ? null : $request->input('come'),
 
