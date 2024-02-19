@@ -1,6 +1,6 @@
-<div class="p-6 bg-white shadow-sm sm:rounded-lg">
+<div class="p-6 bg-white border border-gray-100 sm:rounded-xl">
     <div class="w-full">
-        <section>
+        <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="w-full md:w-auto">
                     <h2 class="text-xl font-bold text-gray-900">
@@ -11,9 +11,9 @@
                     </p>
                 </div>
             </header>
-            <hr class="my-3">
-            <section>
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+            <hr>
+            <section class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
                         <x-input id="pmb" type="number" name="pmb" :value="old('pmb')"
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="program" :value="__('Program Studi 1')" />
                         <x-select id="program" name="program" disabled>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <div class="grid md:grid-cols-2 gap-3">
                     @if (Auth::check() && Auth::user()->role == 'P')
                         <input type="hidden" value="{{ Auth::user()->identity }}" name="identity_user">
                     @else
@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="followup_id" :value="__('Keterangan Follow Up')" />
                         <x-select id="followup_id" name="followup_id" required>

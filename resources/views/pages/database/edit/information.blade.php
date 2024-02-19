@@ -1,7 +1,7 @@
-<div class="px-6 py-6 bg-white shadow sm:rounded-lg">
+<div class="px-6 py-6 bg-white border border-gray-100 sm:rounded-xl">
     <div class="w-full">
-        <section>
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-3">
+        <section class="space-y-4">
+            <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">
                 <div class="w-full md:w-auto">
                     <h2 class="text-xl font-bold text-gray-900">
                         Informasi Aplikan
@@ -12,7 +12,7 @@
                 </div>
             </header>
             <hr>
-            <section class="my-4 space-y-4">
+            <section class="space-y-4">
                 @if ($applicant->program && $applicant->program_second && $applicant->programtype_id)
                     <header>
                         <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
@@ -93,7 +93,7 @@
                 </div>
             </section>
             <hr>
-            <section class="mt-3 space-y-4">
+            <section class="space-y-4">
                 <x-input class="hidden" name="isread" value="{{ $applicant->isread }}" />
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @if (Auth::check() && Auth::user()->role == 'P')
@@ -127,7 +127,8 @@
                                     <span class="text-red-500 text-xs">*Wajib diisi.</span>
                                 @endif
                             </p>
-                        </div><div class="relative z-0 w-full group">
+                        </div>
+                        <div class="relative z-0 w-full group">
                             <x-label for="pmb" :value="__('Tahun Akademik')" />
                             <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
                                 placeholder="Tahun Akademik" required />

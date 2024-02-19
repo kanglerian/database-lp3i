@@ -1,2 +1,0 @@
-CREATE VIEW `applicants_by_source_id` AS SELECT source_id, COUNT(*) AS total FROM applicants GROUP BY source_id;
-CREATE VIEW `applicants_by_source_daftar_id` AS SELECT source_daftar_id, COUNT(*) AS total FROM applicants GROUP BY source_daftar_id;

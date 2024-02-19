@@ -43,8 +43,8 @@
             <div class="flex items-center justify-between">
                 <div class="w-full md:w-4/6 p-3">
                     <div class="bg-white border border-gray-100 rounded-xl space-y-3 p-6">
-
-                        <form action="{{ route('schools.update', $school->id) }}" class="space-y-3" method="POST">
+                        <form action="{{ route('schools.update', $school->id) }}" class="space-y-3" id="school-form"
+                            method="POST">
                             @csrf
                             @method('PATCH')
                             <div class="grid grid-cols-1 gap-4">
@@ -132,7 +132,8 @@
                                     <x-label for="region" :value="__('Wilayah Sekolah')" />
                                     <x-select name="region" id="region" class="js-example-input-single" required>
                                         @if ($school->region)
-                                            <option value="{{ $school->region }}" selected>{{ $school->region }}</option>
+                                            <option value="{{ $school->region }}" selected>{{ $school->region }}
+                                            </option>
                                         @else
                                             <option>Pilih</option>
                                         @endif
@@ -150,10 +151,11 @@
                                 </div>
                             </div>
                             <div>
-                                <button type="submit"
+                                <button type="button" onclick="updateSchool()"
                                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-lg text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>
-                                <button class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg text-sm"><i
+                                <button type="button" onclick="deleteSchool('{{ $school->id }}')"
+                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg text-sm"><i
                                         class="fa-regular fa-trash-can"></i> Hapus</button>
                             </div>
                         </form>
@@ -171,6 +173,37 @@
                     tags: true,
                 });
             });
+
+            const updateSchool = () => {
+                document.getElementById('school-form').submit();
+            }
+
+            const deleteSchool = (id) => {
+                let deleteConfirm = confirm('Apakah anda yakin akan menghapus sekolah?');
+                if (deleteConfirm) {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+                    fetch(`/schools/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            }
+                        })
+                        .then((response) => {
+                            if (!response.ok) {
+                                alert('Network response was not ok.')
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            alert(data.message);
+                            // window.location.href = '/schools'
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            }
         </script>
     @endpush
 </x-app-layout>

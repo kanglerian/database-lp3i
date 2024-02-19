@@ -32,7 +32,6 @@ class CreateApplicantsTable extends Migration
             $table->string('phone', 20)->nullable()->unique();
 
             $table->string('education', 255)->nullable();
-            $table->integer('school')->nullable();
             $table->string('major', 100)->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
@@ -59,14 +58,14 @@ class CreateApplicantsTable extends Migration
             $table->text('other_campus')->nullable();
             $table->string('income_parent')->nullable();
 
+            $table->unsignedBigInteger('source_daftar_id')->nullable();
+            $table->unsignedBigInteger('school')->nullable();
             $table->unsignedBigInteger('followup_id')->nullable();
             $table->unsignedBigInteger('programtype_id')->nullable();
-            $table->unsignedBigInteger('source_daftar_id')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
 
             $table->timestamps();
-
         });
     }
 

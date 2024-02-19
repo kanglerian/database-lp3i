@@ -301,8 +301,6 @@ class ApplicantController extends Controller
                     'followup_id' => ['not_in:null'],
                     'identity_user' => ['required', 'string', 'not_in:0'],
                     'school' => ['required'],
-                    'status_education' => ['required', 'not_in:Pilih'],
-                    'education' => ['required', 'not_in:Pilih'],
                 ],
                 [
                     'pmb.required' => 'Kolom PMB tidak boleh kosong, harap isi dengan angka.',
@@ -328,8 +326,6 @@ class ApplicantController extends Controller
                     'identity_user.string' => 'Kolom identitas pengguna harus berupa teks.',
                     'identity_user.not_in' => 'Pilih jenis identitas pengguna yang valid.',
                     'school.required' => 'Kolom sekolah tidak boleh kosong.',
-                    'status_education.required' => 'Kolom status sekolah tidak boleh kosong.',
-                    'education.required' => 'Kolom pendidikan terakhir tidak boleh kosong.',
                 ],
             );
 
@@ -350,8 +346,6 @@ class ApplicantController extends Controller
                 } else {
                     $dataSchool = [
                         'name' => strtoupper($request->input('school')),
-                        'status' => $request->input('status_education'),
-                        'type' => $request->input('education'),
                         'region' => 'TIDAK DIKETAHUI',
                     ];
                     $schoolCreate = School::create($dataSchool);
@@ -367,7 +361,6 @@ class ApplicantController extends Controller
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'school' => $school,
-                'education' => $request->input('education'),
                 'note' => $request->input('note'),
                 'identity_user' => $request->input('identity_user'),
                 'program' => $request->input('programtype_id') == 3 ? null : $request->input('program'),
@@ -388,11 +381,12 @@ class ApplicantController extends Controller
                 'gender' => 0,
             ];
 
-            Applicant::create($data_applicant);
+            $applicant = Applicant::create($data_applicant);
             ApplicantFamily::create($data_father);
             ApplicantFamily::create($data_mother);
 
-            return back()->with('message', 'Data aplikan berhasil ditambahkan!');
+            return redirect()->route('database.show', $applicant->identity)->with('message', 'Berhasil menambahkan data ' . $applicant->name);
+
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
                 $errorMessage = 'Terjadi duplikat data.';
@@ -772,7 +766,6 @@ class ApplicantController extends Controller
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
 
-            'education' => $request->input('education'),
             'school' => $school,
             'major' => $request->input('major'),
             'class' => $request->input('class'),

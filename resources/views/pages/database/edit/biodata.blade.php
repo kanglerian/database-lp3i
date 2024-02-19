@@ -1,6 +1,6 @@
-<div class="w-full px-6 py-6 bg-white shadow-sm sm:rounded-lg">
+<div class="w-full p-6 bg-white border border-gray-100 sm:rounded-xl">
     <div class="w-full">
-        <section>
+        <section class="space-y-4">
             <header>
                 <h2 class="text-xl font-bold text-gray-900">
                     Biodata Mahasiswa
@@ -9,9 +9,9 @@
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
                 </p>
             </header>
-            <hr class="mt-2 mb-5">
-            <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+            <hr>
+            <section class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <div id="popover-nik" role="tooltip"
                             class="absolute hidden top-[-75px] right-[-7px] z-10 visible inline-block w-72 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="kip" :value="__('No. Kartu Indonesia Pintar')" />
                         <x-input id="kip" type="number" name="kip" value="{{ old('kip', $applicant->kip) }}"
@@ -128,7 +128,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name"
@@ -172,7 +172,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="place_of_birth" type="text" name="place_of_birth"
@@ -251,73 +251,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="education" :value="__('Pendidikan Terakhir')" />
-                        <x-select id="education" name="education" required>
-                            @if ($applicant->education)
-                                <option value="{{ $applicant->education }}">{{ $applicant->education }}
-                                </option>
-                            @else
-                                <option value="MA">MA</option>
-                                <option value="SMA">SMA</option>
-                                <option value="SMK">SMK</option>
-                                <option value="PKBM">PKBM</option>
-                                <option value="D3">D3</option>
-                            @endif
-                            @switch($applicant->education)
-                                @case('SMA')
-                                    <option value="MA">MA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="PKBM">PKBM</option>
-                                    <option value="D3">D3</option>
-                                @break
-
-                                @case('MA')
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="PKBM">PKBM</option>
-                                    <option value="D3">D3</option>
-                                @break
-
-                                @case('SMK')
-                                    <option value="SMA">SMA</option>
-                                    <option value="MA">MA</option>
-                                    <option value="PKBM">PKBM</option>
-                                    <option value="D3">D3</option>
-                                @break
-
-                                @case('PKBM')
-                                    <option value="MA">MA</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="D3">D3</option>
-                                @break
-
-                                @case('D3')
-                                    <option value="MA">MA</option>
-                                    <option value="PKBM">PKBM</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                @break
-
-                                @default
-                                    <option value="MA">MA</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SMK">SMK</option>
-                                    <option value="PKBM">PKBM</option>
-                                    <option value="D3">D3</option>
-                                @break
-                            @endswitch
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('education'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="school" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
@@ -339,9 +273,6 @@
                             @endif
                         </p>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
                     <div class="relative z-0 w-full group">
                         <x-label for="major" :value="__('Jurusan')" />
                         <x-input id="major" type="text" name="major"
@@ -354,6 +285,9 @@
                             @endif
                         </p>
                     </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="year" :value="__('Tahun Lulus')" />
                         <x-input type="number" min="1945" max="3000" name="year" id="year"
@@ -376,7 +310,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div class="relative z-0 w-full group">
                         <div class="relative z-0 w-full group">
                             <x-label for="social_media" :value="__('Sosial Media')" />
@@ -407,8 +341,8 @@
                     </div>
                 </div>
 
-                <div class="@if ($applicant->address) hidden @endif" id="address-container">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                <div class="@if ($applicant->address) hidden @endif space-y-4" id="address-container">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="place" :value="__('Jl/Kp/Perum')" />
                             <x-input id="place" type="text" name="place" placeholder="Jl. / Kp. / Perum"
@@ -423,7 +357,7 @@
                             <x-input id="rw" type="text" name="rw" placeholder="RW." required />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="grid grid-cols-2 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="provinces" :value="__('Provinsi')" />
                             <x-select id="provinces" name="provinces" required disabled></x-select>
@@ -435,7 +369,7 @@
                             </x-select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="districts" :value="__('Kecamatan')" />
                             <x-select id="districts" name="districts" required disabled>

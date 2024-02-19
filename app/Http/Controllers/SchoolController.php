@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\SchoolByRegion;
 use App\Models\School;
+use Illuminate\Http\JsonResponse;
 
 class SchoolController extends Controller
 {
@@ -144,10 +145,15 @@ class SchoolController extends Controller
         try {
             $school = School::findOrFail($id);
             $school->delete();
-            return session()->flash('message', 'Data sekolah berhasil dihapus!');
+            return new JsonResponse([
+                'status' => 200,
+                'message' => 'Data sekolah berhasil dihapus!',
+            ]);
         } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+            return new JsonResponse([
+                'status' => 500,
+                'message' => 'Terjadi kesalahan saat menghapus data sekolah.',
+            ]);
         }
     }
 

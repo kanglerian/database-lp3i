@@ -32,5 +32,5 @@ class SchoolController extends Controller
 
         return response()->json(['schools' => $schools]);
     }
-
+    
 }

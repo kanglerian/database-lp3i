@@ -22,25 +22,13 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Edit Mahasiswa</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Ubah Profil Mahasiswa</span>
                         </div>
                     </li>
                 </ol>
             </nav>
 
             <div class="flex flex-col md:flex-row items-center gap-2">
-                <div class="flex items-center gap-2">
-                    <div class="flex items-center gap-2 border border-gray-200 px-3 py-1.5 rounded-lg">
-                        <i class="fa-solid fa-rectangle-list text-gray-700"></i>
-                        <span class="text-sm">
-                            @if ($programs == null)
-                                <i class="fa-solid fa-wifi text-red-500"></i>
-                            @else
-                                <i class="fa-solid fa-wifi text-green-500"></i>
-                            @endif
-                        </span>
-                    </div>
-                </div>
                 <button onclick="saveChanges()"
                     class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                         class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>

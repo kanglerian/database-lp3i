@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeyToFileUploadOnTableUsersUpload extends Migration
+class AddForeignKeyUsersUpload extends Migration
 {
     /**
      * Run the migrations.
@@ -25,8 +25,6 @@ class AddForeignKeyToFileUploadOnTableUsersUpload extends Migration
      */
     public function down()
     {
-        Schema::table('users_upload', function (Blueprint $table) {
-            $table->dropForeign('users_upload_fileupload_id_foreign');
-        });
+        //
     }
 }

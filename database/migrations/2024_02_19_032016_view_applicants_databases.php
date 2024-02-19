@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-class CreateApplicantsDatabasesTable extends Migration
+class ViewApplicantsDatabases extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateApplicantsDatabasesTable extends Migration
      */
     public function up()
     {
-        DB::unprepared('
+        DB::statement('
             CREATE VIEW applicants_databases AS
             SELECT
                 source_setting.id AS id,
@@ -39,6 +39,6 @@ class CreateApplicantsDatabasesTable extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW IF EXISTS applicants_databases;');
+        DB::statement('DROP VIEW IF EXISTS applicants_databases');
     }
 }

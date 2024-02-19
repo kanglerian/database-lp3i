@@ -1,6 +1,6 @@
-<div class="p-6 bg-white shadow-sm sm:rounded-lg">
+<div class="p-6 bg-white border border-gray-100 sm:rounded-xl">
     <div class="w-full">
-        <section>
+        <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between">
                 <div class="w-full md:w-auto">
                     <h2 class="text-xl font-bold text-gray-900">
@@ -11,9 +11,9 @@
                     </p>
                 </div>
             </header>
-            <hr class="my-3">
-            <section>
-                <div class="grid md:grid-cols-1 gap-3 mb-3">
+            <hr>
+            <section class="space-y-4">
+                <div class="grid md:grid-cols-1 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="name" :value="__('Nama Lengkap')" />
                         <x-input id="name" type="text" name="name" :value="old('name')"
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="gender" :value="__('Jenis Kelamin')" />
                         <x-select id="gender" name="gender" required>
@@ -39,42 +39,6 @@
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('gender'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('gender') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="relative z-0 w-full group">
-                        <x-label for="education" :value="__('Pendidikan Terakhir')" />
-                        <x-select id="education" name="education" required>
-                            <option>Pilih</option>
-                            <option value="MA">MA</option>
-                            <option value="SMA">SMA</option>
-                            <option value="SMK">SMK</option>
-                            <option value="PKBM">PKBM</option>
-                            <option value="D3">D3</option>
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('education'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
-                            @else
-                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                            @endif
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
-                    <div class="relative z-0 w-full group">
-                        <x-label for="status_education" :value="__('Status Sekolah')" />
-                        <x-select id="status_education" name="status_education" required>
-                            <option>Pilih</option>
-                            <option value="S">Swasta</option>
-                            <option value="N">Negeri</option>
-                        </x-select>
-                        <p class="mt-2 text-xs text-gray-500">
-                            @if ($errors->has('education'))
-                                <span class="text-red-500 text-xs">{{ $errors->first('education') }}</span>
                             @else
                                 <span class="text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
@@ -94,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="email" :value="__('Email')" />
                         <x-input id="email" type="email" name="email" :value="old('email')"

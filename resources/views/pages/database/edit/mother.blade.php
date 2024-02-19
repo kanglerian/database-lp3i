@@ -1,6 +1,6 @@
-<div class="w-full px-6 py-6 bg-white shadow-sm sm:rounded-lg">
+<div class="w-full px-6 py-6 bg-white border border-gray-100 sm:rounded-xl">
     <div class="w-full">
-        <section>
+        <section class="space-y-4">
             <header>
                 <h2 class="text-xl font-bold text-gray-900">
                     Biodata Ibu
@@ -9,9 +9,9 @@
                     Mahasiswa orangtua/wali mahasiswa Politeknik LP3I Kampus Tasikmalaya.
                 </p>
             </header>
-            <hr class="mt-2 mb-5">
-            <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <hr>
+            <section class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_name" :value="__('Nama Lengkap')" />
                         <x-input id="mother_name" type="text" name="mother_name"
@@ -29,7 +29,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_place_of_birth" :value="__('Tempat Lahir')" />
                         <x-input id="mother_place_of_birth" type="text" name="mother_place_of_birth"
@@ -49,7 +49,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="mother_education" :value="__('Pendidikan Terakhir')" />
                         <x-input id="mother_education" type="text" name="mother_education"
@@ -69,8 +69,8 @@
                     </div>
                 </div>
 
-                <div class="@if ($mother->address) hidden @endif" id="address-container-mother">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                <div class="@if ($mother->address) hidden @endif space-y-4" id="address-container-mother">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_place" :value="__('Jl/Kp/Perum')" />
                             <x-input id="mother_place" type="text" name="mother_place" placeholder="Jl. / Kp. / Perum"
@@ -85,7 +85,7 @@
                             <x-input id="mother_rw" type="text" name="mother_rw" placeholder="RW." required />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="grid grid-cols-2 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_provinces" :value="__('Provinsi')" />
                             <x-select id="mother_provinces" name="mother_provinces" required disabled></x-select>
@@ -97,7 +97,7 @@
                             </x-select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_districts" :value="__('Kecamatan')" />
                             <x-select id="mother_districts" name="mother_districts" required disabled>

@@ -33,11 +33,11 @@
     <div id="identity_user" class="hidden">{{ $user->identity }}</div>
 
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3">
-        <div class="w-full md:w-4/6 mx-auto space-y-6">
-            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
+        <div class="w-full md:w-4/6">
+            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
                 <div class="w-full">
-                    <section>
-                        <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
+                    <section class="space-y-4">
+                        <header class="flex justify-between items-center gap-3">
                             <div>
                                 <h2 class="text-xl font-bold text-gray-900">
                                     Daftar Riwayat Hidup
@@ -69,9 +69,9 @@
                                 @endif
                             </div>
                         </header>
-                        <hr class="my-3">
-                        <section class="space-y-5">
-                            <div class="space-y-1">
+                        <hr>
+                        <section class="space-y-4">
+                            <div class="space-y-2">
                                 <h2 class="text-lg font-bold text-gray-900">Biodata Mahasiswa</h2>
                                 <ul class="text-sm space-y-1 text-gray-800">
                                     <li class="space-x-2">
@@ -122,7 +122,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-1">
+                            <div class="space-y-2">
                                 <h2 class="text-lg font-bold text-gray-900">Biodata Ayah</h2>
                                 <ul class="text-sm space-y-1 text-gray-800">
                                     <li class="space-x-2">
@@ -161,7 +161,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="space-y-1">
+                            <div class="space-y-2">
                                 <h2 class="text-lg font-bold text-gray-900">Biodata Ibu</h2>
                                 <ul class="text-sm space-y-1 text-gray-800">
                                     <li class="space-x-2">
@@ -207,9 +207,9 @@
         </div>
 
         <div class="w-full md:w-2/6 mx-auto space-y-6">
-            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
+            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
                 <div class="w-full">
-                    <section>
+                    <section class="space-y-4">
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
                             <div>
                                 <h2 class="text-xl font-bold text-gray-900">
@@ -220,7 +220,7 @@
                                 </p>
                             </div>
                         </header>
-                        <hr class="my-3">
+                        <hr>
                         <section class="flex flex-col justify-between gap-3">
                             @if ($account == 0 && $user->is_applicant == 1)
                                 <button type="button" onclick="modalAccount()"
@@ -391,7 +391,6 @@
                                     $user->program &&
                                     $user->presenter &&
                                     $user->school &&
-                                    $user->education &&
                                     $user->year &&
                                     $user->major &&
                                     $user->email &&
@@ -424,9 +423,9 @@
                     </section>
                 </div>
             </div>
-            <div class="p-8 bg-white shadow-sm sm:rounded-lg">
+            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
                 <div class="w-full">
-                    <section>
+                    <section class="space-y-4">
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
                             <div>
                                 <h2 class="text-xl font-bold text-gray-900">
@@ -437,7 +436,7 @@
                                 </p>
                             </div>
                         </header>
-                        <hr class="my-3">
+                        <hr>
                         <section class="flex flex-col gap-3">
                             @if ($user->is_applicant && $status_applicant)
                                 <div class="space-y-2">
@@ -772,7 +771,7 @@
                     let whatsapp = database.data.user.phone;
                     let facebook = '-';
                     let instagram = '-';
-                    let pendidikan_terakhir = database.data.user.education;
+                    let pendidikan_terakhir = database.data.user.school_applicant.type;
                     let asal_sekolah = database.data.user.school_applicant.name;
                     let jurusan_sekolah = database.data.user.major;
                     let tahun_lulus = database.data.user.year;

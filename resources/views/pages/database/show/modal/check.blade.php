@@ -273,16 +273,6 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <span>Pendidikan Terakhir</span>
-                                    @if ($user->education)
-                                        <span class="underline font-medium">{{ $user->education }}</span>
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                    @else
-                                        <span>________________</span>
-                                        <i class="fa-solid fa-circle-xmark text-red-500"></i>
-                                    @endif
-                                </div>
-                                <div>
                                     <span>Jurusan:</span>
                                     @if ($user->major)
                                         <span class="underline font-medium">{{ $user->major }}</span>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeyToSourceSettingAndApplicantsStatusOnTableApplicants extends Migration
+class AddForeignKeyApplicants extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,11 @@ class AddForeignKeyToSourceSettingAndApplicantsStatusOnTableApplicants extends M
     public function up()
     {
         Schema::table('applicants', function (Blueprint $table) {
+            $table->foreign('school')->references('id')->on('schools')->onDelete('restrict');
             $table->foreign('source_id')->references('id')->on('source_setting')->onDelete('restrict');
             $table->foreign('status_id')->references('id')->on('applicants_status')->onDelete('restrict');
+            $table->foreign('followup_id')->references('id')->on('followup')->onDelete('restrict');
+            $table->foreign('programtype_id')->references('id')->on('program_type')->onDelete('restrict');
         });
     }
 
@@ -26,9 +29,9 @@ class AddForeignKeyToSourceSettingAndApplicantsStatusOnTableApplicants extends M
      */
     public function down()
     {
-        Schema::table('applicants', function (Blueprint $table) {
-            $table->dropForeign('applicants_source_id_foreign');
-            $table->dropForeign('applicants_status_id_foreign');
-        });
+        // Schema::table('applicants', function (Blueprint $table) {
+        //     $table->dropForeign('applicants_source_id_foreign');
+        //     $table->dropForeign('applicants_status_id_foreign');
+        // });
     }
 }
