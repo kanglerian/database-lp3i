@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-center text-gray-700">Yuk, sinkronisasi data! Rekomendasi kami adalah untuk tidak lebih dari 2000 data yang akan disinkronkan. Sekarang, berapa banyak data yang akan Anda sinkronkan? <span class="font-bold text-green-700"
+                    <p class="text-sm text-center text-gray-700">Yuk, sinkronisasi data! Rekomendasi kami adalah untuk tidak lebih dari <span id="max-count">0</span> data yang akan disinkronkan. Sekarang, berapa banyak data yang akan Anda sinkronkan? <span class="font-bold text-green-700"
                             id="count-sync"></span>.</p>
                     <p class="text-xs text-center text-gray-700">Jika bingung, tak perlu ragu untuk langsung klik tombol sinkronisasi.</p>
                     <button onclick="syncNow()" id="button-sync"
@@ -59,11 +59,13 @@
         showLoadingAnimation();
         try {
             const response = await axios.get(`import/check-spreadsheet/${sheet}`);
+            const maxCount = 1000;
             total = response.data.applicants;
-            standart = total > 2000 ? 2000 : 1;
+            standart = total > maxCount ? maxCount : 1;
             document.getElementById('start').value = total - standart;
             document.getElementById('count-sync').innerText = `${standart} data`;
             document.getElementById('end').value = total;
+            document.getElementById('max-count').innerText = maxCount;
             total = total - 1;
             let modalElement = document.getElementById('modal-sync');
             modalElement.classList.toggle('hidden');
