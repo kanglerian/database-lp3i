@@ -101,7 +101,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="kip" :value="__('No. Kartu Indonesia Pintar')" />
-                        <x-input id="kip" type="number" name="kip" value="{{ old('kip', $applicant->kip) }}"
+                        <x-input id="kip" type="text" name="kip" value="{{ old('kip', $applicant->kip) }}"
                             placeholder="Nomor Kartu Indonesia Pintar" />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('kip') }}</span>
