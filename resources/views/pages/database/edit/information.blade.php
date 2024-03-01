@@ -128,19 +128,19 @@
                                 @endif
                             </p>
                         </div>
-                        <div class="relative z-0 w-full group">
-                            <x-label for="pmb" :value="__('Tahun Akademik')" />
-                            <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
-                                placeholder="Tahun Akademik" required />
-                            <p class="mt-2 text-xs text-gray-500">
-                                @if ($errors->has('pmb'))
-                                    <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
-                                @else
-                                    <span class="text-red-500 text-xs">*Wajib diisi.</span>
-                                @endif
-                            </p>
-                        </div>
                     @endif
+                    <div class="relative z-0 w-full group">
+                        <x-label for="pmb" :value="__('Tahun Akademik')" />
+                        <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
+                            placeholder="Tahun Akademik" required />
+                        <p class="mt-2 text-xs text-gray-500">
+                            @if ($errors->has('pmb'))
+                                <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
+                            @else
+                                <span class="text-red-500 text-xs">*Wajib diisi.</span>
+                            @endif
+                        </p>
+                    </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
