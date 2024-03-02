@@ -229,7 +229,7 @@
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                         </a>
                     @endif
-                    @if (Auth::user()->role == 'P')
+                    @if (Auth::user()->role !== 'S')
                         <a href="{{ route('dashboard.register_program') }}"
                             class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                             <div class="space-y-1 z-10">
