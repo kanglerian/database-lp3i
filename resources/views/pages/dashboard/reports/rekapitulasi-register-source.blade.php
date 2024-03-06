@@ -68,6 +68,7 @@
                             <th scope="col" class="px-6 py-4 text-center">No</th>
                         </thead>
                         <tbody></tbody>
+                        <tfoot id="footers_register_source"></tfoot>
                     </table>
                 </div>
             </section>
@@ -121,13 +122,21 @@
                         let registers = response.data.registers;
                         let presenters = response.data.presenters;
 
-                        let presenterBucket =
+                        let headerBucket =
                             '<th scope="col" class="px-6 py-4 text-center">No</th><th scope="col" class="px-6 py-4 text-center">Sumber Data</th>'
 
+                        let footerBucket =
+                            '<th scope="col" colspan="2" class="px-6 py-4 text-center">Total</th>'
+
                         presenters.forEach((presenter, index) => {
-                            presenterBucket +=
+                            headerBucket +=
                                 `<th scope="col" class="px-6 py-4 text-center">${presenter.name}</th>`
+                                footerBucket +=
+                                `<td scope="col" class="px-6 py-4 text-center" id="total_${presenter.identity}">0</td>`
                         });
+
+                        headerBucket += `<th scope="col" class="px-6 py-4 text-center">Total</th>`
+                        footerBucket += `<td scope="col" class="px-6 py-4 text-center" id="total">0</td>`
 
                         let columnConfigs = [{
                                 data: 'pmb',
@@ -143,6 +152,40 @@
                             },
                         ];
 
+                        const groupedData = registers.reduce((result, currentItem) => {
+                            const existingItem = result.find(item => item.name === currentItem
+                                .name);
+
+                            if (existingItem) {
+                                const existingRegister = existingItem.register.find(reg => reg
+                                    .presenter === currentItem.identity_user);
+
+                                if (existingRegister) {
+                                    existingRegister.count = currentItem.register;
+                                } else {
+                                    existingItem.register.push({
+                                        presenter: currentItem.identity_user,
+                                        count: currentItem.register
+                                    });
+                                }
+                                existingItem.total = existingItem.register.reduce((acc, reg) =>
+                                    acc + parseInt(reg.count), 0);
+                            } else {
+                                result.push({
+                                    pmb: currentItem.pmb,
+                                    name: currentItem.name,
+                                    register: [{
+                                        presenter: currentItem.identity_user,
+                                        count: currentItem.register
+                                    }],
+                                    total: parseInt(currentItem.register)
+                                });
+                            }
+
+                            return result;
+                        }, []);
+
+
                         presenters.forEach((presenter) => {
                             columnConfigs.push({
                                 data: {
@@ -150,15 +193,28 @@
                                     identity_user: 'identity_user',
                                 },
                                 render: (data, type, row) => {
-                                    return data.identity_user == presenter.identity ? parseInt(data.register) : 0;
+                                    let bucket = data.register;
+                                    let resultBucket = bucket.find((res) => res
+                                        .presenter == presenter.identity)
+                                    let result = (resultBucket ? parseInt(resultBucket
+                                        .count) : 0);
+                                    return result;
                                 }
                             });
                         });
 
-                        document.getElementById('headers_register_source').innerHTML = presenterBucket;
+                        columnConfigs.push({
+                            data: 'total',
+                            render: (data, type, row) => {
+                                return data;
+                            }
+                        });
+
+                        document.getElementById('headers_register_source').innerHTML = headerBucket;
+                        // document.getElementById('footers_register_source').innerHTML = footerBucket;
 
                         const dataTableConfig = {
-                            data: registers,
+                            data: groupedData,
                             columnDefs: [{
                                 width: 50,
                                 target: 0

@@ -19,7 +19,6 @@ class ViewReportRegisterBySchoolTable extends Migration
             SELECT
                 applicants.pmb AS pmb,
                 applicants.identity_user AS identity_user,
-                users.name AS presenter,
                 SUM(CASE WHEN applicants.is_register = 1 THEN 1 ELSE 0 END) as register,
                 source_setting.name AS name
             FROM
