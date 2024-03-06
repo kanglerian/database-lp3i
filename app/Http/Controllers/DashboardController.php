@@ -8,6 +8,7 @@ use App\Models\ApplicantBySourceId;
 use App\Models\ProgramType;
 use App\Models\Report\RegisterBySchool;
 use App\Models\Report\RegisterBySchoolYear;
+use App\Models\Report\RegisterBySource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -270,51 +271,68 @@ class DashboardController extends Controller
 
     public function history_page()
     {
-        return view('pages.dashboard.history');
+        /* Status: OK */
+        return view('pages.dashboard.reports.rekapitulasi-history');
     }
 
-    public function rekapitulasi_page()
+    public function rekapitulasi_database()
     {
-        return view('pages.dashboard.rekapitulasi');
+        /* Status: OK */
+        return view('pages.dashboard.reports.rekapitulasi-database');
     }
 
-    public function aplikan_page()
+    public function rekapitulasi_perolehan_pmb()
     {
-        return view('pages.dashboard.aplikan');
-    }
-
-    public function persyaratan_page()
-    {
-        return view('pages.dashboard.persyaratan');
-    }
-    public function perolehan_pmb_page()
-    {
+        /* Status: OK */
         $program_types = ProgramType::all();
-        return view('pages.dashboard.perolehan-pmb')->with([
+        return view('pages.dashboard.reports.rekapitulasi-perolehan-pmb')->with([
             'program_types' => $program_types,
         ]);
     }
 
-    public function register_school()
+    public function rekapitulasi_register_program()
     {
+        /* Status: OK */
         $registers = RegisterBySchool::all();
-        return view('pages.dashboard.register-school')->with([
+        return view('pages.dashboard.reports.rekapitulasi-register-program')->with([
             'registers' => $registers,
         ]);
     }
 
-
-    public function register_program()
+    public function rekapitulasi_aplikan()
     {
+        /* Status: OK */
+        return view('pages.dashboard.reports.rekapitulasi-aplikan');
+    }
+
+    public function rekapitulasi_persyaratan()
+    {
+        /* Status: OK */
+        return view('pages.dashboard.reports.rekapitulasi-persyaratan');
+    }
+
+    public function rekapitulasi_register_school()
+    {
+        /* Status: OK */
         $registers = RegisterBySchool::all();
-        return view('pages.dashboard.register-program')->with([
+        return view('pages.dashboard.reports.rekapitulasi-register-school')->with([
             'registers' => $registers,
         ]);
     }
-    public function register_school_year()
+    public function rekapitulasi_register_school_year()
     {
+        /* Status: OK */
         $registers = RegisterBySchoolYear::all();
-        return view('pages.dashboard.register-school-year')->with([
+        return view('pages.dashboard.reports.rekapitulasi-register-school-year')->with([
+            'registers' => $registers,
+        ]);
+    }
+
+    public function rekapitulasi_register_source()
+    {
+        /* Status: OK */
+        $registers = RegisterBySource::all();
+        return view('pages.dashboard.reports.rekapitulasi-register-source')->with([
             'registers' => $registers,
         ]);
     }

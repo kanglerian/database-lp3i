@@ -46,15 +46,17 @@ Route::get('/', function () {
 /* Route Dashboard */
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
-    Route::get('dashboard/page/history', [DashboardController::class, 'history_page'])->name('dashboard.history_page');
-    Route::get('dashboard/page/rekapitulasi', [DashboardController::class, 'rekapitulasi_page'])->name('dashboard.rekapitulasi_page');
-    Route::get('dashboard/page/aplikan', [DashboardController::class, 'aplikan_page'])->name('dashboard.aplikan_page');
-    Route::get('dashboard/page/persyaratan', [DashboardController::class, 'persyaratan_page'])->name('dashboard.persyaratan_page');
-    Route::get('dashboard/page/perolehanpmb', [DashboardController::class, 'perolehan_pmb_page'])->name('dashboard.perolehan_pmb_page');
-    Route::get('dashboard/page/register/school', [DashboardController::class, 'register_school'])->name('dashboard.register_school');
-    Route::get('dashboard/page/register/program', [DashboardController::class, 'register_program'])->name('dashboard.register_program');
-    Route::get('dashboard/page/register/school/year', [DashboardController::class, 'register_school_year'])->name('dashboard.register_school_year');
-    //
+
+    Route::get('dashboard/page/history', [DashboardController::class, 'rekapitulasi_history'])->name('dashboard.rekapitulasi_history');
+    Route::get('dashboard/page/rekapitulasi', [DashboardController::class, 'rekapitulasi_database'])->name('dashboard.rekapitulasi_database');
+    Route::get('dashboard/page/perolehanpmb', [DashboardController::class, 'rekapitulasi_perolehan_pmb'])->name('dashboard.rekapitulasi_perolehan_pmb');
+    Route::get('dashboard/page/register/program', [DashboardController::class, 'rekapitulasi_register_program'])->name('dashboard.rekapitulasi_register_program');
+    Route::get('dashboard/page/aplikan', [DashboardController::class, 'rekapitulasi_aplikan'])->name('dashboard.rekapitulasi_aplikan');
+    Route::get('dashboard/page/persyaratan', [DashboardController::class, 'rekapitulasi_persyaratan'])->name('dashboard.rekapitulasi_persyaratan');
+    Route::get('dashboard/page/register/school', [DashboardController::class, 'rekapitulasi_register_school'])->name('dashboard.rekapitulasi_register_school');
+    Route::get('dashboard/page/register/school/year', [DashboardController::class, 'rekapitulasi_register_school_year'])->name('dashboard.rekapitulasi_register_school_year');
+    Route::get('dashboard/page/register/source', [DashboardController::class, 'rekapitulasi_register_source'])->name('dashboard.rekapitulasi_register_source');
+
     Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all');
     Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget');
     Route::get('get/dashboard/sourcesdaftar/{pmb?}', [DashboardController::class, 'get_sources_daftar'])->name('dashboard.sourcedaftarget');

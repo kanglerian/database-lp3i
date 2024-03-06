@@ -144,121 +144,121 @@
 
             <section class="max-w-7xl px-5 mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <a href="{{ route('dashboard.rekapitulasi_page') }}"
+                    <a href="{{ route('dashboard.rekapitulasi_database') }}"
                         class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-database"></i>
                                 <h2 class="font-bold">Rekapitulasi Database</h2>
                             </div>
-                            <p class="text-xs">Menu tampilkan jumlah data wilayah dan presenter secara lengkap.</p>
+                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                vitae.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
-                    <a href="{{ route('dashboard.perolehan_pmb_page') }}"
+                    <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb') }}"
                         class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-coins"></i>
                                 <h2 class="font-bold">Rekap Perolehan PMB</h2>
                             </div>
-                            <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan
-                                berdasarkan
-                                PMB.</p>
+                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                vitae.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
-                    <a href="{{ route('dashboard.history_page') }}"
+                    <a href="{{ route('dashboard.rekapitulasi_history') }}"
                         class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-comments"></i>
                                 <h2 class="font-bold">Rekapitulasi Follow Up Presenter</h2>
                             </div>
-                            <p class="text-xs">Menu ini menampilkan riwayat pesan berdasarkan presenter dengan rinci.
-                            </p>
+                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                vitae.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
-                    @if (Auth::user()->role == 'P')
-                        <a href="{{ route('dashboard.aplikan_page') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                            <div class="space-y-1 z-10">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-users"></i>
-                                    <h2 class="font-bold">Rekap Data Aplikan</h2>
-                                </div>
-                                <p class="text-xs">Menu ini tampilkan data aplikan, daftar, dan registrasi secara
-                                    lengkap.
-                                </p>
-                            </div>
-                            <i
-                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                        </a>
-                    @endif
-                    @if (Auth::user()->role == 'P')
-                        <a href="{{ route('dashboard.persyaratan_page') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                            <div class="space-y-1 z-10">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-regular fa-folder-open"></i>
-                                    <h2 class="font-bold">Rekapitulasi Data Persyaratan Aplikan</h2>
-                                </div>
-                                <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan
-                                    berdasarkan PMB.</p>
-                            </div>
-                            <i
-                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                        </a>
-                    @endif
-                    @if (Auth::user()->role == 'P')
-                        <a href="{{ route('dashboard.register_school') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                            <div class="space-y-1 z-10">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-users"></i>
-                                    <h2 class="font-bold">Rekap Data Aplikan Register</h2>
-                                </div>
-                                <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan
-                                    berdasarkan PMB.</p>
-                            </div>
-                            <i
-                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                        </a>
-                    @endif
                     @if (Auth::user()->role !== 'S')
-                        <a href="{{ route('dashboard.register_program') }}"
+                        <a href="{{ route('dashboard.rekapitulasi_register_program') }}"
                             class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-book"></i>
                                     <h2 class="font-bold">Rekapitulasi Tebaran Program Studi</h2>
                                 </div>
-                                <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan
-                                    berdasarkan PMB.</p>
+                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                    vitae.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                         </a>
                     @endif
                     @if (Auth::user()->role == 'P')
-                        <a href="{{ route('dashboard.register_school_year') }}"
+                        <a href="{{ route('dashboard.rekapitulasi_aplikan') }}"
                             class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-school"></i>
-                                    <h2 class="font-bold">Rekap Data Aplikan Register Per Sekolah</h2>
+                                    <i class="fa-solid fa-users"></i>
+                                    <h2 class="font-bold">Rekap Data Aplikan</h2>
                                 </div>
-                                <p class="text-xs">Menu ini menampilkan data kelengkapan persyaratan dari aplikan
-                                    berdasarkan PMB.</p>
+                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                    vitae.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                         </a>
                     @endif
+
+                    @if (Auth::user()->role == 'P')
+                        <a href="{{ route('dashboard.rekapitulasi_persyaratan') }}"
+                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                            <div class="space-y-1 z-10">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-regular fa-folder-open"></i>
+                                    <h2 class="font-bold">Rekapitulasi Data Persyaratan Aplikan</h2>
+                                </div>
+                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                    vitae.</p>
+                            </div>
+                            <i
+                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                        </a>
+                    @endif
+
+                    @if (Auth::user()->role == 'P')
+                        <a href="{{ route('dashboard.rekapitulasi_register_school') }}"
+                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                            <div class="space-y-1 z-10">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-users"></i>
+                                    <h2 class="font-bold">Rekap Data Aplikan Register</h2>
+                                </div>
+                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                    vitae.</p>
+                            </div>
+                            <i
+                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                        </a>
+                    @endif
+
+                    <a href="{{ route('dashboard.rekapitulasi_register_source') }}"
+                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                        <div class="space-y-1 z-10">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-server"></i>
+                                <h2 class="font-bold">Rekapitulasi Data Aplikan Register Sumber</h2>
+                            </div>
+                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                                vitae.</p>
+                        </div>
+                        <i
+                            class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+                    </a>
                 </div>
             </section>
 

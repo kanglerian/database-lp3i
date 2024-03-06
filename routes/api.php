@@ -7,6 +7,7 @@ use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\Report\RegisterByProgramController;
 use App\Http\Controllers\API\Report\RegisterBySchoolController;
+use App\Http\Controllers\API\Report\RegisterBySourceController;
 use App\Http\Controllers\API\Report\ReportStudentsAdmissionController;
 use App\Http\Controllers\API\SchoolController;
 use App\Http\Controllers\API\UserUploadController;
@@ -75,3 +76,4 @@ Route::get('/report/database/perolehanpmb', [ReportStudentsAdmissionController::
 Route::get('/report/database/register/school', [RegisterBySchoolController::class, 'get_all']);
 Route::get('/report/database/register/program', [RegisterByProgramController::class, 'get_all']);
 Route::get('/report/database/register/school/year', [RegisterBySchoolYearController::class, 'get_all']);
+Route::get('/report/database/register/source', [RegisterBySourceController::class, 'get_all']);
