@@ -214,17 +214,15 @@
                             const existingItem = result.find(item => item.pmb === currentItem.pmb &&
                                 item.identity_user === currentItem.identity_user);
 
-                            // if (existingItem) {
-                            //     existingItem.count = currentItem.register;
-                            // } else {
-                            //     result.push({
-                            //         pmb: currentItem.pmb,
-                            //         identity_user: currentItem.identity_user,
-                            //         count: currentItem.register
-                            //     });
-                            // }
-
-                            console.log(existingItem);
+                            if (existingItem) {
+                                existingItem.count += currentItem.register;
+                            } else {
+                                result.push({
+                                    pmb: currentItem.pmb,
+                                    identity_user: currentItem.identity_user,
+                                    count: currentItem.register
+                                });
+                            }
 
                             return result;
                         }, []);
