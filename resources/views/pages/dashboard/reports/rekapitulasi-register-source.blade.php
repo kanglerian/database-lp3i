@@ -215,12 +215,12 @@
                                 item.identity_user === currentItem.identity_user);
 
                             if (existingItem) {
-                                existingItem.count += currentItem.register;
+                                existingItem.count += parseInt(currentItem.register);
                             } else {
                                 result.push({
                                     pmb: currentItem.pmb,
                                     identity_user: currentItem.identity_user,
-                                    count: currentItem.register
+                                    count: parseInt(currentItem.register)
                                 });
                             }
 
