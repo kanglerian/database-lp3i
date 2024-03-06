@@ -131,7 +131,7 @@
                         presenters.forEach((presenter, index) => {
                             headerBucket +=
                                 `<th scope="col" class="px-6 py-4 text-center">${presenter.name}</th>`
-                                footerBucket +=
+                            footerBucket +=
                                 `<td scope="col" class="px-6 py-4 text-center" id="total_${presenter.identity}">0</td>`
                         });
 
@@ -210,8 +210,33 @@
                             }
                         });
 
+                        const filteredData = registers.reduce((result, currentItem) => {
+                            const existingItem = result.find(item => item.pmb === currentItem.pmb &&
+                                item.identity_user === currentItem.identity_user);
+
+                            if (existingItem) {
+                                existingItem.count = currentItem.register;
+                            } else {
+                                result.push({
+                                    pmb: currentItem.pmb,
+                                    identity_user: currentItem.identity_user,
+                                    count: currentItem.register
+                                });
+                            }
+
+                            return result;
+                        }, []);
+
                         document.getElementById('headers_register_source').innerHTML = headerBucket;
-                        // document.getElementById('footers_register_source').innerHTML = footerBucket;
+                        document.getElementById('footers_register_source').innerHTML = footerBucket;
+
+                        let total = 0;
+                        filteredData.forEach((filter) => {
+                            document.getElementById(`total_${filter.identity_user}`).innerText = parseInt(filter.count);
+                            total += parseInt(filter.count);
+                        });
+
+                        document.getElementById('total').innerText = total;
 
                         const dataTableConfig = {
                             data: groupedData,
