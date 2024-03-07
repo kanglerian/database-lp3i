@@ -194,8 +194,6 @@
                             return accumulator;
                         }, []);
 
-                        console.log(reducedData);
-
                         let headerBucket = '';
 
                         let columnConfigs = [{
@@ -210,28 +208,17 @@
                                     return data;
                                 }
                             },
-                            {
-                                data: 'register',
-                                render: (data, type, row, meta) => {
-                                    return data[0].count;
-                                }
-                            },
-                            {
-                                data: 'register',
-                                render: (data, type, row, meta) => {
-                                    return data[1].count;
-                                }
-                            },
-                            {
-                                data: 'register',
-                                render: (data, type, row, meta) => {
-                                    return data[2].count;
-                                }
-                            },
                         ];
 
                         for (let i = 0; i < 5; i++) {
                             headerBucket += `<th scope="col" class="px-6 py-4 text-center">${parseInt(pmbVal) - i}</th>`
+                            columnConfigs.push(
+                            {
+                                data: 'register',
+                                render: (data, type, row, meta) => {
+                                    return data[i].count;
+                                }
+                            },);
                         }
 
                         document.getElementById('headers-report-register-school-year').innerHTML = headerBucket;
