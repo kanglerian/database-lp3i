@@ -68,7 +68,7 @@
                             <tr>
                                 <th scope="col" rowspan="2" class="px-6 py-4 text-center">No</th>
                                 <th scope="col" rowspan="2" class="px-6 py-4 text-center">Nama Sekolah</th>
-                                <th scope="col" colspan="3" class="px-6 py-4 text-center">Lulusan</th>
+                                <th scope="col" colspan="5" class="px-6 py-4 text-center">Lulusan</th>
                             </tr>
                             <tr id="headers-report-register-school-year">
                                 <th scope="col" class="px-6 py-4 text-center">2024</th>
