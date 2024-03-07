@@ -236,8 +236,6 @@
                             total += parseInt(filter.count);
                         });
 
-                        console.log(filteredData);
-
                         document.getElementById('total').innerText = total;
 
                         const dataTableConfig = {

@@ -251,7 +251,7 @@
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-server"></i>
-                                <h2 class="font-bold">Rekapitulasi Data Aplikan Register Sumber</h2>
+                                <h2 class="font-bold">Rekapitulasi Register Sumber</h2>
                             </div>
                             <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
                                 vitae.</p>
@@ -265,7 +265,7 @@
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-server"></i>
-                                <h2 class="font-bold">Rekapitulasi Data Aplikan Register Sumber</h2>
+                                <h2 class="font-bold">Rekapitulasi Register Per Sekolah</h2>
                             </div>
                             <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
                                 vitae.</p>

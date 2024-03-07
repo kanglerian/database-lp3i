@@ -65,10 +65,16 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500"
                         id="table-report-register-school-year">
                         <thead class="text-xs text-gray-700 uppercase">
-                            <th scope="col" class="px-6 py-4 text-center">No</th>
-                            <th scope="col" class="px-6 py-4 text-center">Nama Sekolah</th>
-                            <th scope="col" class="px-6 py-4 text-center">Register</th>
-                            <th scope="col" class="px-6 py-4 text-center">Total</th>
+                            <tr>
+                                <th scope="col" rowspan="2" class="px-6 py-4 text-center">No</th>
+                                <th scope="col" rowspan="2" class="px-6 py-4 text-center">Nama Sekolah</th>
+                                <th scope="col" colspan="3" class="px-6 py-4 text-center">Lulusan</th>
+                            </tr>
+                            <tr id="headers-report-register-school-year">
+                                <th scope="col" class="px-6 py-4 text-center">2024</th>
+                                <th scope="col" class="px-6 py-4 text-center">2023</th>
+                                <th scope="col" class="px-6 py-4 text-center">2022</th>
+                            </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -117,7 +123,8 @@
                     dataTableDataRegisterSchoolYearInstance.destroy();
                     getDataTableRegisterSchoolYear()
                         .then((response) => {
-                            dataTableDataRegisterSchoolYearInstance = $('#table-report-register-school-year').DataTable(response
+                            dataTableDataRegisterSchoolYearInstance = $('#table-report-register-school-year').DataTable(
+                                response
                                 .config);
                             dataTableDataRegisterSchoolYearInitialized = response.initialized;
                             hideLoadingAnimation();
@@ -134,8 +141,64 @@
                         const response = await axios.get(urlRegisterSchoolYear);
                         let registers = response.data;
 
-                        let columnConfigs = [
-                            {
+                        const reducedData = registers.reduce((accumulator, currentValue) => {
+                            const existingItem = accumulator.find(item => item.name === currentValue
+                                .name);
+
+                            pmbVal = document.getElementById('change_pmb').value;
+
+                            if (existingItem) {
+                                let years = [];
+                                for (let i = 0; i < 3; i++) {
+                                    years.push(parseInt(pmbVal) - i)
+                                }
+                                years.forEach(year => {
+                                    const existingYear = existingItem.register.find((
+                                        entry) => entry.year == year);
+                                    if (existingYear.year == currentValue.year) {
+                                        existingYear.count += parseInt(currentValue
+                                            .register)
+                                    }
+                                });
+                            } else {
+                                const record = {
+                                    identity_user: currentValue.identity_user,
+                                    name: currentValue.name,
+                                    pmb: currentValue.pmb,
+                                    register: []
+                                };
+
+                                let years = [];
+                                for (let i = 0; i < 3; i++) {
+                                    years.push(parseInt(pmbVal) - i)
+                                }
+                                years.forEach(year => {
+                                    if (year == currentValue.year) {
+                                        record.register.push({
+                                            year: year,
+                                            count: parseInt(currentValue.register)
+                                        });
+                                    } else {
+                                        record.register.push({
+                                            year: year,
+                                            count: 0
+                                        });
+                                    }
+                                });
+
+                                console.log(record);
+
+                                accumulator.push(record);
+                            }
+
+                            return accumulator;
+                        }, []);
+
+                        console.log(reducedData);
+
+                        let headerBucket = '';
+
+                        let columnConfigs = [{
                                 data: 'pmb',
                                 render: (data, type, row, meta) => {
                                     return meta.row + 1;
@@ -146,22 +209,35 @@
                                 render: (data, type, row, meta) => {
                                     return data;
                                 }
-                            }, {
+                            },
+                            {
                                 data: 'register',
                                 render: (data, type, row, meta) => {
-                                    return parseInt(data);
+                                    return data[0].count;
                                 }
-                            }, {
+                            },
+                            {
                                 data: 'register',
                                 render: (data, type, row, meta) => {
-                                    return parseInt(data);
+                                    return data[1].count;
                                 }
-                            }
+                            },
+                            {
+                                data: 'register',
+                                render: (data, type, row, meta) => {
+                                    return data[2].count;
+                                }
+                            },
                         ];
 
+                        for (let i = 0; i < 3; i++) {
+                            headerBucket += `<th scope="col" class="px-6 py-4 text-center">${parseInt(pmbVal) - i}</th>`
+                        }
+
+                        document.getElementById('headers-report-register-school-year').innerHTML = headerBucket;
 
                         const dataTableConfig = {
-                            data: registers,
+                            data: reducedData,
                             columnDefs: [{
                                 width: 50,
                                 target: 0
@@ -200,7 +276,8 @@
                     ])
                     .then((response) => {
                         let responseDTRS = response[0];
-                        dataTableDataRegisterSchoolYearInstance = $('#table-report-register-school-year').DataTable(responseDTRS
+                        dataTableDataRegisterSchoolYearInstance = $('#table-report-register-school-year').DataTable(
+                            responseDTRS
                             .config);
                         dataTableDataRegisterSchoolYearInitialized = responseDTRS.initialized;
                         hideLoadingAnimation();
