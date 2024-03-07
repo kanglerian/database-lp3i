@@ -149,7 +149,7 @@
 
                             if (existingItem) {
                                 let years = [];
-                                for (let i = 0; i < 3; i++) {
+                                for (let i = 0; i < 5; i++) {
                                     years.push(parseInt(pmbVal) - i)
                                 }
                                 years.forEach(year => {
@@ -169,7 +169,7 @@
                                 };
 
                                 let years = [];
-                                for (let i = 0; i < 3; i++) {
+                                for (let i = 0; i < 5; i++) {
                                     years.push(parseInt(pmbVal) - i)
                                 }
                                 years.forEach(year => {
@@ -230,7 +230,7 @@
                             },
                         ];
 
-                        for (let i = 0; i < 3; i++) {
+                        for (let i = 0; i < 5; i++) {
                             headerBucket += `<th scope="col" class="px-6 py-4 text-center">${parseInt(pmbVal) - i}</th>`
                         }
 
