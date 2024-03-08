@@ -1,8 +1,8 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
     <div class="max-w-7xl px-5 mx-auto">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-100 sm:rounded-xl">
-                <header class="p-5 space-y-1">
+            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-xl">
+                <header class="px-6 py-5 space-y-1">
                     <h1 class="flex items-center gap-2 font-bold text-gray-700">
                         <span>Database: Harta Gono Gini</span>
                         <span class="inline-block bg-red-500 px-2 py-1 rounded-lg text-xs text-white">
@@ -74,7 +74,7 @@
                 </table>
                 <hr class="mb-5">
                 <div class="px-5 pb-5">
-                    <p class="text-gray-500 text-xs">Silahkan untuk dibagikan melalui menu <a
+                    <p class="text-gray-500 text-xs">Catatan: Silahkan untuk dibagikan melalui menu <a
                             href="{{ route('database.index') }}" class="underline">Database</a>, kemudian
                         ubah presenter di profil calon mahasiswa baru oleh Administrator.</p>
                 </div>

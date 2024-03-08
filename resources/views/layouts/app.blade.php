@@ -79,7 +79,7 @@
         id="data-loading">
         <lottie-player src="{{ asset('animations/server.json') }}" background="Transparent" speed="1"
             style="width: 300px; height: 300px" direction="1" mode="normal" loop autoplay></lottie-player>
-        <h1 class="text-white relative top-[-20px] text-sm">Sedang memuat data...</h1>
+        <h1 class="text-white relative top-[-40px] text-sm">Sedang memuat data...</h1>
     </div>
     <div class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
         @include('layouts.navigation')
@@ -87,7 +87,7 @@
         <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
 
         <!-- Page Heading -->
-        <header class="bg-white shadow-sm">
+        <header class="bg-white border border-gray-100">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>

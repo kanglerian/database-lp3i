@@ -1,7 +1,7 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 py-2">
+<nav x-data="{ open: false }" class="bg-white py-2">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 py-3">
+        <div class="flex items-center justify-between h-16 py-3">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -38,7 +38,7 @@
                             'database.file',
                             'database.scholarship',
                             'database.achievement',
-                            'database.organization'
+                            'database.organization',
                         ])">
                             {{ __('Database') }}
                         </x-nav-link>
@@ -56,21 +56,27 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('schools.index')" :active="request()->routeIs(['schools.index', 'schools.create', 'schools.edit', 'schools.show'])">
+                        <x-nav-link :href="route('schools.index')" :active="request()->routeIs([
+                            'schools.index',
+                            'schools.create',
+                            'schools.edit',
+                            'schools.show',
+                        ])">
                             {{ __('Sekolah') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('presenter.index')" :active="request()->routeIs(['presenter.index', 'presenter.create', 'presenter.edit', 'presenter.show'])">
+                        <x-nav-link :href="route('presenter.index')" :active="request()->routeIs([
+                            'presenter.index',
+                            'presenter.create',
+                            'presenter.edit',
+                            'presenter.show',
+                        ])">
                             {{ __('Presenter') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
-                        <x-nav-link :href="route('question.index')" :active="request()->routeIs([
-                            'question.index',
-                            'scholarship.index',
-                            'scholarship.question'
-                        ])">
+                        <x-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
                             {{ __('E-Assessment') }}
                         </x-nav-link>
                     @endif
@@ -173,12 +179,16 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs([
                 'dashboard.index',
-                'dashboard.rekapitulasi_page',
-                'dashboard.history_page',
-                'dashboard.aplikan_page',
-                'dashboard.persyaratan_page',
-                'dashboard.perolehan_pmb_page',
-                'dashboard.register_school'
+                'dashboard.rekapitulasi_perolehan_pmb_page',
+                'dashboard.rekapitulasi_history',
+                'dashboard.rekapitulasi_database',
+                'dashboard.rekapitulasi_perolehan_pmb',
+                'dashboard.rekapitulasi_register_program',
+                'dashboard.rekapitulasi_aplikan',
+                'dashboard.rekapitulasi_persyaratan',
+                'dashboard.rekapitulasi_register_school',
+                'dashboard.rekapitulasi_register_school_year',
+                'dashboard.rekapitulasi_register_source',
             ])">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
@@ -192,7 +202,7 @@
                     'database.file',
                     'database.scholarship',
                     'database.achievement',
-                    'database.organization'
+                    'database.organization',
                 ])">
                     {{ __('Database') }}
                 </x-responsive-nav-link>
@@ -215,17 +225,18 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs(['presenter.index', 'presenter.create', 'presenter.edit', 'presenter.show'])">
+                <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs([
+                    'presenter.index',
+                    'presenter.create',
+                    'presenter.edit',
+                    'presenter.show',
+                ])">
                     {{ __('Presenter') }}
                 </x-responsive-nav-link>
             @endif
 
             @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
-                <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs([
-                    'question.index',
-                    'scholarship.index',
-                    'scholarship.question'
-                ])">
+                <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
                     {{ __('E-Assessment') }}
                 </x-responsive-nav-link>
             @endif
@@ -236,12 +247,7 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs([
-                    'setting.index',
-                    'setting.create',
-                    'setting.edit',
-                    'setting.show',
-                ])">
+                <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs(['setting.index', 'setting.create', 'setting.edit', 'setting.show'])">
                     {{ __('Pengaturan') }}
                 </x-responsive-nav-link>
             @endif

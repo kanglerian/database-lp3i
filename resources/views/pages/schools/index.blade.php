@@ -7,15 +7,6 @@
                 </h2>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                {{-- <form action="{{ route('school.import') }}" id="form-school" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="berkas" id="berkas"
-                        class="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-md" required>
-                    <button type="submit"
-                        class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
-                        <i class="fa-solid fa-file-import"></i>
-                    </button>
-                </form> --}}
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
@@ -64,7 +55,7 @@
 
         @if ($slepets > 0)
             <section class="max-w-7xl px-5 mx-auto">
-                <div class="p-4 mb-4 text-red-800 border border-red-300 rounded-xl bg-red-50">
+                <div class="px-6 py-5 mb-4 text-red-800 rounded-xl bg-red-50 border border-red-200">
                     <div class="flex items-center">
                         <i class="fa-solid fa-circle-info mr-2"></i>
                         <span class="sr-only">Info</span>
@@ -76,8 +67,8 @@
                     <div class="flex">
                         <button onclick="showUpdate()"
                             class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
-                            <i class="fa-solid fa-eye mr-2"></i>
-                            lihat selengkapnya
+                            <i class="fa-solid fa-filter mr-2"></i>
+                            Tampilkan Data
                         </button>
                     </div>
                 </div>

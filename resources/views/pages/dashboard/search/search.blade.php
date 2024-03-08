@@ -1,8 +1,8 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
     <div class="max-w-7xl px-5 mx-auto" id="quicksearch_container">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-100 md:rounded-xl">
-                <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 p-5">
+            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-xl">
+                <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 px-6 py-5">
                     <header class="space-y-2">
                         <h1 class="flex items-center gap-2 font-bold text-gray-800">
                             <span>Quick Search: </span>
@@ -25,22 +25,6 @@
                                 class="font-medium text-blue-600 hover:underline">klik disini.</a>
                         </p>
                     </header>
-                    <div class="flex md:justify-end gap-3">
-                        <a href="#quicksearch_container" onclick="quickSearchSource(8)"
-                            class="cursor-pointer flex justify-between items-center px-5 py-3 bg-lp3i-200 hover:bg-lp3i-300 transition text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
-                                <span class="text-xs">Daftar Online</span>
-                            </h4>
-                        </a>
-                        <a href="#quicksearch_container" onclick="quickSearchSource(10)"
-                            class="cursor-pointer flex justify-between items-center px-5 py-3 bg-lp3i-200 hover:bg-lp3i-300 transition text-white rounded-xl">
-                            <h4>
-                                <i class="fa-solid fa-database mr-1"></i>
-                                <span class="text-xs">Beasiswa</span>
-                            </h4>
-                        </a>
-                    </div>
                 </section>
                 <hr class="mb-5">
                 <section class="px-5 pb-5">
@@ -72,8 +56,8 @@
                         </thead>
                         <tbody id="result-quicksearch">
                             <tr class="border-b border-t">
-                                <td colspan="7" class="px-6 py-4 text-center">Silahkan untuk isi kolom
-                                    pencarian.
+                                <td colspan="7" class="px-6 py-4 text-center">
+                                    Silahkan untuk isi kolom pencarian.
                                 </td>
                             </tr>
                         </tbody>
@@ -81,7 +65,7 @@
                 </section>
                 <hr class="mb-5">
                 <div class="px-5 pb-5">
-                    <p class="text-gray-500 text-xs">Silahkan untuk klik nama untuk melihat informasi lebih lanjut.
+                    <p class="text-gray-500 text-xs">Catatan: Silahkan untuk klik nama untuk melihat informasi lebih lanjut.
                     </p>
                 </div>
             </div>
