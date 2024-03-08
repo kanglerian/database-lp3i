@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-class ViewReportByProgram extends Migration
+class CreateViewReportByProgramAdminTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +15,9 @@ class ViewReportByProgram extends Migration
     public function up()
     {
         DB::statement('
-            CREATE VIEW `report_register_by_program` AS
+            CREATE VIEW `report_register_by_program_admin` AS
             SELECT
             applicants.pmb AS pmb,
-                applicants.identity_user AS identity_user,
             applicants.program AS program,
                 SUM(CASE WHEN
                     applicants.is_register = 1 AND
@@ -37,7 +38,7 @@ class ViewReportByProgram extends Migration
             WHERE
             applicants.program IS NOT NULL
             GROUP BY
-            pmb, identity_user, program;
+            pmb, program;
         ');
     }
 
@@ -48,6 +49,6 @@ class ViewReportByProgram extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS report_register_by_program');
+        DB::statement('DROP VIEW IF EXISTS report_register_by_program_admin');
     }
 }
