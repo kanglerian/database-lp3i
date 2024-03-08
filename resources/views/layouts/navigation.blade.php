@@ -15,12 +15,16 @@
                 <div class="hidden space-x-5 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs([
                         'dashboard.index',
-                        'dashboard.rekapitulasi_page',
-                        'dashboard.history_page',
-                        'dashboard.aplikan_page',
-                        'dashboard.persyaratan_page',
-                        'dashboard.perolehan_pmb_page',
-                        'dashboard.register_school'
+                        'dashboard.rekapitulasi_perolehan_pmb_page',
+                        'dashboard.rekapitulasi_history',
+                        'dashboard.rekapitulasi_database',
+                        'dashboard.rekapitulasi_perolehan_pmb',
+                        'dashboard.rekapitulasi_register_program',
+                        'dashboard.rekapitulasi_aplikan',
+                        'dashboard.rekapitulasi_persyaratan',
+                        'dashboard.rekapitulasi_register_school',
+                        'dashboard.rekapitulasi_register_school_year',
+                        'dashboard.rekapitulasi_register_source',
                     ])">
                         {{ __('Dashboard') }}
                     </x-nav-link>

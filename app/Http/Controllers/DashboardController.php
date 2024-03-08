@@ -311,6 +311,12 @@ class DashboardController extends Controller
         return view('pages.dashboard.reports.rekapitulasi-persyaratan');
     }
 
+    public function rekapitulasi_history()
+    {
+        /* Status: OK */
+        return view('pages.dashboard.reports.rekapitulasi-history');
+    }
+
     public function rekapitulasi_register_school()
     {
         /* Status: OK */
@@ -335,5 +341,10 @@ class DashboardController extends Controller
         return view('pages.dashboard.reports.rekapitulasi-register-source')->with([
             'registers' => $registers,
         ]);
+    }
+
+    public function rekapitulasi_perolehan_pmb_page()
+    {
+        return view('pages.dashboard.reports.rekapitulasi-perolehan-pmb-page');
     }
 }

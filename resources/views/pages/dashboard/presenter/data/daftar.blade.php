@@ -5,7 +5,7 @@
             <h2 class="font-bold text-gray-800">Daftar</h2>
         </div>
         <p class="text-sm text-gray-700 text-sm">
-            Berikut ini adalah hasil perhitungan dari riwayat pesan.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, architecto.
         </p>
     </header>
     <div class="relative overflow-x-auto">

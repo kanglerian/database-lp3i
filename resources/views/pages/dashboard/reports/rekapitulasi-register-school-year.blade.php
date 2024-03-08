@@ -10,6 +10,13 @@
                             Dashboard
                         </a>
                     </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
+                            <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb_page') }}"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Rekap Perolehan PMB</a>
+                        </div>
+                    </li>
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
@@ -51,16 +58,7 @@
             </div>
         </div>
         <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
-                <header class="space-y-1 mb-5">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-regular fa-circle-dot"></i>
-                        <h2 class="font-bold text-gray-800">Rekap Data Registrasi Per Tingkat Sekolah</h2>
-                    </div>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan data registrasi per tingkat sekolah.
-                    </p>
-                </header>
+            <section class="bg-white px-5 py-4 md:rounded-xl border border-gray-100 space-y-5">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500"
                         id="table-report-register-school-year">

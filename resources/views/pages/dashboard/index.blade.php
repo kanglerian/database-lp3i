@@ -157,7 +157,7 @@
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
-                    <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb') }}"
+                    <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb_page') }}"
                         class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
@@ -183,28 +183,13 @@
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
-                    @if (Auth::user()->role !== 'S')
-                        <a href="{{ route('dashboard.rekapitulasi_register_program') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                            <div class="space-y-1 z-10">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-book"></i>
-                                    <h2 class="font-bold">Rekapitulasi Tebaran Program Studi</h2>
-                                </div>
-                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                    vitae.</p>
-                            </div>
-                            <i
-                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                        </a>
-                    @endif
                     @if (Auth::user()->role == 'P')
                         <a href="{{ route('dashboard.rekapitulasi_aplikan') }}"
                             class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-users"></i>
-                                    <h2 class="font-bold">Rekap Data Aplikan</h2>
+                                    <h2 class="font-bold">Rekapitulasi Data Aplikan</h2>
                                 </div>
                                 <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
                                     vitae.</p>
@@ -220,7 +205,7 @@
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-regular fa-folder-open"></i>
-                                    <h2 class="font-bold">Rekapitulasi Data Persyaratan Aplikan</h2>
+                                    <h2 class="font-bold">Data Persyaratan Aplikan</h2>
                                 </div>
                                 <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
                                     vitae.</p>
@@ -229,53 +214,8 @@
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                         </a>
                     @endif
-
-                    @if (Auth::user()->role == 'P')
-                        <a href="{{ route('dashboard.rekapitulasi_register_school') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                            <div class="space-y-1 z-10">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-users"></i>
-                                    <h2 class="font-bold">Rekap Data Aplikan Register</h2>
-                                </div>
-                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                    vitae.</p>
-                            </div>
-                            <i
-                                class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                        </a>
-                    @endif
-
-                    <a href="{{ route('dashboard.rekapitulasi_register_source') }}"
-                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                        <div class="space-y-1 z-10">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-server"></i>
-                                <h2 class="font-bold">Rekapitulasi Register Sumber</h2>
-                            </div>
-                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                vitae.</p>
-                        </div>
-                        <i
-                            class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                    </a>
-
-                    <a href="{{ route('dashboard.rekapitulasi_register_school_year') }}"
-                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
-                        <div class="space-y-1 z-10">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-server"></i>
-                                <h2 class="font-bold">Rekapitulasi Register Per Sekolah</h2>
-                            </div>
-                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                vitae.</p>
-                        </div>
-                        <i
-                            class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
-                    </a>
                 </div>
             </section>
-
 
             @include('pages.dashboard.utilities.all')
             @include('pages.dashboard.utilities.pmb')

@@ -1,12 +1,6 @@
 @if (Auth::user()->role !== 'S')
     <div class="max-w-7xl px-5 mx-auto">
-        <section class="bg-white p-5 md:rounded-xl border border-gray-100">
-            <header class="space-y-1">
-                <h2 class="font-bold text-gray-800">Rekapitulasi Follow Up Presenter</h2>
-                <p class="text-sm text-gray-700 text-sm">
-                    Berikut ini adalah hasil perhitungan dari riwayat pesan.
-                </p>
-            </header>
+        <section class="bg-white px-5 py-3 md:rounded-xl border border-gray-100">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-3 my-5">
                 <div class="bg-lp3i-200 text-sm py-4 px-5 rounded-xl text-white">
                     <i class="fa-solid fa-phone"></i>

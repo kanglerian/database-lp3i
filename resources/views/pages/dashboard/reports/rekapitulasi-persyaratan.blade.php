@@ -13,7 +13,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Kelengkapan Persyaratan Aplikan</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Data Persyaratan Aplikan</span>
                         </div>
                     </li>
                 </ol>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-white p-5 md:rounded-xl border border-gray-100 space-y-5">
+            <section class="bg-white px-5 py-3 md:rounded-xl border border-gray-100 space-y-5">
                 @include('pages.dashboard.presenter.persyaratan.persyaratan')
                 @include('pages.dashboard.presenter.persyaratan.scripts')
             </section>

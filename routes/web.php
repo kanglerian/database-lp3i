@@ -47,6 +47,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
 
+    Route::get('dashboard/rekapitulasi/perolehanpmb', [DashboardController::class, 'rekapitulasi_perolehan_pmb_page'])->name('dashboard.rekapitulasi_perolehan_pmb_page');
+
     Route::get('dashboard/page/history', [DashboardController::class, 'rekapitulasi_history'])->name('dashboard.rekapitulasi_history');
     Route::get('dashboard/page/rekapitulasi', [DashboardController::class, 'rekapitulasi_database'])->name('dashboard.rekapitulasi_database');
     Route::get('dashboard/page/perolehanpmb', [DashboardController::class, 'rekapitulasi_perolehan_pmb'])->name('dashboard.rekapitulasi_perolehan_pmb');

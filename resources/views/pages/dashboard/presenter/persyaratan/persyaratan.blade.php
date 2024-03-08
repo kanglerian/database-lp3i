@@ -1,13 +1,4 @@
 <section>
-    <header class="space-y-1 mb-5">
-        <div class="flex items-center gap-2">
-            <i class="fa-regular fa-circle-dot"></i>
-            <h2 class="font-bold text-gray-800">Kelengkapan Persyaratan Aplikan</h2>
-        </div>
-        <p class="text-sm text-gray-700 text-sm">
-            Berikut ini adalah hasil perhitungan dari riwayat pesan.
-        </p>
-    </header>
     <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-persyaratan-aplikan">
             <thead class="text-xs text-gray-700 uppercase" id="headers_fileupload">

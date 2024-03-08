@@ -13,7 +13,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Data Aplikan</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Rekapitulasi Data Aplikan</span>
                         </div>
                     </li>
                 </ol>
@@ -64,7 +64,7 @@
                 <header class="space-y-1">
                     <h2 class="font-bold text-xl text-gray-800">Data Aplikan</h2>
                     <p class="text-sm text-gray-700 text-sm">
-                        Berikut ini adalah hasil perhitungan dari riwayat pesan.
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias, dolores!
                     </p>
                 </header>
                 <hr>
