@@ -235,6 +235,6 @@
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        alert('Link sudah disalin!');
+        alert('Data sudah disalin.');
     }
 </script>
