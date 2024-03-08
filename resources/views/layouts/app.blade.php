@@ -75,11 +75,11 @@
 </head>
 
 <body class="font-sans">
-    <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-60 w-full h-full z-50 fixed hidden"
+    <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-80 w-full h-full z-50 fixed hidden"
         id="data-loading">
-        <lottie-player src="{{ asset('animations/astronout.json') }}" background="Transparent" speed="1"
-            style="width: 200px; height: 200px" direction="1" mode="normal" loop autoplay></lottie-player>
-        <h1 class="text-white relative top-[-50px] text-sm">Sedang memuat data...</h1>
+        <lottie-player src="{{ asset('animations/server.json') }}" background="Transparent" speed="1"
+            style="width: 300px; height: 300px" direction="1" mode="normal" loop autoplay></lottie-player>
+        <h1 class="text-white relative top-[-20px] text-sm">Sedang memuat data...</h1>
     </div>
     <div class="min-h-screen bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
         @include('layouts.navigation')
