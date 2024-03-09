@@ -227,7 +227,7 @@
                         <section class="flex flex-col justify-between gap-3">
                             @if ($account == 0 && $user->is_applicant == 1)
                                 <button type="button" onclick="modalAccount()"
-                                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-white text-sm">
+                                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl text-white text-sm">
                                     <i class="fa-solid fa-user-plus mr-1"></i>
                                     <span>Buat Akun</span>
                                 </button>
@@ -236,7 +236,7 @@
                                 </p>
                             @elseif($account > 0)
                                 <span
-                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
+                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
                                         class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
                                 @if ($user->identity_user === '6281313608558')
                                     <p class="text-xs text-center text-gray-500">
@@ -401,7 +401,7 @@
                                 @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
                                     <hr class="my-2">
                                     <button onclick="getTokenMisil()"
-                                        class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-lg"><i
+                                        class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl"><i
                                             class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
                                     @if ($integration_misil)
                                         <p class="text-xs text-center text-gray-500">Aplikan sudah
