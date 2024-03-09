@@ -65,7 +65,8 @@
                 </section>
                 <hr class="mb-5">
                 <div class="px-5 pb-5">
-                    <p class="text-gray-500 text-xs">Catatan: Silahkan untuk klik nama untuk melihat informasi lebih lanjut.
+                    <p class="text-gray-500 text-xs">Catatan: Silahkan untuk klik nama untuk melihat informasi lebih
+                        lanjut.
                     </p>
                 </div>
             </div>
@@ -139,6 +140,11 @@
                     const dataTableConfig = {
                         columns: manualColumns,
                         data: data,
+                        rowCallback: function(row, data, index) {
+                            if (index % 2 != 0) {
+                                $(row).css('background-color', '#f9fafb');
+                            }
+                        },
                     }
 
                     if (dataTableInitialized) {
@@ -182,7 +188,8 @@
                         identity_user: 'identity_user'
                     },
                     render: (data, type, row, meta) => {
-                        let editUrl = "{{ route('database.show', ':identity') }}".replace(':identity',data.identity);
+                        let editUrl = "{{ route('database.show', ':identity') }}".replace(':identity',
+                            data.identity);
                         if (data.identity_user == identity || identity == '6281313608558') {
                             return `<a href="${editUrl}" class="font-bold underline">${data.name}</a>`
                         } else {
