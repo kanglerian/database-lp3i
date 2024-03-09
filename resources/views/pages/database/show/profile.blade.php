@@ -5,25 +5,25 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
         @if (session('error'))
-            <div id="alert" class="mx-2 flex items-center p-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
                 </div>
             </div>
         @endif
         @if (session('message'))
-            <div id="alert" class="mx-2 flex items-center p-4 bg-emerald-400 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 bg-emerald-400 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
         @if ($errors->first('berkas'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-xmark"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ $errors->first('berkas') }}
                 </div>
             </div>
@@ -32,9 +32,9 @@
 
     <div id="identity_user" class="hidden">{{ $user->identity }}</div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5 mt-3">
         <div class="w-full md:w-4/6">
-            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
+            <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">
                     <section class="space-y-4">
                         <header class="flex justify-between items-center gap-3">
@@ -210,7 +210,7 @@
         </div>
 
         <div class="w-full md:w-2/6 mx-auto space-y-6">
-            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
+            <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">
                     <section class="space-y-4">
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
@@ -426,7 +426,7 @@
                     </section>
                 </div>
             </div>
-            <div class="p-8 bg-white border border-gray-100 sm:rounded-xl">
+            <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">
                     <section class="space-y-4">
                         <header class="flex md:justify-between flex-col md:flex-row items-start md:items-center gap-3">
