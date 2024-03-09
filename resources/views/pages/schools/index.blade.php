@@ -15,7 +15,7 @@
         </div>
     </x-slot>
 
-    <div class="space-y-5 py-8">
+    <div class="space-y-5 py-10">
 
         <div class="max-w-7xl px-5 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center gap-3">

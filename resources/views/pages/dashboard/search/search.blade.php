@@ -1,7 +1,7 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
     <div class="max-w-7xl px-5 mx-auto" id="quicksearch_container">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-3xl">
+            <div class="bg-gray-50 relative overflow-x-auto border border-gray-200 rounded-3xl">
                 <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 p-6">
                     <header class="space-y-2">
                         <h1 class="flex items-center gap-2 font-bold text-gray-800">

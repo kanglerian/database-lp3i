@@ -21,7 +21,7 @@
         </div>
     </x-slot>
 
-    <section class="space-y-5 py-8">
+    <section class="space-y-5 py-10">
 
         <div class="max-w-7xl px-5 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center gap-3">
@@ -45,7 +45,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="px-6 py-2 rounded-xl text-sm bg-white border border-gray-100 order-1 md:order-none">
+                <div class="px-6 py-2 rounded-xl text-sm bg-gray-50 border border-gray-200 order-1 md:order-none">
                     <div>
                         <span class="font-bold">{{ Auth::user()->name }}</span>
                         (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
@@ -60,7 +60,7 @@
         </div>
 
         <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-white p-6 md:rounded-3xl border border-gray-100 space-y-5">
+            <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
                 <header class="space-y-1">
                     <h2 class="font-bold text-xl text-gray-800">Data Aplikan</h2>
                     <p class="text-sm text-gray-700 text-sm">

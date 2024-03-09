@@ -18,7 +18,7 @@
         </div>
     </x-slot>
 
-    <section class="space-y-5 py-8">
+    <section class="space-y-5 py-10">
         @if (Auth::user()->role == 'S')
             <div class="py-10">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -91,7 +91,7 @@
                                 placeholder="Tahun PMB">
                         </div>
                     </div>
-                    <div class="px-5 py-3 rounded-2xl text-sm bg-white border border-gray-200 order-1 md:order-none">
+                    <div class="px-5 py-3 rounded-2xl text-sm bg-gray-50 border border-gray-200 order-1 md:order-none">
                         <div>
                             <span class="font-bold">{{ Auth::user()->name }}</span>
                             (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:

@@ -1,27 +1,27 @@
 @if (Auth::user()->role !== 'S')
     <div class="max-w-7xl px-5 mx-auto">
-        <section class="bg-white px-5 py-3 md:rounded-xl border border-gray-100">
+        <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-3 my-5">
-                <div class="bg-lp3i-200 text-sm py-4 px-5 rounded-xl text-white">
+                <div class="bg-lp3i-200 text-sm py-4 px-5 rounded-2xl text-white">
                     <i class="fa-solid fa-phone"></i>
                     <i class="fa-solid fa-database mr-2"></i>
                     <span>Total: </span>
                     <span id="phonehistory_total" class="font-bold">0</span>
                 </div>
-                <div class="bg-emerald-500 text-sm py-4 px-5 rounded-xl text-white">
+                <div class="bg-emerald-500 text-sm py-4 px-5 rounded-2xl text-white">
                     <i class="fa-solid fa-phone"></i>
                     <i class="fa-solid fa-circle-check mr-2"></i>
                     <span>Valid: </span>
                     <span id="phonehistory_valid" class="font-bold">0</span>
                 </div>
-                <div class="bg-red-500 text-sm py-4 px-5 rounded-xl text-white">
+                <div class="bg-red-500 text-sm py-4 px-5 rounded-2xl text-white">
                     <i class="fa-solid fa-phone"></i>
                     <i class="fa-solid fa-circle-xmark mr-2"></i>
                     <span>Tidak Valid: </span>
                     <span id="phonehistory_nonvalid" class="font-bold">0</span>
                 </div>
             </div>
-            <div class="relative overflow-x-auto border border-gray-200 rounded-xl">
+            <div class="relative overflow-x-auto border border-gray-200 rounded-2xl">
                 {{-- @if (Auth::user()->role == 'P')
                     <button onclick="updateHistories()"
                         class="text-sm bg-red-500 hover:bg-red-600 rounded-lg px-4 py-2 text-white">Jangan ditekan,
