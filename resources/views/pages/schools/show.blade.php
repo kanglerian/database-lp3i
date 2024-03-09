@@ -1,5 +1,20 @@
 @push('styles')
     <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet" />
+    <style>
+        .js-example-input-single {
+            width: 100%;
+        }
+
+        .select2-selection {
+            border-radius: 0.75rem !important;
+            padding-top: 22px !important;
+            padding-bottom: 22px !important;
+        }
+
+        .select2-selection__rendered {
+            top: -13px !important;
+        }
+    </style>
 @endpush
 <x-app-layout>
     <x-slot name="header">
@@ -29,10 +44,10 @@
 
         <section class="max-w-7xl mx-auto">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('message') }}
                     </div>
                 </div>
@@ -42,7 +57,7 @@
         <section class="max-w-7xl mx-auto">
             <div class="flex items-center justify-between">
                 <div class="w-full md:w-4/6 p-3">
-                    <div class="bg-white border border-gray-100 rounded-xl space-y-3 p-6">
+                    <div class="bg-white border border-gray-100 rounded-3xl space-y-3 p-8">
                         <form action="{{ route('schools.update', $school->id) }}" class="space-y-3" id="school-form"
                             method="POST">
                             @csrf
@@ -152,10 +167,10 @@
                             </div>
                             <div>
                                 <button type="button" onclick="updateSchool()"
-                                    class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-lg text-sm">
+                                    class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>
                                 <button type="button" onclick="deleteSchool('{{ $school->id }}')"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg text-sm"><i
+                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
                                         class="fa-regular fa-trash-can"></i> Hapus</button>
                             </div>
                         </form>

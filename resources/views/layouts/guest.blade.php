@@ -24,11 +24,22 @@
             font-family: 'Roboto Mono', monospace;
             font-family: 'Source Code Pro', monospace;
         }
+        .js-example-input-single {
+            width: 100%;
+        }
+        .select2-selection {
+            border-radius: 0.75rem!important;
+            padding-top: 22px!important;
+            padding-bottom: 22px!important;
+        }
+        .select2-selection__rendered {
+            top: -13px!important;
+        }
     </style>
     @stack('styles')
 </head>
 
-<body class="bg-opacity-10 bg-[url('/img/pattern.svg')] bg-no-repeat bg-center bg-cover">
+<body class="bg-gray-50">
     <div class="font-sans text-gray-900">
         {{ $slot }}
     </div>

@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
                 </div>
@@ -23,16 +23,16 @@
                     <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
                     <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                         <label for="region" class="text-xs">Wilayah:</label>
                         <select id="region" onchange="changeTrigger()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
                             <option value="all">Pilih wilayah</option>
                             @foreach ($schools_by_region as $region)
-                            <option value="{{ $region->region }}">{{ $region->region }}</option>
+                                <option value="{{ $region->region }}">{{ $region->region }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,10 +42,10 @@
 
         <div class="max-w-7xl px-5 mx-auto">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('message') }}
                     </div>
                 </div>
@@ -55,18 +55,20 @@
 
         @if ($slepets > 0)
             <section class="max-w-7xl px-5 mx-auto">
-                <div class="px-6 py-5 mb-4 text-red-800 rounded-xl bg-red-50 border border-red-200">
+                <div class="px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
                     <div class="flex items-center">
                         <i class="fa-solid fa-circle-info mr-2"></i>
                         <span class="sr-only">Info</span>
                         <h3 class="text-lg font-medium">Lakukan Update Data Sekolah!</h3>
                     </div>
                     <div class="mt-2 mb-4 text-sm">
-                        Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk mengubahnya agar laporan menjadi lebih akurat.
+                        Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri
+                        sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk mengubahnya
+                        agar laporan menjadi lebih akurat.
                     </div>
                     <div class="flex">
                         <button onclick="showUpdate()"
-                            class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
+                            class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-reguler rounded-xl text-xs px-4 py-1.5 me-2 text-center inline-flex items-center">
                             <i class="fa-solid fa-filter mr-2"></i>
                             Tampilkan Data
                         </button>
@@ -76,13 +78,13 @@
         @endif
 
         <div class="max-w-7xl px-5 mx-auto">
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto md:rounded-xl">
+            <div class="bg-white overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
+                    <div class="relative overflow-x-auto">
                         <table id="table-schools" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
                                         No.
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -130,7 +132,7 @@
                                     <th scope="col" class="px-6 py-3">
                                         Jadwal Datang
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
                                         Guru BK
                                     </th>
                             </thead>
@@ -226,7 +228,7 @@
                         target: 0
                     }],
                     createdRow: (row, data, index) => {
-                        if (index % 2 === 0) {
+                        if (index % 2 != 0) {
                             $(row).css('background-color', '#f9fafb');
                         }
                     },

@@ -1,8 +1,8 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
     <div class="max-w-7xl px-5 mx-auto" id="quicksearch_container">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-xl">
-                <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 px-6 py-5">
+            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-3xl">
+                <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-3 p-6">
                     <header class="space-y-2">
                         <h1 class="flex items-center gap-2 font-bold text-gray-800">
                             <span>Quick Search: </span>
@@ -16,7 +16,7 @@
                                 <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
                             </div>
                             <input type="search" id="quick-search" onchange="quickSearch()"
-                                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                 placeholder="Cari calon mahasiswa disini...">
                         </div>
                         <p id="quick-search" class="mt-2 text-xs text-gray-500">Fitur cari cepat data calon

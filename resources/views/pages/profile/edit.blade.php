@@ -37,7 +37,7 @@
                 <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('message') }}
                     </div>
                 </div>

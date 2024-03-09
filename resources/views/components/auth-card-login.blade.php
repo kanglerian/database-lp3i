@@ -5,7 +5,7 @@
             <img src="{{ asset('logo/logo-kampusglobalmandiri.png') }}" alt="Kampus Global Mandiri" class="w-40">
         </a>
     </div>
-    <div class="w-full sm:max-w-md mt-6 p-6 bg-white shadow-lg rounded-lg">
+    <div class="w-full sm:max-w-md mt-6 p-8 bg-white border border-gray-100 rounded-3xl">
         {{ $slot }}
     </div>
 </div>

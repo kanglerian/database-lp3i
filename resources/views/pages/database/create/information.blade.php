@@ -1,4 +1,4 @@
-<div class="p-6 bg-white border border-gray-100 sm:rounded-xl">
+<div class="p-8 bg-white border border-gray-100 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between">

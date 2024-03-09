@@ -24,7 +24,7 @@
     <section class="max-w-7xl px-5 mx-auto mt-10">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb') }}"
-                class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                 <div class="space-y-1 z-10">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-database"></i>
@@ -37,7 +37,7 @@
             </a>
             @if (Auth::user()->role == 'A')
                 <a href="{{ route('dashboard.rekapitulasi_register_program') }}"
-                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-book"></i>
@@ -52,7 +52,7 @@
 
             @if (Auth::user()->role == 'A')
                 <a href="{{ route('dashboard.rekapitulasi_register_source') }}"
-                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-server"></i>
@@ -67,7 +67,7 @@
 
             @if (Auth::user()->role == 'A')
                 <a href="{{ route('dashboard.rekapitulasi_register_school_year') }}"
-                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-server"></i>
@@ -82,7 +82,7 @@
 
             @if (Auth::user()->role == 'A')
                 <a href="{{ route('dashboard.rekapitulasi_register_school') }}"
-                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-xl">
+                    class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-server"></i>

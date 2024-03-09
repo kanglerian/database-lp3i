@@ -1,5 +1,20 @@
 @push('styles')
     <link href="{{ asset('css/select2-custom.css') }}" rel="stylesheet" />
+    <style>
+        .js-example-input-single {
+            width: 100%;
+        }
+
+        .select2-selection {
+            border-radius: 0.75rem !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+
+        .select2-selection__rendered {
+            top: -8px !important;
+        }
+    </style>
 @endpush
 <x-app-layout>
     <x-slot name="header">
@@ -10,64 +25,64 @@
                 </h2>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <span>
                         <i class="fa-solid fa-phone"></i>
                         <i class="fa-solid fa-xmark"></i>
                     </span>
                     <h2>{{ $nophone }}</h2>
                 </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
                 <button onclick="exportExcel()"
-                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
                 </button>
-                <a id="downloadBlast" onclick="downloadBlast()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                <button id="downloadBlast" onclick="downloadBlast()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
-                </a>
-                <a id="downloadDP" onclick="downloadDP()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                </button>
+                <button id="downloadDP" onclick="downloadDP()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-bullhorn"></i>
-                </a>
-                <a id="downloadCSV" onclick="downloadCSV()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                </button>
+                <button id="downloadCSV" onclick="downloadCSV()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-csv"></i>
-                </a>
-                <a id="downloadVCF" onclick="downloadVCF()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                </button>
+                <button id="downloadVCF" onclick="downloadVCF()"
+                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-address-book"></i>
-                </a>
+                </button>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-5">
+    <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-3">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('message') }}
                     </div>
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('error') }}
                     </div>
                 </div>
             @endif
             <div class="flex justify-between items-center gap-3 mx-2">
                 <a href="{{ route('database.create') }}"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex gap-2">
                     @if ($nopresenter > 0)
@@ -83,16 +98,16 @@
                     @endif
                     @if (Auth::user()->role == 'P' && Auth::user()->sheet)
                         <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
-                            class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm space-x-1">
+                            class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                             <i class="fa-solid fa-rotate"></i>
                         </button>
                     @endif
                     <button type="button" onclick="changeFilter()"
-                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-lg text-white">
+                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter"></i>
                     </button>
                     <button type="button" onclick="resetFilter()"
-                        class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-lg text-white">
+                        class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
                     </button>
                 </div>
@@ -100,13 +115,13 @@
             <section class="flex flex-col justify-center gap-3">
                 @include('pages.database.database.filter')
             </section>
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto md:rounded-xl">
+            <div class="bg-white overflow-hidden border rounded-xl">
+                <div class="p-6 bg-white">
+                    <div class="relative overflow-x-auto rounded-xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-tl-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
                                         <i class="fa-solid fa-user"></i>
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
@@ -133,7 +148,7 @@
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Jurusan
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-tr-lg">
+                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
                                         Tahun lulus
                                     </th>
                                 </tr>
@@ -170,6 +185,9 @@
                 if (data.presenter.phone == '6281313608558') {
                     $(row).css('background-color', '#dc2626');
                     $(row).css('color', 'white');
+                }
+                if(index % 2 != 0){
+                    $(row).css('background-color', '#f9fafb');
                 }
             },
             columnDefs: [{
@@ -221,7 +239,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); copyRecord(
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); copyRecord(
                             '${data.name}',
                             '${data.phone}',
                             '${data.school_applicant ? data.school_applicant.name : 'Tidak diketahui'}',

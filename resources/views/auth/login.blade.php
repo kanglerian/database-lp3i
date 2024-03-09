@@ -14,16 +14,16 @@
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" :value="old('email')"
-                    placeholder="Masukkan Alamat Email Anda" required autofocus />
+                    placeholder="Masukan email" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 relative">
                     <x-input id="password" class="block w-full text-sm" type="password" name="password"
-                        placeholder="Masukkan Password Anda" required autocomplete="current-password" />
-                    <button type="button" class="mt-2 text-gray-700" id="see-password" onclick="seePassword()"><i
+                        placeholder="Masukan kata sandi" required autocomplete="current-password" />
+                    <button type="button" class="absolute right-3 top-[18px] text-gray-700" id="see-password" onclick="seePassword()"><i
                             class="fa-solid fa-eye"></i></button>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     {{ __('Belum memiliki akun?') }}
                 </a>
 
-                <x-button class="ml-3">
+                <x-button class="ml-3 rounded-xl">
                     {{ __('Masuk') }}
                 </x-button>
             </div>

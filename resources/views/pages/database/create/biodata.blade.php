@@ -1,4 +1,21 @@
-<div class="p-6 bg-white border border-gray-100 sm:rounded-xl">
+@push('styles')
+    <style>
+        .js-example-input-single {
+            width: 100%;
+        }
+
+        .select2-selection {
+            border-radius: 0.75rem !important;
+            padding-top: 22px !important;
+            padding-bottom: 22px !important;
+        }
+
+        .select2-selection__rendered {
+            top: -13px !important;
+        }
+    </style>
+@endpush
+<div class="p-8 bg-white border border-gray-100 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between">
@@ -45,7 +62,7 @@
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="school" :value="__('Sekolah')" />
+                        <x-label for="school" class="mb-[2px]" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             <option value="TIDAK DIKETAHUI">Pilih Sekolah</option>
                             @foreach ($schools as $school)

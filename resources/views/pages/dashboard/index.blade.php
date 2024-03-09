@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-center     md:justify-between items-center space-y-2 md:space-y-0 h-10">
+        <div class="flex flex-col md:flex-row justify-center md:justify-between items-center space-y-2 md:space-y-0 h-10">
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
                     Registrasi Pembayaran
@@ -87,11 +87,11 @@
                         <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
                             <label for="change_pmb" class="text-xs">Periode PMB:</label>
                             <input type="number" id="change_pmb" onchange="changeTrigger()"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-lg text-gray-800"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                                 placeholder="Tahun PMB">
                         </div>
                     </div>
-                    <div class="px-4 py-2 rounded-xl text-sm bg-white border border-gray-200 order-1 md:order-none">
+                    <div class="px-5 py-3 rounded-2xl text-sm bg-white border border-gray-200 order-1 md:order-none">
                         <div>
                             <span class="font-bold">{{ Auth::user()->name }}</span>
                             (<span onclick="copyIdentity('{{ Auth::user()->identity }}')">ID:
@@ -110,7 +110,7 @@
 
             @if ($slepets > 0)
                 <section class="max-w-7xl px-5 mx-auto">
-                    <div class="px-6 py-5 mb-4 text-red-800 rounded-xl bg-red-50 border border-red-200">
+                    <div class="px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
                         <div class="flex items-center">
                             <i class="fa-solid fa-circle-info mr-2"></i>
                             <span class="sr-only">Info</span>
@@ -125,7 +125,7 @@
                         @if (Auth::user()->role == 'A')
                             <div class="flex">
                                 <a target="_blank" href="{{ route('schools.index') }}"
-                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
+                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-reguler rounded-xl text-xs px-4 py-1.5 me-2 text-center inline-flex items-center">
                                     <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i>
                                     lihat selengkapnya
                                 </a>
@@ -133,7 +133,7 @@
                         @else
                             <div class="flex">
                                 <span
-                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
+                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-reguler rounded-xl text-xs px-4 py-1.5 me-2 text-center inline-flex items-center">
                                     Segera ubah data, hubungi Administrator.
                                 </span>
                             </div>
@@ -145,7 +145,7 @@
             <section class="max-w-7xl px-5 mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <a href="{{ route('dashboard.rekapitulasi_database') }}"
-                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-xl">
+                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-database"></i>
@@ -158,7 +158,7 @@
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
                     <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb_page') }}"
-                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-xl">
+                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-coins"></i>
@@ -171,7 +171,7 @@
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                     </a>
                     <a href="{{ route('dashboard.rekapitulasi_history') }}"
-                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-xl">
+                        class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">
                         <div class="space-y-1 z-10">
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-comments"></i>
@@ -185,7 +185,7 @@
                     </a>
                     @if (Auth::user()->role == 'P')
                         <a href="{{ route('dashboard.rekapitulasi_aplikan') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-xl">
+                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-users"></i>
@@ -198,10 +198,9 @@
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                         </a>
                     @endif
-
                     @if (Auth::user()->role == 'P')
                         <a href="{{ route('dashboard.rekapitulasi_persyaratan') }}"
-                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-xl">
+                            class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">
                             <div class="space-y-1 z-10">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-regular fa-folder-open"></i>

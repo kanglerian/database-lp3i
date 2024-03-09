@@ -6,7 +6,7 @@
         </a>
     </div>
     <div class="w-full flex items-center justify-center">
-        <div class="w-full lg:w-7/12 mt-6 p-6 bg-white shadow-lg rounded-lg">
+        <div class="w-full lg:w-7/12 mt-6 p-8 bg-white border border-gray-100 rounded-3xl">
             {{ $slot }}
         </div>
     </div>

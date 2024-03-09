@@ -23,7 +23,7 @@
             </nav>
         </div>
     </x-slot>
-    <div class="py-4">
+    <div class="py-10">
         {{-- Message --}}
         @include('pages.database.create.message')
         <form method="POST" action="{{ route('database.store') }}" id="formDatabase">

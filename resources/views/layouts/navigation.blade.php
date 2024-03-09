@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white py-2">
+<nav x-data="{ open: false }" class="bg-gray-50 py-2">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 py-3">
@@ -108,7 +108,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex overflow-hidden gap-3 border border-gray-200 bg-white hover:bg-gray-100 px-4 py-2 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
+                            class="flex overflow-hidden gap-3 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
                                 <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
                                     alt="Avatar" class="h-8 rounded-full">
@@ -117,7 +117,7 @@
                             @endif
                             <div class="w-full flex flex-col items-start">
                                 <span class="font-bold">{{ Auth::user()->name }}</span>
-                                <span class="text-xs">
+                                <span class="text-xs font-light">
                                     @switch(Auth::user()->role)
                                         @case('A')
                                             Administrator

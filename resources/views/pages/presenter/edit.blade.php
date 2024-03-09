@@ -18,19 +18,19 @@
             </ol>
         </nav>
     </x-slot>
-    <div class="py-5">
+    <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-medium">
+                    <div class="ml-3 text-sm font-reguler">
                         {{ session('message') }}
                     </div>
                 </div>
             @endif
             <div class="flex flex-col md:flex-row justify-center gap-5 p-4 md:p-0">
-                <div class="w-full md:w-2/3 p-6 bg-white shadow-sm rounded-xl">
+                <div class="w-full md:w-2/3 p-6 bg-gray-50 border border-gray-200 rounded-3xl">
                     <form method="POST" class="space-y-2" action="{{ route('presenter.update', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
@@ -79,11 +79,11 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                                 class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan</button>
                     </form>
                 </div>
-                <div class="w-full md:w-1/3 p-6 bg-white shadow-sm rounded-xl">
+                <div class="w-full md:w-1/3 p-6 bg-gray-50 border border-gray-200 rounded-3xl">
                     <form method="POST" action="{{ route('presenter.password', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
@@ -110,7 +110,7 @@
                                 Password</label>
                         </div>
                         <button type="submit"
-                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                                 class="fa-solid fa-floppy-disk mr-1"></i> Ubah Password</button>
                     </form>
                 </div>
