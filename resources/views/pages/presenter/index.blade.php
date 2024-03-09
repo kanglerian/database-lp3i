@@ -30,7 +30,7 @@
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
             </div>
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
-                <div class="p-8 bg-gray-50 border-b border-gray-200">
+                <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead

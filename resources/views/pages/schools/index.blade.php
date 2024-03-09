@@ -78,7 +78,7 @@
         @endif
 
         <div class="max-w-7xl px-5 mx-auto">
-            <div class="bg-white overflow-hidden border rounded-3xl">
+            <div class="bg-gray-50 overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto">
                         <table id="table-schools" class="w-full text-sm text-sm text-left text-gray-500">
