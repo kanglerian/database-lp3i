@@ -82,25 +82,25 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3 py-10">
             <div class="w-full p-1">
-                <div class="border border-gray-200 rounded-2xl px-4 py-4 space-y-1 text-center">
+                <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Dibantu Penempatan Kerja</h4>
                     <p class="text-sm text-gray-700">Pendidikan keterampilan dengan dukungan penempatan kerja untuk kesuksesan profesional.</p>
                 </div>
             </div>
             <div class="w-full p-1">
-                <div class="border border-gray-200 rounded-2xl px-4 py-4 space-y-1 text-center">
+                <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Keterampilan Berbasis Keahlian</h4>
                     <p class="text-sm text-gray-700">Pengembangan praktis melalui pendidikan keterampilan berbasis keahlian yang mendalam.</p>
                 </div>
             </div>
             <div class="w-full p-1">
-                <div class="border border-gray-200 rounded-2xl px-4 py-4 space-y-1 text-center">
+                <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Relasi Perusahaan > 100</h4>
                     <p class="text-sm text-gray-700">Jaringan luas 100+ perusahaan untuk penempatan kerja terbaik dan peluang karir yang bertumbuh.</p>
                 </div>
             </div>
             <div class="w-full p-1">
-                <div class="border border-gray-200 rounded-2xl px-4 py-4 space-y-1 text-center">
+                <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Hard Skill & Soft Skill</h4>
                     <p class="text-sm text-gray-700">LP3I fokus mengembangkan hardskill dan softskill bagi kesuksesan dan keseimbangan karir Anda.</p>
                 </div>
