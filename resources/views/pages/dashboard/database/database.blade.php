@@ -1,6 +1,6 @@
 @if (Auth::user()->role !== 'S')
     <section class="max-w-7xl px-5 mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:bg-white p-5 md:rounded-3xl md:border border-gray-200">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:bg-gray-50 p-5 md:rounded-3xl md:border border-gray-200">
             <div class="flex justify-between items-center px-5 py-3 bg-lp3i-200 text-white rounded-2xl">
                 <h4>
                     <i class="fa-solid fa-database mr-1"></i>
