@@ -5,15 +5,15 @@
                 {{ __('Daftar Akun') }}
             </h2>
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-users"></i>
                     <h2>{{ $users }}</h2>
                 </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-circle-check text-green-500"></i>
                     <h2>{{ $active }}</h2>
                 </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-circle-xmark text-red-500"></i>
                     <h2>{{ $deactive }}</h2>
                 </div>
@@ -33,7 +33,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">

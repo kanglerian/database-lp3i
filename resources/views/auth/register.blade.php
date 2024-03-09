@@ -7,7 +7,7 @@
             <div id="alert" class="mx-2 mb-3 flex items-center p-4 mb-3 bg-red-500 text-white rounded-lg"
                 role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
                 </div>
             </div>

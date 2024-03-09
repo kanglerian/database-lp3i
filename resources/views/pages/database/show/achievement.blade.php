@@ -3,24 +3,24 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5 mt-5">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10 space-y-5">
         @if (session('message'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                 role="alert">
                 <i class="fa-solid fa-circle-check"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
         <div class="px-2">
             <button type="button" onclick="modalFunction('add')"
-                class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                     class="fa-solid fa-circle-plus"></i> Tambah Data</button>
         </div>
-        <div class="bg-white overflow-hidden border md:rounded-xl">
-            <div class="p-6 bg-white border-b border-gray-200">
-                <div class="relative overflow-x-auto md:rounded-xl">
+        <div class="bg-white overflow-hidden border rounded-3xl">
+            <div class="p-8 bg-gray-50 border-b border-gray-200">
+                <div class="relative overflow-x-auto">
                     <table id="tableAchievement" data-user="{{ $user->identity }}"
                         class="w-full text-sm text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">

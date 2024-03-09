@@ -1,4 +1,4 @@
-<div class="px-6 py-6 bg-white border border-gray-100 sm:rounded-xl">
+<div class="p-8 bg-gray-50 border border-gray-200 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between gap-5">

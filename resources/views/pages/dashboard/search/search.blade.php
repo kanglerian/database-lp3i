@@ -28,8 +28,8 @@
                 </section>
                 <hr class="mb-5">
                 <section class="px-5 pb-5">
-                    <table id="quickSearchTable" class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-white">
+                    <table class="w-full bg-gray-50 text-sm text-left rtl:text-right text-gray-500" id="quickSearchTable">
+                        <thead class="text-xs text-gray-700 uppercase">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     No.

@@ -19,7 +19,7 @@
                 </ol>
             </nav>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-lg items-center gap-2">
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
                 </div>

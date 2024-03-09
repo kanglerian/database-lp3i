@@ -5,9 +5,9 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
         @if (session('error'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
                 </div>
             </div>
@@ -16,13 +16,13 @@
             <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                 role="alert">
                 <i class="fa-solid fa-circle-check"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
         @if ($errors->first('berkas'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-xmark"></i>
                 <div class="ml-3 text-sm font-medium">
                     {{ $errors->first('berkas') }}
@@ -31,9 +31,9 @@
         @endif
     </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
         <div class="w-full mx-auto space-y-5">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
                 <header>
                     <h2 class="text-lg font-bold text-gray-900">
                         Berkas {{ $user->name }}
@@ -42,20 +42,20 @@
                         Tabel di bawah ini berisi berkas yang diunggah oleh pemilik akun.
                     </p>
                     <hr class="my-3">
-                    <div class="relative h-[535px] overflow-y-auto  overflow-x-auto md:rounded-xl">
+                    <div class="relative h-[535px] overflow-y-auto overflow-x-auto rounded-3xl">
                         <table class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr class="flex justify-between items-center">
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3">
                                         Nama Berkas
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-t-lg">
+                                    <th scope="col" class="px-6 py-3">
                                         Aksi
                                     </th>
                             </thead>
                             <tbody>
                                 @foreach ($userupload as $suc)
-                                    <tr class="bg-white border-b flex justify-between items-center">
+                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
                                         <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
                                         <td class="px-6 py-4">
                                             <button
@@ -73,7 +73,7 @@
                                     </tr>
                                 @endforeach
                                 @foreach ($fileupload as $upload)
-                                    <tr class="bg-white border-b flex justify-between items-center">
+                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
                                         <td class="px-6 py-4">{{ $upload->name }}</td>
                                         <td class="loading-form px-6 py-4" colspan="2"
                                             id="loading-form-{{ $upload->namefile }}">

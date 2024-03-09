@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-center md:justify-between items-center space-y-2 md:space-y-0 h-10">
+        <div
+            class="flex flex-col md:flex-row justify-center md:justify-between items-center space-y-2 md:space-y-0 h-10">
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 @if (Auth::user()->role == 'S' && Auth::user()->status == 0)
                     Registrasi Pembayaran
@@ -33,7 +34,7 @@
                                 <div class="space-y-3">
                                     <img src="{{ asset('logo/btn.png') }}" alt="Logo BTN" width="150px">
                                     <div onclick="copyRecord('0003401300001406')"
-                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        class="bg-gray-50 cursor-pointer flex justify-between items-center border px-5 py-2 rounded-xl">
                                         <div class="space-y-1">
                                             <h1 class="font-bold text-sm text-gray-800">BANK BTN LP3I Tasikmalaya</h1>
                                             <p class="text-sm text-gray-700">0003401300001406</p>
@@ -45,7 +46,7 @@
                                 <div class="space-y-3">
                                     <img src="{{ asset('logo/bsi.png') }}" alt="Logo BSI" width="150px">
                                     <div onclick="copyRecord('1025845605')"
-                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        class="bg-gray-50 cursor-pointer flex justify-between items-center border px-5 py-2 rounded-xl">
                                         <div class="space-y-1">
                                             <h1 class="font-bold text-sm text-gray-800">BANK BSI (LPPPI TASIKMALAYA)
                                             </h1>
@@ -58,7 +59,7 @@
                                 <div class="space-y-3">
                                     <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="150px">
                                     <div onclick="copyRecord('4549998888')"
-                                        class="cursor-pointer flex justify-between items-center border px-3 py-1 rounded-lg">
+                                        class="bg-gray-50 cursor-pointer flex justify-between items-center border px-5 py-2 rounded-xl">
                                         <div class="space-y-1">
                                             <h1 class="font-bold text-sm text-gray-800">BANK BNI (LP3I Tasikmalaya)</h1>
                                             <p class="text-sm text-gray-700">4549998888</p>
@@ -70,7 +71,11 @@
                             </div>
                         </div>
                         <div class="w-full md:w-5/12 order-1 md:order-none">
-                            <img src="{{ asset('img/payment.svg') }}" alt="">
+                            <div class="flex items-center justify-center">
+                                <lottie-player src="{{ asset('animations/transfer.json') }}" background="Transparent"
+                                    speed="1" style="width: 400px; height: 400px" direction="1" mode="normal"
+                                    loop autoplay></lottie-player>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,6 +230,19 @@
             {{-- @include('pages.dashboard.harta.database') --}}
             {{-- @include('pages.dashboard.source.source') --}}
         @endif
-
+        @push('scripts')
+            <script>
+                const copyRecord = (number) => {
+                    const textarea = document.createElement("textarea");
+                    textarea.value = number;
+                    textarea.style.position = "fixed";
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(textarea);
+                    alert('Nomor rekening sudah disalin!');
+                }
+            </script>
+        @endpush
     </section>
 </x-app-layout>

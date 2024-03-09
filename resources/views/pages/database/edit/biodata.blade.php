@@ -1,4 +1,21 @@
-<div class="w-full p-6 bg-white border border-gray-100 sm:rounded-xl">
+@push('styles')
+    <style>
+        .js-example-input-single {
+            width: 100%;
+        }
+
+        .select2-selection {
+            border-radius: 0.75rem !important;
+            padding-top: 22px !important;
+            padding-bottom: 22px !important;
+        }
+
+        .select2-selection__rendered {
+            top: -13px !important;
+        }
+    </style>
+@endpush
+<div class="w-full p-8 bg-gray-50 border border-gray-200 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header>
@@ -253,7 +270,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
-                        <x-label for="school" :value="__('Sekolah')" />
+                        <x-label for="school" class="mb-[3px]" :value="__('Sekolah')" />
                         <x-select id="school" name="school" class="js-example-input-single">
                             @if ($applicant->school)
                                 <option value="{{ $applicant->SchoolApplicant->name }}">

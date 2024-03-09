@@ -15,7 +15,7 @@
         }
     </style>
 @endpush
-<div class="p-8 bg-white border border-gray-100 rounded-3xl">
+<div class="p-8 bg-gray-50 border border-gray-200 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header class="flex flex-col md:flex-row md:items-center justify-between">

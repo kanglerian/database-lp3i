@@ -3,7 +3,7 @@
 @endpush
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-3 h-10">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -31,7 +31,7 @@
             </nav>
         </div>
     </x-slot>
-    <div class="py-5">
+    <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
                 <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
@@ -44,7 +44,24 @@
             @endif
             <div class="flex flex-col md:flex-row justify-start gap-5 p-4 md:p-0">
                 @if ($user->role == 'S')
-                    <div class="w-full md:w-2/3 flex flex-col gap-3">
+                    <div class="w-full md:w-2/3 flex flex-col gap-5">
+                        <div class="w-full bg-gray-50 border border-gray-200 p-8 space-y-2 rounded-3xl">
+                            <header>
+                                <h2 class="text-xl font-bold text-gray-900">
+                                    Program Studi
+                                </h2>
+                                <p class="mt-1 text-sm text-gray-600">
+                                    Ini adalah program studi yang dipilih:
+                                </p>
+                            </header>
+                            <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
+                                <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
+                                <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
+                                <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
+                            </ul>
+                            <hr>
+                            <p class="text-xs text-gray-700">Catatan: untuk mengubah program studi silahkan hubungi <a href="https://wa.me/{{ $applicant->presenter->phone }}">{{ $applicant->presenter->name }}</a></p>
+                        </div>
                         <form action="{{ route('profile.update', $user->id) }}" class="flex flex-col items-start gap-5"
                             method="POST">
                             @csrf
@@ -60,26 +77,8 @@
                         </form>
                     </div>
                 @endif
-                <div class="w-full md:w-1/3 flex flex-col gap-3">
-                    <div class="w-full bg-white border border-gray-100 p-4 space-y-2 rounded-xl">
-                        <header>
-                            <h2 class="text-xl font-bold text-gray-900">
-                                Program Studi
-                            </h2>
-                            <p class="mt-1 text-sm text-gray-600">
-                                Ini adalah program studi yang dipilih:
-                            </p>
-                        </header>
-                        <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
-                            <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
-                            <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
-                            <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
-                        </ul>
-                        <hr>
-                        <p class="text-xs text-gray-700">Catatan: untuk mengubah program studi silahkan hubungi <a href="https://wa.me/{{ $applicant->presenter->phone }}">{{ $applicant->presenter->name }}</a></p>
-                    </div>
-
-                    <form method="POST" class="p-6 bg-white shadow-sm rounded-xl"
+                <div class="w-full md:w-1/3 flex flex-col gap-5">
+                    <form method="POST" class="p-8 bg-gray-50 border border-gray-200 rounded-3xl"
                         action="{{ route('profile.update_account', $user->id) }}">
                         @csrf
                         @method('PATCH')
@@ -126,7 +125,7 @@
                                 class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan</button>
                     </form>
 
-                    <form method="POST" class="p-6 bg-white shadow-sm rounded-xl"
+                    <form method="POST" class="p-8 bg-gray-50 border border-gray-200 rounded-3xl"
                         action="{{ route('profile.change_password', $user->id) }}">
                         @csrf
                         @method('PATCH')

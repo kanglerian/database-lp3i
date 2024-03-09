@@ -1,20 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center">
+        <div class="flex items-center h-10">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ __('Berkas PMB Online') }}
             </h2>
         </div>
     </x-slot>
 
-    <div class="py-5">
+    <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div id="info" class="hidden mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg"
-                role="alert">
-
-            </div>
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div id="info" class="hidden mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert"></div>
+            <div class="overflow-hidden border border-gray-200 rounded-3xl">
+                <div class="p-8 bg-gray-50 border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -28,7 +25,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($userupload as $suc)
-                                    <tr class="bg-white border-b flex justify-between items-center">
+                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $suc->fileupload->name }}</td>
                                         <td class="w-1/2 md:w-1/3 px-6 py-4">
                                             <button
@@ -49,7 +46,7 @@
                                 @endforeach
 
                                 @foreach ($fileupload as $upload)
-                                    <tr class="bg-white border-b flex justify-between items-center">
+                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
                                         <td class="w-[300px] md:w-full px-6 py-4">{{ $upload->name }}</td>
                                         <td class="loading-form w-1/2 md:w-1/3 px-6 py-4" colspan="2"
                                             id="loading-form-{{ $upload->namefile }}">

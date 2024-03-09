@@ -3,11 +3,11 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
         @if (session('error'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
                 </div>
             </div>
@@ -16,15 +16,15 @@
             <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                 role="alert">
                 <i class="fa-solid fa-circle-check"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
         @if ($errors->first('berkas'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-lg" role="alert">
+            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-xmark"></i>
-                <div class="ml-3 text-sm font-medium">
+                <div class="ml-3 text-sm font-reguler">
                     {{ $errors->first('berkas') }}
                 </div>
             </div>

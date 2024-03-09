@@ -1,4 +1,4 @@
-<div class="w-full px-6 py-6 bg-white border border-gray-100 sm:rounded-xl">
+<div class="w-full p-8 bg-gray-50 border border-gray-200 rounded-3xl">
     <div class="w-full">
         <section class="space-y-4">
             <header>
