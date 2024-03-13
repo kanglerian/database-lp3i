@@ -12,7 +12,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-5 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-5 sm:-my-px sm:ml-10 sm:flex overflow-x-auto">
                     <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs([
                         'dashboard.index',
                         'dashboard.rekapitulasi_perolehan_pmb_page',
@@ -77,7 +77,7 @@
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                         <x-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
-                            {{ __('E-Assessment') }}
+                            {{ __('Assessment') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
@@ -115,7 +115,7 @@
                             @else
                                 <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
                             @endif
-                            <div class="w-full flex flex-col items-start">
+                            <div class="w-full hidden lg:flex flex-col items-start">
                                 <span class="font-bold">{{ Auth::user()->name }}</span>
                                 <span class="text-xs font-light">
                                     @switch(Auth::user()->role)
@@ -237,7 +237,7 @@
 
             @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                 <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
-                    {{ __('E-Assessment') }}
+                    {{ __('Assessment') }}
                 </x-responsive-nav-link>
             @endif
 
