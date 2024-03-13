@@ -10,7 +10,7 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -18,8 +18,8 @@
                     </div>
                 </div>
             @endif
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="bg-white overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('presenter.store') }}">
                         @csrf
                         <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                                 class="fa-solid fa-floppy-disk mr-1"></i> Simpan</button>
                     </form>
                 </div>

@@ -45,18 +45,18 @@
                         <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                             <label for="change_pmb" class="text-xs">Periode PMB:</label>
                             <input type="number" id="change_pmb" onchange="changeFilter()"
-                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800"
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
                                 placeholder="Tahun PMB">
                         </div>
                         <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                             <label for="date" class="text-xs">Tanggal:</label>
                             <input type="date" id="date" onchange="changeFilter()"
-                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                         </div>
                         <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
                             <label for="session" class="text-xs">Gelombang:</label>
                             <select id="session" onchange="changeFilter()"
-                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                                 <option value="all">Pilih</option>
                                 <option value="1">Gelombang 1</option>
                                 <option value="2">Gelombang 2</option>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="order-1 md:order-none">
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <div class="relative bg-sky-500 p-4 rounded-xl space-y-1">
+                        <div class="relative bg-sky-500 p-4 rounded-2xl space-y-1">
                             <h2 class="text-white text-xl" id="target_count">0</h2>
                             <p class="text-white text-sm">Total Target</p>
                             <div class="absolute top-2 right-4">
@@ -76,7 +76,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="relative bg-emerald-500 p-4 rounded-xl space-y-1">
+                        <div class="relative bg-emerald-500 p-4 rounded-2xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
                             <p class="text-white text-sm">Registrasi</p>
                             <div class="absolute top-2 right-4">
@@ -85,7 +85,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div id="container-animate" class="relative bg-red-500 p-4 rounded-xl space-y-1">
+                        <div id="container-animate" class="relative bg-red-500 p-4 rounded-2xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
                             <p class="text-white text-sm">Sisa Target</p>
                             <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
@@ -96,9 +96,9 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto md:rounded-xl">
+            <div class="bg-white overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
+                    <div class="relative overflow-x-auto rounded-3xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>

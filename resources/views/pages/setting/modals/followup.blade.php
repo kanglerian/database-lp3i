@@ -2,8 +2,8 @@
 <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="followModal">
     <div class="fixed inset-0 bg-black opacity-50"></div>
     <div class="fixed inset-0 flex items-center justify-center">
-        <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
-        <div class="flex items-start justify-between p-4 border-b rounded-t">
+        <div class="w-full md:w-1/2 relative bg-white rounded-3xl shadow mx-5">
+        <div class="flex items-start justify-between px-8 py-6 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900" id="title_follow">
                     Tambah Data Follow Up
                 </h3>
@@ -15,17 +15,17 @@
             </div>
             <form method="POST" action="{{ route('followup.store') }}" id="formFollowModal">
                 @csrf
-                <div class="p-4 space-y-6">
+                <div class="px-8 px-6 space-y-6">
                     <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                         <input type="text" id="name_follow" name="name" placeholder="Isi nama follow up disini.."
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                     </div>
                 </div>
-                <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
+                <div class="flex items-center px-8 py-4 space-x-2 border-t border-gray-200 rounded-b">
                     <button type="submit" id="formFollowButton"
-                        class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                        class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center">Simpan</button>
                     <button type="button" data-modal-target="followModal" onclick="changeFollowModal(this)"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
                 </div>

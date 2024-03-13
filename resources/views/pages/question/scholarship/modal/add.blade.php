@@ -4,9 +4,9 @@
     <div class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div>
     <div class="relative w-full max-w-xl max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow">
+        <div class="relative bg-white rounded-2xl shadow">
             <button type="button" onclick="modalAddTestScholarship()"
-                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+                class="absolute top-5 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
                 data-modal-hide="modal-daftar">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -20,7 +20,7 @@
                                 Kategori
                             </label>
                             <select id="category_id" name="category_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option>Pilih kategori</option>
                             </select>
@@ -31,7 +31,7 @@
                             <label for="question" class="block mb-2 text-sm font-medium text-gray-900">
                                 Soal Beasiswa
                             </label>
-                            <div id="question_container" style="height: 150px"></div>
+                            <div id="question_container" style="height: 150px;"></div>
                         </div>
                     </div>
                     <hr>
@@ -43,7 +43,7 @@
                                     <i class="fa-solid fa-key text-gray-400"></i>
                                 </div>
                                 <input type="text" name="answer_a" id="answer_a"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                     placeholder="Jawaban A" required>
                             </div>
                             <div class="flex items-center gap-2 mt-2">
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <button type="submit"
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center">Tambah
                         Sekarang!</button>
                     <p class="text-xs text-gray-600 text-center">Periksa terlebih dahulu apakah sudah benar?</p>
                 </form>

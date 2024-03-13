@@ -31,7 +31,7 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -40,7 +40,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -53,11 +53,11 @@
                 <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                     <div class="flex items-center gap-3">
                         <a href="{{ route('scholarship.question') }}"
-                            class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-lg text-white">
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white">
                             <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
                         </a>
                         <button onclick="exportExcel()"
-                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
+                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-xl text-white">
                             <i class="fa-solid fa-file-excel mr-1"></i> Ekspor Excel
                         </button>
                     </div>

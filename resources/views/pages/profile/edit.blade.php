@@ -72,7 +72,7 @@
                             @include('pages.database.edit.mother')
 
                             <button type="submit"
-                                class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/3 sm:w-auto px-5 py-2 text-center"><i
+                                class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-1/3 sm:w-auto px-5 py-2 text-center"><i
                                     class="fa-solid fa-floppy-disk mr-1"></i> Simpan perubahan</button>
                         </form>
                     </div>
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                                 class="fa-solid fa-floppy-disk mr-1"></i> Simpan Perubahan</button>
                     </form>
 
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                         <button type="submit"
-                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2 text-center"><i
+                            class="text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm w-full sm:w-auto px-5 py-2 text-center"><i
                                 class="fa-solid fa-floppy-disk mr-1"></i> Ubah Password</button>
                     </form>
                 </div>

@@ -57,17 +57,17 @@
             <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                 <div class="flex items-center gap-3">
                     <button onclick="modalAddTestScholarship()"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-lg text-white"><i
+                        class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                             class="fa-solid fa-circle-plus mr-1"></i> Tambah Soal</button>
                     <button onclick="modalAddCategoryScholarship()"
-                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-lg text-white">
+                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm rounded-xl text-white">
                         <i class="fa-solid fa-tags mr-1"></i> Tambah Kategori
                     </button>
                 </div>
             </div>
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto md:rounded-xl">
+            <div class="bg-white overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
+                    <div class="relative overflow-x-auto rounded-3xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
@@ -172,10 +172,10 @@
                 render: (data, type, row) => {
                     return `
                         <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); showAnswers(${data});">
+                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); showAnswers(${data});">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`

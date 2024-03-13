@@ -51,8 +51,8 @@
     <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
         <div class="fixed inset-0 bg-black opacity-50"></div>
         <div class="fixed inset-0 flex items-center justify-center">
-            <div class="w-full md:w-1/2 relative bg-white rounded-lg shadow mx-5">
-                <div class="flex items-start justify-between p-4 border-b rounded-t">
+            <div class="w-full md:w-1/2 relative bg-white rounded-3xl shadow mx-5">
+                <div class="flex items-start justify-between px-8 py-6 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-gray-900">
                         Tambah Data Organisasi
                     </h3>
@@ -62,33 +62,33 @@
                     </button>
                 </div>
                 <div>
-                    <form method="POST" action="{{ route('organizations.store') }}" class="px-5 pb-5 space-y-6">
+                    <form method="POST" action="{{ route('organizations.store') }}" class="px-8 pb-8 pt-3 space-y-3">
                         @csrf
                         <input type="hidden" value="{{ $user->identity }}" name="identity_user">
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Nama Kegiatan</label>
                             <input type="text" id="name" name="name" placeholder="Isi nama kegiatan disini.."
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Tahun</label>
                             <input type="date" id="year" name="year" placeholder="Tahun"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Posisi</label>
                             <input type="text" id="position" name="position" placeholder="Isi posisi disini.."
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <hr>
                         <div class="flex items-center space-x-2">
                             <button type="submit"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center">Simpan</button>
                             <button type="button" onclick="modalFunction()"
-                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
+                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Batal</button>
                         </div>
                     </form>
                 </div>

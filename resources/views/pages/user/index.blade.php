@@ -24,7 +24,7 @@
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -33,7 +33,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">
@@ -43,36 +43,36 @@
             @endif
             <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                 <a href="{{ route('user.create') }}"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex items-center gap-3 text-gray-500">
                     <div class="flex items-center gap-2">
                         <select name="role" id="change_role"
-                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            class="w-32 bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                             <option value="all">Peran</option>
                             <option value="A">Adminstrator</option>
                             <option value="P">Presenter</option>
                             <option value="S">Siswa</option>
                         </select>
                         <select name="role" id="change_status"
-                            class="w-28 bg-white border border-gray-300 px-3 py-2 text-xs rounded-lg text-gray-800">
+                            class="w-28 bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                             <option value="all">Status</option>
                             <option value="1">Aktif</option>
                             <option value="0">Tidak Aktif</option>
                         </select>
                         <button type="button" onclick="changeFilter()"
-                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-lg text-white">
+                            class="bg-sky-500 hover:bg-sky-600 px-3 py-2 text-xs rounded-xl text-white">
                             <i class="fa-solid fa-filter"></i>
                         </button>
                         <button type="button" onclick="resetFilter()"
-                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-lg text-white">
+                            class="bg-red-500 hover:bg-red-600 px-3 py-2 text-xs rounded-xl text-white">
                             <i class="fa-solid fa-filter-circle-xmark"></i>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="bg-white overflow-hidden border md:rounded-xl">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="bg-white overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -206,15 +206,15 @@
                     render: (data, type, row) => {
                         let editUrl = "{{ route('user.edit', ':id') }}".replace(':id', data.id);
                         let status = data.status === "1" ?
-                            `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
-                            `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-md text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
+                            `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-lg text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>` :
+                            `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-lg text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
                         return `
                         <div class="flex items-center gap-1">
                             ${status}
-                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-md text-xs text-white">
+                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-lg text-xs text-white">
                                 <i class="fa-solid fa-edit"></i>
                             </a>
-                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
