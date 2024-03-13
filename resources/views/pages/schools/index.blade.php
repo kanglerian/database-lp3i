@@ -250,7 +250,7 @@
                                 let showUrl = "{{ route('schools.show', ':id') }}".replace(
                                     ':id',
                                     data.id);
-                                return `<a href="${showUrl}" class="font-bold underline">${data.nama}</a>`;
+                                return `<a href="${showUrl}" class="font-bold underline">${data.nama} ${data.id}</a>`;
                             }
                         },
                         {
