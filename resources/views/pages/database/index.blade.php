@@ -182,12 +182,13 @@
                 [2, 'desc']
             ],
             rowCallback: function(row, data, index) {
+                if (index % 2 != 0) {
+                    $(row).css('background-color', '#f9fafb');
+                }
+
                 if (data.presenter.phone == '6281313608558') {
                     $(row).css('background-color', '#dc2626');
                     $(row).css('color', 'white');
-                }
-                if(index % 2 != 0){
-                    $(row).css('background-color', '#f9fafb');
                 }
             },
             columnDefs: [{
