@@ -44,17 +44,13 @@ class PresenterController extends Controller
         $identityVal = request('identityVal');
         $pmbVal = request('pmbVal', 'all');
         $sessionVal = request('sessionVal', 'all');
+        $dateVal = request('dateVal', 'all');
 
         $targetQuery->where('identity_user', $identityVal);
 
-        // $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
-        //     $query->where('identity_user', $identityVal);
-        // });
-
-        if ($pmbVal !== 'all') {
-            $targetQuery->where('pmb', $pmbVal);
-            $registrationQuery->where('pmb', $pmbVal);
-        }
+        $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
+            $query->where('identity_user', $identityVal);
+        });
 
         if ($pmbVal !== 'all') {
             $targetQuery->where('pmb', $pmbVal);
@@ -64,6 +60,12 @@ class PresenterController extends Controller
         if ($sessionVal !== 'all') {
             $targetQuery->where('session', $sessionVal);
             $registrationQuery->where('session', $sessionVal);
+        }
+
+
+        if ($dateVal !== 'all') {
+            $targetQuery->where('date', $dateVal);
+            $registrationQuery->where('date', $dateVal);
         }
 
         $targets = $targetQuery->get();

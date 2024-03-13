@@ -37,7 +37,6 @@
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let sessionVal = document.getElementById('session').value || 'all';
 
-
         queryParams.push(`identityVal=${identity}`);
 
         if (dateVal !== 'all') {
