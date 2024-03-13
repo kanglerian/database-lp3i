@@ -87,7 +87,22 @@ class TargetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'edit_date' => ['required'],
+            'edit_session' => ['required'],
+            'edit_total' => ['required', 'integer'],
+        ]);
+
+        $target = Target::findOrFail($id);
+
+        $data = [
+            'date' => $request->input('edit_date'),
+            'session' => $request->input('edit_session'),
+            'total' => $request->input('edit_total'),
+        ];
+
+        $target->update($data);
+        return back()->with('message', 'Data target berhasil diubah!');
     }
 
     /**

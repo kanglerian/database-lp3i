@@ -30,7 +30,7 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -127,6 +127,7 @@
         </div>
     </div>
     @include('pages.presenter.modal.target')
+    @include('pages.presenter.modal.edit-target')
 </x-app-layout>
 
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
@@ -144,7 +145,6 @@
             dataTargets.forEach(data => {
                 targets += parseInt(data.total);
             });
-            console.log(registers);
             document.getElementById('register_count').innerText = registers;
             document.getElementById('target_count').innerText = targets;
             document.getElementById('result_count').innerText = targets - registers;
@@ -207,11 +207,19 @@
                     data: 'total'
                 },
                 {
-                    data: 'id',
+                    data: {
+                        id: 'id',
+                        date: 'date',
+                        session: 'session',
+                        total: 'total'
+                    },
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button type="button" data-id="${data.id}" data-date="${data.date}" data-session="${data.session}" data-total="${data.total}" class="md:mt-0 bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); editRecord(this)">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
@@ -235,6 +243,26 @@
     }
 
     getDataTable();
+
+    const editRecord = (data) => {
+        let id = data.getAttribute('data-id');
+        let date = data.getAttribute('data-date');
+        let session = data.getAttribute('data-session');
+        let total = data.getAttribute('data-total');
+        let modal = document.getElementById('modal-edit-target');
+        let form = document.getElementById('edit-form');
+        let url = "{{ route('target.update', ':id') }}".replace(':id', id);
+        form.setAttribute('action', url);
+        document.getElementById('edit_date').value = date;
+        document.getElementById('edit_total').value = total;
+        document.getElementById('edit_session').value = session;
+        modal.classList.toggle('hidden');
+    }
+
+    const modalEditTarget = () => {
+        let modal = document.getElementById('modal-edit-target');
+        modal.classList.toggle('hidden');
+    }
 
     const deleteRecord = (id) => {
         if (confirm(`Apakah kamu yakin akan menghapus data?`)) {

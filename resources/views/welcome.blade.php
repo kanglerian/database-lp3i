@@ -61,7 +61,7 @@
                     <div class="flex justify-center md:justify-start items-center gap-2">
                         @auth
                             <a href="{{ route('dashboard.index') }}"
-                            class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-lg text-white">Dashboard</a>
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white">Dashboard</a>
                         @else
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"

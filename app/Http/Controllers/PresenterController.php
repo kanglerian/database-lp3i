@@ -47,9 +47,14 @@ class PresenterController extends Controller
 
         $targetQuery->where('identity_user', $identityVal);
 
-        $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
-            $query->where('identity_user', $identityVal);
-        });
+        // $registrationQuery->whereHas('applicant', function ($query) use ($identityVal) {
+        //     $query->where('identity_user', $identityVal);
+        // });
+
+        if ($pmbVal !== 'all') {
+            $targetQuery->where('pmb', $pmbVal);
+            $registrationQuery->where('pmb', $pmbVal);
+        }
 
         if ($pmbVal !== 'all') {
             $targetQuery->where('pmb', $pmbVal);

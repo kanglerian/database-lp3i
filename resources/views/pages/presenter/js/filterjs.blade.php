@@ -1,7 +1,8 @@
 <script>
     let identity = document.getElementById('identity_val').value;
+
     let pmb = document.getElementById('change_pmb').value;
-    var urlData = `/get/targets?identity=${identity}&pmbVal=${pmb}`;
+    var urlData = `/get/targets?identityVal=${identity}&pmbVal=${pmb}`;
 
     var dataTableInitialized = false;
     var dataTableInstance;
@@ -32,10 +33,12 @@
         showLoadingAnimation();
         let queryParams = [];
         let identity = document.getElementById('identity_val').value;
+        let dateVal = document.getElementById('date').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
         let sessionVal = document.getElementById('session').value || 'all';
 
-        queryParams.push(`identity=${identity}`);
+
+        queryParams.push(`identityVal=${identity}`);
 
         if (dateVal !== 'all') {
             queryParams.push(`dateVal=${dateVal}`);
