@@ -84,6 +84,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function target()
     {
-        return $this->hasOne(Target::class, 'identity_user', 'identity');
+        return $this->hasOne(TargetVolume::class, 'identity_user', 'identity');
     }
 }

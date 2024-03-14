@@ -7,6 +7,10 @@
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
                 <a href="{{ route('enrollment.index') }}"
                     class="text-sm text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 cursor-pointer px-4 py-2 rounded-xl">
+                    Target
+                </a>
+                <a href="{{ route('enrollment.index') }}"
+                    class="text-sm text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 cursor-pointer px-4 py-2 rounded-xl">
                     Pendaftaran
                 </a>
                 <a href="{{ route('registration.index') }}"

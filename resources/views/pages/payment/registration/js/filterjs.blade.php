@@ -29,7 +29,7 @@
             .then(data => {
                 const count = data.registrations.length;
                 dataRegistrations = data.registrations;
-                document.getElementById('count_filter').innerText = count;
+                document.getElementById('count_filter').innerText = count.toLocaleString();
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

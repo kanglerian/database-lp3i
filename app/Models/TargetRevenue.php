@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Target extends Model
+class TargetRevenue extends Model
 {
     use HasFactory;
 
@@ -23,7 +23,7 @@ class Target extends Model
     ];
 
 
-    protected $table = 'target';
+    protected $table = 'target_revenue';
     /**
      * The attributes that should be hidden for serialization.
      *

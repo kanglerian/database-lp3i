@@ -2,7 +2,7 @@
     let identity = document.getElementById('identity_val').value;
 
     let pmb = document.getElementById('change_pmb').value;
-    var urlData = `/get/targets?identityVal=${identity}&pmbVal=${pmb}`;
+    var urlData = `/api/target/volume/getrevenues?identityVal=${identity}&pmbVal=${pmb}`;
 
     var dataTableInitialized = false;
     var dataTableInstance;
@@ -22,7 +22,7 @@
             .then(data => {
                 const count = data.targets.length;
                 dataTargets = data.targets;
-                document.getElementById('count_filter').innerText = count;
+                document.getElementById('count_filter').innerText = count.toLocaleString();
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -53,7 +53,7 @@
 
         let queryString = queryParams.join('&');
 
-        urlData = `/get/targets?${queryString}`;
+        urlData = `/api/target/volume/getrevenues?${queryString}`;
 
         getRegistrations();
         if (dataTableInitialized) {
@@ -66,7 +66,7 @@
     }
 
     const resetFilter = () => {
-        urlData = `get/targets`;
+        urlData = `/api/target/volume/getrevenues`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             hideLoadingAnimation();

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\StatusApplicantsRegistration;
-use App\Models\Target;
+use App\Models\TargetRevenue;
+use App\Models\TargetVolume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,7 @@ class PresenterController extends Controller
     {
         $registrationQuery = StatusApplicantsRegistration::query();
         $registrationQuery->with('applicant');
-        $targetQuery = Target::query();
+        $targetQuery = TargetVolume::query();
 
         $identityVal = request('identityVal');
         $pmbVal = request('pmbVal', 'all');
@@ -124,7 +125,7 @@ class PresenterController extends Controller
     public function show($id)
     {
         $presenter = User::findOrFail($id);
-        $targets = Target::where(['identity_user' => $presenter->identity])->get();
+        $targets = TargetVolume::where(['identity_user' => $presenter->identity])->get();
         return view('pages.presenter.show')->with([
             'presenter' => $presenter,
             'targets' => $targets
@@ -230,5 +231,24 @@ class PresenterController extends Controller
         ];
         $presenter->update($data);
         return back()->with('message', 'Password berhasil diubah!');
+    }
+
+    public function sales_volume($id)
+    {
+        $presenter = User::findOrFail($id);
+        $targets = TargetVolume::where(['identity_user' => $presenter->identity])->get();
+        return view('pages.presenter.sales.volume.index')->with([
+            'presenter' => $presenter,
+            'targets' => $targets
+        ]);
+    }
+    public function sales_revenue($id)
+    {
+        $presenter = User::findOrFail($id);
+        $targets = TargetRevenue::where(['identity_user' => $presenter->identity])->get();
+        return view('pages.presenter.sales.revenue.index')->with([
+            'presenter' => $presenter,
+            'targets' => $targets
+        ]);
     }
 }

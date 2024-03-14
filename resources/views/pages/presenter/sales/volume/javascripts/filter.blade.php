@@ -1,20 +1,13 @@
 <script>
-    const getYearPMB = () => {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-        document.getElementById('change_pmb').value = startYear;
-    }
-    getYearPMB();
-</script>
-<script>
-    var urlData = 'get/enrollments';
+    let identity = document.getElementById('identity_val').value;
+
+    let pmb = document.getElementById('change_pmb').value;
+    var urlData = `/api/target/volume/getvolumes?identityVal=${identity}&pmbVal=${pmb}`;
 
     var dataTableInitialized = false;
     var dataTableInstance;
 
-    var dataEnrollments;
+    var dataTargets;
 
     const getAPI = () => {
         showLoadingAnimation();
@@ -27,8 +20,8 @@
                 return response.json();
             })
             .then(data => {
-                const count = data.enrollments.length;
-                dataEnrollments = data.enrollments;
+                const count = data.targets.length;
+                dataTargets = data.targets;
                 document.getElementById('count_filter').innerText = count.toLocaleString();
             })
             .catch(error => {
@@ -39,32 +32,30 @@
     const changeFilter = () => {
         showLoadingAnimation();
         let queryParams = [];
-        let date = document.getElementById('date').value || 'all';
+        let identity = document.getElementById('identity_val').value;
+        let dateVal = document.getElementById('date').value || 'all';
         let pmbVal = document.getElementById('change_pmb').value || 'all';
-        let repaymentVal = document.getElementById('repayment').value || 'all';
-        let registerVal = document.getElementById('register').value || 'all';
-        let registerEndVal = document.getElementById('register_end').value || 'all';
+        let sessionVal = document.getElementById('session').value || 'all';
 
-        if (date !== 'all') {
-            queryParams.push(`date=${date}`);
+        queryParams.push(`identityVal=${identity}`);
+
+        if (dateVal !== 'all') {
+            queryParams.push(`dateVal=${dateVal}`);
         }
+
         if (pmbVal !== 'all') {
             queryParams.push(`pmbVal=${pmbVal}`);
         }
-        if (repaymentVal !== 'all') {
-            queryParams.push(`repaymentVal=${repaymentVal}`);
-        }
-        if (registerVal !== 'all') {
-            queryParams.push(`registerVal=${registerVal}`);
-        }
-        if (registerEndVal !== 'all') {
-            queryParams.push(`registerEndVal=${registerEndVal}`);
+
+        if (sessionVal !== 'all') {
+            queryParams.push(`sessionVal=${sessionVal}`);
         }
 
         let queryString = queryParams.join('&');
 
-        urlData = `get/enrollments?${queryString}`;
+        urlData = `/api/target/volume/getvolumes?${queryString}`;
 
+        getRegistrations();
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             hideLoadingAnimation();
@@ -75,16 +66,14 @@
     }
 
     const resetFilter = () => {
-        urlData = `get/enrollments`;
+        urlData = `/api/target/volume/getvolumes`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             hideLoadingAnimation();
             getAPI();
             document.getElementById('date').value = '';
             document.getElementById('change_pmb').value = '';
-            document.getElementById('repayment').value = '';
-            document.getElementById('register').value = '';
-            document.getElementById('register_end').value = '';
+            document.getElementById('session').value = '';
         } else {
             getDataTable();
         }

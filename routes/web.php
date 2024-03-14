@@ -6,6 +6,7 @@ use App\Http\Controllers\Question\HomeController;
 use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
 use App\Http\Controllers\Target\TargetController;
+use App\Http\Controllers\Target\TargetRevenueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\Payment\PaymentController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\SourceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntegrationController;
+use App\Http\Controllers\Payment\TargetController as PaymentTargetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +119,8 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change');
     Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change');
     Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password');
+    Route::get('presenter/sales/volume/{id}', [PresenterController::class, 'sales_volume'])->name('presenter.sales_volume');
+    Route::get('presenter/sales/revenue/{id}', [PresenterController::class, 'sales_revenue'])->name('presenter.sales_revenue');
 });
 
 /* Route Profile */
@@ -152,13 +156,19 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 /* Route Target */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('target', TargetController::class);
+    Route::resource('targetrevenue', TargetRevenueController::class);
     Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenter.target');
 });
 
 /* Route Payment */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('payment', PaymentController::class);
+    Route::resource('payment', PaymentController::class);
 });
+
+// Route::prefix('payments')->middleware(['auth', 'status:1', 'role:A'])->group(function () {
+//     Route::resource('target', PaymentTargetController::class);
+// });
 
 /* Route Setting */
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {

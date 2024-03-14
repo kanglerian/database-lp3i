@@ -218,8 +218,8 @@
             try {
                 const responses = await axios.get(urlSchools);
                 let databases = responses.data.schools;
-
-                document.getElementById('count_filter').innerText = databases.length;
+                let count = databases.length;
+                document.getElementById('count_filter').innerText = count.toLocaleString();
 
                 const dataTableConfig = {
                     data: databases,

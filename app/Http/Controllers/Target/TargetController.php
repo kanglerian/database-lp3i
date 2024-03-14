@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Target;
 
 use App\Http\Controllers\Controller;
-use App\Models\Target;
+use App\Models\TargetVolume;
 use Illuminate\Http\Request;
 
 class TargetController extends Controller
@@ -52,7 +52,7 @@ class TargetController extends Controller
             'total' => $request->input('total'),
         ];
 
-        Target::create($data);
+        TargetVolume::create($data);
         return back()->with('message', 'Data target berhasil ditambahkan!');
     }
 
@@ -93,7 +93,7 @@ class TargetController extends Controller
             'edit_total' => ['required', 'integer'],
         ]);
 
-        $target = Target::findOrFail($id);
+        $target = TargetVolume::findOrFail($id);
 
         $data = [
             'date' => $request->input('edit_date'),
@@ -114,7 +114,7 @@ class TargetController extends Controller
     public function destroy($id)
     {
         try {
-            $target = Target::findOrFail($id);
+            $target = TargetVolume::findOrFail($id);
             $target->delete();
             return session()->flash('message', 'Data target berhasil dihapus!');
         } catch (\Throwable $th) {

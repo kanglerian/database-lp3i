@@ -180,7 +180,7 @@
     }
     getCategories();
 </script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="{{ asset('js/quill.min.js') }}"></script>
 <script>
     var quill = new Quill('#question_container', {
         modules: {

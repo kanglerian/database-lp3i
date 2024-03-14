@@ -10,6 +10,8 @@ use App\Http\Controllers\API\Report\RegisterBySchoolController;
 use App\Http\Controllers\API\Report\RegisterBySourceController;
 use App\Http\Controllers\API\Report\ReportStudentsAdmissionController;
 use App\Http\Controllers\API\SchoolController;
+use App\Http\Controllers\API\Target\RevenueController;
+use App\Http\Controllers\API\Target\VolumeController;
 use App\Http\Controllers\API\UserUploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -70,10 +72,12 @@ Route::get('/report/database/aplikan/daftar', [ReportAplikanController::class, '
 Route::get('/report/database/aplikan/registrasi', [ReportAplikanController::class, 'registrasi']);
 Route::get('/report/database/aplikan/files', [ReportAplikanController::class, 'files']);
 
-
 Route::get('/report/database/perolehanpmb', [ReportStudentsAdmissionController::class, 'get_all']);
 
 Route::get('/report/database/register/school', [RegisterBySchoolController::class, 'get_all']);
 Route::get('/report/database/register/program', [RegisterByProgramController::class, 'get_all']);
 Route::get('/report/database/register/school/year', [RegisterBySchoolYearController::class, 'get_all']);
 Route::get('/report/database/register/source', [RegisterBySourceController::class, 'get_all']);
+
+Route::get('/target/volume/getvolumes', [VolumeController::class, 'get_volumes'])->name('volume.get_volumes');
+Route::get('/target/volume/getrevenues', [VolumeController::class, 'get_revenues'])->name('volume.get_revenues');

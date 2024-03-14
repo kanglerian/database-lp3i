@@ -30,7 +30,7 @@
             .then(data => {
                 const count = data.applicants.length;
                 dataApplicants = data.applicants;
-                document.getElementById('count_filter').innerText = count;
+                document.getElementById('count_filter').innerText = count.toLocaleString();
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
