@@ -362,26 +362,25 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="place" :value="__('Jl/Kp/Perum')" />
-                            <x-input id="place" type="text" name="place" placeholder="Jl. / Kp. / Perum"
-                                required />
+                            <x-input id="place" type="text" name="place" placeholder="Jl. / Kp. / Perum"/>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="rt" :value="__('RT')" />
-                            <x-input id="rt" type="text" name="rt" placeholder="RT." required />
+                            <x-input id="rt" type="text" name="rt" placeholder="RT."/>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="rw" :value="__('RW')" />
-                            <x-input id="rw" type="text" name="rw" placeholder="RW." required />
+                            <x-input id="rw" type="text" name="rw" placeholder="RW."/>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="provinces" :value="__('Provinsi')" />
-                            <x-select id="provinces" name="provinces" required disabled></x-select>
+                            <x-select id="provinces" name="provinces" disabled></x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="regencies" :value="__('Kota/Kabupaten')" />
-                            <x-select id="regencies" name="regencies" required disabled>
+                            <x-select id="regencies" name="regencies" disabled>
                                 <option>Pilih Kota / Kabupaten</option>
                             </x-select>
                         </div>
@@ -389,20 +388,19 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="districts" :value="__('Kecamatan')" />
-                            <x-select id="districts" name="districts" required disabled>
+                            <x-select id="districts" name="districts" disabled>
                                 <option>Pilih Kecamatan</option>
                             </x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="villages" :value="__('Desa/Kelurahan')" />
-                            <x-select id="villages" name="villages" required disabled>
+                            <x-select id="villages" name="villages" disabled>
                                 <option>Pilih Desa / Kelurahan</option>
                             </x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="postal_code" :value="__('Kode Pos')" />
-                            <x-input id="postal_code" type="text" name="postal_code" placeholder="Kode Pos"
-                                required />
+                            <x-input id="postal_code" type="text" name="postal_code" placeholder="Kode Pos"/>
                         </div>
                     </div>
                 </div>

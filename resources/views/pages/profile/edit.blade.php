@@ -10,7 +10,7 @@
                         @if (Auth::user()->role == 'S')
                             <a href="{{ route('dashboard.index') }}"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-                                <i class="fa-solid fa-gauge mr-2"></i>
+                                <i class="fa-solid fa-compass mr-2"></i>
                                 Dashboard
                             </a>
                         @else
@@ -34,7 +34,7 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('message'))
-                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+                <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">

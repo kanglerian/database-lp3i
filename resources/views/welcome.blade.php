@@ -38,13 +38,22 @@
                     @if (Route::has('login'))
                         <div class="flex items-center gap-2">
                             @auth
-                                <a href="{{ route('dashboard.index') }}"
-                                    class="border border-gray-200 hover:bg-gray-100  px-3 py-1 rounded-lg text-sm text-gray-700 space-x-1">
-                                    <i class="fa-solid fa-circle-user"></i>
-                                    <span>{{ Auth::user()->name }}</span>
-                                </a>
+                                @if (Auth::user()->status == 1)
+                                    <a href="{{ route('dashboard.index') }}"
+                                        class="border border-gray-200 hover:bg-gray-100  px-3 py-1 rounded-lg text-sm text-gray-700 space-x-1">
+                                        <i class="fa-solid fa-circle-user"></i>
+                                        <span>{{ Auth::user()->name }}</span>
+                                    </a>
+                                @else
+                                    <div
+                                        class="border border-gray-200 px-3 py-1 rounded-lg text-sm text-gray-700 space-x-1">
+                                        <i class="fa-solid fa-circle-user"></i>
+                                        <span>{{ Auth::user()->name }}</span>
+                                    </div>
+                                @endif
                             @else
-                                <a href="{{ route('login') }}" class="flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100 h-10 w-10 text-gray-600">
+                                <a href="{{ route('login') }}"
+                                    class="flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100 h-10 w-10 text-gray-600">
                                     <i class="fa-solid fa-right-to-bracket"></i>
                                 </a>
                             @endauth
@@ -55,20 +64,60 @@
         </nav>
         <div class="flex flex-col md:flex-row items-center justify-center py-10">
             <div class="w-full md:w-4/6 space-y-3 text-center md:text-left">
+                @if (Route::has('login'))
+                    @auth
+                        @if (Auth::user()->status == 0)
+                            <div id="info"
+                                class="flex items-center p-4 mb-4 text-red-800 rounded-xl bg-red-50 border border-red-100"
+                                role="alert">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span class="sr-only">Info</span>
+                                <div class="ms-3 text-sm font-medium">
+                                    Akun Anda telah dinonaktifkan. Hubungi Administrator untuk informasi lebih lanjut.
+                                </div>
+                                <button type="button" onclick="closeInfo()"
+                                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-xl focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8">
+                                    <span class="sr-only">Close</span>
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        @endif
+                    @endauth
+                @endif
                 <h1 class="font-bold text-2xl md:text-4xl">Pendaftaran Online Mahasiswa Baru</h1>
-                <p class="text-gray-700">Kami menyambut Anda untuk mengakses layanan pendaftaran kami. Untuk mendapatkan informasi terkait persyaratan, upload berkas, dan berbagai informasi lainnya, silakan masuk ke akun Anda. Jika Anda belum memiliki akun, jangan ragu untuk menggunakan tombol "Daftar" di bawah ini untuk mendaftar sebagai calon mahasiswa baru di LP3I. Kami siap membantu Anda memulai langkah menuju kesuksesan akademik.</p>
+                <p class="text-gray-700">Kami menyambut Anda untuk mengakses layanan pendaftaran kami. Untuk mendapatkan
+                    informasi terkait persyaratan, upload berkas, dan berbagai informasi lainnya, silakan masuk ke akun
+                    Anda. Jika Anda belum memiliki akun, jangan ragu untuk menggunakan tombol "Daftar" di bawah ini
+                    untuk mendaftar sebagai calon mahasiswa baru di LP3I. Kami siap membantu Anda memulai langkah menuju
+                    kesuksesan akademik.</p>
                 @if (Route::has('login'))
                     <div class="flex justify-center md:justify-start items-center gap-2">
                         @auth
-                            <a href="{{ route('dashboard.index') }}"
-                            class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white">Dashboard</a>
+                            @if (Auth::user()->status == 1)
+                                <a href="{{ route('dashboard.index') }}"
+                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i class="fa-solid fa-compass"></i> Dashboard</a>
+                            @else
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    @if (Auth::check() && Auth::user()->status == '1')
+                                        <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
+                                            {{ __('Ubah Profil') }}
+                                        </x-dropdown-link>
+                                    @endif
+                                    <a class="block bg-red-500 hover:bg-red-600 px-6 py-2 rounded-xl text-white"
+                                        href="route('logout')"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                                    </a>
+                                </form>
+                            @endif
                         @else
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
-                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white">Daftar Sekarang</a>
+                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i class="fa-solid fa-file-lines"></i> Daftar Sekarang</a>
                             @endif
                             <a href="{{ route('login') }}"
-                                class="border border-gray-300 hover:border-gray-200 bg-white hover:bg-gray-200 hover:text-gray-800 px-6 py-2 rounded-xl text-gray-600">Masuk</a>
+                                class="border border-gray-300 hover:border-gray-200 bg-white hover:bg-gray-200 hover:text-gray-800 px-6 py-2 rounded-xl text-gray-600"><i class="fa-solid fa-right-to-bracket"></i> Masuk</a>
                         @endauth
                     </div>
                 @endif
@@ -84,36 +133,53 @@
             <div class="w-full p-1">
                 <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Dibantu Penempatan Kerja</h4>
-                    <p class="text-sm text-gray-700">Pendidikan keterampilan dengan dukungan penempatan kerja untuk kesuksesan profesional.</p>
+                    <p class="text-sm text-gray-700">Pendidikan keterampilan dengan dukungan penempatan kerja untuk
+                        kesuksesan profesional.</p>
                 </div>
             </div>
             <div class="w-full p-1">
                 <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Keterampilan Berbasis Keahlian</h4>
-                    <p class="text-sm text-gray-700">Pengembangan praktis melalui pendidikan keterampilan berbasis keahlian yang mendalam.</p>
+                    <p class="text-sm text-gray-700">Pengembangan praktis melalui pendidikan keterampilan berbasis
+                        keahlian yang mendalam.</p>
                 </div>
             </div>
             <div class="w-full p-1">
                 <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Relasi Perusahaan > 100</h4>
-                    <p class="text-sm text-gray-700">Jaringan luas 100+ perusahaan untuk penempatan kerja terbaik dan peluang karir yang bertumbuh.</p>
+                    <p class="text-sm text-gray-700">Jaringan luas 100+ perusahaan untuk penempatan kerja terbaik dan
+                        peluang karir yang bertumbuh.</p>
                 </div>
             </div>
             <div class="w-full p-1">
                 <div class="bg-gray-50 border border-gray-200 rounded-3xl px-4 py-4 space-y-1 text-center">
                     <h4 class="font-bold text-gray-800">Hard Skill & Soft Skill</h4>
-                    <p class="text-sm text-gray-700">LP3I fokus mengembangkan hardskill dan softskill bagi kesuksesan dan keseimbangan karir Anda.</p>
+                    <p class="text-sm text-gray-700">LP3I fokus mengembangkan hardskill dan softskill bagi kesuksesan
+                        dan keseimbangan karir Anda.</p>
                 </div>
             </div>
         </div>
         <hr>
         <footer class="text-center py-3">
-            <p class="text-xs text-gray-600">Copyright © <span id="copyright-year">2023</span> Politeknik LP3I Kampus Tasikmalaya</p>
+            <p class="text-xs text-gray-600">Copyright © <span id="copyright-year">2023</span> Politeknik LP3I Kampus
+                Tasikmalaya</p>
         </footer>
     </div>
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script src="{{ asset('js/lottie.js') }}"></script>
+    @if (Route::has('login'))
+        @auth
+            @if (Auth::user()->status == 0)
+                <script>
+                    const closeInfo = () => {
+                        let element = document.getElementById('info');
+                        element.classList.add('hidden');
+                    }
+                </script>
+            @endif
+        @endauth
+    @endif
     <script>
         const getYear = () => {
             const now = new Date();

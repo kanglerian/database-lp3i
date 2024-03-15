@@ -94,6 +94,7 @@ class PresenterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'not_in:Pilih gender'],
             'email' => ['required', 'unique:users', 'max:255'],
             'phone' => ['required', 'string', 'unique:users', 'max:15'],
             'role' => ['string'],
@@ -104,6 +105,7 @@ class PresenterController extends Controller
         $data = [
             'identity' => mt_rand(1, 1000000000),
             'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
@@ -158,6 +160,7 @@ class PresenterController extends Controller
         $presenter = User::findOrFail($id);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'not_in:Pilih gender'],
             'email' => ['required', 'max:255', Rule::unique('users')->ignore($id)],
             'phone' => ['required', 'string', 'max:15', Rule::unique('users')->ignore($id)],
             'role' => ['string'],
@@ -165,6 +168,7 @@ class PresenterController extends Controller
         ]);
         $data = [
             'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'role' => 'P',

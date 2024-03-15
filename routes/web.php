@@ -166,10 +166,6 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('payment', PaymentController::class);
 });
 
-// Route::prefix('payments')->middleware(['auth', 'status:1', 'role:A'])->group(function () {
-//     Route::resource('target', PaymentTargetController::class);
-// });
-
 /* Route Setting */
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::resource('setting', SettingController::class);

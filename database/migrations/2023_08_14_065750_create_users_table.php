@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('code', 10)->nullable();
             $table->string('sheet')->nullable();
             $table->string('name', 150);
+            $table->tinyInteger('gender')->default(1);
             $table->string('email', 100)->nullable()->unique();
             $table->string('phone', 20)->nullable()->unique();
             $table->char('role', 1);

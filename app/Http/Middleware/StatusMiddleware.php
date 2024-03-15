@@ -20,6 +20,6 @@ class StatusMiddleware
         if (Auth::check() && Auth::user()->status == $status) {
             return $next($request);
         }
-        return back();
+        return redirect()->route('welcome');
     }
 }

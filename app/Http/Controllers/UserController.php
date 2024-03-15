@@ -78,6 +78,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'not_in:null'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'phone' => ['string', 'unique:users', 'max:15'],
             'role' => ['string', 'not_in:Pilih peran'],
@@ -88,6 +89,7 @@ class UserController extends Controller
         $data = [
             'identity' => mt_rand(1, 1000000000),
             'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
@@ -262,6 +264,11 @@ class UserController extends Controller
             'address' => $request->input('mother_address') == null ? $address_father : $request->input('mother_address'),
         ];
 
+        $data_user = [
+            'gender' => $request->input('gender'),
+        ];
+
+        $user->update($data_user);
         $applicant->update($data);
         $father->update($data_father);
         $mother->update($data_mother);

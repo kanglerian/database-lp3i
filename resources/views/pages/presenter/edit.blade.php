@@ -34,7 +34,7 @@
                     <form method="POST" class="space-y-2" action="{{ route('presenter.update', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="grid grid-cols-1">
                             <div class="relative z-0 w-full group">
                                 <x-label for="name" :value="__('Nama lengkap')" />
                                 <x-input id="name" type="text" name="name" value="{{ $presenter->name }}"
@@ -42,6 +42,24 @@
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
                                 </p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="relative z-0 w-full group">
+                                <x-label for="gender" :value="__('Jenis Kelamin')" />
+                                <x-select id="gender" name="gender" required>
+                                    @switch($presenter->gender)
+                                        @case('0')
+                                            <option value="0">Perempuan</option>
+                                            <option value="1">Laki-laki</option>
+                                        @break
+
+                                        @case('1')
+                                            <option value="1">Laki-laki</option>
+                                            <option value="0">Perempuan</option>
+                                        @break
+                                    @endswitch
+                                </x-select>
                             </div>
                             <div class="relative z-0 w-full group">
                                 <x-label for="status" :value="__('Status')" />
@@ -59,8 +77,6 @@
                                     @endswitch
                                 </x-select>
                             </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="relative z-0 w-full group">
                                 <x-label for="email" :value="__('Email')" />
                                 <x-input id="email" type="email" name="email" value="{{ $presenter->email }}"

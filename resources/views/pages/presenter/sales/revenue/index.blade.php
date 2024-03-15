@@ -14,7 +14,7 @@
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
                             <a href="{{ route('presenter.show', $presenter->id) }}"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Detail</a>
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ $presenter->name }}</a>
                         </div>
                     </li>
                     <li aria-current="page">

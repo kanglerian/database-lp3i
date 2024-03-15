@@ -14,13 +14,13 @@
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
                             <a href="{{ route('presenter.show', $presenter->id) }}"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Detail</a>
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ $presenter->name }}</a>
                         </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Sales Revenue</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Sales Volume</span>
                         </div>
                     </li>
                 </ol>

@@ -711,6 +711,7 @@ class ApplicantController extends Controller
             $data_user = [
                 'name' => ucwords(strtolower($request->input('name'))),
                 'email' => $request->input('email'),
+                'gender' => $request->input('gender'),
                 'phone' => $request->input('phone'),
             ];
             $user = User::findOrFail($user_detail->id);

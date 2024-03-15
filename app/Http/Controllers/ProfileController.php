@@ -44,6 +44,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'not_in:Pilih gender'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'phone' => ['required', 'string', 'unique:users', 'max:15'],
         ]);
@@ -51,6 +52,7 @@ class ProfileController extends Controller
         $data = [
             'identity' => $request->input('identity'),
             'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('phone')),
             'phone' => $request->input('phone'),
@@ -168,7 +170,6 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'not_in:null'],
             'religion' => ['required', 'string'],
-            'education' => ['required'],
             'major' => ['required'],
             'year' => ['required', 'min:4', 'max:4'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
@@ -287,6 +288,7 @@ class ProfileController extends Controller
 
         $dataUser = [
             'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
         ];
 
         $user->update($dataUser);

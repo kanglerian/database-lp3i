@@ -13,7 +13,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Detail</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ $presenter->name }}</span>
                         </div>
                     </li>
                 </ol>

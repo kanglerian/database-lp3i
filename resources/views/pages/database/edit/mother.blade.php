@@ -73,26 +73,25 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_place" :value="__('Jl/Kp/Perum')" />
-                            <x-input id="mother_place" type="text" name="mother_place" placeholder="Jl. / Kp. / Perum"
-                                required />
+                            <x-input id="mother_place" type="text" name="mother_place" placeholder="Jl. / Kp. / Perum" />
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_rt" :value="__('RT')" />
-                            <x-input id="mother_rt" type="text" name="mother_rt" placeholder="RT." required />
+                            <x-input id="mother_rt" type="text" name="mother_rt" placeholder="RT." />
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_rw" :value="__('RW')" />
-                            <x-input id="mother_rw" type="text" name="mother_rw" placeholder="RW." required />
+                            <x-input id="mother_rw" type="text" name="mother_rw" placeholder="RW." />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_provinces" :value="__('Provinsi')" />
-                            <x-select id="mother_provinces" name="mother_provinces" required disabled></x-select>
+                            <x-select id="mother_provinces" name="mother_provinces" disabled></x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_regencies" :value="__('Kota/Kabupaten')" />
-                            <x-select id="mother_regencies" name="mother_regencies" required disabled>
+                            <x-select id="mother_regencies" name="mother_regencies" disabled>
                                 <option>Pilih Kota / Kabupaten</option>
                             </x-select>
                         </div>
@@ -100,20 +99,19 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_districts" :value="__('Kecamatan')" />
-                            <x-select id="mother_districts" name="mother_districts" required disabled>
+                            <x-select id="mother_districts" name="mother_districts" disabled>
                                 <option>Pilih Kecamatan</option>
                             </x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_villages" :value="__('Desa/Kelurahan')" />
-                            <x-select id="mother_villages" name="mother_villages" required disabled>
+                            <x-select id="mother_villages" name="mother_villages" disabled>
                                 <option>Pilih Desa / Kelurahan</option>
                             </x-select>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="mother_postal_code" :value="__('Kode Pos')" />
-                            <x-input id="mother_postal_code" type="text" name="mother_postal_code" placeholder="Kode Pos"
-                                required />
+                            <x-input id="mother_postal_code" type="text" name="mother_postal_code" placeholder="Kode Pos" />
                         </div>
                     </div>
                 </div>

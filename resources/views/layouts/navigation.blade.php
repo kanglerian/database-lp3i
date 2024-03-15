@@ -25,6 +25,7 @@
                         'dashboard.rekapitulasi_register_school',
                         'dashboard.rekapitulasi_register_school_year',
                         'dashboard.rekapitulasi_register_source',
+                        'profile.edit',
                     ])">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -71,6 +72,8 @@
                             'presenter.create',
                             'presenter.edit',
                             'presenter.show',
+                            'presenter.sales_volume',
+                            'presenter.sales_revenue',
                         ])">
                             {{ __('Presenter') }}
                         </x-nav-link>
@@ -111,9 +114,15 @@
                             class="flex overflow-hidden gap-3 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
                                 <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
-                                    alt="Avatar" class="h-8 rounded-full">
+                                    alt="Avatar" class="h-10 rounded-full">
                             @else
-                                <img src="{{ asset('img/avatar.png') }}" alt="Avatar" class="h-8 rounded-full">
+                                @if (Auth::user()->gender)
+                                    <img src="{{ asset('avatar/male-' . (Auth::user()->id % 2 == 0 ? '1' : '0') . '.png') }}"
+                                        alt="Avatar" class="h-10 rounded-full">
+                                @else
+                                    <img src="{{ asset('avatar/female-' . (Auth::user()->id % 2 == 0 ? '1' : '0') . '.png') }}"
+                                        alt="Avatar" class="h-10 rounded-full">
+                                @endif
                             @endif
                             <div class="w-full hidden lg:flex flex-col items-start">
                                 <span class="font-bold">{{ Auth::user()->name }}</span>
@@ -146,12 +155,12 @@
                             @csrf
                             @if (Auth::check() && Auth::user()->status == '1')
                                 <x-dropdown-link :href="route('profile.edit', Auth::user()->id)">
-                                    {{ __('Ubah Profil') }}
+                                    <i class="fa-solid fa-user mr-1"></i> {{ __('Ubah Profil') }}
                                 </x-dropdown-link>
                             @endif
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Keluar') }}
+                                <i class="fa-solid fa-right-from-bracket mr-1"></i> {{ __('Keluar') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -189,6 +198,7 @@
                 'dashboard.rekapitulasi_register_school',
                 'dashboard.rekapitulasi_register_school_year',
                 'dashboard.rekapitulasi_register_source',
+                'profile.edit',
             ])">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
@@ -230,6 +240,8 @@
                     'presenter.create',
                     'presenter.edit',
                     'presenter.show',
+                    'presenter.sales_volume',
+                    'presenter.sales_revenue',
                 ])">
                     {{ __('Presenter') }}
                 </x-responsive-nav-link>

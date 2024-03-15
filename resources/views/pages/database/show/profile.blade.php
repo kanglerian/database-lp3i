@@ -239,7 +239,7 @@
                                     class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
                                         class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
                                 @if ($user->identity_user === '6281313608558')
-                                    <p class="text-xs text-center text-gray-500">
+                                    <p class="text-xs text-center text-red-500">
                                         Belum bisa dijadikan aplikan, karena presenter belum diubah dari
                                         Administrator.
                                     </p>

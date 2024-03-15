@@ -158,6 +158,7 @@ class RegisteredUserController extends Controller
                     $data_user = [
                         'identity' => $check_email_applicant->identity,
                         'name' => $check_email_applicant->name,
+                        'gender' => $check_email_applicant->gender,
                         'email' => $check_email_applicant->email,
                         'phone' => $check_phone_applicant->phone,
                         'password' => Hash::make($request->input('password')),
@@ -170,6 +171,7 @@ class RegisteredUserController extends Controller
                     $data_user = [
                         'identity' => $check_email_applicant->identity,
                         'name' => $check_email_applicant->name,
+                        'gender' => $check_email_applicant->gender,
                         'email' => $check_email_applicant->email,
                         'phone' => $request->input('phone'),
                         'password' => Hash::make($request->input('password')),
@@ -207,6 +209,7 @@ class RegisteredUserController extends Controller
                 $data_user = [
                     'identity' => $check_phone_applicant->identity,
                     'name' => $check_phone_applicant->name,
+                    'gender' => $check_phone_applicant->gender,
                     'email' => $request->input('email'),
                     'phone' => $check_phone_applicant->phone,
                     'password' => Hash::make($request->input('password')),
@@ -247,6 +250,7 @@ class RegisteredUserController extends Controller
                 $data_user = [
                     'identity' => $numbers_unique,
                     'name' => $request->input('name'),
+                    'gender' => $request->input('gender'),
                     'email' => $request->input('email'),
                     'phone' => $request->input('phone'),
                     'password' => Hash::make($request->input('password')),
