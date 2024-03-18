@@ -9,6 +9,7 @@ use App\Http\Controllers\API\Report\RegisterByProgramController;
 use App\Http\Controllers\API\Report\RegisterBySchoolController;
 use App\Http\Controllers\API\Report\RegisterBySourceController;
 use App\Http\Controllers\API\Report\ReportStudentsAdmissionController;
+use App\Http\Controllers\API\Report\TargetByPresenterController;
 use App\Http\Controllers\API\SchoolController;
 use App\Http\Controllers\API\Target\RevenueController;
 use App\Http\Controllers\API\Target\VolumeController;
@@ -79,6 +80,7 @@ Route::get('/report/database/register/school', [RegisterBySchoolController::clas
 Route::get('/report/database/register/program', [RegisterByProgramController::class, 'get_all']);
 Route::get('/report/database/register/school/year', [RegisterBySchoolYearController::class, 'get_all']);
 Route::get('/report/database/register/source', [RegisterBySourceController::class, 'get_all']);
+Route::get('/report/database/target/presenter', [TargetByPresenterController::class, 'get_all']);
 
 Route::get('/target/volume/getvolumes', [VolumeController::class, 'get_volumes'])->name('volume.get_volumes');
 Route::get('/target/volume/getrevenues', [VolumeController::class, 'get_revenues'])->name('volume.get_revenues');

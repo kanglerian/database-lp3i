@@ -25,6 +25,7 @@
                         'dashboard.rekapitulasi_register_school',
                         'dashboard.rekapitulasi_register_school_year',
                         'dashboard.rekapitulasi_register_source',
+                        'dashboard.rekapitulasi_pencapaian_pmb',
                         'profile.edit',
                     ])">
                         {{ __('Dashboard') }}
@@ -198,6 +199,7 @@
                 'dashboard.rekapitulasi_register_school',
                 'dashboard.rekapitulasi_register_school_year',
                 'dashboard.rekapitulasi_register_source',
+                'dashboard.rekapitulasi_pencapaian_pmb',
                 'profile.edit',
             ])">
                 {{ __('Dashboard') }}

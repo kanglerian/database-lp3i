@@ -145,17 +145,16 @@ class SchoolController extends Controller
         try {
             $school = School::findOrFail($id);
             $school->delete();
-            return new JsonResponse([
-                'status' => 200,
-                'message' => 'Data sekolah berhasil dihapus!',
-            ]);
-        } catch (\Throwable $th) {
-            return new JsonResponse([
-                'status' => 500,
-                'message' => 'Terjadi kesalahan saat menghapus data sekolah.',
-            ]);
+            return back()->with('message', 'Data sumber database berhasil dihapus!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] === 1451) {
+                return back()->with('error', 'Gagal menghapus data: Data tersebut masih digunakan di bagian lain dan tidak dapat dihapus.');
+            } else {
+                return back()->with('error', 'Terjadi kesalahan saat menghapus data dari database.');
+            }
         }
     }
+
 
     /**
      * Store a newly created resource in storage.

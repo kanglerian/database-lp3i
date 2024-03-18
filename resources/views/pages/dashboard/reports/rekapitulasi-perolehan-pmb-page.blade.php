@@ -94,6 +94,19 @@
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
             @endif
+
+            <a href="{{ route('dashboard.rekapitulasi_pencapaian_pmb') }}"
+                class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
+                <div class="space-y-1 z-10">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-server"></i>
+                        <h2 class="font-bold">Rekapitulasi Pencapaian PMB</h2>
+                    </div>
+                    <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+                        vitae.</p>
+                </div>
+                <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
+            </a>
         </div>
     </section>
 

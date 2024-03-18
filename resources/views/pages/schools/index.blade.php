@@ -50,6 +50,14 @@
                     </div>
                 </div>
             @endif
+            @if (session('error'))
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-reguler">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
         </div>
 
 

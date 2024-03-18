@@ -227,7 +227,7 @@
             @include('pages.dashboard.target.target')
             @include('pages.dashboard.search.search')
 
-            {{-- @include('pages.dashboard.harta.database') --}}
+            @include('pages.dashboard.harta.database')
             {{-- @include('pages.dashboard.source.source') --}}
         @endif
         @push('scripts')

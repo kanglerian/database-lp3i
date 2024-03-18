@@ -52,6 +52,14 @@
                     </div>
                 </div>
             @endif
+            @if (session('error'))
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-reguler">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
         </section>
 
         <section class="max-w-7xl mx-auto">
@@ -169,9 +177,14 @@
                                 <button type="button" onclick="updateSchool()"
                                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>
-                                <button type="button" onclick="deleteSchool('{{ $school->id }}')"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
-                                        class="fa-regular fa-trash-can"></i> Hapus</button>
+                                <form action="{{ route('schools.destroy', $school->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $school->id }}">
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
+                                            class="fa-regular fa-trash-can"></i> Hapus</button>
+                                </form>
                             </div>
                         </form>
                     </div>
@@ -212,7 +225,7 @@
                         })
                         .then((data) => {
                             alert(data.message);
-                            // window.location.href = '/schools'
+                            window.location.href = '/schools'
                         })
                         .catch((error) => {
                             console.log(error);

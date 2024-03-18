@@ -61,6 +61,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
     Route::get('dashboard/page/register/school', [DashboardController::class, 'rekapitulasi_register_school'])->name('dashboard.rekapitulasi_register_school');
     Route::get('dashboard/page/register/school/year', [DashboardController::class, 'rekapitulasi_register_school_year'])->name('dashboard.rekapitulasi_register_school_year');
     Route::get('dashboard/page/register/source', [DashboardController::class, 'rekapitulasi_register_source'])->name('dashboard.rekapitulasi_register_source');
+    Route::get('dashboard/page/pencapaianpmb', [DashboardController::class, 'rekapitulasi_pencapaian_pmb'])->name('dashboard.rekapitulasi_pencapaian_pmb');
 
     Route::get('get/dashboard/all', [DashboardController::class, 'get_all'])->name('dashboard.get_all');
     Route::get('get/dashboard/sources/{pmb?}', [DashboardController::class, 'get_sources'])->name('dashboard.sourceget');

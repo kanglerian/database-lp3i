@@ -343,8 +343,15 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function rekapitulasi_pencapaian_pmb()
+    {
+        return view('pages.dashboard.reports.rekapitulasi-pencapaian-pmb');
+    }
+
+
     public function rekapitulasi_perolehan_pmb_page()
     {
         return view('pages.dashboard.reports.rekapitulasi-perolehan-pmb-page');
     }
+
 }
