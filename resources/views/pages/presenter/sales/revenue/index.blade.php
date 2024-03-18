@@ -211,7 +211,8 @@
                 {
                     data: 'total',
                     render: (data, type, row) => {
-                        return `Rp${data.toLocaleString('id-ID')}`;
+                        let total = parseInt(data);
+                        return `Rp${total.toLocaleString('id-ID')}`;
                     }
                 },
                 {
