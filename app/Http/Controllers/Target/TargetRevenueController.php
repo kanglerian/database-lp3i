@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Target;
 
 use App\Http\Controllers\Controller;
+use App\Models\TargetRevenue;
 use Illuminate\Http\Request;
 
 class TargetRevenueController extends Controller
@@ -35,7 +36,24 @@ class TargetRevenueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pmb' => ['required'],
+            'identity_user' => ['required'],
+            'date' => ['required'],
+            'session' => ['required'],
+            'total' => ['required', 'integer'],
+        ]);
+
+        $data = [
+            'pmb' => $request->input('pmb'),
+            'identity_user' => $request->input('identity_user'),
+            'date' => $request->input('date'),
+            'session' => $request->input('session'),
+            'total' => $request->input('total'),
+        ];
+
+        TargetRevenue::create($data);
+        return back()->with('message', 'Data target revenue berhasil ditambahkan!');
     }
 
     /**
@@ -69,7 +87,22 @@ class TargetRevenueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'edit_date' => ['required'],
+            'edit_session' => ['required'],
+            'edit_total' => ['required', 'integer'],
+        ]);
+
+        $target = TargetRevenue::findOrFail($id);
+
+        $data = [
+            'date' => $request->input('edit_date'),
+            'session' => $request->input('edit_session'),
+            'total' => $request->input('edit_total'),
+        ];
+
+        $target->update($data);
+        return back()->with('message', 'Data target revenue berhasil diubah!');
     }
 
     /**
@@ -80,6 +113,13 @@ class TargetRevenueController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $target = TargetRevenue::findOrFail($id);
+            $target->delete();
+            return session()->flash('message', 'Data target revenue berhasil dihapus!');
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 }

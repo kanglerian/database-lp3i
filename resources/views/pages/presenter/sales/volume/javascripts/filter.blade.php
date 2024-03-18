@@ -1,9 +1,7 @@
 <script>
     let identity = document.getElementById('identity_val').value;
-
     let pmb = document.getElementById('change_pmb').value;
     var urlData = `/api/target/volume/getvolumes?identityVal=${identity}&pmbVal=${pmb}`;
-
     var dataTableInitialized = false;
     var dataTableInstance;
 

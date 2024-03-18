@@ -11,9 +11,9 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Target Revenue</h3>
+                <h3 class="mb-4 text-xl font-medium text-gray-900">Tambah Target Volume</h3>
                 <hr class="mb-3">
-                <form class="space-y-4" action="{{ route('targetrevenue.store') }}" method="POST">
+                <form class="space-y-4" action="{{ route('targetvolume.store') }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $presenter->identity }}" name="identity_user" id="identity_user">
 

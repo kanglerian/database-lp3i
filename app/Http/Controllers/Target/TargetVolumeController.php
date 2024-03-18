@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TargetVolume;
 use Illuminate\Http\Request;
 
-class TargetController extends Controller
+class TargetVolumeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -53,7 +53,7 @@ class TargetController extends Controller
         ];
 
         TargetVolume::create($data);
-        return back()->with('message', 'Data target berhasil ditambahkan!');
+        return back()->with('message', 'Data target volume berhasil ditambahkan!');
     }
 
     /**
@@ -102,7 +102,7 @@ class TargetController extends Controller
         ];
 
         $target->update($data);
-        return back()->with('message', 'Data target berhasil diubah!');
+        return back()->with('message', 'Data target volume berhasil diubah!');
     }
 
     /**
@@ -116,7 +116,7 @@ class TargetController extends Controller
         try {
             $target = TargetVolume::findOrFail($id);
             $target->delete();
-            return session()->flash('message', 'Data target berhasil dihapus!');
+            return session()->flash('message', 'Data target volume berhasil dihapus!');
         } catch (\Throwable $th) {
             $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
             return back()->with('error', $errorMessage);

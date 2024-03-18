@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="p-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900">Ubah Target Revenue</h3>
+                <h3 class="mb-4 text-xl font-medium text-gray-900">Ubah Target Volume</h3>
                 <hr class="mb-3">
                 <form class="space-y-4" id="edit-form" method="POST">
                     @csrf

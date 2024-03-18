@@ -68,25 +68,25 @@
                 </div>
                 <div class="order-1 md:order-none">
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <div class="relative bg-sky-500 p-4 rounded-2xl space-y-1">
+                        <div class="relative bg-sky-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="target_count">0</h2>
                             <p class="text-white text-sm">Total Target</p>
                             <div class="absolute top-2 right-4">
-                                <button type="button" onclick="modalTarget()" class="text-white">
+                                <button type="button" onclick="modalTarget()" class="text-white hover:text-sky-100">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="relative bg-emerald-500 p-4 rounded-2xl space-y-1">
+                        <div class="relative bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
                             <p class="text-white text-sm">Registrasi</p>
                             <div class="absolute top-2 right-4">
-                                <a href="{{ route('database.index') }}" class="text-white">
+                                <a href="{{ route('database.index') }}" class="text-white hover:text-emerald-100">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
                         </div>
-                        <div id="container-animate" class="relative bg-red-500 p-4 rounded-2xl space-y-1">
+                        <div id="container-animate" class="relative bg-red-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
                             <p class="text-white text-sm">Sisa Target</p>
                             <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
@@ -127,15 +127,15 @@
             </div>
         </div>
     </div>
-    @include('pages.presenter.sales.revenue.modal.target')
-    @include('pages.presenter.sales.revenue.modal.edit-target')
+    @include('pages.presenter.sales.volume.modal.target')
+    @include('pages.presenter.sales.volume.modal.edit-target')
 </x-app-layout>
 
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script src="{{ asset('js/dotlottie-player.js') }}" type="module"></script>
-@include('pages.presenter.sales.revenue.javascripts.filter')
+@include('pages.presenter.sales.volume.javascripts.filter')
 <script>
     const getRegistrations = async () => {
         await axios.get(urlData)
@@ -220,7 +220,7 @@
                             <button type="button" data-id="${data.id}" data-date="${data.date}" data-session="${data.session}" data-total="${data.total}" class="md:mt-0 bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); editRecord(this)">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
-                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
@@ -252,7 +252,7 @@
         let total = data.getAttribute('data-total');
         let modal = document.getElementById('modal-edit-target');
         let form = document.getElementById('edit-form');
-        let url = "{{ route('target.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('targetvolume.update', ':id') }}".replace(':id', id);
         form.setAttribute('action', url);
         document.getElementById('edit_date').value = date;
         document.getElementById('edit_total').value = total;
@@ -268,7 +268,7 @@
     const deleteRecord = (id) => {
         if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
             $.ajax({
-                url: `/target/${id}`,
+                url: `/targetvolume/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'DELETE',

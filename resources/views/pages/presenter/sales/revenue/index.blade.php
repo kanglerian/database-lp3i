@@ -39,7 +39,7 @@
                     </div>
                 </div>
             @endif
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 px-2 py-2">
+            <div class="grid grid-cols-1 gap-5 px-2 py-2">
                 <div class="order-2 md:order-none flex justify-between items-center gap-3">
                     <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                         <input type="hidden" id="identity_val" value="{{ $presenter->identity }}">
@@ -68,25 +68,25 @@
                 </div>
                 <div class="order-1 md:order-none">
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <div class="relative bg-sky-500 p-4 rounded-2xl space-y-1">
+                        <div class="relative bg-sky-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="target_count">0</h2>
                             <p class="text-white text-sm">Total Target</p>
                             <div class="absolute top-2 right-4">
-                                <button type="button" onclick="modalTarget()" class="text-white">
+                                <button type="button" onclick="modalTarget()" class="text-white hover:text-sky-100">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="relative bg-emerald-500 p-4 rounded-2xl space-y-1">
+                        <div class="relative bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
-                            <p class="text-white text-sm">Registrasi</p>
+                            <p class="text-white text-sm">Omzet</p>
                             <div class="absolute top-2 right-4">
-                                <a href="{{ route('database.index') }}" class="text-white">
+                                <a href="{{ route('database.index') }}" class="text-white hover:text-emerald-100">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </div>
                         </div>
-                        <div id="container-animate" class="relative bg-red-500 p-4 rounded-2xl space-y-1">
+                        <div id="container-animate" class="relative bg-red-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
                             <p class="text-white text-sm">Sisa Target</p>
                             <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden border rounded-3xl">
+            <div class="bg-white overflow-hidden border rounded-3xl mt-3">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto rounded-3xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
@@ -141,14 +141,18 @@
         await axios.get(urlData)
         .then((res) => {
             let dataTargets = res.data.targets;
-            let targets = 0;
-            let registers = res.data.registrations.length;
-            dataTargets.forEach(data => {
-                targets += parseInt(data.total);
+            let target = 0;
+            let omzet = 0;
+            let omzetRecords = res.data.registrations;
+            omzetRecords.forEach(omzetRecord => {
+                omzet += parseInt(omzetRecord.nominal);
             });
-            document.getElementById('register_count').innerText = registers;
-            document.getElementById('target_count').innerText = targets;
-            document.getElementById('result_count').innerText = targets - registers;
+            dataTargets.forEach(data => {
+                target += parseInt(data.total);
+            });
+            document.getElementById('register_count').innerText = `Rp${omzet.toLocaleString('id-ID')}`;
+            document.getElementById('target_count').innerText = `Rp${target.toLocaleString('id-ID')}`;
+            document.getElementById('result_count').innerText = `Rp${(target - omzet).toLocaleString('id-ID')}`;
             if(targets - registers <= 0){
                 document.getElementById('animate').classList.remove('hidden');
                 document.getElementById('container-animate').classList.remove('bg-red-500');
@@ -205,7 +209,10 @@
                     data: 'session'
                 },
                 {
-                    data: 'total'
+                    data: 'total',
+                    render: (data, type, row) => {
+                        return `Rp${data.toLocaleString('id-ID')}`;
+                    }
                 },
                 {
                     data: {
@@ -220,7 +227,7 @@
                             <button type="button" data-id="${data.id}" data-date="${data.date}" data-session="${data.session}" data-total="${data.total}" class="md:mt-0 bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); editRecord(this)">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
-                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
@@ -252,7 +259,7 @@
         let total = data.getAttribute('data-total');
         let modal = document.getElementById('modal-edit-target');
         let form = document.getElementById('edit-form');
-        let url = "{{ route('target.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('targetrevenue.update', ':id') }}".replace(':id', id);
         form.setAttribute('action', url);
         document.getElementById('edit_date').value = date;
         document.getElementById('edit_total').value = total;
@@ -268,7 +275,7 @@
     const deleteRecord = (id) => {
         if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
             $.ajax({
-                url: `/target/${id}`,
+                url: `/targetrevenue/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'DELETE',

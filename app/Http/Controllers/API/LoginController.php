@@ -44,4 +44,26 @@ class LoginController extends Controller
         }
 
     }
+
+    public function login_psikotes(Request $request)
+    {
+
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $schoolarship = Applicant::where(['identity' => $user->identity])->first();
+            $token = $user->createToken('auth_token')->plainTextToken;
+                return response()->json([
+                    'id' => $user->identity,
+                    'token' => $token,
+                ], 200);
+        } else {
+            return response()->json(['message' => 'Email atau Password salah!'], 401);
+        }
+
+    }
 }

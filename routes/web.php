@@ -7,6 +7,7 @@ use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
 use App\Http\Controllers\Target\TargetController;
 use App\Http\Controllers\Target\TargetRevenueController;
+use App\Http\Controllers\Target\TargetVolumeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enrollment\EnrollmentController;
 use App\Http\Controllers\Payment\PaymentController;
@@ -155,8 +156,8 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 
 /* Route Target */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
-    Route::resource('target', TargetController::class);
     Route::resource('targetrevenue', TargetRevenueController::class);
+    Route::resource('targetvolume', TargetVolumeController::class);
     Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenter.target');
 });
 

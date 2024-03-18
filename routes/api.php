@@ -57,6 +57,7 @@ Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login-psikotes', [LoginController::class, 'login_psikotes'])->name('login.psikotes');
 
 Route::get('/school/getall', [SchoolController::class, 'get_all'])->name('school.getall');
 Route::get('/school/getsources', [SchoolController::class, 'get_sources'])->name('school.getsources');
