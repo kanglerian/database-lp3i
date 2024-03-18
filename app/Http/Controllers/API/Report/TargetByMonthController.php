@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\API\Report;
 
 use App\Http\Controllers\Controller;
-use App\Models\Report\TargetByPresenter;
+use App\Models\Report\TargetByMonth;
 use Illuminate\Http\Request;
 
-class TargetByPresenterController extends Controller
+class TargetByMonthController extends Controller
 {
     public function get_all()
     {
-        $databaseQuery = TargetByPresenter::query();
+        $databaseQuery = TargetByMonth::query();
 
         $pmbVal = request('pmbVal', 'all');
         $sessionVal = request('sessionVal', 'all');
