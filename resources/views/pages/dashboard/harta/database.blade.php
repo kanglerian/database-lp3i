@@ -1,7 +1,7 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
     <div class="max-w-7xl px-5 mx-auto">
         <div class="grid grid-cols-1 gap-4">
-            <div class="bg-white relative overflow-x-auto border border-gray-100 rounded-xl">
+            <div class="bg-gray-50 relative overflow-x-auto border border-gray-200 rounded-3xl">
                 <header class="px-6 py-5 space-y-1">
                     <h1 class="flex items-center gap-2 font-bold text-gray-700">
                         <span>Database: Harta Gono Gini</span>
@@ -13,7 +13,7 @@
                 </header>
                 <hr class="mb-5">
                 <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-white">
+                    <thead class="text-xs text-gray-700 uppercase">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 No.
