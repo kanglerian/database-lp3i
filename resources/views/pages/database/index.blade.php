@@ -40,19 +40,19 @@
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
                 </button>
-                <a href="#" id="downloadBlast" onclick="downloadBlast()"
+                <a id="downloadBlast" onclick="downloadBlast()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
                 </a>
-                <a href="#" id="downloadDP" onclick="downloadDP()"
+                <a id="downloadDP" onclick="downloadDP()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-bullhorn"></i>
                 </a>
-                <a href="#" id="downloadCSV" onclick="downloadCSV()"
+                <a id="downloadCSV" onclick="downloadCSV()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-csv"></i>
                 </a>
-                <a href="#" id="downloadVCF" onclick="downloadVCF()"
+                <a id="downloadVCF" onclick="downloadVCF()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-address-book"></i>
                 </a>
