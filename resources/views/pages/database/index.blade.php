@@ -40,22 +40,22 @@
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
                 </button>
-                <button id="downloadBlast" onclick="downloadBlast()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                <a href="#" id="downloadBlast" onclick="downloadBlast()"
+                    class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
-                </button>
-                <button id="downloadDP" onclick="downloadDP()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                </a>
+                <a href="#" id="downloadDP" onclick="downloadDP()"
+                    class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-bullhorn"></i>
-                </button>
-                <button id="downloadCSV" onclick="downloadCSV()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                </a>
+                <a href="#" id="downloadCSV" onclick="downloadCSV()"
+                    class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-csv"></i>
-                </button>
-                <button id="downloadVCF" onclick="downloadVCF()"
-                    class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                </a>
+                <a href="#" id="downloadVCF" onclick="downloadVCF()"
+                    class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-address-book"></i>
-                </button>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -396,6 +396,7 @@
             var blob = new Blob([content], {
                 type: "text/plain"
             });
+            console.log(downloadBlast);
             downloadBlast.href = URL.createObjectURL(blob);
             downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
         } else {

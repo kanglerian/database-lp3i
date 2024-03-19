@@ -228,6 +228,7 @@
             @include('pages.dashboard.search.search')
 
             @include('pages.dashboard.harta.database')
+            @include('pages.dashboard.dashboard.dashboard-register-program')
             {{-- @include('pages.dashboard.source.source') --}}
         @endif
         @push('scripts')

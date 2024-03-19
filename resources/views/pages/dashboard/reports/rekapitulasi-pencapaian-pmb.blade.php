@@ -73,43 +73,56 @@
             </div>
         </div>
 
-        <div class="max-w-7xl px-5 mx-auto">
-            <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
-                <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500"
-                        id="table-report-target-presenter">
-                        <thead class="text-xs text-gray-700 uppercase">
-                            <tr>
-                                <th rowspan="2" scope="col" class="px-6 py-4 text-center">No</th>
-                                <th rowspan="2" scope="col" class="px-6 py-4 text-center">Presenter</th>
-                                <th colspan="2" scope="col" class="px-6 py-4 text-center">Sales Volume</th>
-                                <th rowspan="2" scope="col" class="px-6 py-4 text-center">%</th>
-                                <th colspan="2" scope="col" class="px-6 py-4 text-center">Sales Revenue</th>
-                                <th rowspan="2" scope="col" class="px-6 py-4 text-center">%</th>
-                            </tr>
-                            <tr>
-                                <th scope="col" class="px-6 py-4 text-center">Target</th>
-                                <th scope="col" class="px-6 py-4 text-center">Realisasi</th>
-                                <th scope="col" class="px-6 py-4 text-center">Target</th>
-                                <th scope="col" class="px-6 py-4 text-center">Realisasi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="text-center">
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0%</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
+        @if (Auth::user()->role == 'A')
+            <div class="max-w-7xl px-5 mx-auto">
+                <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
+                    <div class="relative overflow-x-auto">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500"
+                            id="table-report-target-presenter">
+                            <thead class="text-xs text-gray-700 uppercase">
+                                <tr>
+                                    <th rowspan="2" scope="col" class="px-6 py-4 text-center">No</th>
+                                    <th rowspan="2" scope="col" class="px-6 py-4 text-center">Presenter</th>
+                                    <th colspan="2" scope="col" class="px-6 py-4 text-center">Sales Volume</th>
+                                    <th rowspan="2" scope="col" class="px-6 py-4 text-center">%</th>
+                                    <th colspan="2" scope="col" class="px-6 py-4 text-center">Sales Revenue</th>
+                                    <th rowspan="2" scope="col" class="px-6 py-4 text-center">%</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 text-center">Target</th>
+                                    <th scope="col" class="px-6 py-4 text-center">Realisasi</th>
+                                    <th scope="col" class="px-6 py-4 text-center">Target</th>
+                                    <th scope="col" class="px-6 py-4 text-center">Realisasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0%</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="font-bold">Total</td>
+                                    <td id="target_volume_presenter">0</td>
+                                    <td id="realization_volume_presenter">0</td>
+                                    <td id="percent_volume_presenter">0%</td>
+                                    <td id="target_revenue_presenter">0</td>
+                                    <td id="realization_revenue_presenter">0</td>
+                                    <td id="percent_revenue_presenter">0%</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        @endif
 
         <div class="max-w-7xl px-5 mx-auto">
             <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
@@ -143,6 +156,17 @@
                                 <td>0%</td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="font-bold">Total</td>
+                                <td id="target_volume_month">0</td>
+                                <td id="realization_volume_month">0</td>
+                                <td id="percent_volume_month">0%</td>
+                                <td id="target_revenue_month">0</td>
+                                <td id="realization_revenue_month">0</td>
+                                <td id="percent_revenue_month">0%</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>
@@ -152,163 +176,10 @@
     @include('pages.dashboard.utilities.pmb')
     @push('scripts')
         <script>
-            let dataTableDataTargetByPresenterInstance;
-            let dataTableDataTargetByPresenterInitialized = false;
-            let urlTargetPresenter =
-                `/api/report/database/target/presenter?pmbVal=${pmbVal}`;
-        </script>
-
-        <script>
             let dataTableDataTargetByMonthInstance;
             let dataTableDataTargetByMonthInitialized = false;
             let urlTargetMonth =
                 `/api/report/database/target/month?pmbVal=${pmbVal}`;
-        </script>
-
-        <script>
-            const changeFilter = () => {
-                changeFilterDataTargetByPresenter();
-                changeFilterDataTargetByMonth();
-            }
-        </script>
-
-        <script>
-            const changeFilterDataTargetByPresenter = () => {
-                let queryParams = [];
-
-                let pmbVal = document.getElementById('change_pmb').value;
-                let sessionVal = document.getElementById('session').value;
-                let dateVal = document.getElementById('date').value;
-
-                if (pmbVal !== 'all') {
-                    queryParams.push(`pmbVal=${pmbVal}`);
-                }
-
-                if (sessionVal !== 'all') {
-                    queryParams.push(`sessionVal=${sessionVal}`);
-                }
-
-                if (dateVal !== 'all') {
-                    queryParams.push(`dateVal=${dateVal}`);
-                }
-
-                let queryString = queryParams.join('&');
-
-                urlTargetPresenter = `/api/report/database/target/presenter?${queryString}`;
-
-                if (dataTableDataTargetByPresenterInstance) {
-                    showLoadingAnimation();
-                    dataTableDataTargetByPresenterInstance.clear();
-                    dataTableDataTargetByPresenterInstance.destroy();
-                    getDataTableTargetByPresenter()
-                        .then((response) => {
-                            dataTableDataTargetByPresenterInstance = $('#table-report-target-presenter').DataTable(
-                                response
-                                .config);
-                            dataTableDataTargetByPresenterInitialized = response.initialized;
-                            hideLoadingAnimation();
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                }
-            }
-
-            const getDataTableTargetByPresenter = async () => {
-                return new Promise(async (resolve, reject) => {
-                    try {
-                        const response = await axios.get(urlTargetPresenter);
-                        let register = response.data.databases;
-                        let columnConfigs = [{
-                                data: 'pmb',
-                                render: (data, type, row, meta) => {
-                                    return meta.row + 1;
-                                },
-                            },
-                            {
-                                data: 'name',
-                                render: (data, type, row, meta) => {
-                                    return data;
-                                }
-                            },
-                            {
-                                data: 'target_volume',
-                                render: (data, type, row, meta) => {
-                                    return data;
-                                }
-                            },
-                            {
-                                data: 'realization_volume',
-                                render: (data, type, row, meta) => {
-                                    return data;
-                                }
-                            },
-                            {
-                                data: {
-                                    target_volume: 'target_volume',
-                                    realization_volume: 'realization_volume'
-                                },
-                                render: (data, type, row, meta) => {
-                                    let target = parseInt(data.target_volume);
-                                    let realization = parseInt(data.realization_volume);
-                                    let result = realization / target * 100;
-                                    return `${result.toFixed()}%`;
-                                }
-                            },
-                            {
-                                data: 'target_revenue',
-                                render: (data, type, row, meta) => {
-                                    let result = parseInt(data);
-                                    return `Rp${result.toLocaleString('id-ID')}`;
-                                }
-                            },
-                            {
-                                data: 'realization_revenue',
-                                render: (data, type, row, meta) => {
-                                    let result = parseInt(data);
-                                    return `Rp${result.toLocaleString('id-ID')}`;
-                                }
-                            },
-                            {
-                                data: {
-                                    target_revenue: 'target_revenue',
-                                    realization_revenue: 'realization_revenue'
-                                },
-                                render: (data, type, row, meta) => {
-                                    let target = parseInt(data.target_revenue);
-                                    let realization = parseInt(data.realization_revenue);
-                                    let result = realization / target * 100;
-                                    return `${result.toFixed()}%`;
-                                }
-                            },
-                        ];
-
-
-                        const dataTableConfig = {
-                            data: register,
-                            columnDefs: [{
-                                width: 50,
-                                target: 0
-                            }],
-                            createdRow: (row, data, index) => {
-                                if (index % 2 === 0) {
-                                    $(row).css('background-color', '#f9fafb');
-                                }
-                            },
-                            columns: columnConfigs,
-                        }
-
-                        let results = {
-                            config: dataTableConfig,
-                            initialized: true
-                        }
-
-                        resolve(results);
-                    } catch (error) {
-                        reject(error)
-                    }
-                });
-            }
         </script>
 
         <script>
@@ -324,7 +195,6 @@
                 let queryString = queryParams.join('&');
 
                 urlTargetMonth = `/api/report/database/target/month?${queryString}`;
-                console.log(urlTargetMonth);
 
                 if (dataTableDataTargetByMonthInstance) {
                     showLoadingAnimation();
@@ -349,6 +219,32 @@
                     try {
                         const response = await axios.get(urlTargetMonth);
                         let register = response.data.databases;
+
+                        let totalTargetVolume = 0;
+                        let totalRealizationVolume = 0;
+
+                        let totalTargetRevenue = 0;
+                        let totalRealizationRevenue = 0;
+
+                        register.forEach(regist => {
+                            totalTargetVolume += parseInt(regist.target_volume);
+                            totalTargetRevenue += parseInt(regist.target_revenue);
+                            totalRealizationVolume += parseInt(regist.realization_volume);
+                            totalRealizationRevenue += parseInt(regist.realization_revenue);
+                        });
+
+                        document.getElementById('target_volume_month').innerText = totalTargetVolume;
+                        document.getElementById('realization_volume_month').innerText =
+                            totalRealizationVolume;
+                        document.getElementById('percent_volume_month').innerText =
+                            `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
+                        document.getElementById('target_revenue_month').innerText =
+                            `Rp${totalTargetRevenue.toLocaleString('id-ID')}`;
+                        document.getElementById('realization_revenue_month').innerText =
+                            `Rp${totalRealizationRevenue.toLocaleString('id-ID')}`;
+                        document.getElementById('percent_revenue_month').innerText =
+                            `${(totalTargetRevenue / totalRealizationRevenue * 100).toFixed()}%`;
+
                         let columnConfigs = [{
                                 data: 'pmb',
                                 render: (data, type, row, meta) => {
@@ -483,34 +379,228 @@
             }
         </script>
 
-        <script>
-            const changeTrigger = () => {
-                changeFilterDataTargetByPresenter()
-                changeFilterDataTargetByMonth()
-            }
-        </script>
-        <script>
-            const promiseDataTarget = () => {
-                showLoadingAnimation();
-                Promise.all([
-                        getDataTableTargetByPresenter(),
-                        getDataTableTargetByMonth(),
-                    ])
-                    .then((response) => {
-                        let responseDTBP = response[0];
-                        let responseDTBM = response[1];
-                        dataTableDataTargetByPresenterInstance = $('#table-report-target-presenter').DataTable(
-                            responseDTBP.config);
-                        dataTableDataTargetByPresenterInitialized = responseDTBP.initialized;
-                        dataTableDataTargetByMonthInstance = $('#table-report-target-month').DataTable(responseDTBM
-                            .config);
-                        dataTableDataTargetByMonthInitialized = responseDTBM.initialized;
-                        hideLoadingAnimation();
-                    })
-                    .catch((error) => {
-                        console.log(error);
+        @if (Auth::user()->role == 'A')
+            <script>
+                let dataTableDataTargetByPresenterInstance;
+                let dataTableDataTargetByPresenterInitialized = false;
+                let urlTargetPresenter =
+                    `/api/report/database/target/presenter?pmbVal=${pmbVal}`;
+            </script>
+
+            <script>
+                const changeFilterDataTargetByPresenter = () => {
+                    let queryParams = [];
+
+                    let pmbVal = document.getElementById('change_pmb').value;
+                    let sessionVal = document.getElementById('session').value;
+                    let dateVal = document.getElementById('date').value;
+
+                    if (pmbVal !== 'all') {
+                        queryParams.push(`pmbVal=${pmbVal}`);
+                    }
+
+                    if (sessionVal !== 'all') {
+                        queryParams.push(`sessionVal=${sessionVal}`);
+                    }
+
+                    if (dateVal !== 'all') {
+                        queryParams.push(`dateVal=${dateVal}`);
+                    }
+
+                    let queryString = queryParams.join('&');
+
+                    urlTargetPresenter = `/api/report/database/target/presenter?${queryString}`;
+
+                    if (dataTableDataTargetByPresenterInstance) {
+                        showLoadingAnimation();
+                        dataTableDataTargetByPresenterInstance.clear();
+                        dataTableDataTargetByPresenterInstance.destroy();
+                        getDataTableTargetByPresenter()
+                            .then((response) => {
+                                dataTableDataTargetByPresenterInstance = $('#table-report-target-presenter').DataTable(
+                                    response
+                                    .config);
+                                dataTableDataTargetByPresenterInitialized = response.initialized;
+                                hideLoadingAnimation();
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }
+                }
+
+                const getDataTableTargetByPresenter = async () => {
+                    return new Promise(async (resolve, reject) => {
+                        try {
+                            const response = await axios.get(urlTargetPresenter);
+                            let register = response.data.databases;
+
+                            let totalTargetVolume = 0;
+                            let totalRealizationVolume = 0;
+
+                            let totalTargetRevenue = 0;
+                            let totalRealizationRevenue = 0;
+
+                            register.forEach(regist => {
+                                totalTargetVolume += parseInt(regist.target_volume);
+                                totalTargetRevenue += parseInt(regist.target_revenue);
+                                totalRealizationVolume += parseInt(regist.realization_volume);
+                                totalRealizationRevenue += parseInt(regist.realization_revenue);
+                            });
+
+                            document.getElementById('target_volume_presenter').innerText = totalTargetVolume;
+                            document.getElementById('realization_volume_presenter').innerText =
+                                totalRealizationVolume;
+                            document.getElementById('percent_volume_presenter').innerText =
+                                `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
+                            document.getElementById('target_revenue_presenter').innerText =
+                                `Rp${totalTargetRevenue.toLocaleString('id-ID')}`;
+                            document.getElementById('realization_revenue_presenter').innerText =
+                                `Rp${totalRealizationRevenue.toLocaleString('id-ID')}`;
+                            document.getElementById('percent_revenue_presenter').innerText =
+                                `${(totalTargetRevenue / totalRealizationRevenue * 100).toFixed()}%`;
+
+                            let columnConfigs = [{
+                                    data: 'pmb',
+                                    render: (data, type, row, meta) => {
+                                        return meta.row + 1;
+                                    },
+                                },
+                                {
+                                    data: 'name',
+                                    render: (data, type, row, meta) => {
+                                        return data;
+                                    }
+                                },
+                                {
+                                    data: 'target_volume',
+                                    render: (data, type, row, meta) => {
+                                        return data;
+                                    }
+                                },
+                                {
+                                    data: 'realization_volume',
+                                    render: (data, type, row, meta) => {
+                                        return data;
+                                    }
+                                },
+                                {
+                                    data: {
+                                        target_volume: 'target_volume',
+                                        realization_volume: 'realization_volume'
+                                    },
+                                    render: (data, type, row, meta) => {
+                                        let target = parseInt(data.target_volume);
+                                        let realization = parseInt(data.realization_volume);
+                                        let result = realization / target * 100;
+                                        return `${result.toFixed()}%`;
+                                    }
+                                },
+                                {
+                                    data: 'target_revenue',
+                                    render: (data, type, row, meta) => {
+                                        let result = parseInt(data);
+                                        return `Rp${result.toLocaleString('id-ID')}`;
+                                    }
+                                },
+                                {
+                                    data: 'realization_revenue',
+                                    render: (data, type, row, meta) => {
+                                        let result = parseInt(data);
+                                        return `Rp${result.toLocaleString('id-ID')}`;
+                                    }
+                                },
+                                {
+                                    data: {
+                                        target_revenue: 'target_revenue',
+                                        realization_revenue: 'realization_revenue'
+                                    },
+                                    render: (data, type, row, meta) => {
+                                        let target = parseInt(data.target_revenue);
+                                        let realization = parseInt(data.realization_revenue);
+                                        let result = realization / target * 100;
+                                        return `${result.toFixed()}%`;
+                                    }
+                                },
+                            ];
+
+
+                            const dataTableConfig = {
+                                data: register,
+                                columnDefs: [{
+                                    width: 50,
+                                    target: 0
+                                }],
+                                createdRow: (row, data, index) => {
+                                    if (index % 2 === 0) {
+                                        $(row).css('background-color', '#f9fafb');
+                                    }
+                                },
+                                columns: columnConfigs,
+                            }
+
+                            let results = {
+                                config: dataTableConfig,
+                                initialized: true
+                            }
+
+                            resolve(results);
+                        } catch (error) {
+                            reject(error)
+                        }
                     });
-            }
+                }
+            </script>
+        @endif
+
+
+        @if (Auth::user()->role == 'A')
+            <script>
+                const promiseDataTarget = () => {
+                    showLoadingAnimation();
+                    Promise.all([
+                            getDataTableTargetByPresenter(),
+                            getDataTableTargetByMonth(),
+                        ])
+                        .then((response) => {
+                            let responseDTBP = response[0];
+                            let responseDTBM = response[1];
+                            dataTableDataTargetByPresenterInstance = $('#table-report-target-presenter').DataTable(
+                                responseDTBP.config);
+                            dataTableDataTargetByPresenterInitialized = responseDTBP.initialized;
+                            dataTableDataTargetByMonthInstance = $('#table-report-target-month').DataTable(responseDTBM
+                                .config);
+                            dataTableDataTargetByMonthInitialized = responseDTBM.initialized;
+                            hideLoadingAnimation();
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            </script>
+        @else
+            <script>
+                const promiseDataTarget = () => {
+                    showLoadingAnimation();
+                    Promise.all([
+                            getDataTableTargetByMonth(),
+                        ])
+                        .then((response) => {
+                            let responseDTBM = response[0];
+                            dataTableDataTargetByMonthInitialized = responseDTBM.initialized;
+                            dataTableDataTargetByMonthInstance = $('#table-report-target-month').DataTable(responseDTBM
+                                .config);
+                            dataTableDataTargetByMonthInitialized = responseDTBM.initialized;
+                            hideLoadingAnimation();
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            </script>
+        @endif
+
+        <script>
             promiseDataTarget();
         </script>
     @endpush

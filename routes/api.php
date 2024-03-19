@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AchievementController;
+use App\Http\Controllers\API\Dashboard\RegisterProgramController;
+use App\Http\Controllers\API\Dashboard\RekapPerolehanPMB;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
@@ -86,3 +88,6 @@ Route::get('/report/database/target/month', [TargetByMonthController::class, 'ge
 
 Route::get('/target/volume/getvolumes', [VolumeController::class, 'get_volumes'])->name('volume.get_volumes');
 Route::get('/target/volume/getrevenues', [VolumeController::class, 'get_revenues'])->name('volume.get_revenues');
+
+Route::get('/dashboard/register/program', [RegisterProgramController::class, 'get_all']);
+Route::get('/dashboard/register/rekapperolehanpmb', [RekapPerolehanPMB::class, 'get_all']);

@@ -70,7 +70,7 @@
                     class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-server"></i>
+                            <i class="fa-solid fa-school"></i>
                             <h2 class="font-bold">Register Per Sekolah</h2>
                         </div>
                         <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
@@ -85,7 +85,7 @@
                     class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                     <div class="space-y-1 z-10">
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-server"></i>
+                            <i class="fa-solid fa-school"></i>
                             <h2 class="font-bold">Register Per Tingkat Sekolah</h2>
                         </div>
                         <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
@@ -99,7 +99,7 @@
                 class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer p-5 rounded-3xl">
                 <div class="space-y-1 z-10">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-server"></i>
+                        <i class="fa-regular fa-folder-open"></i>
                         <h2 class="font-bold">Rekapitulasi Pencapaian PMB</h2>
                     </div>
                     <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
