@@ -359,7 +359,7 @@
                                 data: 'date_volume',
                                 render: (data, type, row, meta) => {
                                     let result;
-                                    switch (data) {
+                                    switch (parseInt(data)) {
                                         case 1:
                                             result = 'Januari'
                                             break;
