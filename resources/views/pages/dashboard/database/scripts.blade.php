@@ -11,6 +11,8 @@
         <script>
             const changeTrigger = () => {
                 changeFilterDatabase();
+                changeFilterDataRegisterProgram();
+                changeFilterRekapitulasi();
             }
         </script>
     @endif

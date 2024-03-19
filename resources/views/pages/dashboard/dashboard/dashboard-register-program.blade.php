@@ -19,6 +19,14 @@
                     </tr>
                 </thead>
                 <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="font-bold">Total</td>
+                        <td id="register_reguler">0</td>
+                        <td id="register_nonreguler">0</td>
+                        <td id="register_total">0</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </section>
@@ -31,7 +39,6 @@
         let urlRegisterProgram =
             `/api/dashboard/register/program?pmbVal=${pmbVal}`;
     </script>
-
     <script>
         const changeFilterDataRegisterProgram = () => {
             let queryParams = [];
@@ -69,6 +76,18 @@
                 try {
                     const response = await axios.get(urlRegisterProgram);
                     let registers = response.data;
+
+                    let totalReguler = 0;
+                    let totalNonReguler = 0;
+
+                    registers.forEach(register => {
+                        totalReguler += parseInt(register.register_reguler);
+                        totalNonReguler += parseInt(register.register_nonreguler);
+                    });
+
+                    document.getElementById('register_reguler').innerText = totalReguler;
+                    document.getElementById('register_nonreguler').innerText = totalNonReguler;
+                    document.getElementById('register_total').innerText = totalReguler + totalNonReguler;
 
                     let columnConfigs = [{
                             data: 'pmb',
@@ -130,12 +149,6 @@
                     reject(error)
                 }
             });
-        }
-    </script>
-
-    <script>
-        const changeTrigger = () => {
-            changeFilterDataRegisterProgram()
         }
     </script>
     <script>

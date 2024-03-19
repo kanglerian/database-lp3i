@@ -22,6 +22,8 @@ class RekapPerolehanPMB extends Controller
 
         $databases = $databaseQuery->get();
 
-        return response()->json($databases);
+        return response()->json([
+            'databases' => $databases
+        ]);
     }
 }
