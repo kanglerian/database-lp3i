@@ -44,12 +44,7 @@ class CreateViewReportTargetByPresenterTable extends Migration
             session_volume,
             session_revenue,
             date_volume,
-            date_revenue,
-            name,
-            target_volume.total,
-            status_applicants_registration.id,
-            target_revenue.total,
-            status_applicants_registration.deal;
+            date_revenue;
         ');
     }
 
