@@ -47,9 +47,6 @@
                                 </p>
                             </div>
                             <div class="flex gap-2">
-                                <button type="button" onclick="copyRecord(`{{ $user->name }}`,`{{ $user->phone }}`,`{{ $user->school ? $user->SchoolApplicant->name : 'Tidak diketahui' }}`,`{{ $user->year ? $user->year : 'Tidak diketahui' }}`,`{{ $user->program ? $user->program : 'Tidak diketahui' }}`,`{{ $user->source_id ? $user->SourceSetting->name : 'Tidak diketahui' }}`,`{{ $user->programtype_id ? $user->programtype->name : 'Tidak diketahui' }}`,`{{ $user->status_id ? $user->applicantstatus->name : 'Tidak diketahui' }}`)" class="inline-block bg-sky-500 text-white px-3 py-1 rounded-md text-xs">
-                                    <i class="fa-solid fa-clipboard"></i>
-                                </button>
                                 @if ($account > 0 && $user->programtype_id && $user->program)
                                     <a href="{{ route('database.print', $user->identity) }}"
                                         class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
