@@ -177,14 +177,9 @@
                                 <button type="button" onclick="updateSchool()"
                                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>
-                                <form action="{{ route('schools.destroy', $school->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="id" value="{{ $school->id }}">
-                                    <button type="submit"
-                                        class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
-                                            class="fa-regular fa-trash-can"></i> Hapus</button>
-                                </form>
+                                <button type="button" onclick="deleteSchool('{{ $school->id }}')"
+                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
+                                        class="fa-regular fa-trash-can"></i> Hapus</button>
                             </div>
                         </form>
                     </div>
@@ -225,7 +220,6 @@
                         })
                         .then((data) => {
                             alert(data.message);
-                            window.location.href = '/schools'
                         })
                         .catch((error) => {
                             console.log(error);

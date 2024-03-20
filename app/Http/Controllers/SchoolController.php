@@ -145,12 +145,20 @@ class SchoolController extends Controller
         try {
             $school = School::findOrFail($id);
             $school->delete();
-            return back()->with('message', 'Data sumber database berhasil dihapus!');
+            return response()->json([
+                'message' => 'Data sumber database berhasil dihapus!'
+            ]);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->errorInfo[1] === 1451) {
-                return back()->with('error', 'Gagal menghapus data: Data tersebut masih digunakan di bagian lain dan tidak dapat dihapus.');
+                return response()->json([
+                    'message' =>
+                    'Gagal menghapus data: Data tersebut masih digunakan di bagian lain dan tidak dapat dihapus.'
+                ]);
             } else {
-                return back()->with('error', 'Terjadi kesalahan saat menghapus data dari database.');
+                return response()->json([
+                    'message' =>
+                    'Terjadi kesalahan saat menghapus data dari database.'
+                ]);
             }
         }
     }
