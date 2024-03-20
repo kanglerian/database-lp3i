@@ -224,6 +224,8 @@
             @include('pages.dashboard.utilities.all')
             @include('pages.dashboard.utilities.pmb')
 
+            @include('pages.dashboard.dashboard.dashboard-sales')
+
             @include('pages.dashboard.target.target')
             @include('pages.dashboard.search.search')
 

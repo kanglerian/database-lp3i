@@ -4,6 +4,7 @@
             const changeTrigger = () => {
                 changeFilterDatabase();
                 changeFilterTarget();
+                changeDataSales();
             }
         </script>
     @endif
@@ -13,6 +14,7 @@
                 changeFilterDatabase();
                 changeFilterDataRegisterProgram();
                 changeFilterRekapitulasi();
+                changeDataSales();
             }
         </script>
     @endif

@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AchievementController;
 use App\Http\Controllers\API\Dashboard\RegisterProgramController;
 use App\Http\Controllers\API\Dashboard\RekapPerolehanPMB;
+use App\Http\Controllers\API\Dashboard\SalesController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
@@ -91,3 +92,4 @@ Route::get('/target/volume/getrevenues', [VolumeController::class, 'get_revenues
 
 Route::get('/dashboard/register/program', [RegisterProgramController::class, 'get_all']);
 Route::get('/dashboard/register/rekapperolehanpmb', [RekapPerolehanPMB::class, 'get_all']);
+Route::get('/dashboard/sales', [SalesController::class, 'get_all']);
