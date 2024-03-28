@@ -18,8 +18,8 @@
                 <hr class="mb-3">
                 <form class="space-y-4" action="{{ route('profile.store') }}" method="POST">
                     @csrf
-                    <input type="text" name="identity" value="{{ $user->identity }}">
-                    <input type="text" name="name" value="{{ $user->name }}">
+                    <input type="hidden" name="identity" value="{{ $user->identity }}">
+                    <input type="hidden" name="name" value="{{ $user->name }}">
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>

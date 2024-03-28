@@ -44,7 +44,6 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'gender' => ['not_in:Pilih gender'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'phone' => ['required', 'string', 'unique:users', 'max:15'],
         ]);
