@@ -49,31 +49,26 @@ class ProfileController extends Controller
             'phone' => ['required', 'string', 'unique:users', 'max:15'],
         ]);
 
-        try {
-            $data = [
-                'identity' => $request->input('identity'),
-                'name' => ucwords(strtolower($request->input('name'))),
-                'gender' => $request->input('gender'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('phone')),
-                'phone' => $request->input('phone'),
-                'role' => 'S',
-                'status' => 1,
-            ];
+        $data = [
+            'identity' => $request->input('identity'),
+            'name' => ucwords(strtolower($request->input('name'))),
+            'gender' => $request->input('gender'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('phone')),
+            'phone' => $request->input('phone'),
+            'role' => 'S',
+            'status' => 1,
+        ];
 
-            $data_applicant = [
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-            ];
+        $data_applicant = [
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+        ];
 
-            $applicant = Applicant::where('identity', $request->input('identity'))->first();
-            User::create($data);
-            $applicant->update($data_applicant);
-            return back()->with('message', 'Akun berhasil ditambahkan!');
-        } catch (\Throwable $th) {
-            dd($th);
-            // return back()->with('message', 'Akun berhasil ditambahkan!');
-        }
+        $applicant = Applicant::where('identity', $request->input('identity'))->first();
+        User::create($data);
+        $applicant->update($data_applicant);
+        return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**
