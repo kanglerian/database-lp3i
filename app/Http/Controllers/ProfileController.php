@@ -42,12 +42,12 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'not_in:Pilih gender'],
-            'email' => ['required', 'email', 'unique:users', 'max:255'],
-            'phone' => ['required', 'string', 'unique:users', 'max:15'],
-        ]);
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'gender' => ['required', 'not_in:Pilih gender'],
+        //     'email' => ['required', 'email', 'unique:users', 'max:255'],
+        //     'phone' => ['required', 'string', 'unique:users', 'max:15'],
+        // ]);
 
         $data = [
             'identity' => $request->input('identity'),
