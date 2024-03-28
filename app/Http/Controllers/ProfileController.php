@@ -44,6 +44,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'not_in:Pilih gender'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'phone' => ['required', 'string', 'unique:users', 'max:15'],
         ]);
@@ -62,6 +63,7 @@ class ProfileController extends Controller
         $data_applicant = [
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
+            'gender' => $request->input('gender'),
         ];
 
         $applicant = Applicant::where('identity', $request->input('identity'))->first();
