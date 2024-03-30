@@ -166,6 +166,7 @@
                                         <option value="BANJAR">BANJAR</option>
                                         <option value="PANGANDARAN">PANGANDARAN</option>
                                         <option value="GARUT">GARUT</option>
+                                        <option value="KAB. CIREBON">KAB. CIREBON</option>
                                         <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
                                     </x-select>
                                     <div class="text-xs mt-1 text-red-600">
