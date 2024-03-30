@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function info_user($identity)
     {
-        $user = User::where(['identity' => $identity])->first();
+        $user = User::where('identity', $identity)->where('role', '!=', 'S')->first();
         $name = $user ? $user->name : 'Tidak diketahui';
         return response()->json([
             'name' => $name,
