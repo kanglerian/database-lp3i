@@ -55,6 +55,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $expirationTime = time() + (24 * 60 * 60);
             $data = [
                 'id' => $user->id,
                 'identity' => $user->identity,
@@ -65,7 +66,9 @@ class AuthController extends Controller
                 'gender' => $user->gender,
                 'role' => $user->role,
                 'status' => $user->status,
+                'exp' => $expirationTime,
             ];
+
             $token = Auth::guard('api')->claims($data)->login($user);
             return response()->json([
                 'access_token' => $token,
