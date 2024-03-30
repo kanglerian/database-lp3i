@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Validator;
@@ -47,30 +48,45 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $credentials = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $data = [
+                'id' => $user->id,
+                'identity' => $user->identity,
+                'avatar' => $user->avatar,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'gender' => $user->gender,
+                'role' => $user->role,
+                'status' => $user->status,
+            ];
+            $token = Auth::guard('api')->claims($data)->login($user);
+            return response()->json([
+                'access_token' => $token,
+                'message' => 'Berhasil masuk!'
+            ]);
+        } else {
+            return response()->json(['message' => 'Email atau Password salah!'], 401);
         }
-        if (!auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'unauthorized'], 401);
-        }
-        $jwt_token = JWTAuth::fromUser(auth()->user());
-        return response()->json([
-            'access_token' => $jwt_token,
-            'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL() * 60,
-            'user' => auth()->user()
-        ]);
     }
 
     public function logout()
     {
-        auth()->logout();
+        Auth::guard('api')->logout();
         return response()->json([
             'message' => 'User logout'
         ]);
+    }
+
+    public function profile()
+    {
+        $user = Auth::guard('api')->user();
+        return response()->json($user);
     }
 }

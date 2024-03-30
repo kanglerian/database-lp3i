@@ -47,6 +47,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/profile', [AuthController::class, 'profile']);
 });
 
 Route::middleware('auth:api')->group(function() {
