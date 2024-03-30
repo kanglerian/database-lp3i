@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AchievementController;
+use App\Http\Controllers\API\CobaController;
 use App\Http\Controllers\API\Dashboard\RegisterProgramController;
 use App\Http\Controllers\API\Dashboard\RekapPerolehanPMB;
 use App\Http\Controllers\API\Dashboard\SalesController;
@@ -22,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\Report\RegisterBySchoolYearController;
 use App\Http\Controllers\API\Report\ReportAplikanController;
 use App\Http\Controllers\API\Report\SourceDatabaseByPresenterController;
@@ -39,6 +41,17 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+/* JWT */
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+});
+
+Route::middleware('auth:api')->group(function() {
+    Route::get('/coba', [CobaController::class, 'profile']);
+});
 
 /* Route SBPMB */
 Route::middleware('auth:sanctum')->group(function () {

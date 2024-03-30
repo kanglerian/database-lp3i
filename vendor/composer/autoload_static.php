@@ -156,6 +156,7 @@ class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
         'F' => 
         array (
             'Fruitcake\\Cors\\' => 15,
+            'Firebase\\JWT\\' => 13,
             'Faker\\' => 6,
             'Facade\\Ignition\\' => 16,
             'Facade\\IgnitionContracts\\' => 25,
@@ -494,6 +495,10 @@ class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
             1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
             2 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
         ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
@@ -589,8 +594,10 @@ class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
         'App\\Http\\Controllers\\API\\AchievementController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AchievementController.php',
         'App\\Http\\Controllers\\API\\ApplicantController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApplicantController.php',
         'App\\Http\\Controllers\\API\\ApplicantHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApplicantHistoryController.php',
+        'App\\Http\\Controllers\\API\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AuthController.php',
         'App\\Http\\Controllers\\API\\Dashboard\\RegisterProgramController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Dashboard/RegisterProgramController.php',
         'App\\Http\\Controllers\\API\\Dashboard\\RekapPerolehanPMB' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Dashboard/RekapPerolehanPMB.php',
+        'App\\Http\\Controllers\\API\\Dashboard\\SalesController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Dashboard/SalesController.php',
         'App\\Http\\Controllers\\API\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/LoginController.php',
         'App\\Http\\Controllers\\API\\LogoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/LogoutController.php',
         'App\\Http\\Controllers\\API\\OrganizationController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/OrganizationController.php',
@@ -674,6 +681,7 @@ class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
         'App\\Models\\ApplicantStatus' => __DIR__ . '/../..' . '/app/Models/ApplicantStatus.php',
         'App\\Models\\Dashboard\\RegisterByProgram' => __DIR__ . '/../..' . '/app/Models/Dashboard/RegisterByProgram.php',
         'App\\Models\\Dashboard\\RekapitulasiPerolehanPMB' => __DIR__ . '/../..' . '/app/Models/Dashboard/RekapitulasiPerolehanPMB.php',
+        'App\\Models\\Dashboard\\Sales' => __DIR__ . '/../..' . '/app/Models/Dashboard/Sales.php',
         'App\\Models\\FileUpload' => __DIR__ . '/../..' . '/app/Models/FileUpload.php',
         'App\\Models\\FollowUp' => __DIR__ . '/../..' . '/app/Models/FollowUp.php',
         'App\\Models\\Integration' => __DIR__ . '/../..' . '/app/Models/Integration.php',
@@ -1678,6 +1686,14 @@ class ComposerStaticInit3d5a50f81894d5b4e3cb9c9f753b4340
         'Faker\\Provider\\zh_TW\\Text' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php',
         'Faker\\UniqueGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/UniqueGenerator.php',
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/ValidGenerator.php',
+        'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
+        'Firebase\\JWT\\CachedKeySet' => __DIR__ . '/..' . '/firebase/php-jwt/src/CachedKeySet.php',
+        'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
+        'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
+        'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
+        'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
+        'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
+        'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\CorsServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/CorsServiceProvider.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
