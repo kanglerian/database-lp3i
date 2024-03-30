@@ -191,6 +191,12 @@
                             case "P":
                                 return `Presenter`;
                                 break;
+                            case "E":
+                                return `Pendidikan`;
+                                break;
+                            case "C":
+                                return `C&P`;
+                                break;
                             default:
                                 return `Tidak diketahui`;
                                 break;
