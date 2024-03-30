@@ -20,16 +20,24 @@
             @endif
             <div class="bg-white overflow-hidden border md:rounded-xl">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('user.store') }}">
+                    <form method="POST" action="{{ route('user.store') }}" class="space-y-2">
                         @csrf
-                        <div class="grid md:grid-cols-1 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full lg:mb-4 group">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div class="relative z-0 w-full group">
                                 <x-label for="name" :value="__('Nama lengkap')" />
                                 <x-input id="name" type="text" name="name" :value="old('name')"
                                     placeholder="Tulis nama lengkap disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
                                 </p>
+                            </div>
+                            <div class="relative z-0 w-full group">
+                                <x-label for="gender" :value="__('Jenis Kelamin')" />
+                                <x-select id="gender" name="gender" required>
+                                    <option>Pilih gender</option>
+                                    <option value="1">Laki-laki</option>
+                                    <option value="0">Perempuan</option>
+                                </x-select>
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
@@ -77,6 +85,8 @@
                                     <option value="P">Presenter</option>
                                     <option value="K">Kepala Kampus</option>
                                     <option value="A">Administrator</option>
+                                    <option value="E">Pendidikan</option>
+                                    <option value="C">C&P</option>
                                 </x-select>
                             </div>
                             <div class="relative z-0 w-full group">

@@ -78,7 +78,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'string', 'not_in:null'],
+            'gender' => ['required', 'string', 'not_in:Pilih gender'],
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'phone' => ['string', 'unique:users', 'max:15'],
             'role' => ['string', 'not_in:Pilih peran'],

@@ -22,7 +22,7 @@
                     <input type="hidden" name="name" value="{{ $user->name }}">
                     <input type="hidden" name="gender" value="{{ $user->gender || 1 }}">
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
-                        <div>
+                        <div> 
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
