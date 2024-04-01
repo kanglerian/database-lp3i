@@ -55,8 +55,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $exp_token = time() + 20;
-            $exp_refresh_token = time() + (24 * 60 * 60);
+            $exp_token = time() + (24 * 60 * 60);
 
             $data_token = [
                 'identity' => $user->identity,
@@ -72,14 +71,9 @@ class AuthController extends Controller
             $data_token['exp'] = $exp_token;
             $token = Auth::guard('api')->claims($data_token)->login($user);
 
-            $data_token['exp'] = $exp_refresh_token;
-            $refresh_token = Auth::guard('api')->claims($data_token)->login($user);
-
-
             return response()->json([
                 'access_token' => $token,
-                'message' => 'Berhasil masuk!',
-                'refresh' => $refresh_token,
+                'message' => 'Selamat datang ' . $user->name . ' di LP3I! 🇮🇩',
             ]);
         } else {
             return response()->json(['message' => 'Email atau Password salah!'], 401);
@@ -90,7 +84,7 @@ class AuthController extends Controller
     {
         Auth::guard('api')->logout();
         return response()->json([
-            'message' => 'User logout'
+            'message' => 'Terima kasih, sampai jumpa!'
         ]);
     }
 
