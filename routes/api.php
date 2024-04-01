@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Dashboard\SalesController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
+use App\Http\Controllers\API\Psikotest\AuthPsikotestController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\Report\RegisterByProgramController;
 use App\Http\Controllers\API\Report\RegisterBySchoolController;
@@ -23,7 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApplicantController;
 use App\Http\Controllers\API\ApplicantHistoryController;
-use App\Http\Controllers\API\AuthController;
+
 use App\Http\Controllers\API\Report\RegisterBySchoolYearController;
 use App\Http\Controllers\API\Report\ReportAplikanController;
 use App\Http\Controllers\API\Report\SourceDatabaseByPresenterController;
@@ -43,11 +44,11 @@ use App\Http\Controllers\API\UserController;
 */
 
 /* JWT */
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/profile', [AuthController::class, 'profile']);
+Route::group(['middleware' => 'api', 'prefix' => 'auth/psikotest'], function() {
+    Route::post('/register', [AuthPsikotestController::class, 'register']);
+    Route::post('/login', [AuthPsikotestController::class, 'login']);
+    Route::get('/logout', [AuthPsikotestController::class, 'logout']);
+    Route::get('/profile', [AuthPsikotestController::class, 'profile']);
 });
 
 Route::middleware('auth:api')->group(function() {

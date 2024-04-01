@@ -1,31 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Psikotest;
 
-use DateTime;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\ApplicantFamily;
 use App\Models\Applicant;
 use App\Models\School;
 use App\Models\User;
+use Validator;
+use DateTime;
 
-class RegisterController extends Controller
+class AuthPsikotestController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
 
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
@@ -34,19 +32,15 @@ class RegisterController extends Controller
                 'min:10',
                 'max:15',
             ],
-            'year' => ['required', 'min:4','max:4'],
             'password' => ['required', 'confirmed'],
         ], [
             'name.required' => 'Oopss, sepertinya Nama Lengkap lupa diisi ya!',
-            'nisn.required' => 'Hei, NISN harus diisi nih, jangan lupa!',
-            'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
             'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',
             'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
-            'year.required' => 'Jangan lupa isi tahun lulus, pasti penting!',
             'password.required' => 'Password jangan lupa diisi, ya!',
             'password.confirmed' => 'Ups, konfirmasi password tidak sesuai, cek lagi ya!',
         ]);
@@ -113,17 +107,14 @@ class RegisterController extends Controller
                         'status' => 1,
                     ];
                     $data_applicant = [
-                        'year' => $request->year,
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
-                        'schoolarship' => 1,
                     ];
                     $user = User::create($data_user);
                     $check_phone_applicant->update($data_applicant);
-                    $token = $user->createToken('auth_token')->plainTextToken;
                     if ($user) {
                         return response()->json([
-                            'token' => $token
+                            'message' => 'Wohoo! Akunmu telah terdaftar! Ayo mulai masuk 💻'
                         ], 201);
                     }
                 } else {
@@ -137,18 +128,15 @@ class RegisterController extends Controller
                         'status' => 1,
                     ];
                     $data_applicant = [
-                        'year' => $request->year,
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
-                        'schoolarship' => 1,
                         'phone' => $request->phone,
                     ];
                     $check_email_applicant->update($data_applicant);
                     $user = User::create($data_user);
-                    $token = $user->createToken('auth_token')->plainTextToken;
                     if ($user) {
                         return response()->json([
-                            'token' => $token,
+                            'message' => 'Wohoo! Akunmu telah terdaftar! Ayo mulai masuk 💻'
                         ], 201);
                     }
                 }
@@ -164,14 +152,11 @@ class RegisterController extends Controller
                         $data_applicant = [
                             'identity' => $check_phone_applicant->identity,
                             'name' => $check_phone_applicant->name,
-                            'nisn' => $request->nisn,
                             'school' => $school,
                             'email' => $request->email,
-                            'year' => $request->year,
                             'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
                             'followup_id' => $check_phone_applicant->followup_id ?? 1,
-                            'schoolarship' => 1,
-                            'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 10,
+                            'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 1,
                             'status_id' => 2,
                             'come' => 0,
                             'isread' => '0',
@@ -189,11 +174,10 @@ class RegisterController extends Controller
 
                         $check_phone_applicant->update($data_applicant);
                         $user = User::create($data_user);
-                        $token = $user->createToken('auth_token')->plainTextToken;
 
                         if ($user) {
                             return response()->json([
-                                'token' => $token
+                                'message' => 'Wohoo! Akunmu telah terdaftar! Ayo mulai masuk 💻'
                             ], 201);
                         }
                     } else {
@@ -202,16 +186,13 @@ class RegisterController extends Controller
                             'identity' => $numbers_unique,
                             'identity_user' => '6281313608558',
                             'name' => ucwords(strtolower($request->name)),
-                            'nisn' => $request->nisn,
                             'school' => $school,
-                            'year' => $request->year,
                             'email' => $request->email,
                             'phone' => $request->phone,
                             'programtype_id' => 1,
                             'followup_id' => 1,
-                            'schoolarship' => 1,
-                            'source_id' => 10,
-                            'source_daftar_id' => 10,
+                            'source_id' => 1,
+                            'source_daftar_id' => 1,
                             'status_id' => 2,
                             'come' => 0,
                             'isread' => '0',
@@ -239,15 +220,66 @@ class RegisterController extends Controller
                         Applicant::create($data_applicant);
                         ApplicantFamily::create($data_father);
                         ApplicantFamily::create($data_mother);
-                        $token = $user->createToken('auth_token')->plainTextToken;
                         if ($user) {
                             return response()->json([
-                                'token' => $token
+                                'message' => 'Wohoo! Akunmu telah terdaftar! Ayo mulai masuk 💻'
                             ], 201);
                         }
                     }
                 }
             }
         }
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $exp_token = time() + (24 * 60 * 60);
+
+            $data_token = [
+                'identity' => $user->identity,
+                'avatar' => $user->avatar,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'gender' => $user->gender,
+                'role' => $user->role,
+                'status' => $user->status,
+            ];
+
+            $data_token['exp'] = $exp_token;
+            $token = Auth::guard('api')->claims($data_token)->login($user);
+
+            return response()->json([
+                'access_token' => $token,
+                'message' => 'Selamat datang ' . $user->name . ' di LP3I! 🇮🇩',
+            ]);
+        } else {
+            return response()->json(['message' => 'Email atau Password salah!'], 401);
+        }
+    }
+
+    public function logout()
+    {
+        Auth::guard('api')->logout();
+        return response()->json([
+            'message' => 'Terima kasih, sampai jumpa!'
+        ]);
+    }
+
+    public function profile()
+    {
+        $user = Auth::guard('api')->user();
+        $applicant = Applicant::where('identity', $user->identity)->first();
+        return response()->json([
+            'user' => $user,
+            'applicant' => $applicant,
+        ]);
     }
 }
