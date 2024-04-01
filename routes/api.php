@@ -51,10 +51,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth/psikotest'], function() {
     Route::get('/profile', [AuthPsikotestController::class, 'profile']);
 });
 
-Route::middleware('auth:api')->group(function() {
-    Route::get('/coba', [CobaController::class, 'profile']);
-});
-
 /* Route SBPMB */
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'get_user']);
