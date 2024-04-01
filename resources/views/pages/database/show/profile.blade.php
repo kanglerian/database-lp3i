@@ -758,7 +758,7 @@
 
         try {
             const database = axios.get(`/api/database/${identityVal}`);
-            const programs = axios.get(`https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs`);
+            const programs = axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/program`);
             const misilAuth = axios.post(
                 `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
                     namaUser: "integrasi",
@@ -768,7 +768,7 @@
                 .then(axios.spread((database, programs, misilAuth) => {
                     let token = misilAuth.data.messages['X-AUTH-TOKEN']
                     let program_studi = database.data.user.program;
-                    let program = programs.data.find((result) =>
+                    let program = programs.data.programs.find((result) =>
                         `${result.level} ${result.title}` == program_studi)
 
                     // Aplikan Datang
