@@ -753,7 +753,8 @@
                 console.log(error.message);
             });
     }
-    const getTokenMisil = async () => {
+
+    const getTokenMisil = () => {
         let identityVal = document.getElementById('identity_user').innerText;
 
         try {
