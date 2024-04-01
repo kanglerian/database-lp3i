@@ -20,9 +20,9 @@ class UserSeeder extends Seeder
             [
                 'identity' => 6281313608558,
                 'name' => 'Administrator',
+                'sheet' => null,
                 'email' => 'lp3itasik@gmail.com',
                 'password' => Hash::make('mimin311'),
-                'sheet' => null,
                 'phone' => '6281313608558',
                 'role' => 'A',
                 'status' => 1,

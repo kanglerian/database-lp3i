@@ -3187,10 +3187,6 @@ select {
     margin-bottom: 0px;
   }
 
-  .lg\:mb-4 {
-    margin-bottom: 1rem;
-  }
-
   .lg\:flex {
     display: flex;
   }
