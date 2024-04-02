@@ -926,10 +926,8 @@
                 return alert('Kode presenter harus kurang dari 5 karakter!')
             }
 
-            if ((data.gelombang).length == 1) {
-                console.log(data.gelombang);
-                console.log((data.gelombang).length);
-                return alert('Gelombang harus 1 karakter!')
+            if ((data.gelombang).length > 1) {
+                return alert('Data gelombang harus 1 karakter!')
             }
             if ((data.tahun_akademik).length > 9) {
                 return alert('Tahun akademik harus kurang dari 9 karakter!')
