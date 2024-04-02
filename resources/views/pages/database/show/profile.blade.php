@@ -927,6 +927,7 @@
             }
 
             if ((data.gelombang).length == 1) {
+                console.log(data.gelombang);
                 return alert('Gelombang harus 1 karakter!')
             }
             if ((data.tahun_akademik).length > 9) {
