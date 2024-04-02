@@ -397,9 +397,23 @@
                                     $user->phone)
                                 @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
                                     <hr class="my-2">
-                                    <button type="button" onclick="alert('Sementara tidak berfungsi')"
-                                        class="text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl"><i
-                                            class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</button>
+                                    <button type="button" id="button-misil" onclick="getTokenMisil()"
+                                        class="flex justify-center items-center gap-2 cursor-pointer text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl">
+                                        <span><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</span>
+                                        <span class="hidden" id="loading-misil">
+                                            <svg aria-hidden="true"
+                                                class="w-4 h-4 text-gray-200 animate-spin fill-sky-300"
+                                                viewBox="0 0 100 101" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                                    fill="currentColor" />
+                                                <path
+                                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                                    fill="currentFill" />
+                                            </svg>
+                                        </span>
+                                    </button>
                                     @if ($integration_misil)
                                         <p class="text-xs text-center text-gray-500">Aplikan sudah
                                             terintegrasi.<br />Jika
@@ -756,7 +770,8 @@
 
     const getTokenMisil = async () => {
         let identityVal = document.getElementById('identity_user').innerText;
-
+        let loadingMisil = document.getElementById('loading-misil');
+        loadingMisil.classList.toggle('hidden');
         try {
             const [database, programs] = await Promise.all([
                 axios.get(`/api/database/${identityVal}`),
@@ -807,9 +822,117 @@
                 kode_siswa: "-"
             };
 
+            if (!(data.nik).length == 16) {
+                return alert('NIK kurang dari 16!');
+            }
+
+            if ((data.nama_lengkap).length > 50) {
+                return alert('Nama lengkap harus kurang dari 50 karakter!')
+            }
+
+            if ((data.tempat_lahir).length > 50) {
+                return alert('Tempat lahir harus kurang dari 50 karakter!')
+            }
+
+            if ((data.dusun).length > 100) {
+                return alert('Dusun harus kurang dari 100 karakter!')
+            }
+
+            if ((data.rtrw).length > 10) {
+                return alert('RT/RW harus kurang dari 10 karakter!')
+            }
+
+            if ((data.kelurahan).length > 30) {
+                return alert('Kelurahan harus kurang dari 30 karakter!')
+            }
+
+            if ((data.kecamatan).length > 30) {
+                return alert('Kecamatan harus kurang dari 30 karakter!')
+            }
+
+            if ((data.kota).length > 30) {
+                return alert('Kota harus kurang dari 30 karakter!')
+            }
+
+            if ((data.kode_pos).length > 7) {
+                return alert('Kode Pos harus kurang dari 7 karakter!')
+            }
+
+            if ((data.no_hp).length > 14) {
+                return alert('No Telpon harus kurang dari 14 karakter!')
+            }
+
+            if ((data.whatsapp).length > 14) {
+                return alert('No Whatsapp harus kurang dari 14 karakter!')
+            }
+
+            if (!data.pendidikan_terakhir) {
+                return alert('Sekolah tidak terdaftar, silahkan edit di bagian Administrator.')
+            } else if ((data.pendidikan_terakhir).length > 10) {
+                return alert('Pendidikan terakhir harus kurang dari 10 karakter!')
+            }
+
+            if ((data.asal_sekolah).length > 100) {
+                return alert('Asal sekolah harus kurang dari 100 karakter!')
+            }
+
+            if ((data.jurusan_sekolah).length > 100) {
+                return alert('Jurusan sekolah harus kurang dari 100 karakter!')
+            }
+
+            if ((data.tahun_lulus).length > 4) {
+                return alert('Tahun lulus harus kurang dari 4 karakter!')
+            }
+
+            if ((data.email).length > 50) {
+                return alert('Email harus kurang dari 50 karakter!')
+            }
+
+            if ((data.nama_ortu).length > 50) {
+                return alert('Nama orang tua harus kurang dari 50 karakter!')
+            }
+
+            if ((data.pekerjaan_ortu).length > 50) {
+                return alert('Pekerjaan orang tua harus kurang dari 50 karakter!')
+            }
+
+            if ((data.penghasilan_ortu).length > 50) {
+                return alert('Penghasilan orang tua harus kurang dari 50 karakter!')
+            }
+
+            if ((data.nohp_ortu).length > 100) {
+                return alert('Nomor telpon orang tua harus kurang dari 100 karakter!')
+            }
+
+            if ((data.kode_jurusan).length > 9) {
+                return alert('Kode jurusan harus kurang dari 9 karakter!')
+            }
+
+            if ((data.sumber_informasi).length > 30) {
+                return alert('Sumber informasi harus kurang dari 30 karakter!')
+            }
+
+            if ((data.sumber_aplikan).length > 30) {
+                return alert('Sumber aplikan harus kurang dari 30 karakter!')
+            }
+
+            if ((data.kode_presenter).length > 5) {
+                return alert('Kode presenter harus kurang dari 5 karakter!')
+            }
+
+            if ((data.gelombang).length == 1) {
+                return alert('Gelombang harus 1 karakter!')
+            }
+            if ((data.tahun_akademik).length > 9) {
+                return alert('Tahun akademik harus kurang dari 9 karakter!')
+            }
+
             saveAplikan(data, identityVal);
+            loadingMisil.classList.toggle('hidden');
         } catch (error) {
             console.log(error);
+            alert('Ada masalah di Server, silahkan hubungi Administrator!');
+            document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
         }
     }
 </script>

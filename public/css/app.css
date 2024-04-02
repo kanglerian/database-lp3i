@@ -1170,10 +1170,6 @@ select {
   height: 1px;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .max-h-full {
   max-height: 100%;
 }
@@ -1377,10 +1373,6 @@ select {
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.flex-row {
-  flex-direction: row;
 }
 
 .flex-col {
@@ -1845,32 +1837,20 @@ select {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 
-.bg-opacity-10 {
-  --tw-bg-opacity: 0.1;
-}
-
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
 }
 
-.bg-\[url\(\'\/img\/pattern\.svg\'\)\] {
-  background-image: url('/img/pattern.svg');
-}
-
-.bg-cover {
-  background-size: cover;
-}
-
-.bg-center {
-  background-position: center;
-}
-
-.bg-no-repeat {
-  background-repeat: no-repeat;
-}
-
 .fill-blue-600 {
   fill: #2563eb;
+}
+
+.fill-sky-600 {
+  fill: #0284c7;
+}
+
+.fill-sky-300 {
+  fill: #7dd3fc;
 }
 
 .p-1 {
@@ -1992,11 +1972,6 @@ select {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .pb-1 {
@@ -2899,39 +2874,14 @@ select {
 }
 
 @media (prefers-color-scheme: dark) {
-  .dark\:border-gray-600 {
-    --tw-border-opacity: 1;
-    border-color: rgb(75 85 99 / var(--tw-border-opacity));
-  }
-
-  .dark\:bg-gray-700 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-  }
-
-  .dark\:bg-gray-800 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-  }
-
   .dark\:bg-gray-900 {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
   }
 
-  .dark\:text-gray-400 {
-    --tw-text-opacity: 1;
-    color: rgb(156 163 175 / var(--tw-text-opacity));
-  }
-
   .dark\:text-gray-600 {
     --tw-text-opacity: 1;
     color: rgb(75 85 99 / var(--tw-text-opacity));
-  }
-
-  .dark\:text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 }
 
@@ -3140,10 +3090,6 @@ select {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
-  }
-
-  .md\:overflow-x-auto {
-    overflow-x: auto;
   }
 
   .md\:rounded-3xl {
