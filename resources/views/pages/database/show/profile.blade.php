@@ -399,8 +399,10 @@
                                     <hr class="my-2">
                                     <button type="button" id="button-misil" onclick="getTokenMisil()"
                                         class="flex justify-center items-center gap-2 cursor-pointer text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl">
-                                        <span><i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL</span>
-                                        <span class="hidden" id="loading-misil">
+                                        <span>
+                                            <i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL
+                                        </span>
+                                        <span id="loading-misil" class="hidden">
                                             <svg aria-hidden="true"
                                                 class="w-4 h-4 text-gray-200 animate-spin fill-sky-300"
                                                 viewBox="0 0 100 101" fill="none"
@@ -424,10 +426,12 @@
                             @else
                                 @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
                                     <hr class="my-2">
-                                    <button onclick="modalCheck()"
-                                        class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg"><i
-                                            class="fa-solid fa-circle-nodes"></i> Periksa Kelengkapan
-                                        Integrasi</button>
+                                    <button type="button" onclick="modalCheck()"
+                                        class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg">
+                                        <span>
+                                            <i class="fa-solid fa-circle-nodes"></i> Periksa Kelengkapan Integrasi
+                                        </span>
+                                    </button>
                                     <p class="text-xs text-center text-gray-500">Fitur ini belum dapat dilakukan karena
                                         biodata belum lengkap. <a href="{{ route('database.edit', $user->id) }}"
                                             class="underline">Ubah sekarang</a></p>
@@ -916,7 +920,9 @@
                 return alert('Sumber aplikan harus kurang dari 30 karakter!')
             }
 
-            if ((data.kode_presenter).length > 5) {
+            if (!data.kode_presenter) {
+                return alert('Kode presenter kosong!')
+            } else if((data.kode_presenter).length > 5){
                 return alert('Kode presenter harus kurang dari 5 karakter!')
             }
 
@@ -928,6 +934,7 @@
             }
 
             saveAplikan(data, identityVal);
+
             loadingMisil.classList.toggle('hidden');
         } catch (error) {
             console.log(error);
