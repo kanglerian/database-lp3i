@@ -752,7 +752,9 @@
             'X-User': 'integrasi',
             'Content-Type': 'application/json',
         };
+
         let bucket = [data, headers];
+        console.log(token);
         await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
             .then(async (response) => {
                 alert(response.data.message);
@@ -761,7 +763,7 @@
                         platform: 'misil',
                     })
                     .then((response) => {
-                        location.reload();
+                        // location.reload();
                     })
                     .catch((error) => {
                         console.log(error.message);
@@ -777,165 +779,192 @@
         let loadingMisil = document.getElementById('loading-misil');
         loadingMisil.classList.toggle('hidden');
         try {
-            const [database, programs] = await Promise.all([
-                axios.get(`/api/database/${identityVal}`),
-                axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/program`)
-            ]);
+            const database = axios.get(`/api/database/${identityVal}`);
+            const programs = axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/program`);
+            const misilAuth = axios.post(
+                `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
+                    namaUser: "integrasi",
+                    kataSandi: "IntegrasiMisil311"
+                });
+            await axios.all([database, programs, misilAuth])
+                .then(axios.spread((database, programs, misilAuth) => {
+                    let token = misilAuth.data.messages['X-AUTH-TOKEN'];
+                    let program_studi = database.data.user.program;
+                    let program = programs.data.programs.find((result) =>
+                        `${result.level} ${result.title}` == program_studi)
 
-            let program_studi = database.data.user.program;
-            let program = programs.data.programs.find((result) =>
-                `${result.level} ${result.title}` == program_studi)
+                    const addressParts = database.data.user.address.split(', ');
+                    const addressRtRw = addressParts[1].split(' ');
 
-            const addressParts = database.data.user.address.split(', ');
-            const addressRtRw = addressParts[1].split(' ');
+                    const data = {
+                        // Aplikan datang
+                        method: 'simpan',
+                        nik: database.data.user.nik,
+                        tahun_akademik: `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`,
+                        nama_lengkap: database.data.user.name,
+                        tempat_lahir: database.data.user.place_of_birth,
+                        tgl_lahir: database.data.user.date_of_birth,
+                        jenis_kelamin: database.data.user.gender == 1 ? 'L' : 'P',
+                        no_hp: database.data.user.phone,
+                        dusun: addressParts[0],
+                        rtrw: `${addressRtRw[1]}/${addressRtRw[3]}`,
+                        kelurahan: addressParts[2].replace('Desa/Kelurahan ', ''),
+                        kecamatan: addressParts[3].replace('Kecamatan ', ''),
+                        kota: addressParts[4].replace('Kota/Kabupaten ', ''),
+                        kode_pos: addressParts[6].replace('Kode Pos ', ''),
+                        whatsapp: database.data.user.phone,
+                        facebook: '-',
+                        instagram: '-',
+                        pendidikan_terakhir: database.data.user.school_applicant.type,
+                        asal_sekolah: database.data.user.school_applicant.name,
+                        jurusan_sekolah: database.data.user.major,
+                        tahun_lulus: database.data.user.year,
+                        email: database.data.user.email,
+                        nama_ortu: database.data.user.father.name || database.data.user.mother.name,
+                        pekerjaan_ortu: database.data.user.father.job || database.data.user.mother
+                            .job,
+                        penghasilan_ortu: database.data.user.income_parent,
+                        nohp_ortu: database.data.user.father.phone || database.data.user.mother
+                            .phone,
+                        kode_jurusan: program.code,
+                        sumber_informasi: database.data.user.source_daftar_setting.name,
+                        sumber_aplikan: database.data.user.source_setting.name,
+                        kode_presenter: database.data.user.presenter.code,
+                        gelombang: database.data.registration.session,
+                        tgl_datang: database.data.registration.date,
+                        kode_siswa: "-",
+                        // Aplikan Daftar
+                        isnew: true,
+                        kode_aplikan: null,
+                        tgl_daftar: database.data.enrollment.date,
+                        gelombang_daftar: database.data.registration.session,
+                        nomor_bukti: database.data.enrollment.receipt,
+                        biaya_pendaftaran: database.data.enrollment.nominal,
+                        diskon: 0,
+                        sumber_daftar: database.data.user.source_daftar_setting.name,
+                        keterangan: database.data.enrollment.register,
+                        ket_daftar: database.data.enrollment.register_end,
+                    };
 
-            const data = {
-                // Aplikan datang
-                method: 'simpan',
-                nik: database.data.user.nik,
-                tahun_akademik: `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`,
-                nama_lengkap: database.data.user.name,
-                tempat_lahir: database.data.user.place_of_birth,
-                tgl_lahir: database.data.user.date_of_birth,
-                jenis_kelamin: database.data.user.gender == 1 ? 'L' : 'P',
-                no_hp: database.data.user.phone,
-                dusun: addressParts[0],
-                rtrw: `${addressRtRw[1]}/${addressRtRw[3]}`,
-                kelurahan: addressParts[2].replace('Desa/Kelurahan ', ''),
-                kecamatan: addressParts[3].replace('Kecamatan ', ''),
-                kota: addressParts[4].replace('Kota/Kabupaten ', ''),
-                kode_pos: addressParts[6].replace('Kode Pos ', ''),
-                whatsapp: database.data.user.phone,
-                facebook: '-',
-                instagram: '-',
-                pendidikan_terakhir: database.data.user.school_applicant.type,
-                asal_sekolah: database.data.user.school_applicant.name,
-                jurusan_sekolah: database.data.user.major,
-                tahun_lulus: database.data.user.year,
-                email: database.data.user.email,
-                nama_ortu: database.data.user.father.name || database.data.user.mother.name,
-                pekerjaan_ortu: database.data.user.father.job || database.data.user.mother.job,
-                penghasilan_ortu: database.data.user.income_parent,
-                nohp_ortu: database.data.user.father.phone || database.data.user.mother.phone,
-                kode_jurusan: program.code,
-                sumber_informasi: database.data.user.source_daftar_setting.name,
-                sumber_aplikan: database.data.user.source_setting.name,
-                kode_presenter: database.data.user.presenter.code,
-                gelombang: database.data.registration.session,
-                tgl_datang: database.data.registration.date,
-                kode_siswa: "-"
-            };
+                    if (!(data.nik).length == 16) {
+                        return alert('NIK kurang dari 16!');
+                    }
 
-            if (!(data.nik).length == 16) {
-                return alert('NIK kurang dari 16!');
-            }
+                    if ((data.nama_lengkap).length > 50) {
+                        return alert('Nama lengkap harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.nama_lengkap).length > 50) {
-                return alert('Nama lengkap harus kurang dari 50 karakter!')
-            }
+                    if ((data.tempat_lahir).length > 50) {
+                        return alert('Tempat lahir harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.tempat_lahir).length > 50) {
-                return alert('Tempat lahir harus kurang dari 50 karakter!')
-            }
+                    if ((data.dusun).length > 100) {
+                        return alert('Dusun harus kurang dari 100 karakter!')
+                    }
 
-            if ((data.dusun).length > 100) {
-                return alert('Dusun harus kurang dari 100 karakter!')
-            }
+                    if ((data.rtrw).length > 10) {
+                        return alert('RT/RW harus kurang dari 10 karakter!')
+                    }
 
-            if ((data.rtrw).length > 10) {
-                return alert('RT/RW harus kurang dari 10 karakter!')
-            }
+                    if ((data.kelurahan).length > 30) {
+                        return alert('Kelurahan harus kurang dari 30 karakter!')
+                    }
 
-            if ((data.kelurahan).length > 30) {
-                return alert('Kelurahan harus kurang dari 30 karakter!')
-            }
+                    if ((data.kecamatan).length > 30) {
+                        return alert('Kecamatan harus kurang dari 30 karakter!')
+                    }
 
-            if ((data.kecamatan).length > 30) {
-                return alert('Kecamatan harus kurang dari 30 karakter!')
-            }
+                    if ((data.kota).length > 30) {
+                        return alert('Kota harus kurang dari 30 karakter!')
+                    }
 
-            if ((data.kota).length > 30) {
-                return alert('Kota harus kurang dari 30 karakter!')
-            }
+                    if ((data.kode_pos).length > 7) {
+                        return alert('Kode Pos harus kurang dari 7 karakter!')
+                    }
 
-            if ((data.kode_pos).length > 7) {
-                return alert('Kode Pos harus kurang dari 7 karakter!')
-            }
+                    if ((data.no_hp).length > 14) {
+                        return alert('No Telpon harus kurang dari 14 karakter!')
+                    }
 
-            if ((data.no_hp).length > 14) {
-                return alert('No Telpon harus kurang dari 14 karakter!')
-            }
+                    if ((data.whatsapp).length > 14) {
+                        return alert('No Whatsapp harus kurang dari 14 karakter!')
+                    }
 
-            if ((data.whatsapp).length > 14) {
-                return alert('No Whatsapp harus kurang dari 14 karakter!')
-            }
+                    if (!data.pendidikan_terakhir) {
+                        return alert('Sekolah tidak terdaftar, silahkan edit di bagian Administrator.')
+                    } else if ((data.pendidikan_terakhir).length > 10) {
+                        return alert('Pendidikan terakhir harus kurang dari 10 karakter!')
+                    }
 
-            if (!data.pendidikan_terakhir) {
-                return alert('Sekolah tidak terdaftar, silahkan edit di bagian Administrator.')
-            } else if ((data.pendidikan_terakhir).length > 10) {
-                return alert('Pendidikan terakhir harus kurang dari 10 karakter!')
-            }
+                    if ((data.asal_sekolah).length > 100) {
+                        return alert('Asal sekolah harus kurang dari 100 karakter!')
+                    }
 
-            if ((data.asal_sekolah).length > 100) {
-                return alert('Asal sekolah harus kurang dari 100 karakter!')
-            }
+                    if ((data.jurusan_sekolah).length > 100) {
+                        return alert('Jurusan sekolah harus kurang dari 100 karakter!')
+                    }
 
-            if ((data.jurusan_sekolah).length > 100) {
-                return alert('Jurusan sekolah harus kurang dari 100 karakter!')
-            }
+                    if ((data.tahun_lulus).length > 4) {
+                        return alert('Tahun lulus harus kurang dari 4 karakter!')
+                    }
 
-            if ((data.tahun_lulus).length > 4) {
-                return alert('Tahun lulus harus kurang dari 4 karakter!')
-            }
+                    if ((data.email).length > 50) {
+                        return alert('Email harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.email).length > 50) {
-                return alert('Email harus kurang dari 50 karakter!')
-            }
+                    if ((data.nama_ortu).length > 50) {
+                        return alert('Nama orang tua harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.nama_ortu).length > 50) {
-                return alert('Nama orang tua harus kurang dari 50 karakter!')
-            }
+                    if ((data.pekerjaan_ortu).length > 50) {
+                        return alert('Pekerjaan orang tua harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.pekerjaan_ortu).length > 50) {
-                return alert('Pekerjaan orang tua harus kurang dari 50 karakter!')
-            }
+                    if ((data.penghasilan_ortu).length > 50) {
+                        return alert('Penghasilan orang tua harus kurang dari 50 karakter!')
+                    }
 
-            if ((data.penghasilan_ortu).length > 50) {
-                return alert('Penghasilan orang tua harus kurang dari 50 karakter!')
-            }
+                    if ((data.nohp_ortu).length > 100) {
+                        return alert('Nomor telpon orang tua harus kurang dari 100 karakter!')
+                    }
 
-            if ((data.nohp_ortu).length > 100) {
-                return alert('Nomor telpon orang tua harus kurang dari 100 karakter!')
-            }
+                    if ((data.kode_jurusan).length > 9) {
+                        return alert('Kode jurusan harus kurang dari 9 karakter!')
+                    }
 
-            if ((data.kode_jurusan).length > 9) {
-                return alert('Kode jurusan harus kurang dari 9 karakter!')
-            }
+                    if ((data.sumber_informasi).length > 30) {
+                        return alert('Sumber informasi harus kurang dari 30 karakter!')
+                    }
 
-            if ((data.sumber_informasi).length > 30) {
-                return alert('Sumber informasi harus kurang dari 30 karakter!')
-            }
+                    if ((data.sumber_aplikan).length > 30) {
+                        return alert('Sumber aplikan harus kurang dari 30 karakter!')
+                    }
 
-            if ((data.sumber_aplikan).length > 30) {
-                return alert('Sumber aplikan harus kurang dari 30 karakter!')
-            }
+                    if (!data.kode_presenter) {
+                        return alert('Kode presenter kosong!')
+                    } else if ((data.kode_presenter).length > 5) {
+                        return alert('Kode presenter harus kurang dari 5 karakter!')
+                    }
 
-            if (!data.kode_presenter) {
-                return alert('Kode presenter kosong!')
-            } else if((data.kode_presenter).length > 5){
-                return alert('Kode presenter harus kurang dari 5 karakter!')
-            }
+                    if ((data.gelombang).length > 1) {
+                        return alert('Data gelombang harus 1 karakter!')
+                    }
 
-            if ((data.gelombang).length > 1) {
-                return alert('Data gelombang harus 1 karakter!')
-            }
-            if ((data.tahun_akademik).length > 9) {
-                return alert('Tahun akademik harus kurang dari 9 karakter!')
-            }
+                    if ((data.tahun_akademik).length > 9) {
+                        return alert('Tahun akademik harus kurang dari 9 karakter!')
+                    }
 
-            saveAplikan(data, identityVal);
+                    saveAplikan(data, token, identityVal);
+                    // console.log(data.tgl_lahir);
 
-            loadingMisil.classList.toggle('hidden');
+                    loadingMisil.classList.toggle('hidden');
+                }))
+                .catch((error) => {
+                    console.log(error);
+                    alert('Ada masalah di Server, silahkan hubungi Administrator!');
+                    document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
+                });
+
         } catch (error) {
             console.log(error);
             alert('Ada masalah di Server, silahkan hubungi Administrator!');
