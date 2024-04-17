@@ -3,7 +3,11 @@
         <div
             class="flex flex-col md:flex-row justify-center md:justify-between items-center space-y-2 md:space-y-0 h-10">
             @if (!$account)
-                <h2 class="font-bold text-xl text-gray-800 leading-tight">Registrasi Pembayaran</h2>
+                @if (Auth::user()->role == 'S')
+                    <h2 class="font-bold text-xl text-gray-800 leading-tight">Registrasi Pembayaran</h2>
+                @else
+                    <h2 class="font-bold text-xl text-gray-800 leading-tight">Dashboard</h2>
+                @endif
             @else
                 <h2 class="text-sm">Halo, <span class="font-medium">{{ Auth::user()->name }}</span> 👋</h2>
             @endif
