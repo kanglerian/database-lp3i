@@ -142,8 +142,8 @@
                     let totalRealizationVolume = 0;
 
                     databases.forEach(database => {
-                        totalTargetDatabase += database.total;
-                        totalRealizationDatabase += database.realization;
+                        totalTargetDatabase += parseInt(database.total);
+                        totalRealizationDatabase += parseInt(database.realization);
                     });
 
                     sales.forEach(sales => {
