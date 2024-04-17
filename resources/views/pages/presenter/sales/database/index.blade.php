@@ -64,7 +64,7 @@
                         </div>
                         <div class="bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
-                            <p class="text-white text-sm">Registrasi</p>
+                            <p class="text-white text-sm">Database</p>
                         </div>
                         <div id="container-animate" class="relative bg-red-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
@@ -115,7 +115,6 @@
         await axios.get(urlData)
         .then((res) => {
             let dataTargets = res.data.targets;
-            console.log(res.data.applicants);
             let targets = 0;
             dataTargets.forEach(data => {
                 targets += parseInt(data.total);
