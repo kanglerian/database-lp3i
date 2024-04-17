@@ -141,7 +141,6 @@
                     let totalTargetVolume = 0;
                     let totalRealizationVolume = 0;
 
-                    console.log(databases);
                     databases.forEach(database => {
                         totalTargetDatabase += parseInt(database.total);
                         totalRealizationDatabase += parseInt(database.realization);

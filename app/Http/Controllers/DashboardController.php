@@ -9,6 +9,7 @@ use App\Models\ProgramType;
 use App\Models\Report\RegisterBySchool;
 use App\Models\Report\RegisterBySchoolYear;
 use App\Models\Report\RegisterBySource;
+use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -37,6 +38,16 @@ class DashboardController extends Controller
         $sourcesIdQuery = ApplicantBySourceId::query();
         $sourcesIdEnrollmentQuery = ApplicantBySourceDaftarId::query();
 
+        $account = false;
+        $applicant = false;
+
+        if(Auth::user()->role == 'S'){
+            $register = StatusApplicantsRegistration::where('identity_user', Auth::user()->identity)->first();
+            $applicant = Applicant::where('identity', Auth::user()->identity)->first();
+            if($register) {
+                $account = true;
+            }
+        }
 
         $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
             ->orWhereNull('name')
@@ -85,7 +96,10 @@ class DashboardController extends Controller
             'databasesAdminstratorCount' => $databasesAdminstratorCount,
             'databasesAdministrator' => $databasesAdministrator,
             // School
-            'slepets' => $slepets
+            'slepets' => $slepets,
+            // Account
+            'account' => $account,
+            'applicant' => $applicant
         ]);
     }
     /**
