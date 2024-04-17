@@ -115,6 +115,7 @@
         await axios.get(urlData)
         .then((res) => {
             let dataTargets = res.data.targets;
+            console.log(res.data.applicants);
             let targets = 0;
             dataTargets.forEach(data => {
                 targets += parseInt(data.total);
