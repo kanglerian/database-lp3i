@@ -97,13 +97,13 @@
                     </thead>
                     <tbody>
                         <tr class="bg-white">
-                            <td class="px-6 py-4 rounded-bl-2xl">
+                            <td class="px-6 py-4 rounded-bl-2xl" id="target_database">
                                 0
                             </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap" id="realization_database">
                                 0
                             </td>
-                            <td class="px-6 py-4 rounded-br-2xl">
+                            <td class="px-6 py-4 rounded-br-2xl" id="percent_database">
                                 0%
                             </td>
                         </tr>
@@ -123,14 +123,17 @@
             let pmbVal = document.getElementById('change_pmb').value || 'all';
             let roleVal = document.getElementById('role_val').value || 'all';
             urlSales = `/api/dashboard/sales?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`
-            console.log(urlSales);
             getDataSales();
         }
 
         const getDataSales = async () => {
             await axios.get(urlSales)
                 .then((response) => {
+                    let sales = response.data.sales;
                     let databases = response.data.databases;
+
+                    let totalTargetDatabase = 0;
+                    let totalRealizationDatabase = 0;
 
                     let totalTargetRevenue = 0;
                     let totalRealizationRevenue = 0;
@@ -139,10 +142,15 @@
                     let totalRealizationVolume = 0;
 
                     databases.forEach(database => {
-                        totalTargetRevenue += parseInt(database.target_revenue);
-                        totalRealizationRevenue += parseInt(database.realization_revenue);
-                        totalTargetVolume += parseInt(database.target_volume);
-                        totalRealizationVolume += parseInt(database.realization_volume);
+                        totalTargetDatabase += database.total;
+                        totalRealizationDatabase += database.realization;
+                    });
+
+                    sales.forEach(sales => {
+                        totalTargetRevenue += parseInt(sales.target_revenue);
+                        totalRealizationRevenue += parseInt(sales.realization_revenue);
+                        totalTargetVolume += parseInt(sales.target_volume);
+                        totalRealizationVolume += parseInt(sales.realization_volume);
                     });
 
                     document.getElementById('target_revenue').innerText =
@@ -152,11 +160,15 @@
                     document.getElementById('percent_revenue').innerText =
                         `${(totalRealizationRevenue / totalTargetRevenue * 100).toFixed()}%`;
 
-
                     document.getElementById('target_volume').innerText = totalTargetVolume;
                     document.getElementById('realization_volume').innerText = totalRealizationVolume;
                     document.getElementById('percent_volume').innerText =
                         `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
+
+                    document.getElementById('target_database').innerText = totalTargetDatabase;
+                    document.getElementById('realization_database').innerText = totalRealizationDatabase;
+                    document.getElementById('percent_database').innerText =
+                        `${(totalRealizationDatabase / totalTargetDatabase * 100).toFixed()}%`;
                 })
                 .catch((error) => {
                     console.log(error);

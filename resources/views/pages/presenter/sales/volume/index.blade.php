@@ -77,14 +77,9 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="relative bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
+                        <div class="bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
                             <p class="text-white text-sm">Registrasi</p>
-                            <div class="absolute top-2 right-4">
-                                <a href="{{ route('database.index') }}" class="text-white hover:text-emerald-100">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                </a>
-                            </div>
                         </div>
                         <div id="container-animate" class="relative bg-red-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>

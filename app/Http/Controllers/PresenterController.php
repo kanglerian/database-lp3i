@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\StatusApplicantsRegistration;
+use App\Models\TargetDatabase;
 use App\Models\TargetRevenue;
 use App\Models\TargetVolume;
 use Illuminate\Http\Request;
@@ -246,11 +247,23 @@ class PresenterController extends Controller
             'targets' => $targets
         ]);
     }
+
     public function sales_revenue($id)
     {
         $presenter = User::findOrFail($id);
         $targets = TargetRevenue::where(['identity_user' => $presenter->identity])->get();
         return view('pages.presenter.sales.revenue.index')->with([
+            'presenter' => $presenter,
+            'targets' => $targets
+        ]);
+    }
+
+
+    public function sales_database($id)
+    {
+        $presenter = User::findOrFail($id);
+        $targets = TargetDatabase::where(['identity_user' => $presenter->identity])->get();
+        return view('pages.presenter.sales.database.index')->with([
             'presenter' => $presenter,
             'targets' => $targets
         ]);

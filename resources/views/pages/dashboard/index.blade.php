@@ -224,7 +224,9 @@
             @include('pages.dashboard.utilities.all')
             @include('pages.dashboard.utilities.pmb')
 
-            @include('pages.dashboard.dashboard.dashboard-sales')
+            @if (Auth::user()->role != 'P')
+                @include('pages.dashboard.dashboard.dashboard-sales')
+            @endif
 
             @include('pages.dashboard.target.target')
             @include('pages.dashboard.search.search')

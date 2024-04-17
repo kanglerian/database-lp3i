@@ -6,6 +6,7 @@ use App\Http\Controllers\Question\HomeController;
 use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
 use App\Http\Controllers\Target\TargetController;
+use App\Http\Controllers\Target\TargetDatabaseController;
 use App\Http\Controllers\Target\TargetRevenueController;
 use App\Http\Controllers\Target\TargetVolumeController;
 use Illuminate\Support\Facades\Route;
@@ -123,6 +124,7 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password');
     Route::get('presenter/sales/volume/{id}', [PresenterController::class, 'sales_volume'])->name('presenter.sales_volume');
     Route::get('presenter/sales/revenue/{id}', [PresenterController::class, 'sales_revenue'])->name('presenter.sales_revenue');
+    Route::get('presenter/sales/database/{id}', [PresenterController::class, 'sales_database'])->name('presenter.sales_database');
 });
 
 /* Route Profile */
@@ -159,6 +161,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('targetrevenue', TargetRevenueController::class);
     Route::resource('targetvolume', TargetVolumeController::class);
+    Route::resource('targetdatabase', TargetDatabaseController::class);
     Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenter.target');
 });
 

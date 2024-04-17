@@ -40,7 +40,7 @@
                     <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, consequuntur?</p>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
-                <a href="{{ route('presenter.sales_revenue', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
+                <a href="{{ route('presenter.sales_database', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
                     <h2 class="font-bold space-x-1">
                         <i class="fa-solid fa-database"></i>
                         <span>Target Database</span>

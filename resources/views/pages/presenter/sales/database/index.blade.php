@@ -20,7 +20,7 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Sales Revenue</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Target Database</span>
                         </div>
                     </li>
                 </ol>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             @endif
-            <div class="grid grid-cols-1 gap-5 px-2 py-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 px-2 py-2">
                 <div class="order-2 md:order-none flex justify-between items-center gap-3">
                     <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                         <input type="hidden" id="identity_val" value="{{ $presenter->identity }}">
@@ -48,21 +48,6 @@
                             <input type="number" id="change_pmb" onchange="changeFilter()"
                                 class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
                                 placeholder="Tahun PMB">
-                        </div>
-                        <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="date" class="text-xs">Tanggal:</label>
-                            <input type="date" id="date" onchange="changeFilter()"
-                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                        </div>
-                        <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="session" class="text-xs">Gelombang:</label>
-                            <select id="session" onchange="changeFilter()"
-                                class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="1">Gelombang 1</option>
-                                <option value="2">Gelombang 2</option>
-                                <option value="3">Gelombang 3</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -79,7 +64,7 @@
                         </div>
                         <div class="bg-emerald-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="register_count">0</h2>
-                            <p class="text-white text-sm">Omzet</p>
+                            <p class="text-white text-sm">Registrasi</p>
                         </div>
                         <div id="container-animate" class="relative bg-red-500 px-6 py-5 rounded-3xl space-y-1">
                             <h2 class="text-white text-xl" id="result_count">0</h2>
@@ -92,20 +77,14 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden border rounded-3xl mt-3">
+            <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto rounded-3xl">
                         <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-t-lg">
-                                        Tanggal
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
                                         PMB
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Gelombang
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Jumlah
@@ -122,33 +101,28 @@
             </div>
         </div>
     </div>
-    @include('pages.presenter.sales.revenue.modal.target')
-    @include('pages.presenter.sales.revenue.modal.edit-target')
+    @include('pages.presenter.sales.database.modal.target')
+    @include('pages.presenter.sales.database.modal.edit-target')
 </x-app-layout>
 
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script src="{{ asset('js/dotlottie-player.js') }}" type="module"></script>
-@include('pages.presenter.sales.revenue.javascripts.filter')
+@include('pages.presenter.sales.database.javascripts.filter')
 <script>
     const getRegistrations = async () => {
         await axios.get(urlData)
         .then((res) => {
             let dataTargets = res.data.targets;
-            let target = 0;
-            let omzet = 0;
-            let omzetRecords = res.data.registrations;
-            omzetRecords.forEach(omzetRecord => {
-                omzet += parseInt(omzetRecord.nominal);
-            });
+            let targets = 0;
             dataTargets.forEach(data => {
-                target += parseInt(data.total);
+                targets += parseInt(data.total);
             });
-            document.getElementById('register_count').innerText = `Rp${omzet.toLocaleString('id-ID')}`;
-            document.getElementById('target_count').innerText = `Rp${target.toLocaleString('id-ID')}`;
-            document.getElementById('result_count').innerText = `Rp${(target - omzet).toLocaleString('id-ID')}`;
-            if(targets - registers <= 0){
+            document.getElementById('register_count').innerText = res.data.applicants;
+            document.getElementById('target_count').innerText = targets;
+            document.getElementById('result_count').innerText = targets - res.data.applicants;
+            if(targets - res.data.applicants <= 0){
                 document.getElementById('animate').classList.remove('hidden');
                 document.getElementById('container-animate').classList.remove('bg-red-500');
                 document.getElementById('container-animate').classList.add('bg-yellow-500');
@@ -170,7 +144,8 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [{
+            columnDefs: [
+                {
                     width: 100,
                     target: 0
                 },
@@ -182,45 +157,23 @@
                     width: 100,
                     target: 2
                 },
-                {
-                    width: 200,
-                    target: 3
-                },
-                {
-                    width: 150,
-                    target: 4
-                },
             ],
-            columns: [{
-                    data: 'date',
-                    render: (data) => {
-                        return moment(data).tz('Asia/Jakarta').locale('id').format('LL');
-                    }
-                },
+            columns: [
                 {
                     data: 'pmb'
                 },
                 {
-                    data: 'session'
-                },
-                {
-                    data: 'total',
-                    render: (data, type, row) => {
-                        let total = parseInt(data);
-                        return `Rp${total.toLocaleString('id-ID')}`;
-                    }
+                    data: 'total'
                 },
                 {
                     data: {
                         id: 'id',
-                        date: 'date',
-                        session: 'session',
                         total: 'total'
                     },
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button type="button" data-id="${data.id}" data-date="${data.date}" data-session="${data.session}" data-total="${data.total}" class="md:mt-0 bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); editRecord(this)">
+                            <button type="button" data-id="${data.id}" data-total="${data.total}" class="md:mt-0 bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); editRecord(this)">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
                             <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
@@ -250,16 +203,12 @@
 
     const editRecord = (data) => {
         let id = data.getAttribute('data-id');
-        let date = data.getAttribute('data-date');
-        let session = data.getAttribute('data-session');
         let total = data.getAttribute('data-total');
         let modal = document.getElementById('modal-edit-target');
         let form = document.getElementById('edit-form');
-        let url = "{{ route('targetrevenue.update', ':id') }}".replace(':id', id);
+        let url = "{{ route('targetdatabase.update', ':id') }}".replace(':id', id);
         form.setAttribute('action', url);
-        document.getElementById('edit_date').value = date;
         document.getElementById('edit_total').value = total;
-        document.getElementById('edit_session').value = session;
         modal.classList.toggle('hidden');
     }
 
@@ -271,7 +220,7 @@
     const deleteRecord = (id) => {
         if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
             $.ajax({
-                url: `/targetrevenue/${id}`,
+                url: `/targetdatabase/${id}`,
                 type: 'POST',
                 data: {
                     '_method': 'DELETE',

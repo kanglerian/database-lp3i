@@ -100,6 +100,7 @@ Route::get('/report/database/target/month', [TargetByMonthController::class, 'ge
 
 Route::get('/target/volume/getvolumes', [VolumeController::class, 'get_volumes'])->name('volume.get_volumes');
 Route::get('/target/volume/getrevenues', [VolumeController::class, 'get_revenues'])->name('volume.get_revenues');
+Route::get('/target/volume/getdatabases', [VolumeController::class, 'get_databases'])->name('volume.get_databases');
 
 Route::get('/dashboard/register/program', [RegisterProgramController::class, 'get_all']);
 Route::get('/dashboard/register/rekapperolehanpmb', [RekapPerolehanPMB::class, 'get_all']);
