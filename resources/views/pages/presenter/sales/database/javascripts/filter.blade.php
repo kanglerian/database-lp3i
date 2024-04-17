@@ -37,7 +37,7 @@
 
         if (pmbVal !== 'all') {
             queryParams.push(`pmbVal=${pmbVal}`);
-        }
+        }d
 
         let queryString = queryParams.join('&');
 
@@ -54,7 +54,7 @@
     }
 
     const resetFilter = () => {
-        urlData = `/api/target/volume/detdatabases`;
+        urlData = `/api/target/volume/getdatabases`;
         if (dataTableInitialized) {
             dataTableInstance.ajax.url(urlData).load();
             hideLoadingAnimation();
