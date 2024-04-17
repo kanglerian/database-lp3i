@@ -119,10 +119,10 @@
             dataTargets.forEach(data => {
                 targets += parseInt(data.total);
             });
-            document.getElementById('register_count').innerText = res.data.applicants;
+            document.getElementById('register_count').innerText = parseInt(res.data.applicants);
             document.getElementById('target_count').innerText = targets;
-            document.getElementById('result_count').innerText = targets - res.data.applicants;
-            if(targets - res.data.applicants <= 0){
+            document.getElementById('result_count').innerText = targets - parseInt(res.data.applicants);
+            if(targets - parseInt(res.data.applicants) <= 0){
                 document.getElementById('animate').classList.remove('hidden');
                 document.getElementById('container-animate').classList.remove('bg-red-500');
                 document.getElementById('container-animate').classList.add('bg-yellow-500');
