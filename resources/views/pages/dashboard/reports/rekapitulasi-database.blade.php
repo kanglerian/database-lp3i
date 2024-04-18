@@ -55,7 +55,7 @@
                     <header class="space-y-1">
                         <h2 class="font-bold text-xl text-gray-800">Rekapitulasi Database</h2>
                         <p class="text-sm text-gray-700 text-sm">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, accusamus.
+                            Berikut ini adalah menu rekapitulasi database.
                         </p>
                     </header>
                     <hr>

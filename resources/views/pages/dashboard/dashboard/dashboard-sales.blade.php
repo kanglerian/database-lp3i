@@ -1,15 +1,15 @@
 <div class="max-w-7xl px-5 mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 bg-gray-100 p-8 rounded-3xl border border-gray-200">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <section>
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr class="bg-emerald-500 border-b border-gray-200 rounded-3xl">
-                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-2xl">
+                        <tr class="bg-emerald-500 border-b-4 border-emerald-600">
+                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-3xl">
                                 <i class="fa-solid fa-coins mr-1"></i> Sales Revenue
                             </th>
                         </tr>
-                        <tr>
+                        <tr class="bg-emerald-500 text-white">
                             <th scope="col" class="px-6 py-3">
                                 Target
                             </th>
@@ -22,14 +22,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white">
-                            <td class="px-6 py-4 rounded-bl-2xl" id="target_revenue">
+                        <tr class="bg-emerald-500 text-white">
+                            <td class="px-6 py-4 rounded-bl-3xl" id="target_revenue">
                                 Rp0
                             </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap" id="realization_revenue">
+                            <td class="px-6 py-4 whitespace-nowrap" id="realization_revenue">
                                 Rp0
                             </td>
-                            <td class="px-6 py-4 rounded-br-2xl" id="percent_revenue">
+                            <td class="px-6 py-4 rounded-br-3xl" id="percent_revenue">
                                 0%
                             </td>
                         </tr>
@@ -41,12 +41,12 @@
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr class="bg-red-500 border-b border-gray-200">
-                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-2xl">
+                        <tr class="bg-red-500 border-b-4 border-red-600">
+                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-3xl">
                                 <i class="fa-solid fa-users mr-1"></i> Sales Volume
                             </th>
                         </tr>
-                        <tr>
+                        <tr class="bg-red-500 text-white">
                             <th scope="col" class="px-6 py-3">
                                 Target
                             </th>
@@ -59,14 +59,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white">
-                            <td class="px-6 py-4 rounded-bl-2xl" id="target_volume">
+                        <tr class="bg-red-500 text-white">
+                            <td class="px-6 py-4 rounded-bl-3xl" id="target_volume">
                                 0
                             </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap" id="realization_volume">
+                            <td class="px-6 py-4 whitespace-nowrap" id="realization_volume">
                                 0
                             </td>
-                            <td class="px-6 py-4 rounded-br-2xl" id="percent_volume">
+                            <td class="px-6 py-4 rounded-br-3xl" id="percent_volume">
                                 0%
                             </td>
                         </tr>
@@ -78,12 +78,12 @@
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr class="bg-sky-500 border-b border-gray-200">
-                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-2xl">
+                        <tr class="bg-sky-500 border-b-4 border-sky-600">
+                            <th colspan="3" class="text-white px-6 py-3 text-center uppercase text-sm rounded-t-3xl">
                                 <i class="fa-solid fa-database mr-1"></i> Database
                             </th>
                         </tr>
-                        <tr>
+                        <tr class="bg-sky-500 text-white">
                             <th scope="col" class="px-6 py-3">
                                 Target
                             </th>
@@ -96,14 +96,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white">
-                            <td class="px-6 py-4 rounded-bl-2xl" id="target_database">
+                        <tr class="bg-sky-500 text-white">
+                            <td class="px-6 py-4 rounded-bl-3xl" id="target_database">
                                 0
                             </td>
-                            <td class="px-6 py-4 text-gray-900 whitespace-nowrap" id="realization_database">
+                            <td class="px-6 py-4 whitespace-nowrap" id="realization_database">
                                 0
                             </td>
-                            <td class="px-6 py-4 rounded-br-2xl" id="percent_database">
+                            <td class="px-6 py-4 rounded-br-3xl" id="percent_database">
                                 0%
                             </td>
                         </tr>

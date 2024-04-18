@@ -190,8 +190,7 @@
                                 <i class="fa-solid fa-database"></i>
                                 <h2 class="font-bold">Rekapitulasi Database</h2>
                             </div>
-                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                vitae.</p>
+                            <p class="text-xs">Berikut ini menu dari rekapitulasi database berdasarkan sumber data.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -203,8 +202,7 @@
                                 <i class="fa-solid fa-coins"></i>
                                 <h2 class="font-bold">Rekap Perolehan PMB</h2>
                             </div>
-                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                vitae.</p>
+                            <p class="text-xs">Berikut ini menu dari rekapitukasi perolehan PMB serta pencapaian PMB.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -216,8 +214,7 @@
                                 <i class="fa-solid fa-comments"></i>
                                 <h2 class="font-bold">Rekapitulasi Follow Up Presenter</h2>
                             </div>
-                            <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                vitae.</p>
+                            <p class="text-xs">Berikut ini adalah menu dari rekapitulasi Follow Up riwayat chat dari Presenter.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -230,8 +227,7 @@
                                     <i class="fa-solid fa-users"></i>
                                     <h2 class="font-bold">Rekapitulasi Data Aplikan</h2>
                                 </div>
-                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                    vitae.</p>
+                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi data aplikan yang sudah terekap.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -245,8 +241,7 @@
                                     <i class="fa-regular fa-folder-open"></i>
                                     <h2 class="font-bold">Data Persyaratan Aplikan</h2>
                                 </div>
-                                <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                                    vitae.</p>
+                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi persyaratan-persyaratan aplikan.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -268,6 +263,7 @@
             @include('pages.dashboard.harta.database')
             @include('pages.dashboard.dashboard.dashboard-register-program')
             @include('pages.dashboard.dashboard.dashboard-rekap-perolehan-pmb')
+
             {{-- @include('pages.dashboard.source.source') --}}
         @endif
         @push('scripts')

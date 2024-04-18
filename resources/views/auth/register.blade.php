@@ -18,7 +18,6 @@
         <hr class="my-7">
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="programtype_id" :value="__('Program Kuliah')" />

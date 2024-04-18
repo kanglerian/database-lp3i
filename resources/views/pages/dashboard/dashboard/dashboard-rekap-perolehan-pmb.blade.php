@@ -4,7 +4,7 @@
             <h1 class="flex items-center gap-2 font-bold text-gray-700">
                 <span>Rekapitulasi: Perolehan PMB</span>
             </h1>
-            <p class="text-gray-600 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, culpa!</p>
+            <p class="text-gray-600 text-sm">Berikut ini adalah rekapitulasi perolehan PMB.</p>
         </header>
         <hr>
         <div class="relative overflow-x-auto px-6 pb-4">

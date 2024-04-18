@@ -30,8 +30,7 @@
                         <i class="fa-solid fa-database"></i>
                         <h2 class="font-bold">Perolehan PMB</h2>
                     </div>
-                    <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                        vitae.</p>
+                    <p class="text-xs">Berikut ini adalah menu dari rekapitulasi perolehan PMB yang tersedia di PMB.</p>
                 </div>
                 <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
             </a>
@@ -43,8 +42,7 @@
                             <i class="fa-solid fa-book"></i>
                             <h2 class="font-bold">Tebaran Program Studi</h2>
                         </div>
-                        <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                            vitae.</p>
+                        <p class="text-xs">Berikut ini adalah data rekapitulasi dari tebaran program studi yang tersedia.</p>
                     </div>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
@@ -58,8 +56,7 @@
                             <i class="fa-solid fa-server"></i>
                             <h2 class="font-bold">Sumber Register</h2>
                         </div>
-                        <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                            vitae.</p>
+                        <p class="text-xs">Berikut ini adalah rekapitulasi data register mahasiswa baru berdasarkan sumber data.</p>
                     </div>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
@@ -73,8 +70,7 @@
                             <i class="fa-solid fa-school"></i>
                             <h2 class="font-bold">Register Per Sekolah</h2>
                         </div>
-                        <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                            vitae.</p>
+                        <p class="text-xs">Berikut ini adalah rekapitulasi data register mahasiswa baru berdasarkan sekolah.</p>
                     </div>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
@@ -88,8 +84,7 @@
                             <i class="fa-solid fa-school"></i>
                             <h2 class="font-bold">Register Per Tingkat Sekolah</h2>
                         </div>
-                        <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                            vitae.</p>
+                        <p class="text-xs">Berikut ini adalah rekapitulasi data register mahasiswa baru berdasarkan tingkat sekolah.</p>
                     </div>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
@@ -102,8 +97,7 @@
                         <i class="fa-regular fa-folder-open"></i>
                         <h2 class="font-bold">Rekapitulasi Pencapaian PMB</h2>
                     </div>
-                    <p class="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-                        vitae.</p>
+                    <p class="text-xs">Berikut ini adalah rekapitulasi pencapaian PMB dari target dan pendapatan presenter.</p>
                 </div>
                 <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
             </a>

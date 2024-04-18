@@ -5,6 +5,7 @@ use App\Http\Controllers\Applicant\Status\StatusRegistrasiController;
 use App\Http\Controllers\Question\HomeController;
 use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\Target\TargetController;
 use App\Http\Controllers\Target\TargetDatabaseController;
 use App\Http\Controllers\Target\TargetRevenueController;
@@ -137,6 +138,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 /* Route Student */
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('userupload', UserUploadController::class);
+    Route::resource('recommendation', RecommendationController::class);
     Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->name('upload.payment');
 });
 

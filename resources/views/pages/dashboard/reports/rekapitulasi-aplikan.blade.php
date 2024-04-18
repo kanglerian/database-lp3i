@@ -61,13 +61,6 @@
 
         <div class="max-w-7xl px-5 mx-auto">
             <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
-                <header class="space-y-1">
-                    <h2 class="font-bold text-xl text-gray-800">Data Aplikan</h2>
-                    <p class="text-sm text-gray-700 text-sm">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias, dolores!
-                    </p>
-                </header>
-                <hr>
                 @include('pages.dashboard.presenter.data.aplikan')
                 <hr>
                 @include('pages.dashboard.presenter.data.daftar')

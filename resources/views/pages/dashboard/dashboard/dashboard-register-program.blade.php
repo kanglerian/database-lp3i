@@ -4,7 +4,7 @@
             <h1 class="flex items-center gap-2 font-bold text-gray-700">
                 <span>Registrasi: Berdasarkan Program Studi</span>
             </h1>
-            <p class="text-gray-600 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, culpa!</p>
+            <p class="text-gray-600 text-sm">Berikut ini adalah registrasi berdasarkan program studi yang terdaftar.</p>
         </header>
         <hr>
         <div class="relative overflow-x-auto px-6 pb-4">

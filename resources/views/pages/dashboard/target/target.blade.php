@@ -1,8 +1,10 @@
 @if (Auth::user()->role == 'P')
     <section class="max-w-7xl px-5 mx-auto">
         <div class="bg-gray-50 p-8 rounded-3xl border border-gray-200">
-            <h2 class="font-bold text-gray-900 text-xl">Informasi Target Perolehan</h2>
-            <p class="text-sm text-gray-700">Berikut ini adalah data target perolehan mahasiswa baru.</p>
+            <header class="space-y-1">
+                <h2 class="font-bold text-gray-900 text-xl">Informasi Target Perolehan</h2>
+                <p class="text-sm text-gray-700">Berikut ini adalah data target perolehan mahasiswa baru.</p>
+            </header>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                 <div class="flex justify-between items-center px-5 py-3 bg-sky-500 text-white rounded-2xl">
                     <h4>
