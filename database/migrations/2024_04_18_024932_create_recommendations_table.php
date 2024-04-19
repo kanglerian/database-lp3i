@@ -17,7 +17,7 @@ class CreateRecommendationsTable extends Migration
             $table->id();
             $table->string('identity_user', 30);
             $table->string('name');
-            $table->string('phone', 20)->nullable()->unique();
+            $table->string('phone', 20)->nullable();
             $table->unsignedBigInteger('school_id')->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();

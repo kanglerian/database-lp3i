@@ -64,6 +64,16 @@
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+            <header class="space-y-5">
+                <div class="bg-gray-50 p-5 border border-gray-200 rounded-3xl">
+                    <ul class="text-gray-900 space-y-1">
+                        <li>Nama lengkap: <span class="font-medium">{{ Auth::user()->name }}</span></li>
+                        <li>Asal sekolah: <span class="font-medium">{{ $applicant->schoolapplicant->name }}</span></li>
+                        <li>Presenter: <span class="font-medium">{{ $applicant->presenter->name }}</span></li>
+                    </ul>
+                </div>
+                <p>Data teman yang direkomendasikan (ikut SNBT, Kedinasan, AKABRI, Akademi TNI, AKPOL):</p>
+            </header>
             @if (count($recommendations) > 0)
                 <button type="button" data-modal-target="statusModal" onclick="changeStatusModal(this)"
                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm"
@@ -114,7 +124,7 @@
                                     {{ $recommendation->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $recommendation->phone }}
+                                    <a target="_blank" href="https://wa.me/{{ $recommendation->phone }}" class="underline">{{ $recommendation->phone }}</a>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $recommendation->schoolapplicant->name }}

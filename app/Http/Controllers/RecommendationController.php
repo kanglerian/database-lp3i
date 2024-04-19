@@ -116,7 +116,8 @@ class RecommendationController extends Controller
         return view('pages.recommendation.students.show')->with([
             'user' => $user,
             'recommendations' => $recommendations,
-            'schools' => $schools
+            'schools' => $schools,
+            'applicant' => $applicant
         ]);
     }
 
