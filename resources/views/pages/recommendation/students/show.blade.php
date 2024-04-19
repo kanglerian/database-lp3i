@@ -76,13 +76,13 @@
             </header>
             @if (count($recommendations) > 0)
                 <button type="button" data-modal-target="statusModal" onclick="changeStatusModal(this)"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm"
+                    class="inline-block bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm"
                 >
                     <i class="fa-solid fa-plus mr-1"></i>
                     <span>Tambah</span>
                 </button>
             @else
-                <a href="{{ route('recommendation.create') }}" class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
+                <a href="{{ route('recommendation.create') }}" class="inline-block bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                     <i class="fa-solid fa-plus mr-1"></i>
                     <span>Tambah</span>
                 </a>
