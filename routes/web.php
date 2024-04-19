@@ -138,7 +138,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 /* Route Student */
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('userupload', UserUploadController::class);
-    Route::resource('recommendation', RecommendationController::class);
+    Route::resource('recommendation', RecommendationController::class)->middleware(['register']);
     Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->name('upload.payment');
 });
 
