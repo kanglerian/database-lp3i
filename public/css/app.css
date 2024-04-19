@@ -1595,6 +1595,11 @@ select {
   border-top-right-radius: 0.5rem;
 }
 
+.rounded-t-2xl {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
 .rounded-bl-3xl {
   border-bottom-left-radius: 1.5rem;
 }
@@ -1609,6 +1614,14 @@ select {
 
 .rounded-tr-lg {
   border-top-right-radius: 0.5rem;
+}
+
+.rounded-bl-2xl {
+  border-bottom-left-radius: 1rem;
+}
+
+.rounded-br-2xl {
+  border-bottom-right-radius: 1rem;
 }
 
 .border {
