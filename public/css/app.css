@@ -967,8 +967,7 @@ select {
 }
 
 .-ms-1 {
-  -webkit-margin-start: -0.25rem;
-          margin-inline-start: -0.25rem;
+  margin-inline-start: -0.25rem;
 }
 
 .-mt-px {
@@ -1012,13 +1011,11 @@ select {
 }
 
 .me-1 {
-  -webkit-margin-end: 0.25rem;
-          margin-inline-end: 0.25rem;
+  margin-inline-end: 0.25rem;
 }
 
 .me-2 {
-  -webkit-margin-end: 0.5rem;
-          margin-inline-end: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 
 .ml-1 {
@@ -1054,18 +1051,15 @@ select {
 }
 
 .ms-2 {
-  -webkit-margin-start: 0.5rem;
-          margin-inline-start: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 
 .ms-3 {
-  -webkit-margin-start: 0.75rem;
-          margin-inline-start: 0.75rem;
+  margin-inline-start: 0.75rem;
 }
 
 .ms-auto {
-  -webkit-margin-start: auto;
-          margin-inline-start: auto;
+  margin-inline-start: auto;
 }
 
 .mt-1 {
