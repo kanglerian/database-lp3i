@@ -64,7 +64,7 @@
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
-            <header class="space-y-5">
+            <header class="space-y-4">
                 <div class="bg-gray-50 p-5 border border-gray-200 rounded-3xl">
                     <ul class="text-gray-900 space-y-1">
                         <li>Nama lengkap: <span class="font-medium">{{ Auth::user()->name }}</span></li>
