@@ -698,7 +698,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         if ($this->startDate === null) {
-            $this->setStartDate(Carbon::now());
+            $this->setStartDate(Carbon::now()->setTimezone('Asia/Jakarta'));
         }
 
         if ($this->dateInterval === null) {

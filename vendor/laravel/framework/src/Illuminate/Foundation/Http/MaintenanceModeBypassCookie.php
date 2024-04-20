@@ -15,7 +15,7 @@ class MaintenanceModeBypassCookie
      */
     public static function create(string $key)
     {
-        $expiresAt = Carbon::now()->addHours(12);
+        $expiresAt = Carbon::now()->setTimezone('Asia/Jakarta')->addHours(12);
 
         return new Cookie('laravel_maintenance', base64_encode(json_encode([
             'expires_at' => $expiresAt->getTimestamp(),
@@ -38,6 +38,6 @@ class MaintenanceModeBypassCookie
             is_numeric($payload['expires_at'] ?? null) &&
             isset($payload['mac']) &&
             hash_equals(hash_hmac('sha256', $payload['expires_at'], $key), $payload['mac']) &&
-            (int) $payload['expires_at'] >= Carbon::now()->getTimestamp();
+            (int) $payload['expires_at'] >= Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp();
     }
 }

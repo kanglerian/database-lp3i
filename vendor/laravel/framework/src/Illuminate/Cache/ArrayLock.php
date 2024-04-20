@@ -36,7 +36,7 @@ class ArrayLock extends Lock
      */
     public function acquire()
     {
-        $expiration = $this->store->locks[$this->name]['expiresAt'] ?? Carbon::now()->addSecond();
+        $expiration = $this->store->locks[$this->name]['expiresAt'] ?? Carbon::now()->setTimezone('Asia/Jakarta')->addSecond();
 
         if ($this->exists() && $expiration->isFuture()) {
             return false;
@@ -44,7 +44,7 @@ class ArrayLock extends Lock
 
         $this->store->locks[$this->name] = [
             'owner' => $this->owner,
-            'expiresAt' => $this->seconds === 0 ? null : Carbon::now()->addSeconds($this->seconds),
+            'expiresAt' => $this->seconds === 0 ? null : Carbon::now()->setTimezone('Asia/Jakarta')->addSeconds($this->seconds),
         ];
 
         return true;

@@ -34,7 +34,7 @@ trait InteractsWithTime
 
         return $delay instanceof DateTimeInterface
                             ? $delay->getTimestamp()
-                            : Carbon::now()->addRealSeconds($delay)->getTimestamp();
+                            : Carbon::now()->setTimezone('Asia/Jakarta')->addRealSeconds($delay)->getTimestamp();
     }
 
     /**
@@ -46,7 +46,7 @@ trait InteractsWithTime
     protected function parseDateInterval($delay)
     {
         if ($delay instanceof DateInterval) {
-            $delay = Carbon::now()->add($delay);
+            $delay = Carbon::now()->setTimezone('Asia/Jakarta')->add($delay);
         }
 
         return $delay;
@@ -59,6 +59,6 @@ trait InteractsWithTime
      */
     protected function currentTime()
     {
-        return Carbon::now()->getTimestamp();
+        return Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp();
     }
 }

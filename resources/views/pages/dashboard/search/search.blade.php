@@ -28,14 +28,18 @@
                 </section>
                 <hr class="mb-5">
                 <section class="px-5 pb-5">
-                    <table class="w-full bg-gray-50 text-sm text-left rtl:text-right text-gray-500" id="quickSearchTable">
+                    <table class="w-full bg-gray-50 text-sm text-left rtl:text-right text-gray-500"
+                        id="quickSearchTable">
                         <thead class="text-xs text-gray-700 uppercase">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     No.
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    getYearPMB
+                                    PMB
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Beasiswa
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Nama Lengkap
@@ -56,7 +60,7 @@
                         </thead>
                         <tbody id="result-quicksearch">
                             <tr class="border-b border-t">
-                                <td colspan="7" class="px-6 py-4 text-center">
+                                <td colspan="8" class="px-6 py-4 text-center">
                                     Silahkan untuk isi kolom pencarian.
                                 </td>
                             </tr>
@@ -98,6 +102,11 @@
                         data: 'pmb',
                         render: (data, type, row, meta) => {
                             return data;
+                        }
+                    }, {
+                        data: 'scholarship_date',
+                        render: (data, type, row, meta) => {
+                            return data || '<i class="fa-solid fa-xmark text-red-500"></i>';
                         }
                     }, {
                         data: {
@@ -180,6 +189,11 @@
                     data: 'pmb',
                     render: (data, type, row, meta) => {
                         return data;
+                    }
+                }, {
+                    data: 'scholarship_date',
+                    render: (data, type, row, meta) => {
+                        return data || '<i class="fa-solid fa-xmark text-red-500"></i>';
                     }
                 }, {
                     data: {

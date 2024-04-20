@@ -738,7 +738,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now(); // Carbon instances can be cast to string
+     * echo Carbon::now()->setTimezone('Asia/Jakarta'); // Carbon instances can be cast to string
      * ```
      *
      * @return string
@@ -983,7 +983,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->change('next 2pm');
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->change('next 2pm');
      * ```
      *
      * @link https://php.net/manual/en/datetime.modify.php
@@ -2630,8 +2630,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * Carbon::now()->subYears(5)->isBirthday(); // true
-     * Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subYears(5)->isBirthday(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subYears(5)->subDay()->isBirthday(); // false
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
      * ```
@@ -2647,8 +2647,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * Carbon::now()->isCurrentUnit('hour'); // true
-     * Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->isCurrentUnit('hour'); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(2)->isCurrentUnit('hour'); // false
      * ```
      *
      * @param string $unit The unit to test.
@@ -2708,8 +2708,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * Carbon::now()->addHours(5)->isFuture(); // true
-     * Carbon::now()->subHours(5)->isFuture(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->addHours(5)->isFuture(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(5)->isFuture(); // false
      * ```
      *
      * @return bool
@@ -2840,8 +2840,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * Carbon::now()->subHours(5)->isPast(); // true
-     * Carbon::now()->addHours(5)->isPast(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(5)->isPast(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->addHours(5)->isPast(); // false
      * ```
      *
      * @return bool
@@ -3895,7 +3895,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Set a Carbon instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
+     *   - A call to the static now() method, ex. Carbon::now()->setTimezone('Asia/Jakarta')
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *   - When a string containing the desired time is passed to Carbon::parse().
@@ -3919,7 +3919,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Set a Carbon instance (real or mock) to be returned when a "now"
      * instance is created.  The provided instance will be returned
      * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
+     *   - A call to the static now() method, ex. Carbon::now()->setTimezone('Asia/Jakarta')
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
      *   - When a string containing the desired time is passed to Carbon::parse().
@@ -4453,7 +4453,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toArray());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toArray());
      * ```
      *
      * @return array
@@ -4465,7 +4465,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toAtomString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toAtomString();
      * ```
      *
      * @return string
@@ -4477,7 +4477,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toCookieString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toCookieString();
      * ```
      *
      * @return string
@@ -4491,7 +4491,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDate());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDate());
      * ```
      *
      * @return DateTime
@@ -4503,7 +4503,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateString();
      * ```
      *
      * @return string
@@ -4515,7 +4515,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDateTime());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDateTime());
      * ```
      *
      * @return DateTime
@@ -4527,7 +4527,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDateTimeImmutable());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeImmutable());
      * ```
      *
      * @return DateTimeImmutable
@@ -4539,9 +4539,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateTimeLocalString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeLocalString();
      * echo "\n";
-     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
      *
      * @param string $unitPrecision
@@ -4555,7 +4555,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeString();
      * ```
      *
      * @param string $unitPrecision
@@ -4569,7 +4569,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toDayDateTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDayDateTimeString();
      * ```
      *
      * @return string
@@ -4581,7 +4581,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toFormattedDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toFormattedDateString();
      * ```
      *
      * @return string
@@ -4593,7 +4593,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toFormattedDayDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toFormattedDayDateString();
      * ```
      *
      * @return string
@@ -4628,7 +4628,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toIso8601String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toIso8601String();
      * ```
      *
      * @return string
@@ -4640,7 +4640,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toIso8601ZuluString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toIso8601ZuluString();
      * ```
      *
      * @param string $unitPrecision
@@ -4703,7 +4703,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toObject());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toObject());
      * ```
      *
      * @return object
@@ -4726,7 +4726,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc1036String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc1036String();
      * ```
      *
      * @return string
@@ -4738,7 +4738,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc1123String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc1123String();
      * ```
      *
      * @return string
@@ -4750,7 +4750,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc2822String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc2822String();
      * ```
      *
      * @return string
@@ -4764,8 +4764,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String() . "\n";
-     * echo Carbon::now()->toRfc3339String(true) . "\n";
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc3339String() . "\n";
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc3339String(true) . "\n";
      * ```
      *
      * @return string
@@ -4777,7 +4777,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc7231String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc7231String();
      * ```
      *
      * @return string
@@ -4789,7 +4789,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc822String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc822String();
      * ```
      *
      * @return string
@@ -4801,7 +4801,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc850String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc850String();
      * ```
      *
      * @return string
@@ -4813,7 +4813,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toRssString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRssString();
      * ```
      *
      * @return string
@@ -4825,7 +4825,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toString();
      * ```
      *
      * @return string
@@ -4837,7 +4837,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toTimeString();
      * ```
      *
      * @param string $unitPrecision
@@ -4851,7 +4851,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * echo Carbon::now()->toW3cString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toW3cString();
      * ```
      *
      * @return string

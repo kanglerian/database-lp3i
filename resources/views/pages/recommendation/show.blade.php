@@ -62,7 +62,6 @@
             @endif
         </div>
 
-
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <header class="space-y-4">
                 <div class="bg-gray-50 p-5 border border-gray-200 rounded-3xl">
@@ -160,4 +159,4 @@
 
     </div>
 </x-app-layout>
-@include('pages.recommendation.students.modal.data');
+@include('pages.recommendation.modal.data');

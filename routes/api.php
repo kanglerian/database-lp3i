@@ -9,6 +9,7 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\Psikotest\AuthPsikotestController;
+use App\Http\Controllers\API\RecommendationController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\Report\RegisterByProgramController;
 use App\Http\Controllers\API\Report\RegisterBySchoolController;
@@ -105,3 +106,5 @@ Route::get('/target/volume/getdatabases', [VolumeController::class, 'get_databas
 Route::get('/dashboard/register/program', [RegisterProgramController::class, 'get_all']);
 Route::get('/dashboard/register/rekapperolehanpmb', [RekapPerolehanPMB::class, 'get_all']);
 Route::get('/dashboard/sales', [SalesController::class, 'get_all']);
+
+Route::get('/recommendation', [RecommendationController::class, 'get_all']);

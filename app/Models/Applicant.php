@@ -39,6 +39,7 @@ class Applicant extends Model
         'kip',
         'nisn',
         'schoolarship',
+        'scholarship_date',
 
         'note',
         'relation',

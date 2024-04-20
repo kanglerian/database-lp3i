@@ -93,7 +93,7 @@ class DatabaseLock extends Lock
      */
     protected function expiresAt()
     {
-        return $this->seconds > 0 ? time() + $this->seconds : Carbon::now()->addDays(1)->getTimestamp();
+        return $this->seconds > 0 ? time() + $this->seconds : Carbon::now()->setTimezone('Asia/Jakarta')->addDays(1)->getTimestamp();
     }
 
     /**

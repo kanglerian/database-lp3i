@@ -43,7 +43,7 @@ class Wormhole
      */
     public function milliseconds($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addMilliseconds($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addMilliseconds($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -67,7 +67,7 @@ class Wormhole
      */
     public function seconds($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addSeconds($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addSeconds($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -91,7 +91,7 @@ class Wormhole
      */
     public function minutes($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addMinutes($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addMinutes($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -115,7 +115,7 @@ class Wormhole
      */
     public function hours($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addHours($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addHours($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -139,7 +139,7 @@ class Wormhole
      */
     public function days($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addDays($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addDays($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -163,7 +163,7 @@ class Wormhole
      */
     public function weeks($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addWeeks($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addWeeks($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -187,7 +187,7 @@ class Wormhole
      */
     public function months($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addMonths($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addMonths($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -211,7 +211,7 @@ class Wormhole
      */
     public function years($callback = null)
     {
-        Carbon::setTestNow(Carbon::now()->addYears($this->value));
+        Carbon::setTestNow(Carbon::now()->setTimezone('Asia/Jakarta')->addYears($this->value));
 
         return $this->handleCallback($callback);
     }
@@ -225,7 +225,7 @@ class Wormhole
     {
         Carbon::setTestNow();
 
-        return Carbon::now();
+        return Carbon::now()->setTimezone('Asia/Jakarta');
     }
 
     /**

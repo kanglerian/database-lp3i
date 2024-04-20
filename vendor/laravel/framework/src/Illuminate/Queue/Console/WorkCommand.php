@@ -193,7 +193,7 @@ class WorkCommand extends Command
     {
         $this->output->writeln(sprintf(
             "<{$type}>[%s][%s] %s</{$type}> %s",
-            Carbon::now()->format('Y-m-d H:i:s'),
+            Carbon::now()->setTimezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
             $job->getJobId(),
             str_pad("{$status}:", 11), $job->resolveName()
         ));

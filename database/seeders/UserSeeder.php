@@ -26,8 +26,8 @@ class UserSeeder extends Seeder
                 'phone' => '6281313608558',
                 'role' => 'A',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282219509698,
@@ -38,8 +38,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282219509698',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282215614238,
@@ -50,8 +50,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282215614238',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282127356645,
@@ -62,8 +62,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282127356645',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6281947776090,
@@ -74,8 +74,8 @@ class UserSeeder extends Seeder
                 'phone' => '6281947776090',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282127951392,
@@ -86,8 +86,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282127951392',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6281220662033,
@@ -98,8 +98,8 @@ class UserSeeder extends Seeder
                 'phone' => '6281220662033',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282118936775,
@@ -110,8 +110,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282118936775',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
             [
                 'identity' => 6282211780631,
@@ -122,8 +122,8 @@ class UserSeeder extends Seeder
                 'phone' => '6282213099124',
                 'role' => 'P',
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],
 
         ]);

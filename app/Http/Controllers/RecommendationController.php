@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Validator;
 
 class RecommendationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('register')->only('show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +24,11 @@ class RecommendationController extends Controller
      */
     public function index()
     {
-        $recommendations = Recommendation::all();
-        return view('pages.recommendation.students.index')->with([
-            'recommendations' => $recommendations
+        $users = User::all();
+        $schools = School::all();
+        return view('pages.recommendation.index')->with([
+            'users' => $users,
+            'schools' => $schools
         ]);
     }
 
@@ -34,7 +40,7 @@ class RecommendationController extends Controller
     public function create()
     {
         $schools = School::all();
-        return view('pages.recommendation.students.create')->with([
+        return view('pages.recommendation.create')->with([
             'schools' => $schools
         ]);
     }
@@ -86,8 +92,8 @@ class RecommendationController extends Controller
                 'school_id' => $schools[$i],
                 'class' => $classes[$i],
                 'year' => $years[$i],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ]);
         }
         Recommendation::insert($data);
@@ -113,7 +119,7 @@ class RecommendationController extends Controller
         });
 
         $recommendations = $recommendationQuery->get();
-        return view('pages.recommendation.students.show')->with([
+        return view('pages.recommendation.show')->with([
             'user' => $user,
             'recommendations' => $recommendations,
             'schools' => $schools,
@@ -180,8 +186,8 @@ class RecommendationController extends Controller
             'school_id' => $schools[0],
             'class' => $classes[0],
             'year' => $years[0],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+            'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
         ];
 
         $recommendation->update($data);
@@ -199,6 +205,6 @@ class RecommendationController extends Controller
         $recommendation = Recommendation::findOrFail($id);
         $recommendation->delete();
 
-        return back()->with('message', 'Data rekomendasi berhasil dihapus!');
+        return response()->json(['Data rekomendasi berhasil dihapus!']);
     }
 }

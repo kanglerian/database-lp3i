@@ -19,11 +19,16 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 h-10">
-            <div class="flex items-center gap-10">
-                <h2 class="font-bold text-xl text-gray-800 leading-tight">
-                    {{ __('Database') }}
-                </h2>
-            </div>
+            <ul class="flex items-center gap-6">
+                <li>
+                    <a href="{{ route('database.index') }}"
+                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-9' : '' }} font-bold text-md text-gray-800 leading-tight">{{ __('Database') }}</a>
+                </li>
+                <li>
+                    <a href="{{ route('recommendation.index') }}"
+                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-9' : '' }} font-bold text-md text-gray-800 leading-tight">{{ __('Data Rekomendasi ✨') }}</a>
+                </li>
+            </ul>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
                 <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <span>

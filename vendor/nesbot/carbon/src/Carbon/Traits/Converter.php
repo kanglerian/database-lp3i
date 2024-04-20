@@ -79,7 +79,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now(); // Carbon instances can be cast to string
+     * echo Carbon::now()->setTimezone('Asia/Jakarta'); // Carbon instances can be cast to string
      * ```
      *
      * @return string
@@ -102,7 +102,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateString();
      * ```
      *
      * @return string
@@ -117,7 +117,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toFormattedDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toFormattedDateString();
      * ```
      *
      * @return string
@@ -132,7 +132,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toFormattedDayDateString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toFormattedDayDateString();
      * ```
      *
      * @return string
@@ -147,7 +147,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toTimeString();
      * ```
      *
      * @param string $unitPrecision
@@ -164,7 +164,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeString();
      * ```
      *
      * @param string $unitPrecision
@@ -206,9 +206,9 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toDateTimeLocalString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeLocalString();
      * echo "\n";
-     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
      *
      * @param string $unitPrecision
@@ -225,7 +225,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toDayDateTimeString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toDayDateTimeString();
      * ```
      *
      * @return string
@@ -240,7 +240,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toAtomString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toAtomString();
      * ```
      *
      * @return string
@@ -255,7 +255,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toCookieString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toCookieString();
      * ```
      *
      * @return string
@@ -270,7 +270,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toIso8601String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toIso8601String();
      * ```
      *
      * @return string
@@ -285,7 +285,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc822String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc822String();
      * ```
      *
      * @return string
@@ -300,7 +300,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toIso8601ZuluString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toIso8601ZuluString();
      * ```
      *
      * @param string $unitPrecision
@@ -319,7 +319,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc850String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc850String();
      * ```
      *
      * @return string
@@ -334,7 +334,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc1036String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc1036String();
      * ```
      *
      * @return string
@@ -349,7 +349,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc1123String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc1123String();
      * ```
      *
      * @return string
@@ -364,7 +364,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc2822String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc2822String();
      * ```
      *
      * @return string
@@ -381,8 +381,8 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String() . "\n";
-     * echo Carbon::now()->toRfc3339String(true) . "\n";
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc3339String() . "\n";
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc3339String(true) . "\n";
      * ```
      *
      * @return string
@@ -402,7 +402,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRssString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRssString();
      * ```
      *
      * @return string
@@ -417,7 +417,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toW3cString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toW3cString();
      * ```
      *
      * @return string
@@ -432,7 +432,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toRfc7231String();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toRfc7231String();
      * ```
      *
      * @return string
@@ -449,7 +449,7 @@ trait Converter
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toArray());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toArray());
      * ```
      *
      * @return array
@@ -477,7 +477,7 @@ trait Converter
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toObject());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toObject());
      * ```
      *
      * @return object
@@ -492,7 +492,7 @@ trait Converter
      *
      * @example
      * ```
-     * echo Carbon::now()->toString();
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->toString();
      * ```
      *
      * @return string
@@ -549,7 +549,7 @@ trait Converter
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDateTime());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDateTime());
      * ```
      *
      * @return DateTime
@@ -564,7 +564,7 @@ trait Converter
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDateTimeImmutable());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeImmutable());
      * ```
      *
      * @return DateTimeImmutable
@@ -581,7 +581,7 @@ trait Converter
      *
      * @example
      * ```
-     * var_dump(Carbon::now()->toDate());
+     * var_dump(Carbon::now()->setTimezone('Asia/Jakarta')->toDate());
      * ```
      *
      * @return DateTime

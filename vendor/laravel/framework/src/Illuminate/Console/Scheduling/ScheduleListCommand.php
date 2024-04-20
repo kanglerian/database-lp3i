@@ -39,7 +39,7 @@ class ScheduleListCommand extends Command
                 $event->expression,
                 $event->description,
                 (new CronExpression($event->expression))
-                            ->getNextRunDate(Carbon::now()->setTimezone($event->timezone))
+                            ->getNextRunDate(Carbon::now()->setTimezone('Asia/Jakarta')->setTimezone($event->timezone))
                             ->setTimezone(new DateTimeZone($this->option('timezone') ?? config('app.timezone')))
                             ->format('Y-m-d H:i:s P'),
             ];

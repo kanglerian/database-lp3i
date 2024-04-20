@@ -493,7 +493,7 @@ class Worker
 
         $retryUntil = $job->retryUntil();
 
-        if ($retryUntil && Carbon::now()->getTimestamp() <= $retryUntil) {
+        if ($retryUntil && Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp() <= $retryUntil) {
             return;
         }
 
@@ -519,7 +519,7 @@ class Worker
     {
         $maxTries = ! is_null($job->maxTries()) ? $job->maxTries() : $maxTries;
 
-        if ($job->retryUntil() && $job->retryUntil() <= Carbon::now()->getTimestamp()) {
+        if ($job->retryUntil() && $job->retryUntil() <= Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp()) {
             $this->failJob($job, $e);
         }
 
@@ -544,7 +544,7 @@ class Worker
         }
 
         if (! $this->cache->get('job-exceptions:'.$uuid)) {
-            $this->cache->put('job-exceptions:'.$uuid, 0, Carbon::now()->addDay());
+            $this->cache->put('job-exceptions:'.$uuid, 0, Carbon::now()->setTimezone('Asia/Jakarta')->addDay());
         }
 
         if ($maxExceptions <= $this->cache->increment('job-exceptions:'.$uuid)) {

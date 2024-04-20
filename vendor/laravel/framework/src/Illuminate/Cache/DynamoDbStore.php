@@ -148,7 +148,7 @@ class DynamoDbStore implements LockProvider, Store
             ],
         ]);
 
-        $now = Carbon::now();
+        $now = Carbon::now()->setTimezone('Asia/Jakarta');
 
         return array_merge(collect(array_flip($keys))->map(function () {
             //
@@ -176,7 +176,7 @@ class DynamoDbStore implements LockProvider, Store
      */
     protected function isExpired(array $item, $expiration = null)
     {
-        $expiration = $expiration ?: Carbon::now();
+        $expiration = $expiration ?: Carbon::now()->setTimezone('Asia/Jakarta');
 
         return isset($item[$this->expirationAttribute]) &&
                $expiration->getTimestamp() >= $item[$this->expirationAttribute]['N'];
@@ -277,7 +277,7 @@ class DynamoDbStore implements LockProvider, Store
                 ],
                 'ExpressionAttributeValues' => [
                     ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
+                        'N' => (string) Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp(),
                     ],
                 ],
             ]);
@@ -318,7 +318,7 @@ class DynamoDbStore implements LockProvider, Store
                 ],
                 'ExpressionAttributeValues' => [
                     ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
+                        'N' => (string) Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp(),
                     ],
                     ':amount' => [
                         'N' => (string) $value,
@@ -363,7 +363,7 @@ class DynamoDbStore implements LockProvider, Store
                 ],
                 'ExpressionAttributeValues' => [
                     ':now' => [
-                        'N' => (string) Carbon::now()->getTimestamp(),
+                        'N' => (string) Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp(),
                     ],
                     ':amount' => [
                         'N' => (string) $value,
@@ -391,7 +391,7 @@ class DynamoDbStore implements LockProvider, Store
      */
     public function forever($key, $value)
     {
-        return $this->put($key, $value, Carbon::now()->addYears(5)->getTimestamp());
+        return $this->put($key, $value, Carbon::now()->setTimezone('Asia/Jakarta')->addYears(5)->getTimestamp());
     }
 
     /**
@@ -461,7 +461,7 @@ class DynamoDbStore implements LockProvider, Store
     {
         return $seconds > 0
                     ? $this->availableAt($seconds)
-                    : Carbon::now()->getTimestamp();
+                    : Carbon::now()->setTimezone('Asia/Jakarta')->getTimestamp();
     }
 
     /**

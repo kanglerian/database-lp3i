@@ -2357,7 +2357,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
      */
     public static function compareDateIntervals(DateInterval $first, DateInterval $second)
     {
-        $current = Carbon::now();
+        $current = Carbon::now()->setTimezone('Asia/Jakarta');
         $passed = $current->avoidMutation()->add($second);
         $current->add($first);
 

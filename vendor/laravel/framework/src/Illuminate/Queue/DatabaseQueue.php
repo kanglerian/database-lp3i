@@ -290,7 +290,7 @@ class DatabaseQueue extends Queue implements QueueContract, ClearableQueue
      */
     protected function isReservedButExpired($query)
     {
-        $expiration = Carbon::now()->subSeconds($this->retryAfter)->getTimestamp();
+        $expiration = Carbon::now()->setTimezone('Asia/Jakarta')->subSeconds($this->retryAfter)->getTimestamp();
 
         $query->orWhere(function ($query) use ($expiration) {
             $query->where('reserved_at', '<=', $expiration);

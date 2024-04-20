@@ -25,6 +25,18 @@
         @if (Auth::user()->role == 'S')
             <div class="py-10">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                    @if (session('error'))
+                        <div id="alert"
+                            class="mb-3 flex items-center px-5 py-4 bg-red-500 text-white rounded-2xl"
+                            role="alert">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <div class="ml-3 text-sm font-reguler">
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="flex flex-col md:flex-row justify-between items-center gap-5 px-5 md:px-0">
                         <div class="w-full md:w-6/12 space-y-5 order-2 md:order-none">
                             @if ($account)
@@ -202,7 +214,8 @@
                                 <i class="fa-solid fa-coins"></i>
                                 <h2 class="font-bold">Rekap Perolehan PMB</h2>
                             </div>
-                            <p class="text-xs">Berikut ini menu dari rekapitukasi perolehan PMB serta pencapaian PMB.</p>
+                            <p class="text-xs">Berikut ini menu dari rekapitukasi perolehan PMB serta pencapaian PMB.
+                            </p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -214,7 +227,8 @@
                                 <i class="fa-solid fa-comments"></i>
                                 <h2 class="font-bold">Rekapitulasi Follow Up Presenter</h2>
                             </div>
-                            <p class="text-xs">Berikut ini adalah menu dari rekapitulasi Follow Up riwayat chat dari Presenter.</p>
+                            <p class="text-xs">Berikut ini adalah menu dari rekapitulasi Follow Up riwayat chat dari
+                                Presenter.</p>
                         </div>
                         <i
                             class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -227,7 +241,8 @@
                                     <i class="fa-solid fa-users"></i>
                                     <h2 class="font-bold">Rekapitulasi Data Aplikan</h2>
                                 </div>
-                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi data aplikan yang sudah terekap.</p>
+                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi data aplikan yang sudah
+                                    terekap.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
@@ -241,7 +256,8 @@
                                     <i class="fa-regular fa-folder-open"></i>
                                     <h2 class="font-bold">Data Persyaratan Aplikan</h2>
                                 </div>
-                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi persyaratan-persyaratan aplikan.</p>
+                                <p class="text-xs">Berikut ini adalah menu dari rekapitulasi persyaratan-persyaratan
+                                    aplikan.</p>
                             </div>
                             <i
                                 class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>

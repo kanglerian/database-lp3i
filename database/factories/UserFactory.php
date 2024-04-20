@@ -24,8 +24,8 @@ class UserFactory extends Factory
             'phone' => '6281313608558',
             'role' => 'A',
             'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+            'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
             // password
         ];
     }

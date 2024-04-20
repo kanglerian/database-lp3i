@@ -256,7 +256,7 @@ class StartSession
         $config = $this->manager->getSessionConfig();
 
         return $config['expire_on_close'] ? 0 : Date::instance(
-            Carbon::now()->addRealMinutes($config['lifetime'])
+            Carbon::now()->setTimezone('Asia/Jakarta')->addRealMinutes($config['lifetime'])
         );
     }
 

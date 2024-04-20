@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -34,7 +35,7 @@ class RegisterController extends Controller
                 'min:10',
                 'max:15',
             ],
-            'year' => ['required', 'min:4','max:4'],
+            'year' => ['required', 'min:4', 'max:4'],
             'password' => ['required', 'confirmed'],
         ], [
             'name.required' => 'Oopss, sepertinya Nama Lengkap lupa diisi ya!',
@@ -117,6 +118,7 @@ class RegisterController extends Controller
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
+                        'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
                     ];
                     $user = User::create($data_user);
                     $check_phone_applicant->update($data_applicant);
@@ -141,6 +143,7 @@ class RegisterController extends Controller
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                         'schoolarship' => 1,
+                        'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
                         'phone' => $request->phone,
                     ];
                     $check_email_applicant->update($data_applicant);
@@ -171,6 +174,7 @@ class RegisterController extends Controller
                             'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
                             'followup_id' => $check_phone_applicant->followup_id ?? 1,
                             'schoolarship' => 1,
+                            'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
                             'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 10,
                             'status_id' => 2,
                             'come' => 0,
@@ -210,6 +214,7 @@ class RegisterController extends Controller
                             'programtype_id' => 1,
                             'followup_id' => 1,
                             'schoolarship' => 1,
+                            'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
                             'source_id' => 10,
                             'source_daftar_id' => 10,
                             'status_id' => 2,

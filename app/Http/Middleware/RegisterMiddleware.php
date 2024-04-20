@@ -22,6 +22,6 @@ class RegisterMiddleware
         if ($register && Auth::user()->role == 'S') {
             return $next($request);
         }
-        return back();
+        return back()->with('error', "Untuk mengisi data rekomendasi, anda harus registrasi terlebih dahulu.");
     }
 }

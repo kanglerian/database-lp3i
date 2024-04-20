@@ -13,13 +13,13 @@ An international PHP extension for DateTime. [https://carbon.nesbot.com](https:/
 
 use Carbon\Carbon;
 
-printf("Right now is %s", Carbon::now()->toDateTimeString());
+printf("Right now is %s", Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
-$tomorrow = Carbon::now()->addDay();
-$lastWeek = Carbon::now()->subWeek();
+$tomorrow = Carbon::now()->setTimezone('Asia/Jakarta')->addDay();
+$lastWeek = Carbon::now()->setTimezone('Asia/Jakarta')->subWeek();
 $nextSummerOlympics = Carbon::createFromDate(2016)->addYears(4);
 
-$officialDate = Carbon::now()->toRfc2822String();
+$officialDate = Carbon::now()->setTimezone('Asia/Jakarta')->toRfc2822String();
 
 $howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
 
@@ -31,19 +31,19 @@ $internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
 Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
-if (Carbon::now()->gte($internetWillBlowUpOn)) {
+if (Carbon::now()->setTimezone('Asia/Jakarta')->gte($internetWillBlowUpOn)) {
     die();
 }
 
 // Phew! Return to normal behaviour
 Carbon::setTestNow();
 
-if (Carbon::now()->isWeekend()) {
+if (Carbon::now()->setTimezone('Asia/Jakarta')->isWeekend()) {
     echo 'Party!';
 }
 // Over 200 languages (and over 500 regional variants) supported:
-echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
-echo Carbon::now()->subMinutes(2)->locale('zh_CN')->diffForHumans(); // '2分钟前'
+echo Carbon::now()->setTimezone('Asia/Jakarta')->subMinutes(2)->diffForHumans(); // '2 minutes ago'
+echo Carbon::now()->setTimezone('Asia/Jakarta')->subMinutes(2)->locale('zh_CN')->diffForHumans(); // '2分钟前'
 echo Carbon::parse('2019-07-23 14:51')->isoFormat('LLLL'); // 'Tuesday, July 23, 2019 2:51 PM'
 echo Carbon::parse('2019-07-23 14:51')->locale('fr_FR')->isoFormat('LLLL'); // 'mardi 23 juillet 2019 14:51'
 
@@ -77,7 +77,7 @@ require 'vendor/autoload.php';
 
 use Carbon\Carbon;
 
-printf("Now: %s", Carbon::now());
+printf("Now: %s", Carbon::now()->setTimezone('Asia/Jakarta'));
 ```
 
 ### Without Composer
@@ -90,7 +90,7 @@ require 'path-to-Carbon-directory/autoload.php';
 
 use Carbon\Carbon;
 
-printf("Now: %s", Carbon::now());
+printf("Now: %s", Carbon::now()->setTimezone('Asia/Jakarta'));
 ```
 
 ## Docs

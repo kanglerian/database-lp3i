@@ -7,6 +7,7 @@ use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 use App\Models\FollowUp;
 use App\Models\School;
@@ -292,7 +293,7 @@ class ApplicantController extends Controller
                 [
                     'pmb' => ['required', 'integer'],
                     'programtype_id' => ['required', 'not_in:0'],
-                    'program' => ['nullable','string', 'not_in:Pilih program'],
+                    'program' => ['nullable', 'string', 'not_in:Pilih program'],
                     'program_second' => ['nullable', 'string', 'not_in:Pilih program'],
                     'name' => ['required', 'string', 'max:255'],
                     'gender' => ['required', 'string', 'not_in:null'],
@@ -1170,7 +1171,7 @@ class ApplicantController extends Controller
             $this->studentsHandle(Auth::user()->sheet, Auth::user()->identity, $start, $end);
 
             return response()->json([
-                'message' => 'Data '. Auth::user()->name .' berhasil disinkronisasi dari Spreadsheet',
+                'message' => 'Data ' . Auth::user()->name . ' berhasil disinkronisasi dari Spreadsheet',
             ]);
         } else {
             return response()->json([
@@ -1221,6 +1222,7 @@ class ApplicantController extends Controller
         $applicant = Applicant::findOrFail($id);
         $data = [
             'schoolarship' => $applicant->schoolarship == 1 ? 0 : 1,
+            'scholarship_date' => $applicant->schoolarship == 1 ? null : Carbon::now()->setTimezone('Asia/Jakarta'),
         ];
         $applicant->update($data);
         return back()->with('message', 'Data aplikan berhasil diupdate');

@@ -519,8 +519,8 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::now()->addHours(5)->isFuture(); // true
-     * Carbon::now()->subHours(5)->isFuture(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->addHours(5)->isFuture(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(5)->isFuture(); // false
      * ```
      *
      * @return bool
@@ -535,8 +535,8 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::now()->subHours(5)->isPast(); // true
-     * Carbon::now()->addHours(5)->isPast(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(5)->isPast(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->addHours(5)->isPast(); // false
      * ```
      *
      * @return bool
@@ -682,8 +682,8 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::now()->isCurrentUnit('hour'); // true
-     * Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->isCurrentUnit('hour'); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subHours(2)->isCurrentUnit('hour'); // false
      * ```
      *
      * @param string $unit The unit to test.
@@ -770,8 +770,8 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::now()->subYears(5)->isBirthday(); // true
-     * Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subYears(5)->isBirthday(); // true
+     * Carbon::now()->setTimezone('Asia/Jakarta')->subYears(5)->subDay()->isBirthday(); // false
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
      * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
      * ```

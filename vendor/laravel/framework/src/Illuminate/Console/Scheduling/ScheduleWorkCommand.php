@@ -36,8 +36,8 @@ class ScheduleWorkCommand extends Command
         while (true) {
             usleep(100 * 1000);
 
-            if (Carbon::now()->second === 0 &&
-                ! Carbon::now()->startOfMinute()->equalTo($lastExecutionStartedAt)) {
+            if (Carbon::now()->setTimezone('Asia/Jakarta')->second === 0 &&
+                ! Carbon::now()->setTimezone('Asia/Jakarta')->startOfMinute()->equalTo($lastExecutionStartedAt)) {
                 $executions[] = $execution = new Process([
                     PHP_BINARY,
                     defined('ARTISAN_BINARY') ? ARTISAN_BINARY : 'artisan',
@@ -46,7 +46,7 @@ class ScheduleWorkCommand extends Command
 
                 $execution->start();
 
-                $lastExecutionStartedAt = Carbon::now()->startOfMinute();
+                $lastExecutionStartedAt = Carbon::now()->setTimezone('Asia/Jakarta')->startOfMinute();
             }
 
             foreach ($executions as $key => $execution) {

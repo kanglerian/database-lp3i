@@ -41,6 +41,7 @@
                             'database.scholarship',
                             'database.achievement',
                             'database.organization',
+                            'recommendation.index',
                         ])">
                             {{ __('Database') }}
                         </x-nav-link>

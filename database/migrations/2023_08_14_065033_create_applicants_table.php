@@ -39,6 +39,7 @@ class CreateApplicantsTable extends Migration
             $table->text('kip')->nullable();
             $table->string('nisn')->nullable();
             $table->char('schoolarship', 1)->default('0');
+            $table->timestamp('scholarship_date')->nullable();
 
             $table->text('note')->nullable();
             $table->text('relation')->nullable();

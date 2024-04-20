@@ -444,7 +444,7 @@ trait Modifiers
      *
      * @example
      * ```
-     * echo Carbon::now()->change('next 2pm');
+     * echo Carbon::now()->setTimezone('Asia/Jakarta')->change('next 2pm');
      * ```
      *
      * @link https://php.net/manual/en/datetime.modify.php
