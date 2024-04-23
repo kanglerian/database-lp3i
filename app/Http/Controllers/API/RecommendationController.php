@@ -16,7 +16,7 @@ class RecommendationController extends Controller
         $yearVal = request('yearVal', 'all');
 
         $recommendationQuery = Recommendation::query();
-
+        dd(Auth::user()->role);
         if(Auth::user()->role == 'A'){
             if($identityVal !== 'all'){
                 $recommendationQuery->whereHas('applicant', function ($query) use ($identityVal) {
