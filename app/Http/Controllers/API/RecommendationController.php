@@ -12,19 +12,18 @@ class RecommendationController extends Controller
     public function get_all()
     {
         $identityVal = request('identityVal', 'all');
+        $roleVal = request('roleVal', 'all');
         $schoolVal = request('schoolVal', 'all');
         $yearVal = request('yearVal', 'all');
 
         $recommendationQuery = Recommendation::query();
-        dd(Auth::user());
-        if(Auth::user()->role == 'A'){
+        if($roleVal == 'A'){
             if($identityVal !== 'all'){
                 $recommendationQuery->whereHas('applicant', function ($query) use ($identityVal) {
                     $query->where('identity_user', $identityVal);
                 });
             }
         } else {
-            $identityVal = Auth::user()->identity;
             $recommendationQuery->whereHas('applicant', function ($query) use ($identityVal) {
                 $query->where('identity_user', $identityVal);
             });
