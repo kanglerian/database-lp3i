@@ -24,7 +24,7 @@ class RecommendationController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('role', 'P')->get();
         $schools = School::all();
         return view('pages.recommendation.index')->with([
             'users' => $users,
