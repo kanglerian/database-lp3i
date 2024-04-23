@@ -173,7 +173,7 @@
         <script>
             let dataTableDataRecommendationInstance;
             let dataTableDataRecommendationInitialized = false;
-            let identityVal = document.getElementById('identity_val').value;
+            let identityVal = document.getElementById('identity_user').value;
             let roleVal = document.getElementById('role').value;
             let urlRecommendation =
                 `/api/recommendation?identityVal=${identityVal}&roleVal=${roleVal}`;
@@ -183,7 +183,7 @@
             const changeFilter = () => {
                 let queryParams = [];
 
-                let identityVal = document.getElementById('identity_val').value;
+                let identityVal = document.getElementById('identity_user').value;
                 let roleVal = document.getElementById('role').value;
 
                 let schoolVal = document.getElementById('school').value || 'all';
