@@ -32,8 +32,8 @@
                             <option value="BANJAR">BANJAR</option>
                             <option value="CIAMIS">CIAMIS</option>
                             <option value="PANGANDARAN">PANGANDARAN</option>
+                            <option value="PANGANDARAN">PANGANDARAN</option>
                         </select>
-
                     </div>
                 </div>
                 <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">

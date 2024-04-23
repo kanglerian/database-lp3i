@@ -53,7 +53,8 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                    role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
                         {{ session('error') }}
@@ -70,7 +71,7 @@
                             method="POST">
                             @csrf
                             @method('PATCH')
-                            <div class="grid grid-cols-1 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="relative z-0 w-full group">
                                     <x-label for="name" :value="__('Nama Sekolah')" />
                                     <x-input id="name" type="text" name="name" value="{{ $school->name }}"
@@ -78,10 +79,7 @@
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('name') }}
                                     </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="relative z-0 w-full group">
+                                </div><div class="relative z-0 w-full group">
                                     <x-label for="type" :value="__('Jenis Sekolah')" />
                                     <x-select id="type" name="type" required>
                                         @switch($school->type)
@@ -126,6 +124,8 @@
                                         {{ $errors->first('type') }}
                                     </div>
                                 </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class="relative z-0 w-full group">
                                     <x-label for="status" :value="__('Status Sekolah')" />
                                     <x-select id="status" name="status" required>
@@ -152,27 +152,22 @@
                                     </div>
                                 </div>
                                 <div class="relative z-0 w-full group">
-                                    <x-label for="region" :value="__('Wilayah Sekolah')" />
-                                    <x-select name="region" id="region" class="js-example-input-single" required>
-                                        @if ($school->region)
-                                            <option value="{{ $school->region }}" selected>{{ $school->region }}
-                                            </option>
-                                        @else
-                                            <option>Pilih</option>
-                                        @endif
-                                        <option value="KAB. TASIKMALAYA">KAB. TASIKMALAYA</option>
-                                        <option value="TASIKMALAYA">TASIKMALAYA</option>
-                                        <option value="CIAMIS">CIAMIS</option>
-                                        <option value="BANJAR">BANJAR</option>
-                                        <option value="PANGANDARAN">PANGANDARAN</option>
-                                        <option value="GARUT">GARUT</option>
-                                        <option value="KAB. CIREBON">KAB. CIREBON</option>
-                                        <option value="TIDAK DIKETAHUI">TIDAK DIKETAHUI</option>
+                                    <x-label for="provinces" :value="__('Provinsi')" />
+                                    <x-select id="provinces" required>
+                                        <option value="">Pilih Provinsi</option>
+                                    </x-select>
+                                </div>
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="regencies" :value="__('Kota')" />
+                                    <x-select id="regencies" name="region" disabled required>
+                                        <option value="">Pilih Kota / Kabupaten</option>
                                     </x-select>
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('region') }}
                                     </div>
                                 </div>
+                                <select id="districts" hidden></select>
+                                <select id="villages" hidden></select>
                             </div>
                             <div>
                                 <button type="button" onclick="updateSchool()"
@@ -191,6 +186,8 @@
     </section>
 
     @push('scripts')
+        <script src="{{ asset('js/indonesia.js') }}"></script>
+        <script src="{{ asset('js/axios.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('.js-example-input-single').select2({
