@@ -173,15 +173,17 @@
         <script>
             let dataTableDataRecommendationInstance;
             let dataTableDataRecommendationInitialized = false;
+            let identityVal = document.getElementById('identity_val').value;
+            let roleVal = document.getElementById('role').value;
             let urlRecommendation =
-                `/api/recommendation`;
+                `/api/recommendation?identityVal=${identityVal}&roleVal=${roleVal}`;
         </script>
 
         <script>
             const changeFilter = () => {
                 let queryParams = [];
 
-                let identityVal = document.getElementById('identity_user').value;
+                let identityVal = document.getElementById('identity_val').value;
                 let roleVal = document.getElementById('role').value;
 
                 let schoolVal = document.getElementById('school').value || 'all';
@@ -201,7 +203,6 @@
                 let queryString = queryParams.join('&');
 
                 urlRecommendation = `/api/recommendation?${queryString}`;
-                console.log(urlRecommendation);
 
                 if (dataTableDataRecommendationInstance) {
                     showLoadingAnimation();
