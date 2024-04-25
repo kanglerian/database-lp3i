@@ -21,7 +21,7 @@ class CreateRecommendationsTable extends Migration
             $table->unsignedBigInteger('school_id')->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
-            $table->boolean('status')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

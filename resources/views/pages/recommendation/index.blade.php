@@ -150,6 +150,9 @@
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Presenter
                                     </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Status
+                                    </th>
                                     <th scope="col" class="px-6 py-3 rounded-r-xl">
                                         Aksi
                                     </th>
@@ -274,6 +277,51 @@
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
                                     return data.presenter.name;
+                                }
+                            },
+                            {
+                                data: {
+                                    id: 'id',
+                                    status: 'status',
+                                },
+                                render: (data, type, row, meta) => {
+                                    let statusLabel = "";
+                                    switch (parseInt(data.status)) {
+                                        case 0:
+                                            statusLabel = "Pilih";
+                                            break;
+                                        case 1:
+                                            statusLabel = "Batal";
+                                            break;
+                                        case 2:
+                                            statusLabel = "Pertimbangkan";
+                                            break;
+                                        case 3:
+                                            statusLabel = "Prospek";
+                                            break;
+                                        default:
+                                            statusLabel = "Pilih";
+                                            break;
+                                    }
+                                    let editUrl = "{{ route('recommendation.change', ':id') }}"
+                                        .replace(
+                                            ':id',
+                                            data.id);
+                                    return `
+                                    <form id="statusForm_${data.id}" method="POST" action="${editUrl}" class="w-[130px]">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select onchange="document.getElementById('statusForm_${data.id}').submit()" name="status" class="w-full px-3 text-xs text-gray-900 border border-gray-300 rounded-xl bg-gray-50">
+                                            <option value="${data.status}" selected>
+                                                ${statusLabel}
+                                            </option>
+                                            <option value="3">Prospek</option>
+                                            <option value="2">Pertimbangkan</option>
+                                            <option value="1">Batal</option>
+                                            <option value="0">Tidak diketahui</option>
+                                        </select>
+                                    </form>
+                                    `;
                                 }
                             },
                             {

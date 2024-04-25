@@ -139,6 +139,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('userupload', UserUploadController::class);
     Route::resource('recommendation', RecommendationController::class);
+    Route::patch('recommendation/change/{id}', [RecommendationController::class, 'change_status'])->name('recommendation.change');
     Route::post('payment', [UserUploadController::class, 'upload_pembayaran'])->name('upload.payment');
 });
 
