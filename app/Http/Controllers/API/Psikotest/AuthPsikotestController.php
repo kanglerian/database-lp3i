@@ -243,12 +243,10 @@ class AuthPsikotestController extends Controller
             $exp_token = time() + (24 * 60 * 60);
 
             $data_token = [
-                'identity' => $user->identity,
-                'avatar' => $user->avatar,
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'gender' => $user->gender,
                 'role' => $user->role,
                 'status' => $user->status,
             ];
