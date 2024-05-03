@@ -48,7 +48,7 @@ class AuthPsikotestController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => $validator->errors()], 422);
+            return response()->json(['validate' => true, 'message' => $validator->errors()], 422);
         }
 
         function getYearPMB()
@@ -93,9 +93,20 @@ class AuthPsikotestController extends Controller
         if ($check_email_applicant) {
             if ($check_email_user) {
                 if ($check_email_user->email == $request->email && $check_email_user->phone != $request->phone) {
-                    return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                    return response()->json([
+                        'message' => [
+                            'email' => ['Email sudah terdaftar. Silahkan langsung masuk dan hubungi Admin.']
+                        ],
+                        'validate' => false,
+                    ], 401);
                 } elseif ($check_email_user->email == $request->email && $check_email_user->phone == $request->phone) {
-                    return response()->json(['message' => 'Email & No. Telpon ditemukan. Apakah anda lupa password? Silahkan hubungi Admin.'], 401);
+                    return response()->json([
+                        'message' => [
+                            'email' => ['Email sudah terdaftar. Apakah anda lupa akun? Silahkan hubungi Admin.'],
+                            'phone' => ['No. Telpon sudah terdaftar. Apakah anda lupa akun? Silahkan hubungi Admin.']
+                        ],
+                        'validate' => false,
+                    ], 401);
                 }
             } else {
                 if ($check_phone_applicant) {
@@ -147,10 +158,20 @@ class AuthPsikotestController extends Controller
             }
         } else {
             if ($check_email_user) {
-                return response()->json(['message' => 'Email sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                return response()->json([
+                    'message' => [
+                        'email' => ['Email sudah terdaftar. Silahkan langsung masuk dan hubungi Admin.'],
+                    ],
+                    'validate' => false,
+                ], 401);
             } else {
                 if ($check_phone_user) {
-                    return response()->json(['message' => 'No. Telpon sudah terdaftar. Silahkan hubungi Admin.'], 401);
+                    return response()->json([
+                        'message' => [
+                            'phone' => ['No. Telpon sudah terdaftar. Silahkan langsung masuk dan hubungi Admin.']
+                        ],
+                        'validate' => false,
+                    ], 401);
                 } else {
                     if ($check_phone_applicant) {
                         $data_applicant = [
