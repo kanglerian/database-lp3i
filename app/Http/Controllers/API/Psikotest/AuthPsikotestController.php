@@ -26,6 +26,7 @@ class AuthPsikotestController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
+            'class' => ['required', 'max:100'],
             'phone' => [
                 'required',
                 'string',
@@ -38,6 +39,7 @@ class AuthPsikotestController extends Controller
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
+            'class.required' => 'Kelas jangan terlewatkan, pastikan diisi ya!',
             'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',
             'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
@@ -107,6 +109,7 @@ class AuthPsikotestController extends Controller
                         'status' => 1,
                     ];
                     $data_applicant = [
+                        'class' => $request->classes,
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                     ];
@@ -131,6 +134,7 @@ class AuthPsikotestController extends Controller
                         'programtype_id' => $check_email_applicant->programtype_id ?? 1,
                         'followup_id' => $check_email_applicant->followup_id ?? 1,
                         'phone' => $request->phone,
+                        'class' => $request->classes,
                     ];
                     $check_email_applicant->update($data_applicant);
                     $user = User::create($data_user);
@@ -154,6 +158,7 @@ class AuthPsikotestController extends Controller
                             'name' => $check_phone_applicant->name,
                             'school' => $school,
                             'email' => $request->email,
+                            'class' => $request->classes,
                             'programtype_id' => $check_phone_applicant->programtype_id ?? 1,
                             'followup_id' => $check_phone_applicant->followup_id ?? 1,
                             'source_daftar_id' => $check_phone_applicant->source_daftar_id ?? 1,
@@ -189,6 +194,7 @@ class AuthPsikotestController extends Controller
                             'school' => $school,
                             'email' => $request->email,
                             'phone' => $request->phone,
+                            'class' => $request->classes,
                             'programtype_id' => 1,
                             'followup_id' => 1,
                             'source_id' => 1,
@@ -240,6 +246,7 @@ class AuthPsikotestController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $applicant = Applicant::with('SchoolApplicant')->where('identity', $user->identity)->first();
             $exp_token = time() + (24 * 60 * 60);
 
             $data_token = [
@@ -247,6 +254,8 @@ class AuthPsikotestController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
+                'school' => $applicant->schoolapplicant->name,
+                'class' => $applicant->class,
                 'role' => $user->role,
                 'status' => $user->status,
             ];
