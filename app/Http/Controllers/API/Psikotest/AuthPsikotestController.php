@@ -26,7 +26,7 @@ class AuthPsikotestController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'school' => ['required', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
-            'class' => ['required', 'max:100'],
+            'classes' => ['required', 'max:100'],
             'phone' => [
                 'required',
                 'string',
@@ -39,7 +39,7 @@ class AuthPsikotestController extends Controller
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
-            'class.required' => 'Kelas jangan terlewatkan, pastikan diisi ya!',
+            'classes.required' => 'Kelas jangan terlewatkan, pastikan diisi ya!',
             'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',
             'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
