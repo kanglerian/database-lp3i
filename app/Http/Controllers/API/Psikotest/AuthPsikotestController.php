@@ -254,8 +254,8 @@ class AuthPsikotestController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'school' => $applicant->schoolapplicant->name,
-                'class' => $applicant->class,
+                'school' => $applicant->schoolapplicant->name ?? 'Tidak diketahui',
+                'class' => $applicant->class ?? 'Tidak diketahui',
                 'role' => $user->role,
                 'status' => $user->status,
             ];
