@@ -218,7 +218,7 @@ class AuthPsikotestController extends Controller
                             'class' => $request->classes,
                             'programtype_id' => 1,
                             'followup_id' => 1,
-                            'source_id' => 1,
+                            'source_id' => 11,
                             'source_daftar_id' => 1,
                             'status_id' => 2,
                             'come' => 0,
