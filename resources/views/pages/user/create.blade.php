@@ -43,7 +43,7 @@
                         <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="phone" :value="__('No. Telpon (Whatsapp)')" />
-                                <x-input id="phone" type="text" name="phone" maxlength="14" :value="old('phone')"
+                                <x-input id="phone" type="number" name="phone" maxlength="14" :value="old('phone')"
                                     placeholder="Tulis no. telpon / whatsapp disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
