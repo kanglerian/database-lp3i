@@ -762,7 +762,8 @@
                         platform: 'misil',
                     })
                     .then((response) => {
-                        location.reload();
+                        // location.reload();
+                        console.log(response);
                     })
                     .catch((error) => {
                         console.log(error.message);

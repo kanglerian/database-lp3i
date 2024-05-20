@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282219509698,
+                'code' => 'PR012',
                 'name' => 'Indri Fitrianasari, S.Kom',
                 'email' => 'indri.lp3i@gmail.com',
                 'password' => Hash::make('indri123'),
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282215614238,
+                'code' => 'PR001',
                 'name' => 'Nurul Ahyar, S.Sos',
                 'email' => 'ahyar.lp3i@gmail.com',
                 'password' => Hash::make('ahyar123'),
@@ -55,6 +57,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282127356645,
+                'code' => 'PR006',
                 'name' => 'Benny Suryadi Rahman, SE',
                 'email' => 'benny.lp3i@gmail.com',
                 'password' => Hash::make('benny123'),
@@ -67,6 +70,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6281947776090,
+                'code' => 'PR001',
                 'name' => 'Sindiana, A.Md.M',
                 'email' => 'sindiana.lp3i@gmail.com',
                 'password' => Hash::make('sindiana123'),
@@ -79,6 +83,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282127951392,
+                'code' => 'PR009',
                 'name' => 'Lilip Harlivandi Zakaria, S.Kom',
                 'email' => 'harli.lp3i@gmail.com',
                 'password' => Hash::make('harli123'),
@@ -91,6 +96,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6281220662033,
+                'code' => 'PR004',
                 'name' => 'Yanti Fadila Wahab, M.Pd',
                 'email' => 'yanti.lp3i@gmail.com',
                 'password' => Hash::make('yanti123'),
@@ -103,6 +109,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282118936775,
+                'code' => 'PR003',
                 'name' => 'Ratna Sopiah, S.AB',
                 'email' => 'ratna.lp3i@gmail.com',
                 'password' => Hash::make('ratna123'),
@@ -115,6 +122,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'identity' => 6282211780631,
+                'code' => 'PR011',
                 'name' => 'Arip Budiman, S.T., M.Pd',
                 'email' => 'arip.lp3i@gmail.com',
                 'password' => Hash::make('arip123456'),

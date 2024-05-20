@@ -80,14 +80,14 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <i class="fa-solid fa-receipt text-gray-400"></i>
                                     </div>
-                                    <input type="number" name="receipt" maxlength="8" value="{{ $enrollment->receipt }}"
+                                    <input type="text" name="receipt" maxlength="8" value="{{ $enrollment->receipt }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                         placeholder="No. Kwitansi" required>
                                 </div>
                                 @if ($errors->has('receipt'))
                                     <span class="text-red-500 text-xs">{{ $errors->first('receipt') }}</span>
                                 @else
-                                    <span class="text-red-500 text-xs">*Wajib diisi 5 - 10 digit.</span>
+                                    <span class="text-red-500 text-xs">*Wajib diisi 5 - 8 digit.</span>
                                 @endif
                             </div>
                         </div>

@@ -55,12 +55,19 @@
                                 </p>
                             </header>
                             <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
-                                <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
-                                <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
-                                <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
+                                <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span>
+                                </li>
+                                <li>Prodi 1: <span
+                                        class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span>
+                                </li>
+                                <li>Prodi 2: <span
+                                        class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span>
+                                </li>
                             </ul>
                             <hr>
-                            <p class="text-xs text-gray-700">Catatan: untuk mengubah program studi silahkan hubungi <a href="https://wa.me/{{ $applicant->presenter->phone }}">{{ $applicant->presenter->name }}</a></p>
+                            <p class="text-xs text-gray-700">Catatan: untuk mengubah program studi silahkan hubungi <a
+                                    href="https://wa.me/{{ $applicant->presenter->phone }}">{{ $applicant->presenter->name }}</a>
+                            </p>
                         </div>
                         <form action="{{ route('profile.update', $user->id) }}" class="flex flex-col items-start gap-5"
                             method="POST">
@@ -85,7 +92,8 @@
                         <div>
                             <div>
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="name" maxlength="50" id="nameuser" value="{{ $user->name }}"
+                                    <input type="text" name="name" maxlength="50" id="nameuser"
+                                        value="{{ $user->name }}"
                                         class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -96,8 +104,24 @@
                                         lengkap</label>
                                 </div>
 
+                                @if ($user->role == 'P')
+                                    <div class="relative z-0 w-full mb-6 group">
+                                        <input type="text" name="code" maxlength="6" id="code"
+                                            value="{{ $user->code }}"
+                                            class="@error('code') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" " />
+                                        <div class="text-sm text-gray-700 mt-3">
+                                            {{ $errors->first('code') }}
+                                        </div>
+                                        <label for="code"
+                                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Code
+                                            Presenter (MisilV4)</label>
+                                    </div>
+                                @endif
+
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="number" name="phone" maxlength="14" id="phone" value="{{ $user->phone }}"
+                                    <input type="number" name="phone" maxlength="14" id="phone"
+                                        value="{{ $user->phone }}"
                                         class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -109,7 +133,8 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="email" name="email" maxlength="50"  id="email" value="{{ $user->email }}"
+                                    <input type="email" name="email" maxlength="50" id="email"
+                                        value="{{ $user->email }}"
                                         class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">

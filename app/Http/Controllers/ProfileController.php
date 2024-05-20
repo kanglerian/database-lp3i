@@ -331,6 +331,7 @@ class ProfileController extends Controller
         ]);
 
         $data = [
+            'code' => $request->input('code'),
             'name' => ucwords(strtolower($request->input('name'))),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
