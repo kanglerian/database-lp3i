@@ -77,6 +77,8 @@ class DashboardController extends Controller
 
         $databasesAdministrator = Applicant::where('identity_user', '6281313608558')
             ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
+            ->whereNotIn('source_id',11)
+            ->whereNotIn('source_daftar_id',11)
             ->orderByDesc('created_at')
             ->take(10)
             ->get();
