@@ -41,10 +41,10 @@ class DashboardController extends Controller
         $account = false;
         $applicant = false;
 
-        if(Auth::user()->role == 'S'){
+        if (Auth::user()->role == 'S') {
             $register = StatusApplicantsRegistration::where('identity_user', Auth::user()->identity)->first();
             $applicant = Applicant::where('identity', Auth::user()->identity)->first();
-            if($register) {
+            if ($register) {
                 $account = true;
             }
         }
@@ -77,8 +77,8 @@ class DashboardController extends Controller
 
         $databasesAdministrator = Applicant::where('identity_user', '6281313608558')
             ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
-            ->whereNotIn('source_id',11)
-            ->whereNotIn('source_daftar_id',11)
+            ->whereNotIn('source_id', [11])
+            ->whereNotIn('source_daftar_id', [11])
             ->orderByDesc('created_at')
             ->take(10)
             ->get();
@@ -168,7 +168,7 @@ class DashboardController extends Controller
             $presenters = User::where('role', 'P')->get();
         } elseif (Auth::user()->role == 'P') {
             $presenters = User::where('identity', Auth::user()->identity)->get();
-        } elseif (Auth::user()->role == 'K'){
+        } elseif (Auth::user()->role == 'K') {
             $presenters = User::where('role', 'P')->get();
         }
 
