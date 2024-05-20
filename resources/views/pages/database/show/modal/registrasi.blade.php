@@ -399,7 +399,7 @@
                                         <label for="pmb"
                                             class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                             PMB</label>
-                                        <input type="number" value="{{ $registration->pmb }}" name="pmb"
+                                        <input type="number" value="{{ $registration->pmb }}" name="pmb" maxlength="4"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tahun PMB" required>
                                         @if ($errors->has('pmb'))
@@ -958,7 +958,7 @@
                                         <label for="pmb"
                                             class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                             PMB</label>
-                                        <input type="number" value="{{ $user->pmb }}" name="pmb"
+                                        <input type="number" value="{{ $user->pmb }}" name="pmb" maxlength="4"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             placeholder="Tahun PMB" required>
                                     </div>

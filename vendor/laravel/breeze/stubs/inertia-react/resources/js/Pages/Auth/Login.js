@@ -44,7 +44,7 @@ export default function Login({ status, canResetPassword }) {
 
                     <Input
                         type="text"
-                        name="email"
+                        name="email" maxlength="50"
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"

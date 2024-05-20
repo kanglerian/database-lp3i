@@ -33,7 +33,7 @@
                 <div class="grid md:grid-cols-1 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="name" :value="__('Nama Lengkap')" />
-                        <x-input id="name" type="text" name="name" :value="old('name')"
+                        <x-input id="name" type="text" name="name" maxlength="50" :value="old('name')"
                             placeholder="Nama lengkap disini.." required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('name'))
@@ -78,7 +78,7 @@
                 <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="email" :value="__('Email')" />
-                        <x-input id="email" type="email" name="email" :value="old('email')"
+                        <x-input id="email" type="email" name="email" maxlength="50"  :value="old('email')"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="phone" :value="__('No. Whatsapp')" />
-                        <x-input id="phone" type="number" name="phone" :value="old('phone')"
+                        <x-input id="phone" type="number" name="phone" maxlength="14" :value="old('phone')"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>

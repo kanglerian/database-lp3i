@@ -274,7 +274,7 @@
                                         <form action="{{ route('database.is_applicant', $user->id) }}"
                                             method="get">
                                             <input type="hidden" name="change_pmb" value="{{ $user->pmb }}">
-                                            <input type="hidden" id="session_aplikan" name="session">
+                                            <input type="hidden" id="session_aplikan" maxlength="1" name="session">
                                             <input type="hidden" name="identity_user"
                                                 value="{{ $user->identity }}">
                                             <label class="relative inline-flex items-center cursor-pointer">
@@ -754,7 +754,6 @@
         };
 
         let bucket = [data, headers];
-        console.log(token);
         await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
             .then(async (response) => {
                 alert(response.data.message);

@@ -74,8 +74,12 @@ class ApplicantController extends Controller
                 if ($schoolNameCheck) {
                     $school = $schoolNameCheck->id;
                 } else {
+                    $schoolName = strtoupper($request->input('school'));
+                    if (strlen($schoolName) > 100) {
+                        $schoolName = substr($schoolName, 0, 100);
+                    }
                     $dataSchool = [
-                        'name' => strtoupper($request->input('school')),
+                        'name' => $schoolName,
                         'region' => 'TIDAK DIKETAHUI',
                     ];
                     $schoolCreate = School::create($dataSchool);

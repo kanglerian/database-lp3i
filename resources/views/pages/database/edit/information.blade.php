@@ -131,7 +131,7 @@
                     @endif
                     <div class="relative z-0 w-full group">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
-                        <x-input id="pmb" type="number" name="pmb" value="{{ $applicant->pmb }}"
+                        <x-input id="pmb" type="number" name="pmb" maxlength="4" value="{{ $applicant->pmb }}"
                             placeholder="Tahun Akademik" required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('pmb'))
@@ -240,7 +240,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="email" :value="__('Email')" />
-                        <x-input id="email" type="email" name="email" value="{{ $applicant->email }}"
+                        <x-input id="email" type="email" name="email" maxlength="50"  value="{{ $applicant->email }}"
                             placeholder="Email" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('email'))
@@ -252,7 +252,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="phone" :value="__('No. Whatsapp')" />
-                        <x-input id="phone" type="number" name="phone" value="{{ $applicant->phone }}"
+                        <x-input id="phone" type="number"  name="phone" maxlength="14" value="{{ $applicant->phone }}"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('phone'))

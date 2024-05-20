@@ -74,12 +74,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="relative z-0 w-full group">
                                     <x-label for="name" :value="__('Nama Sekolah')" />
-                                    <x-input id="name" type="text" name="name" value="{{ $school->name }}"
-                                        placeholder="Nama sekolah disini.." required />
+                                    <x-input id="name" type="text" name="name" maxlength="100"
+                                        value="{{ $school->name }}" placeholder="Nama sekolah disini.." required />
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('name') }}
                                     </div>
-                                </div><div class="relative z-0 w-full group">
+                                </div>
+                                <div class="relative z-0 w-full group">
                                     <x-label for="type" :value="__('Jenis Sekolah')" />
                                     <x-select id="type" name="type" required>
                                         @switch($school->type)
@@ -192,6 +193,16 @@
             $(document).ready(function() {
                 $('.js-example-input-single').select2({
                     tags: true,
+                    placeholder: 'Pilih sekolah',
+                    allowClear: true,
+                });
+                const maxLength = 2;
+                $(document).on('keydown', '.select2-search__field', function() {
+                    // if (this.value.length > maxLength) {
+                    //     this.value = this.value.substring(0, maxLength);
+                    //     alert('Maximum length of school name is ' + maxLength + ' characters.');
+                    // }
+                    alert('oey');
                 });
             });
 

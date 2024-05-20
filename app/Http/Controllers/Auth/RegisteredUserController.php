@@ -74,7 +74,7 @@ class RegisteredUserController extends Controller
             'religion' => ['required'],
             'major' => ['required'],
             'year' => ['required', 'min:4','max:4'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
 
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
@@ -99,6 +99,7 @@ class RegisteredUserController extends Controller
             'major.required' => 'Jurusan wajib diisi, pasti pilihan yang bagus!',
             'year.required' => 'Tahun lulus jangan sampai kosong, ya!',
             'year.min' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
+            'school.max' => 'Sekolah tidak boleh lebih dari 100 karakter, pastikan benar ya!',
             'school.required' => 'Sekolah juga jangan terlupakan, lho!',
             'school.not_in' => 'Ayo pilih Sekolah yang valid, pasti oke!',
             'email.required' => 'Email jangan sampai kosong, ya!',

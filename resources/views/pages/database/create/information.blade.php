@@ -16,7 +16,7 @@
                 <div class="grid md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
-                        <x-input id="pmb" type="number" name="pmb" :value="old('pmb')"
+                        <x-input id="pmb" type="number" name="pmb" maxlength="4" :value="old('pmb')"
                             placeholder="Tahun Akademik" required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('pmb'))

@@ -65,7 +65,7 @@
                                         Terakhir</label>
                                 </div>
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="major" id="major"
+                                    <input type="text" name="major" maxlength="100" id="major"
                                         value="{{ old('major', $applicant->major) }}"
                                         class="@error('major') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -116,7 +116,7 @@
                             <hr class="mb-10">
                             <div class="grid md:grid-cols-2 md:gap-6">
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="place_of_birth" id="place_of_birth"
+                                    <input type="text" name="place_of_birth" maxlength="50" id="place_of_birth"
                                         value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
                                         class="@error('place_of_birth') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -170,7 +170,7 @@
                             <hr class="mb-10">
                             <div class="grid md:grid-cols-2 md:gap-6">
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="father_name" id="father_name"
+                                    <input type="text" name="father_name" maxlength="50"  id="father_name"
                                         value="{{ old('father_name', $applicant->father_name) }}"
                                         class="@error('father_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -182,7 +182,7 @@
                                         Ayah</label>
                                 </div>
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="father_job" id="father_job"
+                                    <input type="text" name="father_job" maxlength="100"  id="father_job"
                                         value="{{ old('father_job', $applicant->father_job) }}"
                                         class="@error('father_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -196,7 +196,7 @@
                             </div>
                             <div class="grid md:grid-cols-2 md:gap-6">
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="mother_name" id="mother_name"
+                                    <input type="text" name="mother_name" maxlength="50"  id="mother_name"
                                         value="{{ old('mother_name', $applicant->mother_name) }}"
                                         class="@error('mother_name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -208,7 +208,7 @@
                                         Ibu</label>
                                 </div>
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="mother_job" id="mother_job"
+                                    <input type="text" name="mother_job" maxlength="100"  id="mother_job"
                                         value="{{ old('mother_job', $applicant->mother_job) }}"
                                         class="@error('mother_job') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " />
@@ -259,7 +259,7 @@
                         <div>
                             <div>
                                 <div class="relative z-0 w-full group">
-                                    <input type="text" name="name" id="name" value="{{ $user->name }}"
+                                    <input type="text" name="name" maxlength="50" id="name" value="{{ $user->name }}"
                                         class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -271,7 +271,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="number" name="phone" id="phone" value="{{ $user->phone }}"
+                                    <input type="number" name="phone" maxlength="14" id="phone" value="{{ $user->phone }}"
                                         class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -283,7 +283,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="email" name="email" id="email" value="{{ $user->email }}"
+                                    <input type="email" name="email" maxlength="50"  id="email" value="{{ $user->email }}"
                                         class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">

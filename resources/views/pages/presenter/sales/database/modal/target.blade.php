@@ -20,7 +20,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
                         <div>
                             <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">PMB</label>
-                            <input type="number" name="pmb" id="pmb"
+                            <input type="number" name="pmb" maxlength="4" id="pmb"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Tahun PMB" required>
                         </div>

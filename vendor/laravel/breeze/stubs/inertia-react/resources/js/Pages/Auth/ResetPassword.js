@@ -42,7 +42,7 @@ export default function ResetPassword({ token, email }) {
 
                     <Input
                         type="email"
-                        name="email"
+                        name="email" maxlength="50"
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"

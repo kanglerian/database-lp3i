@@ -24,7 +24,7 @@ class AuthPsikotestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
             'classes' => ['required', 'max:100'],
             'phone' => [
@@ -37,6 +37,7 @@ class AuthPsikotestController extends Controller
         ], [
             'name.required' => 'Oopss, sepertinya Nama Lengkap lupa diisi ya!',
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
+            'school.max' => 'Sekolah tidak boleh lebih dari 100 karakter, pastikan benar ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
             'classes.required' => 'Kelas jangan terlewatkan, pastikan diisi ya!',

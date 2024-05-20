@@ -21,7 +21,7 @@
                             <div>
                                 <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                     PMB</label>
-                                <input type="number" value="{{ $enrollment->pmb }}" name="pmb"
+                                <input type="number" value="{{ $enrollment->pmb }}" name="pmb" maxlength="4"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Tahun PMB" required>
                                 @if ($errors->has('pmb'))
@@ -80,7 +80,7 @@
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                         <i class="fa-solid fa-receipt text-gray-400"></i>
                                     </div>
-                                    <input type="number" name="receipt" value="{{ $enrollment->receipt }}"
+                                    <input type="number" name="receipt" maxlength="8" value="{{ $enrollment->receipt }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                         placeholder="No. Kwitansi" required>
                                 </div>
@@ -227,7 +227,7 @@
                         <div>
                             <label for="pmb" class="block mb-2 text-sm font-medium text-gray-900">Tahun
                                 PMB</label>
-                            <input type="number" value="{{ $user->pmb }}" name="pmb" id="pmb"
+                            <input type="number" value="{{ $user->pmb }}" name="pmb" maxlength="4" id="pmb"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="Tahun PMB" required>
                             @if ($errors->has('pmb'))
@@ -274,7 +274,7 @@
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <i class="fa-solid fa-receipt text-gray-400"></i>
                                 </div>
-                                <input type="number" name="receipt" id="receipt"
+                                <input type="number" name="receipt" maxlength="8" id="receipt"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                                     placeholder="No. Kwitansi" required>
                             </div>

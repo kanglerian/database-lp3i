@@ -173,7 +173,7 @@ class ProfileController extends Controller
             'religion' => ['required', 'string'],
             'major' => ['required'],
             'year' => ['required', 'min:4', 'max:4'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
 
             'father_phone' => ['nullable', 'min:10', 'max:15'],
             'mother_phone' => ['nullable', 'min:10', 'max:15'],
@@ -202,6 +202,7 @@ class ProfileController extends Controller
             'year.max' => 'Tahun harus memiliki setidaknya 4 digit, pastikan benar ya!',
 
             'school.required' => 'Pilih Sekolah wajib diisi, jangan sampai terlewat!',
+            'school.max' => 'Sekolah tidak boleh lebih dari 100 karakter, pastikan benar ya!',
 
             'father_phone.string' => 'Nomor Telepon harus berupa string, nih!',
             'father_phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',

@@ -22,13 +22,13 @@
                     <input type="hidden" name="name" value="{{ $user->name }}">
                     <input type="hidden" name="gender" value="{{ $user->gender || 1 }}">
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-3">
-                        <div> 
+                        <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <i class="fa-solid fa-envelope text-gray-500"></i>
                                 </div>
-                                <input type="email" name="email" id="email" value="{{ $user->email }}"
+                                <input type="email" name="email" maxlength="50"  id="email" value="{{ $user->email }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Alamat Email"
                                     required>
                             </div>
@@ -39,7 +39,7 @@
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <i class="fa-brands fa-whatsapp text-gray-500"></i>
                                 </div>
-                                <input type="number" name="phone" id="phone" value="{{ $user->phone }}"
+                                <input type="number" name="phone" maxlength="14" id="phone" value="{{ $user->phone }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="No. Whatsapp"
                                     required>
                             </div>

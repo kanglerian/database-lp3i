@@ -25,7 +25,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="relative z-0 w-full group">
                                 <x-label for="name" :value="__('Nama lengkap')" />
-                                <x-input id="name" type="text" name="name" :value="old('name')"
+                                <x-input id="name" type="text" name="name" maxlength="50" :value="old('name')"
                                     placeholder="Tulis nama lengkap disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
@@ -43,7 +43,7 @@
                         <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
                             <div class="relative z-0 w-full group mb-4">
                                 <x-label for="phone" :value="__('No. Telpon (Whatsapp)')" />
-                                <x-input id="phone" type="number" name="phone" :value="old('phone')"
+                                <x-input id="phone" type="number" name="phone" maxlength="14" :value="old('phone')"
                                     placeholder="Tulis no. telpon / whatsapp disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="relative z-0 w-full group">
                                 <x-label for="email" :value="__('Email')" />
-                                <x-input id="email" type="email" name="email" :value="old('email')"
+                                <x-input id="email" type="email" name="email" maxlength="50"  :value="old('email')"
                                     placeholder="Tulis email disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>

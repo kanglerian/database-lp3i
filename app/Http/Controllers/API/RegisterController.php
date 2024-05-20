@@ -27,7 +27,7 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
                 'required',
@@ -42,6 +42,7 @@ class RegisterController extends Controller
             'nisn.required' => 'Hei, NISN harus diisi nih, jangan lupa!',
             'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
+            'school.max' => 'Sekolah tidak boleh lebih dari 100 karakter, pastikan benar ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
             'email.email' => 'Format email sepertinya perlu diperiksa lagi, nih!',
             'phone.required' => 'Nomor telepon jangan sampai kosong, ya!',

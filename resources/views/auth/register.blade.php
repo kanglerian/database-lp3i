@@ -60,7 +60,7 @@
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="name" :value="__('Nama Lengkap')" />
-                    <x-input id="name" type="text" name="name" :value="old('name')"
+                    <x-input id="name" type="text" name="name" maxlength="50" :value="old('name')"
                         placeholder="Nama lengkap disini.." required />
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('name'))
@@ -90,7 +90,7 @@
             <div class="grid md:grid-cols-3 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
-                    <x-input id="place_of_birth" type="text" name="place_of_birth" :value="old('place_of_birth')"
+                    <x-input id="place_of_birth" type="text" name="place_of_birth" maxlength="50" :value="old('place_of_birth')"
                         placeholder="Tulis tempat lahir disini..." />
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('place_of_birth'))
@@ -165,7 +165,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="major" :value="__('Jurusan')" />
-                    <x-input id="major" type="text" name="major" :value="old('major')"
+                    <x-input id="major" type="text" name="major" maxlength="100" :value="old('major')"
                         placeholder="Tulis jurusan disini..." />
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('major'))
@@ -221,7 +221,7 @@
                 <div class="grid md:grid-cols-3 md:gap-6 mb-3 lg:mb-0">
                     <div class="relative z-0 w-full group mb-3">
                         <x-label for="rt" :value="__('RT')" />
-                        <x-input id="rt" type="number" name="rt" :value="old('rt')"
+                        <x-input id="rt" type="text" name="rt" maxlength="2" :value="old('rt')"
                             placeholder="Tulis RT disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('rt') }}</span>
@@ -229,7 +229,7 @@
                     </div>
                     <div class="relative z-0 w-full group mb-3">
                         <x-label for="rw" :value="__('RW')" />
-                        <x-input id="rw" type="number" name="rw" :value="old('rw')"
+                        <x-input id="rw" type="number" name="rw" maxlength="2" :value="old('rw')"
                             placeholder="Tulis RW disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('rw') }}</span>
@@ -237,7 +237,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="postal_code" :value="__('Kode Pos')" />
-                        <x-input id="postal_code" type="number" name="postal_code" :value="old('postal_code')"
+                        <x-input id="postal_code" type="number" name="postal_code" maxlength="7" :value="old('postal_code')"
                             placeholder="Tulis kode pos disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('postal_code') }}</span>
@@ -255,7 +255,7 @@
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
                     <x-label for="email" :value="__('Email')" />
-                    <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email"
+                    <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" maxlength="50"
                         :value="old('email')" placeholder="Masukkan Alamat Email Anda" required />
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
@@ -269,7 +269,7 @@
                 </div>
                 <div class="relative z-0 w-full group">
                     <x-label for="phone" :value="__('No. Whatsapp')" />
-                    <x-input id="phone" class="block mt-1 w-full text-sm" type="number" name="phone"
+                    <x-input id="phone" class="block mt-1 w-full text-sm" type="number" name="phone" maxlength="14"
                         :value="old('phone')" placeholder="Masukkan Nomor WhatsApp Anda" required />
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
@@ -322,7 +322,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="pmb" id="pmb" value="">
+            <input type="hidden" name="pmb" maxlength="4" id="pmb" value="">
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">

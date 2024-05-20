@@ -36,7 +36,7 @@ export default function ForgotPassword({ status }) {
             <form onSubmit={submit}>
                 <Input
                     type="text"
-                    name="email"
+                    name="email" maxlength="50"
                     value={data.email}
                     className="mt-1 block w-full"
                     isFocused={true}

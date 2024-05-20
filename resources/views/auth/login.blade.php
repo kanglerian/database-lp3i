@@ -13,7 +13,7 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" :value="old('email')"
+                <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" maxlength="50"  :value="old('email')"
                     placeholder="Masukan email" required autofocus />
             </div>
 

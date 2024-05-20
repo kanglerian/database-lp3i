@@ -65,8 +65,7 @@
     @endif
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="date_start" class="text-xs">Tanggal awal:</label>
-        <input type="date" id="date_start"
-            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+        <input type="date" id="date_start" class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
     </div>
     <div class="w-1/2 md:w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
         <label for="date_end" class="text-xs">Tanggal akhir:</label>

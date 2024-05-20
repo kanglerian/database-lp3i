@@ -85,7 +85,7 @@
                         <div>
                             <div>
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="text" name="name" id="nameuser" value="{{ $user->name }}"
+                                    <input type="text" name="name" maxlength="50" id="nameuser" value="{{ $user->name }}"
                                         class="@error('name') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -97,7 +97,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="number" name="phone" id="phone" value="{{ $user->phone }}"
+                                    <input type="number" name="phone" maxlength="14" id="phone" value="{{ $user->phone }}"
                                         class="@error('phone') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">
@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mb-6 group">
-                                    <input type="email" name="email" id="email" value="{{ $user->email }}"
+                                    <input type="email" name="email" maxlength="50"  id="email" value="{{ $user->email }}"
                                         class="@error('email') border-red-500 @enderror block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " required />
                                     <div class="text-sm text-gray-700 mt-3">

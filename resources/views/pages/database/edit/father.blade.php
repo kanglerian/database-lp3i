@@ -14,7 +14,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="father_name" :value="__('Nama Lengkap')" />
-                        <x-input id="father_name" type="text" name="father_name"
+                        <x-input id="father_name" type="text" name="father_name" maxlength="50"
                             value="{{ old('father_name', $father->name) }}" placeholder="Nama lengkap disini.." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('father_name') }}</span>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="father_job" :value="__('Pekerjaan')" />
-                        <x-input id="father_job" type="text" name="father_job"
+                        <x-input id="father_job" type="text" name="father_job" maxlength="100"
                             value="{{ old('father_job', $father->job) }}" placeholder="Tulis pekerjaan ibu disini.." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('father_job') }}</span>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="father_phone" :value="__('No. Whatsapp')" />
-                        <x-input id="father_phone" type="number" name="father_phone" value="{{ $father->phone }}"
+                        <x-input id="father_phone" type="number" name="father_phone" maxlength="14"  value="{{ $father->phone }}"
                             placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('father_phone') }}</span>
@@ -72,15 +72,15 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="father_place" :value="__('Jl/Kp/Perum')" />
-                            <x-input id="father_place" type="text" name="father_place" placeholder="Jl. / Kp. / Perum" />
+                            <x-input id="father_place" type="text"  name="father_place" maxlength="100" placeholder="Jl. / Kp. / Perum" />
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="father_rt" :value="__('RT')" />
-                            <x-input id="father_rt" type="text" name="father_rt" placeholder="RT."/>
+                            <x-input id="father_rt" type="text" maxlength="2" name="father_rt" maxlength="2" placeholder="RT."/>
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="father_rw" :value="__('RW')" />
-                            <x-input id="father_rw" type="text" name="father_rw" placeholder="RW."/>
+                            <x-input id="father_rw" type="text" maxlength="2" name="father_rw" maxlength="2" placeholder="RW."/>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -110,7 +110,7 @@
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="father_postal_code" :value="__('Kode Pos')" />
-                            <x-input id="father_postal_code" type="text" name="father_postal_code" placeholder="Kode Pos" />
+                            <x-input id="father_postal_code" type="text" name="father_postal_code" maxlength="7" placeholder="Kode Pos" />
                         </div>
                     </div>
                 </div>

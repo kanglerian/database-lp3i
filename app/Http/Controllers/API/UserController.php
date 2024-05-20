@@ -106,7 +106,7 @@ class UserController extends Controller
                 Rule::unique('applicants')->ignore($id, 'identity'),
             ],
             'religion' => ['required'],
-            'school' => ['required', 'not_in:Pilih Sekolah'],
+            'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
             'year' => ['required', 'min:4', 'max:4'],
             'placeOfBirth' => ['required'],
             'dateOfBirth' => ['required'],
