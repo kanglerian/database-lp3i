@@ -144,8 +144,11 @@
                                     <th scope="col" class="px-6 py-3">
                                         Jadwal Datang
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
+                                    <th scope="col" class="px-6 py-3">
                                         Guru BK
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
+                                        Psikotest
                                     </th>
                             </thead>
                             <tbody></tbody>
