@@ -27,6 +27,7 @@ class SchoolBySourceAll extends Model
         'sekolah',
         'jadwaldatang',
         'gurubk',
+        'psikotes',
         'daftaronline',
         'beasiswa',
         'valid',

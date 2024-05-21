@@ -307,6 +307,9 @@
                         {
                             data: 'gurubk'
                         },
+                        {
+                            data: 'psikotes'
+                        },
                     ],
                 }
                 let results = {

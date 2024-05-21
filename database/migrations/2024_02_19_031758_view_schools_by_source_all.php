@@ -31,6 +31,7 @@ class ViewSchoolsBySourceAll extends Migration
                 SUM(CASE WHEN applicants.source_id = 6 THEN 1 ELSE 0 END) AS gurubk,
                 SUM(CASE WHEN applicants.source_id = 8 THEN 1 ELSE 0 END) AS daftaronline,
                 SUM(CASE WHEN applicants.source_id = 10 THEN 1 ELSE 0 END) AS beasiswa,
+                SUM(CASE WHEN applicants.source_id = 11 THEN 1 ELSE 0 END) AS psikotes,
                 SUM(CASE WHEN applicants.phone IS NOT NULL THEN 1 ELSE 0 END) AS valid,
                 SUM(CASE WHEN applicants.phone IS NULL THEN 1 ELSE 0 END) AS nonvalid,
                 COUNT(DISTINCT applicants.major) AS kelas,

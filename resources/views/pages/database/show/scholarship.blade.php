@@ -33,7 +33,6 @@
             </div>
         </div>
     </div>
-
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
         <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
     </div>
@@ -64,10 +63,11 @@
                             .reduce((acc, score) => acc + score, 0);
                         let averageScore = parseInt(count > 0 ? totalScore / count : 0);
                         results.forEach(result => {
+                            console.log(result);
                             let score = parseInt(result.score);
                             let scoreResult = score.toFixed();
                             bucket += `
-                        <div class="p-6 bg-white shadow rounded-xl">
+                        <div class="relative p-6 bg-white shadow rounded-xl">
                             <h2 class="text-lg font-bold">${result.category}</h2>
                             <ul class="text-sm space-y-1 mt-2">
                                 <li>
@@ -90,6 +90,7 @@
                                     Nilai: ${scoreResult}
                                 </li>
                             </ul>
+                            <button type="button" onclick="resetRecord('${result.identityUser}','${result.idCategory}')" class="absolute bottom-3 right-3 bg-sky-500 hover:bg-sky-600 h-10 w-10 rounded-full text-white"><i class="fa-solid fa-rotate-left"></i></button>
                         </div>
                     `
                         });
@@ -124,6 +125,10 @@
 
                     let category = history.category.name;
                     let records = responseRecords.data;
+
+                    let idCategory = history.category.id;
+                    let identityUser = history.identity_user;
+
                     let recordLength = records.length;
                     let trueResult = records.filter((record) => record.answer.correct == true).length;
                     let falseResult = records.filter((record) => record.answer.correct == false).length;
@@ -140,10 +145,32 @@
                         questions,
                         score,
                         category,
+                        idCategory,
+                        identityUser
                     }
 
                 } catch (error) {
                     document.getElementById('result').innerHTML = `${error.message}`;
+                }
+            }
+        </script>
+        <script>
+            const resetRecord = async (identityUser, idCategory) => {
+                const message = confirm('Apakah anda yakin akan mereset?');
+                if (message) {
+                    const input = prompt(`Silahkan ketik: ${identityUser}`)
+                    if(input == identityUser){
+                        await axios.delete(`${URL_API_LP3I}/scholarship/histories/${identityUser}/${idCategory}`)
+                        .then((response) => {
+                            alert(response.data.message);
+                            location.reload();
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                    } else {
+                        alert('Kode tidak tepat!');
+                    }
                 }
             }
         </script>
