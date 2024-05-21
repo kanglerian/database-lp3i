@@ -9,7 +9,6 @@ use App\Models\Report\SchoolBySourceAll;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
-use App\Models\SchoolByRegion;
 use App\Models\School;
 use Illuminate\Http\JsonResponse;
 
@@ -170,5 +169,31 @@ class SchoolController extends Controller
         Excel::import(new SchoolsImport, $request->file('berkas'));
 
         return back()->with('message', 'Data sekolah berhasil diimport');
+    }
+
+    public function setting()
+    {
+        $schools = SchoolBySourceAll::all();
+        return view('pages.schools.setting')->with([
+            'schools' => $schools
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function migration(Request $request)
+    {
+        $request->validate([
+            'school_from' => ['required'],
+            'school_to' => ['required'],
+        ]);
+
+        Applicant::where('school', $request->input('school_from'))->update(['school' => $request->input('school_to')]);
+
+        return back()->with('message', 'Sekolah aplikan berhasil dimigrasikan!');
     }
 }

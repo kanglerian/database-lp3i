@@ -1,20 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <div class="flex items-center gap-10">
                 <h2 class="font-bold text-xl text-gray-800 leading-tight">
                     {{ __('Daftar Sekolah') }}
                 </h2>
             </div>
-            <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
+            <div class="flex flex-wrap justify-center gap-3 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
                 </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
-                    <i class="fa-solid fa-database"></i>
-                    <h2 id="count_filter">0</h2>
-                </div>
+                <a href="{{ route('schools.setting') }}" class="flex bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
             </div>
         </div>
     </x-slot>
@@ -148,7 +147,7 @@
                                         Guru BK
                                     </th>
                                     <th scope="col" class="px-6 py-3 rounded-r-xl">
-                                        Psikotest
+                                        Psikotes
                                     </th>
                             </thead>
                             <tbody></tbody>

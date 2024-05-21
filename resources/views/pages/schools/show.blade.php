@@ -1,4 +1,5 @@
-@push('styles')
+<x-app-layout>
+    @push('styles')
     <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet" />
     <style>
         .js-example-input-single {
@@ -16,9 +17,8 @@
         }
     </style>
 @endpush
-<x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 h-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -194,7 +194,6 @@
                 $('.js-example-input-single').select2({
                     tags: true,
                     placeholder: 'Pilih sekolah',
-                    allowClear: true,
                 });
                 const maxLength = 2;
                 $(document).on('keydown', '.select2-search__field', function() {

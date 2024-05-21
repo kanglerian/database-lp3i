@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">

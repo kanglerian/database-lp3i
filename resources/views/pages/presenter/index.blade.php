@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Presenter') }}
             </h2>

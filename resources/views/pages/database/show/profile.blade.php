@@ -32,7 +32,7 @@
 
     <div id="identity_user" class="hidden">{{ $user->identity }}</div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5 mt-3">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row p-5 gap-5">
         <div class="w-full md:w-4/6">
             <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">

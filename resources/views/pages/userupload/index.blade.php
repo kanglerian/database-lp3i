@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center h-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <h2 class="font-bold text-xl text-gray-800 leading-tight py-2">
                 {{ __('Berkas PMB Online') }}
             </h2>

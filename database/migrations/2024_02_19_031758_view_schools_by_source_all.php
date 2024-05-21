@@ -35,7 +35,7 @@ class ViewSchoolsBySourceAll extends Migration
                 SUM(CASE WHEN applicants.phone IS NOT NULL THEN 1 ELSE 0 END) AS valid,
                 SUM(CASE WHEN applicants.phone IS NULL THEN 1 ELSE 0 END) AS nonvalid,
                 COUNT(DISTINCT applicants.major) AS kelas,
-                COUNT(applicants.major) AS jumlah
+                COUNT(applicants.id) AS jumlah
             FROM
                 schools
             LEFT JOIN

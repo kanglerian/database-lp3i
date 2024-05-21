@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'identity' => 6281313608558,
+                'code' => NULL,
                 'name' => 'Administrator',
                 'sheet' => null,
                 'email' => 'lp3itasik@gmail.com',
