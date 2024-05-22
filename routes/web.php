@@ -82,6 +82,7 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::post('import/schools', [SchoolController::class, 'import'])->name('school.import');
     Route::get('get/schools/setting', [SchoolController::class, 'setting'])->name('schools.setting');
     Route::post('migration/schools', [SchoolController::class, 'migration'])->name('school.migration');
+    Route::post('clear/schools', [SchoolController::class, 'clear'])->name('school.clear');
 });
 
 /* Route Database  */

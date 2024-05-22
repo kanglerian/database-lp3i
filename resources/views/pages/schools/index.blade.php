@@ -11,7 +11,8 @@
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
                 </div>
-                <a href="{{ route('schools.setting') }}" class="flex bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
+                <a href="{{ route('schools.setting') }}"
+                    class="flex bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-gear"></i>
                 </a>
             </div>
@@ -54,7 +55,8 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                    role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
                         {{ session('error') }}
@@ -64,18 +66,21 @@
         </div>
 
 
-        @if ($slepets > 0)
-            <section class="max-w-7xl px-5 mx-auto">
-                <div class="px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-circle-info mr-2"></i>
-                        <span class="sr-only">Info</span>
-                        <h3 class="text-lg font-medium">Lakukan Update Data Sekolah!</h3>
-                    </div>
-                    <div class="mt-2 mb-4 text-sm">
-                        Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri
-                        sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk mengubahnya
-                        agar laporan menjadi lebih akurat.
+        <section class="max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-5 px-5 mx-auto">
+            @if ($slepets > 0)
+                <div class="flex flex-col justify-between px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
+                    <div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-circle-info mr-2"></i>
+                            <span class="sr-only">Info</span>
+                            <h3 class="text-lg font-medium">Lakukan Update Data Sekolah!</h3>
+                        </div>
+                        <div class="mt-2 mb-4 text-sm">
+                            Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $slepets }}</span> entri
+                            sekolah yang masih menunggu penyesuaian wilayah, status, dan jenisnya. Penting untuk
+                            mengubahnya
+                            agar laporan menjadi lebih akurat.
+                        </div>
                     </div>
                     <div class="flex">
                         <button onclick="showUpdate()"
@@ -85,8 +90,34 @@
                         </button>
                     </div>
                 </div>
-            </section>
-        @endif
+            @endif
+            @if ($useless > 0)
+                <div class="flex flex-col justify-between px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
+                    <div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-circle-info mr-2"></i>
+                            <span class="sr-only">Info</span>
+                            <h3 class="text-lg font-medium">Lakukan Penghapusan Sekolah!</h3>
+                        </div>
+                        <div class="mt-2 mb-4 text-sm">
+                            Dalam daftar ini, terdapat sekitar <span class="font-bold">{{ $useless }}</span> entri
+                            sekolah memiliki data 0. Supaya tetap menampilkan data yang up to date maka silahkan hapus
+                            data sekolah.
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <form action="{{ route('school.clear') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-reguler rounded-xl text-xs px-4 py-1.5 me-2 text-center inline-flex items-center">
+                                <i class="fa-solid fa-trash mr-2"></i>
+                                Hapus Data Sekolah
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        </section>
 
         <div class="max-w-7xl px-5 mx-auto">
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
@@ -264,7 +295,7 @@
                                 let showUrl = "{{ route('schools.show', ':id') }}".replace(
                                     ':id',
                                     data.id);
-                                return `<a href="${showUrl}" class="font-bold underline">${data.nama} (${data.id})</a>`;
+                                return `<a href="${showUrl}" class="font-bold underline">${data.nama}</a>`;
                             }
                         },
                         {

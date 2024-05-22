@@ -22,6 +22,7 @@ class SchoolController extends Controller
     public function index()
     {
         $total = School::count();
+        $useless = SchoolBySourceAll::where('jumlah', 0)->count();
         $schools_by_region = School::select('region')->groupBy('region')->get();
         $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
             ->orWhereNull('name')
@@ -32,7 +33,8 @@ class SchoolController extends Controller
         return view('pages.schools.index')->with([
             'total' => $total,
             'schools_by_region' => $schools_by_region,
-            'slepets' => $slepets
+            'slepets' => $slepets,
+            'useless' => $useless
         ]);
     }
 
@@ -195,5 +197,15 @@ class SchoolController extends Controller
         Applicant::where('school', $request->input('school_from'))->update(['school' => $request->input('school_to')]);
 
         return back()->with('message', 'Sekolah aplikan berhasil dimigrasikan!');
+    }
+
+    public function clear()
+    {
+        $school_all = SchoolBySourceAll::where('jumlah', 0)->get();
+        foreach ($school_all as $school) {
+            $schoolId = $school->id;
+            School::findOrFail($schoolId)->delete();
+        }
+        return back()->with('message', 'Sekolah dengan data 0 berhasil dihapus!');
     }
 }
