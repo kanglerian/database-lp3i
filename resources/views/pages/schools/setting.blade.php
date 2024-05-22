@@ -89,7 +89,7 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5">Default</button>
+                            <button type="submit" class="text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5">Migrasi</button>
                         </div>
                     </form>
                 </div>
