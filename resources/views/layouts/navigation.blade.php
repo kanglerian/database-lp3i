@@ -64,6 +64,7 @@
                             'schools.create',
                             'schools.edit',
                             'schools.show',
+                            'schools.setting'
                         ])">
                             {{ __('Sekolah') }}
                         </x-nav-link>
@@ -104,7 +105,11 @@
                         <x-nav-link :href="route('userupload.edit', Auth::user()->identity)" :active="request()->routeIs(['userupload.index', 'userupload.create', 'userupload.edit'])">
                             {{ __('Upload Berkas') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('recommendation.show', Auth::user()->identity)" :active="request()->routeIs(['recommendation.index','recommendation.show','recommendation.create'])">
+                        <x-nav-link :href="route('recommendation.show', Auth::user()->identity)" :active="request()->routeIs([
+                            'recommendation.index',
+                            'recommendation.show',
+                            'recommendation.create',
+                        ])">
                             {{ __('Rekomendasi ✨') }}
                         </x-nav-link>
                     @endif
