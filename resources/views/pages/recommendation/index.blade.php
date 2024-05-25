@@ -39,11 +39,11 @@
             <ul class="flex items-center gap-6">
                 <li>
                     <a href="{{ route('database.index') }}"
-                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800 leading-tight">{{ __('Database') }}</a>
+                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Database') }}</a>
                 </li>
                 <li>
                     <a href="{{ route('recommendation.index') }}"
-                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800 leading-tight">{{ __('Data Rekomendasi ✨') }}</a>
+                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
                 </li>
             </ul>
         </div>
