@@ -4,53 +4,66 @@
     </a>
 </p>
 
-## About Laravel
+## Aplikasi PMB Online
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi proses penerimaan mahasiswa baru. Aplikasi ini memiliki beberapa halaman utama yang ditujukan untuk siswa, presenter, dan admin dengan berbagai fitur yang lengkap. Berikut adalah deskripsi fitur-fitur yang tersedia dalam aplikasi ini:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Halaman Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Halaman Siswa
 
-## Learning Laravel
+- Pendaftaran: Formulir pendaftaran online untuk calon mahasiswa baru.
+- Upload Berkas: Fitur untuk mengunggah berkas pendaftaran dengan menggunakan API eksternal.
+- Informasi Hasil Beasiswa: Menampilkan informasi mengenai hasil beasiswa yang diterima.
+- History Chat WhatsApp: Riwayat percakapan dengan pengirim pesan WhatsApp menggunakan API eksternal.
+- Data Rekomendasi: Menampilkan rekomendasi dari setiap siswa berdasarkan data yang tersedia.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Halaman Presenter
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Pendaftaran dan Registrasi: Fasilitas untuk membantu siswa dalam proses pendaftaran dan registrasi.
+- Rekap Perolehan PMB: Rekapitulasi hasil penerimaan mahasiswa baru yang telah diperoleh.
+- Pengelolaan Data Siswa: Mengelola data siswa yang telah mendaftar.
+- Statistik dan Laporan: Menyediakan statistik dan laporan terkait penerimaan mahasiswa baru.
+  
+3. Halaman Admin
 
-## Laravel Sponsors
+- Manajemen Pengguna: Mengelola akun dan hak akses pengguna (siswa, presenter, dan admin).
+- Verifikasi Berkas: Memverifikasi berkas-berkas yang diunggah oleh siswa.
+- Rekap Data: Rekapitulasi dan penyimpanan data yang tersimpan dalam sistem.
+- Monitoring Pendaftaran: Memantau proses pendaftaran yang sedang berjalan.
+- Notifikasi dan Pengumuman: Mengirim notifikasi dan pengumuman kepada siswa dan presenter.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Fitur Utama
 
-### Premium Partners
+1. Pendaftaran dan Registrasi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- Formulir pendaftaran online yang mudah digunakan.
+- Proses registrasi yang efisien dan cepat.
 
-## Contributing
+2. Upload Berkas dengan API Eksternal:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Integrasi dengan API eksternal untuk mengunggah berkas secara aman dan efisien.
+  
+3. Informasi Hasil Beasiswa:
 
-## Code of Conduct
+- Menyediakan informasi hasil beasiswa yang didapatkan oleh siswa.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. History Chat WhatsApp Sender dengan API Eksternal:
+
+- Fitur untuk melihat riwayat percakapan WhatsApp menggunakan API eksternal.
+  
+5. Data Rekomendasi dari Setiap Siswa:
+
+- Menampilkan rekomendasi dan saran berdasarkan data siswa.
+  
+6. Rekap Perolehan PMB:
+
+- Rekapitulasi hasil penerimaan mahasiswa baru secara keseluruhan.
+  
+7. Jumlah Data yang Tersimpan:
+
+- Menampilkan jumlah data yang tersimpan dalam sistem untuk pemantauan dan pengelolaan yang lebih baik.
+
 
 ## Security Vulnerabilities
 
