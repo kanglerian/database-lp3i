@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-slate-50">
     <div class="container mx-auto px-4">
         <nav class="flex flex-col md:flex-row items-center justify-between py-3 gap-5">
             <div class="flex items-center gap-5">
