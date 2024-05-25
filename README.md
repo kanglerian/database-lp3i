@@ -1,4 +1,4 @@
-<p align="center">
+<p align="left">
     <a href="https://laravel.com" target="_blank">
         <img src="https://raw.githubusercontent.com/kanglerian/database-lp3i/master/public/img/lp3i-logo.svg" width="400">
     </a>
