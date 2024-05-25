@@ -76,10 +76,6 @@ php artisan migrate
 php artisan db:seed
 ```
 
-## Developer
-
-If you discover a security vulnerability within the PMB Online application, please send an e-mail to Lerian Febriana via [kanglerian@gmail.com](mailto:kanglerian@gmail.com). All security vulnerabilities will be promptly addressed.
-
 ## License
 
-This application is proprietary software and is not open-sourced. All rights are reserved. For any inquiries regarding licensing, please contact [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
+Aplikasi ini adalah perangkat lunak berpemilik dan tidak bersifat open source. Semua hak dilindungi. Untuk pertanyaan mengenai lisensi, silakan hubungi [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
