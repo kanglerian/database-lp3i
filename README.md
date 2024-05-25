@@ -65,10 +65,21 @@ Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi pr
 - Menampilkan jumlah data yang tersimpan dalam sistem untuk pemantauan dan pengelolaan yang lebih baik.
 
 
-## Security Vulnerabilities
+## Instalasi
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+git clone https://github.com/kanglerian/database-lp3i
+cd database-lp3i
+composer install
+npm install
+php artisan migrate
+php artisan db:seed
+```
+
+## Developer
+
+If you discover a security vulnerability within the PMB Online application, please send an e-mail to Lerian Febriana via [kanglerian@gmail.com](mailto:kanglerian@gmail.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This application is proprietary software and is not open-sourced. All rights are reserved. For any inquiries regarding licensing, please contact [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
