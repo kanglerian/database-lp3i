@@ -31,7 +31,6 @@ Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi pr
 - Verifikasi Berkas: Memverifikasi berkas-berkas yang diunggah oleh siswa.
 - Rekap Data: Rekapitulasi dan penyimpanan data yang tersimpan dalam sistem.
 - Monitoring Pendaftaran: Memantau proses pendaftaran yang sedang berjalan.
-- Notifikasi dan Pengumuman: Mengirim notifikasi dan pengumuman kepada siswa dan presenter.
 
 ### Fitur Utama
 
