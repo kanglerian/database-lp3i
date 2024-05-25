@@ -1,9 +1,3 @@
-<p align="left">
-    <a href="https://laravel.com" target="_blank">
-        <img src="https://raw.githubusercontent.com/kanglerian/database-lp3i/master/public/img/lp3i-logo.svg" width="300">
-    </a>
-</p>
-
 ## Aplikasi PMB Online
 
 Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi proses penerimaan mahasiswa baru. Aplikasi ini memiliki beberapa halaman utama yang ditujukan untuk siswa, presenter, dan admin dengan berbagai fitur yang lengkap. Berikut adalah deskripsi fitur-fitur yang tersedia dalam aplikasi ini:
