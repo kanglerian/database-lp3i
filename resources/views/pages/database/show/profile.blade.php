@@ -793,7 +793,7 @@
                     let program = programs.data.programs.find((result) =>
                         `${result.level} ${result.title}` == program_studi)
 
-                    const addressParts = database.data.user.address.split(', ');
+                    const addressParts = database.data.user.address.split(',');
                     const addressRtRw = addressParts[1].split(' ');
 
                     const data = {
@@ -955,7 +955,6 @@
                     }
 
                     saveAplikan(data, token, identityVal);
-                    // console.log(data.tgl_lahir);
 
                     loadingMisil.classList.toggle('hidden');
                 }))
