@@ -26,7 +26,6 @@ class RegisterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'min:10', 'max:10', 'unique:applicants'],
             'school' => ['required', 'max:100', 'not_in:Pilih Sekolah'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => [
@@ -39,8 +38,6 @@ class RegisterController extends Controller
             'password' => ['required', 'confirmed'],
         ], [
             'name.required' => 'Oopss, sepertinya Nama Lengkap lupa diisi ya!',
-            'nisn.required' => 'Hei, NISN harus diisi nih, jangan lupa!',
-            'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
             'school.required' => 'Jangan sampai lupa pilih sekolah, ya!',
             'school.max' => 'Sekolah tidak boleh lebih dari 100 karakter, pastikan benar ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
@@ -168,7 +165,6 @@ class RegisterController extends Controller
                         $data_applicant = [
                             'identity' => $check_phone_applicant->identity,
                             'name' => $check_phone_applicant->name,
-                            'nisn' => $request->nisn,
                             'school' => $school,
                             'email' => $request->email,
                             'year' => $request->year,
@@ -207,7 +203,6 @@ class RegisterController extends Controller
                             'identity' => $numbers_unique,
                             'identity_user' => '6281313608558',
                             'name' => ucwords(strtolower($request->name)),
-                            'nisn' => $request->nisn,
                             'school' => $school,
                             'year' => $request->year,
                             'email' => $request->email,
