@@ -93,12 +93,6 @@ class UserController extends Controller
                 'max:16',
                 Rule::unique('applicants')->ignore($id, 'identity'),
             ],
-            'nisn' => [
-                'required',
-                'min:10',
-                'max:10',
-                Rule::unique('applicants')->ignore($id, 'identity'),
-            ],
             'kip' => [
                 'nullable',
                 'min:16',
@@ -116,10 +110,6 @@ class UserController extends Controller
             'nik.unique' => 'Oops, Nomor Induk Kependudukan (NIK) sudah terdaftar nih, coba yang lain!',
             'nik.min' => 'Format NIK nggak bener, harus :min digit ya!',
             'nik.max' => 'Format NIK nggak bener, maksimal :max digit ya!',
-            'nisn.required' => 'NISN-nya jangan sampai kosong ya, isi dong!',
-            'nisn.unique' => 'Waduh, NISN sudah terdaftar nih, cari yang lain ya!',
-            'nisn.min' => 'Format NISN nggak bener, harus :min digit ya!',
-            'nisn.max' => 'Format NISN nggak bener, maksimal :max digit ya!',
             'kip.unique' => 'Waduh, Nomor Kartu Indonesia Pintar (KIP) sudah terdaftar nih, cari yang lain ya!',
             'kip.min' => 'Format KIP nggak bener, harus :min digit ya!',
             'kip.max' => 'Format KIP nggak bener, maksimal :max digit ya!',
@@ -178,7 +168,6 @@ class UserController extends Controller
             'phone' => $request->phone,
             'school' => $school,
             'year' => $request->year,
-            'nisn' => $request->nisn,
             'nik' => $request->nik,
             'kip' => $request->kip,
         ];
