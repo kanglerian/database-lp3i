@@ -42,6 +42,15 @@ class UserController extends Controller
         ]);
     }
 
+    public function check_user($id){
+        $user = User::findOrFail($id);
+        $applicant = Applicant::where('identity', $user->identity)->first();
+        return response()->json([
+            'user' => $user,
+            'applicant' => $applicant
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
