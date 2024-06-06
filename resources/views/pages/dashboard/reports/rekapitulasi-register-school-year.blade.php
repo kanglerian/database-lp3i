@@ -227,7 +227,7 @@
 
                         document.getElementById('headers-report-register-school-year').innerHTML =
                             headerBucket;
-                        console.log(reducedData);
+
                         const map = L.map('map').setView([-6.618, 107.282], 8);
 
                         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -236,8 +236,8 @@
                         }).addTo(map);
 
                         reducedData.forEach((result) => {
-                            const lat = result.lat;
-                            const lng = result.lng;
+                            const lat = result.lat ?? 0;
+                            const lng = result.lng ?? 0;
                             const marker = L.marker([lat, lng]).addTo(map);
                             const dataRegist = result.register;
                             let resultRegist = '';
