@@ -236,8 +236,8 @@
                         }).addTo(map);
 
                         reducedData.forEach((result) => {
-                            const lat = result.lat ?? 0;
-                            const lng = result.lng ?? 0;
+                            const lat = result.lat ?? -6.618;
+                            const lng = result.lng ?? 107.282;
                             const marker = L.marker([lat, lng]).addTo(map);
                             const dataRegist = result.register;
                             let resultRegist = '';
