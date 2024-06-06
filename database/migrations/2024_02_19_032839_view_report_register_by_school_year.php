@@ -21,7 +21,9 @@ class ViewReportRegisterBySchoolYear extends Migration
                 applicants.year AS year,
                 applicants.identity_user AS identity_user,
                 SUM(CASE WHEN applicants.is_register = 1 THEN 1 ELSE 0 END) as register,
-                schools.name AS name
+                schools.name AS name,
+                schools.lat AS lat,
+                schools.lng AS lng
             FROM
                 applicants
             LEFT JOIN

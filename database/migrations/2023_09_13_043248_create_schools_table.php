@@ -19,6 +19,8 @@ class CreateSchoolsTable extends Migration
             $table->char('status')->nullable();
             $table->string('region');
             $table->string('type')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
             $table->timestamps();
         });
     }

@@ -112,6 +112,8 @@ class SchoolController extends Controller
             'type' => ['required', 'not_in:Pilih'],
             'status' => ['required', 'not_in:Pilih'],
             'region' => ['required', 'not_in:Pilih'],
+            'lat' => ['required'],
+            'lng' => ['required'],
         ], [
             'name.required' => 'Kolom nama sekolah tidak boleh kosong.',
             'type.required' => 'Kolom tipe sekolah tidak boleh kosong.',
@@ -120,6 +122,8 @@ class SchoolController extends Controller
             'status.not_in' => 'Pilih status sekolah tidak valid.',
             'region.required' => 'Kolom wilayah sekolah tidak boleh kosong.',
             'region.not_in' => 'Pilih wilayah sekolah tidak valid.',
+            'lat.required' => 'Lattitude tidak boleh kosong.',
+            'lng.required' => 'Longitude tidak boleh kosong.',
         ]);
 
         $data = [
@@ -127,6 +131,8 @@ class SchoolController extends Controller
             'type' => strtoupper($request->input('type')),
             'status' => strtoupper($request->input('status')),
             'region' => strtoupper($request->input('region')),
+            'lat' => $request->input('lat'),
+            'lng' => $request->input('lng'),
         ];
 
         $school = School::findOrFail($id);

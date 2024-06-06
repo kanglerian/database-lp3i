@@ -17,6 +17,10 @@
         rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
@@ -27,7 +31,7 @@
         body {
             scroll-behavior: smooth;
         }
-
+        #map { height: 500px; }
         body {
             font-family: 'Roboto Mono', monospace;
             font-family: 'Source Code Pro', monospace;
@@ -37,6 +41,7 @@
         th {
             white-space: nowrap;
         }
+
         .dataTables_length>label {
             font-size: 14px !important;
             color: #6b7280 !important;

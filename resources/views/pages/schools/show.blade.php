@@ -125,6 +125,22 @@
                                         {{ $errors->first('type') }}
                                     </div>
                                 </div>
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="lat" :value="__('Lattitude')" />
+                                    <x-input id="lat" type="text" name="lat"
+                                        value="{{ $school->lat }}" placeholder="Lattitude" required />
+                                    <div class="text-xs mt-1 text-red-600">
+                                        {{ $errors->first('lat') }}
+                                    </div>
+                                </div>
+                                <div class="relative z-0 w-full group">
+                                    <x-label for="lng" :value="__('Longitude')" />
+                                    <x-input id="lng" type="text" name="lng"
+                                        value="{{ $school->lat }}" placeholder="Longitude" required />
+                                    <div class="text-xs mt-1 text-red-600">
+                                        {{ $errors->first('lng') }}
+                                    </div>
+                                </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class="relative z-0 w-full group">

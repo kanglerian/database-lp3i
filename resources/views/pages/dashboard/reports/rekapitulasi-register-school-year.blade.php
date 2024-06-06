@@ -14,7 +14,8 @@
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
                             <a href="{{ route('dashboard.rekapitulasi_perolehan_pmb_page') }}"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Rekap Perolehan PMB</a>
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Rekap
+                                Perolehan PMB</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -37,7 +38,7 @@
                     class="flex justify-center items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
                     <input type="hidden" id="identity_val" value="{{ Auth::user()->identity }}">
                     <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
-                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb" onchange="changeTrigger()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
@@ -57,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl px-5 mx-auto">
+        <div class="max-w-7xl px-5 mx-auto space-y-5">
             <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200 space-y-5">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500"
@@ -76,6 +77,11 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <div id="map" class="rounded-3xl border border-gray-300"></div>
                 </div>
             </section>
         </div>
@@ -162,6 +168,8 @@
                                 const record = {
                                     identity_user: currentValue.identity_user,
                                     name: currentValue.name,
+                                    lat: currentValue.lat,
+                                    lng: currentValue.lng,
                                     pmb: currentValue.pmb,
                                     register: []
                                 };
@@ -183,8 +191,6 @@
                                         });
                                     }
                                 });
-
-                                console.log(record);
 
                                 accumulator.push(record);
                             }
@@ -209,17 +215,50 @@
                         ];
 
                         for (let i = 0; i < 5; i++) {
-                            headerBucket += `<th scope="col" class="px-6 py-4 text-center">${parseInt(pmbVal) - i}</th>`
-                            columnConfigs.push(
-                            {
+                            headerBucket +=
+                                `<th scope="col" class="px-6 py-4 text-center">${parseInt(pmbVal) - i}</th>`
+                            columnConfigs.push({
                                 data: 'register',
                                 render: (data, type, row, meta) => {
                                     return data[i].count;
                                 }
-                            },);
+                            }, );
                         }
 
-                        document.getElementById('headers-report-register-school-year').innerHTML = headerBucket;
+                        document.getElementById('headers-report-register-school-year').innerHTML =
+                            headerBucket;
+                        console.log(reducedData);
+                        const map = L.map('map').setView([-6.618, 107.282], 8);
+
+                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">Farmer App</a>'
+                        }).addTo(map);
+
+                        reducedData.forEach((result) => {
+                            const lat = result.lat;
+                            const lng = result.lng;
+                            const marker = L.marker([lat, lng]).addTo(map);
+                            const dataRegist = result.register;
+                            let resultRegist = '';
+                            dataRegist.forEach((data) => {
+                                resultRegist+= `
+                                    <li>${data.year}: ${data.count}</li>
+                                `
+                            });
+                            const paragraph = `
+                            <b>${result.name}</b>
+                            <hr style="margin: 5px 0px"/>
+                            <ul>${resultRegist}</ul>`
+                            marker.bindPopup(paragraph).openPopup();
+
+                            const circle = L.circle([lat, lng], {
+                                color: 'red',
+                                fillColor: '#f03',
+                                fillOpacity: 0.5,
+                                radius: 80
+                            }).addTo(map);
+                        });
 
                         const dataTableConfig = {
                             data: reducedData,
