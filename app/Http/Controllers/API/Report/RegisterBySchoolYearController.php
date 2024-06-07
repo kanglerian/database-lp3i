@@ -12,14 +12,9 @@ class RegisterBySchoolYearController extends Controller
     {
         $databaseQuery = RegisterBySchoolYear::query();
 
-        // $pmbVal = request('pmbVal', 'all');
         $identityVal = request('identityVal', 'all');
         $roleVal = request('roleVal', 'all');
         $wilayahVal = request('wilayahVal', 'all');
-
-        // if ($pmbVal !== 'all') {
-        //     $databaseQuery->where('pmb', $pmbVal);
-        // }
 
         if($roleVal == 'P'){
             $databaseQuery->where('identity_user', $identityVal);
