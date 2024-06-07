@@ -1,9 +1,9 @@
 <section class="space-y-5 py-10">
     <header class="px-6 pt-5 space-y-1 text-center">
         <h1 class="flex flex-col text-xl items-center gap-2 font-bold text-gray-700">
-            <span>Peta Sebaran Registrasi Berdasarkan Sekolah</span>
+            <span>Peta Sebaran Registrasi Berdasarkan Sekolah dan Tahun Lulus</span>
         </h1>
-        <p class="text-gray-600 text-sm">Berikut ini adalah registrasi berdasarkan sekolah dan 5 tahun terakhir.</p>
+        <p class="text-gray-600 text-sm">Berikut ini adalah registrasi berdasarkan sekolah dan tahun lulus 5 tahun terakhir.</p>
     </header>
     <div class="max-w-7xl px-5 mx-auto space-y-5">
         <section>
@@ -26,24 +26,6 @@
 
     <script>
         const changeFilterMapRegisterSchoolYear = () => {
-          console.log('filter');
-            // let queryParams = [];
-
-            // let identityVal = document.getElementById('identity_val').value;
-            // let roleVal = document.getElementById('role_val').value;
-
-            // if (identityVal !== 'all') {
-            //     queryParams.push(`identityVal=${identityVal}`);
-            // }
-
-            // if (roleVal !== 'all') {
-            //     queryParams.push(`roleVal=${roleVal}`);
-            // }
-
-            // let queryString = queryParams.join('&');
-
-            // urlRegisterSchoolYear = `/api/report/database/register/school/year?${queryString}`;
-
             getMapRegisterSchoolYear();
         }
 

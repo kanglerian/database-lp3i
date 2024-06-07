@@ -134,7 +134,7 @@
                         class="flex justify-center items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
                         <input type="hidden" id="identity_val" value="{{ Auth::user()->identity }}">
                         <input type="hidden" id="role_val" value="{{ Auth::user()->role }}">
-                        <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                        <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                             <label for="change_pmb" class="text-xs">Periode PMB:</label>
                             <input type="number" id="change_pmb" onchange="changeTrigger()"
                                 class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
