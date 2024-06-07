@@ -232,7 +232,7 @@
 
                         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
-                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">Farmer App</a>'
+                            attribution: '&copy; <a href="https://politekniklp3i-tasikmalaya.ac.id">Politeknik LP3I Kampus Tasikmalaya</a>'
                         }).addTo(map);
 
                         reducedData.forEach((result) => {
