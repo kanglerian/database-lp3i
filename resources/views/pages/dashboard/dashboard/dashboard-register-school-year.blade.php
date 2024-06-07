@@ -16,7 +16,7 @@
 @push('scripts')
     <script>
         let urlRegisterSchoolYear =
-            `/api/report/database/register/school/year?identityVal=${identityVal}&roleVal=${roleVal}`;
+            `/api/report/database/register/school/year`;
         let map = L.map('map').setView([-6.618, 107.282], 8);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -26,22 +26,22 @@
 
     <script>
         const changeFilterMapRegisterSchoolYear = () => {
-            let queryParams = [];
+            // let queryParams = [];
 
-            let identityVal = document.getElementById('identity_val').value;
-            let roleVal = document.getElementById('role_val').value;
+            // let identityVal = document.getElementById('identity_val').value;
+            // let roleVal = document.getElementById('role_val').value;
 
-            if (identityVal !== 'all') {
-                queryParams.push(`identityVal=${identityVal}`);
-            }
+            // if (identityVal !== 'all') {
+            //     queryParams.push(`identityVal=${identityVal}`);
+            // }
 
-            if (roleVal !== 'all') {
-                queryParams.push(`roleVal=${roleVal}`);
-            }
+            // if (roleVal !== 'all') {
+            //     queryParams.push(`roleVal=${roleVal}`);
+            // }
 
-            let queryString = queryParams.join('&');
+            // let queryString = queryParams.join('&');
 
-            urlRegisterSchoolYear = `/api/report/database/register/school/year?${queryString}`;
+            // urlRegisterSchoolYear = `/api/report/database/register/school/year?${queryString}`;
 
             getMapRegisterSchoolYear();
         }
