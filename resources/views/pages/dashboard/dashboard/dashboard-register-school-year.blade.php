@@ -28,8 +28,17 @@
         const changeFilterMapRegisterSchoolYear = () => {
             let queryParams = [];
 
-            queryParams.push(`roleVal=A`);
-            
+            let identityVal = document.getElementById('identity_val').value;
+            let roleVal = document.getElementById('role_val').value;
+
+            if (identityVal !== 'all') {
+                queryParams.push(`identityVal=${identityVal}`);
+            }
+
+            if (roleVal !== 'all') {
+                queryParams.push(`roleVal=${roleVal}`);
+            }
+
             let queryString = queryParams.join('&');
 
             urlRegisterSchoolYear = `/api/report/database/register/school/year?${queryString}`;
