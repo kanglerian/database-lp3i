@@ -4,7 +4,6 @@
             const changeTrigger = () => {
                 changeFilterDatabase();
                 changeFilterTarget();
-                changeDataSales();
                 changeFilterMapRegisterSchoolYear();
             }
         </script>
