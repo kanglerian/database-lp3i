@@ -95,19 +95,20 @@
             let dataTableDataRegisterSchoolYearInitialized = false;
             let urlRegisterSchoolYear =
                 `/api/report/database/register/school/year?pmbVal=${pmbVal}&identityVal=${identityVal}&roleVal=${roleVal}`;
+            let map = L.map('map').setView([-6.618, 107.282], 8);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://politekniklp3i-tasikmalaya.ac.id">Politeknik LP3I Kampus Tasikmalaya</a>'
+            }).addTo(map);
         </script>
 
         <script>
             const changeFilterDataRegisterSchoolYear = () => {
+                map.stop();
                 let queryParams = [];
 
-                let pmbVal = document.getElementById('change_pmb').value;
                 let identityVal = document.getElementById('identity_val').value;
                 let roleVal = document.getElementById('role_val').value;
-
-                if (pmbVal !== 'all') {
-                    queryParams.push(`pmbVal=${pmbVal}`);
-                }
 
                 if (identityVal !== 'all') {
                     queryParams.push(`identityVal=${identityVal}`);
@@ -228,13 +229,6 @@
                         document.getElementById('headers-report-register-school-year').innerHTML =
                             headerBucket;
 
-                        const map = L.map('map').setView([-6.618, 107.282], 8);
-
-                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            maxZoom: 19,
-                            attribution: '&copy; <a href="https://politekniklp3i-tasikmalaya.ac.id">Politeknik LP3I Kampus Tasikmalaya</a>'
-                        }).addTo(map);
-
                         reducedData.forEach((result) => {
                             console.log(result);
                             const lat = result.lat ?? -6.618;
@@ -243,7 +237,7 @@
                             const dataRegist = result.register;
                             let resultRegist = '';
                             dataRegist.forEach((data) => {
-                                resultRegist+= `
+                                resultRegist += `
                                     <li>${data.year}: ${data.count}</li>
                                 `
                             });

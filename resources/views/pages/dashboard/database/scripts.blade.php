@@ -5,6 +5,7 @@
                 changeFilterDatabase();
                 changeFilterTarget();
                 changeDataSales();
+                changeFilterMapRegisterSchoolYear();
             }
         </script>
     @endif
@@ -15,6 +16,7 @@
                 changeFilterDataRegisterProgram();
                 changeFilterRekapitulasi();
                 changeDataSales();
+                changeFilterMapRegisterSchoolYear();
             }
         </script>
     @endif
