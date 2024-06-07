@@ -94,7 +94,7 @@
                 let resultRegist = '';
                 dataRegist.forEach((data) => {
                     resultRegist += `
-                                  <li>${data.year}: ${data.count}</li>
+                                  <li>${data.year}: ${data.count} orang</li>
                               `
                 });
                 const paragraph = `
