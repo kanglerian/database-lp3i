@@ -26,6 +26,7 @@
 
     <script>
         const changeFilterMapRegisterSchoolYear = () => {
+          console.log('filter');
             // let queryParams = [];
 
             // let identityVal = document.getElementById('identity_val').value;
