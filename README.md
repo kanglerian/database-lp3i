@@ -71,4 +71,4 @@ php artisan db:seed
 
 ## License
 
-Aplikasi ini adalah perangkat lunak berpemilik dan tidak bersifat open source. Semua hak dilindungi. Untuk pertanyaan mengenai lisensi, silakan hubungi [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
+Aplikasi ini adalah perangkat lunak berpemilik dan tidak bersifat open source. Semua hak dilindungi. [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
