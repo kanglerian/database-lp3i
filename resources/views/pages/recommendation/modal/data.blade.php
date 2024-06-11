@@ -37,7 +37,8 @@
                     <div class="col-span-2 sm:col-span-1">
                         <label for="school_id" class="block mb-2 text-sm font-medium text-gray-900">Sekolah</label>
                         <select id="school_id" name="school_id[]" style="width: 100%"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 js-example-input-single" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 js-example-input-single"
+                            required>
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
@@ -68,6 +69,11 @@
 
 {{-- Script Status --}}
 <script>
+    $(document).ready(function() {
+        $('.js-example-input-single').select2({
+            tags: true,
+        });
+    });
     const changeStatusModal = (button) => {
         const modalTarget = button.dataset.modalTarget;
         let status = document.getElementById(modalTarget);
