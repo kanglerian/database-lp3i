@@ -174,6 +174,11 @@
 
     @push('scripts')
         <script>
+            $(document).ready(function() {
+                $('.js-example-input-single').select2({
+                    tags: true,
+                });
+            });
             let dataTableDataRecommendationInstance;
             let dataTableDataRecommendationInitialized = false;
             let identityVal = document.getElementById('identity_user').value;
