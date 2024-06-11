@@ -85,7 +85,6 @@
                         <select id="identity_user"
                             class="js-example-basic-single bg-white border border-gray-200 w-full px-3 py-2 text-xs rounded-xl text-gray-800">
                             <option value="all">Pilih presenter</option>
-                            <option value="6281313608558">Administrator</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->identity }}">{{ $user->name }}</option>
                             @endforeach
