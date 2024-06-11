@@ -56,7 +56,7 @@ class RecommendationController extends Controller
         $validator = Validator::make($request->all(), [
             'name.*' => 'required|string|max:255',
             'phone.*' => 'required|string|min:13|max:14',
-            'school_id.*' => 'required|exists:schools,id',
+            'school_id.*' => 'required',
             'class.*' => 'required|string|max:255',
             'year.*' => 'required|integer|min:1900',
         ], [
@@ -65,7 +65,6 @@ class RecommendationController extends Controller
             'phone.*.min' => 'Nomor telepon minimal 13 karakter',
             'phone.*.max' => 'Nomor telepon maksimal 14 karakter',
             'school_id.*.required' => 'Sekolah wajib dipilih',
-            'school_id.*.exists' => 'Sekolah tidak valid',
             'class.*.required' => 'Kelas wajib diisi',
             'class.*.max' => 'Kelas maksimal 255 karakter',
             'year.*.required' => 'Tahun wajib diisi',
