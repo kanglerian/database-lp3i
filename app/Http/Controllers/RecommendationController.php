@@ -114,8 +114,9 @@ class RecommendationController extends Controller
         $schools = School::all();
         $recommendationQuery = Recommendation::query();
 
-        $recommendationQuery->whereHas('applicant', function ($query) use ($presenter) {
+        $recommendationQuery->whereHas('applicant', function ($query) use ($presenter, $id) {
             $query->where('identity_user', $presenter);
+            $query->where('identity', $id);
         });
 
         $recommendations = $recommendationQuery->get();
