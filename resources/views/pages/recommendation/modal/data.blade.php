@@ -73,10 +73,10 @@
         let status = document.getElementById(modalTarget);
         let url = "{{ route('recommendation.store') }}";
         document.getElementById('title_data').innerText = `Tambah Data Rekomendasi`;
-        document.getElementById('name_data').value = 's';
+        document.getElementById('name_data').value = '';
         document.getElementById('phone_data').value = '62';
-        document.getElementById('class_data').value = 'f';
-        document.getElementById('year_data').value = 2017;
+        document.getElementById('class_data').value = '';
+        document.getElementById('year_data').value = '';
         document.getElementById('formStatusButton').innerHTML =
             `<i class="fa-solid fa-floppy-disk mr-1"></i> Simpan`;
         document.getElementById('formStatusModal').setAttribute('action', url);
