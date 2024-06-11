@@ -47,7 +47,8 @@
                 </li>
             </ul>
             <div>
-                <span class="bg-gray-100 px-4 py-2 border border-gray-300 rounded-xl text-sm text-gray-900" id="count">0</span>
+                <span class="bg-gray-100 px-4 py-2 border border-gray-300 rounded-xl text-sm text-gray-900"
+                    id="count">0</span>
             </div>
         </div>
     </x-slot>
@@ -119,6 +120,10 @@
                         class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
                     </button>
+                    <button type="button" onclick="exportExcel()"
+                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
+                        <i class="fa-solid fa-excel"></i>
+                    </button>
                 </div>
             </div>
 
@@ -175,6 +180,7 @@
 
 
     @push('scripts')
+        <script src="{{ asset('js/exceljs.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('.js-example-input-single').select2({
@@ -187,6 +193,7 @@
             let roleVal = document.getElementById('role').value;
             let urlRecommendation =
                 `/api/recommendation?identityVal=${identityVal}&roleVal=${roleVal}`;
+            let dataRecommendation;
         </script>
 
         <script>
@@ -237,6 +244,8 @@
                     try {
                         const response = await axios.get(urlRecommendation);
                         const recommendations = response.data.recommendations;
+                        dataRecommendation = recommendations;
+
                         document.getElementById('count').innerText = recommendations.length;
 
                         let columnConfigs = [{
@@ -409,6 +418,55 @@
                     });
             }
             promiseDataRecommendation();
+        </script>
+
+        <script>
+            const exportExcel = async () => {
+                console.log(dataRecommendation);
+                try {
+                    const workbook = new ExcelJS.Workbook();
+                    const worksheet = workbook.addWorksheet('Data');
+                    let header = ['No', 'Nama Lengkap'];
+                    let dataExcel = [
+                        header,
+                    ];
+                    dataRecommendation.forEach((student, index) => {
+                        let studentBucket = [];
+                        studentBucket.push(
+                            `${index + 1}`,
+                            `${student.name ? student.name : 'Tidak diketahui'}`,
+                        );
+                        dataExcel.push(studentBucket);
+                    });
+
+                    let dateTime = new Date();
+                    const day = dateTime.getDate();
+                    const month = dateTime.getMonth();
+                    const year = dateTime.getFullYear();
+                    const hours = dateTime.getHours();
+                    const minutes = dateTime.getMinutes();
+                    const seconds = dateTime.getSeconds();
+                    const formattedDate = `export_database_${hours}${minutes}${seconds}${day}${month}${year}`;
+
+                    worksheet.addRows(dataExcel);
+
+                    const blob = await workbook.xlsx.writeBuffer();
+                    const blobData = new Blob([blob], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blobData);
+                    link.download = `${formattedDate}.xlsx`;
+
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            };
         </script>
     @endpush
 
