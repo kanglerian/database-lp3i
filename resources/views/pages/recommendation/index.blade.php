@@ -122,7 +122,7 @@
                     </button>
                     <button type="button" onclick="exportExcel()"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
-                        <i class="fa-solid fa-excel"></i>
+                        <i class="fa-solid fa-file-excel"></i>
                     </button>
                 </div>
             </div>
@@ -440,7 +440,7 @@
                             `${student.class ? student.class : 'Tidak diketahui'}`,
                             `${student.year ? student.year : 'Tidak diketahui'}`,
                             `${student.applicant ? student.applicant.name : 'Tidak diketahui'}`,
-                            `${student.applicant ? student.applicant.presenter : 'Tidak diketahui'}`,
+                            `${student.applicant ? student.applicant.presenter.name : 'Tidak diketahui'}`,
                         );
                         dataExcel.push(studentBucket);
                     });
