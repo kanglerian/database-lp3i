@@ -6,7 +6,7 @@
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Data');
             let header = ['No', 'Nama Lengkap', 'No. Telpon', 'Presenter', 'Asal Sekolah', 'Jurusan',
-                'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database', 'Sumber Informasi','WA BLAST'
+                'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database', 'Sumber Informasi'
             ];
             let dataExcel = [
                 header,
@@ -25,7 +25,6 @@
                     `${student.program ? student.program : 'Tidak diketahui'}`,
                     `${student.source_id ? student.source_setting.name : 'Tidak diketahui'}`,
                     `${student.source_daftar_id ? student.source_daftar_setting.name : 'Tidak diketahui'}`,
-                    `${student.name ? student.name : 'Tidak diketahui'},${student.phone ? student.phone : '0000000000'},${student.school ? student.school_applicant.name : 'Tidak diketahui'},${student.major ? student.major : 'Tidak diketahui'}`
                 );
                 dataExcel.push(studentBucket);
             });

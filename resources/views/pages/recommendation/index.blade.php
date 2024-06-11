@@ -426,7 +426,7 @@
                 try {
                     const workbook = new ExcelJS.Workbook();
                     const worksheet = workbook.addWorksheet('Data');
-                    let header = ['No', 'Nama Lengkap', 'No. HP', 'Asal Sekolah', 'Kelas', 'Tahun Lulus', 'Nama MGM', 'Presenter'];
+                    let header = ['No', 'Nama Lengkap', 'No. HP', 'Asal Sekolah', 'Kelas', 'Tahun Lulus', 'Nama MGM', 'Presenter', 'WA BLAST'];
                     let dataExcel = [
                         header,
                     ];
@@ -441,6 +441,7 @@
                             `${student.year ? student.year : 'Tidak diketahui'}`,
                             `${student.applicant ? student.applicant.name : 'Tidak diketahui'}`,
                             `${student.applicant ? student.applicant.presenter.name : 'Tidak diketahui'}`,
+                            `${student.name ? student.name : 'Tidak diketahui'},${student.phone ? student.phone : '00000000'}`,
                         );
                         dataExcel.push(studentBucket);
                     });
