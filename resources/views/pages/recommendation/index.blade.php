@@ -257,8 +257,7 @@
                             {
                                 data: 'schoolapplicant',
                                 render: (data, type, row, meta) => {
-                                    console.log(data);
-                                    return data;
+                                    return data ? data.name : 'Tidak diketahui';
                                 }
                             },
                             {
