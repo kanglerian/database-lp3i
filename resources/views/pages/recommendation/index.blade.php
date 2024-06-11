@@ -276,8 +276,7 @@
                             {
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
-                                    console.log(data);
-                                    return data;
+                                    return data.name;
                                 }
                             },
                             {
