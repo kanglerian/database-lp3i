@@ -46,6 +46,9 @@
                         class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
                 </li>
             </ul>
+            <div>
+                <span class="bg-gray-100 px-4 py-2 border border-gray-300 rounded-xl text-sm text-gray-900" id="count">0</span>
+            </div>
         </div>
     </x-slot>
 
@@ -235,6 +238,7 @@
                     try {
                         const response = await axios.get(urlRecommendation);
                         const recommendations = response.data.recommendations;
+                        document.getElementById('count').innerText = recommendations.length;
 
                         let columnConfigs = [{
                                 data: 'id',
