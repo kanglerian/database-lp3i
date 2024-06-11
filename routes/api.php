@@ -33,6 +33,8 @@ use App\Http\Controllers\API\Report\SourceDatabaseByWilayahController;
 use App\Http\Controllers\API\Report\WilayahDatabaseByPresenterController;
 use App\Http\Controllers\API\UserController;
 
+use App\Http\Controllers\ResetPasswordController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -109,3 +111,5 @@ Route::get('/dashboard/register/rekapperolehanpmb', [RekapPerolehanPMB::class, '
 Route::get('/dashboard/sales', [SalesController::class, 'get_all']);
 
 Route::get('/recommendation', [RecommendationController::class, 'get_all']);
+
+Route::post('/resetpassword', [ResetPasswordController::class, 'reset']);

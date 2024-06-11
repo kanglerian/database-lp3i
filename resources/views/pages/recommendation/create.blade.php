@@ -107,6 +107,11 @@
 </x-app-layout>
 
 <script>
+    $(document).ready(function() {
+        $('.js-example-input-single').select2({
+            tags: true,
+        });
+    });
     const formContact = () => {
         let bucket = '';
         for (let i = 0; i < 4; i++) {
