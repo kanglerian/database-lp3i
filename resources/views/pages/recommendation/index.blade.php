@@ -257,7 +257,8 @@
                             {
                                 data: 'schoolapplicant',
                                 render: (data, type, row, meta) => {
-                                    return data.name;
+                                    console.log(data);
+                                    return data;
                                 }
                             },
                             {
@@ -275,7 +276,8 @@
                             {
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
-                                    return data.name;
+                                    console.log(data);
+                                    return data;
                                 }
                             },
                             {
