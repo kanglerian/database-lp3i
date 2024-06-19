@@ -59,19 +59,25 @@
                 <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeFilter()"
+                        <input type="number" id="change_pmb"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="date_start" class="text-xs">Tanggal Dari:</label>
-                        <input type="date" id="date_start" onchange="changeFilter()"
+                        <input type="date" id="date_start"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="date_end" class="text-xs">Tanggal Sampai:</label>
-                        <input type="date" id="date_end" onchange="changeFilter()"
+                        <input type="date" id="date_end"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    </div>
+                    <div class="flex flex-col space-y-1 p-1 md:p-0">
+                        <button type="button" onclick="changeFilter()"
+                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
+                            <i class="fa-solid fa-filter"></i>
+                        </button>
                     </div>
                 </div>
             </div>

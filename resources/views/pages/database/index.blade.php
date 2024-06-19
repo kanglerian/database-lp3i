@@ -123,7 +123,7 @@
             <div class="bg-white overflow-hidden border rounded-xl">
                 <div class="p-6 bg-white">
                     <div class="relative overflow-x-auto rounded-xl">
-                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
+                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-l-xl">
