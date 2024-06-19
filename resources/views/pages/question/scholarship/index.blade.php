@@ -56,7 +56,7 @@
             @endif
 
             <div class="flex justify-start items-center gap-3 mx-2 py-2">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+                <div class="flex justify-center md:justify-start items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb"
