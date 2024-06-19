@@ -65,7 +65,7 @@
                     </div>
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="date_start" class="text-xs">Tanggal Dari:</label>
-                        <input type="date" id="date_from" onchange="changeFilter()"
+                        <input type="date" id="date_start" onchange="changeFilter()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
