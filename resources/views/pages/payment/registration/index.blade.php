@@ -192,7 +192,7 @@
                 {
                     data: 'nominal',
                     render: (data, type, row, meta) => {
-                        console.log(data);
+                        console.log(typeof(data));
                         return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
