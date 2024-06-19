@@ -122,6 +122,8 @@
         </div>
     </div>
     @include('pages.question.scholarship.exports.excel')
+    @include('pages.dashboard.utilities.all')
+    @include('pages.dashboard.utilities.pmb')
     @push('scripts')
         <script>
             let dataTableInstance;
