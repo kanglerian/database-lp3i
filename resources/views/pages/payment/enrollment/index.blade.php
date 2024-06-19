@@ -207,7 +207,7 @@
                 {
                     data: 'applicant',
                     render: (data, type, row, meta) => {
-                        return data.name;
+                        return data ? data.name : 'Tidak diketahui';
                     }
                 },
                 {
