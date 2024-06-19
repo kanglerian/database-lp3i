@@ -90,17 +90,17 @@
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
                 <div class="flex gap-2">
-                    @if ($nopresenter > 0)
+                    {{-- @if ($nopresenter > 0) --}}
                         <div class="relative">
                             @if (Auth::user()->role == 'A')
                                 <span
-                                    class="flex items-center justify-center right-[25px] top-[-10px] absolute bg-red-500 text-white w-4 h-4 rounded-xl text-[9px]">{{ $nopresenter }}</span>
+                                    class="flex items-center justify-center absolute top-[-25px] right-[10px] bg-red-500 text-white px-2 py-1 rounded-xl text-[9px]">{{ $nopresenter }}517</span>
                                 <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
                             @endif
                         </div>
-                    @else
+                    {{-- @else --}}
                         <input type="hidden" id="database_online" value="all">
-                    @endif
+                    {{-- @endif --}}
                     @if (Auth::user()->role == 'P' && Auth::user()->sheet)
                         <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
                             class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
