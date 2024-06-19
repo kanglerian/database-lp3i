@@ -41,7 +41,7 @@
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
-                <button onclick="exportExcel()"
+                <button type="button" onclick="exportExcel()"
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
                 </button>

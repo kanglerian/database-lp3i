@@ -72,6 +72,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/user/info/{identity}', [UserController::class, 'info_user']);
 Route::get('/user/check/{id}', [UserController::class, 'check_user']);
 
+Route::get('/applicants/scholarships', [ApplicantController::class, 'get_scholarship']);
+
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');
 Route::post('/storehistory', [ApplicantHistoryController::class, 'store_history'])->name('applicants.api.history');
 

@@ -4,41 +4,21 @@
         try {
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Data');
-            let header = ['Nama Lengkap', 'Presenter', 'Asal Sekolah', 'Analisa', 'Kuantitatif',
-                'Bahasa Inggris', 'Total Benar', 'Nilai Analisa', 'Nilai Kuantitatif', 'Nilai Bahasa Inggris',
-                'Nilai Akhir'
-            ];
+            let header = ['No', 'Nama Lengkap', 'Presenter', 'Asal Sekolah', 'Total Benar', 'Nilai Akhir'];
             let dataExcel = [
                 header,
             ];
-            data.forEach(student => {
-                let analisa = student.detail.find((content) => content.category == 'Kemampuan Analisa');
-                let kuantitatif = student.detail.find((content) => content.category ==
-                    'Kemampuan Kuantitatif');
-                let inggris = student.detail.find((content) => content.category == 'Bahasa Inggris');
-                let studentBucket = [];
-                let analisaScore = analisa ? parseInt(analisa.score) : 0;
-                let kuantitatifScore = kuantitatif ? parseInt(kuantitatif.score) : 0;
-                let inggrisScore = inggris ? parseInt(inggris.score) : 0;
-                let analisaTrueResult = analisa ? parseInt(analisa.trueResult) : 0;
-                let kuantitatifTrueResult = kuantitatif ? parseInt(kuantitatif.trueResult) : 0;
-                let inggrisTrueResult = inggris ? parseInt(inggris.trueResult) : 0;
-                let finalTrue = analisaTrueResult + kuantitatifTrueResult + inggrisTrueResult;
-                let finalRecord = (analisaScore + kuantitatifScore + inggrisScore) / 3;
-                studentBucket.push(
-                    `${student.identity ? student.identity.name : 'Tidak'}`,
-                    `${student.identity ? student.identity.presenter.name : 'Tidak'}`,
-                    `${student.identity ? student.identity.school_applicant.name : 'Tidak'}`,
-                    `${analisa == undefined ? 'Belum mengerjakan' : analisa.trueResult}`,
-                    `${kuantitatif == undefined ? 'Belum mengerjakan' : kuantitatif.trueResult}`,
-                    `${inggris == undefined ? 'Belum mengerjakan' : inggris.trueResult}`,
-                    `${finalTrue}`,
-                    `${analisa == undefined ? 'Belum mengerjakan' : analisa.score}`,
-                    `${kuantitatif == undefined ? 'Belum mengerjakan' : kuantitatif.score}`,
-                    `${inggris == undefined ? 'Belum mengerjakan' : inggris.score}`,
-                    `${finalRecord.toFixed()}`
+            database.forEach((data, index) => {
+                let bucket = [];
+                bucket.push(
+                    `${index + 1}`,
+                    `${data.name}`,
+                    `${data.presenter}`,
+                    `${data.school}`,
+                    `${data.trueScore}`,
+                    `${data.total}`
                 );
-                dataExcel.push(studentBucket);
+                dataExcel.push(bucket);
             });
 
             worksheet.addRows(dataExcel);

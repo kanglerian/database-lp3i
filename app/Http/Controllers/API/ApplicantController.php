@@ -20,6 +20,25 @@ class ApplicantController extends Controller
             'applicants' => $applicants,
         ])->header('Content-Type', 'application/json');
     }
+
+    public function get_scholarship()
+    {
+        $applicantsQuery = Applicant::query();
+
+        $pmbVal = request('pmbVal', 'all');
+
+        if ($pmbVal !== 'all') {
+            $applicantsQuery->where('pmb', $pmbVal);
+        }
+
+        $applicants = $applicantsQuery
+            ->with(['SchoolApplicant', 'Presenter'])
+            ->select('identity', 'identity_user', 'pmb', 'name', 'phone', 'school', 'major', 'year', 'scholarship_date', 'program')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return response()->json($applicants);
+    }
     /**
      * Display the specified resource.
      *
