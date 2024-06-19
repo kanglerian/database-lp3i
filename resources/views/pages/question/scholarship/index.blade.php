@@ -20,10 +20,10 @@
             </nav>
 
             <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-                <button type="button" onclick="exportExcel()"
-                    class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
-                    <i class="fa-solid fa-file-excel"></i>
-                </button>
+                <a href="{{ route('scholarship.question') }}"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white">
+                    <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
+                </a>
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-users"></i>
                     <h2 id="count_persons">0</h2>
@@ -73,10 +73,14 @@
                         <input type="date" id="date_end"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
-                    <div class="flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="flex p-1 gap-3 md:p-0">
                         <button type="button" onclick="changeFilter()"
-                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
+                            class="bg-sky-500 hover:bg-sky-600 px-4 py-2 text-xs rounded-xl text-white">
                             <i class="fa-solid fa-filter"></i>
+                        </button>
+                        <button type="button" onclick="exportExcel()"
+                            class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                            <i class="fa-solid fa-file-excel"></i>
                         </button>
                     </div>
                 </div>
@@ -85,10 +89,6 @@
             @if (Auth::user()->role == 'A')
                 <div class="flex flex-wrap justify-between items-center gap-4 md:gap-0 px-2">
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('scholarship.question') }}"
-                            class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white">
-                            <i class="fa-solid fa-scroll mr-1"></i> Bank Soal
-                        </a>
                     </div>
                 </div>
             @endif
