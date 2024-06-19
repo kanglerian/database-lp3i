@@ -64,8 +64,13 @@
                             placeholder="Tahun PMB">
                     </div>
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
-                        <input type="date" id="date" onchange="changeFilter()"
+                        <label for="date_start" class="text-xs">Tanggal Dari:</label>
+                        <input type="date" id="date_from" onchange="changeFilter()"
+                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    </div>
+                    <div class="flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="date_end" class="text-xs">Tanggal Sampai:</label>
+                        <input type="date" id="date_end" onchange="changeFilter()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
                 </div>
@@ -138,9 +143,17 @@
                 let queryParams = [];
 
                 let pmbVal = document.getElementById('change_pmb').value;
+                let dateStart = document.getElementById('date_start').value || 'all';
+                let dateEnd = document.getElementById('date_end').value || 'all';
 
                 if (pmbVal !== 'all') {
                     queryParams.push(`pmbVal=${pmbVal}`);
+                }
+                if (dateStart !== 'all') {
+                    queryParams.push(`dateStart=${dateStart}`);
+                }
+                if (dateEnd !== 'all') {
+                    queryParams.push(`dateEnd=${dateEnd}`);
                 }
 
                 let queryString = queryParams.join('&');

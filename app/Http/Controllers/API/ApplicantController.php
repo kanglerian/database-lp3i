@@ -26,9 +26,15 @@ class ApplicantController extends Controller
         $applicantsQuery = Applicant::query();
 
         $pmbVal = request('pmbVal', 'all');
+        $dateStart = request('dateStart', 'all');
+        $dateEnd = request('dateEnd', 'all');
 
         if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
+        }
+
+        if ($dateStart !== 'all' && $dateEnd !== 'all') {
+            $applicantsQuery->whereBetween('scholarship_date', [$dateStart, $dateEnd]);
         }
 
         $applicants = $applicantsQuery
