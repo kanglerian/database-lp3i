@@ -207,8 +207,7 @@
                 {
                     data: 'applicant',
                     render: (data, type, row, meta) => {
-                        console.log(data);
-                        return data;
+                        return data.name;
                     }
                 },
                 {
@@ -220,7 +219,8 @@
                 {
                     data: 'nominal',
                     render: (data, type, row) => {
-                        return `Rp${data.toLocaleString('id-ID')}`
+                        const convert = parseInt(data);
+                        return `Rp${convert.toLocaleString('id-ID')}`
                     }
                 },
                 {
@@ -232,7 +232,8 @@
                 {
                     data: 'debit',
                     render: (data, type, row) => {
-                        return `${data ? 'Rp' + data.toLocaleString('id-ID') : 'Tidak ada'}`
+                        const convert = parseInt(data);
+                        return `${data ? 'Rp' + convert.toLocaleString('id-ID') : 'Tidak ada'}`
                     }
                 },
                 {
@@ -241,8 +242,8 @@
                         debit: 'debit'
                     },
                     render: (data, type, row) => {
-                        let debit = data.debit || 0;
-                        let nominal = data.nominal || 0;
+                        let debit = parseInt(data.debit) || 0;
+                        let nominal = parseInt(data.nominal) || 0;
                         let money = nominal - debit;
                         return `Rp${money.toLocaleString('id-ID')}`
                     }
@@ -254,7 +255,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
+                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data.id})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
