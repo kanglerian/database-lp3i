@@ -74,6 +74,9 @@
                                         #
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Tanggal
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
                                         Nama Lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -173,6 +176,7 @@
                             let data = {
                                 identity: applicant.identity,
                                 pmb: applicant.pmb,
+                                date: applicant.scholarship_date,
                                 name: applicant.name,
                                 school: applicant.school ? applicant.school_applicant.name :
                                     'Tidak diketahui',
@@ -192,6 +196,12 @@
                                 render: (data, type, row, meta) => {
                                     return meta.row + 1;
                                 },
+                            },
+                            {
+                                data: 'date',
+                                render: (data, type, row, meta) => {
+                                    return data;
+                                }
                             },
                             {
                                 data: 'name',

@@ -4,7 +4,7 @@
         try {
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Data');
-            let header = ['No', 'Nama Lengkap', 'Presenter', 'Asal Sekolah', 'Total Benar', 'Nilai Akhir'];
+            let header = ['No', 'Tanggal', 'Nama Lengkap', 'Presenter', 'Asal Sekolah', 'Total Benar', 'Nilai Akhir'];
             let dataExcel = [
                 header,
             ];
@@ -12,6 +12,7 @@
                 let bucket = [];
                 bucket.push(
                     `${index + 1}`,
+                    `${data.date}`,
                     `${data.name}`,
                     `${data.presenter}`,
                     `${data.school}`,
