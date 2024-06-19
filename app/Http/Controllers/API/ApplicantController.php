@@ -33,6 +33,7 @@ class ApplicantController extends Controller
 
         $applicants = $applicantsQuery
             ->with(['SchoolApplicant', 'Presenter'])
+            ->where('schoolarship', 1)
             ->select('identity', 'identity_user', 'pmb', 'name', 'phone', 'school', 'major', 'year', 'scholarship_date', 'program')
             ->orderByDesc('created_at')
             ->get();
