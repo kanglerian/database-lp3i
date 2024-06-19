@@ -193,21 +193,21 @@
                     data: 'nominal',
                     render: (data, type, row, meta) => {
                         const convert = parseInt(data);
-                        return `Rp${data.toLocaleString('id-ID')}`
+                        return `Rp${convert.toLocaleString('id-ID')}`
                     }
                 },
                 {
                     data: 'deal',
                     render: (data, type, row, meta) => {
                         const convert = parseInt(data);
-                        return `Rp${data.toLocaleString('id-ID')}`
+                        return `Rp${convert.toLocaleString('id-ID')}`
                     }
                 },
                 {
                     data: 'discount',
                     render: (data, type, row, meta) => {
                         const convert = parseInt(data);
-                        return `Rp${data.toLocaleString('id-ID')}`
+                        return `Rp${convert.toLocaleString('id-ID')}`
                     }
                 },
                 {
