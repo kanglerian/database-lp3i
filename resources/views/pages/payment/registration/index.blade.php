@@ -52,7 +52,7 @@
                         <input type="date" id="date" onchange="changeFilter()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="session" class="text-xs">Gelombang:</label>
                         <select id="session" onchange="changeFilter()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
@@ -62,7 +62,7 @@
                             <option value="3">Gelombang 3</option>
                         </select>
                     </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="percent" class="text-xs">Persen</label>
                         <select id="percent" onchange="changeFilter()"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
@@ -76,7 +76,7 @@
             <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto">
-                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
+                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-l-xl">
@@ -192,6 +192,7 @@
                 {
                     data: 'nominal',
                     render: (data, type, row, meta) => {
+                        console.log(data);
                         return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
