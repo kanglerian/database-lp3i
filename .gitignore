@@ -15,4 +15,4 @@ yarn-error.log
 
 # Ini ketika sudah ada di cPanel maka jangan dikomentar. Jika belum ada maka komentari.
 /public/api
-/.env
+# /.env
