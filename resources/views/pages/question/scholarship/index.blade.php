@@ -111,7 +111,7 @@
             let dataTableInstance;
             let dataTableInitialized = false;
             let url = `/api/applicants/scholarships`;
-            let database;
+            let dataScholarship;
         </script>
         <script>
             const changeFilterDataRegisterProgram = () => {
@@ -186,8 +186,8 @@
                             }
                             tampung.push(data);
                         });
-
-                        database = tampung;
+                        console.log(tampung);
+                        dataScholarship = tampung;
 
                         document.getElementById('count_persons').innerText = tampung.length;
 
@@ -200,7 +200,7 @@
                             {
                                 data: 'date',
                                 render: (data, type, row, meta) => {
-                                    return data;
+                                    return data || 'Tidak diketahui';
                                 }
                             },
                             {

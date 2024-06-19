@@ -8,11 +8,11 @@
             let dataExcel = [
                 header,
             ];
-            database.forEach((data, index) => {
+            dataScholarship.forEach((data, index) => {
                 let bucket = [];
                 bucket.push(
                     `${index + 1}`,
-                    `${data.date}`,
+                    `${data.date || 'Tidak diketahui'}`,
                     `${data.name}`,
                     `${data.presenter}`,
                     `${data.school}`,
