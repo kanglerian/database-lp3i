@@ -192,19 +192,21 @@
                 {
                     data: 'nominal',
                     render: (data, type, row, meta) => {
-                        console.log(typeof(data));
+                        const convert = parseInt(data);
                         return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
                 {
                     data: 'deal',
                     render: (data, type, row, meta) => {
+                        const convert = parseInt(data);
                         return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
                 {
                     data: 'discount',
                     render: (data, type, row, meta) => {
+                        const convert = parseInt(data);
                         return `Rp${data.toLocaleString('id-ID')}`
                     }
                 },
@@ -220,8 +222,8 @@
                         deal: 'deal'
                     },
                     render: (data, type, row) => {
-                        let dataPercent = data.deal * 0.3;
-                        let percent = data.nominal < dataPercent;
+                        let dataPercent = parseInt(data.deal) * 0.3;
+                        let percent = parseInt(data.nominal) < dataPercent;
                         return ` ${percent ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' : '<i class="fa-solid fa-circle-xmark text-red-500"></i>'}`
                     }
                 },
@@ -230,7 +232,7 @@
                     render: (data, type, row) => {
                         return `
                         <div class="flex items-center gap-1">
-                            <button class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>`
