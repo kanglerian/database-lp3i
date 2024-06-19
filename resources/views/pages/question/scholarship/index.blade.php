@@ -73,7 +73,7 @@
                         <input type="date" id="date_end"
                             class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
                     </div>
-                    <div class="flex p-1 gap-3 md:p-0">
+                    <div class="flex p-1 gap-2 md:p-0">
                         <button type="button" onclick="changeFilter()"
                             class="bg-sky-500 hover:bg-sky-600 px-4 py-2 text-xs rounded-xl text-white">
                             <i class="fa-solid fa-filter"></i>
