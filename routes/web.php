@@ -6,7 +6,6 @@ use App\Http\Controllers\Question\HomeController;
 use App\Http\Controllers\Question\Scholarship\QuestionController;
 use App\Http\Controllers\Question\Scholarship\ResultController;
 use App\Http\Controllers\RecommendationController;
-use App\Http\Controllers\Target\TargetController;
 use App\Http\Controllers\Target\TargetDatabaseController;
 use App\Http\Controllers\Target\TargetRevenueController;
 use App\Http\Controllers\Target\TargetVolumeController;
@@ -31,7 +30,6 @@ use App\Http\Controllers\SourceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntegrationController;
-use App\Http\Controllers\Payment\TargetController as PaymentTargetController;
 
 /*
 |--------------------------------------------------------------------------
