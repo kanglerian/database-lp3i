@@ -43,7 +43,7 @@ use App\Http\Controllers\IntegrationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.reset-password');
 })->name('welcome');
 
 /* Route Dashboard */

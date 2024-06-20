@@ -1,5 +1,7 @@
 <x-guest-layout>
-    <div>
+    <x-auth-card-login>
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -14,30 +16,38 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+                <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" maxlength="50"
+                    :value="old('email', $request->email)" placeholder="Masukan email" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+                <x-label for="password" :value="__('Password Baru')" />
+                <div class="flex items-center gap-3 relative">
+                    <x-input id="password" class="block w-full text-sm" type="password" name="password"
+                        placeholder="Masukan kata sandi baru" required autocomplete="current-password" />
+                    <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password"
+                        onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
+                </div>
             </div>
 
-            <!-- Confirm Password -->
+            <!-- Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
+                <x-label for="password_confirmation" :value="__('Konfirmasi Password')" />
+                <div class="flex items-center gap-3 relative">
+                    <x-input id="password_confirmation" class="block w-full text-sm" type="password" name="password_confirmation"
+                        placeholder="Masukan kata sandi baru" required autocomplete="current-password" />
+                    <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password"
+                        onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
+                </div>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
-            </div>
+            <button type="submit"
+                class="w-full text-white bg-lp3i-100 hover:bg-lp3i-200 font-medium rounded-xl text-sm mt-4 px-5 py-2.5 focus:outline-none">
+                <span>{{ __('Reset Password') }}</span>
+            </button>
         </form>
-    </div>
+
+    </x-auth-card-login>
 </x-guest-layout>
+

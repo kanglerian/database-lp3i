@@ -25,13 +25,14 @@
 
             <button type="submit"
                 class="w-full text-white bg-lp3i-100 hover:bg-lp3i-200 font-medium rounded-xl text-sm mt-4 px-5 py-2.5 focus:outline-none">
-                <span>{{ __('Reset Password') }}</span>
+                <span>{{ __('Email Password Reset Link') }}</span>
             </button>
 
             <div class="text-center mt-3">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Ingat kembali?') }}
                 </a>
+            </div>
         </form>
 
     </x-auth-card-login>
