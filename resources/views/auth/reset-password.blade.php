@@ -37,8 +37,8 @@
                 <div class="flex items-center gap-3 relative">
                     <x-input id="password_confirmation" class="block w-full text-sm" type="password" name="password_confirmation"
                         placeholder="Masukan kata sandi baru" required autocomplete="current-password" />
-                    <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password"
-                        onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
+                    <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-confirm-password"
+                        onclick="seeConfirmPassword()"><i class="fa-solid fa-eye"></i></button>
                 </div>
             </div>
 
@@ -47,6 +47,34 @@
                 <span>{{ __('Reset Password') }}</span>
             </button>
         </form>
+
+        <script>
+            const seePassword = () => {
+                let passwordElement = document.getElementById('password');
+                let seeElement = document.getElementById('see-password');
+                let attribute = passwordElement.getAttribute('type');
+                if (attribute === 'text') {
+                    passwordElement.setAttribute('type', 'password');
+                    seeElement.innerHTML = '<i class="fa-solid fa-eye"></i>';
+                } else {
+                    passwordElement.setAttribute('type', 'text');
+                    seeElement.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+                }
+            }
+            const seeConfirmPassword = () => {
+                let passwordElement = document.getElementById('password_confirmation');
+                let seeElement = document.getElementById('see-confirm-password');
+                let attribute = passwordElement.getAttribute('type');
+                if (attribute === 'text') {
+                    passwordElement.setAttribute('type', 'password');
+                    seeElement.innerHTML = '<i class="fa-solid fa-eye"></i>';
+                } else {
+                    passwordElement.setAttribute('type', 'text');
+                    seeElement.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+                }
+            }
+        </script>
+
 
     </x-auth-card-login>
 </x-guest-layout>
