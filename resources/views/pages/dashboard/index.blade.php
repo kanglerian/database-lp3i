@@ -94,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="space-y-3">
-                                        <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="150px">
+                                        <img src="{{ asset('logo/bni.png') }}" alt="Logo BNI" width="100px">
                                         <div onclick="copyRecord('4549998888')"
                                             class="bg-gray-50 cursor-pointer flex justify-between items-center border px-5 py-2 rounded-xl">
                                             <div class="space-y-1">

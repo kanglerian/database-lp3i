@@ -9,11 +9,21 @@
 
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div id="info" class="hidden mx-2 mb-4 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert"></div>
+            @if (session('error'))
+                <div id="alert" class="mb-3 flex items-center px-5 py-4 bg-red-500 text-white rounded-2xl"
+                    role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-reguler">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
+            <div id="info" class="hidden mx-2 items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                role="alert"></div>
             <div class="overflow-hidden border border-gray-200 rounded-3xl">
                 <div class="p-8 bg-gray-50 border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
-                        <table class="w-full text-sm text-sm text-left text-gray-500">
+                        <table class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr class="flex justify-between items-center">
                                     <th scope="col" class="w-[300px] md:w-full px-6 py-3 rounded-t-lg">
@@ -64,7 +74,7 @@
                                                         accept="{{ $upload->accept }}">
                                                     <button id="button-{{ $upload->namefile }}"
                                                         onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $identity }}')"
-                                                        class="hidden inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
+                                                        class="hidden bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-upload"></i>
                                                     </button>
                                                 </div>
