@@ -289,7 +289,7 @@
                     <div class="flex items-center gap-3 relative">
                         <x-input id="password" class="block mt-1 w-full text-sm" type="password" name="password"
                             required autocomplete="new-password" placeholder="Masukkan Password Anda" required />
-                        <button type="button" class="absolute right-3 top-[18px] text-gray-700" id="see-password"
+                        <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password"
                             onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <div class="text-xs text-red-700 mt-3">
@@ -307,7 +307,7 @@
                     <div class="flex items-center gap-3 relative">
                         <x-input id="password_confirmation" class="block mt-1 w-full text-sm" type="password"
                             name="password_confirmation" placeholder="Konfirmasi Password Anda" required />
-                        <button type="button" class="absolute right-3 top-[18px] text-gray-700" id="see-password-confirmation"
+                        <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password-confirmation"
                             onclick="seePasswordConfirmation()"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <div class="text-xs text-red-700 mt-3">
@@ -324,25 +324,14 @@
 
             <input type="hidden" name="pmb" maxlength="4" id="pmb" value="">
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <button type="submit" class="w-full text-white bg-lp3i-100 hover:bg-lp3i-200 font-medium rounded-xl text-sm mt-4 px-5 py-2.5 focus:outline-none">
+                {{ __('Daftar') }}
+            </button>
+
+            <div class="text-center mt-3">
+                <a class="underline text-sm text-gray-500 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Sudah memiliki akun?') }}
                 </a>
-
-                <x-button class="ml-4">
-                    {{ __('Daftar') }}
-                </x-button>
-            </div>
-
-            <hr class="mt-5" />
-            <div class="mt-3">
-                <p class="text-xs">Jika terjadi <code class="text-red-500">The email has already been
-                        taken.</code>
-                    atau
-                    <code class="text-red-500">The phone has already been taken.</code> Hubungi kami melalui
-                    Whatsapp
-                    😊
-                </p>
             </div>
         </form>
     </x-auth-card-register>
