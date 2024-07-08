@@ -30,6 +30,7 @@ use App\Http\Controllers\SourceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntegrationController;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ use App\Http\Controllers\IntegrationController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::prefix('recommendation-data')->group(function(){
+    Route::get('/kkn', [DataController::class,'kkn'])->name('recommendation-data.input-kkn');
+});
 
 /* Route Dashboard */
 Route::middleware(['auth', 'status:1'])->group(function () {

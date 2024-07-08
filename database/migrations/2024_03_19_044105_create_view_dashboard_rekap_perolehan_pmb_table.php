@@ -50,6 +50,6 @@ class CreateViewDashboardRekapPerolehanPmbTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS dashboard_register_by_program');
+        DB::statement('DROP VIEW IF EXISTS dashboard_rekap_perolehan_pmb');
     }
 }

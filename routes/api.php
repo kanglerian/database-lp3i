@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AchievementController;
-use App\Http\Controllers\API\CobaController;
+use App\Http\Controllers\API\BeasiswaPPO\AuthController;
+use App\Http\Controllers\API\BeasiswaPPO\ValidationController;
 use App\Http\Controllers\API\Dashboard\RegisterProgramController;
 use App\Http\Controllers\API\Dashboard\RekapPerolehanPMB;
 use App\Http\Controllers\API\Dashboard\SalesController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\API\Report\ReportStudentsAdmissionController;
 use App\Http\Controllers\API\Report\TargetByMonthController;
 use App\Http\Controllers\API\Report\TargetByPresenterController;
 use App\Http\Controllers\API\SchoolController;
-use App\Http\Controllers\API\Target\RevenueController;
 use App\Http\Controllers\API\Target\VolumeController;
 use App\Http\Controllers\API\UserUploadController;
 use Illuminate\Http\Request;
@@ -52,6 +52,13 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth/psikotest'], function() {
     Route::post('/login', [AuthPsikotestController::class, 'login']);
     Route::get('/logout', [AuthPsikotestController::class, 'logout']);
     Route::get('/profile', [AuthPsikotestController::class, 'profile']);
+});
+
+Route::group(['middleware' => 'api', 'prefix' => 'auth/beasiswappo'], function() {
+    Route::post('/register', [AuthController::class, 'register']);
+    // Route::post('/login', [AuthPsikotestController::class, 'login']);
+    // Route::get('/logout', [AuthPsikotestController::class, 'logout']);
+    // Route::get('/profile', [AuthPsikotestController::class, 'profile']);
 });
 
 /* Route SBPMB */
@@ -115,3 +122,7 @@ Route::get('/dashboard/sales', [SalesController::class, 'get_all']);
 Route::get('/recommendation', [RecommendationController::class, 'get_all']);
 
 Route::post('/resetpassword', [ResetPasswordController::class, 'reset']);
+
+Route::prefix('beasiswa-ppo')->group(function(){
+    Route::post('/check', [ValidationController::class,'check_validation'])->name('beasiswa-ppo.check_validation');
+});
