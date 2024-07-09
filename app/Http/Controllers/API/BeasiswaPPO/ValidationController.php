@@ -19,17 +19,28 @@ class ValidationController extends Controller
                 $users = User::where($request->field, $request->value)->get();
                 if (count($users) > 0) {
                     return response()->json([
+                        'data' => [
+                            'name' => $applicants[0]->name,
+                            'email' => $applicants[0]->email,
+                            'phone' => $applicants[0]->phone,
+                        ],
                         'message' => 'Account found in users and applicant.',
                         'create' => false
                     ], Response::HTTP_OK);
                 } else {
                     return response()->json([
+                        'data' => [
+                            'name' => $applicants[0]->name,
+                            'email' => $applicants[0]->email,
+                            'phone' => $applicants[0]->phone,
+                        ],
                         'message' => 'Account found in applicant only.',
                         'create' => true
                     ], Response::HTTP_NOT_FOUND);
                 }
             } else {
                 return response()->json([
+                    'data' => null,
                     'message' => 'Account not found in users and applicant.',
                     'create' => true
                 ], Response::HTTP_NOT_FOUND);

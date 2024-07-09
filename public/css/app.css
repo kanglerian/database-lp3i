@@ -866,6 +866,9 @@ select {
 .-mr-2 {
   margin-right: -0.5rem;
 }
+.-mt-px {
+  margin-top: -1px;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -898,6 +901,9 @@ select {
 }
 .ml-1 {
   margin-left: 0.25rem;
+}
+.ml-12 {
+  margin-left: 3rem;
 }
 .ml-2 {
   margin-left: 0.5rem;
@@ -949,12 +955,6 @@ select {
 }
 .mt-6 {
   margin-top: 1.5rem;
-}
-.-mt-px {
-  margin-top: -1px;
-}
-.ml-12 {
-  margin-left: 3rem;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -1091,6 +1091,9 @@ select {
 .max-w-5xl {
   max-width: 64rem;
 }
+.max-w-6xl {
+  max-width: 72rem;
+}
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1102,9 +1105,6 @@ select {
 }
 .max-w-xl {
   max-width: 36rem;
-}
-.max-w-6xl {
-  max-width: 72rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1388,11 +1388,11 @@ select {
 .border-l-4 {
   border-left-width: 4px;
 }
-.border-t {
-  border-top-width: 1px;
-}
 .border-r {
   border-right-width: 1px;
+}
+.border-t {
+  border-top-width: 1px;
 }
 .border-emerald-600 {
   --tw-border-opacity: 1;
@@ -1409,6 +1409,10 @@ select {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 .border-lp3i-100 {
   --tw-border-opacity: 1;
@@ -1444,10 +1448,6 @@ select {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-.border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 .bg-amber-500 {
   --tw-bg-opacity: 1;
@@ -1814,6 +1814,9 @@ select {
 .leading-5 {
   line-height: 1.25rem;
 }
+.leading-7 {
+  line-height: 1.75rem;
+}
 .leading-8 {
   line-height: 2rem;
 }
@@ -1826,17 +1829,14 @@ select {
 .leading-tight {
   line-height: 1.25;
 }
-.leading-7 {
-  line-height: 1.75rem;
-}
 .tracking-tight {
   letter-spacing: -0.025em;
 }
-.tracking-widest {
-  letter-spacing: 0.1em;
-}
 .tracking-wider {
   letter-spacing: 0.05em;
+}
+.tracking-widest {
+  letter-spacing: 0.1em;
 }
 .text-amber-400 {
   --tw-text-opacity: 1;

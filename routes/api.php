@@ -56,8 +56,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth/psikotest'], function() {
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth/beasiswappo'], function() {
     Route::post('/register', [AuthController::class, 'register']);
-    // Route::post('/login', [AuthPsikotestController::class, 'login']);
-    // Route::get('/logout', [AuthPsikotestController::class, 'logout']);
+    Route::post('/forgot-password', [AuthController::class, 'forgot_password']);
+    Route::post('/login', [AuthPsikotestController::class, 'login']);
+    Route::get('/logout', [AuthPsikotestController::class, 'logout']);
     // Route::get('/profile', [AuthPsikotestController::class, 'profile']);
 });
 
