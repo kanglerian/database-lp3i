@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API\BeasiswaPPO;
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
 use App\Models\ApplicantFamily;
+use App\Models\FileUpload;
 use App\Models\School;
 use App\Models\User;
+use App\Models\UserUpload;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,14 +26,15 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'email' => ['required','email','max:255','unique:users,email'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'phone' => [
                 'required',
                 'string',
                 'min:10',
                 'max:15',
                 'unique:users,phone'
-            ]
+            ],
+            'information' => ['required', 'max:16', 'min:10']
         ], [
             'name.required' => 'Nama jangan terlewatkan, pastikan diisi ya!',
             'email.required' => 'Email jangan terlewatkan, pastikan diisi ya!',
@@ -41,6 +44,9 @@ class AuthController extends Controller
             'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
             'phone.unique' => 'No. Whatsapp ini sudah terdaftar, mohon gunakan nomor telp lain!',
             'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
+            'information.required' => 'Sumber informasi jangan terlewatkan, pastikan diisi ya!',
+            'information.min' => 'Sumber informasi tidak tepat!',
+            'information.max' => 'Sumber informasi tidak tepat!',
         ]);
 
         if ($validator->fails()) {
@@ -64,15 +70,60 @@ class AuthController extends Controller
         $numbers_unique = str_replace('-', '', $random_number_as_string);
 
         $applicant = Applicant::where('phone', $request->phone)->first();
-        if($applicant){
-            return response()->json($applicant);
+        if ($applicant) {
+            $data_applicant = [
+                'email' => $request->email,
+                'source_daftar_id' => 12,
+                'status_id' => 1,
+                'followup_id' => 1,
+            ];
+
+            $data_user = [
+                'identity' => $applicant->identity,
+                'name' => $applicant->name,
+                'email' => $applicant->email,
+                'phone' => $applicant->phone,
+                'password' => Hash::make($applicant->phone),
+                'role' => 'S',
+                'status' => 1,
+            ];
+
+            User::create($data_user);
+            $applicant->update($data_applicant);
+
+            $credentials = [
+                'email' => $applicant->email,
+                'password' => $applicant->phone,
+            ];
+
+            if (Auth::attempt($credentials)) {
+                $user_attempt = Auth::user();
+                $exp_token = time() + (24 * 60 * 60);
+
+                $data_token = [
+                    'id' => $user_attempt->id,
+                    'name' => $user_attempt->name,
+                    'email' => $user_attempt->email,
+                    'phone' => $user_attempt->phone,
+                    'role' => $user_attempt->role,
+                    'status' => $user_attempt->status,
+                ];
+
+                $data_token['exp'] = $exp_token;
+                $token = Auth::guard('api')->claims($data_token)->login($user_attempt);
+
+                return response()->json([
+                    'access_token' => $token,
+                    'message' => 'Selamat datang ' . $user_attempt->name . ' di LP3I! 🇮🇩',
+                ]);
+            }
         } else {
             $data_applicant = [
                 'identity' => $numbers_unique,
                 'name' => ucwords(strtolower($request->name)),
                 'phone' => $request->phone,
                 'pmb' => $pmbValue,
-                'identity_user' => '6281313608558',
+                'identity_user' => $request->information,
                 'source_id' => 12,
                 'source_daftar_id' => 12,
                 'status_id' => 1,
@@ -111,19 +162,19 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $user_attempt = Auth::user();
                 $exp_token = time() + (24 * 60 * 60);
-    
+
                 $data_token = [
-                    'id' => $user_attempt->id,
+                    'identity' => $numbers_unique,
                     'name' => $user_attempt->name,
                     'email' => $user_attempt->email,
                     'phone' => $user_attempt->phone,
                     'role' => $user_attempt->role,
                     'status' => $user_attempt->status,
                 ];
-    
+
                 $data_token['exp'] = $exp_token;
                 $token = Auth::guard('api')->claims($data_token)->login($user_attempt);
-    
+
                 return response()->json([
                     'access_token' => $token,
                     'message' => 'Selamat datang ' . $user_attempt->name . ' di LP3I! 🇮🇩',
@@ -141,10 +192,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $applicant = Applicant::where('identity', $user->identity)->first();
             $exp_token = time() + (24 * 60 * 60);
 
             $data_token = [
-                'id' => $user->id,
+                'identity' => $applicant->identity,
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
@@ -166,23 +218,82 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('api')->logout();
-        return response()->json([
-            'message' => 'Terima kasih, sampai jumpa!'
-        ]);
+        try {
+            Auth::guard('api')->logout();
+            return response()->json([
+                'message' => 'Terima kasih, sampai jumpa!'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), $th->getCode());
+        }
     }
 
     public function profile()
     {
-        $user = Auth::guard('api')->user();
-        $applicant = Applicant::where('identity', $user->identity)->first();
-        return response()->json([
-            'user' => $user,
-            'applicant' => $applicant,
-        ]);
+        try {
+            $user = Auth::guard('api')->user();
+            $applicant = Applicant::with('SchoolApplicant')->where('identity', $user->identity)->first();
+            $father = ApplicantFamily::where(['identity_user' => $user->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $user->identity, 'gender' => 0])->first();
+            $userupload = UserUpload::with('fileupload')->where('identity_user', $user->identity)->get();
+            $data = [];
+            foreach ($userupload as $upload) {
+                $data[] = $upload->fileupload_id;
+            }
+            $fileuploaded = FileUpload::whereIn('id', $data)->get();
+            $fileupload = FileUpload::whereNotIn('id', $data)->get();
+            return response()->json([
+                'applicant' => [
+                    'identity' => $applicant->identity,
+                    'nik' => $applicant->nik,
+                    'name' => $applicant->name,
+                    'avatar' => $user->avatar,
+                    'gender' => $applicant->gender,
+                    'religion' => $applicant->religion,
+                    'place_of_birth' => $applicant->place_of_birth,
+                    'date_of_birth' => $applicant->date_of_birth,
+                    'address' => $applicant->address,
+                    'school_id' => $applicant->school,
+                    'major' => $applicant->major,
+                    'class' => $applicant->class,
+                    'year' => $applicant->year,
+                    'program' => $applicant->program,
+                    'program_second' => $applicant->program_second,
+                    'income_parent' => $applicant->income_parent,
+                    'social_media' => $applicant->social_media,
+                    'role' => $user->role,
+                    'status' => $user->status,
+                    'school' => $applicant->school ? $applicant->SchoolApplicant->name : null
+                ],
+                'father' => [
+                    'name' => $father->name,
+                    'phone' => $father->phone,
+                    'place_of_birth' => $father->place_of_birth,
+                    'date_of_birth' => $father->date_of_birth,
+                    'job' => $father->job,
+                    'education' => $father->education,
+                    'address' => $father->address,
+                ],
+                'mother' => [
+                    'name' => $mother->name,
+                    'phone' => $mother->phone,
+                    'place_of_birth' => $mother->place_of_birth,
+                    'date_of_birth' => $mother->date_of_birth,
+                    'job' => $mother->job,
+                    'education' => $mother->education,
+                    'address' => $mother->address,
+                ],
+                'userupload' => $userupload,
+                'fileupload' => $fileupload,
+                'fileuploaded' => $fileuploaded,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), $th->getCode());
+        }
     }
 
-    public function forgot_password(Request $request){
+    public function forgot_password(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'phone' => [
                 'required',
@@ -198,10 +309,10 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['validate' => true, 'message' => $validator->errors()], 422);
         }
-        
+
         $user = User::where('phone', $request->phone)->first();
 
-        if(!$user){
+        if (!$user) {
             return response()->json(['message' => 'User dengan nomor telepon ini tidak ditemukan.'], 404);
         }
 

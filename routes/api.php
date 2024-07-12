@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AchievementController;
 use App\Http\Controllers\API\BeasiswaPPO\AuthController;
+use App\Http\Controllers\API\BeasiswaPPO\ApplicantController as ApplicantPPOController;
 use App\Http\Controllers\API\BeasiswaPPO\ValidationController;
 use App\Http\Controllers\API\Dashboard\RegisterProgramController;
 use App\Http\Controllers\API\Dashboard\RekapPerolehanPMB;
@@ -54,12 +55,17 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth/psikotest'], function() {
     Route::get('/profile', [AuthPsikotestController::class, 'profile']);
 });
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth/beasiswappo'], function() {
+Route::group(['middleware' => 'api', 'prefix' => 'beasiswappo'], function() {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/forgot-password', [AuthController::class, 'forgot_password']);
-    Route::post('/login', [AuthPsikotestController::class, 'login']);
-    Route::get('/logout', [AuthPsikotestController::class, 'logout']);
-    // Route::get('/profile', [AuthPsikotestController::class, 'profile']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/profile', [AuthController::class, 'profile']);
+    Route::patch('/applicant/update/{identity}', [ApplicantPPOController::class, 'update']);
+    Route::patch('/applicant/update-prodi/{identity}', [ApplicantPPOController::class, 'update_prodi']);
+    Route::patch('/applicant/update-family/{identity}', [ApplicantPPOController::class, 'update_family']);
+    Route::post('/userupload', [UserUploadController::class, 'store']);
+    Route::delete('/userupload/{id}', [UserUploadController::class, 'destroy']);
 });
 
 /* Route SBPMB */

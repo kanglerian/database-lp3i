@@ -59,7 +59,7 @@ class FileUploadSeeder extends Seeder
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],[
-                'name' => 'Sertifikat Pendukung',
+                'name' => 'Sertifikat Pendukung (Prestasi)',
                 'namefile' => 'sertifikat-pendukung',
                 'accept' => '.pdf',
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
@@ -79,6 +79,18 @@ class FileUploadSeeder extends Seeder
             ],[
                 'name' => 'Bukti Pembayaran',
                 'namefile' => 'bukti-pembayaran',
+                'accept' => 'image/*',
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
+            ],[
+                'name' => 'Foto Rumah (Luar & Dalam)',
+                'namefile' => 'foto-rumah',
+                'accept' => 'image/*',
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
+            ],[
+                'name' => 'Bukti Tarif Daya Listrik Rumah',
+                'namefile' => 'bukti-tarif-daya',
                 'accept' => 'image/*',
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
