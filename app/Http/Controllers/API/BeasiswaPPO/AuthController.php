@@ -293,7 +293,44 @@ class AuthController extends Controller
                 $data[] = $upload->fileupload_id;
             }
             $fileuploaded = FileUpload::whereIn('id', $data)->get();
-            $fileupload = FileUpload::whereNotIn('id', $data)->get();
+            $fileupload = FileUpload::whereNotIn('id', $data)
+                ->whereIn('namefile', [
+                    "foto",
+                    "akta-kelahiran",
+                    "kartu-keluarga",
+                    "sertifikat-pendukung",
+                    "foto-rumah",
+                    "bukti-tarif-daya",
+                ])->get();
+
+            $foto = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'foto');
+            })->first();
+            $akta_kelahiran = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'akta-kelahiran');
+            })->first();
+            $sertifikat_pendukung = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'sertifikat-pendukung');
+            })->first();
+            $foto_rumah = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'foto-rumah');
+            })->first();
+            $bukti_tarif_daya = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'bukti-tarif-daya');
+            })->first();
+
+            $validate_data = $applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address ? true : false;
+           
+            $validate_program = $applicant->program && $applicant->program_second ? true : false;
+
+            $validate_father = $father->name && $father->date_of_birth && $father->place_of_birth && $father->phone && $father->education && $father->job && $father->address ? true : false;
+
+            $validate_mother = $mother->name && $mother->date_of_birth && $mother->place_of_birth && $mother->phone && $mother->job && $mother->address ? true : false;
+            
+            $validate_berkas = $foto && $akta_kelahiran && $sertifikat_pendukung && $foto_rumah && $bukti_tarif_daya ? true : false;
+
+            $validate = $validate_data && $validate_program && $validate_father && $validate_mother && $validate_berkas ? true : false;
+
             return response()->json([
                 'applicant' => [
                     'identity' => $applicant->identity,
@@ -338,6 +375,14 @@ class AuthController extends Controller
                 'userupload' => $userupload,
                 'fileupload' => $fileupload,
                 'fileuploaded' => $fileuploaded,
+                'validate' => [
+                    'validate' => $validate,
+                    'validate_data' => $validate_data,
+                    'validate_program' => $validate_program,
+                    'validate_father' => $validate_father,
+                    'validate_mother' => $validate_mother,
+                    'validate_berkas' => $validate_berkas,
+                ]
             ]);
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), $th->getCode());
