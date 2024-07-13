@@ -299,7 +299,7 @@ class AuthController extends Controller
                     "akta-kelahiran",
                     "kartu-keluarga",
                     "sertifikat-pendukung",
-                    "foto-rumah-luar-dan-dalam-luar-dan-dalam",
+                    "foto-rumah-luar-dan-dalam",
                     "bukti-tarif-daya-listrik",
                 ])->get();
 
