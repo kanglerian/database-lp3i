@@ -246,10 +246,10 @@ class AuthController extends Controller
                 $query->where('namefile', 'sertifikat-pendukung');
             })->first();
             $foto_rumah = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
-                $query->where('namefile', 'foto-rumah');
+                $query->where('namefile', 'foto-rumah-luar-dan-dalam');
             })->first();
             $bukti_tarif_daya = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
-                $query->where('namefile', 'bukti-tarif-daya');
+                $query->where('namefile', 'bukti-tarif-daya-listrik');
             })->first();
             if ($applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address && $applicant->program && $applicant->program_second && $father->name && $father->name && $father->date_of_birth && $father->place_of_birth && $father->phone && $father->education && $father->job && $father->address && $mother->name && $mother->name && $mother->date_of_birth && $mother->place_of_birth && $mother->phone && $mother->education && $mother->job && $mother->address && $foto && $akta_kelahiran && $sertifikat_pendukung && $foto_rumah && $bukti_tarif_daya) {
                 return response()->json([
@@ -299,8 +299,8 @@ class AuthController extends Controller
                     "akta-kelahiran",
                     "kartu-keluarga",
                     "sertifikat-pendukung",
-                    "foto-rumah",
-                    "bukti-tarif-daya",
+                    "foto-rumah-luar-dan-dalam-luar-dan-dalam",
+                    "bukti-tarif-daya-listrik",
                 ])->get();
 
             $foto = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
@@ -313,10 +313,10 @@ class AuthController extends Controller
                 $query->where('namefile', 'sertifikat-pendukung');
             })->first();
             $foto_rumah = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
-                $query->where('namefile', 'foto-rumah');
+                $query->where('namefile', 'foto-rumah-luar-dan-dalam');
             })->first();
             $bukti_tarif_daya = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
-                $query->where('namefile', 'bukti-tarif-daya');
+                $query->where('namefile', 'bukti-tarif-daya-listrik');
             })->first();
 
             $validate_data = $applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address ? true : false;
