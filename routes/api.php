@@ -61,6 +61,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'beasiswappo'], function() {
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::post('/profile/presenter', [AuthController::class, 'profile_by_phone']);
     Route::patch('/applicant/update/{identity}', [ApplicantPPOController::class, 'update']);
     Route::patch('/applicant/update-prodi/{identity}', [ApplicantPPOController::class, 'update_prodi']);
     Route::patch('/applicant/update-family/{identity}', [ApplicantPPOController::class, 'update_family']);

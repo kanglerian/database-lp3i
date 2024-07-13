@@ -136,6 +136,37 @@ class ApplicantController extends Controller
         ]);
     }
 
+    public function update_prodi(Request $request, $identity){
+        $validator = Validator::make($request->all(), [
+            'program' => ['required'],
+            'program_second' => ['required'],
+        ],
+        [
+            'program.required' => 'Kolom program studi 1 tidak boleh kosong.',
+            'program_second.required' => 'Kolom program studi 1 tidak boleh kosong.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['validate' => true, 'message' => $validator->errors()], 422);
+        }
+
+        $applicant = Applicant::where('identity', $identity)->first();
+
+
+        $data = [
+            'program' => $request->program,
+            'program_second' => $request->program_second,
+            'programtype_id' => 1
+        ];
+
+        $applicant->update($data);
+
+        return response()->json([
+            'message' => 'Data program studi berhasil diperbaharui!',
+
+        ]);
+    }
+
     public function update_family(Request $request, $identity){
         $validator = Validator::make($request->all(), [
             'father_name' => ['required', 'min:1', 'max:150'],

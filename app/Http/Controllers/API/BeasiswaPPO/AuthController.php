@@ -19,7 +19,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgot_password']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgot_password', 'profile_by_phone']]);
     }
 
     public function register(Request $request)
@@ -71,6 +71,7 @@ class AuthController extends Controller
 
         $applicant = Applicant::where('phone', $request->phone)->first();
         if ($applicant) {
+
             $data_applicant = [
                 'email' => $request->email,
                 'source_daftar_id' => 12,
@@ -122,6 +123,7 @@ class AuthController extends Controller
                 'identity' => $numbers_unique,
                 'name' => ucwords(strtolower($request->name)),
                 'phone' => $request->phone,
+                'email' => $request->email,
                 'pmb' => $pmbValue,
                 'identity_user' => $request->information,
                 'source_id' => 12,
@@ -223,6 +225,56 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Terima kasih, sampai jumpa!'
             ]);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), $th->getCode());
+        }
+    }
+
+    public function profile_by_phone(Request $request)
+    {
+        try {
+            $applicant = Applicant::with(['SchoolApplicant', 'presenter'])->where('phone', $request->phone)->first();
+            $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
+            $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
+            $foto = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'foto');
+            })->first();
+            $akta_kelahiran = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'akta-kelahiran');
+            })->first();
+            $sertifikat_pendukung = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'sertifikat-pendukung');
+            })->first();
+            $foto_rumah = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'foto-rumah');
+            })->first();
+            $bukti_tarif_daya = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
+                $query->where('namefile', 'bukti-tarif-daya');
+            })->first();
+            if ($applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address && $applicant->program && $applicant->program_second && $father->name && $father->name && $father->date_of_birth && $father->place_of_birth && $father->phone && $father->education && $father->job && $father->address && $mother->name && $mother->name && $mother->date_of_birth && $mother->place_of_birth && $mother->phone && $mother->education && $mother->job && $mother->address && $foto && $akta_kelahiran && $sertifikat_pendukung && $foto_rumah && $bukti_tarif_daya) {
+                return response()->json([
+                    'applicant' => [
+                        'identity' => $applicant->identity,
+                        'nik' => $applicant->nik,
+                        'name' => $applicant->name,
+                        'email' => $applicant->email,
+                        'phone' => $applicant->phone,
+                        'school_id' => $applicant->school,
+                        'school' => $applicant->school ? $applicant->SchoolApplicant->name : null,
+                        'major' => $applicant->major,
+                        'class' => $applicant->class,
+                        'year' => $applicant->year,
+                        'presenter' => $applicant->presenter->name,
+                        'no_presenter' => $applicant->presenter->phone,
+                    ],
+                    'finish' => true,
+                ]);
+            } else {
+                return response()->json([
+                    'applicant' => [],
+                    'finish' => false,
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), $th->getCode());
         }
