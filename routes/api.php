@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Dashboard\SalesController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\LogoutController;
 use App\Http\Controllers\API\OrganizationController;
+use App\Http\Controllers\API\PresenterController;
 use App\Http\Controllers\API\Psikotest\AuthPsikotestController;
 use App\Http\Controllers\API\RecommendationController;
 use App\Http\Controllers\API\RegisterController;
@@ -87,6 +88,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/user/info/{identity}', [UserController::class, 'info_user']);
 Route::get('/user/check/{id}', [UserController::class, 'check_user']);
 
+Route::get('/presenters', [PresenterController::class, 'get_all']);
+Route::get('/presenters/page', [PresenterController::class, 'get_page']);
 Route::get('/applicants/scholarships', [ApplicantController::class, 'get_scholarship']);
 
 Route::post('/storewebsite', [ApplicantController::class, 'store_website'])->name('applicants.api.website');

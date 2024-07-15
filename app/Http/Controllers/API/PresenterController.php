@@ -11,6 +11,25 @@ class PresenterController extends Controller
 {
     public function get_all()
     {
-       
+        try {
+            $presenters = User::where('role', 'P')
+            ->select('name', 'phone')
+            ->get();
+        
+        return response()->json($presenters);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), $th->getCode());
+        }
+    }
+
+    public function get_page()
+    {
+        try {
+            $presenters = User::paginate(2);
+        
+        return response()->json($presenters);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), $th->getCode());
+        }
     }
 }

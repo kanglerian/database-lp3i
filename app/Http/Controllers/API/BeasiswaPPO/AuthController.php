@@ -119,13 +119,16 @@ class AuthController extends Controller
                 ]);
             }
         } else {
+
+            $presenter = User::where(['role' => 'P', 'phone' => $request->information])->first();
+
             $data_applicant = [
                 'identity' => $numbers_unique,
                 'name' => ucwords(strtolower($request->name)),
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'pmb' => $pmbValue,
-                'identity_user' => $request->information,
+                'identity_user' => $presenter ? $request->information : '6281313608558',
                 'source_id' => 12,
                 'source_daftar_id' => 12,
                 'status_id' => 1,
@@ -251,11 +254,10 @@ class AuthController extends Controller
             $bukti_tarif_daya = UserUpload::with('fileupload')->where('identity_user', $applicant->identity)->whereHas('fileupload', function ($query) {
                 $query->where('namefile', 'bukti-tarif-daya-listrik');
             })->first();
-            if ($applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address && $applicant->program && $applicant->program_second && $father->name && $father->name && $father->date_of_birth && $father->place_of_birth && $father->phone && $father->education && $father->job && $father->address && $mother->name && $mother->name && $mother->date_of_birth && $mother->place_of_birth && $mother->phone && $mother->education && $mother->job && $mother->address && $foto && $akta_kelahiran && $sertifikat_pendukung && $foto_rumah && $bukti_tarif_daya) {
+            if ($applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address && $applicant->program && $applicant->program_second && $father->name && $father->name && $father->date_of_birth && $father->place_of_birth && $father->phone && $father->education && $father->job && $father->address && $mother->name && $mother->name && $mother->date_of_birth && $mother->place_of_birth && $mother->phone && $mother->education && $mother->job && $mother->address && $foto && $akta_kelahiran && $sertifikat_pendukung && $foto_rumah && $bukti_tarif_daya) {
                 return response()->json([
                     'applicant' => [
                         'identity' => $applicant->identity,
-                        'nik' => $applicant->nik,
                         'name' => $applicant->name,
                         'email' => $applicant->email,
                         'phone' => $applicant->phone,
@@ -319,7 +321,7 @@ class AuthController extends Controller
                 $query->where('namefile', 'bukti-tarif-daya-listrik');
             })->first();
 
-            $validate_data = $applicant->nik && $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address ? true : false;
+            $validate_data = $applicant->name && $applicant->gender !== null && $applicant->place_of_birth && $applicant->date_of_birth && $applicant->religion && $applicant->school && $applicant->major && $applicant->religion && $applicant->class && $applicant->year && $applicant->income_parent && $applicant->social_media && $applicant->address ? true : false;
            
             $validate_program = $applicant->program && $applicant->program_second ? true : false;
 
@@ -334,7 +336,6 @@ class AuthController extends Controller
             return response()->json([
                 'applicant' => [
                     'identity' => $applicant->identity,
-                    'nik' => $applicant->nik,
                     'name' => $applicant->name,
                     'avatar' => $user->avatar,
                     'gender' => $applicant->gender,

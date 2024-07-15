@@ -15,7 +15,6 @@ class ApplicantController extends Controller
 {
     public function update(Request $request, $identity){
         $validator = Validator::make($request->all(), [
-            'nik' => ['nullable', 'min:16', 'max:16', Rule::unique('applicants')->ignore($identity, 'identity')],
             'name' => ['required', 'string', 'min:1', 'max:150'],
             'gender' => ['required', 'not_in:null'],
             'place_of_birth' => ['required'],
@@ -29,9 +28,6 @@ class ApplicantController extends Controller
             'social_media' => ['required','min:3','max:35'],
         ],
         [
-            'nik.unique' => 'Oops, Nomor Induk Kependudukan (NIK) sudah terdaftar nih, coba yang lain!',
-            'nik.min' => 'Format NIK nggak bener, harus :min digit ya!',
-            'nik.max' => 'Format NIK nggak bener, maksimal :max digit ya!',
             'name.required' => 'Kolom nama tidak boleh kosong.',
             'name.string' => 'Kolom nama harus berupa teks.',
             'name.min' => 'Panjang nama tidak boleh kurang dari 1 karakter.',
@@ -107,7 +103,6 @@ class ApplicantController extends Controller
         }
 
         $data = [
-            'nik' => $request->nik,
             'name' => $request->name,
             'gender' => $request->gender,
             'place_of_birth' => $request->place_of_birth,
@@ -143,7 +138,7 @@ class ApplicantController extends Controller
         ],
         [
             'program.required' => 'Kolom program studi 1 tidak boleh kosong.',
-            'program_second.required' => 'Kolom program studi 1 tidak boleh kosong.',
+            'program_second.required' => 'Kolom program studi 2 tidak boleh kosong.',
         ]);
 
         if ($validator->fails()) {
@@ -233,7 +228,7 @@ class ApplicantController extends Controller
 
         $mother_rt_digit = strlen($request->mother_rt) < 2 ? '0' . $request->mother_rt : $request->mother_rt;
         $mother_rw_digit = strlen($request->mother_rw) < 2 ? '0' . $request->mother_rw : $request->mother_rw;
-        
+
         $mother_place = $request->mother_place !== null ? ucwords(strtolower($request->mother_place)) . ', ' : null;
         $mother_rt = $request->mother_rt !== null ? 'RT. ' . $mother_rt_digit . ' ' : null;
         $mother_rw = $request->mother_rw !== null ? 'RW. ' . $mother_rw_digit . ', ' : null;
