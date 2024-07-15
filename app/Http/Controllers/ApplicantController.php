@@ -42,7 +42,7 @@ class ApplicantController extends Controller
         $statuses = ApplicantStatus::all();
         $schools = School::all();
         $follows = FollowUp::all();
-        $nopresenter = Applicant::where('identity_user', '6281313608558')->count();
+        $nopresenter = Applicant::where('identity_user','6281313608558')->where('source_id','!=','11')->count();
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
