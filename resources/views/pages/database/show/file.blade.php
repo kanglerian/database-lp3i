@@ -31,7 +31,18 @@
         @endif
     </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
+    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+        <div class="w-full flex flex-col items-center justify-center">
+            <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
+                style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
+        </div>
+        <div class="text-center space-y-1 px-5">
+            <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
+            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit. Terima kasih atas kesabaran Anda!</p>
+        </div>
+    </section>
+
+    <section id="content" class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
         <div class="w-full mx-auto space-y-5">
             <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
                 <header>
@@ -43,7 +54,7 @@
                     </p>
                     <hr class="my-3">
                     <div class="relative h-[535px] overflow-y-auto overflow-x-auto rounded-3xl">
-                        <table class="w-full text-sm text-sm text-left text-gray-500">
+                        <table class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr class="flex justify-between items-center">
                                     <th scope="col" class="px-6 py-3">
@@ -106,12 +117,27 @@
                 </header>
             </div>
         </div>
-    </div>
+        </div>
 
 </x-app-layout>
 
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
+    const checkServer = async () => {
+        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline`)
+            .then((response) => {
+                if (response.status == 200) {
+                    $('#content').show();
+                    $('#forbidden').hide();
+                }
+            })
+            .catch((error) => {
+                $('#content').hide();
+                $('#forbidden').show();
+            });
+    }
+    checkServer();
+
     const notifButton = (namefile) => {
         let inputElement = document.getElementById(`berkas-${namefile}`);
         let buttonElement = document.getElementById(`button-${namefile}`);
