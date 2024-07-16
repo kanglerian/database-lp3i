@@ -39,7 +39,7 @@ class School extends Model
         return $this->hasMany(Applicant::class, 'school');
     }
 
-    public function recommendation_kkn(){
-        return $this->hasMany(RecommendationKKN::class, 'school_id');
+    public function recommendation(){
+        return $this->hasMany(Recommendation::class, 'school_id');
     }
 }

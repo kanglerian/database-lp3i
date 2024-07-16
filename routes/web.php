@@ -49,6 +49,7 @@ Route::get('/', function () {
 
 Route::prefix('recommendation-data')->group(function(){
     Route::get('/kkn', [DataController::class,'kkn'])->name('recommendation-data.input-kkn');
+    Route::post('/kkn', [DataController::class,'kkn_store'])->name('recommendation-data.store-kkn');
 });
 
 /* Route Dashboard */

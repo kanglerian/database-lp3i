@@ -23,6 +23,7 @@ class CreateRecommendationsTable extends Migration
             $table->year('year')->nullable();
             $table->string('income_parent')->nullable();
             $table->text('address')->nullable();
+            $table->unsignedBigInteger('source_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

@@ -64,6 +64,10 @@ class SourceSeeder extends Seeder
                 'name' => 'Beasiswa PPO',
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
+            ],[
+                'name' => 'Data KKN',
+                'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ]
         ]);
     }

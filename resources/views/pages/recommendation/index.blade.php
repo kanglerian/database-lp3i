@@ -130,7 +130,7 @@
             <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-6 bg-white">
                     <div class="relative overflow-x-auto rounded-3xl">
-                        <table id="table-recommendation" class="w-full text-sm text-sm text-left text-gray-500">
+                        <table id="table-recommendation" class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-l-xl">
@@ -156,6 +156,9 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Presenter
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Sumber
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Status
@@ -245,6 +248,7 @@
                         const response = await axios.get(urlRecommendation);
                         const recommendations = response.data.recommendations;
                         dataRecommendation = recommendations;
+                        console.log(dataRecommendation);
 
                         document.getElementById('count').innerText = recommendations.length;
 
@@ -269,6 +273,7 @@
                             {
                                 data: 'schoolapplicant',
                                 render: (data, type, row, meta) => {
+                                    console.log(data);
                                     return data ? data.name : 'Tidak diketahui';
                                 }
                             },
@@ -287,13 +292,19 @@
                             {
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
-                                    return data.name;
+                                    return data ? data.name : 'Tidak diketahui';
                                 }
                             },
                             {
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
-                                    return data.presenter.name;
+                                    return data ? data.presenter.name : 'Tidak diketahui';
+                                }
+                            },
+                            {
+                                data: 'sourcesetting',
+                                render: (data, type, row, meta) => {
+                                    return data.name;
                                 }
                             },
                             {

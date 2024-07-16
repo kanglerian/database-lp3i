@@ -26,6 +26,7 @@ class Recommendation extends Model
         'year',
         'income_parent',
         'address',
+        'source_id',
         'status',
     ];
 
@@ -38,6 +39,11 @@ class Recommendation extends Model
         return $this->belongsTo(Applicant::class,'identity_user','identity');
     }
 
+    public function sourceSetting()
+    {
+        return $this->belongsTo(SourceSetting::class, 'source_id', 'id');
+    }
+    
     public function SchoolApplicant()
     {
         return $this->belongsTo(School::class, 'school_id', 'id');

@@ -37,7 +37,7 @@ class RecommendationController extends Controller
             $recommendationQuery->where('year', $yearVal);
         }
 
-        $recommendations = $recommendationQuery->with(['applicant','schoolapplicant','applicant.presenter'])->get();
+        $recommendations = $recommendationQuery->with(['applicant','schoolapplicant','applicant.presenter','sourcesetting'])->get();
         return response()->json([
             'recommendations' => $recommendations,
         ])->header('Content-Type', 'application/json');
