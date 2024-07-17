@@ -91,8 +91,9 @@ class RecommendationController extends Controller
                 'school_id' => $schools[$i],
                 'class' => $classes[$i],
                 'year' => $years[$i],
+                'source_id' => 8,
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
-                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
+                'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
             ]);
         }
         Recommendation::insert($data);
