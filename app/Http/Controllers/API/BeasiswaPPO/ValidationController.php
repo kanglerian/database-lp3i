@@ -39,11 +39,24 @@ class ValidationController extends Controller
                     ], Response::HTTP_NOT_FOUND);
                 }
             } else {
-                return response()->json([
-                    'data' => null,
-                    'message' => 'Account not found in users and applicant.',
-                    'create' => true
-                ], Response::HTTP_NOT_FOUND);
+                $users = User::where($request->field, $request->value)->get();
+                if (count($users) > 0) {
+                    return response()->json([
+                        'data' => [
+                            'name' => $users[0]->name,
+                            'email' => $users[0]->email,
+                            'phone' => $users[0]->phone,
+                        ],
+                        'message' => 'Account found in users and applicant. ada di user',
+                        'create' => false
+                    ], Response::HTTP_OK);
+                } else {
+                    return response()->json([
+                        'data' => null,
+                        'message' => 'Account not found in users and applicant.ss',
+                        'create' => true
+                    ], Response::HTTP_NOT_FOUND);
+                }
             }
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), $th->getCode());
