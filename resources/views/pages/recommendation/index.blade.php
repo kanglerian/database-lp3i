@@ -47,15 +47,16 @@
                 </li>
             </ul>
             <div>
-                <span class="bg-gray-100 px-4 py-2 border border-gray-300 rounded-xl text-sm text-gray-900"
-                    id="count">0</span>
+                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
+                    <i class="fa-solid fa-database"></i>
+                    <h2 id="count">0</h2>
+                </div>
             </div>
         </div>
     </x-slot>
 
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
-
             @if (session('message'))
                 <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                     role="alert">
@@ -78,14 +79,14 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <div
-                class="w-full grid grid-cols-1 md:grid-cols-4 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
+                class="w-full grid grid-cols-1 md:grid-cols-5 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
                 <input type="hidden" id="role" value="{{ Auth::user()->role }}">
                 @if (Auth::user()->role == 'A')
-                    <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                         <label for="identity_user" class="text-xs">Presenter:</label>
                         <select id="identity_user"
                             class="js-example-basic-single bg-white border border-gray-200 w-full px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih presenter</option>
+                            <option value="all">Pilih</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->identity }}">{{ $user->name }}</option>
                             @endforeach
@@ -94,24 +95,35 @@
                 @else
                     <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
                 @endif
-                <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                     <label for="school" class="text-xs">Asal sekolah:</label>
                     <select id="school"
                         class="js-example-basic-single w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                        <option value="all">Pilih sekolah</option>
+                        <option value="all">Pilih</option>
                         <option value="0">Tidak diketahui</option>
                         @foreach ($schools as $school)
                             <option value="{{ $school->id }}">{{ $school->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="w-full inline-block flex flex-col space-y-1 p-1 md:p-0">
+                <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="source_id" class="text-xs">Sumber Data:</label>
+                    <select id="source_id"
+                        class="js-example-basic-single w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        <option value="all">Pilih</option>
+                        <option value="0">Tidak diketahui</option>
+                        @foreach ($sources as $source)
+                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                     <label for="year" class="text-xs">Tahun lulus:</label>
                     <input type="number" id="year"
                         class="w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                         placeholder="Tahun lulus">
                 </div>
-                <div class="flex items-end gap-2 mb-1">
+                <div class="flex items-end gap-2 mb-1 p-1 md:p-0">
                     <button type="button" onclick="changeFilter()"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter"></i>
@@ -207,6 +219,7 @@
                 let roleVal = document.getElementById('role').value;
 
                 let schoolVal = document.getElementById('school').value || 'all';
+                let sourceVal = document.getElementById('source_id').value || 'all';
                 let yearVal = document.getElementById('year').value || 'all';
 
                 if (identityVal !== 'all') {
@@ -217,7 +230,12 @@
                     queryParams.push(`roleVal=${roleVal}`);
                 }
 
+                if (sourceVal !== 'all') {
+                    queryParams.push(`sourceVal=${sourceVal}`);
+                }
+
                 queryParams.push(`schoolVal=${schoolVal}`);
+                queryParams.push(`sourceVal=${sourceVal}`);
                 queryParams.push(`yearVal=${yearVal}`);
 
                 let queryString = queryParams.join('&');
@@ -248,7 +266,6 @@
                         const response = await axios.get(urlRecommendation);
                         const recommendations = response.data.recommendations;
                         dataRecommendation = recommendations;
-                        console.log(dataRecommendation);
 
                         document.getElementById('count').innerText = recommendations.length;
 
@@ -273,7 +290,6 @@
                             {
                                 data: 'schoolapplicant',
                                 render: (data, type, row, meta) => {
-                                    console.log(data);
                                     return data ? data.name : 'Tidak diketahui';
                                 }
                             },
@@ -433,7 +449,6 @@
 
         <script>
             const exportExcel = async () => {
-                console.log(dataRecommendation);
                 try {
                     const workbook = new ExcelJS.Workbook();
                     const worksheet = workbook.addWorksheet('Data');
@@ -464,7 +479,7 @@
                     const hours = dateTime.getHours();
                     const minutes = dateTime.getMinutes();
                     const seconds = dateTime.getSeconds();
-                    const formattedDate = `export_database_${hours}${minutes}${seconds}${day}${month}${year}`;
+                    const formattedDate = `export_data-recommendation_${hours}${minutes}${seconds}${day}${month}${year}`;
 
                     worksheet.addRows(dataExcel);
 

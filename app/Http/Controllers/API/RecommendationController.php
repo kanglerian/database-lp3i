@@ -14,6 +14,7 @@ class RecommendationController extends Controller
         $identityVal = request('identityVal', 'all');
         $roleVal = request('roleVal', 'all');
         $schoolVal = request('schoolVal', 'all');
+        $sourceVal = request('sourceVal', 'all');
         $yearVal = request('yearVal', 'all');
 
         $recommendationQuery = Recommendation::query();
@@ -35,6 +36,10 @@ class RecommendationController extends Controller
 
         if($yearVal !== 'all'){
             $recommendationQuery->where('year', $yearVal);
+        }
+
+        if($sourceVal !== 'all'){
+            $recommendationQuery->where('source_id', $sourceVal);
         }
 
         $recommendations = $recommendationQuery->with(['applicant','schoolapplicant','applicant.presenter','sourcesetting'])->get();

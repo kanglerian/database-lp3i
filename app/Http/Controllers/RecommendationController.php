@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Applicant;
 use App\Models\Recommendation;
 use App\Models\School;
+use App\Models\SourceSetting;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,9 +27,11 @@ class RecommendationController extends Controller
     {
         $users = User::where('role', 'P')->get();
         $schools = School::all();
+        $sources = SourceSetting::all();
         return view('pages.recommendation.index')->with([
             'users' => $users,
-            'schools' => $schools
+            'schools' => $schools,
+            'sources' => $sources
         ]);
     }
 
