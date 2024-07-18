@@ -105,8 +105,8 @@ class ApplicantController extends Controller
         }
 
         if ($initialize) {
-            $applicantsQuery->where('source_id','1');
-            $applicantsQuery->where('identity_user', Auth::user()->identity);
+            $applicantsQuery->where('source_id','8');
+            // $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
         if ($statusApplicant !== 'all') {
