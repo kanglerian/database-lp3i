@@ -107,7 +107,7 @@ class ApplicantController extends Controller
         if ($initialize) {
             $applicantsQuery->where('source_id', '8')->orWhere('source_id', '1');
             if (Auth::user()->role === 'A') {
-                $applicantsQuery->where('identity_user', Auth::user()->identity);
+                $applicantsQuery->where('identity_user', '6282215614238');
             }
         }
 
