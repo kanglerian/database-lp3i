@@ -42,7 +42,7 @@ class ApplicantController extends Controller
         $statuses = ApplicantStatus::all();
         $schools = School::all();
         $follows = FollowUp::all();
-        $nopresenter = Applicant::where('identity_user','6281313608558')->where('source_id','!=','11')->count();
+        $nopresenter = Applicant::where('identity_user', '6281313608558')->where('source_id', '!=', '11')->count();
 
         if (Auth::user()->role == 'A') {
             $total = Applicant::count();
@@ -104,7 +104,8 @@ class ApplicantController extends Controller
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
-        if($initialize){
+        if ($initialize) {
+            $applicantsQuery->where('identity_user', Auth::user()->identity);
             $applicantsQuery->where('source_id', '1')->orWhere('source_id', '8');
         }
 
