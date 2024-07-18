@@ -25,20 +25,51 @@
 
     <input type="hidden" value="{{ $user->identity }}" id="identity_val">
 
-    <div class="max-w-7xl mx-auto px-5">
-        <div class="w-full mx-auto">
-            <div class="grid grid-cols-2 mx-auto text-center gap-3" id="score_container">
-                <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
-                <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
+    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+        <div class="w-full flex flex-col items-center justify-center">
+            <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
+                style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
+        </div>
+        <div class="text-center space-y-1 px-5">
+            <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
+            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
+                Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
+                Terima kasih atas kesabaran Anda!</p>
+        </div>
+    </section>
+
+    <section id="content">
+        <div class="max-w-7xl mx-auto px-5">
+            <div class="w-full mx-auto">
+                <div class="grid grid-cols-2 mx-auto text-center gap-3" id="score_container">
+                    <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
+                    <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
-        <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
-    </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
+            <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
+        </div>
+    </section>
 
     @push('scripts')
         <script>
+            const checkServer = async () => {
+                await axios.get(`${URL_API_LP3I}`)
+                    .then((response) => {
+                        if (response.status == 200) {
+                            $('#content').show();
+                            $('#forbidden').hide();
+                        }
+                    })
+                    .catch((error) => {
+                        $('#content').hide();
+                        $('#forbidden').show();
+                    });
+            }
+            checkServer();
+
             const getHistories = async () => {
                 try {
                     let identity = document.getElementById('identity_val').value;
@@ -159,15 +190,15 @@
                 const message = confirm('Apakah anda yakin akan mereset?');
                 if (message) {
                     const input = prompt(`Silahkan ketik: ${identityUser}`)
-                    if(input == identityUser){
+                    if (input == identityUser) {
                         await axios.delete(`${URL_API_LP3I}/scholarship/histories/${identityUser}/${idCategory}`)
-                        .then((response) => {
-                            alert(response.data.message);
-                            location.reload();
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        })
+                            .then((response) => {
+                                alert(response.data.message);
+                                location.reload();
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
                     } else {
                         alert('Kode tidak tepat!');
                     }

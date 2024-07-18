@@ -31,27 +31,43 @@
         @endif
     </div>
 
-    <div id="phone" data-phone="{{ $user->phone }}"
-        class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 sm:px-6 lg:px-8 gap-5 mt-3" id="riwayat">
-        <div class="w-full">
-            <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
-                <button type="button" onclick="modalFunction('add')"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                        class="fa-solid fa-circle-plus"></i> Tambah Data</button>
-            </div>
+    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+        <div class="w-full flex flex-col items-center justify-center">
+            <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
+                style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
+        </div>
+        <div class="text-center space-y-1 px-5">
+            <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
+            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
+                Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
+                Terima kasih atas kesabaran Anda!</p>
+        </div>
+    </section>
 
-            <div class="p-6">
-                <ol class="relative border-l border-gray-200" id="histories">
-                    <li class="mb-10 ml-4">
-                        <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Sedang Memuat Chat</h3>
-                        <p class="mb-4 text-base font-normal text-gray-500">Silahkan ditunggu chat sedang dimuat..</p>
-                    </li>
-                </ol>
+    <section id="content">
+        <div id="phone" data-phone="{{ $user->phone }}"
+            class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 px-3 lg:px-8 gap-5 mt-3" id="riwayat">
+            <div class="w-full">
+                <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
+                    <button type="button" onclick="modalFunction('add')"
+                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
+                            class="fa-solid fa-circle-plus"></i> Tambah Data</button>
+                </div>
+
+                <div class="p-6">
+                    <ol class="relative border-l border-gray-200" id="histories">
+                        <li class="mb-10 ml-4">
+                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900">Sedang Memuat Chat</h3>
+                            <p class="mb-4 text-base font-normal text-gray-500">Silahkan ditunggu chat sedang dimuat..
+                            </p>
+                        </li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
         <div class="fixed inset-0 bg-black opacity-50"></div>

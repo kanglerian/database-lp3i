@@ -38,11 +38,13 @@
         </div>
         <div class="text-center space-y-1 px-5">
             <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
-            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit. Terima kasih atas kesabaran Anda!</p>
+            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
+                Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
+                Terima kasih atas kesabaran Anda!</p>
         </div>
     </section>
 
-    <section id="content" class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
+    <section id="content" class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 px-3 lg:px-8 gap-5">
         <div class="w-full mx-auto space-y-5">
             <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
                 <header>
@@ -117,14 +119,14 @@
                 </header>
             </div>
         </div>
-        </div>
+    </section>
 
 </x-app-layout>
 
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
     const checkServer = async () => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline`)
+        await axios.get(`${URL_API_LP3I}/pmbonline`)
             .then((response) => {
                 if (response.status == 200) {
                     $('#content').show();

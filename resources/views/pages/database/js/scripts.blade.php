@@ -1,5 +1,20 @@
 @push('scripts')
 <script>
+    const checkServer = async () => {
+        await axios.get(`${URL_API_LP3I}/history`)
+            .then((response) => {
+                if (response.status == 200) {
+                    $('#content').show();
+                    $('#forbidden').hide();
+                }
+            })
+            .catch((error) => {
+                $('#content').hide();
+                $('#forbidden').show();
+            });
+    }
+    checkServer();
+
     const modalFunction = (type, id, date, title, result, report) => {
         let modalChat = document.getElementById('modalChat');
         switch (type) {
@@ -127,6 +142,7 @@
                     }
                 })
                 .catch((error) => {
+                    console.log(error);
                     bucket += `
                             <p class="mb-4 text-base font-normal text-gray-500">${error.message}</p>
                             `
