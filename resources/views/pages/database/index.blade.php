@@ -190,8 +190,6 @@
     let dataTableDataInstance;
     let dataTableDataInitialized = false;
     let pmbVal = document.getElementById('change_pmb').value;
-    let presenterVal = document.getElementById('identity_user').value;
-    let roleVal = document.getElementById('role').value;
 
     var urlData = `get/databases?pmbVal=${pmbVal}&initialize=true`;
     var urlExcel = `applicants/export?pmbVal=${pmbVal}&initialize=true`;
