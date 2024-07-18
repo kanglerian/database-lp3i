@@ -20,7 +20,24 @@
             @endif
             <div id="info" class="hidden mx-2 items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
                 role="alert"></div>
-            <div class="overflow-hidden border border-gray-200 rounded-3xl">
+                
+            <section id="forbidden"
+                class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+                <div class="w-full flex flex-col items-center justify-center">
+                    <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent"
+                        speed="1" style="width: 250px; height: 250px" direction="1" mode="normal" loop
+                        autoplay></lottie-player>
+                </div>
+                <div class="text-center space-y-1 px-5">
+                    <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
+                    <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses
+                        permintaan
+                        Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa
+                        menit.
+                        Terima kasih atas kesabaran Anda!</p>
+                </div>
+            </section>
+            <section id="content" class="overflow-hidden border border-gray-200 rounded-3xl">
                 <div class="p-8 bg-gray-50 border-b border-gray-200">
                     <div class="relative overflow-x-auto md:rounded-xl">
                         <table class="w-full text-sm text-left text-gray-500">
@@ -87,11 +104,27 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
     <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     <script>
+        const checkServer = async () => {
+            await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/pmbonline`)
+                .then((response) => {
+                    if (response.status == 200) {
+                        $('#content').show();
+                        $('#forbidden').hide();
+                    }
+                })
+                .catch((error) => {
+                    $('#content').hide();
+                    $('#forbidden').show();
+                });
+        }
+        checkServer();
+        
         const notifButton = (namefile) => {
             let inputElement = document.getElementById(`berkas-${namefile}`);
             let buttonElement = document.getElementById(`button-${namefile}`);
