@@ -193,8 +193,16 @@
     let presenterVal = document.getElementById('identity_user').value;
     let roleVal = document.getElementById('role').value;
 
-    var urlData = `get/databases?pmbVal=${pmbVal}`;
-    var urlExcel = `applicants/export?pmbVal=${pmbVal}`;
+    var urlData;
+    var urlExcel;
+
+    if (roleVal == 'A') {
+        urlData = `get/databases?pmbVal=${pmbVal}&presenterVal=${presenterVal}`;
+        urlExcel = `applicants/export?pmbVal=${pmbVal}&presenterVal=${presenterVal}`;
+    } else if (roleVal == 'P') {
+        urlData = `get/databases?pmbVal=${pmbVal}`;
+        urlExcel = `applicants/export?pmbVal=${pmbVal}`;
+    }
 
     console.log(urlData);
     const changeFilter = () => {
