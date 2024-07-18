@@ -194,7 +194,6 @@
     var urlData = `get/databases?pmbVal=${pmbVal}&initialize=true`;
     var urlExcel = `applicants/export?pmbVal=${pmbVal}&initialize=true`;
 
-    console.log(urlData);
     const changeFilter = () => {
         let queryParams = [];
 
