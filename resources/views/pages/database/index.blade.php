@@ -288,7 +288,7 @@
                 {
                     data: 'source_setting',
                     render: (data, type, row) => {
-                        return data.name;
+                        return data;
                     }
                 },
                 {
@@ -347,7 +347,6 @@
             }, 2000);
         } catch (error) {
             console.error("Error fetching data:", error);
-            
         }
     }
 
