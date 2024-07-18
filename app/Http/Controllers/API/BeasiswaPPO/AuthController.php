@@ -82,7 +82,7 @@ class AuthController extends Controller
             $data_user = [
                 'identity' => $applicant->identity,
                 'name' => $applicant->name,
-                'email' => $applicant->email,
+                'email' => $request->email,
                 'phone' => $applicant->phone,
                 'password' => Hash::make($applicant->phone),
                 'role' => 'S',
