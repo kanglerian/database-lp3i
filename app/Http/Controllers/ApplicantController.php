@@ -95,12 +95,17 @@ class ApplicantController extends Controller
         $relationVal = request('relationVal', 'all');
         $jobFatherVal = request('jobFatherVal', 'all');
         $jobMotherVal = request('jobMotherVal', 'all');
-
         $databaseOnline = request('databaseOnline', 'all');
         $statusApplicant = request('statusApplicant', 'all');
 
+        $initialize = request('initialize', false);
+
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
+        }
+
+        if($initialize){
+            $applicantsQuery->where('source_id', '1')->orWhere('source_id', '8');
         }
 
         if ($statusApplicant !== 'all') {
