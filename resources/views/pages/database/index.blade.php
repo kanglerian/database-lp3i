@@ -190,9 +190,11 @@
     let dataTableDataInstance;
     let dataTableDataInitialized = false;
     let pmbVal = document.getElementById('change_pmb').value;
+    let presenterVal = document.getElementById('identity_user').value;
+    let roleVal = document.getElementById('role').value;
 
-    var urlData = `get/databases?pmbVal=${pmbVal}`;
-    var urlExcel = `applicants/export?pmbVal=${pmbVal}`;
+    var urlData = `get/databases?pmbVal=${pmbVal}?presenterVal=${presenterVal}&roleVal=${roleVal}`;
+    var urlExcel = `applicants/export?pmbVal=${pmbVal}?presenterVal=${presenterVal}&roleVal=${roleVal}`;
 
     console.log(urlData);
     const changeFilter = () => {

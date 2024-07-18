@@ -88,6 +88,8 @@
         @include('layouts.navigation')
 
         <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
+        <input type="text" id="identity_user" value="{{ Auth::user()->identity }}">
+        <input type="text" id="role" value="{{ Auth::user()->role }}">
 
         <!-- Page Heading -->
         <header class="bg-gray-50">
