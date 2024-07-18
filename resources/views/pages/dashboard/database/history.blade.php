@@ -1,5 +1,17 @@
 @if (Auth::user()->role !== 'S')
-    <div class="max-w-7xl px-5 mx-auto">
+    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+        <div class="w-full flex flex-col items-center justify-center">
+            <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
+                style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
+        </div>
+        <div class="text-center space-y-1 px-5">
+            <h2 class="font-bold text-xl">Oops! Sesuatu Tidak Beres... 🚧</h2>
+            <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
+                Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
+                Terima kasih atas kesabaran Anda!</p>
+        </div>
+    </section>
+    <section id="content" class="max-w-7xl px-5 mx-auto">
         <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-3 my-5">
                 <div class="bg-lp3i-200 text-sm py-4 px-5 rounded-2xl text-white">
@@ -82,7 +94,7 @@
                 </table>
             </div>
         </section>
-    </div>
+    </section>
 @endif
 
 @include('pages.dashboard.utilities.all')
@@ -95,6 +107,21 @@
         }
     </script>
     <script>
+        const checkServer = async () => {
+            await axios.get(`${URL_API_LP3I}/history`)
+                .then((response) => {
+                    if (response.status == 200) {
+                        $('#content').show();
+                        $('#forbidden').hide();
+                    }
+                })
+                .catch((error) => {
+                    $('#content').hide();
+                    $('#forbidden').show();
+                });
+        }
+        checkServer();
+
         const changeHistories = () => {
             let queryParams = [];
             let identityVal = document.getElementById('identity_val').value;
@@ -139,7 +166,7 @@
                 for (let i = 0; i < presenters.length; i++) {
 
                     const responseHistories = await axios.get(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/history/detail/${pmbVal}/${presenters[i].identity}`
+                        `${URL_API_LP3I}/history/detail/${pmbVal}/${presenters[i].identity}`
                     );
                     const databasesPhone = responseDatabase.data.database_phone;
                     const databasesCount = responseDatabase.data.database_count;

@@ -30,13 +30,12 @@
                 </li>
             </ul>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
+                {{-- <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <span>
                         <i class="fa-solid fa-phone"></i>
-                        <i class="fa-solid fa-xmark"></i>
                     </span>
                     <h2>{{ $nophone }}</h2>
-                </div>
+                </div> --}}
                 <div onclick="getDataTableRecommendation()"
                     class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
@@ -176,7 +175,6 @@
 {{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
-{{-- @include('pages.database.database.filterjs') --}}
 <script>
     const getYearPMB = () => {
         const currentDate = new Date();
@@ -193,6 +191,7 @@
 
     var urlData = `get/databases?pmbVal=${pmbVal}&initialize=true`;
     var urlExcel = `applicants/export?pmbVal=${pmbVal}&initialize=true`;
+    var dataApplicants;
 
     const changeFilter = () => {
         let queryParams = [];
@@ -292,8 +291,6 @@
         urlData = `get/databases?${queryString}`;
         urlExcel = `applicants/export?${queryString}`;
 
-        console.log(urlData);
-
         if (dataTableDataInstance) {
             showLoadingAnimation();
             dataTableDataInstance.clear();
@@ -317,7 +314,7 @@
             try {
                 const response = await axios.get(urlData);
                 const applicants = response.data.applicants;
-                console.log(applicants);
+                dataApplicants = applicants;
 
                 document.getElementById('count_filter').innerText = applicants.length;
 
