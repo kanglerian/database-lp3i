@@ -26,7 +26,7 @@
                 </li>
                 <li>
                     <a href="{{ route('recommendation.index') }}"
-                    class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
+                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
                 </li>
             </ul>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
@@ -37,7 +37,8 @@
                     </span>
                     <h2>{{ $nophone }}</h2>
                 </div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
+                <div onclick="getDataTableRecommendation()"
+                    class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">{{ $total }}</h2>
                 </div>
@@ -123,7 +124,7 @@
             <div class="bg-white overflow-hidden border rounded-xl">
                 <div class="p-6 bg-white">
                     <div class="relative overflow-x-auto rounded-xl">
-                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
+                        <table id="table-database" class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-l-xl">
@@ -175,75 +176,167 @@
 {{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
-@include('pages.database.database.filterjs')
+{{-- @include('pages.database.database.filterjs') --}}
 <script>
-    const getDataTable = async () => {
-        const dataTableConfig = {
-            ajax: {
-                url: urlData,
-                dataSrc: 'applicants'
-            },
-            order: [
-                [2, 'desc']
-            ],
-            rowCallback: function(row, data, index) {
-                if (index % 2 != 0) {
-                    $(row).css('background-color', '#f9fafb');
-                }
+    const getYearPMB = () => {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+        document.getElementById('change_pmb').value = startYear;
+    }
+    getYearPMB();
 
-                if (data.presenter.phone == '6281313608558') {
-                    $(row).css('background-color', '#dc2626');
-                    $(row).css('color', 'white');
-                }
-            },
-            columnDefs: [{
-                    width: 10,
-                    target: 0
-                },
-                {
-                    width: 150,
-                    target: 1
-                },
-                {
-                    width: 200,
-                    target: 2
-                },
-                {
-                    width: 100,
-                    target: 3
-                },
-                {
-                    width: 150,
-                    target: 4
-                },
-                {
-                    width: 150,
-                    target: 5
-                },
-                {
-                    width: 100,
-                    target: 6
-                },
-                {
-                    width: 50,
-                    target: 7
-                },
-            ],
-            columns: [{
-                    data: {
-                        id: 'id',
-                        identity: 'identity',
-                        name: 'name',
-                        phone: 'phone',
-                        school: 'school',
-                        year: 'year',
-                        program: 'program',
-                        source_id: 'source_id',
-                        programtype_id: 'programtype_id',
-                        status_id: 'status_id'
-                    },
-                    render: (data, type, row) => {
-                        return `
+    let dataTableDataInstance;
+    let dataTableDataInitialized = false;
+    let pmbVal = document.getElementById('change_pmb').value;
+
+    var urlData = `get/databases?pmbVal=${pmbVal}`;
+    var urlExcel = `applicants/export?pmbVal=${pmbVal}`;
+
+    console.log(urlData);
+    const changeFilter = () => {
+        let queryParams = [];
+
+        let dateStart = document.getElementById('date_start').value || 'all';
+        let dateEnd = document.getElementById('date_end').value || 'all';
+        let yearGrad = document.getElementById('year_grad').value || 'all';
+        let presenterVal = document.getElementById('identity_user').value || 'all';
+        let schoolVal = document.getElementById('school').value || 'all';
+        let majorVal = document.getElementById('change_major').value || 'all';
+        let birthdayVal = document.getElementById('birthday').value || 'all';
+        let phoneVal = document.getElementById('change_phone').value || 'all';
+        let pmbVal = document.getElementById('change_pmb').value || 'all';
+        let comeVal = document.getElementById('change_come').value || 'all';
+        let planVal = document.getElementById('change_plan').value || 'all';
+        let incomeVal = document.getElementById('change_income').value || 'all';
+        let achievementVal = document.getElementById('change_achievement').value || 'all';
+        let followVal = document.getElementById('change_follow').value || 'all';
+        let sourceVal = document.getElementById('change_source').value || 'all';
+        let sourceDaftarVal = document.getElementById('change_source_daftar').value || 'all';
+        let statusVal = document.getElementById('change_status').value || 'all';
+        let kipVal = document.getElementById('change_kip').value || 'all';
+        let relationVal = document.getElementById('change_relation').value || 'all';
+        let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
+        let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
+        let statusApplicant = document.getElementById('change_applicant').value || 'all';
+
+        if (statusApplicant !== 'all') {
+            queryParams.push(`statusApplicant=${statusApplicant}`);
+        }
+        if (dateStart !== 'all') {
+            queryParams.push(`dateStart=${dateStart}`);
+        }
+        if (dateEnd !== 'all') {
+            queryParams.push(`dateEnd=${dateEnd}`);
+        }
+        if (yearGrad !== 'all') {
+            queryParams.push(`yearGrad=${yearGrad}`);
+        }
+        if (presenterVal !== 'all') {
+            queryParams.push(`presenterVal=${presenterVal}`);
+        }
+        if (schoolVal !== 'all') {
+            queryParams.push(`schoolVal=${schoolVal}`);
+        }
+        if (birthdayVal !== 'all') {
+            queryParams.push(`birthdayVal=${birthdayVal}`);
+        }
+        if (phoneVal !== 'all') {
+            queryParams.push(`phoneVal=${phoneVal}`);
+        }
+        if (achievementVal !== 'all') {
+            queryParams.push(`achievementVal=${achievementVal}`);
+        }
+        if (pmbVal !== 'all') {
+            queryParams.push(`pmbVal=${pmbVal}`);
+        }
+        if (sourceVal !== 'all') {
+            queryParams.push(`sourceVal=${sourceVal}`);
+        }
+        if (sourceDaftarVal !== 'all') {
+            queryParams.push(`sourceDaftarVal=${sourceDaftarVal}`);
+        }
+        if (statusVal !== 'all') {
+            queryParams.push(`statusVal=${statusVal}`);
+        }
+        if (followVal !== 'all') {
+            queryParams.push(`followVal=${followVal}`);
+        }
+        if (comeVal !== 'all') {
+            queryParams.push(`comeVal=${comeVal}`);
+        }
+        if (incomeVal !== 'all') {
+            queryParams.push(`incomeVal=${incomeVal}`);
+        }
+        if (planVal !== 'all') {
+            queryParams.push(`planVal=${planVal}`);
+        }
+        if (kipVal !== 'all') {
+            queryParams.push(`kipVal=${kipVal}`);
+        }
+        if (relationVal !== 'all') {
+            queryParams.push(`relationVal=${relationVal}`);
+        }
+        if (jobFatherVal !== 'all') {
+            queryParams.push(`jobFatherVal=${jobFatherVal}`);
+        }
+        if (jobMotherVal !== 'all') {
+            queryParams.push(`jobMotherVal=${jobMotherVal}`);
+        }
+        if (majorVal !== 'all') {
+            queryParams.push(`majorVal=${majorVal}`);
+        }
+
+        let queryString = queryParams.join('&');
+
+        urlData = `get/databases?${queryString}`;
+        urlExcel = `applicants/export?${queryString}`;
+
+        console.log(urlData);
+
+        if (dataTableDataInstance) {
+            showLoadingAnimation();
+            dataTableDataInstance.clear();
+            dataTableDataInstance.destroy();
+            getDataTable()
+                .then((response) => {
+                    dataTableDataInstance = $('#table-database').DataTable(
+                        response
+                        .config);
+                    dataTableDataInitialized = response.initialized;
+                    hideLoadingAnimation();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+    const getDataTable = async () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await axios.get(urlData);
+                const applicants = response.data.applicants;
+                console.log(applicants);
+
+                document.getElementById('count_filter').innerText = applicants.length;
+
+                let columnConfigs = [{
+                        data: {
+                            id: 'id',
+                            identity: 'identity',
+                            name: 'name',
+                            phone: 'phone',
+                            school: 'school',
+                            year: 'year',
+                            program: 'program',
+                            source_id: 'source_id',
+                            programtype_id: 'programtype_id',
+                            status_id: 'status_id'
+                        },
+                        render: (data, type, row) => {
+                            return `
                         <div class="flex items-center gap-1">
                             <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); copyRecord(
                             '${data.name}',
@@ -258,18 +351,18 @@
                             <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>`;
-                    }
-                },
-                {
-                    data: {
-                        status: 'applicant_status',
-                        is_applicant: 'is_applicant',
-                        is_register: 'is_register',
-                        is_daftar: 'is_daftar',
-                        schoolarship: 'schoolarship',
+                        }
                     },
-                    render: (data, type, row) => {
-                        return `
+                    {
+                        data: {
+                            status: 'applicant_status',
+                            is_applicant: 'is_applicant',
+                            is_register: 'is_register',
+                            is_daftar: 'is_daftar',
+                            schoolarship: 'schoolarship',
+                        },
+                        render: (data, type, row) => {
+                            return `
                         <div class="flex gap-2">
                             <span class="text-[17px] ${data.is_applicant == 1 ? 'text-yellow-500' : 'text-gray-300'}"><i class="fa-solid fa-file-lines"></i></span>
                             <span class="text-[18px] ${data.is_daftar == 1 ? 'text-sky-500' : 'text-gray-300'}"><i class="fa-solid fa-id-badge"></i></span>
@@ -277,78 +370,146 @@
                             <span class="text-[15px] ${data.schoolarship == 1 ? 'text-cyan-500' : 'text-gray-300'}"><i class="fa-solid fa-graduation-cap"></i></span>
                         </div>
                         `;
-                    }
-                },
-                {
-                    data: 'created_at',
-                    render: (data) => {
-                        return data;
-                    }
-                },
-                {
-                    data: 'source_setting',
-                    render: (data, type, row) => {
-                        return data;
-                    }
-                },
-                {
-                    data: {
-                        identity: 'identity',
-                        name: 'name',
-                        phone: 'phone'
+                        }
                     },
-                    render: (data, type, row) => {
-                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
-                            ':identity',
-                            data.identity);
-                        return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
-                    }
-                },
-                {
-                    data: 'phone',
-                    render: (data) => {
-                        return typeof(data) == 'object' ? 'Tidak diketahui' : data;
-                    }
-                },
-                {
-                    data: 'presenter',
-                    render: (data) => {
-                        return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
-                    }
-                },
-                {
-                    data: 'school_applicant',
-                    render: (data) => {
-                        return data == null ? 'Tidak diketahui' : data.name;
-                    }
-                },
-                {
-                    data: 'major',
-                    render: (data, row) => {
-                        return data != null ? data : 'Tidak diketahui';
-                    }
-                },
-                {
-                    data: 'year',
-                    render: (data, row) => {
-                        return data != null ? data : 'Tidak diketahui';
-                    }
-                },
-            ],
-        }
-        try {
-            const response = await fetch(urlData);
-            const data = await response.json();
-            dataApplicants = data.applicants;
-            dataTableInstance = $('#myTable').DataTable(dataTableConfig);
-            dataTableInitialized = true;
-            setTimeout(() => {
-                changeFilter();
-            }, 2000);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
+                    {
+                        data: 'created_at',
+                        render: (data) => {
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'source_setting',
+                        render: (data, type, row) => {
+                            return data.name;
+                        }
+                    },
+                    {
+                        data: {
+                            identity: 'identity',
+                            name: 'name',
+                            phone: 'phone'
+                        },
+                        render: (data, type, row) => {
+                            let showUrl = "{{ route('database.show', ':identity') }}"
+                                .replace(
+                                    ':identity',
+                                    data.identity);
+                            return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
+                        }
+                    },
+                    {
+                        data: 'phone',
+                        render: (data) => {
+                            return typeof(data) == 'object' ? 'Tidak diketahui' : data;
+                        }
+                    },
+                    {
+                        data: 'presenter',
+                        render: (data) => {
+                            return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                        }
+                    },
+                    {
+                        data: 'school_applicant',
+                        render: (data) => {
+                            return data == null ? 'Tidak diketahui' : data.name;
+                        }
+                    },
+                    {
+                        data: 'major',
+                        render: (data, row) => {
+                            return data != null ? data : 'Tidak diketahui';
+                        }
+                    },
+                    {
+                        data: 'year',
+                        render: (data, row) => {
+                            return data != null ? data : 'Tidak diketahui';
+                        }
+                    },
+                ];
+
+                const dataTableConfig = {
+                    data: applicants,
+                    order: [
+                        [2, 'desc']
+                    ],
+                    columnDefs: [{
+                            width: 10,
+                            target: 0
+                        },
+                        {
+                            width: 150,
+                            target: 1
+                        },
+                        {
+                            width: 200,
+                            target: 2
+                        },
+                        {
+                            width: 100,
+                            target: 3
+                        },
+                        {
+                            width: 150,
+                            target: 4
+                        },
+                        {
+                            width: 150,
+                            target: 5
+                        },
+                        {
+                            width: 100,
+                            target: 6
+                        },
+                        {
+                            width: 50,
+                            target: 7
+                        },
+                    ],
+                    createdRow: (row, data, index) => {
+                        if (index % 2 != 0) {
+                            $(row).css('background-color', '#f9fafb');
+                        }
+                        if (data.presenter.phone == '6281313608558') {
+                            $(row).css('background-color', '#dc2626');
+                            $(row).css('color', 'white');
+                        }
+                    },
+                    columns: columnConfigs,
+                }
+
+                let results = {
+                    config: dataTableConfig,
+                    initialized: true
+                }
+
+                resolve(results);
+            } catch (error) {
+                reject(error)
+            }
+        });
     }
+
+    const promiseData = () => {
+        showLoadingAnimation();
+        Promise.all([
+                getDataTable(),
+            ])
+            .then((response) => {
+                let responseDTR = response[0];
+                dataTableDataInstance = $('#table-database').DataTable(
+                    responseDTR
+                    .config);
+                dataTableDataInitialized = responseDTR.initialized;
+                hideLoadingAnimation();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    promiseData();
 
     const deleteRecord = (id) => {
         if (confirm('Apakah kamu yakin akan menghapus data?')) {
@@ -369,7 +530,6 @@
             })
         }
     }
-
 
     const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
         const textarea = document.createElement("textarea");
