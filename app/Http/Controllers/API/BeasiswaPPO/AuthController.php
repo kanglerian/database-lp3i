@@ -119,7 +119,6 @@ class AuthController extends Controller
                 ]);
             }
         } else {
-
             $presenter = User::where(['role' => 'P', 'phone' => $request->information])->first();
 
             $data_applicant = [

@@ -248,10 +248,7 @@
             dataTableInitialized = true;
         } catch (error) {
             console.error("Error fetching data:", error);
-            if (response) {
-                const text = await response.text();
-                console.error("Response text:", text);
-            }
+            
         }
     }
 
