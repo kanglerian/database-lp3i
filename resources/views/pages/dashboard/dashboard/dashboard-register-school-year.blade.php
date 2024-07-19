@@ -31,7 +31,6 @@
         const getMapRegisterSchoolYear = async () => {
             const response = await axios.get(urlRegisterSchoolYear);
             let registers = response.data;
-            console.log(registers);
 
             const reducedData = registers.reduce((accumulator, currentValue) => {
                 const existingItem = accumulator.find(item => item.name === currentValue
@@ -93,14 +92,9 @@
                 const dataRegist = result.register;
                 let resultRegist = '';
                 dataRegist.forEach((data) => {
-                    resultRegist += `
-                                  <li>${data.year}: ${data.count} orang</li>
-                              `
+                    resultRegist += `<li>${data.year}: ${data.count} orang</li>`
                 });
-                const paragraph = `
-                          <b>${result.name}</b>
-                          <hr style="margin: 5px 0px"/>
-                          <ul>${resultRegist}</ul>`
+                const paragraph = `<b>${result.name}</b><hr style="margin: 5px 0px"/><ul>${resultRegist}</ul>`
                 marker.bindPopup(paragraph).openPopup();
 
                 const circle = L.circle([lat, lng], {
