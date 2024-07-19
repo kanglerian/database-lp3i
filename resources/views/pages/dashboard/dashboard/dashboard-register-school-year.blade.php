@@ -15,8 +15,7 @@
 </section>
 @push('scripts')
     <script>
-        let urlRegisterSchoolYear =
-            `/api/report/database/register/school/year`;
+        let urlRegisterSchoolYear = `/api/report/database/register/school/year`;
         let map = L.map('map').setView([-6.618, 107.282], 8);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -32,6 +31,7 @@
         const getMapRegisterSchoolYear = async () => {
             const response = await axios.get(urlRegisterSchoolYear);
             let registers = response.data;
+            console.log(registers);
 
             const reducedData = registers.reduce((accumulator, currentValue) => {
                 const existingItem = accumulator.find(item => item.name === currentValue
