@@ -78,6 +78,8 @@
 </head>
 
 <body class="font-sans scroll-smooth">
+    <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
+
     <div class="flex flex-col items-center justify-center bg-gray-900 bg-opacity-80 w-full h-full z-50 fixed hidden"
         id="data-loading">
         <lottie-player src="{{ asset('animations/server.json') }}" background="Transparent" speed="1"
@@ -86,8 +88,6 @@
     </div>
     <div class="min-h-screen bg-white">
         @include('layouts.navigation')
-
-        <div id="api_endpoint_lp3i" class="hidden">{{ env('API_LP3I') }}</div>
 
         <!-- Page Heading -->
         <header class="bg-gray-50">

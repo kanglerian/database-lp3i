@@ -221,163 +221,171 @@
                             </div>
                         </header>
                         <hr>
-                        <section class="flex flex-col justify-between gap-3">
+                        <section class="flex flex-col justify-between gap-5">
                             @if ($account == 0 && $user->is_applicant == 1)
-                                <button type="button" onclick="modalAccount()"
-                                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl text-white text-sm">
-                                    <i class="fa-solid fa-user-plus mr-1"></i>
-                                    <span>Buat Akun</span>
-                                </button>
-                                <p class="text-xs text-center text-gray-700">
-                                    Untuk registrasi, buat akun terlebih dahulu.
-                                </p>
-                            @elseif($account > 0)
-                                <span
-                                    class="text-white bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-xs w-full sm:w-auto px-5 py-2.5 text-center"><i
-                                        class="fa-solid fa-circle-check"></i> Sudah Memiliki Akun</span>
-                                @if ($user->identity_user === '6281313608558')
-                                    <p class="text-xs text-center text-red-500">
-                                        Belum bisa dijadikan aplikan, karena presenter belum diubah dari
-                                        Administrator.
+                                <div class="w-full space-y-2">
+                                    <button type="button" onclick="modalAccount()"
+                                        class="w-full bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl text-white text-sm">
+                                        <i class="fa-solid fa-user-plus mr-1"></i>
+                                        <span>Buat Akun</span>
+                                    </button>
+                                    <p class="text-xs text-center text-gray-700">
+                                        Untuk registrasi, buat akun terlebih dahulu.
                                     </p>
+                                </div>
+                            @elseif($account > 0)
+                                <div class="w-full space-y-2">
+                                    <button type="button"
+                                        class="w-full bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-xl text-white text-sm">
+                                        <i class="fa-solid fa-circle-check mr-1"></i>
+                                        <span>Sudah memiliki akun</span>
+                                    </button>
+                                    @if ($user->identity_user === '6281313608558')
+                                        <p class="text-xs text-center text-red-500">
+                                            Untuk registrasi, buat akun terlebih dahulu.
+                                        </p>
+                                    @endif
+                                </div>
+                            @endif
+                            <div class="space-y-2">
+                                <div>
+                                    <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="{{ $user->schoolarship }}"
+                                                class="sr-only peer" {{ $user->schoolarship == 1 ? 'checked' : '' }}>
+                                            <button type="submit"
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                            </button>
+                                            <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
+                                        </label>
+                                    </form>
+                                </div>
+                                @if ($user->identity_user !== '6281313608558')
+                                    <div class="flex justify-between items-center gap-2">
+                                        @if ($user->is_applicant)
+                                            <form action="{{ route('statusdatabaseaplikan.destroy', $user->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer" checked>
+                                                    <button type="submit"
+                                                        {{ $user->is_register || $user->is_daftar ? 'disabled' : '' }}
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-emerald-600">Aplikan</span>
+                                                </label>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('database.is_applicant', $user->id) }}"
+                                                method="GET">
+                                                <input type="hidden" name="change_pmb" value="{{ $user->pmb }}">
+                                                <input type="hidden" id="session_aplikan" maxlength="1"
+                                                    name="session">
+                                                <input type="hidden" name="identity_user"
+                                                    value="{{ $user->identity }}">
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer">
+                                                    <button type="submit"
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                    </button>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                                </label>
+                                            </form>
+                                        @endif
+                                        @if ($user->is_applicant && $status_applicant)
+                                            <div class="flex items-center gap-3 mt-1">
+                                                <button onclick="modalEditAplikan()">
+                                                    <i
+                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                </button>
+                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endif
-                            @endif
-                            <div>
-                                <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" value="{{ $user->schoolarship }}"
-                                            class="sr-only peer" {{ $user->schoolarship == 1 ? 'checked' : '' }}>
-                                        <button type="submit"
-                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                        </button>
-                                        <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
-                                    </label>
-                                </form>
+                                @if ($user->is_applicant == 1)
+                                    <div class="flex justify-between items-center gap-2">
+                                        @if ($user->is_daftar && $enrollment)
+                                            <form action="{{ route('statusdatabasedaftar.destroy', $user->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer" checked>
+                                                    <button type="submit" {{ $user->is_register ? 'disabled' : '' }}
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
+                                                </label>
+                                            </form>
+                                            <div class="flex items-center gap-3 mt-1">
+                                                <button onclick="modalEditDaftar()">
+                                                    <i
+                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                </button>
+                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer">
+                                                    <button disabled
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                    </button>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
+                                                </label>
+                                            </div>
+                                            <button type="button" onclick="modalDaftar()"
+                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                    class="fa-solid fa-receipt mr-1"></i>
+                                                Masukan nominal
+                                            </button>
+                                        @endif
+                                    </div>
+                                @endif
+                                @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
+                                    <div class="flex justify-between items-center gap-2">
+                                        @if ($user->is_register && $registration)
+                                            <form action="{{ route('statusdatabaseregistrasi.destroy', $user->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer" checked>
+                                                    <button type="submit"
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
+                                                </label>
+                                            </form>
+                                            <div class="flex items-center gap-3">
+                                                <button onclick="modalEditRegistrasi()">
+                                                    <i
+                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                </button>
+                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox"class="sr-only peer">
+                                                    <button disabled
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                    </button>
+                                                    <span
+                                                        class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
+                                                </label>
+                                            </div>
+                                            <button type="button" onclick="modalRegistrasi()"
+                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                    class="fa-solid fa-receipt mr-1"></i>
+                                                Masukan nominal
+                                            </button>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
-                            @if ($user->identity_user !== '6281313608558')
-                                <div class="flex justify-between items-center gap-2">
-                                    @if ($user->is_applicant)
-                                        <form class="space-y-3"
-                                            action="{{ route('statusdatabaseaplikan.destroy', $user->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" class="sr-only peer" checked>
-                                                <button type="submit"
-                                                    {{ $user->is_register || $user->is_daftar ? 'disabled' : '' }}
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                <span class="ml-3 text-sm font-medium text-emerald-600">Aplikan</span>
-                                            </label>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('database.is_applicant', $user->id) }}"
-                                            method="get">
-                                            <input type="hidden" name="change_pmb" value="{{ $user->pmb }}">
-                                            <input type="hidden" id="session_aplikan" maxlength="1" name="session">
-                                            <input type="hidden" name="identity_user"
-                                                value="{{ $user->identity }}">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" class="sr-only peer">
-                                                <button type="submit"
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                </button>
-                                                <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
-                                            </label>
-                                        </form>
-                                    @endif
-                                    @if ($user->is_applicant && $status_applicant)
-                                        <div class="flex items-center gap-3 mt-1">
-                                            <button onclick="modalEditAplikan()">
-                                                <i
-                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                            </button>
-                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                        </div>
-                                    @endif
-                                </div>
-                            @endif
-                            @if ($user->is_applicant == 1)
-                                <div class="flex justify-between items-center gap-2">
-                                    @if ($user->is_daftar && $enrollment)
-                                        <form class="space-y-3"
-                                            action="{{ route('statusdatabasedaftar.destroy', $user->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" class="sr-only peer" checked>
-                                                <button type="submit" {{ $user->is_register ? 'disabled' : '' }}
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                <span class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
-                                            </label>
-                                        </form>
-                                        <div class="flex items-center gap-3 mt-1">
-                                            <button onclick="modalEditDaftar()">
-                                                <i
-                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                            </button>
-                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                        </div>
-                                    @else
-                                        <div class="mt-1">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox"class="sr-only peer">
-                                                <button disabled
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                </button>
-                                                <span class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
-                                            </label>
-                                        </div>
-                                        <button type="button" onclick="modalDaftar()"
-                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                class="fa-solid fa-receipt mr-1"></i>
-                                            Masukan nominal
-                                        </button>
-                                    @endif
-                                </div>
-                            @endif
-                            @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
-                                <div class="flex justify-between items-center gap-2">
-                                    @if ($user->is_register && $registration)
-                                        <form class="space-y-3"
-                                            action="{{ route('statusdatabaseregistrasi.destroy', $user->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" class="sr-only peer" checked>
-                                                <button type="submit"
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                <span
-                                                    class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
-                                            </label>
-                                        </form>
-                                        <div class="flex items-center gap-3 mt-1">
-                                            <button onclick="modalEditRegistrasi()">
-                                                <i
-                                                    class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                            </button>
-                                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                        </div>
-                                    @else
-                                        <div class="mt-1">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox"class="sr-only peer">
-                                                <button disabled
-                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                </button>
-                                                <span class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
-                                            </label>
-                                        </div>
-                                        <button type="button" onclick="modalRegistrasi()"
-                                            class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                class="fa-solid fa-receipt mr-1"></i>
-                                            Masukan nominal
-                                        </button>
-                                    @endif
-                                </div>
-                            @endif
                             @if (
                                 $user->pmb &&
                                     $user->nik &&
@@ -396,7 +404,7 @@
                                     $user->email &&
                                     $user->phone)
                                 @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
-                                    <hr class="my-2">
+                                    <hr>
                                     <button type="button" id="button-misil" onclick="getTokenMisil()"
                                         class="flex justify-center items-center gap-2 cursor-pointer text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl">
                                         <span>
@@ -425,7 +433,7 @@
                                 @endif
                             @else
                                 @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $user->is_register == 1 && $account > 0 && $registration)
-                                    <hr class="my-2">
+                                    <hr>
                                     <button type="button" onclick="modalCheck()"
                                         class="text-center text-xs bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg">
                                         <span>
@@ -605,369 +613,373 @@
     @if ($registration && $enrollment && $account)
         @include('pages.database.show.modal.check')
     @endif
-</x-app-layout>
+    @push('scripts')
+        <script>
+            console.log();
+        </script>
+        @if (!$user->is_applicant && !$status_applicant)
+            <script>
+                const aplikanSetting = () => {
+                    const currentDate = new Date();
+                    const currentMonth = currentDate.getMonth() + 1;
 
-@if (!$user->is_applicant && !$status_applicant)
-    <script>
-        const aplikanSetting = () => {
-            const currentDate = new Date();
-            const currentMonth = currentDate.getMonth() + 1;
+                    let session = 'all';
 
-            let session = 'all';
+                    if (currentMonth >= 1 && currentMonth <= 3) {
+                        session = 2;
+                    } else if (currentMonth >= 4 && currentMonth <= 6) {
+                        session = 3;
+                    } else if (currentMonth >= 7 && currentMonth <= 9) {
+                        session = 4;
+                    } else if (currentMonth >= 10 && currentMonth <= 12) {
+                        session = 1;
+                    }
 
-            if (currentMonth >= 1 && currentMonth <= 3) {
-                session = 2;
-            } else if (currentMonth >= 4 && currentMonth <= 6) {
-                session = 3;
-            } else if (currentMonth >= 7 && currentMonth <= 9) {
-                session = 4;
-            } else if (currentMonth >= 10 && currentMonth <= 12) {
-                session = 1;
+                    document.getElementById('session_aplikan').value = session;
+                }
+
+                aplikanSetting();
+            </script>
+        @endif
+
+        <script>
+            const validateNumber = (e) => {
+                let number = e.target.value.replace(/[^0-9]/g, '');
+                let parsedNumber = parseInt(number);
+
+                if (!isNaN(parsedNumber)) {
+                    let formattedNumber = parsedNumber.toLocaleString('id-ID');
+                    e.target.value = formattedNumber;
+                } else {
+                    e.target.value = null;
+                }
+            }
+        </script>
+        <script>
+            const modalAccount = () => {
+                let modal = document.getElementById('modal-account');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
             }
 
-            document.getElementById('session_aplikan').value = session;
-        }
-
-        aplikanSetting();
-    </script>
-@endif
-
-<script>
-    const validateNumber = (e) => {
-        let number = e.target.value.replace(/[^0-9]/g, '');
-        let parsedNumber = parseInt(number);
-
-        if (!isNaN(parsedNumber)) {
-            let formattedNumber = parsedNumber.toLocaleString('id-ID');
-            e.target.value = formattedNumber;
-        } else {
-            e.target.value = null;
-        }
-    }
-</script>
-<script>
-    const modalAccount = () => {
-        let modal = document.getElementById('modal-account');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalRegistrasi = () => {
-        let modal = document.getElementById('modal-registrasi');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalEditRegistrasi = () => {
-        let modal = document.getElementById('modal-edit-registrasi');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalEditAplikan = () => {
-        let modal = document.getElementById('modal-edit-aplikan');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalDaftar = () => {
-        let modal = document.getElementById('modal-daftar');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalEditDaftar = () => {
-        let modal = document.getElementById('modal-edit-daftar');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const modalCheck = () => {
-        let modal = document.getElementById('modal-check');
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-
-    const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
-            $.ajax({
-                url: `/database/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    window.location.href = '/database';
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                    console.log(error);
+            const modalRegistrasi = () => {
+                let modal = document.getElementById('modal-registrasi');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
                 }
-            })
-        }
-    }
-</script>
-<script src="{{ asset('js/axios.min.js') }}"></script>
-<script>
-    const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
-        const textarea = document.createElement("textarea");
-        textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
-        textarea.style.position = "fixed";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert('Data sudah disalin.');
-    }
-</script>
-<script>
-    const saveAplikan = async (data, token, identity) => {
-        const headers = {
-            'X-Auth-Token': `${token}`,
-            'X-Fullname': 'Database Marketing',
-            'X-Url': '#/dashboard-mkt',
-            'X-User': 'integrasi',
-            'Content-Type': 'application/json',
-        };
+            }
 
-        let bucket = [data, headers];
-        await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/misil/integration`, bucket)
-            .then(async (response) => {
-                alert(response.data.message);
-                await axios.post(`/integration`, {
-                        identity_user: identity,
-                        platform: 'misil',
+            const modalEditRegistrasi = () => {
+                let modal = document.getElementById('modal-edit-registrasi');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            const modalEditAplikan = () => {
+                let modal = document.getElementById('modal-edit-aplikan');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            const modalDaftar = () => {
+                let modal = document.getElementById('modal-daftar');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            const modalEditDaftar = () => {
+                let modal = document.getElementById('modal-edit-daftar');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            const modalCheck = () => {
+                let modal = document.getElementById('modal-check');
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            const deleteRecord = (id) => {
+                if (confirm('Apakah kamu yakin akan menghapus data?')) {
+                    $.ajax({
+                        url: `/database/${id}`,
+                        type: 'POST',
+                        data: {
+                            '_method': 'DELETE',
+                            '_token': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            window.location.href = '/database';
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Error deleting record');
+                            console.log(error);
+                        }
                     })
-                    .then((response) => {
-                        // location.reload();
-                        console.log(response);
+                }
+            }
+        </script>
+        <script src="{{ asset('js/axios.min.js') }}"></script>
+        <script>
+            const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
+                const textarea = document.createElement("textarea");
+                textarea.value =
+                    `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
+                textarea.style.position = "fixed";
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+                alert('Data sudah disalin.');
+            }
+        </script>
+        <script>
+            const saveAplikan = async (data, token, identity) => {
+                const headers = {
+                    'X-Auth-Token': `${token}`,
+                    'X-Fullname': 'Database Marketing',
+                    'X-Url': '#/dashboard-mkt',
+                    'X-User': 'integrasi',
+                    'Content-Type': 'application/json',
+                };
+
+                let bucket = [data, headers];
+                await axios.post(`${URL_API_LP3I}/misil/integration`, bucket)
+                    .then(async (response) => {
+                        alert(response.data.message);
+                        await axios.post(`/integration`, {
+                                identity_user: identity,
+                                platform: 'misil',
+                            })
+                            .then((response) => {
+                                // location.reload();
+                                console.log(response);
+                            })
+                            .catch((error) => {
+                                console.log(error.message);
+                            });
                     })
                     .catch((error) => {
                         console.log(error.message);
                     });
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    }
+            }
 
-    const getTokenMisil = async () => {
-        let identityVal = document.getElementById('identity_user').innerText;
-        let loadingMisil = document.getElementById('loading-misil');
-        loadingMisil.classList.toggle('hidden');
-        try {
-            const database = axios.get(`/api/database/${identityVal}`);
-            const programs = axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/program`);
-            const misilAuth = axios.post(
-                `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
-                    namaUser: "integrasi",
-                    kataSandi: "IntegrasiMisil311"
-                });
-            await axios.all([database, programs, misilAuth])
-                .then(axios.spread((database, programs, misilAuth) => {
-                    let token = misilAuth.data.messages['X-AUTH-TOKEN'];
-                    let program_studi = database.data.user.program;
-                    let program = programs.data.programs.find((result) =>
-                        `${result.level} ${result.title}` == program_studi)
+            const getTokenMisil = async () => {
+                let identityVal = document.getElementById('identity_user').innerText;
+                let loadingMisil = document.getElementById('loading-misil');
+                loadingMisil.classList.toggle('hidden');
+                try {
+                    const database = axios.get(`/api/database/${identityVal}`);
+                    const programs = axios.get(`${URL_API_LP3I}/dashboard/program`);
+                    const misilAuth = axios.post(
+                        `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
+                            namaUser: "integrasi",
+                            kataSandi: "IntegrasiMisil311"
+                        });
+                    await axios.all([database, programs, misilAuth])
+                        .then(axios.spread((database, programs, misilAuth) => {
+                            let token = misilAuth.data.messages['X-AUTH-TOKEN'];
+                            let program_studi = database.data.user.program;
+                            let program = programs.data.programs.find((result) =>
+                                `${result.level} ${result.title}` == program_studi)
 
-                    const addressParts = database.data.user.address.split(',');
-                    const addressRtRw = addressParts[1].split(' ');
+                            const addressParts = database.data.user.address.split(',');
+                            const addressRtRw = addressParts[1].split(' ');
 
-                    const data = {
-                        // Aplikan datang
-                        method: 'simpan',
-                        nik: database.data.user.nik,
-                        tahun_akademik: `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`,
-                        nama_lengkap: database.data.user.name,
-                        tempat_lahir: database.data.user.place_of_birth,
-                        tgl_lahir: database.data.user.date_of_birth,
-                        jenis_kelamin: database.data.user.gender == 1 ? 'L' : 'P',
-                        no_hp: database.data.user.phone,
-                        dusun: addressParts[0],
-                        rtrw: `${addressRtRw[1]}/${addressRtRw[3]}`,
-                        kelurahan: addressParts[2].replace('Desa/Kelurahan ', ''),
-                        kecamatan: addressParts[3].replace('Kecamatan ', ''),
-                        kota: addressParts[4].replace('Kota/Kabupaten ', ''),
-                        kode_pos: addressParts[6].replace('Kode Pos ', ''),
-                        whatsapp: database.data.user.phone,
-                        facebook: '-',
-                        instagram: '-',
-                        pendidikan_terakhir: database.data.user.school_applicant.type,
-                        asal_sekolah: database.data.user.school_applicant.name,
-                        jurusan_sekolah: database.data.user.major,
-                        tahun_lulus: database.data.user.year,
-                        email: database.data.user.email,
-                        nama_ortu: database.data.user.father.name || database.data.user.mother.name,
-                        pekerjaan_ortu: database.data.user.father.job || database.data.user.mother
-                            .job,
-                        penghasilan_ortu: database.data.user.income_parent,
-                        nohp_ortu: database.data.user.father.phone || database.data.user.mother
-                            .phone,
-                        kode_jurusan: program.code,
-                        sumber_informasi: database.data.user.source_daftar_setting.name,
-                        sumber_aplikan: database.data.user.source_setting.name,
-                        kode_presenter: database.data.user.presenter.code,
-                        gelombang: database.data.registration.session,
-                        tgl_datang: database.data.registration.date,
-                        kode_siswa: "-",
-                        // Aplikan Daftar
-                        isnew: true,
-                        kode_aplikan: null,
-                        tgl_daftar: database.data.enrollment.date,
-                        gelombang_daftar: database.data.registration.session,
-                        nomor_bukti: database.data.enrollment.receipt,
-                        biaya_pendaftaran: database.data.enrollment.nominal,
-                        diskon: 0,
-                        sumber_daftar: database.data.user.source_daftar_setting.name,
-                        keterangan: database.data.enrollment.register,
-                        ket_daftar: database.data.enrollment.register_end,
-                    };
+                            const data = {
+                                // Aplikan datang
+                                method: 'simpan',
+                                nik: database.data.user.nik,
+                                tahun_akademik: `${database.data.user.pmb}/${parseInt(database.data.user.pmb) + 1}`,
+                                nama_lengkap: database.data.user.name,
+                                tempat_lahir: database.data.user.place_of_birth,
+                                tgl_lahir: database.data.user.date_of_birth,
+                                jenis_kelamin: database.data.user.gender == 1 ? 'L' : 'P',
+                                no_hp: database.data.user.phone,
+                                dusun: addressParts[0],
+                                rtrw: `${addressRtRw[1]}/${addressRtRw[3]}`,
+                                kelurahan: addressParts[2].replace('Desa/Kelurahan ', ''),
+                                kecamatan: addressParts[3].replace('Kecamatan ', ''),
+                                kota: addressParts[4].replace('Kota/Kabupaten ', ''),
+                                kode_pos: addressParts[6].replace('Kode Pos ', ''),
+                                whatsapp: database.data.user.phone,
+                                facebook: '-',
+                                instagram: '-',
+                                pendidikan_terakhir: database.data.user.school_applicant.type,
+                                asal_sekolah: database.data.user.school_applicant.name,
+                                jurusan_sekolah: database.data.user.major,
+                                tahun_lulus: database.data.user.year,
+                                email: database.data.user.email,
+                                nama_ortu: database.data.user.father.name || database.data.user.mother.name,
+                                pekerjaan_ortu: database.data.user.father.job || database.data.user.mother
+                                    .job,
+                                penghasilan_ortu: database.data.user.income_parent,
+                                nohp_ortu: database.data.user.father.phone || database.data.user.mother
+                                    .phone,
+                                kode_jurusan: program.code,
+                                sumber_informasi: database.data.user.source_daftar_setting.name,
+                                sumber_aplikan: database.data.user.source_setting.name,
+                                kode_presenter: database.data.user.presenter.code,
+                                gelombang: database.data.registration.session,
+                                tgl_datang: database.data.registration.date,
+                                kode_siswa: "-",
+                                // Aplikan Daftar
+                                isnew: true,
+                                kode_aplikan: null,
+                                tgl_daftar: database.data.enrollment.date,
+                                gelombang_daftar: database.data.registration.session,
+                                nomor_bukti: database.data.enrollment.receipt,
+                                biaya_pendaftaran: database.data.enrollment.nominal,
+                                diskon: 0,
+                                sumber_daftar: database.data.user.source_daftar_setting.name,
+                                keterangan: database.data.enrollment.register,
+                                ket_daftar: database.data.enrollment.register_end,
+                            };
 
-                    if (!(data.nik).length == 16) {
-                        return alert('NIK kurang dari 16!');
-                    }
+                            if (!(data.nik).length == 16) {
+                                return alert('NIK kurang dari 16!');
+                            }
 
-                    if ((data.nama_lengkap).length > 50) {
-                        return alert('Nama lengkap harus kurang dari 50 karakter!')
-                    }
+                            if ((data.nama_lengkap).length > 50) {
+                                return alert('Nama lengkap harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.tempat_lahir).length > 50) {
-                        return alert('Tempat lahir harus kurang dari 50 karakter!')
-                    }
+                            if ((data.tempat_lahir).length > 50) {
+                                return alert('Tempat lahir harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.dusun).length > 100) {
-                        return alert('Dusun harus kurang dari 100 karakter!')
-                    }
+                            if ((data.dusun).length > 100) {
+                                return alert('Dusun harus kurang dari 100 karakter!')
+                            }
 
-                    if ((data.rtrw).length > 10) {
-                        return alert('RT/RW harus kurang dari 10 karakter!')
-                    }
+                            if ((data.rtrw).length > 10) {
+                                return alert('RT/RW harus kurang dari 10 karakter!')
+                            }
 
-                    if ((data.kelurahan).length > 30) {
-                        return alert('Kelurahan harus kurang dari 30 karakter!')
-                    }
+                            if ((data.kelurahan).length > 30) {
+                                return alert('Kelurahan harus kurang dari 30 karakter!')
+                            }
 
-                    if ((data.kecamatan).length > 30) {
-                        return alert('Kecamatan harus kurang dari 30 karakter!')
-                    }
+                            if ((data.kecamatan).length > 30) {
+                                return alert('Kecamatan harus kurang dari 30 karakter!')
+                            }
 
-                    if ((data.kota).length > 30) {
-                        return alert('Kota harus kurang dari 30 karakter!')
-                    }
+                            if ((data.kota).length > 30) {
+                                return alert('Kota harus kurang dari 30 karakter!')
+                            }
 
-                    if ((data.kode_pos).length > 7) {
-                        return alert('Kode Pos harus kurang dari 7 karakter!')
-                    }
+                            if ((data.kode_pos).length > 7) {
+                                return alert('Kode Pos harus kurang dari 7 karakter!')
+                            }
 
-                    if ((data.no_hp).length > 14) {
-                        return alert('No Telpon harus kurang dari 14 karakter!')
-                    }
+                            if ((data.no_hp).length > 14) {
+                                return alert('No Telpon harus kurang dari 14 karakter!')
+                            }
 
-                    if ((data.whatsapp).length > 14) {
-                        return alert('No Whatsapp harus kurang dari 14 karakter!')
-                    }
+                            if ((data.whatsapp).length > 14) {
+                                return alert('No Whatsapp harus kurang dari 14 karakter!')
+                            }
 
-                    if (!data.pendidikan_terakhir) {
-                        return alert('Sekolah tidak terdaftar, silahkan edit di bagian Administrator.')
-                    } else if ((data.pendidikan_terakhir).length > 10) {
-                        return alert('Pendidikan terakhir harus kurang dari 10 karakter!')
-                    }
+                            if (!data.pendidikan_terakhir) {
+                                return alert('Sekolah tidak terdaftar, silahkan edit di bagian Administrator.')
+                            } else if ((data.pendidikan_terakhir).length > 10) {
+                                return alert('Pendidikan terakhir harus kurang dari 10 karakter!')
+                            }
 
-                    if ((data.asal_sekolah).length > 100) {
-                        return alert('Asal sekolah harus kurang dari 100 karakter!')
-                    }
+                            if ((data.asal_sekolah).length > 100) {
+                                return alert('Asal sekolah harus kurang dari 100 karakter!')
+                            }
 
-                    if ((data.jurusan_sekolah).length > 100) {
-                        return alert('Jurusan sekolah harus kurang dari 100 karakter!')
-                    }
+                            if ((data.jurusan_sekolah).length > 100) {
+                                return alert('Jurusan sekolah harus kurang dari 100 karakter!')
+                            }
 
-                    if ((data.tahun_lulus).length > 4) {
-                        return alert('Tahun lulus harus kurang dari 4 karakter!')
-                    }
+                            if ((data.tahun_lulus).length > 4) {
+                                return alert('Tahun lulus harus kurang dari 4 karakter!')
+                            }
 
-                    if ((data.email).length > 50) {
-                        return alert('Email harus kurang dari 50 karakter!')
-                    }
+                            if ((data.email).length > 50) {
+                                return alert('Email harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.nama_ortu).length > 50) {
-                        return alert('Nama orang tua harus kurang dari 50 karakter!')
-                    }
+                            if ((data.nama_ortu).length > 50) {
+                                return alert('Nama orang tua harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.pekerjaan_ortu).length > 50) {
-                        return alert('Pekerjaan orang tua harus kurang dari 50 karakter!')
-                    }
+                            if ((data.pekerjaan_ortu).length > 50) {
+                                return alert('Pekerjaan orang tua harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.penghasilan_ortu).length > 50) {
-                        return alert('Penghasilan orang tua harus kurang dari 50 karakter!')
-                    }
+                            if ((data.penghasilan_ortu).length > 50) {
+                                return alert('Penghasilan orang tua harus kurang dari 50 karakter!')
+                            }
 
-                    if ((data.nohp_ortu).length > 100) {
-                        return alert('Nomor telpon orang tua harus kurang dari 100 karakter!')
-                    }
+                            if ((data.nohp_ortu).length > 100) {
+                                return alert('Nomor telpon orang tua harus kurang dari 100 karakter!')
+                            }
 
-                    if ((data.kode_jurusan).length > 9) {
-                        return alert('Kode jurusan harus kurang dari 9 karakter!')
-                    }
+                            if ((data.kode_jurusan).length > 9) {
+                                return alert('Kode jurusan harus kurang dari 9 karakter!')
+                            }
 
-                    if ((data.sumber_informasi).length > 30) {
-                        return alert('Sumber informasi harus kurang dari 30 karakter!')
-                    }
+                            if ((data.sumber_informasi).length > 30) {
+                                return alert('Sumber informasi harus kurang dari 30 karakter!')
+                            }
 
-                    if ((data.sumber_aplikan).length > 30) {
-                        return alert('Sumber aplikan harus kurang dari 30 karakter!')
-                    }
+                            if ((data.sumber_aplikan).length > 30) {
+                                return alert('Sumber aplikan harus kurang dari 30 karakter!')
+                            }
 
-                    if (!data.kode_presenter) {
-                        return alert('Kode presenter kosong!')
-                    } else if ((data.kode_presenter).length > 5) {
-                        return alert('Kode presenter harus kurang dari 5 karakter!')
-                    }
+                            if (!data.kode_presenter) {
+                                return alert('Kode presenter kosong!')
+                            } else if ((data.kode_presenter).length > 5) {
+                                return alert('Kode presenter harus kurang dari 5 karakter!')
+                            }
 
-                    if ((data.gelombang).length > 1) {
-                        return alert('Data gelombang harus 1 karakter!')
-                    }
+                            if ((data.gelombang).length > 1) {
+                                return alert('Data gelombang harus 1 karakter!')
+                            }
 
-                    if ((data.tahun_akademik).length > 9) {
-                        return alert('Tahun akademik harus kurang dari 9 karakter!')
-                    }
+                            if ((data.tahun_akademik).length > 9) {
+                                return alert('Tahun akademik harus kurang dari 9 karakter!')
+                            }
 
-                    saveAplikan(data, token, identityVal);
+                            saveAplikan(data, token, identityVal);
 
-                    loadingMisil.classList.toggle('hidden');
-                }))
-                .catch((error) => {
+                            loadingMisil.classList.toggle('hidden');
+                        }))
+                        .catch((error) => {
+                            console.log(error);
+                            alert('Ada masalah di Server, silahkan hubungi Administrator!');
+                            document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
+                        });
+
+                } catch (error) {
                     console.log(error);
                     alert('Ada masalah di Server, silahkan hubungi Administrator!');
                     document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
-                });
-
-        } catch (error) {
-            console.log(error);
-            alert('Ada masalah di Server, silahkan hubungi Administrator!');
-            document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
-        }
-    }
-</script>
+                }
+            }
+        </script>
+    @endpush
+</x-app-layout>

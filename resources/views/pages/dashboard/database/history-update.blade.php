@@ -9,9 +9,7 @@
                     identity: identity,
                     pmb: 2024
                 }
-                await axios.patch(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/history/update/${database[i].phone}`, data
-                    )
+                await axios.patch(`${URL_API_LP3I}/history/update/${database[i].phone}`, data)
                     .then((response) => {
                         console.log(response.data.message);
                     })
