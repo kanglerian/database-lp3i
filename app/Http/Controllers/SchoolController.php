@@ -112,8 +112,8 @@ class SchoolController extends Controller
             'type' => ['required', 'not_in:Pilih'],
             'status' => ['required', 'not_in:Pilih'],
             'region' => ['required', 'not_in:Pilih'],
-            'lat' => ['required','min:7','max:8'],
-            'lng' => ['required','min:7','max:8'],
+            'lat' => ['required','min:7','max:9'],
+            'lng' => ['required','min:7','max:9'],
         ], [
             'name.required' => 'Kolom nama sekolah tidak boleh kosong.',
             'type.required' => 'Kolom tipe sekolah tidak boleh kosong.',
@@ -127,7 +127,7 @@ class SchoolController extends Controller
             'lat.max' => 'Lattitude tidak boleh lebih dari 8.',
             'lng.required' => 'Longitude tidak boleh kosong.',
             'lng.min' => 'Longitude tidak boleh kurang dari 7.',
-            'lng.max' => 'Longitude tidak boleh lebih dari 8.',
+            'lng.max' => 'Longitude tidak boleh lebih dari 9.',
         ]);
 
         $data = [
