@@ -136,7 +136,7 @@
                                 <div class="relative z-0 w-full group">
                                     <x-label for="lng" :value="__('Longitude')" />
                                     <x-input id="lng" type="text" name="lng" maxlength="8" minlength="7"
-                                        value="{{ $school->lat }}" placeholder="Longitude" required />
+                                        value="{{ $school->lng }}" placeholder="Longitude" required />
                                     <div class="text-xs mt-1 text-red-600">
                                         {{ $errors->first('lng') }}
                                     </div>
