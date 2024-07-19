@@ -42,6 +42,7 @@
                             'database.achievement',
                             'database.organization',
                             'recommendation.index',
+                            'recommendation.edit',
                         ])">
                             {{ __('Database') }}
                         </x-nav-link>

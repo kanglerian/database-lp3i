@@ -22,11 +22,11 @@
             <ul class="flex items-center gap-6">
                 <li>
                     <a href="{{ route('database.index') }}"
-                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Database') }}</a>
+                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">Database</a>
                 </li>
                 <li>
                     <a href="{{ route('recommendation.index') }}"
-                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
+                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">Rekomendasi</a>
                 </li>
             </ul>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
@@ -85,10 +85,10 @@
                     </div>
                 </div>
             @endif
-            <div class="flex justify-between items-center gap-3 mx-2">
+            <div class="flex justify-between items-center gap-3 px-3">
                 <a href="{{ route('database.create') }}"
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
-                        class="fa-solid fa-circle-plus"></i> Tambah Data</a>
+                        class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
                 <div class="flex gap-2">
                     {{-- @if ($nopresenter > 0)
                         <div class="relative">
@@ -117,10 +117,13 @@
                     </button>
                 </div>
             </div>
-            <section class="flex flex-col justify-center gap-3">
+            <section class="flex flex-col justify-center gap-3 px-3">
                 @include('pages.database.database.filter')
+                <p class="text-center text-xs text-gray-700"><span class="font-medium">Catatan</span>: Filter data default menampilkan informasi berdasarkan Sumber Database dari <span
+                        class="font-medium text-red-500">Website</span> dan <span class="font-medium text-red-500">PMB
+                        Online</span>. Terima kasih atas perhatiannya.</p>
             </section>
-            <div class="bg-white overflow-hidden border rounded-xl">
+            <div class="bg-white overflow-hidden border rounded-xl mx-3">
                 <div class="p-6 bg-white">
                     <div class="relative overflow-x-auto rounded-xl">
                         <table id="table-database" class="w-full text-sm text-left text-gray-500">

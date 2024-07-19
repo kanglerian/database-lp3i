@@ -139,7 +139,12 @@ class RecommendationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Recommendation::where('id', $id)->first();
+        $schools = School::all();
+        return view('pages.recommendation.edit')->with([
+            'data' => $data,
+            'schools' => $schools
+        ]);
     }
 
     /**
@@ -151,7 +156,7 @@ class RecommendationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name.*' => 'required|string|max:255',
             'phone.*' => 'required|string|min:13|max:14',
             'school_id.*' => 'required|exists:schools,id',
@@ -171,10 +176,6 @@ class RecommendationController extends Controller
             'year.*.min' => 'Tahun minimal 1900',
         ]);
 
-        if ($validator->fails()) {
-            return back()->with('error', $validator->errors()->first());
-        }
-
         $recommendation = Recommendation::findOrFail($id);
 
         $names = $request->input('name');
@@ -190,6 +191,58 @@ class RecommendationController extends Controller
             'school_id' => $schools[0],
             'class' => $classes[0],
             'year' => $years[0],
+            'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
+            'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
+        ];
+
+        $recommendation->update($data);
+        return back()->with('message', 'Data rekomendasi berhasil diubah!');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_admin(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|min:13|max:14',
+            'school_id' => 'required|exists:schools,id',
+            'class' => 'required|string|max:255',
+            'year' => 'required|integer|min:1900|max:2500',
+            'income_parent' => 'required',
+            'address' => 'required',
+        ], [
+            'name.required' => 'Nama wajib diisi',
+            'phone.required' => 'Nomor telepon wajib diisi',
+            'phone.min' => 'Nomor telepon minimal 13 karakter',
+            'phone.max' => 'Nomor telepon maksimal 14 karakter',
+            'school_id.required' => 'Sekolah wajib dipilih',
+            'school_id.exists' => 'Sekolah tidak valid',
+            'class.required' => 'Kelas wajib diisi',
+            'class.max' => 'Kelas maksimal 255 karakter',
+            'year.required' => 'Tahun wajib diisi',
+            'year.integer' => 'Tahun harus berupa angka',
+            'year.min' => 'Tahun minimal 1900',
+            'year.max' => 'Tahun maksimal 2500',
+            'income_parent.required' => 'Pendapatan orangtua diisi',
+            'address.required' => 'Alamat wajib diisi',
+        ]);
+
+        $recommendation = Recommendation::findOrFail($id);
+
+        $data = [
+            'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
+            'school_id' => $request->input('school_id'),
+            'class' => $request->input('class'),
+            'year' => $request->input('year'),
+            'income_parent' => $request->input('income_parent'),
+            'address' => $request->input('address'),
             'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
             'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
         ];

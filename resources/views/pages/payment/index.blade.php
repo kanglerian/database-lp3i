@@ -4,20 +4,6 @@
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Pembayaran') }}
             </h2>
-            <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                <a href="{{ route('enrollment.index') }}"
-                    class="text-sm text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 cursor-pointer px-4 py-2 rounded-xl">
-                    Target
-                </a>
-                <a href="{{ route('enrollment.index') }}"
-                    class="text-sm text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 cursor-pointer px-4 py-2 rounded-xl">
-                    Pendaftaran
-                </a>
-                <a href="{{ route('registration.index') }}"
-                    class="text-sm text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 cursor-pointer px-4 py-2 rounded-xl">
-                    Registrasi
-                </a>
-            </div>
         </div>
     </x-slot>
 
@@ -73,9 +59,5 @@
                 </a>
             </div>
         </div>
-        <p class="text-sm text-center text-gray-500">Mohon maaf, halaman ini sedang dalam perbaikan. Silahkan akses menu
-            <a href="{{ route('enrollment.index') }}" class="underline">Pendaftaran</a> atau <a
-                href="{{ route('registration.index') }}" class="underline">Registrasi</a>.
-        </p>
     </div>
 </x-app-layout>

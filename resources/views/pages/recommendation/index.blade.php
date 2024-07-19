@@ -39,11 +39,11 @@
             <ul class="flex items-center gap-6">
                 <li>
                     <a href="{{ route('database.index') }}"
-                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Database') }}</a>
+                        class="{{ request()->routeIs(['database.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">Database</a>
                 </li>
                 <li>
                     <a href="{{ route('recommendation.index') }}"
-                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">{{ __('Data Rekomendasi ✨') }}</a>
+                        class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">Rekomendasi</a>
                 </li>
             </ul>
             <div>
@@ -77,7 +77,7 @@
             @endif
         </div>
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
+        <div class="max-w-7xl mx-auto px-3 lg:px-8 space-y-4">
             <div
                 class="w-full grid grid-cols-1 md:grid-cols-5 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
                 <input type="hidden" id="role" value="{{ Auth::user()->role }}">
@@ -182,7 +182,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="9" class="text-center py-5 px-6">Belum ada data yang sesuai dengan
+                                    <td colspan="11" class="text-center py-5 px-6">Belum ada data yang sesuai dengan
                                         filter yang diterapkan.</td>
                                 </tr>
                             </tbody>
@@ -371,8 +371,12 @@
                             {
                                 data: 'id',
                                 render: (data, type, row, meta) => {
+                                    let editUrl = "{{ route('recommendation.edit', ':id') }}".replace(':id',data);
                                     return `
-                                    <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
+                                    <a href="${editUrl}" class="inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    <button type="button" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                     `;
