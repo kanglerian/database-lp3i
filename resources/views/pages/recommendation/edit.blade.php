@@ -47,8 +47,8 @@
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Detail data
-                                {{ $data->name }}</span>
+                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Detail Data
+                                [{{ $data->name }}]</span>
                         </div>
                     </li>
                 </ol>
@@ -68,8 +68,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
-                    role="alert">
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('error') }}
@@ -90,7 +89,9 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
                                 placeholder="Nama lengkap" required />
                             @if ($errors->has('name'))
-                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('name') }}</p>
+                                <span class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('name') }}</span>
+                            @else
+                                <span class="ml-2 mt-2 text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </div>
                         <div>
@@ -100,7 +101,9 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
                                 placeholder="No. Telpon" required />
                             @if ($errors->has('phone'))
-                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('phone') }}</p>
+                                <span class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('phone') }}</span>
+                            @else
+                                <span class="ml-2 mt-2 text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </div>
                         <div>
@@ -113,16 +116,21 @@
                                 @endforeach
                             </select>
                             @if ($errors->has('school_id'))
-                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('school_id') }}</p>
+                                <span class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('school_id') }}</span>
+                            @else
+                                <span class="ml-2 mt-2 text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </div>
                         <div>
                             <label for="class" class="block mb-2 text-sm font-medium text-gray-900">Kelas</label>
-                            <input type="text" id="class" name="class" value="{{ old('class', $data->class) }}"
+                            <input type="text" id="class" name="class"
+                                value="{{ old('class', $data->class) }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
                                 placeholder="Kelas" required />
                             @if ($errors->has('class'))
-                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('class') }}</p>
+                                <span class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('class') }}</span>
+                            @else
+                                <span class="ml-2 mt-2 text-red-500 text-xs">*Wajib diisi.</span>
                             @endif
                         </div>
                         <div>
@@ -132,19 +140,60 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
                                 placeholder="Tahun lulus" required />
                             @if ($errors->has('year'))
-                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('year') }}</p>
+                                <span class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('year') }}</span>
+                            @else
+                                <span class="ml-2 mt-2 text-red-500 text-xs">*Wajib diisi.</span>
+                            @endif
+                        </div>
+                        <div>
+                            <label for="plan" class="block mb-2 text-sm font-medium text-gray-900">Rencana Setelah
+                                Lulus</label>
+                            <select id="plan" name="plan" value="{{ old('plan', $data->plan) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5">
+                                <option value="{{ $data->plan }}">{{ $data->plan ?? 'Pilih' }}
+                                </option>
+                                <option value="Belum diketahui">Belum diketahui</option>
+                                <option value="Kuliah">Kuliah</option>
+                                <option value="Kerja">Kerja</option>
+                                <option value="Wirausaha">Wirausaha</option>
+                            </select>
+                            @if ($errors->has('plant'))
+                                <p class="mt-2 text-red-500 text-xs">{{ $errors->first('plant') }}</p>
+                            @endif
+                        </div>
+                        <div>
+                            <label for="parent_phone" class="block mb-2 text-sm font-medium text-gray-900">No. Telpon
+                                Orang Tua</label>
+                            <input type="number" id="parent_phone" name="parent_phone"
+                                value="{{ old('parent_phone', $data->parent_phone) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
+                                placeholder="No. Telpon orang tua" />
+                            @if ($errors->has('parent_phone'))
+                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('parent_phone') }}</p>
+                            @endif
+                        </div>
+                        <div>
+                            <label for="parent_job" class="block mb-2 text-sm font-medium text-gray-900">Pekerjaan Orang
+                                Tua</label>
+                            <input type="text" id="parent_job" name="parent_job"
+                                value="{{ old('parent_job', $data->parent_job) }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
+                                placeholder="Pekerjaan orang tua" />
+                            @if ($errors->has('parent_job'))
+                                <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('parent_job') }}</p>
                             @endif
                         </div>
                         <div>
                             <label for="income_parent" class="block mb-2 text-sm font-medium text-gray-900">Pendapatan
                                 Orangtua</label>
-                            <select id="income_parent" name="income_parent" value="{{ old('income_parent', $data->income_parent) }}"
+                            <select id="income_parent" name="income_parent"
+                                value="{{ old('income_parent', $data->income_parent) }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
                                 required>
                                 <option value="{{ $data->income_parent }}">{{ $data->income_parent ?? 'Pilih' }}
                                 </option>
-                                <option value="< 1.000.000">
-                                    < 1.000.000</option>
+                                <option value="Belum diketahui">Belum diketahui</option>
+                                <option value="< 1.000.000">< 1.000.000</option>
                                 <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
                                 <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
                                 <option value="> 5.000.000">> 5.000.000</option>
@@ -159,7 +208,7 @@
                             <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat</label>
                             <textarea id="address" name="address" rows="4" value="{{ old('address', $data->address) }}"
                                 class="block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Alamat" required>{{ old('address', $data->address) }}</textarea>
+                                placeholder="Alamat">{{ old('address', $data->address) }}</textarea>
                             @if ($errors->has('address'))
                                 <p class="ml-2 mt-2 text-red-500 text-xs">{{ $errors->first('address') }}</p>
                             @endif

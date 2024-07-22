@@ -26,17 +26,23 @@ class DataController extends Controller
                 'school_id' => ['required'],
                 'class' => ['required'],
                 'year' => ['required'],
+                'plan' => ['required'],
                 'income_parent' => ['required'],
                 'address' => ['required'],
+                'parent_phone' => ['required'],
+                'parent_job' => ['required'],
             ],
             [
                 'name.required' => 'Kolom nama lengkap tidak boleh kosong!',
-                'phone.required' => 'Kolom no. whatsapp tidak boleh kosong!',
+                'phone.required' => 'Kolom no. Whatsapp tidak boleh kosong!',
                 'school_id.required' => 'Kolom sekolah tidak boleh kosong!',
                 'class.required' => 'Kolom kelas tidak boleh kosong!',
                 'year.required' => 'Kolom tahun lulus tidak boleh kosong!',
+                'plan.required' => 'Kolom rencana setelah lulus tidak boleh kosong!',
                 'income_parent.required' => 'Kolom pendapatan orang tua tidak boleh kosong!',
                 'address.required' => 'Kolom alamat lengkap tidak boleh kosong!',
+                'parent_phone.required' => 'Kolom no. HP orang tua tidak boleh kosong!',
+                'parent_job.required' => 'Kolom pekerjaan orang tua lengkap tidak boleh kosong!',
             ],
         );
 
@@ -67,13 +73,16 @@ class DataController extends Controller
             'school_id' => $school,
             'class' => $request->input('class'),
             'year' => $request->input('year'),
+            'plan' => $request->input('plan'),
             'income_parent' => $request->input('income_parent'),
             'address' => $request->input('address'),
+            'parent_phone' => $request->input('parent_phone'),
+            'parent_job' => $request->input('parent_job'),
             'source_id' => 13,
         ];
 
         Recommendation::create($data);
 
-        return redirect()->route('recommendation-data.input-kkn')->with('message', 'Berhasil menambahkan data rekomendasi KKN baru!');
+        return redirect()->route('recommendation-data.input-kkn')->with('message', 'Berhasil menambahkan data baru!');
     }
 }

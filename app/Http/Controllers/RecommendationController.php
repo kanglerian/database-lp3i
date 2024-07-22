@@ -214,8 +214,7 @@ class RecommendationController extends Controller
             'school_id' => 'required|exists:schools,id',
             'class' => 'required|string|max:255',
             'year' => 'required|integer|min:1900|max:2500',
-            'income_parent' => 'required',
-            'address' => 'required',
+            'parent_phone' => 'max:14',
         ], [
             'name.required' => 'Nama wajib diisi',
             'phone.required' => 'Nomor telepon wajib diisi',
@@ -229,8 +228,7 @@ class RecommendationController extends Controller
             'year.integer' => 'Tahun harus berupa angka',
             'year.min' => 'Tahun minimal 1900',
             'year.max' => 'Tahun maksimal 2500',
-            'income_parent.required' => 'Pendapatan orangtua diisi',
-            'address.required' => 'Alamat wajib diisi',
+            'parent_phone.max' => 'Nomor telepon orang tua maksimal 14 karakter',
         ]);
 
         $recommendation = Recommendation::findOrFail($id);
@@ -241,6 +239,9 @@ class RecommendationController extends Controller
             'school_id' => $request->input('school_id'),
             'class' => $request->input('class'),
             'year' => $request->input('year'),
+            'plan' => $request->input('plan'),
+            'parent_phone' => $request->input('parent_phone'),
+            'parent_job' => $request->input('parent_job'),
             'income_parent' => $request->input('income_parent'),
             'address' => $request->input('address'),
             'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),

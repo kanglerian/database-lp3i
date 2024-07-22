@@ -24,8 +24,11 @@ class Recommendation extends Model
         'school_id',
         'class',
         'year',
+        'plan',
         'income_parent',
         'address',
+        'parent_phone',
+        'parent_job',
         'source_id',
         'status',
     ];

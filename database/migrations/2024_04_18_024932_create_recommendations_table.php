@@ -21,8 +21,11 @@ class CreateRecommendationsTable extends Migration
             $table->unsignedBigInteger('school_id')->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
+            $table->string('plan')->nullable();
             $table->string('income_parent')->nullable();
             $table->text('address')->nullable();
+            $table->string('parent_phone', 20)->nullable();
+            $table->string('parent_job')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
