@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Politeknik LP3I Kampus Tasikmalaya adalah kampus vokasi di Priangan Timur dengan penempatan kerja. Tepat dan Cepat Kerja!">
+    <meta name="author" content="Politeknik LP3I Kampus Tasikmalaya" />
+    <meta name="keywords"
+        content="Kampus Penempatan Kerja, Kampus Tasikmalaya, Kuliah di Tasikmalaya, Kampus Dengan Penempatan kerja, Kuliah Sambil Kerja, Tasikmalaya, Kampus Vokasi, LP3I Tasikmalaya, Politeknik LP3I Kampus Tasikmalaya, LP3I, Tepat dan Cepat Kerja, Kuliah murah di Tasikmalaya">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -95,7 +100,8 @@
                         @auth
                             @if (Auth::user()->status == 1)
                                 <a href="{{ route('dashboard.index') }}"
-                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i class="fa-solid fa-compass"></i> Dashboard</a>
+                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i
+                                        class="fa-solid fa-compass"></i> Dashboard</a>
                             @else
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -114,10 +120,12 @@
                         @else
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
-                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i class="fa-solid fa-file-lines"></i> Daftar Sekarang</a>
+                                    class="bg-lp3i-100 hover:bg-lp3i-200 px-6 py-2 rounded-xl text-white"><i
+                                        class="fa-solid fa-file-lines"></i> Daftar Sekarang</a>
                             @endif
                             <a href="{{ route('login') }}"
-                                class="border border-gray-300 hover:border-gray-200 bg-white hover:bg-gray-200 hover:text-gray-800 px-6 py-2 rounded-xl text-gray-600"><i class="fa-solid fa-right-to-bracket"></i> Masuk</a>
+                                class="border border-gray-300 hover:border-gray-200 bg-white hover:bg-gray-200 hover:text-gray-800 px-6 py-2 rounded-xl text-gray-600"><i
+                                    class="fa-solid fa-right-to-bracket"></i> Masuk</a>
                         @endauth
                     </div>
                 @endif
