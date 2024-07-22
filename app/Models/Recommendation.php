@@ -29,6 +29,7 @@ class Recommendation extends Model
         'address',
         'parent_phone',
         'parent_job',
+        'reference',
         'source_id',
         'status',
     ];

@@ -79,7 +79,7 @@
 
         <div class="max-w-7xl mx-auto px-3 lg:px-8 space-y-4">
             <div
-                class="w-full grid grid-cols-1 md:grid-cols-5 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
+                class="w-full grid grid-cols-1 md:grid-cols-6 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
                 <input type="hidden" id="role" value="{{ Auth::user()->role }}">
                 @if (Auth::user()->role == 'A')
                     <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
@@ -122,6 +122,12 @@
                     <input type="number" id="year"
                         class="w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                         placeholder="Tahun lulus">
+                </div>
+                <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="reference" class="text-xs">Referensi:</label>
+                    <input type="text" id="reference"
+                        class="w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                        placeholder="Referensi">
                 </div>
                 <div class="flex items-end gap-2 mb-1 p-1 md:p-0">
                     <button type="button" onclick="changeFilter()"
@@ -168,6 +174,9 @@
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Presenter
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                        Referensi
                                     </th>
                                     <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                         Sumber
@@ -221,6 +230,7 @@
                 let schoolVal = document.getElementById('school').value || 'all';
                 let sourceVal = document.getElementById('source_id').value || 'all';
                 let yearVal = document.getElementById('year').value || 'all';
+                let referenceVal = document.getElementById('reference').value || 'all';
 
                 if (identityVal !== 'all') {
                     queryParams.push(`identityVal=${identityVal}`);
@@ -234,9 +244,14 @@
                     queryParams.push(`sourceVal=${sourceVal}`);
                 }
 
+                if (referenceVal !== 'all') {
+                    queryParams.push(`referenceVal=${referenceVal}`);
+                }
+
                 queryParams.push(`schoolVal=${schoolVal}`);
                 queryParams.push(`sourceVal=${sourceVal}`);
                 queryParams.push(`yearVal=${yearVal}`);
+                queryParams.push(`referenceVal=${referenceVal}`);
 
                 let queryString = queryParams.join('&');
 
@@ -315,6 +330,12 @@
                                 data: 'applicant',
                                 render: (data, type, row, meta) => {
                                     return data ? data.presenter.name : 'Tidak diketahui';
+                                }
+                            },
+                            {
+                                data: 'reference',
+                                render: (data, type, row, meta) => {
+                                    return data ?? 'Tidak diketahui';
                                 }
                             },
                             {

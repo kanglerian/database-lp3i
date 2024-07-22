@@ -133,7 +133,28 @@
                         @endif
                     </div>
                 </div>
-                <div class="grid grid-cols-1">
+                <div class="grid grid-cols-1 gap-5">
+                    <div>
+                        <label for="reference" class="block mb-2 text-sm font-medium text-gray-900">Referensi</label>
+                        <select id="reference" name="reference"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
+                            required>
+                            <option value="">Pilih</option>
+                            <option value="Kelompok 1 - Jayamukti">Kelompok 1 - Jayamukti</option>
+                            <option value="Kelompok 2 - Cimari">Kelompok 2 - Cimari</option>
+                            <option value="Kelompok 3 - Pasirsalam">Kelompok 3 - Pasirsalam</option>
+                            <option value="Kelompok 4 - Ciawi">Kelompok 4 - Ciawi</option>
+                            <option value="Kelompok 5 - Jatijaya">Kelompok 5 - Jatijaya</option>
+                            <option value="Kelompok 6 - Cikukulu">Kelompok 6 - Cikukulu</option>
+                            <option value="Kelompok 7 - Panyungagung">Kelompok 7 - Panyungagung</option>
+                            <option value="Kelompok 8 - Jayagiri">Kelompok 8 - Jayagiri</option>
+                            <option value="Kelompok 9 - Cihaurbeuti">Kelompok 9 - Cihaurbeuti</option>
+                            <option value="Kelompok 10 - Sukarasa">Kelompok 10 - Sukarasa</option>
+                        </select>
+                        @if ($errors->has('reference'))
+                            <p class="mt-2 text-red-500 text-xs">{{ $errors->first('reference') }}</p>
+                        @endif
+                    </div>
                     <div>
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat</label>
                         <textarea id="address" name="address" rows="4"

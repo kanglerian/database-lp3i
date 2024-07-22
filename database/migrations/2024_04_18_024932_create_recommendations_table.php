@@ -26,6 +26,7 @@ class CreateRecommendationsTable extends Migration
             $table->text('address')->nullable();
             $table->string('parent_phone', 20)->nullable();
             $table->string('parent_job')->nullable();
+            $table->text('reference')->nullable();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

@@ -31,6 +31,7 @@ class DataController extends Controller
                 'address' => ['required'],
                 'parent_phone' => ['required'],
                 'parent_job' => ['required'],
+                'reference' => ['required'],
             ],
             [
                 'name.required' => 'Kolom nama lengkap tidak boleh kosong!',
@@ -43,6 +44,7 @@ class DataController extends Controller
                 'address.required' => 'Kolom alamat lengkap tidak boleh kosong!',
                 'parent_phone.required' => 'Kolom no. HP orang tua tidak boleh kosong!',
                 'parent_job.required' => 'Kolom pekerjaan orang tua lengkap tidak boleh kosong!',
+                'reference.required' => 'Kolom referensi tidak boleh kosong!',
             ],
         );
 
@@ -78,6 +80,7 @@ class DataController extends Controller
             'address' => $request->input('address'),
             'parent_phone' => $request->input('parent_phone'),
             'parent_job' => $request->input('parent_job'),
+            'reference' => $request->input('reference'),
             'source_id' => 13,
         ];
 
