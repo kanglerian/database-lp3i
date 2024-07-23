@@ -294,7 +294,7 @@
                 </div>
             </section>
 
-            <section class="overflow-hidden border rounded-3xl mx-3">
+            <section class="overflow-hidden border rounded-2xl mx-3">
                 <div class="p-6 bg-gray-50">
                     <div class="relative overflow-x-auto sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
