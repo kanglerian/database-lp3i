@@ -4,20 +4,6 @@
           <h2 class="font-bold text-xl text-gray-800 leading-tight">
               {{ __('Daftar Akun') }}
           </h2>
-          <div class="flex flex-wrap justify-center items-center gap-3 px-2 text-gray-600">
-              <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
-                  <i class="fa-solid fa-users"></i>
-                  <h2>{{ $users }}</h2>
-              </div>
-              <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
-                  <i class="fa-solid fa-circle-check text-green-500"></i>
-                  <h2>{{ $active }}</h2>
-              </div>
-              <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
-                  <i class="fa-solid fa-circle-xmark text-red-500"></i>
-                  <h2>{{ $deactive }}</h2>
-              </div>
-          </div>
       </div>
   </x-slot>
 
