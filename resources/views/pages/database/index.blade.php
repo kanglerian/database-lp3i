@@ -1,22 +1,22 @@
-@push('styles')
-    <link href="{{ asset('css/select2-custom.css') }}" rel="stylesheet" />
-    <style>
-        .js-example-input-single {
-            width: 100%;
-        }
-
-        .select2-selection {
-            border-radius: 0.75rem !important;
-            padding-top: 10px !important;
-            padding-bottom: 10px !important;
-        }
-
-        .select2-selection__rendered {
-            top: -8px !important;
-        }
-    </style>
-@endpush
 <x-app-layout>
+    @push('styles')
+        <link href="{{ asset('css/select2-custom.css') }}" rel="stylesheet" />
+        <style>
+            .js-example-input-single {
+                width: 100%;
+            }
+
+            .select2-selection {
+                border-radius: 0.75rem !important;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+            }
+
+            .select2-selection__rendered {
+                top: -8px !important;
+            }
+        </style>
+    @endpush
     <x-slot name="header">
         <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
             <ul class="flex items-center gap-6">
@@ -292,10 +292,6 @@
                         </select>
                     </div>
                 </div>
-                <p class="text-center text-xs text-gray-700"><span class="font-medium">Catatan</span>: Filter data
-                    default menampilkan informasi berdasarkan Sumber Database dari <span
-                        class="font-medium text-red-500">Website</span> dan <span class="font-medium text-red-500">PMB
-                        Online</span>. Terima kasih atas perhatiannya.</p>
             </section>
 
             <section class="overflow-hidden border rounded-3xl mx-3">
@@ -413,479 +409,480 @@
                     </div>
                 </div>
             </section>
-
         </div>
     </div>
+
+    @if (Auth::user()->role == 'P' && Auth::user()->sheet)
+        @include('pages.database.modal.sync')
+    @endif
+
+    @push('scripts')
+        <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+        <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
+        <script src="{{ asset('js/exceljs.min.js') }}"></script>
+        <script>
+            const getYearPMB = () => {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth();
+                const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+                document.getElementById('change_pmb').value = startYear;
+            }
+            getYearPMB();
+
+            const changeFilter = () => {
+                let queryParams = [];
+
+                let dateStart = document.getElementById('date_start').value || 'all';
+                let dateEnd = document.getElementById('date_end').value || 'all';
+                let yearGrad = document.getElementById('year_grad').value || 'all';
+                let presenterVal = document.getElementById('identity_user').value || 'all';
+                let schoolVal = document.getElementById('school').value || 'all';
+                let majorVal = document.getElementById('change_major').value || 'all';
+                let birthdayVal = document.getElementById('birthday').value || 'all';
+                let phoneVal = document.getElementById('change_phone').value || 'all';
+                let pmbVal = document.getElementById('change_pmb').value || 'all';
+                let comeVal = document.getElementById('change_come').value || 'all';
+                let planVal = document.getElementById('change_plan').value || 'all';
+                let incomeVal = document.getElementById('change_income').value || 'all';
+                let achievementVal = document.getElementById('change_achievement').value || 'all';
+                let followVal = document.getElementById('change_follow').value || 'all';
+                let sourceVal = document.getElementById('change_source').value || 'all';
+                let sourceDaftarVal = document.getElementById('change_source_daftar').value || 'all';
+                let statusVal = document.getElementById('change_status').value || 'all';
+                let kipVal = document.getElementById('change_kip').value || 'all';
+                let relationVal = document.getElementById('change_relation').value || 'all';
+                let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
+                let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
+                let statusApplicant = document.getElementById('change_applicant').value || 'all';
+
+                if (statusApplicant !== 'all') {
+                    queryParams.push(`statusApplicant=${statusApplicant}`);
+                }
+                if (dateStart !== 'all') {
+                    queryParams.push(`dateStart=${dateStart}`);
+                }
+                if (dateEnd !== 'all') {
+                    queryParams.push(`dateEnd=${dateEnd}`);
+                }
+                if (yearGrad !== 'all') {
+                    queryParams.push(`yearGrad=${yearGrad}`);
+                }
+                if (presenterVal !== 'all') {
+                    queryParams.push(`presenterVal=${presenterVal}`);
+                }
+                if (schoolVal !== 'all') {
+                    queryParams.push(`schoolVal=${schoolVal}`);
+                }
+                if (birthdayVal !== 'all') {
+                    queryParams.push(`birthdayVal=${birthdayVal}`);
+                }
+                if (phoneVal !== 'all') {
+                    queryParams.push(`phoneVal=${phoneVal}`);
+                }
+                if (achievementVal !== 'all') {
+                    queryParams.push(`achievementVal=${achievementVal}`);
+                }
+                if (pmbVal !== 'all') {
+                    queryParams.push(`pmbVal=${pmbVal}`);
+                }
+                if (sourceVal !== 'all') {
+                    queryParams.push(`sourceVal=${sourceVal}`);
+                }
+                if (sourceDaftarVal !== 'all') {
+                    queryParams.push(`sourceDaftarVal=${sourceDaftarVal}`);
+                }
+                if (statusVal !== 'all') {
+                    queryParams.push(`statusVal=${statusVal}`);
+                }
+                if (followVal !== 'all') {
+                    queryParams.push(`followVal=${followVal}`);
+                }
+                if (comeVal !== 'all') {
+                    queryParams.push(`comeVal=${comeVal}`);
+                }
+                if (incomeVal !== 'all') {
+                    queryParams.push(`incomeVal=${incomeVal}`);
+                }
+                if (planVal !== 'all') {
+                    queryParams.push(`planVal=${planVal}`);
+                }
+                if (kipVal !== 'all') {
+                    queryParams.push(`kipVal=${kipVal}`);
+                }
+                if (relationVal !== 'all') {
+                    queryParams.push(`relationVal=${relationVal}`);
+                }
+                if (jobFatherVal !== 'all') {
+                    queryParams.push(`jobFatherVal=${jobFatherVal}`);
+                }
+                if (jobMotherVal !== 'all') {
+                    queryParams.push(`jobMotherVal=${jobMotherVal}`);
+                }
+                if (majorVal !== 'all') {
+                    queryParams.push(`majorVal=${majorVal}`);
+                }
+
+                let queryString = queryParams.join('&');
+
+                window.location.href = `/database?${queryString}`
+            }
+
+            const clearFilter = () => {
+                window.location.href = `/database`
+            }
+
+            const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
+                const textarea = document.createElement("textarea");
+                textarea.value =
+                    `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
+                textarea.style.position = "fixed";
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+                alert('Data sudah disalin.');
+            }
+
+            const whatsappDownload = async () => {
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                try {
+                    showLoadingAnimation();
+                    const response = await axios.get(`get/databases?${queryString}`)
+                    const applicants = response.data.applicants;
+                    let content = '';
+                    let schoolSelect = document.getElementById('school');
+                    let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+                    let schoolVal = selectedSchoolOption.innerText || 'all';
+                    let majorVal = document.getElementById('change_major').value || 'all';
+                    applicants.forEach(applicant => {
+                        content +=
+                            `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
+                    });
+                    var blob = new Blob([content], {
+                        type: "text/plain"
+                    });
+                    var urlData = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.setAttribute('href', urlData);
+                    link.setAttribute('download', 'data-whatsapp-blast.txt');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    hideLoadingAnimation();
+                } catch (error) {
+                    const status = error.response.status;
+                    const message = error.response.data.message;
+                    const exhausted = message.includes('exhausted');
+                    if (status == 500 && exhausted) {
+                        alert(
+                            'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                        );
+                        hideLoadingAnimation();
+                    } else if (status == 500) {
+                        alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                        hideLoadingAnimation();
+                    }
+                }
+            }
+
+            const excelDownload = async () => {
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                try {
+                    showLoadingAnimation();
+                    const response = await axios.get(`get/databases?${queryString}`);
+                    const applicants = response.data.applicants;
+                    const workbook = new ExcelJS.Workbook();
+                    const worksheet = workbook.addWorksheet('Data');
+                    let header = ['No', 'Nama Lengkap', 'No. Telpon', 'Presenter', 'Asal Sekolah',
+                        'Jurusan',
+                        'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database',
+                        'Sumber Informasi'
+                    ];
+                    let dataExcel = [
+                        header,
+                    ];
+                    applicants.forEach((applicant, index) => {
+                        let studentBucket = [];
+                        studentBucket.push(
+                            `${index + 1}`,
+                            `${applicant.name ? applicant.name : 'Tidak diketahui'}`,
+                            `${applicant.phone ? applicant.phone : 'Tidak diketahui'}`,
+                            `${applicant.identity_user ? applicant.presenter.name : 'Tidak diketahui'}`,
+                            `${applicant.school ? applicant.school_applicant.name : 'Tidak diketahui'}`,
+                            `${applicant.major ? applicant.major : 'Tidak diketahui'}`,
+                            `${applicant.year ? applicant.year : 'Tidak diketahui'}`,
+                            `${applicant.programtype_id ? applicant.program_type.name : 'Tidak diketahui'}`,
+                            `${applicant.program ? applicant.program : 'Tidak diketahui'}`,
+                            `${applicant.source_id ? applicant.source_setting.name : 'Tidak diketahui'}`,
+                            `${applicant.source_daftar_id ? applicant.source_daftar_setting.name : 'Tidak diketahui'}`,
+                        );
+                        dataExcel.push(studentBucket);
+                    });
+                    let dateTime = new Date();
+                    const day = dateTime.getDate();
+                    const month = dateTime.getMonth();
+                    const year = dateTime.getFullYear();
+                    const hours = dateTime.getHours();
+                    const minutes = dateTime.getMinutes();
+                    const seconds = dateTime.getSeconds();
+                    const formattedDate = `export_database_${hours}${minutes}${seconds}${day}${month}${year}`;
+                    worksheet.addRows(dataExcel);
+                    const blob = await workbook.xlsx.writeBuffer();
+                    const blobData = new Blob([blob], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blobData);
+                    link.download = `${formattedDate}.xlsx`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    hideLoadingAnimation();
+                } catch (error) {
+                    const status = error.response.status;
+                    const message = error.response.data.message;
+                    const exhausted = message.includes('exhausted');
+                    if (status == 500 && exhausted) {
+                        alert(
+                            'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                        );
+                        hideLoadingAnimation();
+                    } else if (status == 500) {
+                        alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                        hideLoadingAnimation();
+                    }
+                }
+            }
+
+            const pixelDownload = async () => {
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                showLoadingAnimation();
+                try {
+                    const response = await axios.get(`get/databases?${queryString}`);
+                    const applicants = response.data.applicants;
+                    let content =
+                        'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
+                    applicants.forEach(applicant => {
+                        let fullName = applicant.name;
+                        let nameParts = fullName.split(' ');
+                        let fn = nameParts[0];
+                        let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant
+                            .address
+                            .split("KOTA/KAB.")[1].trim() : "") : '';
+                        let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
+                        let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
+                        let genderCode = applicant.gender;
+                        let gender = genderCode === 1 ? 'M' : 'F';
+                        let tahunSekarang = new Date().getFullYear();
+
+                        let ln = nameParts.slice(1).join(' ');
+
+                        let phoneNumber = applicant.phone;
+                        let formattedPhoneNumber = phoneNumber !== null ?
+                            `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
+                            "";
+                        content +=
+                            `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},Jawa Barat,ID,${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
+
+                    });
+
+                    var blob = new Blob([content], {
+                        type: "text/plain"
+                    });
+                    var urlData = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.setAttribute('href', urlData);
+                    link.setAttribute('download', 'facebook-pixel.txt');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    hideLoadingAnimation();
+                } catch (error) {
+                    const status = error.response.status;
+                    const message = error.response.data.message;
+                    const exhausted = message.includes('exhausted');
+                    if (status == 500 && exhausted) {
+                        alert(
+                            'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                        );
+                        hideLoadingAnimation();
+                    } else if (status == 500) {
+                        alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                        hideLoadingAnimation();
+                    }
+                }
+            }
+
+            const csvDownload = async () => {
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                showLoadingAnimation();
+                try {
+                    const response = await axios.get(`get/databases?${queryString}`);
+                    const applicants = response.data.applicants;
+                    let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
+                    let schoolSelect = document.getElementById('school');
+                    let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+                    let schoolVal = selectedSchoolOption.innerText || 'all';
+                    let majorVal = document.getElementById('change_major').value || 'all';
+                    applicants.forEach(applicant => {
+                        let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
+                            .name
+                            .replace(/[\s-]/g, '') : null;
+                        let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
+                            '');
+                        content +=
+                            `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
+                    });
+
+                    var blob = new Blob([content], {
+                        type: "text/plain"
+                    });
+                    var urlData = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.setAttribute('href', urlData);
+                    link.setAttribute('download', 'contact.csv');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    hideLoadingAnimation();
+                } catch (error) {
+                    const status = error.response.status;
+                    const message = error.response.data.message;
+                    const exhausted = message.includes('exhausted');
+                    if (status == 500 && exhausted) {
+                        alert(
+                            'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                        );
+                        hideLoadingAnimation();
+                    } else if (status == 500) {
+                        alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                        hideLoadingAnimation();
+                    }
+                }
+            }
+
+            const vcfDownload = async () => {
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                showLoadingAnimation();
+                try {
+                    const response = await axios.get(`get/databases?${queryString}`);
+                    const applicants = response.data.applicants;
+                    let content = '';
+                    let schoolSelect = document.getElementById('school');
+                    let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
+                    let schoolVal = selectedSchoolOption.innerText || 'all';
+                    let majorVal = document.getElementById('change_major').value || 'all';
+                    applicants.forEach(applicant => {
+                        let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
+                            .name
+                            .replace(/[\s-]/g, '') : null;
+                        let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
+                            '');
+                        content +=
+                            `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+                    });
+                    var blob = new Blob([content], {
+                        type: "text/vcard"
+                    });
+                    var urlData = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.setAttribute('href', urlData);
+                    link.setAttribute('download', 'contact.vcf');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    hideLoadingAnimation();
+                } catch (error) {
+                    const status = error.response.status;
+                    const message = error.response.data.message;
+                    const exhausted = message.includes('exhausted');
+                    if (status == 500 && exhausted) {
+                        alert(
+                            'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                        );
+                        hideLoadingAnimation();
+                    } else if (status == 500) {
+                        alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                        hideLoadingAnimation();
+                    }
+                }
+            }
+
+            const started = () => {
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth();
+                const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+                const url = window.location.href;
+                const queryStringStart = url.indexOf('?');
+                if (queryStringStart === -1) {
+                    console.error('URL tidak memiliki query string');
+                    return;
+                }
+                const queryString = url.substring(queryStringStart + 1);
+                const params = queryString.split('&');
+                const queryParams = {};
+                params.forEach(param => {
+                    const [key, value] = param.split('=');
+                    queryParams[key] = value;
+                });
+                document.getElementById('change_pmb').value = queryParams.pmbVal ?? startYear;
+                document.getElementById('change_applicant').value = queryParams.statusApplicant ?? 'all';
+                document.getElementById('change_source_daftar').value = queryParams.sourceDaftarVal ?? 'all';
+                document.getElementById('change_source').value = queryParams.sourceVal ?? 'all';
+                document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
+                document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
+                document.getElementById('identity_user').value = queryParams.presenterVal ?? 'all';
+                document.getElementById('date_start').value = queryParams.dateStart ?? '';
+                document.getElementById('date_end').value = queryParams.dateEnd ?? '';
+                document.getElementById('change_follow').value = queryParams.followVal ?? 'all';
+                document.getElementById('school').value = queryParams.schoolVal ?? 'all';
+                document.getElementById('change_major').value = queryParams.majorVal ?? '';
+                document.getElementById('year_grad').value = queryParams.yearGrad ?? '';
+                document.getElementById('birthday').value = queryParams.birthdayVal ?? '';
+                document.getElementById('change_phone').value = queryParams.phoneVal ?? 'all';
+                document.getElementById('change_achievement').value = queryParams.achievementVal ?? '';
+                document.getElementById('change_relation').value = queryParams.relationVal ?? '';
+                document.getElementById('change_jobfather').value = queryParams.jobFatherVal ?? '';
+                document.getElementById('change_jobmother').value = queryParams.jobMotherVal ?? '';
+                document.getElementById('change_plan').value = queryParams.planVal ?? 'all';
+                document.getElementById('change_come').value = queryParams.comeVal ?? 'all';
+                document.getElementById('change_income').value = queryParams.incomeVal ?? 'all';
+                document.getElementById('change_kip').value = queryParams.kipVal ?? 'all';
+            }
+
+            started();
+        </script>
+    @endpush
 </x-app-layout>
-
-{{-- Script --}}
-<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
-<script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
-<script src="{{ asset('js/exceljs.min.js') }}"></script>
-<script>
-    const getYearPMB = () => {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-        document.getElementById('change_pmb').value = startYear;
-    }
-    getYearPMB();
-
-    const changeFilter = () => {
-        let queryParams = [];
-
-        let dateStart = document.getElementById('date_start').value || 'all';
-        let dateEnd = document.getElementById('date_end').value || 'all';
-        let yearGrad = document.getElementById('year_grad').value || 'all';
-        let presenterVal = document.getElementById('identity_user').value || 'all';
-        let schoolVal = document.getElementById('school').value || 'all';
-        let majorVal = document.getElementById('change_major').value || 'all';
-        let birthdayVal = document.getElementById('birthday').value || 'all';
-        let phoneVal = document.getElementById('change_phone').value || 'all';
-        let pmbVal = document.getElementById('change_pmb').value || 'all';
-        let comeVal = document.getElementById('change_come').value || 'all';
-        let planVal = document.getElementById('change_plan').value || 'all';
-        let incomeVal = document.getElementById('change_income').value || 'all';
-        let achievementVal = document.getElementById('change_achievement').value || 'all';
-        let followVal = document.getElementById('change_follow').value || 'all';
-        let sourceVal = document.getElementById('change_source').value || 'all';
-        let sourceDaftarVal = document.getElementById('change_source_daftar').value || 'all';
-        let statusVal = document.getElementById('change_status').value || 'all';
-        let kipVal = document.getElementById('change_kip').value || 'all';
-        let relationVal = document.getElementById('change_relation').value || 'all';
-        let jobFatherVal = document.getElementById('change_jobfather').value || 'all';
-        let jobMotherVal = document.getElementById('change_jobmother').value || 'all';
-        let statusApplicant = document.getElementById('change_applicant').value || 'all';
-
-        if (statusApplicant !== 'all') {
-            queryParams.push(`statusApplicant=${statusApplicant}`);
-        }
-        if (dateStart !== 'all') {
-            queryParams.push(`dateStart=${dateStart}`);
-        }
-        if (dateEnd !== 'all') {
-            queryParams.push(`dateEnd=${dateEnd}`);
-        }
-        if (yearGrad !== 'all') {
-            queryParams.push(`yearGrad=${yearGrad}`);
-        }
-        if (presenterVal !== 'all') {
-            queryParams.push(`presenterVal=${presenterVal}`);
-        }
-        if (schoolVal !== 'all') {
-            queryParams.push(`schoolVal=${schoolVal}`);
-        }
-        if (birthdayVal !== 'all') {
-            queryParams.push(`birthdayVal=${birthdayVal}`);
-        }
-        if (phoneVal !== 'all') {
-            queryParams.push(`phoneVal=${phoneVal}`);
-        }
-        if (achievementVal !== 'all') {
-            queryParams.push(`achievementVal=${achievementVal}`);
-        }
-        if (pmbVal !== 'all') {
-            queryParams.push(`pmbVal=${pmbVal}`);
-        }
-        if (sourceVal !== 'all') {
-            queryParams.push(`sourceVal=${sourceVal}`);
-        }
-        if (sourceDaftarVal !== 'all') {
-            queryParams.push(`sourceDaftarVal=${sourceDaftarVal}`);
-        }
-        if (statusVal !== 'all') {
-            queryParams.push(`statusVal=${statusVal}`);
-        }
-        if (followVal !== 'all') {
-            queryParams.push(`followVal=${followVal}`);
-        }
-        if (comeVal !== 'all') {
-            queryParams.push(`comeVal=${comeVal}`);
-        }
-        if (incomeVal !== 'all') {
-            queryParams.push(`incomeVal=${incomeVal}`);
-        }
-        if (planVal !== 'all') {
-            queryParams.push(`planVal=${planVal}`);
-        }
-        if (kipVal !== 'all') {
-            queryParams.push(`kipVal=${kipVal}`);
-        }
-        if (relationVal !== 'all') {
-            queryParams.push(`relationVal=${relationVal}`);
-        }
-        if (jobFatherVal !== 'all') {
-            queryParams.push(`jobFatherVal=${jobFatherVal}`);
-        }
-        if (jobMotherVal !== 'all') {
-            queryParams.push(`jobMotherVal=${jobMotherVal}`);
-        }
-        if (majorVal !== 'all') {
-            queryParams.push(`majorVal=${majorVal}`);
-        }
-
-        let queryString = queryParams.join('&');
-
-        window.location.href = `/database?${queryString}`
-    }
-
-    const clearFilter = () => {
-        window.location.href = `/database`
-    }
-
-    const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
-        const textarea = document.createElement("textarea");
-        textarea.value =
-            `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school} (${year})\nMinat Prodi: ${program}\nProgram Kuliah: ${programtype}\nSumber: ${source}`;
-        textarea.style.position = "fixed";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert('Data sudah disalin.');
-    }
-
-    const whatsappDownload = async () => {
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        try {
-            showLoadingAnimation();
-            const response = await axios.get(`get/databases?${queryString}`)
-            const applicants = response.data.applicants;
-            let content = '';
-            let schoolSelect = document.getElementById('school');
-            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-            let schoolVal = selectedSchoolOption.innerText || 'all';
-            let majorVal = document.getElementById('change_major').value || 'all';
-            applicants.forEach(applicant => {
-                content +=
-                    `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
-            });
-            var blob = new Blob([content], {
-                type: "text/plain"
-            });
-            var urlData = URL.createObjectURL(blob);
-            var link = document.createElement('a');
-            link.setAttribute('href', urlData);
-            link.setAttribute('download', 'data-whatsapp-blast.txt');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            hideLoadingAnimation();
-        } catch (error) {
-            const status = error.response.status;
-            const message = error.response.data.message;
-            const exhausted = message.includes('exhausted');
-            if (status == 500 && exhausted) {
-                alert(
-                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
-                );
-                hideLoadingAnimation();
-            } else if (status == 500) {
-                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
-                hideLoadingAnimation();
-            }
-        }
-    }
-
-    const excelDownload = async () => {
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        try {
-            showLoadingAnimation();
-            const response = await axios.get(`get/databases?${queryString}`);
-            const applicants = response.data.applicants;
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Data');
-            let header = ['No', 'Nama Lengkap', 'No. Telpon', 'Presenter', 'Asal Sekolah',
-                'Jurusan',
-                'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database',
-                'Sumber Informasi'
-            ];
-            let dataExcel = [
-                header,
-            ];
-            applicants.forEach((applicant, index) => {
-                let studentBucket = [];
-                studentBucket.push(
-                    `${index + 1}`,
-                    `${applicant.name ? applicant.name : 'Tidak diketahui'}`,
-                    `${applicant.phone ? applicant.phone : 'Tidak diketahui'}`,
-                    `${applicant.identity_user ? applicant.presenter.name : 'Tidak diketahui'}`,
-                    `${applicant.school ? applicant.school_applicant.name : 'Tidak diketahui'}`,
-                    `${applicant.major ? applicant.major : 'Tidak diketahui'}`,
-                    `${applicant.year ? applicant.year : 'Tidak diketahui'}`,
-                    `${applicant.programtype_id ? applicant.program_type.name : 'Tidak diketahui'}`,
-                    `${applicant.program ? applicant.program : 'Tidak diketahui'}`,
-                    `${applicant.source_id ? applicant.source_setting.name : 'Tidak diketahui'}`,
-                    `${applicant.source_daftar_id ? applicant.source_daftar_setting.name : 'Tidak diketahui'}`,
-                );
-                dataExcel.push(studentBucket);
-            });
-            let dateTime = new Date();
-            const day = dateTime.getDate();
-            const month = dateTime.getMonth();
-            const year = dateTime.getFullYear();
-            const hours = dateTime.getHours();
-            const minutes = dateTime.getMinutes();
-            const seconds = dateTime.getSeconds();
-            const formattedDate = `export_database_${hours}${minutes}${seconds}${day}${month}${year}`;
-            worksheet.addRows(dataExcel);
-            const blob = await workbook.xlsx.writeBuffer();
-            const blobData = new Blob([blob], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blobData);
-            link.download = `${formattedDate}.xlsx`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            hideLoadingAnimation();
-        } catch (error) {
-            const status = error.response.status;
-            const message = error.response.data.message;
-            const exhausted = message.includes('exhausted');
-            if (status == 500 && exhausted) {
-                alert(
-                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
-                );
-                hideLoadingAnimation();
-            } else if (status == 500) {
-                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
-                hideLoadingAnimation();
-            }
-        }
-    }
-
-    const pixelDownload = async () => {
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        showLoadingAnimation();
-        try {
-            const response = await axios.get(`get/databases?${queryString}`);
-            const applicants = response.data.applicants;
-            let content =
-                'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
-            applicants.forEach(applicant => {
-                let fullName = applicant.name;
-                let nameParts = fullName.split(' ');
-                let fn = nameParts[0];
-                let kotaKab = applicant.address ? (applicant.address.split("KOTA/KAB.")[1] ? applicant
-                    .address
-                    .split("KOTA/KAB.")[1].trim() : "") : '';
-                let dateOfBirth = applicant.date_of_birth !== null ? applicant.date_of_birth : '';
-                let tahun = dateOfBirth ? new Date(dateOfBirth).getFullYear() : '';
-                let genderCode = applicant.gender;
-                let gender = genderCode === 1 ? 'M' : 'F';
-                let tahunSekarang = new Date().getFullYear();
-
-                let ln = nameParts.slice(1).join(' ');
-
-                let phoneNumber = applicant.phone;
-                let formattedPhoneNumber = phoneNumber !== null ?
-                    `+${phoneNumber.slice(0, 2)} ${phoneNumber.slice(2, 5)} ${phoneNumber.slice(5, 7)} ${phoneNumber.slice(7, 9)} ${phoneNumber.slice(9, 11)}` :
-                    "";
-                content +=
-                    `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},Jawa Barat,ID,${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
-
-            });
-
-            var blob = new Blob([content], {
-                type: "text/plain"
-            });
-            var urlData = URL.createObjectURL(blob);
-            var link = document.createElement('a');
-            link.setAttribute('href', urlData);
-            link.setAttribute('download', 'facebook-pixel.txt');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            hideLoadingAnimation();
-        } catch (error) {
-            const status = error.response.status;
-            const message = error.response.data.message;
-            const exhausted = message.includes('exhausted');
-            if (status == 500 && exhausted) {
-                alert(
-                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
-                );
-                hideLoadingAnimation();
-            } else if (status == 500) {
-                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
-                hideLoadingAnimation();
-            }
-        }
-    }
-
-    const csvDownload = async () => {
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        showLoadingAnimation();
-        try {
-            const response = await axios.get(`get/databases?${queryString}`);
-            const applicants = response.data.applicants;
-            let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
-            let schoolSelect = document.getElementById('school');
-            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-            let schoolVal = selectedSchoolOption.innerText || 'all';
-            let majorVal = document.getElementById('change_major').value || 'all';
-            applicants.forEach(applicant => {
-                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
-                    .name
-                    .replace(/[\s-]/g, '') : null;
-                let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
-                    '');
-                content +=
-                    `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
-            });
-
-            var blob = new Blob([content], {
-                type: "text/plain"
-            });
-            var urlData = URL.createObjectURL(blob);
-            var link = document.createElement('a');
-            link.setAttribute('href', urlData);
-            link.setAttribute('download', 'contact.csv');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            hideLoadingAnimation();
-        } catch (error) {
-            const status = error.response.status;
-            const message = error.response.data.message;
-            const exhausted = message.includes('exhausted');
-            if (status == 500 && exhausted) {
-                alert(
-                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
-                );
-                hideLoadingAnimation();
-            } else if (status == 500) {
-                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
-                hideLoadingAnimation();
-            }
-        }
-    }
-
-    const vcfDownload = async () => {
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        showLoadingAnimation();
-        try {
-            const response = await axios.get(`get/databases?${queryString}`);
-            const applicants = response.data.applicants;
-            let content = '';
-            let schoolSelect = document.getElementById('school');
-            let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
-            let schoolVal = selectedSchoolOption.innerText || 'all';
-            let majorVal = document.getElementById('change_major').value || 'all';
-            applicants.forEach(applicant => {
-                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
-                    .name
-                    .replace(/[\s-]/g, '') : null;
-                let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
-                    '');
-                content +=
-                    `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
-            });
-            var blob = new Blob([content], {
-                type: "text/vcard"
-            });
-            var urlData = URL.createObjectURL(blob);
-            var link = document.createElement('a');
-            link.setAttribute('href', urlData);
-            link.setAttribute('download', 'contact.vcf');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            hideLoadingAnimation();
-        } catch (error) {
-            const status = error.response.status;
-            const message = error.response.data.message;
-            const exhausted = message.includes('exhausted');
-            if (status == 500 && exhausted) {
-                alert(
-                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
-                );
-                hideLoadingAnimation();
-            } else if (status == 500) {
-                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
-                hideLoadingAnimation();
-            }
-        }
-    }
-
-    const started = () => {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
-        const url = window.location.href;
-        const queryStringStart = url.indexOf('?');
-        if (queryStringStart === -1) {
-            console.error('URL tidak memiliki query string');
-            return;
-        }
-        const queryString = url.substring(queryStringStart + 1);
-        const params = queryString.split('&');
-        const queryParams = {};
-        params.forEach(param => {
-            const [key, value] = param.split('=');
-            queryParams[key] = value;
-        });
-        document.getElementById('change_pmb').value = queryParams.pmbVal ?? startYear;
-        document.getElementById('change_applicant').value = queryParams.statusApplicant ?? 'all';
-        document.getElementById('change_source_daftar').value = queryParams.sourceDaftarVal ?? 'all';
-        document.getElementById('change_source').value = queryParams.sourceVal ?? 'all';
-        document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
-        document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
-        document.getElementById('identity_user').value = queryParams.presenterVal ?? 'all';
-        document.getElementById('date_start').value = queryParams.dateStart ?? '';
-        document.getElementById('date_end').value = queryParams.dateEnd ?? '';
-        document.getElementById('change_follow').value = queryParams.followVal ?? 'all';
-        document.getElementById('school').value = queryParams.schoolVal ?? 'all';
-        document.getElementById('change_major').value = queryParams.majorVal ?? '';
-        document.getElementById('year_grad').value = queryParams.yearGrad ?? '';
-        document.getElementById('birthday').value = queryParams.birthdayVal ?? '';
-        document.getElementById('change_phone').value = queryParams.phoneVal ?? 'all';
-        document.getElementById('change_achievement').value = queryParams.achievementVal ?? '';
-        document.getElementById('change_relation').value = queryParams.relationVal ?? '';
-        document.getElementById('change_jobfather').value = queryParams.jobFatherVal ?? '';
-        document.getElementById('change_jobmother').value = queryParams.jobMotherVal ?? '';
-        document.getElementById('change_plan').value = queryParams.planVal ?? 'all';
-        document.getElementById('change_come').value = queryParams.comeVal ?? 'all';
-        document.getElementById('change_income').value = queryParams.incomeVal ?? 'all';
-        document.getElementById('change_kip').value = queryParams.kipVal ?? 'all';
-    }
-
-    started();
-</script>
-@if (Auth::user()->role == 'P' && Auth::user()->sheet)
-    @include('pages.database.modal.sync')
-@endif
