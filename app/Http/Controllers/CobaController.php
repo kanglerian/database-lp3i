@@ -9,7 +9,7 @@ class CobaController extends Controller
 {
     public function index()
     {
-        $applicants = Applicant::all();
+        $applicants = Applicant::paginate(10)->get();
         return view("coba", compact("applicants"));
     }
 }
