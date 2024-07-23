@@ -36,6 +36,7 @@ use App\Http\Controllers\API\Report\WilayahDatabaseByPresenterController;
 use App\Http\Controllers\API\UserController;
 
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\CobaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,3 +138,5 @@ Route::post('/resetpassword', [ResetPasswordController::class, 'reset']);
 Route::prefix('beasiswa-ppo')->group(function(){
     Route::post('/check', [ValidationController::class,'check_validation'])->name('beasiswa-ppo.check_validation');
 });
+
+Route::get('/lee', [CobaController::class,'index']);

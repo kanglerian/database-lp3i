@@ -31,6 +31,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\DataController;
+use App\Http\Controlllers\API\ApplicantController as APIA;
 
 /*
 |--------------------------------------------------------------------------
