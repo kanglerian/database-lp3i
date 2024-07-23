@@ -370,7 +370,7 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->created_at }}
+                                            {{ $applicant->created_at->format('M j, Y g:i A') }}
                                         </td>
                                         <td class="px-6 py-4 bg-white text-center">
                                             {{ $applicant->sourcesetting->name }}
