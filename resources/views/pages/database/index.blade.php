@@ -377,16 +377,16 @@
                                             {{ $applicant->phone ?? 'Tidak diketahui' }}
                                         </td>
                                         <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->presenter->name ?? 'Tidak diketahui' }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->major }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->year }}
+                                            {{ $applicant->identity_user ? $applicant->presenter->name : 'Tidak diketahui' }}
                                         </td>
                                         <td class="px-6 py-4 bg-white text-center">
                                             {{ $applicant->school ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50 text-center">
+                                            {{ $applicant->major ?? 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            {{ $applicant->year ?? 'Tidak diketahui' }}
                                         </td>
                                     </tr>
                                 @empty
