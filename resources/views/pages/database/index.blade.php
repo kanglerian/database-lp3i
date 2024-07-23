@@ -30,37 +30,31 @@
                 </li>
             </ul>
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
-                {{-- <div class="flex bg-red-500 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
-                    <span>
-                        <i class="fa-solid fa-phone"></i>
-                    </span>
-                    <h2>{{ $nophone }}</h2>
-                </div> --}}
-                <div onclick="getDataTableRecommendation()"
+                {{-- <div onclick="getDataTableRecommendation()"
                     class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
-                    <h2 id="count_filter">{{ $total }}</h2>
-                </div>
-                <button type="button" onclick="exportExcel()"
+                    <h2 id="count_filter">0</h2>
+                </div> --}}
+                <button type="button" onclick="excelDownload()"
                     class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-excel"></i>
                 </button>
-                <a id="downloadBlast" onclick="downloadBlast()"
+                <button type="button" onclick="whatsappDownload()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-download"></i>
-                </a>
-                <a id="downloadDP" onclick="downloadDP()"
+                </button>
+                <button type="button" onclick="pixelDownload()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-bullhorn"></i>
-                </a>
-                <a id="downloadCSV" onclick="downloadCSV()"
+                </button>
+                <button type="button" onclick="csvDownload()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-file-csv"></i>
-                </a>
-                <a id="downloadVCF" onclick="downloadVCF()"
+                </button>
+                <button type="button" onclick="vcfDownload()"
                     class="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
                     <i class="fa-solid fa-address-book"></i>
-                </a>
+                </button>
             </div>
         </div>
     </x-slot>
@@ -90,17 +84,6 @@
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
                 <div class="flex gap-2">
-                    {{-- @if ($nopresenter > 0)
-                        <div class="relative">
-                            @if (Auth::user()->role == 'A')
-                                <span
-                                    class="flex items-center justify-center absolute top-[-25px] right-[10px] bg-red-500 text-white px-2 py-1 rounded-xl text-[9px]">{{ $nopresenter }}</span>
-                                <i class="fa-solid text-[25px] fa-person-circle-plus text-gray-500"></i>
-                            @endif
-                        </div>
-                    @else
-                        <input type="hidden" id="database_online" value="all">
-                    @endif --}}
                     @if (Auth::user()->role == 'P' && Auth::user()->sheet)
                         <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
                             class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
@@ -111,7 +94,7 @@
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter"></i>
                     </button>
-                    <button type="button" onclick="resetFilter()"
+                    <button type="button" onclick="clearFilter()"
                         class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
                     </button>
@@ -314,54 +297,112 @@
                         class="font-medium text-red-500">Website</span> dan <span class="font-medium text-red-500">PMB
                         Online</span>. Terima kasih atas perhatiannya.</p>
             </section>
-            <div class="bg-white overflow-hidden border rounded-xl mx-3">
-                <div class="p-6 bg-white">
-                    <div class="relative overflow-x-auto rounded-xl">
-                        <table id="table-database" class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+
+            <section class="overflow-hidden border rounded-3xl mx-3">
+                <div class="p-6 bg-gray-50">
+                    <div class="relative overflow-x-auto sm:rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
                                         <i class="fa-solid fa-user"></i>
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Status
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
                                         Tanggal
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Sumber Database
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
                                         Nama lengkap
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-white text-center">
                                         No. Telpon (Whatsapp)
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
                                         Presenter
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Asal sekolah
                                     </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
                                         Jurusan
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
+                                    <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Tahun lulus
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="9" class="text-center py-5 px-6">Belum ada data yang sesuai dengan
-                                        filter yang diterapkan.</td>
-                                </tr>
+                                @forelse ($applicants as $applicant)
+                                    <tr class="border-b border-gray-200">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 text-center">
+                                            <button type="button" class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white"
+                                                onclick="copyRecord(
+                                                `{{ $applicant->name }}`,
+                                                `{{ $applicant->phone }}`,
+                                                `{{ $applicant->schoolapplicant ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}`,
+                                                `{{ $applicant->year ?? 'Tidak diketahui' }}`,
+                                                `{{ $applicant->program ?? 'Tidak diketahui' }}`,
+                                                `{{ $applicant->source ?? 'Tidak diketahui' }}`,
+                                                `{{ $applicant->sourcesetting->name }}`,
+                                                `{{ $applicant->programtype ? $applicant->programtype->name : 'Tidak diketahui' }}`,
+                                                `{{ $applicant->applicantstatus ? $applicant->applicantstatus->name : 'Tidak diketahui' }}`,
+                                                );">
+                                                <i class="fa-solid fa-copy"></i>
+                                            </button>
+                                        </th>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            <div class="flex gap-2">
+                                                <span class="text-sm {{ $applicant->is_applicant ? 'text-yellow-500' : 'text-gray-300' }}"><i class="fa-solid fa-file-lines"></i></span>
+                                                <span class="text-sm {{ $applicant->is_daftar ? 'text-sky-500' : 'text-gray-300' }}"><i class="fa-solid fa-id-badge"></i></span>
+                                                <span class="text-sm {{ $applicant->is_register ? 'text-emerald-500' : 'text-gray-300' }}"><i class="fa-solid fa-user-check"></i></span>
+                                                <span class="text-sm {{ $applicant->schoolarship ? 'text-cyan-500' : 'text-gray-300' }}"><i class="fa-solid fa-graduation-cap"></i></span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50 text-center">
+                                            {{ $applicant->created_at }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            {{ $applicant->sourcesetting->name }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50 text-center">
+                                            <a href="{{ route('database.show', $applicant->identity) }}" class="font-bold underline">{{ $applicant->name }}</a>
+                                        </td>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            {{ $applicant->phone ?? 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50 text-center">
+                                            {{ $applicant->presenter->name }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            {{ $applicant->major }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50 text-center">
+                                            {{ $applicant->year }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-white text-center">
+                                            {{ $applicant->schoolapplicant->name }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr class="border-b border-gray-200">
+                                        <td colspan="10">Tidak diketahui</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
+                        <div class="p-5">
+                            {{ $applicants->links() }}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
         </div>
     </div>
 </x-app-layout>
@@ -369,6 +410,7 @@
 {{-- Script --}}
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
+<script src="{{ asset('js/exceljs.min.js') }}"></script>
 <script>
     const getYearPMB = () => {
         const currentDate = new Date();
@@ -378,14 +420,6 @@
         document.getElementById('change_pmb').value = startYear;
     }
     getYearPMB();
-
-    let dataTableDataInstance;
-    let dataTableDataInitialized = false;
-    let pmbVal = document.getElementById('change_pmb').value;
-
-    var urlData = `get/databases?pmbVal=${pmbVal}&initialize=true`;
-    var urlExcel = `applicants/export?pmbVal=${pmbVal}&initialize=true`;
-    var dataApplicants;
 
     const changeFilter = () => {
         let queryParams = [];
@@ -482,243 +516,11 @@
 
         let queryString = queryParams.join('&');
 
-        urlData = `get/databases?${queryString}`;
-        urlExcel = `applicants/export?${queryString}`;
-
-        if (dataTableDataInstance) {
-            showLoadingAnimation();
-            dataTableDataInstance.clear();
-            dataTableDataInstance.destroy();
-            getDataTable()
-                .then((response) => {
-                    dataTableDataInstance = $('#table-database').DataTable(
-                        response
-                        .config);
-                    dataTableDataInitialized = response.initialized;
-                    hideLoadingAnimation();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+        window.location.href = `/database?${queryString}`
     }
 
-    const getDataTable = async () => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const response = await axios.get(urlData);
-                const applicants = response.data.applicants;
-                dataApplicants = applicants;
-
-                document.getElementById('count_filter').innerText = applicants.length;
-
-                let columnConfigs = [{
-                        data: {
-                            id: 'id',
-                            identity: 'identity',
-                            name: 'name',
-                            phone: 'phone',
-                            school: 'school',
-                            year: 'year',
-                            program: 'program',
-                            source_id: 'source_id',
-                            programtype_id: 'programtype_id',
-                            status_id: 'status_id'
-                        },
-                        render: (data, type, row) => {
-                            return `
-                        <div class="flex items-center gap-1">
-                            <button class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); copyRecord(
-                            '${data.name}',
-                            '${data.phone}',
-                            '${data.school_applicant ? data.school_applicant.name : 'Tidak diketahui'}',
-                            '${data.year ? data.year : 'Tidak diketahui'}',
-                            '${data.program ? data.program : 'Tidak diketahui'}',
-                            '${data.source_setting.name}',
-                            '${data.programtype_id ? data.program_type.name : ''}',
-                            '${data.status_id ? data.applicant_status.name : ''}'
-                            );">
-                            <i class="fa-solid fa-copy"></i>
-                            </button>
-                        </div>`;
-                        }
-                    },
-                    {
-                        data: {
-                            status: 'applicant_status',
-                            is_applicant: 'is_applicant',
-                            is_register: 'is_register',
-                            is_daftar: 'is_daftar',
-                            schoolarship: 'schoolarship',
-                        },
-                        render: (data, type, row) => {
-                            return `
-                        <div class="flex gap-2">
-                            <span class="text-[17px] ${data.is_applicant == 1 ? 'text-yellow-500' : 'text-gray-300'}"><i class="fa-solid fa-file-lines"></i></span>
-                            <span class="text-[18px] ${data.is_daftar == 1 ? 'text-sky-500' : 'text-gray-300'}"><i class="fa-solid fa-id-badge"></i></span>
-                            <span class="text-[15px] ${data.is_register == 1 ? 'text-emerald-500' : 'text-gray-300'}"><i class="fa-solid fa-user-check"></i></span>
-                            <span class="text-[15px] ${data.schoolarship == 1 ? 'text-cyan-500' : 'text-gray-300'}"><i class="fa-solid fa-graduation-cap"></i></span>
-                        </div>
-                        `;
-                        }
-                    },
-                    {
-                        data: 'created_at',
-                        render: (data) => {
-                            return data;
-                        }
-                    },
-                    {
-                        data: 'source_setting',
-                        render: (data, type, row) => {
-                            return data.name;
-                        }
-                    },
-                    {
-                        data: {
-                            identity: 'identity',
-                            name: 'name',
-                            phone: 'phone'
-                        },
-                        render: (data, type, row) => {
-                            let showUrl = "{{ route('database.show', ':identity') }}"
-                                .replace(
-                                    ':identity',
-                                    data.identity);
-                            return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
-                        }
-                    },
-                    {
-                        data: 'phone',
-                        render: (data) => {
-                            return typeof(data) == 'object' ? 'Tidak diketahui' : data;
-                        }
-                    },
-                    {
-                        data: 'presenter',
-                        render: (data) => {
-                            return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
-                        }
-                    },
-                    {
-                        data: 'school_applicant',
-                        render: (data) => {
-                            return data == null ? 'Tidak diketahui' : data.name;
-                        }
-                    },
-                    {
-                        data: 'major',
-                        render: (data, row) => {
-                            return data != null ? data : 'Tidak diketahui';
-                        }
-                    },
-                    {
-                        data: 'year',
-                        render: (data, row) => {
-                            return data != null ? data : 'Tidak diketahui';
-                        }
-                    },
-                ];
-
-                const dataTableConfig = {
-                    data: applicants,
-                    order: [
-                        [2, 'desc']
-                    ],
-                    columnDefs: [{
-                            width: 10,
-                            target: 0
-                        },
-                        {
-                            width: 150,
-                            target: 1
-                        },
-                        {
-                            width: 200,
-                            target: 2
-                        },
-                        {
-                            width: 100,
-                            target: 3
-                        },
-                        {
-                            width: 150,
-                            target: 4
-                        },
-                        {
-                            width: 150,
-                            target: 5
-                        },
-                        {
-                            width: 100,
-                            target: 6
-                        },
-                        {
-                            width: 50,
-                            target: 7
-                        },
-                    ],
-                    createdRow: (row, data, index) => {
-                        if (index % 2 != 0) {
-                            $(row).css('background-color', '#f9fafb');
-                        }
-                        if (data.presenter.phone == '6281313608558') {
-                            $(row).css('background-color', '#dc2626');
-                            $(row).css('color', 'white');
-                        }
-                    },
-                    columns: columnConfigs,
-                }
-
-                let results = {
-                    config: dataTableConfig,
-                    initialized: true
-                }
-
-                resolve(results);
-            } catch (error) {
-                reject(error)
-            }
-        });
-    }
-
-    const promiseData = () => {
-        showLoadingAnimation();
-        Promise.all([
-                getDataTable(),
-            ])
-            .then((response) => {
-                let responseDTR = response[0];
-                dataTableDataInstance = $('#table-database').DataTable(
-                    responseDTR
-                    .config);
-                dataTableDataInitialized = responseDTR.initialized;
-                hideLoadingAnimation();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-    promiseData();
-
-    const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
-            $.ajax({
-                url: `/database/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                    console.log(error);
-                }
-            })
-        }
+    const clearFilter = () => {
+        window.location.href = `/database`
     }
 
     const copyRecord = (name, phone, school, year, program, source, programtype, status) => {
@@ -733,33 +535,135 @@
         alert('Data sudah disalin.');
     }
 
-    const downloadBlast = () => {
-        if (dataApplicants) {
+    const whatsappDownload = async () => {
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
+        try {
+            const response = await axios.get(`get/databases?${queryString}`)
+            const applicants = response.data.applicants;
             let content = '';
             let schoolSelect = document.getElementById('school');
             let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
             let schoolVal = selectedSchoolOption.innerText || 'all';
             let majorVal = document.getElementById('change_major').value || 'all';
-            dataApplicants.forEach(applicant => {
-                content += `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
+            applicants.forEach(applicant => {
+                content +=
+                    `${applicant.name},${applicant.phone == null ? '0000000000' : applicant.phone}\n`
             });
-            var downloadBlast = document.getElementById('downloadBlast');
             var blob = new Blob([content], {
                 type: "text/plain"
             });
-            console.log(downloadBlast);
-            downloadBlast.href = URL.createObjectURL(blob);
-            downloadBlast.download = `${schoolVal}-${majorVal}-FILEBLAST.txt`;
-        } else {
-            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+            var urlData = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', urlData);
+            link.setAttribute('download', 'data-whatsapp-blast.txt');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            const status = error.response.status;
+            const message = error.response.data.message;
+            const exhausted = message.includes('exhausted');
+            if (status == 500 && exhausted) {
+                alert(
+                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                );
+            } else if (status == 500) {
+                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+            }
         }
     }
 
-    const downloadDP = () => {
-        if (dataApplicants) {
+    const excelDownload = async () => {
+        try {
+            const url = window.location.href;
+            const queryStringStart = url.indexOf('?');
+            if (queryStringStart === -1) {
+                console.error('URL tidak memiliki query string');
+                return;
+            }
+            const queryString = url.substring(queryStringStart + 1);
+            const response = await axios.get(`get/databases?${queryString}`);
+            const applicants = response.data.applicants;
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Data');
+            let header = ['No', 'Nama Lengkap', 'No. Telpon', 'Presenter', 'Asal Sekolah',
+                'Jurusan',
+                'Tahun Lulus', 'Tipe Kelas', 'Minat Prodi', 'Sumber Database',
+                'Sumber Informasi'
+            ];
+            let dataExcel = [
+                header,
+            ];
+            applicants.forEach((applicant, index) => {
+                let studentBucket = [];
+                studentBucket.push(
+                    `${index + 1}`,
+                    `${applicant.name ? applicant.name : 'Tidak diketahui'}`,
+                    `${applicant.phone ? applicant.phone : 'Tidak diketahui'}`,
+                    `${applicant.identity_user ? applicant.presenter.name : 'Tidak diketahui'}`,
+                    `${applicant.school ? applicant.school_applicant.name : 'Tidak diketahui'}`,
+                    `${applicant.major ? applicant.major : 'Tidak diketahui'}`,
+                    `${applicant.year ? applicant.year : 'Tidak diketahui'}`,
+                    `${applicant.programtype_id ? applicant.program_type.name : 'Tidak diketahui'}`,
+                    `${applicant.program ? applicant.program : 'Tidak diketahui'}`,
+                    `${applicant.source_id ? applicant.source_setting.name : 'Tidak diketahui'}`,
+                    `${applicant.source_daftar_id ? applicant.source_daftar_setting.name : 'Tidak diketahui'}`,
+                );
+                dataExcel.push(studentBucket);
+            });
+            let dateTime = new Date();
+            const day = dateTime.getDate();
+            const month = dateTime.getMonth();
+            const year = dateTime.getFullYear();
+            const hours = dateTime.getHours();
+            const minutes = dateTime.getMinutes();
+            const seconds = dateTime.getSeconds();
+            const formattedDate = `export_database_${hours}${minutes}${seconds}${day}${month}${year}`;
+            worksheet.addRows(dataExcel);
+            const blob = await workbook.xlsx.writeBuffer();
+            const blobData = new Blob([blob], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blobData);
+            link.download = `${formattedDate}.xlsx`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            const status = error.response.status;
+            const message = error.response.data.message;
+            const exhausted = message.includes('exhausted');
+            if (status == 500 && exhausted) {
+                alert(
+                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                );
+            } else if (status == 500) {
+                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+            }
+        }
+    }
+
+    const pixelDownload = async () => {
+        try {
+            const url = window.location.href;
+            const queryStringStart = url.indexOf('?');
+            if (queryStringStart === -1) {
+                console.error('URL tidak memiliki query string');
+                return;
+            }
+            const queryString = url.substring(queryStringStart + 1);
+            const response = await axios.get(`get/databases?${queryString}`);
+            const applicants = response.data.applicants;
             let content =
                 'email,email,email,phone,phone,phone,madid,fn,ln,zip,ct,st,country,dob,doby,gen,age,uid\n';
-            dataApplicants.forEach(applicant => {
+            applicants.forEach(applicant => {
                 let fullName = applicant.name;
                 let nameParts = fullName.split(' ');
                 let fn = nameParts[0];
@@ -782,71 +686,175 @@
                     `${applicant.email},${applicant.email},${applicant.email},${formattedPhoneNumber},${formattedPhoneNumber},${formattedPhoneNumber},,${fn},${ln},,${kotaKab},Jawa Barat,ID,${dateOfBirth},${tahun},${gender},${tahunSekarang - tahun},,\n`
 
             });
-            var downloadDP = document.getElementById('downloadDP');
+
             var blob = new Blob([content], {
                 type: "text/plain"
             });
-            downloadDP.href = URL.createObjectURL(blob);
-            downloadDP.download = `IKLAN.txt`;
-            content = '';
-        } else {
-            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+            var urlData = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', urlData);
+            link.setAttribute('download', 'facebook-pixel.txt');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            const status = error.response.status;
+            const message = error.response.data.message;
+            const exhausted = message.includes('exhausted');
+            if (status == 500 && exhausted) {
+                alert(
+                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                );
+            } else if (status == 500) {
+                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+            }
         }
     }
 
-    const downloadCSV = () => {
-        if (dataApplicants) {
+    const csvDownload = async () => {
+        try {
+            const url = window.location.href;
+            const queryStringStart = url.indexOf('?');
+            if (queryStringStart === -1) {
+                console.error('URL tidak memiliki query string');
+                return;
+            }
+            const queryString = url.substring(queryStringStart + 1);
+            const response = await axios.get(`get/databases?${queryString}`);
+            const applicants = response.data.applicants;
             let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
             let schoolSelect = document.getElementById('school');
             let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
             let schoolVal = selectedSchoolOption.innerText || 'all';
             let majorVal = document.getElementById('change_major').value || 'all';
-            dataApplicants.forEach(applicant => {
-                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+            applicants.forEach(applicant => {
+                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
+                    .name
                     .replace(/[\s-]/g, '') : null;
                 let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
                     '');
                 content +=
                     `${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year},* myContacts,Mobile,+${applicant.phone}\n`
             });
-            var downloadCSV = document.getElementById('downloadCSV');
+
             var blob = new Blob([content], {
                 type: "text/plain"
             });
-            downloadCSV.href = URL.createObjectURL(blob);
-            downloadCSV.download = `${schoolVal}-${majorVal}-FILECONTACT.csv`;
-        } else {
-            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+            var urlData = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', urlData);
+            link.setAttribute('download', 'contact.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            const status = error.response.status;
+            const message = error.response.data.message;
+            const exhausted = message.includes('exhausted');
+            if (status == 500 && exhausted) {
+                alert(
+                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                );
+            } else if (status == 500) {
+                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+            }
         }
     }
 
-    const downloadVCF = () => {
-        if (dataApplicants) {
+    const vcfDownload = async () => {
+        try {
+            const url = window.location.href;
+            const queryStringStart = url.indexOf('?');
+            if (queryStringStart === -1) {
+                console.error('URL tidak memiliki query string');
+                return;
+            }
+            const queryString = url.substring(queryStringStart + 1);
+            const response = await axios.get(`get/databases?${queryString}`);
+            const applicants = response.data.applicants;
             let content = '';
             let schoolSelect = document.getElementById('school');
             let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
             let schoolVal = selectedSchoolOption.innerText || 'all';
             let majorVal = document.getElementById('change_major').value || 'all';
-            dataApplicants.forEach(applicant => {
-                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant.name
+            applicants.forEach(applicant => {
+                let schoolNameWithoutSpace = applicant.school_applicant ? applicant.school_applicant
+                    .name
                     .replace(/[\s-]/g, '') : null;
                 let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
                     '');
                 content +=
                     `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
             });
-            var downloadVCF = document.getElementById('downloadVCF');
             var blob = new Blob([content], {
                 type: "text/vcard"
             });
-            downloadVCF.href = URL.createObjectURL(blob);
-            downloadVCF.download = `${schoolVal}-${majorVal}-FILECONTACT.vcf`;
-        } else {
-            alert('Gak boleh langsung, filter dulu ya guys! 🔍✨');
+            var urlData = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', urlData);
+            link.setAttribute('download', 'contact.vcf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            const status = error.response.status;
+            const message = error.response.data.message;
+            const exhausted = message.includes('exhausted');
+            if (status == 500 && exhausted) {
+                alert(
+                    'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
+                );
+            } else if (status == 500) {
+                alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+            }
         }
     }
+
+    const started = () => {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
+        const params = queryString.split('&');
+        const queryParams = {};
+        params.forEach(param => {
+            const [key, value] = param.split('=');
+            queryParams[key] = value;
+        });
+        document.getElementById('change_pmb').value = queryParams.pmbVal ?? startYear;
+        document.getElementById('change_applicant').value = queryParams.statusApplicant ?? 'all';
+        document.getElementById('change_source_daftar').value = queryParams.sourceDaftarVal ?? 'all';
+        document.getElementById('change_source').value = queryParams.sourceVal ?? 'all';
+        document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
+        document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
+        document.getElementById('identity_user').value = queryParams.presenterVal ?? 'all';
+        document.getElementById('date_start').value = queryParams.dateStart ?? '';
+        document.getElementById('date_end').value = queryParams.dateEnd ?? '';
+        document.getElementById('change_follow').value = queryParams.followVal ?? 'all';
+        document.getElementById('school').value = queryParams.schoolVal ?? 'all';
+        document.getElementById('change_major').value = queryParams.majorVal ?? '';
+        document.getElementById('year_grad').value = queryParams.yearGrad ?? '';
+        document.getElementById('birthday').value = queryParams.birthdayVal ?? '';
+        document.getElementById('change_phone').value = queryParams.phoneVal ?? 'all';
+        document.getElementById('change_achievement').value = queryParams.achievementVal ?? '';
+        document.getElementById('change_relation').value = queryParams.relationVal ?? '';
+        document.getElementById('change_jobfather').value = queryParams.jobFatherVal ?? '';
+        document.getElementById('change_jobmother').value = queryParams.jobMotherVal ?? '';
+        document.getElementById('change_plan').value = queryParams.planVal ?? 'all';
+        document.getElementById('change_come').value = queryParams.comeVal ?? 'all';
+        document.getElementById('change_income').value = queryParams.incomeVal ?? 'all';
+        document.getElementById('change_kip').value = queryParams.kipVal ?? 'all';
+    }
+
+    started();
 </script>
 @if (Auth::user()->role == 'P' && Auth::user()->sheet)
     @include('pages.database.modal.sync')
 @endif
-@include('pages.database.exports.excel')

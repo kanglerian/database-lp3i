@@ -2476,6 +2476,14 @@ select {
     justify-content: space-between;
   }
 
+  .sm\:rounded-lg {
+    border-radius: 0.5rem;
+  }
+
+  .sm\:rounded-2xl {
+    border-radius: 1rem;
+  }
+
   .sm\:p-8 {
     padding: 2rem;
   }

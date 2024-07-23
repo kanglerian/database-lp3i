@@ -8,6 +8,7 @@ use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use DateTime;
 
 use App\Models\FollowUp;
 use App\Models\School;
@@ -52,26 +53,6 @@ class ApplicantController extends Controller
             $nophone = Applicant::where(['phone' => null, 'identity_user' => Auth::user()->identity])->count();
         }
 
-        return view('pages.database.index')->with([
-            'total' => $total,
-            'sources' => $sources,
-            'statuses' => $statuses,
-            'schools' => $schools,
-            'follows' => $follows,
-            'users' => $users,
-            'nopresenter' => $nopresenter,
-            'nophone' => $nophone,
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function get_all()
-    {
         $applicantsQuery = Applicant::query();
 
         $dateStart = request('dateStart', 'all');
@@ -100,15 +81,17 @@ class ApplicantController extends Controller
 
         $initialize = request('initialize', false);
 
+        $appends = [];
+
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
         }
 
         if ($initialize) {
-            if(Auth::user()->role == 'P'){
+            if (Auth::user()->role == 'P') {
                 $applicantsQuery->where(function ($query) {
                     $query->where('source_id', '8')
-                    ->orWhere('source_id', '1');
+                        ->orWhere('source_id', '1');
                 });
             }
             if (Auth::user()->role === 'A') {
@@ -137,30 +120,38 @@ class ApplicantController extends Controller
                     $applicantsQuery->where('schoolarship', 1);
                     break;
             }
+            $appends['statusApplicant'] = $statusApplicant;
         }
 
         if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
+            $appends['dateStart'] = $dateStart;
+            $appends['dateEnd'] = $dateEnd;
         }
 
         if ($yearGrad !== 'all') {
             $applicantsQuery->where('year', $yearGrad);
+            $appends['yearGrad'] = $yearGrad;
         }
 
         if ($presenterVal !== 'all') {
             $applicantsQuery->where('identity_user', $presenterVal);
+            $appends['presenterVal'] = $presenterVal;
         }
 
         if ($schoolVal !== 'all') {
             $applicantsQuery->where('school', $schoolVal);
+            $appends['schoolVal'] = $schoolVal;
         }
 
         if ($majorVal !== 'all') {
             $applicantsQuery->where('major', 'LIKE', '%' . $majorVal . '%');
+            $appends['majorVal'] = $majorVal;
         }
 
         if ($birthdayVal !== 'all') {
             $applicantsQuery->where('date_of_birth', $birthdayVal);
+            $appends['birthdayVal'] = $birthdayVal;
         }
 
         if ($phoneVal !== 'all') {
@@ -169,66 +160,279 @@ class ApplicantController extends Controller
             } else {
                 $applicantsQuery->whereNull('phone');
             }
+            $appends['phoneVal'] = $phoneVal;
         }
+
+        function getYearPMB()
+        {
+            $currentDate = new DateTime();
+            $currentYear = $currentDate->format('Y');
+            $currentMonth = $currentDate->format('m');
+            return $currentMonth >= 9 ? $currentYear + 1 : $currentYear;
+        }
+
+        $pmbValue = getYearPMB();
 
         if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
+            $appends['pmbVal'] = $pmbVal;
+        } else {
+            $applicantsQuery->where('pmb', $pmbValue);
+            $appends['pmbVal'] = $pmbValue;
         }
 
         if ($followVal !== 'all') {
             $applicantsQuery->where('followup_id', $followVal);
+            $appends['followVal'] = $followVal;
         }
         if ($sourceVal !== 'all') {
             $applicantsQuery->where('source_id', $sourceVal);
+            $appends['sourceVal'] = $sourceVal;
         }
         if ($sourceDaftarVal !== 'all') {
             $applicantsQuery->where('source_daftar_id', $sourceDaftarVal);
+            $appends['sourceDaftarVal'] = $sourceDaftarVal;
         }
         if ($statusVal !== 'all') {
             $applicantsQuery->where('status_id', $statusVal);
+            $appends['statusVal'] = $statusVal;
         }
         if ($comeVal !== 'all') {
             $applicantsQuery->where('come', $comeVal);
+            $appends['comeVal'] = $comeVal;
         }
         if ($incomeVal !== 'all') {
             $applicantsQuery->where('income_parent', $incomeVal);
+            $appends['incomeVal'] = $incomeVal;
         }
         if ($planVal !== 'all') {
             $applicantsQuery->where('planning', $planVal);
+            $appends['planVal'] = $planVal;
         }
         if ($databaseOnline !== 'all') {
             $applicantsQuery->where('identity_user', $databaseOnline);
+            $appends['databaseOnline'] = $databaseOnline;
         }
         if ($achievementVal !== 'all') {
             $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
+            $appends['achievementVal'] = $achievementVal;
         }
         if ($relationVal !== 'all') {
             $applicantsQuery->where('relation', 'LIKE', '%' . $relationVal . '%');
+            $appends['relationVal'] = $relationVal;
         }
+
         if ($kipVal === '1') {
             $applicantsQuery->where('kip', '<>', null);
+            $appends['kipVal'] = $kipVal;
         } elseif ($kipVal === '0') {
             $applicantsQuery->whereNull('kip');
+            $appends['kipVal'] = $kipVal;
         }
 
         if ($jobFatherVal !== 'all') {
             $applicantsQuery->whereHas('father', function ($query) use ($jobFatherVal) {
                 $query->where('job', 'LIKE', '%' . $jobFatherVal . '%');
             });
+            $appends['jobFatherVal'] = $jobFatherVal;
         }
 
         if ($jobMotherVal !== 'all') {
             $applicantsQuery->whereHas('mother', function ($query) use ($jobMotherVal) {
                 $query->where('job', 'LIKE', '%' . $jobMotherVal . '%');
             });
+            $appends['jobMotherVal'] = $jobMotherVal;
         }
 
         $applicants = $applicantsQuery
             ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(5);
 
-        return response()->json(['applicants' => $applicants]);
+        $applicants->appends($appends);
+
+        return view('pages.database.index')->with([
+            'total' => $total,
+            'sources' => $sources,
+            'statuses' => $statuses,
+            'schools' => $schools,
+            'follows' => $follows,
+            'users' => $users,
+            'nopresenter' => $nopresenter,
+            'nophone' => $nophone,
+            'applicants' => $applicants
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_all()
+    {
+        try {
+            $applicantsQuery = Applicant::query();
+
+            $dateStart = request('dateStart', 'all');
+            $dateEnd = request('dateEnd', 'all');
+            $yearGrad = request('yearGrad', 'all');
+            $presenterVal = request('presenterVal', 'all');
+            $schoolVal = request('schoolVal', 'all');
+            $majorVal = request('majorVal', 'all');
+            $birthdayVal = request('birthdayVal', 'all');
+            $phoneVal = request('phoneVal', 'all');
+            $pmbVal = request('pmbVal', 'all');
+            $followVal = request('followVal', 'all');
+            $comeVal = request('comeVal', 'all');
+            $incomeVal = request('incomeVal', 'all');
+            $planVal = request('planVal', 'all');
+            $sourceVal = request('sourceVal', 'all');
+            $sourceDaftarVal = request('sourceDaftarVal', 'all');
+            $statusVal = request('statusVal', 'all');
+            $achievementVal = request('achievementVal', 'all');
+            $kipVal = request('kipVal', 'all');
+            $relationVal = request('relationVal', 'all');
+            $jobFatherVal = request('jobFatherVal', 'all');
+            $jobMotherVal = request('jobMotherVal', 'all');
+            $databaseOnline = request('databaseOnline', 'all');
+            $statusApplicant = request('statusApplicant', 'all');
+
+            $initialize = request('initialize', false);
+
+            if (Auth::user()->role === 'P') {
+                $applicantsQuery->where('identity_user', Auth::user()->identity);
+            }
+
+            if ($initialize) {
+                if (Auth::user()->role == 'P') {
+                    $applicantsQuery->where(function ($query) {
+                        $query->where('source_id', '8')
+                            ->orWhere('source_id', '1');
+                    });
+                }
+                if (Auth::user()->role === 'A') {
+                    $applicantsQuery->where('source_id', '!=', '11');
+                    $applicantsQuery->where('identity_user', Auth::user()->identity);
+                }
+            }
+
+            if ($statusApplicant !== 'all') {
+                switch ($statusApplicant) {
+                    case 'database':
+                        $applicantsQuery->where('is_applicant', 0);
+                        $applicantsQuery->where('is_daftar', 0);
+                        $applicantsQuery->where('is_register', 0);
+                        break;
+                    case 'aplikan':
+                        $applicantsQuery->where('is_applicant', 1);
+                        break;
+                    case 'daftar':
+                        $applicantsQuery->where('is_daftar', 1);
+                        break;
+                    case 'registrasi':
+                        $applicantsQuery->where('is_register', 1);
+                        break;
+                    case 'schoolarship':
+                        $applicantsQuery->where('schoolarship', 1);
+                        break;
+                }
+            }
+
+            if ($dateStart !== 'all' && $dateEnd !== 'all') {
+                $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
+            }
+
+            if ($yearGrad !== 'all') {
+                $applicantsQuery->where('year', $yearGrad);
+            }
+
+            if ($presenterVal !== 'all') {
+                $applicantsQuery->where('identity_user', $presenterVal);
+            }
+
+            if ($schoolVal !== 'all') {
+                $applicantsQuery->where('school', $schoolVal);
+            }
+
+            if ($majorVal !== 'all') {
+                $applicantsQuery->where('major', 'LIKE', '%' . $majorVal . '%');
+            }
+
+            if ($birthdayVal !== 'all') {
+                $applicantsQuery->where('date_of_birth', $birthdayVal);
+            }
+
+            if ($phoneVal !== 'all') {
+                if ($phoneVal == '1') {
+                    $applicantsQuery->whereNotNull('phone');
+                } else {
+                    $applicantsQuery->whereNull('phone');
+                }
+            }
+
+            if ($pmbVal !== 'all') {
+                $applicantsQuery->where('pmb', $pmbVal);
+            }
+
+            if ($followVal !== 'all') {
+                $applicantsQuery->where('followup_id', $followVal);
+            }
+            if ($sourceVal !== 'all') {
+                $applicantsQuery->where('source_id', $sourceVal);
+            }
+            if ($sourceDaftarVal !== 'all') {
+                $applicantsQuery->where('source_daftar_id', $sourceDaftarVal);
+            }
+            if ($statusVal !== 'all') {
+                $applicantsQuery->where('status_id', $statusVal);
+            }
+            if ($comeVal !== 'all') {
+                $applicantsQuery->where('come', $comeVal);
+            }
+            if ($incomeVal !== 'all') {
+                $applicantsQuery->where('income_parent', $incomeVal);
+            }
+            if ($planVal !== 'all') {
+                $applicantsQuery->where('planning', $planVal);
+            }
+            if ($databaseOnline !== 'all') {
+                $applicantsQuery->where('identity_user', $databaseOnline);
+            }
+            if ($achievementVal !== 'all') {
+                $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
+            }
+            if ($relationVal !== 'all') {
+                $applicantsQuery->where('relation', 'LIKE', '%' . $relationVal . '%');
+            }
+            if ($kipVal === '1') {
+                $applicantsQuery->where('kip', '<>', null);
+            } elseif ($kipVal === '0') {
+                $applicantsQuery->whereNull('kip');
+            }
+
+            if ($jobFatherVal !== 'all') {
+                $applicantsQuery->whereHas('father', function ($query) use ($jobFatherVal) {
+                    $query->where('job', 'LIKE', '%' . $jobFatherVal . '%');
+                });
+            }
+
+            if ($jobMotherVal !== 'all') {
+                $applicantsQuery->whereHas('mother', function ($query) use ($jobMotherVal) {
+                    $query->where('job', 'LIKE', '%' . $jobMotherVal . '%');
+                });
+            }
+            $applicants = $applicantsQuery
+                ->with(['SourceSetting', 'SourceDaftarSetting', 'ApplicantStatus', 'ProgramType', 'SchoolApplicant', 'FollowUp', 'father', 'mother', 'presenter'])
+                ->orderByDesc('created_at')
+                ->get();
+
+            return response()->json(['applicants' => $applicants]);
+        } catch (\Throwable $th) {
+            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
+            return back()->with('error', $errorMessage);
+        }
     }
 
     /**
