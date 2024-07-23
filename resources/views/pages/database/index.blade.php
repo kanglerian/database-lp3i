@@ -102,7 +102,7 @@
             </div>
             <section class="flex flex-col justify-center gap-3 px-3">
                 <div
-                    class="w-full bg-gray-50 rounded-2xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
+                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
                     <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb"
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div
-                    class="w-full bg-gray-50 rounded-2xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
+                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
                     <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
                         <label for="school" class="text-xs">Asal sekolah:</label>
                         <select id="school"
@@ -294,7 +294,7 @@
                 </div>
             </section>
 
-            <section class="overflow-hidden border rounded-2xl mx-3">
+            <section class="overflow-hidden border rounded-3xl mx-3">
                 <div class="p-6 bg-gray-50">
                     <div class="relative overflow-x-auto sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
