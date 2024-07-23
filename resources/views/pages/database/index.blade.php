@@ -379,7 +379,8 @@
                                         <td class="px-6 py-4 bg-white text-center">
                                             {{ $applicant->sourcesetting->name }}
                                         </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center  {{ $applicant->identity_user == '6281313608558' ? 'text-red-500' : 'text-gray-600' }}">
+                                        <td
+                                            class="px-6 py-4 bg-gray-50 text-center  {{ $applicant->identity_user == '6281313608558' ? 'text-red-500' : 'text-gray-600' }}">
                                             <a href="{{ route('database.show', $applicant->identity) }}"
                                                 class="font-bold underline">{{ $applicant->name }}</a>
                                         </td>
@@ -554,6 +555,7 @@
         }
         const queryString = url.substring(queryStringStart + 1);
         try {
+            showLoadingAnimation();
             const response = await axios.get(`get/databases?${queryString}`)
             const applicants = response.data.applicants;
             let content = '';
@@ -575,6 +577,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            hideLoadingAnimation();
         } catch (error) {
             const status = error.response.status;
             const message = error.response.data.message;
@@ -583,21 +586,24 @@
                 alert(
                     'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
                 );
+                hideLoadingAnimation();
             } else if (status == 500) {
                 alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                hideLoadingAnimation();
             }
         }
     }
 
     const excelDownload = async () => {
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
         try {
-            const url = window.location.href;
-            const queryStringStart = url.indexOf('?');
-            if (queryStringStart === -1) {
-                console.error('URL tidak memiliki query string');
-                return;
-            }
-            const queryString = url.substring(queryStringStart + 1);
+            showLoadingAnimation();
             const response = await axios.get(`get/databases?${queryString}`);
             const applicants = response.data.applicants;
             const workbook = new ExcelJS.Workbook();
@@ -646,6 +652,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            hideLoadingAnimation();
         } catch (error) {
             const status = error.response.status;
             const message = error.response.data.message;
@@ -654,21 +661,24 @@
                 alert(
                     'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
                 );
+                hideLoadingAnimation();
             } else if (status == 500) {
                 alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                hideLoadingAnimation();
             }
         }
     }
 
     const pixelDownload = async () => {
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
+        showLoadingAnimation();
         try {
-            const url = window.location.href;
-            const queryStringStart = url.indexOf('?');
-            if (queryStringStart === -1) {
-                console.error('URL tidak memiliki query string');
-                return;
-            }
-            const queryString = url.substring(queryStringStart + 1);
             const response = await axios.get(`get/databases?${queryString}`);
             const applicants = response.data.applicants;
             let content =
@@ -707,6 +717,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            hideLoadingAnimation();
         } catch (error) {
             const status = error.response.status;
             const message = error.response.data.message;
@@ -715,21 +726,24 @@
                 alert(
                     'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
                 );
+                hideLoadingAnimation();
             } else if (status == 500) {
                 alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                hideLoadingAnimation();
             }
         }
     }
 
     const csvDownload = async () => {
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
+        showLoadingAnimation();
         try {
-            const url = window.location.href;
-            const queryStringStart = url.indexOf('?');
-            if (queryStringStart === -1) {
-                console.error('URL tidak memiliki query string');
-                return;
-            }
-            const queryString = url.substring(queryStringStart + 1);
             const response = await axios.get(`get/databases?${queryString}`);
             const applicants = response.data.applicants;
             let content = 'Name,Group Membership,Phone 1 - Type,Phone 1 - Value\n';
@@ -757,6 +771,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            hideLoadingAnimation();
         } catch (error) {
             const status = error.response.status;
             const message = error.response.data.message;
@@ -765,21 +780,24 @@
                 alert(
                     'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
                 );
+                hideLoadingAnimation();
             } else if (status == 500) {
                 alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                hideLoadingAnimation();
             }
         }
     }
 
     const vcfDownload = async () => {
+        const url = window.location.href;
+        const queryStringStart = url.indexOf('?');
+        if (queryStringStart === -1) {
+            console.error('URL tidak memiliki query string');
+            return;
+        }
+        const queryString = url.substring(queryStringStart + 1);
+        showLoadingAnimation();
         try {
-            const url = window.location.href;
-            const queryStringStart = url.indexOf('?');
-            if (queryStringStart === -1) {
-                console.error('URL tidak memiliki query string');
-                return;
-            }
-            const queryString = url.substring(queryStringStart + 1);
             const response = await axios.get(`get/databases?${queryString}`);
             const applicants = response.data.applicants;
             let content = '';
@@ -806,6 +824,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            hideLoadingAnimation();
         } catch (error) {
             const status = error.response.status;
             const message = error.response.data.message;
@@ -814,8 +833,10 @@
                 alert(
                     'Silakan filter data terlebih dahulu. Aplikasi tidak memungkinkan untuk mengunduh semua data.'
                 );
+                hideLoadingAnimation();
             } else if (status == 500) {
                 alert('Ada masalah di server. Harap tunggu sementara kami mengatasi masalah ini.');
+                hideLoadingAnimation();
             }
         }
     }
