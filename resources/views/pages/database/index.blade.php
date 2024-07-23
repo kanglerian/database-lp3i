@@ -386,7 +386,7 @@
                                             {{ $applicant->year }}
                                         </td>
                                         <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->schoolapplicant->name ?? 'Tidak diketahui' }}
+                                            {{ $applicant->school ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}
                                         </td>
                                     </tr>
                                 @empty
