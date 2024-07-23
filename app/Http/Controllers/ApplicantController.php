@@ -79,25 +79,10 @@ class ApplicantController extends Controller
         $databaseOnline = request('databaseOnline', 'all');
         $statusApplicant = request('statusApplicant', 'all');
 
-        $initialize = request('initialize', false);
-
         $appends = [];
 
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
-        }
-
-        if ($initialize) {
-            if (Auth::user()->role == 'P') {
-                $applicantsQuery->where(function ($query) {
-                    $query->where('source_id', '8')
-                        ->orWhere('source_id', '1');
-                });
-            }
-            if (Auth::user()->role === 'A') {
-                $applicantsQuery->where('source_id', '!=', '11');
-                $applicantsQuery->where('identity_user', Auth::user()->identity);
-            }
         }
 
         if ($statusApplicant !== 'all') {
@@ -299,23 +284,8 @@ class ApplicantController extends Controller
             $databaseOnline = request('databaseOnline', 'all');
             $statusApplicant = request('statusApplicant', 'all');
 
-            $initialize = request('initialize', false);
-
             if (Auth::user()->role === 'P') {
                 $applicantsQuery->where('identity_user', Auth::user()->identity);
-            }
-
-            if ($initialize) {
-                if (Auth::user()->role == 'P') {
-                    $applicantsQuery->where(function ($query) {
-                        $query->where('source_id', '8')
-                            ->orWhere('source_id', '1');
-                    });
-                }
-                if (Auth::user()->role === 'A') {
-                    $applicantsQuery->where('source_id', '!=', '11');
-                    $applicantsQuery->where('identity_user', Auth::user()->identity);
-                }
             }
 
             if ($statusApplicant !== 'all') {
