@@ -10,9 +10,6 @@ class CobaController extends Controller
     public function index()
     {
         $applicants = Applicant::all();
-        return response()->json([
-            'total' => count($applicants),
-            'applicants' => $applicants,
-        ])->header('Content-Type', 'application/json');
+        return view("coba", compact("applicants"));
     }
 }
