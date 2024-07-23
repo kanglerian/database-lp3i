@@ -340,8 +340,9 @@
                                 @forelse ($applicants as $applicant)
                                     <tr class="border-b border-gray-200">
                                         <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 text-center">
-                                            <button type="button" class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
+                                            <button type="button"
+                                                class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white"
                                                 onclick="copyRecord(
                                                 `{{ $applicant->name }}`,
                                                 `{{ $applicant->phone }}`,
@@ -358,10 +359,18 @@
                                         </th>
                                         <td class="px-6 py-4 bg-white text-center">
                                             <div class="flex gap-2">
-                                                <span class="text-sm {{ $applicant->is_applicant ? 'text-yellow-500' : 'text-gray-300' }}"><i class="fa-solid fa-file-lines"></i></span>
-                                                <span class="text-sm {{ $applicant->is_daftar ? 'text-sky-500' : 'text-gray-300' }}"><i class="fa-solid fa-id-badge"></i></span>
-                                                <span class="text-sm {{ $applicant->is_register ? 'text-emerald-500' : 'text-gray-300' }}"><i class="fa-solid fa-user-check"></i></span>
-                                                <span class="text-sm {{ $applicant->schoolarship ? 'text-cyan-500' : 'text-gray-300' }}"><i class="fa-solid fa-graduation-cap"></i></span>
+                                                <span
+                                                    class="text-sm {{ $applicant->is_applicant ? 'text-yellow-500' : 'text-gray-300' }}"><i
+                                                        class="fa-solid fa-file-lines"></i></span>
+                                                <span
+                                                    class="text-sm {{ $applicant->is_daftar ? 'text-sky-500' : 'text-gray-300' }}"><i
+                                                        class="fa-solid fa-id-badge"></i></span>
+                                                <span
+                                                    class="text-sm {{ $applicant->is_register ? 'text-emerald-500' : 'text-gray-300' }}"><i
+                                                        class="fa-solid fa-user-check"></i></span>
+                                                <span
+                                                    class="text-sm {{ $applicant->schoolarship ? 'text-cyan-500' : 'text-gray-300' }}"><i
+                                                        class="fa-solid fa-graduation-cap"></i></span>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 bg-gray-50 text-center">
@@ -370,8 +379,9 @@
                                         <td class="px-6 py-4 bg-white text-center">
                                             {{ $applicant->sourcesetting->name }}
                                         </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center">
-                                            <a href="{{ route('database.show', $applicant->identity) }}" class="font-bold underline">{{ $applicant->name }}</a>
+                                        <td class="px-6 py-4 bg-gray-50 text-center  {{ $applicant->identity_user == '6281313608558' ? 'text-red-500' : 'text-gray-600' }}">
+                                            <a href="{{ route('database.show', $applicant->identity) }}"
+                                                class="font-bold underline">{{ $applicant->name }}</a>
                                         </td>
                                         <td class="px-6 py-4 bg-white text-center">
                                             {{ $applicant->phone ?? 'Tidak diketahui' }}
@@ -391,7 +401,7 @@
                                     </tr>
                                 @empty
                                     <tr class="border-b border-gray-200">
-                                        <td colspan="10">Tidak diketahui</td>
+                                        <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
