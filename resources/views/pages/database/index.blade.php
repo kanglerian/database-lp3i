@@ -560,6 +560,9 @@
                     let schoolSelect = document.getElementById('school');
                     let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
                     let schoolVal = selectedSchoolOption.innerText || 'all';
+                    if(schoolVal == 'Pilih sekolah'){
+                        schoolVal = 'all';
+                    }
                     let majorVal = document.getElementById('change_major').value || 'all';
                     applicants.forEach(applicant => {
                         content +=
