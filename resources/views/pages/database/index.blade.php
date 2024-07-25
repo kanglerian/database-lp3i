@@ -571,7 +571,7 @@
                     var urlData = URL.createObjectURL(blob);
                     var link = document.createElement('a');
                     link.setAttribute('href', urlData);
-                    link.setAttribute('download', 'data-whatsapp-blast.txt');
+                    link.setAttribute('download', `whatsapp-${schoolVal}-${majorVal}.txt`);
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
