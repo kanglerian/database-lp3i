@@ -169,7 +169,7 @@ class ApplicantController extends Controller
             'father_phone' => ['required', 'min:1', 'max:150'],
             'father_place_of_birth' => ['required'],
             'father_date_of_birth' => ['required'],
-            'mother_education' => ['required', 'min:1', 'max:150'],
+            'father_education' => ['required', 'min:1', 'max:150'],
             'mother_name' => ['required', 'min:1', 'max:150'],
             'mother_job' => ['required', 'min:1', 'max:150'],
             'mother_phone' => ['required', 'min:1', 'max:150'],
