@@ -44,6 +44,6 @@ class ViewReportRegisterBySchoolYear extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS report_register_by_school_year');
+        DB::statement('DROP VIEW IF EXISTS `report_register_by_school_year`;');
     }
 }

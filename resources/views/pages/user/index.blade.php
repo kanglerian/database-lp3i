@@ -81,9 +81,6 @@
                                         <i class="fa-solid fa-user"></i>
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        No. Identitas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
                                         Nama Lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
@@ -162,9 +159,6 @@
                                 break;
                         }
                     }
-                },
-                {
-                    data: 'identity'
                 },
                 {
                     data: 'name'

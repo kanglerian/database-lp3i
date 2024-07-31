@@ -15,7 +15,7 @@ class CreateAchievementsTable extends Migration
     {
         Schema::create('achievements', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_user', 30)->nullable();
+            $table->string('identity_user', 50)->nullable();
             $table->text('name')->nullable();
             $table->string('level', 150)->nullable();
             $table->date('year')->nullable();

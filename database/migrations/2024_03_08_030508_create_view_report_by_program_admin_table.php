@@ -49,6 +49,6 @@ class CreateViewReportByProgramAdminTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS report_register_by_program_admin');
+        DB::statement('DROP VIEW IF EXISTS `report_register_by_program_admin`;');
     }
 }

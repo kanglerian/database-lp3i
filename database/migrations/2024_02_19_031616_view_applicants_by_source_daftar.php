@@ -33,6 +33,6 @@ class ViewApplicantsBySourceDaftar extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS applicants_by_source_daftar_id');
+        DB::statement('DROP VIEW IF EXISTS `applicants_by_source_daftar_id`;');
     }
 }

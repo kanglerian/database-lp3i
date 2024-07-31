@@ -16,7 +16,7 @@ class CreateStatusApplicantsRegistrationTable extends Migration
         Schema::create('status_applicants_registration', function (Blueprint $table) {
             $table->id();
             $table->year('pmb');
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->date('date');
             $table->integer('nominal');
             $table->integer('deal');

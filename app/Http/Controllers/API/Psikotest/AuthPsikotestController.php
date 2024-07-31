@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Psikotest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ApplicantFamily;
@@ -61,6 +62,7 @@ class AuthPsikotestController extends Controller
         }
 
         $pmbValue = getYearPMB();
+        $identity_val = Str::uuid();
 
         $schoolCheck = School::where('id', $request->school)->first();
         $schoolNameCheck = School::where('name', $request->school)->first();
@@ -79,11 +81,6 @@ class AuthPsikotestController extends Controller
                 $school = $schoolCreate->id;
             }
         }
-        $min = -100000000000000;
-        $max = 100000000000000;
-        $random_number = abs(mt_rand($min, $max));
-        $random_number_as_string = (string) $random_number;
-        $numbers_unique = str_replace('-', '', $random_number_as_string);
 
         $check_email_applicant = Applicant::where('email', $request->email)->first();
         $check_phone_applicant = Applicant::where('phone', $request->phone)->first();
@@ -210,7 +207,7 @@ class AuthPsikotestController extends Controller
                     } else {
                         $data_applicant = [
                             'pmb' => $pmbValue,
-                            'identity' => $numbers_unique,
+                            'identity' => $identity_val,
                             'identity_user' => '6281313608558',
                             'name' => ucwords(strtolower($request->name)),
                             'school' => $school,
@@ -227,7 +224,7 @@ class AuthPsikotestController extends Controller
                         ];
 
                         $data_user = [
-                            'identity' => $numbers_unique,
+                            'identity' => $identity_val,
                             'name' => $request->name,
                             'email' => $request->email,
                             'phone' => $request->phone,
@@ -237,11 +234,11 @@ class AuthPsikotestController extends Controller
                         ];
 
                         $data_father = [
-                            'identity_user' => $numbers_unique,
+                            'identity_user' => $identity_val,
                             'gender' => 1,
                         ];
                         $data_mother = [
-                            'identity_user' => $numbers_unique,
+                            'identity_user' => $identity_val,
                             'gender' => 0,
                         ];
                         $user = User::create($data_user);

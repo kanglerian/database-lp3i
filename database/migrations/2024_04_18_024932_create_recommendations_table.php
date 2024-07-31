@@ -15,7 +15,7 @@ class CreateRecommendationsTable extends Migration
     {
         Schema::create('recommendations', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->string('name');
             $table->string('phone', 20)->nullable();
             $table->unsignedBigInteger('school_id')->nullable();

@@ -44,7 +44,7 @@ class CreateApplicantsTable extends Migration
             $table->text('note')->nullable();
             $table->text('relation')->nullable();
 
-            $table->string('identity_user', 30)->nullable();
+            $table->string('identity_user', 50)->nullable();
             $table->string('program', 255)->nullable();
             $table->string('program_second', 255)->nullable();
             $table->char('isread', 1)->default('0');

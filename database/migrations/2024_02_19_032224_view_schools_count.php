@@ -32,6 +32,6 @@ class ViewSchoolsCount extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS schools_by_region');
+        DB::statement('DROP VIEW IF EXISTS `schools_by_region`;');
     }
 }

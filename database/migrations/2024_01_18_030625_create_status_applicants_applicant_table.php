@@ -16,7 +16,7 @@ class CreateStatusApplicantsApplicantTable extends Migration
         Schema::create('status_applicants_applicant', function (Blueprint $table) {
             $table->id();
             $table->year('pmb');
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->date('date');
             $table->tinyInteger('session');
             $table->timestamps();

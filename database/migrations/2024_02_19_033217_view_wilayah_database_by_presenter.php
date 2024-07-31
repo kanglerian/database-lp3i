@@ -46,6 +46,6 @@ class ViewWilayahDatabaseByPresenter extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS wilayah_database_by_presenter');
+        DB::statement('DROP VIEW IF EXISTS `wilayah_database_by_presenter`;');
     }
 }

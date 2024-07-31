@@ -299,32 +299,32 @@
                     <div class="relative overflow-x-auto sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                <tr class="border-b border-gray-100">
+                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
                                         <i class="fa-solid fa-user"></i>
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Status
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
                                         Tanggal
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Sumber Database
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
                                         Nama lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-white text-center">
                                         No. Telpon (Whatsapp)
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
                                         Presenter
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-white text-center">
                                         Asal sekolah
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
                                         Jurusan
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-white text-center">
@@ -334,7 +334,7 @@
                             </thead>
                             <tbody>
                                 @forelse ($applicants as $applicant)
-                                    <tr class="border-b border-gray-200">
+                                    <tr class="border-b border-gray-100">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
                                             <button type="button"
@@ -397,15 +397,15 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr class="border-b border-gray-200">
+                                    <tr>
                                         <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="p-5">
+                        {{-- <div class="p-5">
                             {{ $applicants->links() }}
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </section>

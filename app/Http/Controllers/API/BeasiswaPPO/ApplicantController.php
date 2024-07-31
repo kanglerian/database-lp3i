@@ -175,7 +175,6 @@ class ApplicantController extends Controller
             'mother_phone' => ['required', 'min:1', 'max:150'],
             'mother_place_of_birth' => ['required'],
             'mother_date_of_birth' => ['required'],
-            'mother_education' => ['required', 'min:1', 'max:150'],
         ],
         [
             'father_name.required' => 'Kolom nama ayah tidak boleh kosong.',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use App\Models\School;
@@ -81,11 +82,7 @@ class ApplicantController extends Controller
                 'year' => ['required'],
             ]);
 
-            $min = -100000000000000;
-            $max = 100000000000000;
-            $random_number = abs(mt_rand($min, $max));
-            $random_number_as_string = (string) $random_number;
-            $numbers_unique = str_replace('-', '', $random_number_as_string);
+            $identity_val = Str::uuid();
 
             $number_phone = strpos($request->input('phone'), '0') === 0 ? '62' . substr($request->input('phone'), 1) : $request->input('phone');
 
@@ -117,7 +114,7 @@ class ApplicantController extends Controller
                 return response()->json(['status' => true, 'message' => 'Terima kasih telah mengisi data. Kami akan segera menghubungi Anda untuk informasi lebih lanjut.', 'data' => $check_number]);
             } else {
                 $data = [
-                    'identity' => $numbers_unique,
+                    'identity' => $identity_val,
                     'name' => ucwords(strtolower($request->input('name'))),
                     'phone' => $number_phone,
                     'school' => $school,
@@ -132,11 +129,11 @@ class ApplicantController extends Controller
                 ];
 
                 $data_father = [
-                    'identity_user' => $numbers_unique,
+                    'identity_user' => $identity_val,
                     'gender' => 1,
                 ];
                 $data_mother = [
-                    'identity_user' => $numbers_unique,
+                    'identity_user' => $identity_val,
                     'gender' => 0,
                 ];
 

@@ -7,6 +7,7 @@ use App\Models\ApplicantFamily;
 use App\Models\ApplicantStatus;
 use App\Models\FollowUp;
 use App\Models\School;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -26,11 +27,7 @@ class ApplicantUpdateImport implements ToModel
 
     public function model(array $row)
     {
-        $min = -100000000000000;
-$max = 100000000000000;
-$random_number = abs(mt_rand($min, $max));
- $random_number_as_string = (string) $random_number;
-        $numbers_unique = str_replace('-', '', $random_number_as_string);
+        $identity_val = Str::uuid();
         $phone = !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null;
         $applicant = Applicant::where('phone', $phone)->first();
         $schoolName = $row[6];
@@ -67,12 +64,12 @@ $random_number = abs(mt_rand($min, $max));
         $kotakab = !empty($row[34]) ? ucwords($row[34]) : null;
 
         $create_father = [
-            'identity_user' => $numbers_unique,
+            'identity_user' => $identity_val,
             'gender' => 1,
             'job' => null,
         ];
         $create_mother = [
-            'identity_user' => $numbers_unique,
+            'identity_user' => $identity_val,
             'gender' => 0,
             'job' => null,
         ];
@@ -126,7 +123,7 @@ $random_number = abs(mt_rand($min, $max));
                 ApplicantFamily::create($create_father);
                 ApplicantFamily::create($create_mother);
                 return new Applicant([
-                    'identity' => $numbers_unique,
+                    'identity' => $identity_val,
                     'pmb' => $row[1],
                     'name' => !empty($row[2]) ? ucwords(strtolower($row[2])) : null,
                     'phone' => !empty($row[3]) ? (substr($row[3], 0, 1) === '0' ? '62' . substr($row[3], 1) : '62' . $row[3]) : null,

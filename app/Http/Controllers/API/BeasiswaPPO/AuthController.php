@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\UserUpload;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -62,12 +63,7 @@ class AuthController extends Controller
         }
 
         $pmbValue = getYearPMB();
-
-        $min = -100000000000000;
-        $max = 100000000000000;
-        $random_number = abs(mt_rand($min, $max));
-        $random_number_as_string = (string) $random_number;
-        $numbers_unique = str_replace('-', '', $random_number_as_string);
+        $identity_val = Str::uuid();
 
         $applicant = Applicant::where('phone', $request->phone)->first();
         if ($applicant) {
@@ -122,7 +118,7 @@ class AuthController extends Controller
             $presenter = User::where(['role' => 'P', 'phone' => $request->information])->first();
 
             $data_applicant = [
-                'identity' => $numbers_unique,
+                'identity' => $identity_val,
                 'name' => ucwords(strtolower($request->name)),
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -135,7 +131,7 @@ class AuthController extends Controller
             ];
 
             $data_user = [
-                'identity' => $numbers_unique,
+                'identity' => $identity_val,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
@@ -145,11 +141,11 @@ class AuthController extends Controller
             ];
 
             $data_father = [
-                'identity_user' => $numbers_unique,
+                'identity_user' => $identity_val,
                 'gender' => 1,
             ];
             $data_mother = [
-                'identity_user' => $numbers_unique,
+                'identity_user' => $identity_val,
                 'gender' => 0,
             ];
 
@@ -168,7 +164,7 @@ class AuthController extends Controller
                 $exp_token = time() + (24 * 60 * 60);
 
                 $data_token = [
-                    'identity' => $numbers_unique,
+                    'identity' => $identity_val,
                     'name' => $user_attempt->name,
                     'email' => $user_attempt->email,
                     'phone' => $user_attempt->phone,

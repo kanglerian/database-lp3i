@@ -49,6 +49,6 @@ class CreateViewTargetVolumeTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_target_volume');
+        DB::statement('DROP VIEW IF EXISTS `view_target_volume`;');
     }
 }

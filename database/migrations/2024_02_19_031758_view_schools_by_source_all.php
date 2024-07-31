@@ -52,6 +52,6 @@ class ViewSchoolsBySourceAll extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS schools_by_source_all');
+        DB::statement('DROP VIEW IF EXISTS `schools_by_source_all`;');
     }
 }

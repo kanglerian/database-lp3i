@@ -54,6 +54,6 @@ class ViewSchoolsBySourcePresenter extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS schools_by_source_presenter');
+        DB::statement('DROP VIEW IF EXISTS `schools_by_source_presenter`;');
     }
 }

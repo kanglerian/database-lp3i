@@ -48,6 +48,6 @@ class ViewReportByProgram extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS report_register_by_program');
+        DB::statement('DROP VIEW IF EXISTS `report_register_by_program`;');
     }
 }

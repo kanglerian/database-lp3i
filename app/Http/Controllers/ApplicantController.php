@@ -6,7 +6,7 @@ use App\Imports\ApplicantUpdateImport;
 use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use DateTime;
 
@@ -518,11 +518,7 @@ class ApplicantController extends Controller
                 ],
             );
 
-            $min = -100000000000000;
-            $max = 100000000000000;
-            $random_number = abs(mt_rand($min, $max));
-            $random_number_as_string = (string) $random_number;
-            $numbers_unique = str_replace('-', '', $random_number_as_string);
+            $identity_val = Str::uuid();
 
             $schoolCheck = School::where('id', $request->input('school'))->first();
             $schoolNameCheck = School::where('name', $request->input('school'))->first();
@@ -543,7 +539,7 @@ class ApplicantController extends Controller
             }
 
             $data_applicant = [
-                'identity' => $numbers_unique,
+                'identity' => $identity_val,
                 'pmb' => $request->input('pmb'),
                 'name' => ucwords(strtolower($request->input('name'))),
                 'gender' => $request->input('gender'),
@@ -562,11 +558,11 @@ class ApplicantController extends Controller
             ];
 
             $data_father = [
-                'identity_user' => $numbers_unique,
+                'identity_user' => $identity_val,
                 'gender' => 1,
             ];
             $data_mother = [
-                'identity_user' => $numbers_unique,
+                'identity_user' => $identity_val,
                 'gender' => 0,
             ];
 

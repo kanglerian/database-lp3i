@@ -16,7 +16,7 @@ class CreateTargetDatabaseTable extends Migration
         Schema::create('target_database', function (Blueprint $table) {
             $table->id();
             $table->year('pmb');
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->integer('total');
             $table->timestamps();
         });

@@ -53,6 +53,6 @@ class ViewSourceDatabaseByWilayah extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS source_database_by_wilayah');
+        DB::statement('DROP VIEW IF EXISTS `source_database_by_wilayah`;');
     }
 }

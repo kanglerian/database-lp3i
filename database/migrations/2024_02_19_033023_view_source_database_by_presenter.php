@@ -49,6 +49,6 @@ class ViewSourceDatabaseByPresenter extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS source_database_by_presenter');
+        DB::statement('DROP VIEW IF EXISTS `source_database_by_presenter`;');
     }
 }

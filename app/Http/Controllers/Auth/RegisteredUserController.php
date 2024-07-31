@@ -7,6 +7,7 @@ use App\Models\ApplicantStatus;
 use App\Models\ProgramType;
 use App\Models\School;
 use App\Models\SourceSetting;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Models\ApplicantFamily;
@@ -145,11 +146,7 @@ class RegisteredUserController extends Controller
 
         $check_email_user = User::where('email', $request->input('email'))->first();
 
-        $min = -100000000000000;
-        $max = 100000000000000;
-        $random_number = abs(mt_rand($min, $max));
-        $random_number_as_string = (string) $random_number;
-        $numbers_unique = str_replace('-', '', $random_number_as_string);
+        $identity_val = Str::uuid();
 
         if ($check_email_applicant) {
             if ($check_email_user) {
@@ -223,7 +220,7 @@ class RegisteredUserController extends Controller
                 Auth::login($user);
             } else {
                 $data_applicant = [
-                    'identity' => $numbers_unique,
+                    'identity' => $identity_val,
                     'programtype_id' => $request->input('programtype_id'),
                     'program' => $request->input('program'),
                     'program_second' => $request->input('program'),
@@ -249,7 +246,7 @@ class RegisteredUserController extends Controller
                 ];
 
                 $data_user = [
-                    'identity' => $numbers_unique,
+                    'identity' => $identity_val,
                     'name' => $request->input('name'),
                     'gender' => $request->input('gender'),
                     'email' => $request->input('email'),
@@ -260,11 +257,11 @@ class RegisteredUserController extends Controller
                 ];
 
                 $data_father = [
-                    'identity_user' => $numbers_unique,
+                    'identity_user' => $identity_val,
                     'gender' => 1,
                 ];
                 $data_mother = [
-                    'identity_user' => $numbers_unique,
+                    'identity_user' => $identity_val,
                     'gender' => 0,
                 ];
 

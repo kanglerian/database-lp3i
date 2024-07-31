@@ -55,6 +55,6 @@ class CreateViewReportTargetByPresenterTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_report_target_by_presenter');
+        DB::statement('DROP VIEW IF EXISTS `view_report_target_by_presenter`;');
     }
 }

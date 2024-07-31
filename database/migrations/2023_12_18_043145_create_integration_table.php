@@ -15,7 +15,7 @@ class CreateIntegrationTable extends Migration
     {
         Schema::create('integration', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->string('platform');
             $table->timestamps();
         });

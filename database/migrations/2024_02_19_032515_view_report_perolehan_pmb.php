@@ -55,6 +55,6 @@ class ViewReportPerolehanPmb extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS report_students_admission');
+        DB::statement('DROP VIEW IF EXISTS `report_students_admission`;');
     }
 }

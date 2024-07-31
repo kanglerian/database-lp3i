@@ -38,6 +38,6 @@ class CreateViewTargetDatabaseTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_target_database');
+        DB::statement('DROP VIEW IF EXISTS `view_target_database`;');
     }
 }

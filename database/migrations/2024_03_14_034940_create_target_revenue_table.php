@@ -16,7 +16,7 @@ class CreateTargetRevenueTable extends Migration
         Schema::create('target_revenue', function (Blueprint $table) {
             $table->id();
             $table->year('pmb');
-            $table->string('identity_user', 30);
+            $table->string('identity_user', 50);
             $table->date('date');
             $table->tinyInteger('session')->default(1);
             $table->integer('total');

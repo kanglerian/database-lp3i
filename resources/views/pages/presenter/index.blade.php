@@ -32,12 +32,12 @@
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto">
-                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
+                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 rounded-l-xl">
-                                        NIP
+                                        ID
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Nama Lengkap

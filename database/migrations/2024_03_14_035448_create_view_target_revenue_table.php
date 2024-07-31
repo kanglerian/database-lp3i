@@ -49,6 +49,6 @@ class CreateViewTargetRevenueTable extends Migration
      */
     public function down()
     {
-        DB::statement('DROP VIEW IF EXISTS view_target_revenue');
+        DB::statement('DROP VIEW IF EXISTS `view_target_revenue`;');
     }
 }

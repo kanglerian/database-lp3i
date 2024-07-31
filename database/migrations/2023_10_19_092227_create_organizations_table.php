@@ -15,7 +15,7 @@ class CreateOrganizationsTable extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_user', 30)->nullable();
+            $table->string('identity_user', 50)->nullable();
             $table->text('name')->nullable();
             $table->string('position')->nullable();
             $table->date('year')->nullable();

@@ -87,7 +87,7 @@ class UserController extends Controller
         ]);
 
         $data = [
-            'identity' => mt_rand(1, 1000000000),
+            'identity' => $request->input('phone'),
             'name' => ucwords(strtolower($request->input('name'))),
             'gender' => $request->input('gender'),
             'email' => $request->input('email'),
@@ -96,8 +96,9 @@ class UserController extends Controller
             'role' => $request->input('role'),
             'status' => $request->input('status'),
         ];
-        User::create($data);
-        return back()->with('message', 'Akun berhasil ditambahkan!');
+        dd($data);
+        // User::create($data);
+        // return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**

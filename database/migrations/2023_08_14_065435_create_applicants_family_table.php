@@ -15,7 +15,7 @@ class CreateApplicantsFamilyTable extends Migration
     {
         Schema::create('applicants_family', function (Blueprint $table) {
             $table->id();
-            $table->string('identity_user', 30)->nullable();
+            $table->string('identity_user', 50)->nullable();
             $table->string('name', 150)->nullable();
             $table->string('job', 150)->nullable();
             $table->string('phone', 150)->nullable();
