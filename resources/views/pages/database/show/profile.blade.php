@@ -802,7 +802,6 @@
                             let program_studi = database.data.user.program;
                             let program = programs.data.find((result) =>
                                 `${result.level} ${result.title}` == program_studi)
-                            console.log(program);
                             const addressParts = database.data.user.address.split(',');
                             const addressRtRw = addressParts[1].split(' ');
 
