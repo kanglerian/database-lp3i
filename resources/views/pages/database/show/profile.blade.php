@@ -963,7 +963,7 @@
                                 return alert('Tahun akademik harus kurang dari 9 karakter!')
                             }
 
-                            // saveAplikan(data, token, identityVal);
+                            saveAplikan(data, token, identityVal);
 
                             loadingMisil.classList.toggle('hidden');
                         }))
