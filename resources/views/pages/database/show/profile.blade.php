@@ -772,8 +772,7 @@
                                 platform: 'misil',
                             })
                             .then((response) => {
-                                // location.reload();
-                                console.log(response);
+                                location.reload();
                             })
                             .catch((error) => {
                                 console.log(error.message);
@@ -968,13 +967,11 @@
                             loadingMisil.classList.toggle('hidden');
                         }))
                         .catch((error) => {
-                            console.log(error);
                             alert('Ada masalah di Server, silahkan hubungi Administrator!');
                             document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
                         });
 
                 } catch (error) {
-                    console.log(error);
                     alert('Ada masalah di Server, silahkan hubungi Administrator!');
                     document.getElementById('button-misil').setAttribute('onclick', "alert('maintenance')");
                 }
