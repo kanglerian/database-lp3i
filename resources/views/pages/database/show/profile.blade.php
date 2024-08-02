@@ -800,7 +800,7 @@
                         .then(axios.spread((database, programs, misilAuth) => {
                             let token = misilAuth.data.messages['X-AUTH-TOKEN'];
                             let program_studi = database.data.user.program;
-                            let program = programs.data.programs.find((result) =>
+                            let program = programs.find((result) =>
                                 `${result.level} ${result.title}` == program_studi)
                             console.log(program);
                             const addressParts = database.data.user.address.split(',');
