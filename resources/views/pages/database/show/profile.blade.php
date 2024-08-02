@@ -800,9 +800,9 @@
                         .then(axios.spread((database, programs, misilAuth) => {
                             let token = misilAuth.data.messages['X-AUTH-TOKEN'];
                             let program_studi = database.data.user.program;
-                            let program = programs.find((result) =>
-                                `${result.level} ${result.title}` == program_studi)
-                            console.log(program);
+                            // let program = programs.find((result) =>
+                            //     `${result.level} ${result.title}` == program_studi)
+                            console.log(programs);
                             const addressParts = database.data.user.address.split(',');
                             const addressRtRw = addressParts[1].split(' ');
 
@@ -964,7 +964,7 @@
                                 return alert('Tahun akademik harus kurang dari 9 karakter!')
                             }
 
-                            saveAplikan(data, token, identityVal);
+                            // saveAplikan(data, token, identityVal);
 
                             loadingMisil.classList.toggle('hidden');
                         }))
