@@ -791,6 +791,7 @@
                 try {
                     const database = axios.get(`/api/database/${identityVal}`);
                     const programs = axios.get(`${URL_API_LP3I}/dashboard/programs`);
+                    console.log(programs);
                     const misilAuth = axios.post(
                         `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
                             namaUser: "integrasi",
