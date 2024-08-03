@@ -403,9 +403,9 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{-- <div class="p-5">
+                        <div class="p-5">
                             {{ $applicants->links() }}
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </section>
