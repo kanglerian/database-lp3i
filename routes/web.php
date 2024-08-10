@@ -212,6 +212,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('organizations', OrganizationController::class);
 });
 
-Route::get('/mail', [MailController::class, 'sendEmail']);
+Route::get('/mail/send', [MailController::class, 'sendEmail']);
+Route::get('/mail', [MailController::class, 'check']);
 
 require __DIR__ . '/auth.php';
