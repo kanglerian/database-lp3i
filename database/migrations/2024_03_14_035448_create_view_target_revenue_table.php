@@ -14,6 +14,7 @@ class CreateViewTargetRevenueTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `view_target_revenue`;');
         DB::statement('
             CREATE VIEW `view_target_revenue` AS
             SELECT

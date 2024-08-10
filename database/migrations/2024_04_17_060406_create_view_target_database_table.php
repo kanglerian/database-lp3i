@@ -13,6 +13,7 @@ class CreateViewTargetDatabaseTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `view_target_database`;');
         DB::statement('
             CREATE VIEW `view_target_database` AS
             SELECT

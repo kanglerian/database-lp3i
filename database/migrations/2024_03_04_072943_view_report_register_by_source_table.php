@@ -14,6 +14,7 @@ class ViewReportRegisterBySourceTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `report_register_by_source`;');
         DB::statement('
             CREATE VIEW `report_register_by_source` AS
             SELECT

@@ -14,6 +14,7 @@ class ViewReportRegisterBySchoolYear extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `report_register_by_school_year`;');
         DB::statement('
             CREATE VIEW `report_register_by_school_year` AS
             SELECT

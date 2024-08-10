@@ -14,6 +14,7 @@ class CreateViewDashboardRegisterByProgramTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `dashboard_register_by_program`;');
         DB::statement('
             CREATE VIEW `dashboard_register_by_program` AS
             SELECT

@@ -14,6 +14,7 @@ class CreateViewDashboardSalesTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `dashboard_sales`;');
         DB::statement('
         CREATE VIEW `dashboard_sales` AS
         SELECT

@@ -14,6 +14,8 @@ class ViewApplicantsBySource extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `applicants_by_source_id`;');
+
         DB::statement('
             CREATE VIEW `applicants_by_source_id` AS
             SELECT

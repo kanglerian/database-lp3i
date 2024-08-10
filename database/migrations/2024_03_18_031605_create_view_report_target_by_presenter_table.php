@@ -14,6 +14,7 @@ class CreateViewReportTargetByPresenterTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `view_report_target_by_presenter`;');
         DB::statement('
         CREATE VIEW `view_report_target_by_presenter` AS
         SELECT

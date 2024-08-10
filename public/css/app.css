@@ -752,9 +752,6 @@ select {
 .right-\[-7px\] {
   right: -7px;
 }
-.right-\[10px\] {
-  right: 10px;
-}
 .top-0 {
   top: 0px;
 }
@@ -769,9 +766,6 @@ select {
 }
 .top-7 {
   top: 1.75rem;
-}
-.top-\[-25px\] {
-  top: -25px;
 }
 .top-\[-40px\] {
   top: -40px;
@@ -1760,21 +1754,6 @@ select {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
-.text-\[15px\] {
-  font-size: 15px;
-}
-.text-\[17px\] {
-  font-size: 17px;
-}
-.text-\[18px\] {
-  font-size: 18px;
-}
-.text-\[25px\] {
-  font-size: 25px;
-}
-.text-\[9px\] {
-  font-size: 9px;
-}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2478,10 +2457,6 @@ select {
 
   .sm\:rounded-lg {
     border-radius: 0.5rem;
-  }
-
-  .sm\:rounded-2xl {
-    border-radius: 1rem;
   }
 
   .sm\:p-8 {

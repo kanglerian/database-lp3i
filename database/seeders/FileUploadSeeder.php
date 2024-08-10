@@ -84,13 +84,13 @@ class FileUploadSeeder extends Seeder
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],[
                 'name' => 'Foto Rumah (Luar & Dalam)',
-                'namefile' => 'foto-rumah',
+                'namefile' => 'foto-rumah-luar-dan-dalam',
                 'accept' => 'image/*',
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')
             ],[
                 'name' => 'Bukti Tarif Daya Listrik Rumah',
-                'namefile' => 'bukti-tarif-daya',
+                'namefile' => 'bukti-tarif-daya-listrik',
                 'accept' => 'image/*',
                 'created_at' => Carbon::now()->setTimezone('Asia/Jakarta'),
                 'updated_at' => Carbon::now()->setTimezone('Asia/Jakarta')

@@ -14,6 +14,7 @@ class CreateViewDashboardRekapPerolehanPmbTable extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `dashboard_rekap_perolehan_pmb`;');
         DB::statement('
         CREATE VIEW `dashboard_rekap_perolehan_pmb` AS
         SELECT

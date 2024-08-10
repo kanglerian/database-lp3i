@@ -14,6 +14,7 @@ class ViewSchoolsCount extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `schools_by_region`;');
         DB::statement('
             CREATE VIEW `schools_by_region` AS
                 SELECT region,

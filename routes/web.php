@@ -33,6 +33,8 @@ use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\DataController;
 use App\Http\Controlllers\API\ApplicantController as APIA;
 
+use App\Http\Controllers\MailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -209,5 +211,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('organizations', OrganizationController::class);
 });
+
+Route::get('/mail', [MailController::class, 'sendEmail']);
 
 require __DIR__ . '/auth.php';

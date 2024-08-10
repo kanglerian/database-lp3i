@@ -14,6 +14,7 @@ class ViewSourceDatabaseByPresenter extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `source_database_by_presenter`;');
         DB::statement('
             CREATE VIEW `source_database_by_presenter` AS
             SELECT

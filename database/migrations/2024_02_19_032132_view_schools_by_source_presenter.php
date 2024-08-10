@@ -14,6 +14,7 @@ class ViewSchoolsBySourcePresenter extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `schools_by_source_presenter`;');
         DB::statement('
             CREATE VIEW `schools_by_source_presenter` AS
             SELECT

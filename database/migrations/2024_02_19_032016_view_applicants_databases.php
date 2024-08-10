@@ -14,6 +14,7 @@ class ViewApplicantsDatabases extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `applicants_databases`;');
         DB::statement('
             CREATE VIEW applicants_databases AS
             SELECT

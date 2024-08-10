@@ -116,6 +116,7 @@
                     }
                 })
                 .catch((error) => {
+                    hideLoadingAnimation();
                     $('#content').hide();
                     $('#forbidden').show();
                 });

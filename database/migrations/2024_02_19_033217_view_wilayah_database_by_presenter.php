@@ -14,6 +14,7 @@ class ViewWilayahDatabaseByPresenter extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `wilayah_database_by_presenter`;');
         DB::statement('
             CREATE VIEW `wilayah_database_by_presenter` AS
             SELECT

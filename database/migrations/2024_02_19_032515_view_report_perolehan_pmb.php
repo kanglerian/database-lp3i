@@ -14,6 +14,7 @@ class ViewReportPerolehanPmb extends Migration
      */
     public function up()
     {
+        DB::statement('DROP VIEW IF EXISTS `report_students_admission`;');
         DB::statement('
             CREATE VIEW `report_students_admission` AS
             SELECT

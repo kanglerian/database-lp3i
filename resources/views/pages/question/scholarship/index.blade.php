@@ -295,6 +295,7 @@
 
                         resolve(results);
                     } catch (error) {
+                        
                         reject(error)
                     }
                 });
@@ -316,6 +317,7 @@
                     })
                     .catch((error) => {
                         console.log(error);
+                        hideLoadingAnimation();
                     });
             }
             promiseDataScholarship();
