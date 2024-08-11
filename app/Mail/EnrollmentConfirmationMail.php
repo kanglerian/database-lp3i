@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ExampleMail extends Mailable
+class EnrollmentConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -28,7 +28,8 @@ class ExampleMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.example')
+        return $this->view('emails.enrollment')
+                    ->subject('Konfirmasi Pendaftaran Kuliah Berhasil!')
                     ->with('data', $this->data);
     }
 }

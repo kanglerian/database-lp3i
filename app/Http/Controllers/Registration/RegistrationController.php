@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Registration;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationConfirmationMail;
 use App\Models\Applicant;
 use App\Models\StatusApplicantsRegistration;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
@@ -102,10 +106,29 @@ class RegistrationController extends Controller
             'is_register' => 1,
         ];
 
+        $reset_password = [
+            'password' => Hash::make($applicant->phone)
+        ];
+
+        $user = User::where('identity', $request->input('identity_user'))->first();
+
         $applicant->update($data_applicant);
+        $user->update($reset_password);
 
         StatusApplicantsRegistration::create($data);
-        return back()->with('message', 'Data registrasi berhasil ditambahkan!');
+        $data = [
+            'name' => $applicant->name,
+            'program' => $applicant->program,
+            'school' => $applicant->schoolapplicant->name,
+            'major' => $applicant->major,
+            'year' => $applicant->year,
+            'phone' => $applicant->phone,
+            'email' => $applicant->email,
+            'password' => $applicant->phone,
+            'presenter' => $applicant->presenter->name,
+        ];
+        Mail::to($applicant->email)->send(new RegistrationConfirmationMail($data));
+        return back()->with('message', 'Data registrasi berhasil ditambahkan, notifikasi email sudah terkirim!');
     }
 
     /**

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Enrollment;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EnrollmentConfirmationMail;
 use App\Models\Applicant;
 use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
@@ -117,7 +119,18 @@ class EnrollmentController extends Controller
         $applicant->update($data_applicant);
 
         StatusApplicantsEnrollment::create($data_enrollment);
-        return back()->with('message', 'Data daftar berhasil ditambahkan!');
+        $data = [
+            'receipt' => $request->input('receipt'),
+            'name' => $applicant->name,
+            'school' => $applicant->schoolapplicant->name,
+            'major' => $applicant->major,
+            'year' => $applicant->year,
+            'phone' => $applicant->phone,
+            'email' => $applicant->email,
+            'presenter' => $applicant->presenter->name,
+        ];
+        Mail::to($applicant->email)->send(new EnrollmentConfirmationMail($data));
+        return back()->with('message', 'Data daftar berhasil ditambahkan, notifikasi email sudah terkirim!');
     }
 
     /**

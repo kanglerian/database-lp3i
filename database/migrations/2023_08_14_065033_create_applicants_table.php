@@ -16,29 +16,29 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
 
-            $table->string('identity', 50);
+            $table->string('identity', 50)->unique();
             $table->year('pmb');
 
             $table->string('nik', 16)->nullable();
             $table->string('name', 150);
-            $table->tinyInteger('gender')->nullable();
-            $table->string('religion', 100)->nullable();
+            $table->boolean('gender')->default(true);
+            $table->string('religion', 50 )->nullable();
             $table->text('place_of_birth')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->text('address')->nullable();
-            $table->string('social_media')->nullable();
+            $table->string('social_media', 100)->nullable();
 
             $table->string('email', 100)->nullable()->unique();
             $table->string('phone', 20)->nullable()->unique();
 
-            $table->string('education', 255)->nullable();
+            $table->string('education', 20)->nullable();
             $table->string('major', 100)->nullable();
             $table->string('class', 100)->nullable();
             $table->year('year')->nullable();
             $table->text('achievement')->nullable();
             $table->text('kip')->nullable();
             $table->string('nisn')->nullable();
-            $table->char('schoolarship', 1)->default('0');
+            $table->boolean('schoolarship')->default(false);
             $table->timestamp('scholarship_date')->nullable();
 
             $table->text('note')->nullable();
@@ -47,15 +47,15 @@ class CreateApplicantsTable extends Migration
             $table->string('identity_user', 50)->nullable();
             $table->string('program', 255)->nullable();
             $table->string('program_second', 255)->nullable();
-            $table->char('isread', 1)->default('0');
-            $table->char('come', 1)->nullable();
+            $table->boolean('isread')->default(false);
+            $table->boolean('come')->default(false);
 
-            $table->char('is_applicant', 1)->default('0');
-            $table->char('is_daftar', 1)->default('0');
-            $table->char('is_register', 1)->default('0');
+            $table->boolean('is_applicant')->default(false);
+            $table->boolean('is_daftar')->default(false);
+            $table->boolean('is_register')->default(false);
 
-            $table->char('known', 1)->nullable();
-            $table->string('planning')->nullable();
+            $table->boolean('known')->default(false);
+            $table->text('planning')->nullable();
             $table->text('other_campus')->nullable();
             $table->string('income_parent')->nullable();
 

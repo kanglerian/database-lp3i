@@ -84,7 +84,7 @@
 
                 return accumulator;
             }, []);
-            console.log(reducedData);
+
             reducedData.forEach((result) => {
                 const lat = result.lat ?? -6.618;
                 const lng = result.lng ?? 107.282;

@@ -16,9 +16,9 @@ class CreateSchoolsTable extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->char('status')->nullable();
+            $table->char('status', 1)->nullable();
             $table->string('region');
-            $table->string('type')->nullable();
+            $table->string('type', 10)->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->timestamps();

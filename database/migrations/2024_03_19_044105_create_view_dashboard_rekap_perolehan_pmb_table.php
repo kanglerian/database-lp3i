@@ -16,13 +16,13 @@ class CreateViewDashboardRekapPerolehanPmbTable extends Migration
     {
         DB::statement('DROP VIEW IF EXISTS `dashboard_rekap_perolehan_pmb`;');
         DB::statement('
-        CREATE VIEW `dashboard_rekap_perolehan_pmb` AS
+        CREATE OR REPLACE VIEW `dashboard_rekap_perolehan_pmb` AS
         SELECT
-            users.identity AS identity,
-            users.name AS name,
-            status_applicants_applicant.pmb AS pmb_applicant,
-            status_applicants_enrollment.pmb AS pmb_enrollment,
-            status_applicants_registration.pmb AS pmb_registration,
+            users.identity COLLATE utf8mb4_general_ci AS identity,
+            users.name COLLATE utf8mb4_general_ci AS name,
+            status_applicants_applicant.pmb COLLATE utf8mb4_general_ci AS pmb_applicant,
+            status_applicants_enrollment.pmb COLLATE utf8mb4_general_ci AS pmb_enrollment,
+            status_applicants_registration.pmb COLLATE utf8mb4_general_ci AS pmb_registration,
             COALESCE(COUNT(status_applicants_applicant.id), 0) AS applicant,
             COALESCE(COUNT(status_applicants_enrollment.id), 0) AS enrollment,
             COALESCE(COUNT(status_applicants_registration.id), 0) AS registration,

@@ -15,7 +15,7 @@ class CreateFollowupTable extends Migration
     {
         Schema::create('followup', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
             $table->timestamps();
         });
     }

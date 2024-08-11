@@ -16,22 +16,22 @@ class CreateViewDashboardSalesTable extends Migration
     {
         DB::statement('DROP VIEW IF EXISTS `dashboard_sales`;');
         DB::statement('
-        CREATE VIEW `dashboard_sales` AS
+        CREATE OR REPLACE VIEW `dashboard_sales` AS
         SELECT
-            users.identity AS identity,
-            target_volume.pmb AS pmb_volume,
-            target_revenue.pmb AS pmb_revenue,
-            users.name AS name,
+            users.identity COLLATE utf8mb4_general_ci AS identity,
+            target_volume.pmb COLLATE utf8mb4_general_ci AS pmb_volume,
+            target_revenue.pmb COLLATE utf8mb4_general_ci AS pmb_revenue,
+            users.name COLLATE utf8mb4_general_ci AS name,
             COALESCE(target_volume.total, 0) AS target_volume,
             COALESCE(COUNT(status_applicants_registration.id), 0) AS realization_volume,
             COALESCE(target_revenue.total, 0) AS target_revenue,
             COALESCE(SUM(status_applicants_registration.deal), 0) AS realization_revenue
         FROM
             users
-            LEFT JOIN target_volume ON target_volume.identity_user = users.identity
-            LEFT JOIN applicants ON applicants.identity_user = users.identity
-            LEFT JOIN status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity
-            LEFT JOIN target_revenue ON target_revenue.identity_user = users.identity
+            LEFT JOIN target_volume ON target_volume.identity_user = users.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN applicants ON applicants.identity_user = users.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN target_revenue ON target_revenue.identity_user = users.identity COLLATE utf8mb4_general_ci
         WHERE
             users.role = "P"
         GROUP BY
