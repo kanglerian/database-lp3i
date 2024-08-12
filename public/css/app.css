@@ -752,6 +752,9 @@ select {
 .right-\[-7px\] {
   right: -7px;
 }
+.start-0 {
+  inset-inline-start: 0px;
+}
 .top-0 {
   top: 0px;
 }
@@ -1067,6 +1070,9 @@ select {
 }
 .w-8 {
   width: 2rem;
+}
+.w-80 {
+  width: 20rem;
 }
 .w-\[130px\] {
   width: 130px;
@@ -1715,6 +1721,12 @@ select {
 }
 .pr-4 {
   padding-right: 1rem;
+}
+.ps-10 {
+  padding-inline-start: 2.5rem;
+}
+.ps-3 {
+  padding-inline-start: 0.75rem;
 }
 .pt-1 {
   padding-top: 0.25rem;

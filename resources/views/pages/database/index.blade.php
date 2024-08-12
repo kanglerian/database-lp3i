@@ -105,7 +105,7 @@
                     class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
                     <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb"
+                        <input type="number" id="change_pmb" onkeyup="changePMBQuick()"
                             class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                             placeholder="Tahun PMB">
                     </div>
@@ -295,6 +295,21 @@
             </section>
 
             <section class="overflow-hidden border rounded-3xl mx-3">
+                <section class="px-6 py-4">
+                    <div class="bg-white">
+                        <label for="table-search" class="sr-only">Search</label>
+                        <form method="GET" action="{{ route('database.index') }}" class="relative mt-1">
+                            <div
+                                class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <i class="fa-solid fa-search text-gray-400"></i>
+                            </div>
+                            <input type="hidden" name="pmbVal" id="change_pmb_quick">
+                            <input type="text" name="name"
+                                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Cari nama disini..." autofocus required>
+                        </form>
+                    </div>
+                </section>
                 <div class="p-6 bg-gray-50">
                     <div class="relative overflow-x-auto sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -403,9 +418,11 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="p-5">
-                            {{ $applicants->links() }}
-                        </div>
+                        @if (count($applicants) > 4)
+                            <div class="p-5">
+                                {{ $applicants->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </section>
@@ -427,6 +444,11 @@
                 const currentMonth = currentDate.getMonth();
                 const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
                 document.getElementById('change_pmb').value = startYear;
+                document.getElementById('change_pmb_quick').value = startYear;
+            }
+            const changePMBQuick = () => {
+                const data = document.getElementById('change_pmb').value;
+                document.getElementById('change_pmb_quick').value = data;
             }
             getYearPMB();
 
@@ -560,7 +582,7 @@
                     let schoolSelect = document.getElementById('school');
                     let selectedSchoolOption = schoolSelect.options[schoolSelect.selectedIndex];
                     let schoolVal = selectedSchoolOption.innerText || 'all';
-                    if(schoolVal == 'Pilih sekolah'){
+                    if (schoolVal == 'Pilih sekolah') {
                         schoolVal = 'all';
                     }
                     let majorVal = document.getElementById('change_major').value || 'all';

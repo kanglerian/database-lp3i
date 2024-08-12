@@ -78,8 +78,13 @@ class ApplicantController extends Controller
         $jobMotherVal = request('jobMotherVal', 'all');
         $databaseOnline = request('databaseOnline', 'all');
         $statusApplicant = request('statusApplicant', 'all');
+        $nameVal = request('name');
 
         $appends = [];
+
+        if($nameVal){
+            $applicantsQuery->where('name', 'LIKE', '%' . $nameVal . '%');
+        }
 
         if (Auth::user()->role === 'P') {
             $applicantsQuery->where('identity_user', Auth::user()->identity);
