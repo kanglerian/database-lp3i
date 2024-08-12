@@ -123,11 +123,14 @@
 
 </x-app-layout>
 
+@push('scripts')
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
     const checkServer = async () => {
         await axios.get(`${URL_API_LP3I}/pmbonline`)
             .then((response) => {
+                console.log(response);
+                
                 if (response.status == 200) {
                     $('#content').show();
                     $('#forbidden').hide();
@@ -282,3 +285,4 @@
         }
     }
 </script>
+@endpush
