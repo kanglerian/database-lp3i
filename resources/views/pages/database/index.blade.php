@@ -418,11 +418,9 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        @if (count($applicants) > 4)
-                            <div class="p-5">
-                                {{ $applicants->links() }}
-                            </div>
-                        @endif
+                        <div class="p-5">
+                            {{ $applicants->links() }}
+                        </div>
                     </div>
                 </div>
             </section>
