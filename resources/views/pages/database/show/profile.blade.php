@@ -240,13 +240,13 @@
                                         <i class="fa-solid fa-circle-check mr-1"></i>
                                         <span>Sudah memiliki akun</span>
                                     </button>
-                                    @if ($user->identity_user === '6281313608558')
-                                        <p class="text-xs text-center text-red-500">
-                                            Untuk registrasi, buat akun terlebih dahulu.
-                                        </p>
-                                    @endif
                                 </div>
                             @endif
+                            @if ($user->identity_user === '6281313608558')
+                                <p class="text-xs text-center text-red-500">
+                                    Presenter belum diubah, silahkan untuk ubah terlebih dahulu.
+                                </p>
+                            @else
                             <div class="space-y-2">
                                 <div>
                                     <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
@@ -386,6 +386,7 @@
                                     </div>
                                 @endif
                             </div>
+                            @endif
                             @if (
                                 $user->pmb &&
                                     $user->nik &&
