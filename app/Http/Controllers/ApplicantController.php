@@ -602,7 +602,6 @@ class ApplicantController extends Controller
             }
 
             $account = User::where(['email' => $user->email, 'identity' => $user->identity])->count();
-            dd($account);
             $profile = User::where(['identity' => $user->identity])->first();
 
             $status_applicant = StatusApplicantsApplicant::where('identity_user', $identity)->first();
