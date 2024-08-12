@@ -111,6 +111,7 @@
             const checkServer = async () => {
                 await axios.get(`${URL_API_LP3I}/pmbonline`)
                     .then((response) => {
+                        console.log(response.data);
                         if (response.status == 200) {
                             $('#content').show();
                             $('#forbidden').hide();
