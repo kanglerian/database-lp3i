@@ -122,7 +122,7 @@
                         $('#forbidden').show();
                     });
             }
-            checkServer();
+            // checkServer();
 
             const notifButton = (namefile) => {
                 let inputElement = document.getElementById(`berkas-${namefile}`);
