@@ -4,7 +4,7 @@
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('presenter.index') }}"
+                        <a href="{{ route('presenters.index') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
                             <i class="fa-solid fa-users mr-2"></i>
                             Presenter
@@ -13,7 +13,7 @@
                     <li>
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
-                            <a href="{{ route('presenter.show', $presenter->id) }}"
+                            <a href="{{ route('presenters.show', $presenter->id) }}"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ $presenter->name }}</a>
                         </div>
                     </li>

@@ -3,7 +3,7 @@
         <nav class="flex">
             <ol class="inline-flex items-center space-x-2 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('presenter.index') }}"
+                    <a href="{{ route('presenters.index') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
                         <i class="fa-solid fa-users mr-2"></i>
                         Presenter
@@ -31,7 +31,7 @@
             @endif
             <div class="flex flex-col md:flex-row justify-center gap-5 p-4 md:p-0">
                 <div class="w-full md:w-2/3 p-6 bg-gray-50 border border-gray-200 rounded-3xl">
-                    <form method="POST" class="space-y-2" action="{{ route('presenter.update', $presenter->id) }}">
+                    <form method="POST" class="space-y-2" action="{{ route('presenters.update', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
                         <div class="grid grid-cols-1">
@@ -100,7 +100,7 @@
                     </form>
                 </div>
                 <div class="w-full md:w-1/3 p-6 bg-gray-50 border border-gray-200 rounded-3xl">
-                    <form method="POST" action="{{ route('presenter.password', $presenter->id) }}">
+                    <form method="POST" action="{{ route('presenters.password', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
                         <div class="relative z-0 w-full mb-6 group">

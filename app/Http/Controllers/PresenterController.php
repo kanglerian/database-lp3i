@@ -21,9 +21,16 @@ class PresenterController extends Controller
      */
     public function index()
     {
+        $nameVal = request('name');
+        $presenterQuery = User::query();
+        if($nameVal){
+            $presenterQuery->where('name', 'LIKE', '%' . $nameVal . '%');
+        }
         $total = User::where('role', 'P')->count();
+        $presenters = $presenterQuery->where('role', 'P')->paginate(5);
         return view('pages.presenter.index')->with([
             'total' => $total,
+            'presenters' => $presenters,
         ]);
     }
 
@@ -185,7 +192,6 @@ class PresenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function destroy($id)
     {
         try {
@@ -199,20 +205,16 @@ class PresenterController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function status(Request $request, $id)
+    public function status($id)
     {
         $presenter = User::findOrFail($id);
-        $request->validate([
-            'status' => ['string'],
-        ]);
         $data = [
-            'status' => $presenter->status == '0' ? '1' : '0',
+            'status' => $presenter->status == 0 ? 1 : 0,
         ];
         $presenter->update($data);
         return back()->with('message', 'Status presenter berhasil diubah!');

@@ -14,7 +14,7 @@ class AddForeignKeyUsersUpload extends Migration
     public function up()
     {
         Schema::table('users_upload', function (Blueprint $table) {
-            $table->foreign('fileupload_id')->references('id')->on('file_upload')->onDelete('restrict');
+            $table->foreign('fileupload_id')->references('id')->on('file_upload')->onDelete('cascade');
         });
     }
 

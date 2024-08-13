@@ -21,20 +21,41 @@ class SchoolController extends Controller
      */
     public function index()
     {
+        $pmb = request('pmb', 'all');
+        $region = request('region', 'all');
+        $problem = request('problem');
+        $name = request('name');
+
         $total = School::count();
         $useless = SchoolBySourceAll::where('jumlah', 0)->count();
         $schools_by_region = School::select('region')->groupBy('region')->get();
-        $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])
-            ->orWhereNull('name')
-            ->orWhereNull('region')
-            ->orWhereNull('type')
-            ->orWhereNull('status')
-            ->count();
+        $slepets = School::where(['region' => 'TIDAK DIKETAHUI'])->count();
+
+        $schoolsQuery = SchoolBySourceAll::query();
+
+        if($name){
+            $schoolsQuery->where('nama', 'LIKE', '%' . $name . '%');
+        }
+
+        if($problem){
+            $schoolsQuery->where('wilayah', 'TIDAK DIKETAHUI');
+        }
+
+        if ($pmb !== 'all') {
+            $schoolsQuery->where('pmb', $pmb);
+        }
+
+        if ($region !== 'all') {
+            $schoolsQuery->where('wilayah', $region);
+        }
+
+        $schools = $schoolsQuery->paginate(5);
         return view('pages.schools.index')->with([
             'total' => $total,
             'schools_by_region' => $schools_by_region,
             'slepets' => $slepets,
-            'useless' => $useless
+            'useless' => $useless,
+            'schools' => $schools
         ]);
     }
 
@@ -112,8 +133,8 @@ class SchoolController extends Controller
             'type' => ['required', 'not_in:Pilih'],
             'status' => ['required', 'not_in:Pilih'],
             'region' => ['required', 'not_in:Pilih'],
-            'lat' => ['required','min:7','max:9'],
-            'lng' => ['required','min:7','max:9'],
+            'lat' => ['required', 'min:7', 'max:9'],
+            'lng' => ['required', 'min:7', 'max:9'],
         ], [
             'name.required' => 'Kolom nama sekolah tidak boleh kosong.',
             'type.required' => 'Kolom tipe sekolah tidak boleh kosong.',

@@ -14,7 +14,9 @@ class AddForeignKeyApplicants extends Migration
     public function up()
     {
         Schema::table('applicants', function (Blueprint $table) {
+            $table->foreign('source_daftar_id')->references('id')->on('source_setting')->onDelete('restrict');
             $table->foreign('school')->references('id')->on('schools')->onDelete('restrict');
+            $table->foreign('identity_user')->references('identity')->on('users')->onDelete('restrict');
             $table->foreign('source_id')->references('id')->on('source_setting')->onDelete('restrict');
             $table->foreign('status_id')->references('id')->on('applicants_status')->onDelete('restrict');
             $table->foreign('followup_id')->references('id')->on('followup')->onDelete('restrict');

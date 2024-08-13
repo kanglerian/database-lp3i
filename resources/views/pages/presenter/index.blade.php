@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+        <div class="max-w-7xl mx-auto px-5 lg:px-8 space-y-5">
             @if (session('message'))
                 <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                     role="alert">
@@ -24,36 +24,100 @@
                     </div>
                 </div>
             @endif
-            <div class="px-2">
-                <a href="{{ route('presenter.create') }}"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
+            <section class="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
+                <a href="{{ route('presenters.create') }}"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-3 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus"></i> Tambah Data</a>
-            </div>
+                <div class="bg-white">
+                    <label for="table-search" class="sr-only">Search</label>
+                    <form method="GET" action="{{ route('presenters.index') }}" class="relative mt-1">
+                        <div
+                            class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <i class="fa-solid fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" name="name" id="quick_name"
+                            class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Cari nama disini..." autofocus>
+                    </form>
+                </div>
+            </section>
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto">
-                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <div class="relative overflow-x-auto sm:rounded-xl">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
-                                        ID
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        No.
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Nama Lengkap
+                                        ID
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        Nama lengkap
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         No. Telpon (Whatsapp)
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Status
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                        Aksi
                                     </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
-                                        Action
-                                    </th>
+                                </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @forelse ($presenters as $key => $presenter)
+                                    <tr class="border-b border-gray-200">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                            {{ $presenters->perPage() * ($presenters->currentPage() - 1) + $key + 1 }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $presenter->identity }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
+                                            {{ $presenter->name }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $presenter->phone }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            <form action="{{ route('presenters.status', $presenter->id) }}"
+                                                method="GET" class="inline-block">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="{{ $presenter->status ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600' }} px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                    {!! $presenter->status ? '<i class="fa-solid fa-toggle-on"></i>' : '<i class="fa-solid fa-toggle-off"></i>' !!}
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('presenters.show', $presenter->id) }}"
+                                                class="inline-block bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('presenters.edit', $presenter->id) }}"
+                                                class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="{{ route('presenters.destroy', $presenter->id) }}"
+                                                method="post" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                         </table>
+                        <div class="p-5">
+                            {{ $presenters->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,135 +175,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+            document.getElementById('quick_name').value = name;
+            console.log(name);
+        }
+        getUrlParams();
+    </script>
 </x-app-layout>
-
-
-<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            ajax: {
-                url: 'get/presenters',
-                dataSrc: 'presenters'
-            },
-            rowCallback: function(row, data, index) {
-                if(index % 2 != 0){
-                    $(row).css('background-color', '#f9fafb');
-                }
-            },
-            columns: [
-                {
-                    data: 'identity',
-                },
-                {
-                    data: {
-                        id: 'id',
-                        name: 'name'
-                    },
-                    render: (data, row) => {
-                        let showUrl = "{{ route('presenter.show', ':id') }}".replace(':id',
-                            data.id);
-                        return `<a href="${showUrl}" class="underline font-bold">${data.name}</a>`
-                    }
-                },
-                {
-                    data: 'phone',
-                    render: (data, row) => {
-                        return typeof(data) == 'string' ? data : 'Tidak diketahui';
-                    }
-                },
-                {
-                    data: {
-                        id: 'id',
-                        status: 'status'
-                    },
-                    render: (data, type, row) => {
-                        let editUrl = "{{ route('presenter.change', ':id') }}".replace(':id',
-                            data.id);
-                        switch (data.status) {
-                            case "0":
-                                return `<button onclick="event.preventDefault(); statusRecord(${data.id})" class="bg-red-500 px-3 py-1 rounded-lg text-xs text-white"><i class="fa-solid fa-toggle-off"></i></button>`
-                                break;
-                            case "1":
-                                return `<button onclick="event.preventDefault(); statusRecord(${data.id})"  class="bg-emerald-500 px-3 py-1 rounded-lg text-xs text-white"><i class="fa-solid fa-toggle-on"></i></button>`
-                                break;
-                        }
-                    }
-                },
-                {
-                    data: 'id',
-                    render: (data, type, row) => {
-                        let editUrl = "{{ route('presenter.edit', ':id') }}".replace(':id',
-                            data);
-                        return `
-                        <div class="flex items-center gap-1">
-                            <a href="${editUrl}" class="bg-amber-500 hover:bg-amber-600 px-3 py-1 rounded-lg text-xs text-white">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>`
-                    }
-                },
-            ],
-        });
-    });
-
-    const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
-            $.ajax({
-                url: `/presenter/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                }
-            })
-        }
-    }
-
-    const statusRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan mengubah status data?')) {
-            $.ajax({
-                url: `/presenter/change/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'PATCH',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                }
-            })
-        }
-    }
-
-    const copyRecord = (name, phone, school, year, source) => {
-        var contentSource = '';
-        switch (source) {
-            case "1":
-                contentSource = 'Website'
-                break;
-            case "2":
-                contentSource = 'Presenter'
-                break;
-        }
-        const textarea = document.createElement("textarea");
-        textarea.value = `Nama lengkap: ${name} \nNo. Telp (Whatsapp): ${phone} \nAsal sekolah dan tahun lulus: ${school == "null" ? 'Tidak diketahui' : school} (${year}) \nSumber: ${contentSource}`;
-        textarea.style.position = "fixed";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert('Data sudah disalin.');
-    }
-</script>

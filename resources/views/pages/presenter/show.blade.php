@@ -4,7 +4,7 @@
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('presenter.index') }}"
+                        <a href="{{ route('presenters.index') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
                             <i class="fa-solid fa-users mr-2"></i>
                             Presenter
@@ -24,7 +24,7 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <a href="{{ route('presenter.sales_volume', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
+                <a href="{{ route('presenters.sales_volume', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
                     <h2 class="font-bold space-x-1">
                         <i class="fa-solid fa-users"></i>
                         <span>Sales Volume</span>
@@ -32,7 +32,7 @@
                     <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, consequuntur?</p>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
-                <a href="{{ route('presenter.sales_revenue', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
+                <a href="{{ route('presenters.sales_revenue', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
                     <h2 class="font-bold space-x-1">
                         <i class="fa-solid fa-wallet"></i>
                         <span>Sales Revenue</span>
@@ -40,7 +40,7 @@
                     <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, consequuntur?</p>
                     <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
                 </a>
-                <a href="{{ route('presenter.sales_database', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
+                <a href="{{ route('presenters.sales_database', $presenter->id) }}" class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl transition ease-in-out space-y-1">
                     <h2 class="font-bold space-x-1">
                         <i class="fa-solid fa-database"></i>
                         <span>Target Database</span>

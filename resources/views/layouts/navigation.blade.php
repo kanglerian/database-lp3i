@@ -56,7 +56,7 @@
                             'enrollment.index',
                             'registration.index',
                         ])">
-                            {{ __('Pembayaran') }}
+                            {{ __('Payments') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
@@ -67,29 +67,29 @@
                             'schools.show',
                             'schools.setting'
                         ])">
-                            {{ __('Sekolah') }}
+                            {{ __('Schools') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('presenter.index')" :active="request()->routeIs([
-                            'presenter.index',
-                            'presenter.create',
-                            'presenter.edit',
-                            'presenter.show',
-                            'presenter.sales_volume',
-                            'presenter.sales_revenue',
+                        <x-nav-link :href="route('presenters.index')" :active="request()->routeIs([
+                            'presenters.index',
+                            'presenters.create',
+                            'presenters.edit',
+                            'presenters.show',
+                            'presenters.sales_volume',
+                            'presenters.sales_revenue',
                         ])">
-                            {{ __('Presenter') }}
+                            {{ __('Presenters') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                         <x-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
-                            {{ __('Assessment') }}
+                            {{ __('Assessments') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit'])">
-                            {{ __('Akun') }}
+                            {{ __('Accounts') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
@@ -99,7 +99,7 @@
                             'setting.edit',
                             'setting.show',
                         ])">
-                            {{ __('Pengaturan') }}
+                            {{ __('Setting') }}
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')
@@ -238,41 +238,41 @@
                     'enrollment.index',
                     'registration.index',
                 ])">
-                    {{ __('Pembayaran') }}
+                    {{ __('Payments') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('schools.index')" :active="request()->routeIs(['schools.index', 'schools.create', 'schools.edit', 'schools.show'])">
-                    {{ __('Sekolah') }}
+                    {{ __('Schools') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                <x-responsive-nav-link :href="route('presenter.index')" :active="request()->routeIs([
-                    'presenter.index',
-                    'presenter.create',
-                    'presenter.edit',
-                    'presenter.show',
-                    'presenter.sales_volume',
-                    'presenter.sales_revenue',
+                <x-responsive-nav-link :href="route('presenters.index')" :active="request()->routeIs([
+                    'presenters.index',
+                    'presenters.create',
+                    'presenters.edit',
+                    'presenters.show',
+                    'presenters.sales_volume',
+                    'presenters.sales_revenue',
                 ])">
-                    {{ __('Presenter') }}
+                    {{ __('Presenters') }}
                 </x-responsive-nav-link>
             @endif
 
             @if (Auth::check() && Auth::user()->status == '1' && (Auth::user()->role == 'P' || Auth::user()->role == 'A'))
                 <x-responsive-nav-link :href="route('question.index')" :active="request()->routeIs(['question.index', 'scholarship.index', 'scholarship.question'])">
-                    {{ __('Assessment') }}
+                    {{ __('Assessments') }}
                 </x-responsive-nav-link>
             @endif
 
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs(['user.index', 'user.create', 'user.edit'])">
-                    {{ __('Akun') }}
+                    {{ __('Accounts') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
                 <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs(['setting.index', 'setting.create', 'setting.edit', 'setting.show'])">
-                    {{ __('Pengaturan') }}
+                    {{ __('Setting') }}
                 </x-responsive-nav-link>
             @endif
             @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'S')

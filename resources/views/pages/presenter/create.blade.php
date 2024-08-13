@@ -20,7 +20,7 @@
             @endif
             <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('presenter.store') }}">
+                    <form method="POST" action="{{ route('presenters.store') }}">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div class="relative z-0 w-full group">

@@ -716,11 +716,23 @@ select {
 .bottom-0 {
   bottom: 0px;
 }
+.bottom-2 {
+  bottom: 0.5rem;
+}
+.bottom-2\.5 {
+  bottom: 0.625rem;
+}
 .bottom-3 {
   bottom: 0.75rem;
 }
 .bottom-5 {
   bottom: 1.25rem;
+}
+.end-2 {
+  inset-inline-end: 0.5rem;
+}
+.end-2\.5 {
+  inset-inline-end: 0.625rem;
 }
 .left-0 {
   left: 0px;
@@ -897,6 +909,9 @@ select {
 .mb-\[3px\] {
   margin-bottom: 3px;
 }
+.me-1 {
+  margin-inline-end: 0.25rem;
+}
 .me-2 {
   margin-inline-end: 0.5rem;
 }
@@ -1035,14 +1050,8 @@ select {
 .w-11 {
   width: 2.75rem;
 }
-.w-28 {
-  width: 7rem;
-}
 .w-3 {
   width: 0.75rem;
-}
-.w-32 {
-  width: 8rem;
 }
 .w-36 {
   width: 9rem;
@@ -1453,6 +1462,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -1468,6 +1481,10 @@ select {
 .bg-emerald-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(52 211 153 / var(--tw-bg-opacity));
+}
+.bg-emerald-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
 }
 .bg-emerald-500 {
   --tw-bg-opacity: 1;
@@ -1725,8 +1742,14 @@ select {
 .ps-10 {
   padding-inline-start: 2.5rem;
 }
+.ps-12 {
+  padding-inline-start: 3rem;
+}
 .ps-3 {
   padding-inline-start: 0.75rem;
+}
+.ps-5 {
+  padding-inline-start: 1.25rem;
 }
 .pt-1 {
   padding-top: 0.25rem;
@@ -1996,6 +2019,11 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .transition-opacity {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2081,6 +2109,10 @@ select {
 .hover\:bg-amber-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(217 119 6 / var(--tw-bg-opacity));
+}
+.hover\:bg-blue-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 .hover\:bg-blue-800:hover {
   --tw-bg-opacity: 1;
@@ -2471,6 +2503,10 @@ select {
     border-radius: 0.5rem;
   }
 
+  .sm\:rounded-xl {
+    border-radius: 0.75rem;
+  }
+
   .sm\:p-8 {
     padding: 2rem;
   }
@@ -2588,6 +2624,10 @@ select {
 
   .md\:flex-nowrap {
     flex-wrap: nowrap;
+  }
+
+  .md\:items-end {
+    align-items: flex-end;
   }
 
   .md\:items-center {

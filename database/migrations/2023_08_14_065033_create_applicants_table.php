@@ -22,7 +22,7 @@ class CreateApplicantsTable extends Migration
             $table->string('nik', 16)->nullable();
             $table->string('name', 150);
             $table->boolean('gender')->default(true);
-            $table->string('religion', 50 )->nullable();
+            $table->string('religion', 50)->nullable();
             $table->text('place_of_birth')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->text('address')->nullable();

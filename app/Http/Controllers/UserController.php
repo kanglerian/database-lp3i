@@ -23,13 +23,20 @@ class UserController extends Controller
      */
     public function index()
     {
+        $nameVal = request('name');
+        $accountQuery = User::query();
+        if ($nameVal) {
+            $accountQuery->where('name', 'LIKE', '%' . $nameVal . '%');
+        }
         $users = User::count();
         $active = User::where('status', 1)->count();
         $deactive = User::where('status', 0)->count();
+        $accounts = $accountQuery->paginate(5);
         return view('pages.user.index')->with([
             'users' => $users,
             'active' => $active,
             'deactive' => $deactive,
+            'accounts' => $accounts
         ]);
     }
 
@@ -199,7 +206,7 @@ class UserController extends Controller
         if ($schoolCheck) {
             $school = $schoolCheck->id;
         } else {
-            if($schoolNameCheck){
+            if ($schoolNameCheck) {
                 $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
@@ -285,10 +292,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $account = User::findOrFail($id);
-        UserUpload::where('identity_user', $account->identity)->delete();
-        $account->delete();
-        return back()->with('message', 'Akun berhasil dihapus!');
+        try {
+            $account = User::findOrFail($id);
+            UserUpload::where('identity_user', $account->identity)->delete();
+            $account->delete();
+            return back()->with('message', 'Akun berhasil dihapus!');
+        } catch (\Exception $e) {
+            if($e->getCode() == '23000'){
+                return back()->with('error', 'Forbidden to delete!');
+            } else {
+                return back()->with('error', 'Terjadi kesalahan saat mengubah status: ' . $e->getMessage());
+            }
+        }
     }
 
     /**
@@ -356,20 +371,16 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function status(Request $request, $id)
+    public function status($id)
     {
         $user = User::findOrFail($id);
-        $request->validate([
-            'status' => ['string'],
-        ]);
         $data = [
-            'status' => $user->status == '0' ? '1' : '0',
+            'status' => $user->status == 0 ? 1 : 0,
         ];
         $user->update($data);
         return back()->with('message', 'Status berhasil diubah!');

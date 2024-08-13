@@ -120,8 +120,8 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 
 /* Route Presenter  */
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
-    Route::resource('presenter', PresenterController::class);
-    Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenter.get');
+    Route::resource('presenters', PresenterController::class);
+    Route::get('get/presenters', [PresenterController::class, 'get_all'])->name('presenters.get');
 });
 
 /* Route Presenter  */
@@ -130,12 +130,12 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::get('get/users/{role?}/{status?}', [UserController::class, 'get_all'])->name('user.get');
     Route::patch('user/update_account/{id}', [UserController::class, 'update_account'])->name('user.update_account');
     Route::patch('user/change_password/{id}', [UserController::class, 'change_password'])->name('user.change_password');
-    Route::patch('user/change/{id}', [UserController::class, 'status'])->name('user.change');
-    Route::patch('presenter/change/{id}', [PresenterController::class, 'status'])->name('presenter.change');
-    Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenter.password');
-    Route::get('presenter/sales/volume/{id}', [PresenterController::class, 'sales_volume'])->name('presenter.sales_volume');
-    Route::get('presenter/sales/revenue/{id}', [PresenterController::class, 'sales_revenue'])->name('presenter.sales_revenue');
-    Route::get('presenter/sales/database/{id}', [PresenterController::class, 'sales_database'])->name('presenter.sales_database');
+    Route::get('user/status/{id}', [UserController::class, 'status'])->name('user.status');
+    Route::get('presenter/status/{id}', [PresenterController::class, 'status'])->name('presenters.status');
+    Route::patch('presenter/change_password/{id}', [PresenterController::class, 'change_password'])->name('presenters.password');
+    Route::get('presenter/sales/volume/{id}', [PresenterController::class, 'sales_volume'])->name('presenters.sales_volume');
+    Route::get('presenter/sales/revenue/{id}', [PresenterController::class, 'sales_revenue'])->name('presenters.sales_revenue');
+    Route::get('presenter/sales/database/{id}', [PresenterController::class, 'sales_database'])->name('presenters.sales_database');
 });
 
 /* Route Profile */
@@ -176,7 +176,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('targetrevenue', TargetRevenueController::class);
     Route::resource('targetvolume', TargetVolumeController::class);
     Route::resource('targetdatabase', TargetDatabaseController::class);
-    Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenter.target');
+    Route::get('get/targets', [PresenterController::class, 'get_target'])->name('presenters.target');
 });
 
 /* Route Payment */
