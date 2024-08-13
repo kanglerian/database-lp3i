@@ -33,23 +33,31 @@ class SchoolController extends Controller
 
         $schoolsQuery = SchoolBySourceAll::query();
 
+        $appends = [];
+
         if($name){
             $schoolsQuery->where('nama', 'LIKE', '%' . $name . '%');
+            $appends['name'] = $name;
         }
 
         if($problem){
             $schoolsQuery->where('wilayah', 'TIDAK DIKETAHUI');
+            $appends['problem'] = $problem;
         }
 
         if ($pmb !== 'all') {
             $schoolsQuery->where('pmb', $pmb);
+            $appends['pmb'] = $pmb;
         }
 
         if ($region !== 'all') {
             $schoolsQuery->where('wilayah', $region);
+            $appends['region'] = $region;
         }
 
         $schools = $schoolsQuery->paginate(5);
+        $schools->appends($appends);
+
         return view('pages.schools.index')->with([
             'total' => $total,
             'schools_by_region' => $schools_by_region,
