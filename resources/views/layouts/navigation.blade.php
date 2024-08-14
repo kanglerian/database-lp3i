@@ -93,12 +93,7 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs([
-                            'setting.index',
-                            'setting.create',
-                            'setting.edit',
-                            'setting.show',
-                        ])">
+                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
                             {{ __('Setting') }}
                         </x-nav-link>
                     @endif
