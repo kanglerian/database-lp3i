@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="py-4">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+    <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
       <table>
         <thead>
           <tr>

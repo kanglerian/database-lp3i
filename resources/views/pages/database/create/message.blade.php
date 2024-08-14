@@ -9,7 +9,7 @@
       </div>
   @endif
   @if (session('message'))
-      <div id="alert" class="mx-2 mb-4 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
+      <div id="alert" class="mx-2 mb-4 flex items-center p-4 bg-emerald-500 text-emerald-50 rounded-xl"
           role="alert">
           <i class="fa-solid fa-circle-check"></i>
           <div class="ml-3 text-sm font-reguler">

@@ -22,7 +22,7 @@
     </x-slot>
 
     <div class="py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+        <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
             @if (session('message'))
                 <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
                     role="alert">
@@ -130,7 +130,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="p-5">
+                            <div class="p-1">
                                 {{ $accounts->links() }}
                             </div>
                         </div>

@@ -57,7 +57,7 @@
     </x-slot>
 
     <div class="py-10">
-        <div class="max-w-7xl mx-auto px-5 lg:px-8 space-y-5">
+        <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
             @if (session('message'))
                 <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
                     role="alert">
@@ -68,7 +68,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('error') }}

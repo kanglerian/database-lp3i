@@ -186,8 +186,8 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 });
 
 /* Route Setting */
-Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
-    Route::resource('setting', SettingController::class);
+Route::middleware(['auth', 'status:1', 'role:A'])->prefix('setting')->group(function () {
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::resource('programtype', ProgramTypeController::class);
     Route::resource('source', SourceController::class);
     Route::resource('fileupload', FileUploadController::class);
@@ -211,8 +211,5 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 Route::middleware(['auth', 'status:1'])->group(function () {
     Route::resource('organizations', OrganizationController::class);
 });
-
-Route::get('/mail/send', [MailController::class, 'sendEmail']);
-Route::get('/mail', [MailController::class, 'check']);
 
 require __DIR__ . '/auth.php';

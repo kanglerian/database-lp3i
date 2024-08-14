@@ -14,7 +14,10 @@ class ApplicantStatusController extends Controller
      */
     public function index()
     {
-        //
+        $applicant_statuses = ApplicantStatus::paginate(5);
+        return view('pages.setting.applicantstatus.index')->with([
+            'applicant_statuses' => $applicant_statuses
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class ApplicantStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.setting.applicantstatus.create');
     }
 
     /**
@@ -55,7 +58,7 @@ class ApplicantStatusController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -66,7 +69,10 @@ class ApplicantStatusController extends Controller
      */
     public function edit($id)
     {
-        //
+        $applicant_status = ApplicantStatus::findOrFail($id);
+        return view('pages.setting.applicantstatus.edit')->with([
+            'applicant_status' => $applicant_status
+        ]);
     }
 
     /**

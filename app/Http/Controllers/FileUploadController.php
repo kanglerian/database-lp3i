@@ -14,7 +14,10 @@ class FileUploadController extends Controller
      */
     public function index()
     {
-        //
+        $files = FileUpload::paginate(5);
+        return view('pages.setting.file.index')->with([
+            'files' => $files
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class FileUploadController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.setting.file.create');
     }
 
     /**
@@ -47,7 +50,7 @@ class FileUploadController extends Controller
         ];
 
         FileUpload::create($data);
-        return back()->with('message', 'Data file berhasil ditambahkan!');
+        return back()->with('message', 'Data berkas berhasil ditambahkan!');
     }
 
     /**
@@ -69,7 +72,10 @@ class FileUploadController extends Controller
      */
     public function edit($id)
     {
-        //
+        $file = FileUpload::findOrFail($id);
+        return view('pages.setting.file.edit')->with([
+            'file' => $file
+        ]);
     }
 
     /**
@@ -95,7 +101,7 @@ class FileUploadController extends Controller
         ];
 
         $fileupload->update($data);
-        return back()->with('message', 'Data file upload berhasil diubah!');
+        return back()->with('message', 'Data berkas berhasil diubah!');
     }
 
     /**
@@ -108,6 +114,6 @@ class FileUploadController extends Controller
     {
         $fileupload = FileUpload::findOrFail($id);
         $fileupload->delete();
-        return back()->with('message', 'Data file upload berhasil dihapus!');
+        return back()->with('message', 'Data berkas berhasil dihapus!');
     }
 }

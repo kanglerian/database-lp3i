@@ -60,9 +60,9 @@
     </x-slot>
 
     <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-3">
+        <div class="max-w-7xl mx-auto px-5 md:px-0 space-y-3">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
+                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -71,7 +71,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-2xl"
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -100,7 +100,7 @@
                     </button>
                 </div>
             </div>
-            <section class="flex flex-col justify-center gap-3 px-3">
+            <section class="flex flex-col justify-center gap-3">
                 <div
                     class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
                     <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
@@ -294,7 +294,7 @@
                 </div>
             </section>
 
-            <section class="overflow-hidden border rounded-3xl mx-3">
+            <section class="overflow-hidden border rounded-3xl">
                 <section class="px-6 py-4">
                     <div class="bg-white">
                         <label for="table-search" class="sr-only">Search</label>
@@ -418,7 +418,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="p-5">
+                        <div class="p-1">
                             {{ $applicants->links() }}
                         </div>
                     </div>

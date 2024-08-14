@@ -14,7 +14,10 @@ class SourceController extends Controller
      */
     public function index()
     {
-        //
+        $sources = SourceSetting::paginate(5);
+        return view('pages.setting.source.index')->with([
+            'sources' => $sources
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class SourceController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.setting.source.create');
     }
 
     /**
@@ -66,7 +69,10 @@ class SourceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $source = SourceSetting::findOrFail($id);
+        return view('pages.setting.source.edit')->with([
+            'source' => $source
+        ]);
     }
 
     /**

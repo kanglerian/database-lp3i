@@ -197,10 +197,13 @@ class PresenterController extends Controller
         try {
             $presenter = User::findOrFail($id);
             $presenter->delete();
-            return session()->flash('message', 'Data presenter berhasil dihapus!');
-        } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+            return back()->with('message', 'Data presenter berhasil dihapus!');
+        } catch (\Exception $e) {
+            if($e->getCode() == '23000'){
+                return back()->with('error', 'Forbidden to delete!');
+            } else {
+                return back()->with('error', 'Terjadi kesalahan saat mengubah status: ' . $e->getMessage());
+            }
         }
     }
 

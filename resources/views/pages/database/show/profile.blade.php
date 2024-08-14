@@ -3,25 +3,25 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
-        @if (session('error'))
-            <div id="alert" class="mx-2 flex items-center p-4 bg-red-500 text-white rounded-xl" role="alert">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <div class="ml-3 text-sm font-reguler">
-                    {{ session('error') }}
-                </div>
-            </div>
-        @endif
+    <div class="max-w-7xl mx-auto px-5 md:px-0 mt-5">
         @if (session('message'))
-            <div id="alert" class="mx-2 flex items-center p-4 bg-emerald-400 text-white rounded-xl" role="alert">
+            <div id="alert" class="flex items-center p-4 bg-emerald-500 text-emerald-50 rounded-2xl" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div id="alert" class="flex items-center p-4 bg-red-500 text-red-50 rounded-2xl" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
         @if ($errors->first('berkas'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-2xl" role="alert">
                 <i class="fa-solid fa-circle-xmark"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ $errors->first('berkas') }}
@@ -32,7 +32,7 @@
 
     <div id="identity_user" class="hidden">{{ $user->identity }}</div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row p-5 gap-5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row px-5 md:px-0 gap-5 mt-5">
         <div class="w-full md:w-4/6">
             <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">
@@ -49,23 +49,28 @@
                             <div class="flex gap-2">
                                 @if ($account > 0 && $user->programtype_id && $user->program)
                                     <a href="{{ route('database.print', $user->identity) }}"
-                                        class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-md text-xs text-white"><i
+                                        class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-xl text-xs text-white"><i
                                             class="fa-solid fa-print"></i></a>
                                 @else
                                     @if (!$user->programtype_id && !$user->program)
                                         <button onclick="return alert('Program Studi / Program Kuliah belum dipilih.')"
-                                            class="inline-block bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-xs"><i
+                                            class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-4 py-1 rounded-lg text-sm text-red-50"><i
                                                 class="fa-solid fa-print"></i></button>
                                     @endif
                                 @endif
                                 <a href="{{ route('database.edit', $user->id) }}"
-                                    class="inline-block bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md text-xs text-white"><i
+                                    class="inline-block bg-yellow-500 hover:bg-yellow-600 px-4 py-1 rounded-lg text-sm text-yellow-50"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
                                 @if (!$user->is_daftar && !$user->is_register)
-                                    <button class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white"
-                                        onclick="event.preventDefault(); deleteRecord({{ $user->id }})">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    <form action="{{ route('database.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="inline-block bg-red-500 hover:bg-red-600 px-4 py-1 rounded-lg text-sm text-red-50"
+                                            onsubmit="return confirmDelete()">
+                                            <i class="fa-solid fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 @endif
                             </div>
                         </header>
@@ -247,145 +252,152 @@
                                     Presenter belum diubah, silahkan untuk ubah terlebih dahulu.
                                 </p>
                             @else
-                            <div class="space-y-2">
-                                <div>
-                                    <form action="{{ route('database.is_schoolarship', $user->id) }}" method="get">
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="{{ $user->schoolarship }}"
-                                                class="sr-only peer" {{ $user->schoolarship == 1 ? 'checked' : '' }}>
-                                            <button type="submit"
-                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                            </button>
-                                            <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
-                                        </label>
-                                    </form>
+                                <div class="space-y-2">
+                                    <div>
+                                        <form action="{{ route('database.is_schoolarship', $user->id) }}"
+                                            method="get">
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="{{ $user->schoolarship }}"
+                                                    class="sr-only peer"
+                                                    {{ $user->schoolarship == 1 ? 'checked' : '' }}>
+                                                <button type="submit"
+                                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                </button>
+                                                <span class="ml-3 text-sm font-medium text-gray-900">Beasiswa</span>
+                                            </label>
+                                        </form>
+                                    </div>
+                                    @if ($user->identity_user !== '6281313608558')
+                                        <div class="flex justify-between items-center gap-2">
+                                            @if ($user->is_applicant)
+                                                <form action="{{ route('statusdatabaseaplikan.destroy', $user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" class="sr-only peer" checked>
+                                                        <button type="submit"
+                                                            {{ $user->is_register || $user->is_daftar ? 'disabled' : '' }}
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-emerald-600">Aplikan</span>
+                                                    </label>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('database.is_applicant', $user->id) }}"
+                                                    method="GET">
+                                                    <input type="hidden" name="change_pmb"
+                                                        value="{{ $user->pmb }}">
+                                                    <input type="hidden" id="session_aplikan" maxlength="1"
+                                                        name="session">
+                                                    <input type="hidden" name="identity_user"
+                                                        value="{{ $user->identity }}">
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" class="sr-only peer">
+                                                        <button type="submit"
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                        </button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
+                                                    </label>
+                                                </form>
+                                            @endif
+                                            @if ($user->is_applicant && $status_applicant)
+                                                <div class="flex items-center gap-3 mt-1">
+                                                    <button onclick="modalEditAplikan()">
+                                                        <i
+                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                    </button>
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    @if ($user->is_applicant == 1)
+                                        <div class="flex justify-between items-center gap-2">
+                                            @if ($user->is_daftar && $enrollment)
+                                                <form action="{{ route('statusdatabasedaftar.destroy', $user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" class="sr-only peer" checked>
+                                                        <button type="submit"
+                                                            {{ $user->is_register ? 'disabled' : '' }}
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
+                                                    </label>
+                                                </form>
+                                                <div class="flex items-center gap-3 mt-1">
+                                                    <button onclick="modalEditDaftar()">
+                                                        <i
+                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                    </button>
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                </div>
+                                            @else
+                                                <div>
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" class="sr-only peer">
+                                                        <button disabled
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                        </button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
+                                                    </label>
+                                                </div>
+                                                <button type="button" onclick="modalDaftar()"
+                                                    class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                        class="fa-solid fa-receipt mr-1"></i>
+                                                    Masukan nominal
+                                                </button>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
+                                        <div class="flex justify-between items-center gap-2">
+                                            @if ($user->is_register && $registration)
+                                                <form
+                                                    action="{{ route('statusdatabaseregistrasi.destroy', $user->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" class="sr-only peer" checked>
+                                                        <button type="submit"
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
+                                                    </label>
+                                                </form>
+                                                <div class="flex items-center gap-3">
+                                                    <button onclick="modalEditRegistrasi()">
+                                                        <i
+                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                    </button>
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                </div>
+                                            @else
+                                                <div>
+                                                    <label class="relative inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox"class="sr-only peer">
+                                                        <button disabled
+                                                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                                        </button>
+                                                        <span
+                                                            class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
+                                                    </label>
+                                                </div>
+                                                <button type="button" onclick="modalRegistrasi()"
+                                                    class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
+                                                        class="fa-solid fa-receipt mr-1"></i>
+                                                    Masukan nominal
+                                                </button>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
-                                @if ($user->identity_user !== '6281313608558')
-                                    <div class="flex justify-between items-center gap-2">
-                                        @if ($user->is_applicant)
-                                            <form action="{{ route('statusdatabaseaplikan.destroy', $user->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" class="sr-only peer" checked>
-                                                    <button type="submit"
-                                                        {{ $user->is_register || $user->is_daftar ? 'disabled' : '' }}
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                    <span
-                                                        class="ml-3 text-sm font-medium text-emerald-600">Aplikan</span>
-                                                </label>
-                                            </form>
-                                        @else
-                                            <form action="{{ route('database.is_applicant', $user->id) }}"
-                                                method="GET">
-                                                <input type="hidden" name="change_pmb" value="{{ $user->pmb }}">
-                                                <input type="hidden" id="session_aplikan" maxlength="1"
-                                                    name="session">
-                                                <input type="hidden" name="identity_user"
-                                                    value="{{ $user->identity }}">
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" class="sr-only peer">
-                                                    <button type="submit"
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                    </button>
-                                                    <span class="ml-3 text-sm font-medium text-gray-900">Aplikan</span>
-                                                </label>
-                                            </form>
-                                        @endif
-                                        @if ($user->is_applicant && $status_applicant)
-                                            <div class="flex items-center gap-3 mt-1">
-                                                <button onclick="modalEditAplikan()">
-                                                    <i
-                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                                </button>
-                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endif
-                                @if ($user->is_applicant == 1)
-                                    <div class="flex justify-between items-center gap-2">
-                                        @if ($user->is_daftar && $enrollment)
-                                            <form action="{{ route('statusdatabasedaftar.destroy', $user->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" class="sr-only peer" checked>
-                                                    <button type="submit" {{ $user->is_register ? 'disabled' : '' }}
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                    <span
-                                                        class="ml-3 text-sm font-medium text-emerald-600">Daftar</span>
-                                                </label>
-                                            </form>
-                                            <div class="flex items-center gap-3 mt-1">
-                                                <button onclick="modalEditDaftar()">
-                                                    <i
-                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                                </button>
-                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            </div>
-                                        @else
-                                            <div>
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" class="sr-only peer">
-                                                    <button disabled
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                    </button>
-                                                    <span class="ml-3 text-sm font-medium text-gray-900">Daftar</span>
-                                                </label>
-                                            </div>
-                                            <button type="button" onclick="modalDaftar()"
-                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                    class="fa-solid fa-receipt mr-1"></i>
-                                                Masukan nominal
-                                            </button>
-                                        @endif
-                                    </div>
-                                @endif
-                                @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
-                                    <div class="flex justify-between items-center gap-2">
-                                        @if ($user->is_register && $registration)
-                                            <form action="{{ route('statusdatabaseregistrasi.destroy', $user->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" class="sr-only peer" checked>
-                                                    <button type="submit"
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></button>
-                                                    <span
-                                                        class="ml-3 text-sm font-medium text-emerald-600">Registrasi</span>
-                                                </label>
-                                            </form>
-                                            <div class="flex items-center gap-3">
-                                                <button onclick="modalEditRegistrasi()">
-                                                    <i
-                                                        class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
-                                                </button>
-                                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                            </div>
-                                        @else
-                                            <div>
-                                                <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox"class="sr-only peer">
-                                                    <button disabled
-                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
-                                                    </button>
-                                                    <span
-                                                        class="ml-3 text-sm font-medium text-gray-900">Registrasi</span>
-                                                </label>
-                                            </div>
-                                            <button type="button" onclick="modalRegistrasi()"
-                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center mr-2"><i
-                                                    class="fa-solid fa-receipt mr-1"></i>
-                                                Masukan nominal
-                                            </button>
-                                        @endif
-                                    </div>
-                                @endif
-                            </div>
                             @endif
                             @if (
                                 $user->pmb &&
@@ -616,7 +628,9 @@
     @endif
     @push('scripts')
         <script>
-            console.log();
+            function confirmDelete() {
+                return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
+            }
         </script>
         @if (!$user->is_applicant && !$status_applicant)
             <script>
@@ -642,7 +656,6 @@
                 aplikanSetting();
             </script>
         @endif
-
         <script>
             const validateNumber = (e) => {
                 let number = e.target.value.replace(/[^0-9]/g, '');
@@ -717,26 +730,6 @@
                     modal.classList.remove('hidden');
                 } else {
                     modal.classList.add('hidden');
-                }
-            }
-
-            const deleteRecord = (id) => {
-                if (confirm('Apakah kamu yakin akan menghapus data?')) {
-                    $.ajax({
-                        url: `/database/${id}`,
-                        type: 'POST',
-                        data: {
-                            '_method': 'DELETE',
-                            '_token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            window.location.href = '/database';
-                        },
-                        error: function(xhr, status, error) {
-                            alert('Error deleting record');
-                            console.log(error);
-                        }
-                    })
                 }
             }
         </script>

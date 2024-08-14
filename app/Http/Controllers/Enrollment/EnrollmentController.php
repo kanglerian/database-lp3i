@@ -20,9 +20,44 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $total =  StatusApplicantsEnrollment::count();
+        $total = StatusApplicantsEnrollment::count();
+        $enrollmentQuery = StatusApplicantsEnrollment::query();
+        $enrollmentQuery->with('applicant');
+
+        $date = request('date');
+        $pmb = request('pmb');
+        $repayment = request('repayment');
+        $register = request('register', 'all');
+        $register_end = request('register_end', 'all');
+
+        $appends = [];
+
+        if ($date) {
+            $enrollmentQuery->where('date', $date);
+            $appends['date'] = $date;
+        }
+        if ($pmb) {
+            $enrollmentQuery->where('pmb', $pmb);
+            $appends['pmb'] = $pmb;
+        }
+        if ($repayment) {
+            $enrollmentQuery->where('repayment', $repayment);
+            $appends['repayment'] = $repayment;
+        }
+        if ($register !== 'all') {
+            $enrollmentQuery->where('register', $register);
+            $appends['register'] = $register;
+        }
+        if ($register_end !== 'all') {
+            $enrollmentQuery->where('register_end', $register_end);
+            $appends['register_end'] = $register_end;
+        }
+
+        $enrollments = $enrollmentQuery->orderByDesc('created_at')->paginate(5);
+        $enrollments->appends($appends);
         return view('pages.payment.enrollment.index')->with([
             'total' => $total,
+            'enrollments' => $enrollments
         ]);
     }
 
@@ -85,7 +120,7 @@ class EnrollmentController extends Controller
             'register_end' => ['required'],
             'nominal' => ['required'],
             'session' => ['required']
-        ],[
+        ], [
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
             'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
@@ -178,7 +213,7 @@ class EnrollmentController extends Controller
             'register_end' => ['required'],
             'nominal' => ['required'],
             'session' => ['required']
-        ],[
+        ], [
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
             'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
@@ -219,31 +254,26 @@ class EnrollmentController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $enrollment = StatusApplicantsEnrollment::findOrFail($id);
-            $registration = StatusApplicantsRegistration::where('identity_user', $enrollment->identity_user)->first();
-            if(!$registration){
-                $data = [
-                    'is_daftar' => 0,
-                ];
-                $applicant = Applicant::where('identity', $enrollment->identity_user)->first();
-                $applicant->update($data);
-                $enrollment->delete();
-                $message = [
-                    'status' => 'message',
-                    'message' => 'Data pendaftaran berhasil dihapus!'
-                ];
-            } else {
+        $enrollment = StatusApplicantsEnrollment::findOrFail($id);
+        $registration = StatusApplicantsRegistration::where('identity_user', $enrollment->identity_user)->first();
+        if (!$registration) {
+            $data = [
+                'is_daftar' => 0,
+            ];
+            $applicant = Applicant::where('identity', $enrollment->identity_user)->first();
+            $applicant->update($data);
+            $enrollment->delete();
+            $message = [
+                'status' => 'message',
+                'message' => 'Data pendaftaran berhasil dihapus!'
+            ];
+        } else {
 
-                $message = [
-                    'status' => 'error',
-                    'message' => 'Tidak bisa menghapus pendaftaran. Hapus data registrasi terlebih dahulu!'
-                ];
-            }
-            return session()->flash($message['status'], $message['message']);
-        } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
+            $message = [
+                'status' => 'error',
+                'message' => 'Tidak bisa menghapus pendaftaran. Hapus data registrasi terlebih dahulu!'
+            ];
         }
+        return back()->with($message['status'], $message['message']);
     }
 }

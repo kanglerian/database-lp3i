@@ -5,7 +5,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
         @if (session('error'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
@@ -13,7 +13,7 @@
             </div>
         @endif
         @if (session('message'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
                 role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
@@ -22,7 +22,7 @@
             </div>
         @endif
         @if ($errors->first('berkas'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-xmark"></i>
                 <div class="ml-3 text-sm font-medium">
                     {{ $errors->first('berkas') }}

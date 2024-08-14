@@ -5,7 +5,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10 space-y-5">
         @if (session('message'))
-            <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">

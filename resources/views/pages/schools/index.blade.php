@@ -23,7 +23,7 @@
 
         <div class="max-w-7xl px-5 mx-auto">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-2xl"
+                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -32,7 +32,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-red-500 text-white rounded-xl"
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
                     role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -137,7 +137,7 @@
                         </div>
                         <input type="search" name="name" id="name" onchange="submitForm()"
                             class="block w-full py-4 px-10 ps-12 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Cari nama sekolah..." />
+                            placeholder="Cari nama sekolah..." autofocus />
                         <button type="submit"
                             class="text-white absolute end-2.5 bottom-2.5 bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-4 py-2">Search</button>
                     </div>
@@ -277,7 +277,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="p-5">
+                        <div class="p-1">
                             {{ $schools->links() }}
                         </div>
                     </div>

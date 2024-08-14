@@ -14,7 +14,10 @@ class ProgramTypeController extends Controller
      */
     public function index()
     {
-        //
+        $programtypes = ProgramType::paginate(5);
+        return view('pages.setting.programtype.index')->with([
+            'programtypes' => $programtypes
+        ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class ProgramTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.setting.programtype.create');
     }
 
     /**
@@ -67,7 +70,10 @@ class ProgramTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $programtype = ProgramType::findOrFail($id);
+        return view('pages.setting.programtype.edit')->with([
+            'programtype' => $programtype
+        ]);
     }
 
     /**

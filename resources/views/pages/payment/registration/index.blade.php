@@ -28,9 +28,9 @@
     </x-slot>
 
     <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5">
+        <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
             @if (session('message'))
-                <div id="alert" class="mx-2 flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-xl"
+                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                     role="alert">
                     <i class="fa-solid fa-circle-check"></i>
                     <div class="ml-3 text-sm font-reguler">
@@ -38,237 +38,189 @@
                     </div>
                 </div>
             @endif
-
+            @if (session('error'))
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
+                    role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="ml-3 text-sm font-reguler">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
             <div class="flex justify-between items-center gap-3 mx-2 py-2">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
-                    <div class="flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Tahun PMB">
+                <form method="GET" action="{{ route('registration.index') }}"
+                    class="w-full flex flex-col md:flex-row items-end gap-4">
+                    <div class="w-full">
+                        <label for="change_pmb" class="block mb-2 text-xs font-medium text-gray-900">
+                            Periode PMB
+                        </label>
+                        <input type="number" name="pmb" id="change_pmb"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
+                            placeholder="Tahun PMB" required />
                     </div>
-                    <div class="flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
-                        <input type="date" id="date" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    <div class="w-full">
+                        <label for="date" class="block mb-2 text-xs font-medium text-gray-900">
+                            Tanggal
+                        </label>
+                        <input type="date" name="date" id="date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5" />
                     </div>
-                    <div class="flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="session" class="text-xs">Gelombang:</label>
-                        <select id="session" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    <div class="w-full">
+                        <label for="session" class="block mb-2 text-xs font-medium text-gray-900">
+                            Gelombang
+                        </label>
+                        <select id="session" name="session"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5">
                             <option value="all">Pilih</option>
                             <option value="1">Gelombang 1</option>
                             <option value="2">Gelombang 2</option>
                             <option value="3">Gelombang 3</option>
                         </select>
                     </div>
-                    <div class="flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="percent" class="text-xs">Persen</label>
-                        <select id="percent" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    <div class="w-full">
+                        <label for="percent" class="block mb-2 text-xs font-medium text-gray-900">
+                            Persen
+                        </label>
+                        <select id="percent" name="percent"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5">
                             <option value="all">Pilih</option>
                             <option value="0.3">< 30% </option>
                         </select>
                     </div>
-                </div>
+                    <div class="w-full">
+                        <button type="submit"
+                            class="inline-block text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-xs px-5 py-2.5">
+                            <i class="fa-solid fa-filter"></i>
+                        </button>
+                        <a href="{{ route('registration.index') }}"
+                            class="inline-block text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-xs px-5 py-2.5">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                    </div>
+                </form>
             </div>
 
             <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto">
-                        <table id="myTable" class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <div class="relative overflow-x-auto sm:rounded-xl">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
-                                        Tanggal
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        No.
                                     </th>
                                     <th scope="col" class="px-6 py-3">
+                                        Tanggal
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
                                         Gelombang
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Nama Lengkap
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
                                         Nominal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Harga Deal
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
                                         Diskon
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Keterangan
                                     </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        < 30% </th>
                                     <th scope="col" class="px-6 py-3">
-                                        < 30%
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
                                         Action
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @forelse ($registrations as $key => $registration)
+                                    <tr class="border-b border-gray-200">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                            {{ $registrations->perPage() * ($registrations->currentPage() - 1) + $key + 1 }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $registration->date }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            {{ $registration->session }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $registration->applicant->name }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            {{ $registration->nominal }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $registration->deal }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            {{ $registration->nominal }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $registration->discount }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            @php
+                                                $data_percent = $registration->deal * 0.3;
+                                                $percent = $registration->nominal < $data_percent;
+                                            @endphp
+                                            {!! $percent
+                                                ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>'
+                                                : '<i class="fa-solid fa-circle-xmark text-red-500"></i>' !!}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <form action="{{ route('registration.destroy', $registration->id) }}"
+                                                method="post" class="inline-block"
+                                                onsubmit="return confirmDelete()">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-lg text-white transition-all ease-in-out">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                         </table>
+                        <div class="p-1">
+                            {{ $registrations->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('pages.dashboard.utilities.pmb')
+    @push('scripts')
+        <script>
+            function getUrlParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const pmb = urlParams.get('pmb') || pmbVal;
+                const date = urlParams.get('date');
+                const session = urlParams.get('session') || 'all';
+                const percent = urlParams.get('percent') || 'all';
+                document.getElementById('change_pmb').value = pmb;
+                document.getElementById('date').value = date;
+                document.getElementById('session').value = session;
+                document.getElementById('percent').value = percent;
+            }
+            getUrlParams();
 
+            function confirmDelete() {
+                return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
+            }
+        </script>
+    @endpush
 </x-app-layout>
-
-<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
-<script src="{{ asset('js/moment-timezone-with-data.min.js') }}"></script>
-<script src="{{ asset('js/axios.min.js') }}"></script>
-@include('pages.payment.registration.js.filterjs')
-<script>
-    const getDataTable = async () => {
-        const dataTableConfig = {
-            ajax: {
-                url: urlData,
-                dataSrc: 'registrations'
-            },
-            order: [
-                [0, 'desc']
-            ],
-            rowCallback: function(row, data, index) {
-                if(index % 2 != 0){
-                    $(row).css('background-color', '#f9fafb');
-                }
-            },
-            columnDefs: [{
-                    width: 100,
-                    target: 0
-                },
-                {
-                    width: 100,
-                    target: 1
-                },
-                {
-                    width: 200,
-                    target: 2
-                },
-                {
-                    width: 150,
-                    target: 3
-                },
-                {
-                    width: 150,
-                    target: 4
-                },
-                {
-                    width: 100,
-                    target: 5
-                },
-                {
-                    width: 150,
-                    target: 6
-                },
-                {
-                    width: 50,
-                    target: 7
-                },
-                {
-                    width: 50,
-                    target: 8
-                },
-            ],
-            columns: [{
-                    data: 'date'
-                },
-                {
-                    data: 'session'
-                },
-                {
-                    data: 'applicant',
-                    render: (data, type, row, meta) => {
-                        let showUrl = "{{ route('database.show', ':identity') }}".replace(
-                            ':identity',
-                            data.identity);
-                        return `<a href="${showUrl}" class="font-bold underline">${data.name}</a>`;
-                    }
-                },
-                {
-                    data: 'nominal',
-                    render: (data, type, row, meta) => {
-                        const convert = parseInt(data);
-                        return `Rp${convert.toLocaleString('id-ID')}`
-                    }
-                },
-                {
-                    data: 'deal',
-                    render: (data, type, row, meta) => {
-                        const convert = parseInt(data);
-                        return `Rp${convert.toLocaleString('id-ID')}`
-                    }
-                },
-                {
-                    data: 'discount',
-                    render: (data, type, row, meta) => {
-                        const convert = parseInt(data);
-                        return `Rp${convert.toLocaleString('id-ID')}`
-                    }
-                },
-                {
-                    data: 'desc_discount',
-                    render: (data, type, row) => {
-                        return `${data || 'Tidak ada'}`
-                    }
-                },
-                {
-                    data: {
-                        nominal: 'nominal',
-                        deal: 'deal'
-                    },
-                    render: (data, type, row) => {
-                        let dataPercent = parseInt(data.deal) * 0.3;
-                        let percent = parseInt(data.nominal) < dataPercent;
-                        return ` ${percent ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' : '<i class="fa-solid fa-circle-xmark text-red-500"></i>'}`
-                    }
-                },
-                {
-                    data: 'id',
-                    render: (data, type, row) => {
-                        return `
-                        <div class="flex items-center gap-1">
-                            <button type="button" class="md:mt-0 bg-red-500 hover:bg-red-600 px-3 py-1 rounded-lg text-xs text-white" onclick="event.preventDefault(); deleteRecord(${data})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>`
-                    }
-                },
-            ],
-        }
-        try {
-            const response = await fetch(urlData);
-            const data = await response.json();
-            dataRegistrations = data.registrations;
-            dataTableInstance = $('#myTable').DataTable(dataTableConfig);
-            dataTableInitialized = true;
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-
-    getDataTable();
-
-    const deleteRecord = (id) => {
-        if (confirm('Apakah kamu yakin akan menghapus data?')) {
-            $.ajax({
-                url: `/registration/${id}`,
-                type: 'POST',
-                data: {
-                    '_method': 'DELETE',
-                    '_token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error deleting record');
-                }
-            })
-        }
-    }
-</script>

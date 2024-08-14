@@ -20,9 +20,40 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $total =  StatusApplicantsRegistration::count();
+        $total = StatusApplicantsRegistration::count();
+        $registrationQuery = StatusApplicantsRegistration::query();
+        $registrationQuery->with('applicant');
+
+        $date = request('date', 'all');
+        $pmb = request('pmb', 'all');
+        $session = request('session', 'all');
+        $percent = request('percent', 'all');
+
+        $appends = [];
+
+        if ($date !== 'all') {
+            $registrationQuery->where('date', $date);
+            $appends['date'] = $date;
+        }
+        if ($pmb !== 'all') {
+            $registrationQuery->where('pmb', $pmb);
+            $appends['pmb'] = $pmb;
+        }
+        if ($session !== 'all') {
+            $registrationQuery->where('session', $session);
+            $appends['session'] = $session;
+        }
+        if ($percent !== 'all') {
+            $registrationQuery->whereRaw('nominal < (deal * ' . $percent . ')');
+            $appends['percent'] = $percent;
+        }
+
+        $registrations = $registrationQuery->orderByDesc('created_at')->paginate(5);
+        $registrations->appends($appends);
+
         return view('pages.payment.registration.index')->with([
             'total' => $total,
+            'registrations' => $registrations
         ]);
     }
 
@@ -80,7 +111,7 @@ class RegistrationController extends Controller
             'deal' => ['required'],
             'discount' => ['required'],
             'session' => ['required'],
-        ],[
+        ], [
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
             'nominal.required' => 'Oops! Kolom Nominal Registrasi gak boleh kosong,',
@@ -170,7 +201,7 @@ class RegistrationController extends Controller
             'deal' => ['required'],
             'discount' => ['required'],
             'session' => ['required'],
-        ],[
+        ], [
             'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
             'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
             'nominal.required' => 'Oops! Kolom Nominal Registrasi gak boleh kosong,',
@@ -203,18 +234,13 @@ class RegistrationController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $registration = StatusApplicantsRegistration::findOrFail($id);
-            $data = [
-                'is_register' => 0,
-            ];
-            $applicant = Applicant::where('identity', $registration->identity_user)->first();
-            $applicant->update($data);
-            $registration->delete();
-            return session()->flash('message', 'Data registrasi berhasil dihapus!');
-        } catch (\Throwable $th) {
-            $errorMessage = 'Terjadi sebuah kesalahan. Perika koneksi anda.';
-            return back()->with('error', $errorMessage);
-        }
+        $registration = StatusApplicantsRegistration::findOrFail($id);
+        $data = [
+            'is_register' => 0,
+        ];
+        $applicant = Applicant::where('identity', $registration->identity_user)->first();
+        $applicant->update($data);
+        $registration->delete();
+        return back()->with('message', 'Data registrasi berhasil dihapus!');
     }
 }

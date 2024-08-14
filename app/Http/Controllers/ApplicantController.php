@@ -1055,7 +1055,7 @@ class ApplicantController extends Controller
             $family->delete();
             $applicant->delete();
             $user->delete();
-            return session()->flash('message', 'Data aplikan berhasil dihapus!');
+            return redirect()->route('database.index')->with('message', 'Data aplikan berhasil dihapus!');
         } else {
             return back()->with('error', 'Tidak diizinkan.');
         }
