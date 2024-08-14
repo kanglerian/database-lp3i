@@ -145,7 +145,88 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden border rounded-3xl">
+            <div class="bg-gray-50 overflow-hidden border rounded-3xl">
+                <div class="p-8 bg-white border-b border-gray-200">
+                    <div class="relative overflow-x-auto sm:rounded-xl">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        No.
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nama lengkap
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        No. HP (Whatsapp)
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Asal Sekolah
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                        Aksi
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($recommendations as $key => $recommendation)
+                                    <tr class="border-b border-gray-200">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                            {{ $recommendations->perPage() * ($recommendations->currentPage() - 1) + $key + 1 }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $recommendation->name }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
+                                            {{ $recommendation->phone }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $recommendation->schoolapplicant->name ?? 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4 bg-gray-50">
+                                            <form action="{{ route('presenters.status', $recommendation->id) }}"
+                                                method="GET" class="inline-block">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="{{ $recommendation->status ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600' }} px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                    {!! $recommendation->status ? '<i class="fa-solid fa-toggle-on"></i>' : '<i class="fa-solid fa-toggle-off"></i>' !!}
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('presenters.show', $recommendation->id) }}"
+                                                class="inline-block bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('presenters.edit', $recommendation->id) }}"
+                                                class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="{{ route('presenters.destroy', $recommendation->id) }}"
+                                                method="post" class="inline-block" onsubmit="return confirmDelete()">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div class="p-1">
+                            {{ $recommendations->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- <div class="bg-white overflow-hidden border rounded-3xl">
                 <div class="p-6 bg-white">
                     <div class="relative overflow-x-auto rounded-3xl">
                         <table id="table-recommendation" class="w-full text-sm text-left text-gray-500">
@@ -198,7 +279,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 

@@ -25,13 +25,52 @@ class RecommendationController extends Controller
      */
     public function index()
     {
+        $identityVal = request('identityVal', 'all');
+        $schoolVal = request('schoolVal', 'all');
+        $sourceVal = request('sourceVal', 'all');
+        $yearVal = request('yearVal', 'all');
+        $referenceVal = request('referenceVal', 'all');
+
+        $recommendationQuery = Recommendation::query();
+        if (Auth::user()->role == 'A') {
+            if ($identityVal !== 'all') {
+                $recommendationQuery->whereHas('applicant', function ($query) use ($identityVal) {
+                    $query->where('identity_user', $identityVal);
+                });
+            }
+        } else if(Auth::user()->role == 'P') {
+            $identity = Auth::user()->identity;
+            $recommendationQuery->whereHas('applicant', function ($query) use ($identity) {
+                $query->where('identity_user', $identity);
+            });
+        }
+
+        if ($schoolVal !== 'all') {
+            $recommendationQuery->where('school_id', $schoolVal);
+        }
+
+        if ($yearVal !== 'all') {
+            $recommendationQuery->where('year', $yearVal);
+        }
+
+        if ($referenceVal !== 'all') {
+            $recommendationQuery->where('reference', 'like', '%' . $referenceVal . '%');
+        }
+
+        if ($sourceVal !== 'all') {
+            $recommendationQuery->where('source_id', $sourceVal);
+        }
+
+        $recommendations = $recommendationQuery->with(['applicant', 'schoolapplicant', 'applicant.presenter', 'sourcesetting'])->paginate(5);
+
         $users = User::where('role', 'P')->get();
         $schools = School::all();
         $sources = SourceSetting::all();
         return view('pages.recommendation.index')->with([
             'users' => $users,
             'schools' => $schools,
-            'sources' => $sources
+            'sources' => $sources,
+            'recommendations' => $recommendations
         ]);
     }
 

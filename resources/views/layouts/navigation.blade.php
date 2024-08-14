@@ -93,7 +93,24 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::check() && Auth::user()->status == '1' && Auth::user()->role == 'A')
-                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
+                        <x-nav-link :href="route('setting.index')" :active="request()->routeIs([
+                            'setting.index',
+                            'applicantstatus.index',
+                            'applicantstatus.create',
+                            'applicantstatus.edit',
+                            'followup.index',
+                            'followup.create',
+                            'followup.edit',
+                            'programtype.index',
+                            'programtype.create',
+                            'programtype.edit',
+                            'source.index',
+                            'source.create',
+                            'source.edit',
+                            'fileupload.index',
+                            'fileupload.create',
+                            'fileupload.edit',
+                        ])">
                             {{ __('Setting') }}
                         </x-nav-link>
                     @endif
