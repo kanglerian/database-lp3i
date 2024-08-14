@@ -185,18 +185,6 @@
                                             {{ $recommendation->schoolapplicant->name ?? 'Tidak diketahui' }}
                                         </td>
                                         <td class="px-6 py-4 bg-gray-50">
-                                            <form action="{{ route('presenters.status', $recommendation->id) }}"
-                                                method="GET" class="inline-block">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="{{ $recommendation->status ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600' }} px-3 py-2 rounded-xl text-white transition-all ease-in-out">
-                                                    {!! $recommendation->status ? '<i class="fa-solid fa-toggle-on"></i>' : '<i class="fa-solid fa-toggle-off"></i>' !!}
-                                                </button>
-                                            </form>
-                                            <a href="{{ route('presenters.show', $recommendation->id) }}"
-                                                class="inline-block bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
-                                                <i class="fa-regular fa-eye"></i>
-                                            </a>
                                             <a href="{{ route('presenters.edit', $recommendation->id) }}"
                                                 class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
                                                 <i class="fa-regular fa-pen-to-square"></i>
