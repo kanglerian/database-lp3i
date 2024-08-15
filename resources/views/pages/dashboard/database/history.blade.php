@@ -136,8 +136,8 @@
         }
 
         const getHistories = async () => {
-            // try {
-                // showLoadingAnimation();
+            try {
+                showLoadingAnimation();
                 const responsePresenters = await axios.get(`/get/presenter`);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
@@ -218,15 +218,14 @@
                 });
                 document.getElementById('history_chat_presenter').innerHTML = content;
                 hideLoadingAnimation();
-            // } catch (error) {
-            //     console.log(error);
-            //     let content = `
-            //         <tr>
-            //             <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
-            //         </tr>
-            //     `
-            //     document.getElementById('history_chat_presenter').innerHTML = content;
-            // }
+            } catch (error) {
+                let content = `
+                    <tr>
+                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
+                    </tr>
+                `
+                document.getElementById('history_chat_presenter').innerHTML = content;
+            }
         }
 
         const informationText = () => {
