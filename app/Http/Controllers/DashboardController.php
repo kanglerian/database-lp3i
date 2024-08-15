@@ -143,8 +143,8 @@ class DashboardController extends Controller
             $schoolarshipQuery->where('pmb', $pmbVal);
         }
 
+        $databasePhone = $databaseQuery->get();
         $databaseCount = $databaseQuery->count();
-        $databasePhone = $databasePhone->whereNotNull('phone')->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
