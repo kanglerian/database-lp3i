@@ -148,64 +148,64 @@
         }
 
         const getHistories = async () => {
-            // try {
-            //     showLoadingAnimation();
-            const responsePresenters = await axios.get(`/get/presenter`);
-            const responseDatabase = await axios.get(apiDashboard);
-            const presenters = responsePresenters.data.presenters;
-            const pmbVal = document.getElementById('change_pmb').value;
+            try {
+                showLoadingAnimation();
+                const responsePresenters = await axios.get(`/get/presenter`);
+                const responseDatabase = await axios.get(apiDashboard);
+                const presenters = responsePresenters.data.presenters;
+                const pmbVal = document.getElementById('change_pmb').value;
 
-            document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
-                .toLocaleString('id-ID');
-            document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone
-                .length.toLocaleString('id-ID');
-            document.getElementById('phonehistory_nonvalid').innerText = (responseDatabase.data.database_count -
-                responseDatabase.data.database_phone.length).toLocaleString('id-ID');
+                document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
+                    .toLocaleString('id-ID');
+                document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone
+                    .length.toLocaleString('id-ID');
+                document.getElementById('phonehistory_nonvalid').innerText = (responseDatabase.data.database_count -
+                    responseDatabase.data.database_phone.length).toLocaleString('id-ID');
 
-            let buckets = [];
+                let buckets = [];
 
-            for (let i = 0; i < presenters.length; i++) {
+                for (let i = 0; i < presenters.length; i++) {
 
-                const responseHistories = await axios.get(
-                    `${URL_API_LP3I}/history/detail/${pmbVal}/${presenters[i].identity}`
-                );
-                const databasesPhone = responseDatabase.data.database_phone;
-                const databasesCount = responseDatabase.data.database_count;
-                const databasePhone = databasesPhone.filter((data) => data.identity_user == presenters[i]
-                    .identity);
-                const histories = responseHistories.data;
+                    const responseHistories = await axios.get(
+                        `${URL_API_LP3I}/history/detail/${pmbVal}/${presenters[i].identity}`
+                    );
+                    const databasesPhone = responseDatabase.data.database_phone;
+                    const databasesCount = responseDatabase.data.database_count;
+                    const databasePhone = databasesPhone.filter((data) => data.identity_user == presenters[i]
+                        .identity);
+                    const histories = responseHistories.data;
 
-                let categoriesBucket = [];
-                for (let i = 1; i < 14; i++) {
-                    let categoryCount;
-                    if (i > 12) {
-                        categoryCount = histories.filter((history) => history.category > i);
-                    } else {
-                        categoryCount = histories.filter((history) => history.category == i);
+                    let categoriesBucket = [];
+                    for (let i = 1; i < 14; i++) {
+                        let categoryCount;
+                        if (i > 12) {
+                            categoryCount = histories.filter((history) => history.category > i);
+                        } else {
+                            categoryCount = histories.filter((history) => history.category == i);
+                        }
+                        let percent = (categoryCount.length / databasePhone.length) * 100;
+                        categoriesBucket.push({
+                            category: categoryCount,
+                            percent: percent,
+                            databases_count: databasesCount,
+                            database_phone: databasePhone.length,
+                        });
                     }
-                    let percent = (categoryCount.length / databasePhone.length) * 100;
-                    categoriesBucket.push({
-                        category: categoryCount,
-                        percent: percent,
-                        databases_count: databasesCount,
-                        database_phone: databasePhone.length,
-                    });
+                    let data = {
+                        name: presenters[i].name,
+                        categories: categoriesBucket
+                    }
+                    buckets.push(data);
                 }
-                let data = {
-                    name: presenters[i].name,
-                    categories: categoriesBucket
-                }
-                buckets.push(data);
-            }
 
-            let content = '';
-            buckets.forEach((bucket) => {
-                let contentBucket = '';
-                let categoriesBucket = '';
-                let categories = bucket.categories;
-                if (categories.length > 0) {
-                    categories.forEach((category, i) => {
-                        categoriesBucket += `
+                let content = '';
+                buckets.forEach((bucket) => {
+                    let contentBucket = '';
+                    let categoriesBucket = '';
+                    let categories = bucket.categories;
+                    if (categories.length > 0) {
+                        categories.forEach((category, i) => {
+                            categoriesBucket += `
                     <td class="px-6 py-4 text-center ${i % 2 == 0 ? 'bg-white' : 'bg-gray-50'}">
                         <ul class="space-y-1">
                             <li class="font-bold">${category.percent.toFixed()}%</li>
@@ -215,8 +215,8 @@
                             `<li onclick="informationText()" class="text-xs cursor-pointer hover:text-sky-600 transition"><i class="fa-solid fa-circle-info"></i>  Informasi</li>` : ''}
                         </ul>
                     </td>`
-                    });
-                    content += `
+                        });
+                        content += `
                     <tr>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                             ${bucket.name}
@@ -224,25 +224,25 @@
                         ${categoriesBucket}
                     </tr>
                 `
-                } else {
-                    content += `
+                    } else {
+                        content += `
                     <tr>
                         <td colspan="14" class="text-center bg-white text-sm px-6 py-4">Tidak ada data.</td>
                     </tr>
                 `
-                }
-            });
-            document.getElementById('history_chat_presenter').innerHTML = content;
-            hideLoadingAnimation();
-            // } catch (error) {
-            //     console.log(error);
-            //     let content = `
-        //         <tr>
-        //             <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
-        //         </tr>
-        //     `
-            //     document.getElementById('history_chat_presenter').innerHTML = content;
-            // }
+                    }
+                });
+                document.getElementById('history_chat_presenter').innerHTML = content;
+                hideLoadingAnimation();
+            } catch (error) {
+                let content = `
+                <tr>
+                    <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
+                </tr>
+            `
+                document.getElementById('history_chat_presenter').innerHTML = content;
+                hideLoadingAnimation();
+            }
         }
 
         const informationText = () => {
