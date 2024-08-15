@@ -148,12 +148,15 @@
         }
 
         const getHistories = async () => {
-            try {
+            // try {
                 // showLoadingAnimation();
                 const responsePresenters = await axios.get(`/get/presenter`);
+                console.log(responsePresenters);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
+                console.log(presenters);
                 const pmbVal = document.getElementById('change_pmb').value;
+                console.log(pmbVal);
 
                 document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
                     .toLocaleString('id-ID');
@@ -203,7 +206,6 @@
                     let contentBucket = '';
                     let categoriesBucket = '';
                     let categories = bucket.categories;
-                    console.log(categoriesBucket);
                     if (categories.length > 0) {
                         categories.forEach((category, i) => {
                             categoriesBucket += `
@@ -235,15 +237,15 @@
                 });
                 document.getElementById('history_chat_presenter').innerHTML = content;
                 hideLoadingAnimation();
-            } catch (error) {
-                console.log(error);
-                let content = `
-                    <tr>
-                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
-                    </tr>
-                `
-                document.getElementById('history_chat_presenter').innerHTML = content;
-            }
+            // } catch (error) {
+            //     console.log(error);
+            //     let content = `
+            //         <tr>
+            //             <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
+            //         </tr>
+            //     `
+            //     document.getElementById('history_chat_presenter').innerHTML = content;
+            // }
         }
 
         const informationText = () => {
