@@ -25,17 +25,17 @@ class RecommendationController extends Controller
      */
     public function index()
     {
-        $identityVal = request('identityVal', 'all');
-        $schoolVal = request('schoolVal', 'all');
-        $sourceVal = request('sourceVal', 'all');
-        $yearVal = request('yearVal', 'all');
-        $referenceVal = request('referenceVal', 'all');
+        $identity = request('identity', 'all');
+        $school = request('school', 'all');
+        $source = request('source', 'all');
+        $year = request('year', 'all');
+        $reference = request('reference', 'all');
 
         $recommendationQuery = Recommendation::query();
         if (Auth::user()->role == 'A') {
-            if ($identityVal !== 'all') {
-                $recommendationQuery->whereHas('applicant', function ($query) use ($identityVal) {
-                    $query->where('identity_user', $identityVal);
+            if ($identity !== 'all') {
+                $recommendationQuery->whereHas('applicant', function ($query) use ($identity) {
+                    $query->where('identity_user', $identity);
                 });
             }
         } else if(Auth::user()->role == 'P') {
@@ -45,20 +45,20 @@ class RecommendationController extends Controller
             });
         }
 
-        if ($schoolVal !== 'all') {
-            $recommendationQuery->where('school_id', $schoolVal);
+        if ($school !== 'all') {
+            $recommendationQuery->where('school_id', $school);
         }
 
-        if ($yearVal !== 'all') {
-            $recommendationQuery->where('year', $yearVal);
+        if ($year !== 'all') {
+            $recommendationQuery->where('year', $year);
         }
 
-        if ($referenceVal !== 'all') {
-            $recommendationQuery->where('reference', 'like', '%' . $referenceVal . '%');
+        if ($reference !== 'all') {
+            $recommendationQuery->where('reference', 'like', '%' . $reference . '%');
         }
 
-        if ($sourceVal !== 'all') {
-            $recommendationQuery->where('source_id', $sourceVal);
+        if ($source !== 'all') {
+            $recommendationQuery->where('source_id', $source);
         }
 
         $recommendations = $recommendationQuery->with(['applicant', 'schoolapplicant', 'applicant.presenter', 'sourcesetting'])->paginate(5);
@@ -302,7 +302,7 @@ class RecommendationController extends Controller
         $recommendation = Recommendation::findOrFail($id);
         $recommendation->delete();
 
-        return response()->json(['Data rekomendasi berhasil dihapus!']);
+        return back()->with('message', 'Data rekomendasi berhasil dihapus!');
     }
 
     /**

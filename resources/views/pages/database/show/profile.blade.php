@@ -49,12 +49,12 @@
                             <div class="flex gap-2">
                                 @if ($account > 0 && $user->programtype_id && $user->program)
                                     <a href="{{ route('database.print', $user->identity) }}"
-                                        class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-3 py-1 rounded-xl text-xs text-white"><i
+                                        class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-4 py-1 rounded-lg text-sm text-white"><i
                                             class="fa-solid fa-print"></i></a>
                                 @else
                                     @if (!$user->programtype_id && !$user->program)
                                         <button onclick="return alert('Program Studi / Program Kuliah belum dipilih.')"
-                                            class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-4 py-1 rounded-lg text-sm text-red-50"><i
+                                            class="inline-block bg-lp3i-100 hover:bg-lp3i-200 px-4 py-1 rounded-lg text-sm text-white"><i
                                                 class="fa-solid fa-print"></i></button>
                                     @endif
                                 @endif

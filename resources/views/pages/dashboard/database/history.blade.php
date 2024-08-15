@@ -149,7 +149,7 @@
 
         const getHistories = async () => {
             try {
-                showLoadingAnimation();
+                // showLoadingAnimation();
                 const responsePresenters = await axios.get(`/get/presenter`);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;

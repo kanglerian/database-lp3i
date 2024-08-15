@@ -55,34 +55,34 @@ class ApplicantController extends Controller
 
         $applicantsQuery = Applicant::query();
 
-        $dateStart = request('dateStart', 'all');
-        $dateEnd = request('dateEnd', 'all');
-        $yearGrad = request('yearGrad', 'all');
-        $presenterVal = request('presenterVal', 'all');
-        $schoolVal = request('schoolVal', 'all');
-        $majorVal = request('majorVal', 'all');
-        $birthdayVal = request('birthdayVal', 'all');
-        $phoneVal = request('phoneVal', 'all');
-        $pmbVal = request('pmbVal', 'all');
-        $followVal = request('followVal', 'all');
-        $comeVal = request('comeVal', 'all');
-        $incomeVal = request('incomeVal', 'all');
-        $planVal = request('planVal', 'all');
-        $sourceVal = request('sourceVal', 'all');
-        $sourceDaftarVal = request('sourceDaftarVal', 'all');
-        $statusVal = request('statusVal', 'all');
-        $achievementVal = request('achievementVal', 'all');
-        $kipVal = request('kipVal', 'all');
-        $relationVal = request('relationVal', 'all');
-        $jobFatherVal = request('jobFatherVal', 'all');
-        $jobMotherVal = request('jobMotherVal', 'all');
+        $dateStart = request('datestart', 'all');
+        $dateEnd = request('dateend', 'all');
+        $yearGrad = request('year', 'all');
+        $presenterVal = request('presenter', 'all');
+        $schoolVal = request('school', 'all');
+        $majorVal = request('major', 'all');
+        $birthdayVal = request('dateofbirth', 'all');
+        $phoneVal = request('phone', 'all');
+        $pmbVal = request('pmb', 'all');
+        $followVal = request('follow', 'all');
+        $comeVal = request('come', 'all');
+        $incomeVal = request('incomeparent', 'all');
+        $planVal = request('plan', 'all');
+        $sourceVal = request('source', 'all');
+        $sourceDaftarVal = request('sourcedaftar', 'all');
+        $statusVal = request('status', 'all');
+        $achievementVal = request('achievement', 'all');
+        $kipVal = request('kip', 'all');
+        $relationVal = request('relation', 'all');
+        $jobFatherVal = request('jobfather', 'all');
+        $jobMotherVal = request('jobmother', 'all');
         $databaseOnline = request('databaseOnline', 'all');
-        $statusApplicant = request('statusApplicant', 'all');
+        $statusApplicant = request('applicantstatus', 'all');
         $nameVal = request('name');
 
         $appends = [];
 
-        if($nameVal){
+        if ($nameVal) {
             $applicantsQuery->where('name', 'LIKE', '%' . $nameVal . '%');
         }
 
@@ -115,33 +115,33 @@ class ApplicantController extends Controller
 
         if ($dateStart !== 'all' && $dateEnd !== 'all') {
             $applicantsQuery->whereBetween('created_at', [$dateStart, $dateEnd]);
-            $appends['dateStart'] = $dateStart;
-            $appends['dateEnd'] = $dateEnd;
+            $appends['datestart'] = $dateStart;
+            $appends['dateend'] = $dateEnd;
         }
 
         if ($yearGrad !== 'all') {
             $applicantsQuery->where('year', $yearGrad);
-            $appends['yearGrad'] = $yearGrad;
+            $appends['yearrad'] = $yearGrad;
         }
 
         if ($presenterVal !== 'all') {
             $applicantsQuery->where('identity_user', $presenterVal);
-            $appends['presenterVal'] = $presenterVal;
+            $appends['presenter'] = $presenterVal;
         }
 
         if ($schoolVal !== 'all') {
             $applicantsQuery->where('school', $schoolVal);
-            $appends['schoolVal'] = $schoolVal;
+            $appends['school'] = $schoolVal;
         }
 
         if ($majorVal !== 'all') {
             $applicantsQuery->where('major', 'LIKE', '%' . $majorVal . '%');
-            $appends['majorVal'] = $majorVal;
+            $appends['major'] = $majorVal;
         }
 
         if ($birthdayVal !== 'all') {
             $applicantsQuery->where('date_of_birth', $birthdayVal);
-            $appends['birthdayVal'] = $birthdayVal;
+            $appends['dateofbirth'] = $birthdayVal;
         }
 
         if ($phoneVal !== 'all') {
@@ -150,7 +150,7 @@ class ApplicantController extends Controller
             } else {
                 $applicantsQuery->whereNull('phone');
             }
-            $appends['phoneVal'] = $phoneVal;
+            $appends['phone'] = $phoneVal;
         }
 
         function getYearPMB()
@@ -165,39 +165,39 @@ class ApplicantController extends Controller
 
         if ($pmbVal !== 'all') {
             $applicantsQuery->where('pmb', $pmbVal);
-            $appends['pmbVal'] = $pmbVal;
+            $appends['pmb'] = $pmbVal;
         } else {
             $applicantsQuery->where('pmb', $pmbValue);
-            $appends['pmbVal'] = $pmbValue;
+            $appends['pmb'] = $pmbValue;
         }
 
         if ($followVal !== 'all') {
             $applicantsQuery->where('followup_id', $followVal);
-            $appends['followVal'] = $followVal;
+            $appends['follow'] = $followVal;
         }
         if ($sourceVal !== 'all') {
             $applicantsQuery->where('source_id', $sourceVal);
-            $appends['sourceVal'] = $sourceVal;
+            $appends['source'] = $sourceVal;
         }
         if ($sourceDaftarVal !== 'all') {
             $applicantsQuery->where('source_daftar_id', $sourceDaftarVal);
-            $appends['sourceDaftarVal'] = $sourceDaftarVal;
+            $appends['sourcedaftar'] = $sourceDaftarVal;
         }
         if ($statusVal !== 'all') {
             $applicantsQuery->where('status_id', $statusVal);
-            $appends['statusVal'] = $statusVal;
+            $appends['status'] = $statusVal;
         }
         if ($comeVal !== 'all') {
             $applicantsQuery->where('come', $comeVal);
-            $appends['comeVal'] = $comeVal;
+            $appends['come'] = $comeVal;
         }
         if ($incomeVal !== 'all') {
             $applicantsQuery->where('income_parent', $incomeVal);
-            $appends['incomeVal'] = $incomeVal;
+            $appends['incomeparent'] = $incomeVal;
         }
         if ($planVal !== 'all') {
             $applicantsQuery->where('planning', $planVal);
-            $appends['planVal'] = $planVal;
+            $appends['plan'] = $planVal;
         }
         if ($databaseOnline !== 'all') {
             $applicantsQuery->where('identity_user', $databaseOnline);
@@ -205,33 +205,33 @@ class ApplicantController extends Controller
         }
         if ($achievementVal !== 'all') {
             $applicantsQuery->where('achievement', 'LIKE', '%' . $achievementVal . '%');
-            $appends['achievementVal'] = $achievementVal;
+            $appends['achievement'] = $achievementVal;
         }
         if ($relationVal !== 'all') {
             $applicantsQuery->where('relation', 'LIKE', '%' . $relationVal . '%');
-            $appends['relationVal'] = $relationVal;
+            $appends['relation'] = $relationVal;
         }
 
         if ($kipVal === '1') {
             $applicantsQuery->where('kip', '<>', null);
-            $appends['kipVal'] = $kipVal;
+            $appends['kip'] = $kipVal;
         } elseif ($kipVal === '0') {
             $applicantsQuery->whereNull('kip');
-            $appends['kipVal'] = $kipVal;
+            $appends['kip'] = $kipVal;
         }
 
         if ($jobFatherVal !== 'all') {
             $applicantsQuery->whereHas('father', function ($query) use ($jobFatherVal) {
                 $query->where('job', 'LIKE', '%' . $jobFatherVal . '%');
             });
-            $appends['jobFatherVal'] = $jobFatherVal;
+            $appends['jobfather'] = $jobFatherVal;
         }
 
         if ($jobMotherVal !== 'all') {
             $applicantsQuery->whereHas('mother', function ($query) use ($jobMotherVal) {
                 $query->where('job', 'LIKE', '%' . $jobMotherVal . '%');
             });
-            $appends['jobMotherVal'] = $jobMotherVal;
+            $appends['jobmother'] = $jobMotherVal;
         }
 
         $applicants = $applicantsQuery
@@ -265,29 +265,34 @@ class ApplicantController extends Controller
         try {
             $applicantsQuery = Applicant::query();
 
-            $dateStart = request('dateStart', 'all');
-            $dateEnd = request('dateEnd', 'all');
-            $yearGrad = request('yearGrad', 'all');
-            $presenterVal = request('presenterVal', 'all');
-            $schoolVal = request('schoolVal', 'all');
-            $majorVal = request('majorVal', 'all');
-            $birthdayVal = request('birthdayVal', 'all');
-            $phoneVal = request('phoneVal', 'all');
-            $pmbVal = request('pmbVal', 'all');
-            $followVal = request('followVal', 'all');
-            $comeVal = request('comeVal', 'all');
-            $incomeVal = request('incomeVal', 'all');
-            $planVal = request('planVal', 'all');
-            $sourceVal = request('sourceVal', 'all');
-            $sourceDaftarVal = request('sourceDaftarVal', 'all');
-            $statusVal = request('statusVal', 'all');
-            $achievementVal = request('achievementVal', 'all');
-            $kipVal = request('kipVal', 'all');
-            $relationVal = request('relationVal', 'all');
-            $jobFatherVal = request('jobFatherVal', 'all');
-            $jobMotherVal = request('jobMotherVal', 'all');
+            $dateStart = request('datestart', 'all');
+            $dateEnd = request('dateend', 'all');
+            $yearGrad = request('year', 'all');
+            $presenterVal = request('presenter', 'all');
+            $schoolVal = request('school', 'all');
+            $majorVal = request('major', 'all');
+            $birthdayVal = request('dateofbirth', 'all');
+            $phoneVal = request('phone', 'all');
+            $pmbVal = request('pmb', 'all');
+            $followVal = request('follow', 'all');
+            $comeVal = request('come', 'all');
+            $incomeVal = request('incomeparent', 'all');
+            $planVal = request('plan', 'all');
+            $sourceVal = request('source', 'all');
+            $sourceDaftarVal = request('sourcedaftar', 'all');
+            $statusVal = request('status', 'all');
+            $achievementVal = request('achievement', 'all');
+            $kipVal = request('kip', 'all');
+            $relationVal = request('relation', 'all');
+            $jobFatherVal = request('jobfather', 'all');
+            $jobMotherVal = request('jobmother', 'all');
             $databaseOnline = request('databaseOnline', 'all');
-            $statusApplicant = request('statusApplicant', 'all');
+            $statusApplicant = request('applicantstatus', 'all');
+            $nameVal = request('name');
+
+            if ($nameVal) {
+                $applicantsQuery->where('name', 'LIKE', '%' . $nameVal . '%');
+            }
 
             if (Auth::user()->role === 'P') {
                 $applicantsQuery->where('identity_user', Auth::user()->identity);

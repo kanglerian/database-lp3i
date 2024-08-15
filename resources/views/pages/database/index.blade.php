@@ -79,220 +79,224 @@
                     </div>
                 </div>
             @endif
-            <div class="flex justify-between items-center gap-3 px-3">
-                <a href="{{ route('database.create') }}"
-                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
-                        class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
-                <div class="flex gap-2">
-                    @if (Auth::user()->role == 'P' && Auth::user()->sheet)
-                        <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
-                            class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
-                            <i class="fa-solid fa-rotate"></i>
+
+            <form method="GET" action="{{ route('database.index') }}" class="space-y-3">
+                <div class="flex justify-between items-center gap-3 px-3">
+                    <a href="{{ route('database.create') }}"
+                        class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
+                            class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
+                    <div class="flex gap-2">
+                        @if (Auth::user()->role == 'P' && Auth::user()->sheet)
+                            <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
+                                class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                                <i class="fa-solid fa-rotate"></i>
+                            </button>
+                        @endif
+                        <button type="submit"
+                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
+                            <i class="fa-solid fa-filter"></i>
                         </button>
-                    @endif
-                    <button type="button" onclick="changeFilter()"
-                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
-                        <i class="fa-solid fa-filter"></i>
-                    </button>
-                    <button type="button" onclick="clearFilter()"
-                        class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
-                        <i class="fa-solid fa-filter-circle-xmark"></i>
-                    </button>
+                        <a href="{{ route('database.index') }}"
+                            class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
+                            <i class="fa-solid fa-filter-circle-xmark"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <section class="flex flex-col justify-center gap-3">
-                <div
-                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onkeyup="changePMBQuick()"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Tahun PMB">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_applicant" class="text-xs">Status Aplikan</label>
-                        <select id="change_applicant"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="database">Database</option>
-                            <option value="aplikan">Aplikan</option>
-                            <option value="daftar">Daftar</option>
-                            <option value="registrasi">Registrasi</option>
-                            <option value="schoolarship">Beasiswa</option>
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_source_daftar" class="text-xs">Sumber Informasi:</label>
-                        <select id="change_source_daftar"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Sumber</option>
-                            @foreach ($sources as $source)
-                                <option value="{{ $source->id }}">{{ $source->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_source" class="text-xs">Sumber Database:</label>
-                        <select id="change_source"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Sumber</option>
-                            @foreach ($sources as $source)
-                                <option value="{{ $source->id }}">{{ $source->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_status" class="text-xs">Status Database:</label>
-                        <select id="change_status"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Status</option>
-                            @foreach ($statuses as $status)
-                                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @if (Auth::user()->role == 'A')
+
+                <section class="flex flex-col justify-center gap-3">
+                    <div
+                        class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
                         <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="identity_user" class="text-xs">Presenter:</label>
-                            <select id="identity_user"
-                                class="js-example-basic-single bg-white border border-gray-200 w-full md:w-[150px] px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih presenter</option>
-                                <option value="6281313608558">Administrator</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->identity }}">{{ $user->name }}</option>
+                            <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                            <input type="number" id="change_pmb" name="pmb" onkeyup="changePMBQuick()"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Tahun PMB">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_applicant" class="text-xs">Status Aplikan</label>
+                            <select id="change_applicant" name="applicantstatus"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="database">Database</option>
+                                <option value="aplikan">Aplikan</option>
+                                <option value="daftar">Daftar</option>
+                                <option value="registrasi">Registrasi</option>
+                                <option value="schoolarship">Beasiswa</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_source_daftar" class="text-xs">Sumber Informasi:</label>
+                            <select id="change_source_daftar" name="sourcedaftar"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Sumber</option>
+                                @foreach ($sources as $source)
+                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                    @else
-                        <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
-                    @endif
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date_start" class="text-xs">Tanggal awal:</label>
-                        <input type="date" id="date_start"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_source" class="text-xs">Sumber Database:</label>
+                            <select id="change_source" name="source"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Sumber</option>
+                                @foreach ($sources as $source)
+                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_status" class="text-xs">Status Database:</label>
+                            <select id="change_status" name="status"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Status</option>
+                                @foreach ($statuses as $status)
+                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @if (Auth::user()->role == 'A')
+                            <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                                <label for="identity_user" class="text-xs">Presenter:</label>
+                                <select id="identity_user" name="presenter"
+                                    class="js-example-basic-single bg-white border border-gray-200 w-full md:w-[150px] px-3 py-2 text-xs rounded-xl text-gray-800">
+                                    <option value="all">Pilih presenter</option>
+                                    <option value="6281313608558">Administrator</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->identity }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
+                        @endif
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="date_start" class="text-xs">Tanggal awal:</label>
+                            <input type="date" id="date_start" name="datestart"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="date_end" class="text-xs">Tanggal akhir:</label>
+                            <input type="date" id="date_end" name="dateend"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_follow" class="text-xs">Ket. Follow Up:</label>
+                            <select id="change_follow" name="follow"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Keterangan</option>
+                                @foreach ($follows as $follow)
+                                    <option value="{{ $follow->id }}">{{ $follow->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date_end" class="text-xs">Tanggal akhir:</label>
-                        <input type="date" id="date_end"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    <div
+                        class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="school" class="text-xs">Asal sekolah:</label>
+                            <select id="school" name="school"
+                                class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih sekolah</option>
+                                <option value="0">Tidak diketahui</option>
+                                @foreach ($schools as $school)
+                                    <option value="{{ $school->id }}">{{ $school->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_major" class="text-xs">Jurusan:</label>
+                            <input type="text" id="change_major" name="major"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Jurusan">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="year_grad" class="text-xs">Tahun lulus:</label>
+                            <input type="number" id="year_grad" name="year"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Tahun lulus">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="birthday" class="text-xs">Tanggal lahir:</label>
+                            <input type="date" id="birthday" name="dateofbirth"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Tanggal Lahir">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_phone" class="text-xs">No. Telpon:</label>
+                            <select id="change_phone" name="phone"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="1">Valid</option>
+                                <option value="0">Tidak Valid</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_achievement" class="text-xs">Prestasi:</label>
+                            <input type="text" id="change_achievement" name="achievement"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Prestasi">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_relation" class="text-xs">Relasi:</label>
+                            <input type="text" id="change_relation" name="relation"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Relasi">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_jobfather" class="text-xs">Pekerjaan Ayah:</label>
+                            <input type="text" id="change_jobfather" name="jobfather"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Pekerjaan Ayah">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_jobmother" class="text-xs">Pekerjaan Ibu:</label>
+                            <input type="text" id="change_jobmother" name="jobmother"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                                placeholder="Pekerjaan Ibu">
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_plan" class="text-xs">Rencana Aplikan</label>
+                            <select id="change_plan" name="plan"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="Kuliah">Kuliah</option>
+                                <option value="Kerja">Kerja</option>
+                                <option value="Bisnis">Bisnis</option>
+                                <option value="Nikah">Nikah</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_come" class="text-xs">Datang ke LP3I</label>
+                            <select id="change_come" name="come"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_income" class="text-xs">Penghasilan Orang Tua</label>
+                            <select id="change_income" name="incomeparent"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="Rp1.000.000">< Rp1.000.000</option>
+                                <option value="Rp1.000.000 - Rp2.000.000">Rp1.000.000 - Rp2.000.000</option>
+                                <option value="Rp2.000.000 - Rp4.000.000">Rp2.000.000 - Rp4.000.000</option>
+                                <option value="Rp5.000.000">> Rp5.000.000</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="change_kip" class="text-xs">KIP</label>
+                            <select id="change_kip" name="kip"
+                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_follow" class="text-xs">Ket. Follow Up:</label>
-                        <select id="change_follow"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Keterangan</option>
-                            @foreach ($follows as $follow)
-                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div
-                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="school" class="text-xs">Asal sekolah:</label>
-                        <select id="school"
-                            class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih sekolah</option>
-                            <option value="0">Tidak diketahui</option>
-                            @foreach ($schools as $school)
-                                <option value="{{ $school->id }}">{{ $school->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_major" class="text-xs">Jurusan:</label>
-                        <input type="text" id="change_major"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Jurusan">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="year_grad" class="text-xs">Tahun lulus:</label>
-                        <input type="number" id="year_grad"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Tahun lulus">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="birthday" class="text-xs">Tanggal lahir:</label>
-                        <input type="date" id="birthday"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Tanggal Lahir">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_phone" class="text-xs">No. Telpon:</label>
-                        <select name="change_phone" id="change_phone"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Valid</option>
-                            <option value="0">Tidak Valid</option>
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_achievement" class="text-xs">Prestasi:</label>
-                        <input type="text" id="change_achievement"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Prestasi">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_relation" class="text-xs">Relasi:</label>
-                        <input type="text" id="change_relation"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Relasi">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_jobfather" class="text-xs">Pekerjaan Ayah:</label>
-                        <input type="text" id="change_jobfather"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Pekerjaan Ayah">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_jobmother" class="text-xs">Pekerjaan Ibu:</label>
-                        <input type="text" id="change_jobmother"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Pekerjaan Ibu">
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_plan" class="text-xs">Rencana Aplikan</label>
-                        <select id="change_plan"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="Kuliah">Kuliah</option>
-                            <option value="Kerja">Kerja</option>
-                            <option value="Bisnis">Bisnis</option>
-                            <option value="Nikah">Nikah</option>
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_come" class="text-xs">Datang ke LP3I</label>
-                        <select id="change_come"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_income" class="text-xs">Penghasilan Orang Tua</label>
-                        <select id="change_income"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="< 1.000.000">&lt; 1.000.000</option>
-                            <option value="1.000.000 - 2.000.000">1.000.000 - 2.000.000</option>
-                            <option value="2.000.000 - 4.000.000">2.000.000 - 4.000.000</option>
-                            <option value="> 5.000.000">&gt; 5.000.000</option>
-                        </select>
-                    </div>
-                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_kip" class="text-xs">KIP</label>
-                        <select id="change_kip"
-                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
+                </section>
+            </form>
 
             <section class="overflow-hidden border rounded-3xl">
                 <section class="px-6 py-4">
@@ -568,6 +572,7 @@
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {
+                    alert('Mohon difilter terlebih dahulu!');
                     console.error('URL tidak memiliki query string');
                     return;
                 }
@@ -619,6 +624,7 @@
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {
+                    alert('Mohon difilter terlebih dahulu!');
                     console.error('URL tidak memiliki query string');
                     return;
                 }
@@ -694,6 +700,7 @@
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {
+                    alert('Mohon difilter terlebih dahulu!');
                     console.error('URL tidak memiliki query string');
                     return;
                 }
@@ -759,6 +766,7 @@
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {
+                    alert('Mohon difilter terlebih dahulu!');
                     console.error('URL tidak memiliki query string');
                     return;
                 }
@@ -813,6 +821,7 @@
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {
+                    alert('Mohon difilter terlebih dahulu!');
                     console.error('URL tidak memiliki query string');
                     return;
                 }
@@ -833,7 +842,7 @@
                         let majorWithoutSpace = applicant.major == null ? '' : applicant.major.replace(/[\s-]/g,
                             '');
                         content +=
-                            `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;D;;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
+                            `BEGIN:VCARD\nVERSION:3.0\nFN:${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year}\nN:;${applicant.name} ${schoolNameWithoutSpace} ${majorWithoutSpace} ${applicant.year == null ? '' : applicant.year};;;\nTEL;TYPE=CELL:+${applicant.phone}\nCATEGORIES:myContacts\nEND:VCARD\n`
                     });
                     var blob = new Blob([content], {
                         type: "text/vcard"
@@ -880,29 +889,29 @@
                     const [key, value] = param.split('=');
                     queryParams[key] = value;
                 });
-                document.getElementById('change_pmb').value = queryParams.pmbVal ?? startYear;
-                document.getElementById('change_applicant').value = queryParams.statusApplicant ?? 'all';
-                document.getElementById('change_source_daftar').value = queryParams.sourceDaftarVal ?? 'all';
-                document.getElementById('change_source').value = queryParams.sourceVal ?? 'all';
-                document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
-                document.getElementById('change_status').value = queryParams.statusVal ?? 'all';
-                document.getElementById('identity_user').value = queryParams.presenterVal ?? 'all';
-                document.getElementById('date_start').value = queryParams.dateStart ?? '';
-                document.getElementById('date_end').value = queryParams.dateEnd ?? '';
-                document.getElementById('change_follow').value = queryParams.followVal ?? 'all';
-                document.getElementById('school').value = queryParams.schoolVal ?? 'all';
-                document.getElementById('change_major').value = queryParams.majorVal ?? '';
-                document.getElementById('year_grad').value = queryParams.yearGrad ?? '';
-                document.getElementById('birthday').value = queryParams.birthdayVal ?? '';
-                document.getElementById('change_phone').value = queryParams.phoneVal ?? 'all';
-                document.getElementById('change_achievement').value = queryParams.achievementVal ?? '';
-                document.getElementById('change_relation').value = queryParams.relationVal ?? '';
-                document.getElementById('change_jobfather').value = queryParams.jobFatherVal ?? '';
-                document.getElementById('change_jobmother').value = queryParams.jobMotherVal ?? '';
-                document.getElementById('change_plan').value = queryParams.planVal ?? 'all';
-                document.getElementById('change_come').value = queryParams.comeVal ?? 'all';
-                document.getElementById('change_income').value = queryParams.incomeVal ?? 'all';
-                document.getElementById('change_kip').value = queryParams.kipVal ?? 'all';
+                document.getElementById('change_pmb').value = queryParams.pmb ?? startYear;
+                document.getElementById('change_applicant').value = queryParams.applicantstatus ?? 'all';
+                document.getElementById('change_source_daftar').value = queryParams.sourcedaftar ?? 'all';
+                document.getElementById('change_source').value = queryParams.source ?? 'all';
+                document.getElementById('change_status').value = queryParams.status ?? 'all';
+                document.getElementById('change_status').value = queryParams.status ?? 'all';
+                document.getElementById('identity_user').value = queryParams.presenter ?? 'all';
+                document.getElementById('date_start').value = queryParams.datestart ?? '';
+                document.getElementById('date_end').value = queryParams.dateend ?? '';
+                document.getElementById('change_follow').value = queryParams.follow ?? 'all';
+                document.getElementById('school').value = queryParams.school ?? 'all';
+                document.getElementById('change_major').value = queryParams.major ?? '';
+                document.getElementById('year_grad').value = queryParams.year ?? '';
+                document.getElementById('birthday').value = queryParams.dateofbirth ?? '';
+                document.getElementById('change_phone').value = queryParams.phone ?? 'all';
+                document.getElementById('change_achievement').value = queryParams.achievement ?? '';
+                document.getElementById('change_relation').value = queryParams.relation ?? '';
+                document.getElementById('change_jobfather').value = queryParams.jobfather ?? '';
+                document.getElementById('change_jobmother').value = queryParams.jobmother ?? '';
+                document.getElementById('change_plan').value = queryParams.plan ?? 'all';
+                document.getElementById('change_come').value = queryParams.come ?? 'all';
+                document.getElementById('change_income').value = queryParams.income ?? 'all';
+                document.getElementById('change_kip').value = queryParams.kip ?? 'all';
             }
 
             started();

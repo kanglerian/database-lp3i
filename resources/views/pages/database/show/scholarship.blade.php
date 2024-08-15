@@ -74,11 +74,11 @@
                 try {
                     let identity = document.getElementById('identity_val').value;
                     const responseHistories = await axios.get(
-                        `${URL_API_LP3I}/scholarship/histories?identity_user=${identity}`
+                        `http://localhost:3000/histories?identity_user=${identity}`
                     );
 
                     const responseCategories = await axios.get(
-                        `${URL_API_LP3I}/scholarship/categories`
+                        `http://localhost:3000/categories`
                     );
                     let histories = responseHistories.data;
                     let categories = responseCategories.data;
@@ -148,10 +148,10 @@
             const getRecords = async (history) => {
                 try {
                     const responseRecords = await axios.get(
-                        `${URL_API_LP3I}/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                        `http://localhost:3000/records?identity_user=${history.identity_user}&category=${history.category_id}`
                     );
                     const responseQuestions = await axios.get(
-                        `${URL_API_LP3I}/scholarship/questions?category=${history.category_id}`
+                        `http://localhost:3000/questions?category=${history.category_id}`
                     );
 
                     let category = history.category.name;
@@ -191,7 +191,7 @@
                 if (message) {
                     const input = prompt(`Silahkan ketik: ${identityUser}`)
                     if (input == identityUser) {
-                        await axios.delete(`${URL_API_LP3I}/scholarship/histories/${identityUser}/${idCategory}`)
+                        await axios.delete(`http://localhost:3000/histories/${identityUser}/${idCategory}`)
                             .then((response) => {
                                 alert(response.data.message);
                                 location.reload();

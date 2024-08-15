@@ -43,7 +43,7 @@
         e.preventDefault();
         const categoryInput = e.target.elements.category;
         if (categoryInput.value) {
-            await axios.post(`${URL_API_LP3I}/scholarship/categories`, {
+            await axios.post(`http://localhost:3000/categories`, {
                     name: categoryInput.value,
                 })
                 .then((response) => {

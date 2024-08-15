@@ -46,12 +46,12 @@
                         class="{{ request()->routeIs(['recommendation.index']) ? 'inline-flex border-b-2 border-lp3i-100 leading-loose' : '' }} font-bold text-md text-gray-800">Rekomendasi</a>
                 </li>
             </ul>
-            <div>
-                <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
+            {{-- <div>
+                <div class="flex bg-gray-200 text-gray-700 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count">0</h2>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </x-slot>
 
@@ -67,8 +67,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
-                    role="alert">
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('error') }}
@@ -78,13 +77,12 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-3 lg:px-8 space-y-4">
-            <div
+            <form method="GET" action="{{ route('recommendation.index') }}"
                 class="w-full grid grid-cols-1 md:grid-cols-6 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
-                <input type="hidden" id="role" value="{{ Auth::user()->role }}">
                 @if (Auth::user()->role == 'A')
                     <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="identity_user" class="text-xs">Presenter:</label>
-                        <select id="identity_user"
+                        <label for="identity" class="text-xs">Presenter:</label>
+                        <select id="identity" name="identity"
                             class="js-example-basic-single bg-white border border-gray-200 w-full px-3 py-2 text-xs rounded-xl text-gray-800">
                             <option value="all">Pilih</option>
                             @foreach ($users as $user)
@@ -92,12 +90,10 @@
                             @endforeach
                         </select>
                     </div>
-                @else
-                    <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
                 @endif
                 <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                     <label for="school" class="text-xs">Asal sekolah:</label>
-                    <select id="school"
+                    <select id="school" name="school"
                         class="js-example-basic-single w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
                         <option value="all">Pilih</option>
                         <option value="0">Tidak diketahui</option>
@@ -107,8 +103,8 @@
                     </select>
                 </div>
                 <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
-                    <label for="source_id" class="text-xs">Sumber Data:</label>
-                    <select id="source_id"
+                    <label for="source" class="text-xs">Sumber Data:</label>
+                    <select id="source" name="source"
                         class="js-example-basic-single w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
                         <option value="all">Pilih</option>
                         <option value="0">Tidak diketahui</option>
@@ -119,31 +115,31 @@
                 </div>
                 <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                     <label for="year" class="text-xs">Tahun lulus:</label>
-                    <input type="number" id="year"
+                    <input type="number" id="year" name="year"
                         class="w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                         placeholder="Tahun lulus">
                 </div>
                 <div class="w-full flex flex-col space-y-1 p-1 md:p-0">
                     <label for="reference" class="text-xs">Referensi:</label>
-                    <input type="text" id="reference"
+                    <input type="text" id="reference" name="reference"
                         class="w-full bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
                         placeholder="Referensi">
                 </div>
                 <div class="flex items-end gap-2 mb-1 p-1 md:p-0">
-                    <button type="button" onclick="changeFilter()"
+                    <button type="submit"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter"></i>
                     </button>
-                    <button type="button" onclick="resetFilter()"
+                    <a href="{{ route('recommendation.index') }}"
                         class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-filter-circle-xmark"></i>
-                    </button>
-                    <button type="button" onclick="exportExcel()"
+                    </a>
+                    {{-- <button type="button" onclick="exportExcel()"
                         class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
                         <i class="fa-solid fa-file-excel"></i>
-                    </button>
+                    </button> --}}
                 </div>
-            </div>
+            </form>
 
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
@@ -163,7 +159,28 @@
                                     <th scope="col" class="px-6 py-3">
                                         Asal Sekolah
                                     </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        Kelas
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Tahun Lulus
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        Nama MGM
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Presenter
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        Referensi
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Sumber
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 bg-gray-50">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="px-6 py-3text-center">
                                         Aksi
                                     </th>
                                 </tr>
@@ -184,13 +201,56 @@
                                         <td class="px-6 py-4">
                                             {{ $recommendation->schoolapplicant->name ?? 'Tidak diketahui' }}
                                         </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
+                                            {{ $recommendation->class }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $recommendation->year }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
+                                            {{ $recommendation->applicant->name ?? 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $recommendation->applicant->presenter->name }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
+                                            {{ $recommendation->reference ?? 'Tidak diketahui' }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-700">
+                                            {{ $recommendation->sourcesetting->name }}
+                                        </td>
                                         <td class="px-6 py-4 bg-gray-50">
-                                            <a href="{{ route('presenters.edit', $recommendation->id) }}"
+                                            <form action="{{ route('recommendation.change', $recommendation->id) }}"
+                                                method="post" class="w-full">
+                                                @csrf
+                                                @method('PATCH')
+                                                <select name="status" value="{{ $recommendation->status }}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block pe-8 px-3 p-2.5"
+                                                    onchange="this.form.submit()">
+                                                    <option disabled>Pilih</option>
+                                                    <option value="0"
+                                                        {{ $recommendation->status == 0 ? 'selected' : '' }}>Tidak
+                                                        diketahui</option>
+                                                    <option value="1"
+                                                        {{ $recommendation->status == 1 ? 'selected' : '' }}>Batal
+                                                    </option>
+                                                    <option value="2"
+                                                        {{ $recommendation->status == 2 ? 'selected' : '' }}>
+                                                        Pertimbangkan</option>
+                                                    <option value="3"
+                                                        {{ $recommendation->status == 3 ? 'selected' : '' }}>Prospek
+                                                    </option>
+                                                </select>
+                                            </form>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <a href="{{ route('recommendation.edit', $recommendation->id) }}"
                                                 class="inline-block bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-xl text-white transition-all ease-in-out">
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </a>
-                                            <form action="{{ route('presenters.destroy', $recommendation->id) }}"
-                                                method="post" class="inline-block" onsubmit="return confirmDelete()">
+                                            <form action="{{ route('recommendation.destroy', $recommendation->id) }}"
+                                                method="post" class="inline-block"
+                                                onsubmit="return confirmDelete()">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -200,79 +260,43 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        <div class="p-1">
-                            {{ $recommendations->links() }}
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            <div class="p-1">
+                                {{ $recommendations->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="bg-white overflow-hidden border rounded-3xl">
-                <div class="p-6 bg-white">
-                    <div class="relative overflow-x-auto rounded-3xl">
-                        <table id="table-recommendation" class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
-                                        <i class="fa-solid fa-user"></i>
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Nama Lengkap
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        No. HP
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Asal Sekolah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Kelas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Tahun Lulus
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Nama MGM
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Presenter
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Referensi
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Sumber
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                        Status
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
-                                        Aksi
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="11" class="text-center py-5 px-6">Belum ada data yang sesuai dengan
-                                        filter yang diterapkan.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> --}}
         </div>
-    </div>
+        <script>
+            function getUrlParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const identity = urlParams.get('identity') || 'all';
+                const school = urlParams.get('school') || 'all';
+                const source = urlParams.get('source') || 'all';
+                const year = urlParams.get('year');
+                const reference = urlParams.get('reference');
+                document.getElementById('identity').value = identity;
+                document.getElementById('school').value = school;
+                document.getElementById('source').value = source;
+                document.getElementById('year').value = year;
+                document.getElementById('reference').value = reference;
+            }
+            getUrlParams();
 
+            function confirmDelete() {
+                return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
+            }
+        </script>
 
-    @push('scripts')
+        {{-- @push('scripts')
         <script src="{{ asset('js/exceljs.min.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -500,25 +524,7 @@
                 });
             }
 
-            const deleteRecord = (id) => {
-                if (confirm('Apakah kamu yakin akan menghapus data?')) {
-                    $.ajax({
-                        url: `/recommendation/${id}`,
-                        type: 'POST',
-                        data: {
-                            '_method': 'DELETE',
-                            '_token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            alert(response[0]);
-                            location.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            alert('Error deleting record');
-                        }
-                    })
-                }
-            }
+
         </script>
         <script>
             const promiseDataRecommendation = () => {
@@ -595,6 +601,6 @@
                 }
             };
         </script>
-    @endpush
+    @endpush --}}
 
-</x-app-layout>
+    </x-app-layout>
