@@ -20,18 +20,6 @@
                     <span>Total: </span>
                     <span id="phonehistory_total" class="font-bold">0</span>
                 </div>
-                <div class="bg-emerald-500 text-sm py-4 px-5 rounded-2xl text-white">
-                    <i class="fa-solid fa-phone"></i>
-                    <i class="fa-solid fa-circle-check mr-2"></i>
-                    <span>Valid: </span>
-                    <span id="phonehistory_valid" class="font-bold">0</span>
-                </div>
-                <div class="bg-red-500 text-sm py-4 px-5 rounded-2xl text-white">
-                    <i class="fa-solid fa-phone"></i>
-                    <i class="fa-solid fa-circle-xmark mr-2"></i>
-                    <span>Tidak Valid: </span>
-                    <span id="phonehistory_nonvalid" class="font-bold">0</span>
-                </div>
             </div>
             <div class="relative overflow-x-auto border border-gray-200 rounded-2xl">
                 {{-- @if (Auth::user()->role == 'P')
@@ -151,19 +139,12 @@
             // try {
                 // showLoadingAnimation();
                 const responsePresenters = await axios.get(`/get/presenter`);
-                console.log(responsePresenters);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
-                console.log(responseDatabase);
                 const pmbVal = document.getElementById('change_pmb').value;
-                console.log(pmbVal);
 
                 document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
                     .toLocaleString('id-ID');
-                document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone
-                    .length.toLocaleString('id-ID');
-                document.getElementById('phonehistory_nonvalid').innerText = (responseDatabase.data.database_count -
-                    responseDatabase.data.database_phone.length).toLocaleString('id-ID');
 
                 let buckets = [];
 

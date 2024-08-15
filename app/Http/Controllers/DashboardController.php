@@ -115,62 +115,44 @@ class DashboardController extends Controller
      */
     public function get_all()
     {
-        // try {
-            $databaseQuery = Applicant::query();
-            $applicantQuery = Applicant::query();
-            $enrollmentQuery = Applicant::query();
-            $registrasiQuery = Applicant::query();
-            $schoolarshipQuery = Applicant::query();
-    
-            $identityVal = request('identityVal', 'all');
-            $pmbVal = request('pmbVal', 'all');
-    
-            if (Auth::user()->role === 'P') {
-                $databaseQuery->where('identity_user', $identityVal);
-                $applicantQuery->where('identity_user', $identityVal);
-                $enrollmentQuery->where('identity_user', $identityVal);
-                $registrasiQuery->where('identity_user', $identityVal);
-                $schoolarshipQuery->where('identity_user', $identityVal);
-            }
-    
-            if ($pmbVal !== 'all') {
-                $databaseQuery->where('pmb', $pmbVal);
-                $applicantQuery->where('pmb', $pmbVal);
-                $enrollmentQuery->where('pmb', $pmbVal);
-                $registrasiQuery->where('pmb', $pmbVal);
-                $schoolarshipQuery->where('pmb', $pmbVal);
-            }
+        $databaseQuery = Applicant::query();
+        $applicantQuery = Applicant::query();
+        $enrollmentQuery = Applicant::query();
+        $registrasiQuery = Applicant::query();
+        $schoolarshipQuery = Applicant::query();
 
-            $databaseCount = $databaseQuery->count();
-            $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
-            $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
-            $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
-            $registrationCount = $registrasiQuery->where('is_register', 1)->count();
+        $identityVal = request('identityVal', 'all');
+        $pmbVal = request('pmbVal', 'all');
 
-            return response()->json([
-                'database_count' => $databaseCount,
-                'schoolarship_count' => $schoolarshipCount,
-                'applicant_count' => $applicantCount,
-                'enrollment_count' => $enrollmentCount,
-                'registration_count' => $registrationCount,
-            ]);
+        if (Auth::user()->role === 'P') {
+            $databaseQuery->where('identity_user', $identityVal);
+            $applicantQuery->where('identity_user', $identityVal);
+            $enrollmentQuery->where('identity_user', $identityVal);
+            $registrasiQuery->where('identity_user', $identityVal);
+            $schoolarshipQuery->where('identity_user', $identityVal);
+        }
 
-            // $data = [
-            //     'database_phone' => $databasePhone,
-            //     'database_count' => $databaseCount,
-            //     'schoolarship_count' => $schoolarshipCount,
-            //     'applicant_count' => $applicantCount,
-            //     'enrollment_count' => $enrollmentCount,
-            //     'registration_count' => $registrationCount,
-            // ];
-            // dd($data);
-        // } catch (\Exception $e) {
-        //     // Tangkap ex   ception dan kembalikan respon JSON dengan pesan error
-        //     return response()->json([
-        //         'error' => 'Terjadi kesalahan saat memproses permintaan.',
-        //         'message' => $e->getMessage(),
-        //     ], 411); // Status code 500 untuk internal server error
-        // }
+        if ($pmbVal !== 'all') {
+            $databaseQuery->where('pmb', $pmbVal);
+            $applicantQuery->where('pmb', $pmbVal);
+            $enrollmentQuery->where('pmb', $pmbVal);
+            $registrasiQuery->where('pmb', $pmbVal);
+            $schoolarshipQuery->where('pmb', $pmbVal);
+        }
+
+        $databaseCount = $databaseQuery->count();
+        $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
+        $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
+        $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
+        $registrationCount = $registrasiQuery->where('is_register', 1)->count();
+
+        return response()->json([
+            'database_count' => $databaseCount,
+            'schoolarship_count' => $schoolarshipCount,
+            'applicant_count' => $applicantCount,
+            'enrollment_count' => $enrollmentCount,
+            'registration_count' => $registrationCount,
+        ]);
     }
 
     /**
