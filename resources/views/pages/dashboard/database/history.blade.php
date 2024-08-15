@@ -154,15 +154,13 @@
             const responseDatabase = await axios.get(apiDashboard);
             const presenters = responsePresenters.data.presenters;
             const pmbVal = document.getElementById('change_pmb').value;
-            console.log(responseDatabase);
-            document.getElementById('phonehistory_total').innerText = parseInt(responseDatabase.data.database_count)
+
+            document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
                 .toLocaleString('id-ID');
-            document.getElementById('phonehistory_valid').innerText = parseInt(responseDatabase.data.database_phone)
-                .toLocaleString('id-ID');
-            const nonValidCount = parseInt(responseDatabase.data.database_count) - parseInt(responseDatabase.data
-                .database_phone);
-            document.getElementById('phonehistory_nonvalid').innerText =
-                nonValidCount.toLocaleString('id-ID');
+            document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone
+                .length.toLocaleString('id-ID');
+            document.getElementById('phonehistory_nonvalid').innerText = (responseDatabase.data.database_count -
+                responseDatabase.data.database_phone.length).toLocaleString('id-ID');
 
             let buckets = [];
 
