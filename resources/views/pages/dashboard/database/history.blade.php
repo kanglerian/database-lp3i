@@ -203,6 +203,7 @@
                     let contentBucket = '';
                     let categoriesBucket = '';
                     let categories = bucket.categories;
+                    console.log(categoriesBucket);
                     if (categories.length > 0) {
                         categories.forEach((category, i) => {
                             categoriesBucket += `
