@@ -154,7 +154,7 @@
                 console.log(responsePresenters);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
-                console.log(presenters);
+                console.log(responseDatabase);
                 const pmbVal = document.getElementById('change_pmb').value;
                 console.log(pmbVal);
 
