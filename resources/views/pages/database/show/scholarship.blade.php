@@ -74,11 +74,11 @@
                 try {
                     let identity = document.getElementById('identity_val').value;
                     const responseHistories = await axios.get(
-                        `http://localhost:3000/histories?identity_user=${identity}`
+                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories?identity_user=${identity}`
                     );
 
                     const responseCategories = await axios.get(
-                        `http://localhost:3000/categories`
+                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
                     );
                     let histories = responseHistories.data;
                     let categories = responseCategories.data;
@@ -148,10 +148,10 @@
             const getRecords = async (history) => {
                 try {
                     const responseRecords = await axios.get(
-                        `http://localhost:3000/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
                     );
                     const responseQuestions = await axios.get(
-                        `http://localhost:3000/questions?category=${history.category_id}`
+                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`
                     );
 
                     let category = history.category.name;
@@ -191,7 +191,7 @@
                 if (message) {
                     const input = prompt(`Silahkan ketik: ${identityUser}`)
                     if (input == identityUser) {
-                        await axios.delete(`http://localhost:3000/histories/${identityUser}/${idCategory}`)
+                        await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories/${identityUser}/${idCategory}`)
                             .then((response) => {
                                 alert(response.data.message);
                                 location.reload();
