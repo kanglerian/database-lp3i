@@ -148,13 +148,13 @@
         }
 
         const getHistories = async () => {
-            try {
-                showLoadingAnimation();
+            // try {
+            //     showLoadingAnimation();
                 const responsePresenters = await axios.get(`/get/presenter`);
                 const responseDatabase = await axios.get(apiDashboard);
                 const presenters = responsePresenters.data.presenters;
                 const pmbVal = document.getElementById('change_pmb').value;
-
+                console.log(responseDatabase);
                 document.getElementById('phonehistory_total').innerText = responseDatabase.data.database_count
                     .toLocaleString('id-ID');
                 document.getElementById('phonehistory_valid').innerText = responseDatabase.data.database_phone
@@ -234,15 +234,15 @@
                 });
                 document.getElementById('history_chat_presenter').innerHTML = content;
                 hideLoadingAnimation();
-            } catch (error) {
-                console.log(error);
-                let content = `
-                    <tr>
-                        <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
-                    </tr>
-                `
-                document.getElementById('history_chat_presenter').innerHTML = content;
-            }
+            // } catch (error) {
+            //     console.log(error);
+            //     let content = `
+            //         <tr>
+            //             <td colspan="13" class="text-center bg-white text-sm px-6 py-4">${error.message}</td>
+            //         </tr>
+            //     `
+            //     document.getElementById('history_chat_presenter').innerHTML = content;
+            // }
         }
 
         const informationText = () => {
