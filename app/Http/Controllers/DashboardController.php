@@ -115,6 +115,7 @@ class DashboardController extends Controller
      */
     public function get_all()
     {
+        $databasePhone = Applicant::query();
         $databaseQuery = Applicant::query();
         $applicantQuery = Applicant::query();
         $enrollmentQuery = Applicant::query();
@@ -125,6 +126,7 @@ class DashboardController extends Controller
         $pmbVal = request('pmbVal', 'all');
 
         if (Auth::user()->role === 'P') {
+            $databasePhone->where('identity_user', $identityVal);
             $databaseQuery->where('identity_user', $identityVal);
             $applicantQuery->where('identity_user', $identityVal);
             $enrollmentQuery->where('identity_user', $identityVal);
@@ -133,6 +135,7 @@ class DashboardController extends Controller
         }
 
         if ($pmbVal !== 'all') {
+            $databasePhone->where('pmb', $pmbVal);
             $databaseQuery->where('pmb', $pmbVal);
             $applicantQuery->where('pmb', $pmbVal);
             $enrollmentQuery->where('pmb', $pmbVal);
@@ -141,12 +144,14 @@ class DashboardController extends Controller
         }
 
         $databaseCount = $databaseQuery->count();
+        $databasePhone = $databasePhone->whereNotNull('phone')->count();
         $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
         $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
         $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
         $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
         return response()->json([
+            'database_phone' => $databasePhone,
             'database_count' => $databaseCount,
             'schoolarship_count' => $schoolarshipCount,
             'applicant_count' => $applicantCount,
