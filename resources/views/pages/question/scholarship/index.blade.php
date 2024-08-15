@@ -186,8 +186,8 @@
                 return new Promise(async (resolve, reject) => {
                     try {
                         const [responseHistories, responseCategories] = await Promise.all([
-                            axios.get(`http://localhost:3000/histories`),
-                            axios.get(`http://localhost:3000/categories`)
+                            axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories`),
+                            axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`)
                         ]);
 
                         const responseApplicants = await axios.get(url);
@@ -327,9 +327,9 @@
                 try {
                     const [responseRecords, responseQuestions] = await Promise.all([
                         axios.get(
-                            `http://localhost:3000/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                            `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
                         ),
-                        axios.get(`http://localhost:3000/questions?category=${history.category_id}`)
+                        axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`)
                     ]);
 
                     let identity = history.identity_user;

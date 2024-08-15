@@ -43,7 +43,7 @@
         e.preventDefault();
         const categoryInput = e.target.elements.category;
         if (categoryInput.value) {
-            await axios.post(`http://localhost:3000/categories`, {
+            await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`, {
                     name: categoryInput.value,
                 })
                 .then((response) => {
