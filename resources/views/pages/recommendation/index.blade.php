@@ -211,7 +211,7 @@
                                             {{ $recommendation->applicant->name ?? 'Tidak diketahui' }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $recommendation->applicant->presenter->name ?? 'TIdak diketahui' }}
+                                            {{ $recommendation->applicant->presenter->name ?? 'Tidak diketahui' }}
                                         </td>
                                         <td class="px-6 py-4 font-medium text-gray-700 bg-gray-50">
                                             {{ $recommendation->reference ?? 'Tidak diketahui' }}
