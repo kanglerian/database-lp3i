@@ -106,25 +106,7 @@
             </section>
         </div>
     </div>
-</x-app-layout>
-
-@push('scripts')
-<script>
-    const checkServer = async () => {
-        await axios.get(`${URL_API_LP3I}/pmbonline`)
-            .then((response) => {
-                console.log(response.data);
-                if (response.status == 200) {
-                    $('#content').show();
-                    $('#forbidden').hide();
-                }
-            })
-            .catch((error) => {
-                $('#content').hide();
-                $('#forbidden').show();
-            });
-    }
-    checkServer();
+    <script>
 
     const notifButton = (namefile) => {
         let inputElement = document.getElementById(`berkas-${namefile}`);
@@ -264,5 +246,25 @@
 
         }
     }
+    </script>
+</x-app-layout>
+
+@push('scripts')
+<script>
+    const checkServer = async () => {
+        await axios.get(`${URL_API_LP3I}/pmbonline`)
+            .then((response) => {
+                console.log(response.data);
+                if (response.status == 200) {
+                    $('#content').show();
+                    $('#forbidden').hide();
+                }
+            })
+            .catch((error) => {
+                $('#content').hide();
+                $('#forbidden').show();
+            });
+    }
+    checkServer();
 </script>
 @endpush
