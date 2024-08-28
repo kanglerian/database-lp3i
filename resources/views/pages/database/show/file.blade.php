@@ -13,8 +13,7 @@
             </div>
         @endif
         @if (session('message'))
-            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
-                role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
@@ -121,54 +120,36 @@
         </div>
     </section>
 
-</x-app-layout>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script>
+        const notifButton = (namefile) => {
+            console.log(namefile);
 
-@push('scripts')
-<script src="{{ asset('js/axios.min.js') }}"></script>
-<script>
-    const checkServer = async () => {
-        await axios.get(`${URL_API_LP3I}/pmbonline`)
-            .then((response) => {
-                console.log(response);
-                
-                if (response.status == 200) {
-                    $('#content').show();
-                    $('#forbidden').hide();
-                }
-            })
-            .catch((error) => {
-                $('#content').hide();
-                $('#forbidden').show();
-            });
-    }
-    checkServer();
+            let inputElement = document.getElementById(`berkas-${namefile}`);
+            let buttonElement = document.getElementById(`button-${namefile}`);
 
-    const notifButton = (namefile) => {
-        let inputElement = document.getElementById(`berkas-${namefile}`);
-        let buttonElement = document.getElementById(`button-${namefile}`);
-
-        if (inputElement.files.length > 0) {
-            buttonElement.classList.remove('hidden');
-        } else {
-            buttonElement.classList.add('hidden');
-        }
-    }
-    const uploadBerkas = (id, namefile, identity) => {
-        let inputElement = document.getElementById(`berkas-${namefile}`);
-        let buttonElement = document.getElementById(`button-${namefile}`);
-
-        inputElement.addEventListener('change', function() {
             if (inputElement.files.length > 0) {
                 buttonElement.classList.remove('hidden');
             } else {
-                newButton.classList.add('hidden');
+                buttonElement.classList.add('hidden');
             }
-        });
+        }
+        const uploadBerkas = (id, namefile, identity) => {
+            let inputElement = document.getElementById(`berkas-${namefile}`);
+            let buttonElement = document.getElementById(`button-${namefile}`);
 
-        let uploadForm = document.getElementById(`form-${namefile}`);
-        let loadingForm = document.getElementById(`loading-form-${namefile}`);
-        let loadingElement = document.createElement('div');
-        loadingElement.innerHTML = `
+            inputElement.addEventListener('change', function() {
+                if (inputElement.files.length > 0) {
+                    buttonElement.classList.remove('hidden');
+                } else {
+                    newButton.classList.add('hidden');
+                }
+            });
+
+            let uploadForm = document.getElementById(`form-${namefile}`);
+            let loadingForm = document.getElementById(`loading-form-${namefile}`);
+            let loadingElement = document.createElement('div');
+            loadingElement.innerHTML = `
             <div role="status">
                 <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -178,37 +159,85 @@
             </div>
         `;
 
-        uploadForm.style.display = 'none';
-        loadingForm.appendChild(loadingElement);
+            uploadForm.style.display = 'none';
+            loadingForm.appendChild(loadingElement);
 
-        let berkas = inputElement.files[0];
+            let berkas = inputElement.files[0];
 
-        if (berkas) {
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-                let data = {
+            if (berkas) {
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    let data = {
+                        identity: identity,
+                        image: event.target.result.split(';base64,').pop(),
+                        namefile: namefile,
+                        typefile: berkas.name.split('.').pop(),
+                    }
+
+                    let status = {
+                        fileupload_id: id,
+                        identity: identity,
+                        typefile: berkas.name.split('.').pop(),
+                    }
+
+                    await axios.post(`${URL_API_LP3I}/pmbonline/upload`, data)
+                        .then((res) => {
+                            alert('Berhasil diupload!');
+                            loadingForm.removeChild(loadingElement);
+                            uploadForm.style.display = 'block';
+                            $.ajax({
+                                url: `/userupload`,
+                                type: 'POST',
+                                data: {
+                                    data: status,
+                                    '_token': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(response) {
+                                    if (response.status == 'success') {
+                                        location.reload();
+                                    } else {
+                                        console.log('Ada kesalahan dalam permintaan.');
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    location.reload();
+                                }
+                            })
+                            console.log(res.data);
+                        })
+                        .catch((err) => {
+                            let bucket =
+                                `<i class="fa-solid fa-circle-exclamation"></i>
+                        <div class="ml-3 text-sm font-medium">
+                            Maaf, server sedang tidak berfungsi saat ini. Harap hubungi administrator untuk informasi lebih lanjut.
+                        </div>`
+                            let info = document.getElementById('info');
+                            info.classList.remove('hidden');
+                            info.innerHTML = bucket;
+                        });
+                };
+
+                reader.readAsDataURL(berkas);
+            }
+        }
+
+        const deleteBerkas = async (id, namefile, typefile, identity) => {
+            if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
+                var data = {
                     identity: identity,
-                    image: event.target.result.split(';base64,').pop(),
                     namefile: namefile,
-                    typefile: berkas.name.split('.').pop(),
+                    typefile: typefile,
                 }
-
-                let status = {
-                    fileupload_id: id,
-                    identity: identity,
-                    typefile: berkas.name.split('.').pop(),
-                }
-
-                await axios.post(`${URL_API_LP3I}/pmbonline/upload`, data)
+                await axios.delete(`${URL_API_LP3I}/pmbonline/delete`, {
+                        params: data
+                    })
                     .then((res) => {
-                        alert('Berhasil diupload!');
-                        loadingForm.removeChild(loadingElement);
-                        uploadForm.style.display = 'block';
+                        alert('Berhasil dihapus!');
                         $.ajax({
-                            url: `/userupload`,
+                            url: `/userupload/${id}`,
                             type: 'POST',
                             data: {
-                                data: status,
+                                '_method': 'DELETE',
                                 '_token': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(response) {
@@ -219,10 +248,9 @@
                                 }
                             },
                             error: function(xhr, status, error) {
-                                location.reload();
+                                console.log(error);
                             }
                         })
-                        console.log(res.data);
                     })
                     .catch((err) => {
                         let bucket =
@@ -234,55 +262,27 @@
                         info.classList.remove('hidden');
                         info.innerHTML = bucket;
                     });
-            };
 
-            reader.readAsDataURL(berkas);
-        }
-    }
-
-    const deleteBerkas = async (id, namefile, typefile, identity) => {
-        if (confirm(`Apakah kamu yakin akan menghapus data?`)) {
-            var data = {
-                identity: identity,
-                namefile: namefile,
-                typefile: typefile,
             }
-            await axios.delete(`${URL_API_LP3I}/pmbonline/delete`, {
-                    params: data
-                })
-                .then((res) => {
-                    alert('Berhasil dihapus!');
-                    $.ajax({
-                        url: `/userupload/${id}`,
-                        type: 'POST',
-                        data: {
-                            '_method': 'DELETE',
-                            '_token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            if (response.status == 'success') {
-                                location.reload();
-                            } else {
-                                console.log('Ada kesalahan dalam permintaan.');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(error);
-                        }
-                    })
-                })
-                .catch((err) => {
-                    let bucket =
-                        `<i class="fa-solid fa-circle-exclamation"></i>
-                        <div class="ml-3 text-sm font-medium">
-                            Maaf, server sedang tidak berfungsi saat ini. Harap hubungi administrator untuk informasi lebih lanjut.
-                        </div>`
-                    let info = document.getElementById('info');
-                    info.classList.remove('hidden');
-                    info.innerHTML = bucket;
-                });
-
         }
-    }
-</script>
+    </script>
+</x-app-layout>
+
+@push('scripts')
+    <script>
+        const checkServer = async () => {
+            await axios.get(`${URL_API_LP3I}/pmbonline`)
+                .then((response) => {
+                    if (response.status == 200) {
+                        $('#content').show();
+                        $('#forbidden').hide();
+                    }
+                })
+                .catch((error) => {
+                    $('#content').hide();
+                    $('#forbidden').show();
+                });
+        }
+        checkServer();
+    </script>
 @endpush
