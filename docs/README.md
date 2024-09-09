@@ -1,131 +1,271 @@
-# Deskripsi Umum
+# PMB Online System
 
-Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi proses penerimaan mahasiswa baru. Aplikasi ini memiliki beberapa halaman utama yang ditujukan untuk siswa, presenter, dan admin dengan berbagai fitur yang lengkap. 
+> Sebuah aplikasi web untuk memfasilitasi pendaftaran mahasiswa baru secara online. Aplikasi ini menyediakan fitur untuk mengunggah berkas, mengelola data pendaftaran, mengelola data sekolah, target capaian dan memonitor status registrasi oleh admin.
 
-<hr>
+## Teknologi yang Digunakan
 
-## Fitur
+- **FullStack:** Laravel Breeze (TailwindCSS, Alpine JS)  v8.75
+- **Database:** MySQL
+- **Deployment:** cPanel
 
-**1. Manajemen Database**
+---
 
-Fitur ini digunakan untuk **mengelola database** mahasiswa **registrasi**, **daftar**, **aplikan**, **beasiswa** dan **calon mahasiswa** serta **data rekomendasi** dari mahasiswa registrasi. Dilengkapi dengan **data pendukung** dan **CV Generator**.
+## Arsitektur Aplikasi
 
-- Quick search
-- Search data / Filter data
-- Biodata pribadi
-- Biodata orang tua
-- Data Prestasi
-- Data Pengalaman Organisasi
-- Riwayat Chat WA Blast (WA Sender)
-- CV Generator
-- WA Blast Generator (.txt)
-- Contact Saver Generator (.csv)
-- Excel Generator (.xlsx)
+Aplikasi ini dibangun dengan pendekatan arsitektur Monolitich.
 
-**2. Manajemen Sekolah**
+---
 
-Fitur ini digunakan untuk **mengelola data sekolah**. Terdapat hal penting yang perlu diperhatikan seperti **jenis sekolah** (SMA, SMK, MA, Paket), **status sekolah** (Negeri, Swasta), **lokasi sekolah** (lang, latt, provinsi, kota/kabupaten).
+### Diagram Arsitektur
 
-- Terintegrasi dengan API Leaflet
-- Informasi registrasi berdasarkan sekolah
-- Informasi database berdasarkan sekolah
-- Data sekolah berdasarkan wilayah sekolah
-- Data sekolah berdasarkan jenis sumber database
-- Database berdasarkan jenis sekolah / status sekolah
+> null
 
-**3. Manajemen Presenter**
+---
 
-Fitur ini digunakan untuk **mengelola presenter**.
+## Modul-Modul Utama dan Fungsi
 
-- Sales Revenue
-- Sales Volume
-- Target Database
-- Data registrasi berdasarkan presenter
-- Jumlah database berdasarkan presenter
+### Modul Utama
 
-**4. Manajemen Pembayaran**
+> null
 
-Fitur ini digunakan untuk **mengelola pembayaran** berupa pendaftaran dan registrasi mahasiswa.
+---
 
-- Target
-- Jumlah pendaftar
-- Jumlah register
-- Nominal kas
-- Nominal potensi omzet
+#### Setting
 
-**5. Manajemen Akun**
+> Mengelola data awal atau data pengaturan dari aplikasi.
 
-Fitur ini digunakan untuk **mengelola akun** mahasiswa, calon mahasiswa, dan presenter.
+##### - Program Type
 
-- RESTful API
-- JWT Authentication
+- File: ```routes/web.php```
+- Endpoint: ```/programtype```
+- Controller: ```ProgramTypeController```
+- Deskripsi: Mengelola operasi CRUD untuk tipe program studi. Seperti kelas karyawan dan kelas reguler.
 
-<hr>
+##### - Source
 
-## API Integration
+- File: ```routes/web.php```
+- Endpoint: ```/source```
+- Controller: ```SourceController```
+- Deskripsi: Mengelola operasi CRUD untuk sumber database.
 
-**1. SBPMB LP3I**
+##### - File Upload
 
-Integrasi ini digunakan untuk mendukung terpusatnya data dengan platform Tes Beasiswa (SBPMB). Begitu pula dengan hasil dari tes beasiswa ini akan muncul di halaman PMB Online di profil mahasiswa tab ``beasiswa`` yang bisa dibuka oleh Presenter dan Administrator atau di menu ``Assessment``.
+- File: ```routes/web.php```
+- Endpoint: ```/fileupload```
+- Controller: ```FileUploadController```
+- Deskripsi: Mengelola operasi CRUD untuk file upload.
 
-- RESTful API Biodata Pribadi
-- RESTful API Biodata Orangtua
-- RESTful API Program Studi
-- JWT Authentication
+##### - Status Aplikan
 
-**2. Psikotest**
+- File: ```routes/web.php```
+- Endpoint: ```/applicantstatus```
+- Controller: ```ApplicantStatusController```
+- Deskripsi: Mengelola operasi CRUD untuk status aplikan.
 
-Integrasi ini digunakan untuk mendukung terpusatnya data dengan platform Tes Kecerdasan (Psikotest).
+##### - Follow Up
 
-- RESTful API Akun
-- JWT Authentication
-  
-**3. MISIL V4**
+- File: ```routes/web.php```
+- Endpoint: ```/followup```
+- Controller: ```FollowUpController```
+- Deskripsi: Mengelola operasi CRUD untuk follow up.
 
-Integrasi ini digunakan untuk mendukung terpusatnya data register dengan platform MISIL V4.
+#### Sekolah
 
-- Data aplikan
-- Data pendaftar
-- Data register
-  
-**4. Upload Berkas**
+> Mengelola data sekolah.
 
-Integrasi ini digunakan untuk mendukung terpusatnya data upload berkas. Hasil dari upload berkas ini akan muncul di halaman PMB Online di profil mahasiswa tab ``berkas`` yang bisa dibuka oleh Presenter dan Administrator beserta di aplikasi ``SBPMB``.
+##### - Schools
 
-- RESTful API Upload Berkas
+- File: ```routes/web.php```
+- Endpoint: ```/schools```
+- Controller: ```SchoolController```
+- Deskripsi: Mengelola operasi CRUD untuk data sekolah.
 
-<hr>
+##### - Import Schools
 
-## Database
+- File: ```routes/web.php```
+- Method: ```POST```
+- Endpoint: ```/import/schools```
+- Controller: ```SchoolController@import```
+- Deskripsi: Operasi mengimport data sekolah secara massal.
 
-Database sudah dibuatkan melalui ``migration laravel`` beserta ``seeder`` untuk data awal. Silahkan untuk melihat di folder ``database/migrations`` dan ``database/seeders``.
+##### - Data Sekolah Berdasarkan Source
 
-<hr>
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/get/schools/setting```
+- Controller: ```SchoolController@setting```
+- Deskripsi: Operasi mengambil data sekolah berdasarkan sumber database.
 
-# Instalasi
+##### - Migrasi Data Sekolah
 
-1. Clone aplikasi dari Github
-  ```bash
-  git clone https://github.com/kanglerian/database-lp3i
-  ```
-2. Lakukan ``composer install`` untuk mengunduh **vendor**.
-  ```bash
-  cd database-lp3i
-  composer install
-  ```
-3. Lakukan ``npm install`` untuk mengunduh **node_modules**.
-  ```bash
-  npm install
-  ```
-4. Ubah file ``.env`` dan ubah database beserta username dan passwordnya.
-5. Lakukan migration dan seeding untuk membuat table di database dan data dummy.
-  ```bash
-  php artisan migrate
-  php artisan db:seed
-  ```
+- File: ```routes/web.php```
+- Method: ```POST```
+- Endpoint: ```/migration/schools```
+- Controller: ```SchoolController@migration```
+- Deskripsi: Operasi transfer data dari satu sekolah ke sekolah lain.
 
-<hr>
+##### - Hapus Data Sekolah
 
-# License
+- File: ```routes/web.php```
+- Method: ```POST```
+- Endpoint: ```/clear/schools```
+- Controller: ```SchoolController@clear```
+- Deskripsi: Operasi hapus data sekolah yang data mahasiswanya kosong.
 
-Aplikasi ini adalah perangkat lunak berpemilik dan tidak bersifat open source. Semua hak dilindungi. [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
+#### Aplikan
+
+> Mengelola database.
+
+##### - CRUD Resource Aplikan
+
+- File: ```routes/web.php```
+- Endpoint: ```/database```
+- Controller: ```ApplicantController```
+- Deskripsi: Mengelola operasi CRUD untuk data sekolah.
+
+##### - Update Status Aplikan
+
+- File: ```routes/web.php```
+- Method: ```PATCH```
+- Endpoint: ```/status/database/aplikan/{id}```
+- Controller: ```StatusApplicantController@update```
+- Deskripsi: Mengubah status aplikan.
+
+##### - Delete Status Aplikan
+
+- File: ```routes/web.php```
+- Method: ```DELETE```
+- Endpoint: ```/status/database/aplikan/{id}```
+- Controller: ```StatusApplicantController@destroy```
+- Deskripsi: Menghapus status aplikan.
+
+##### - Delete Status Daftar
+
+- File: ```routes/web.php```
+- Method: ```DELETE```
+- Endpoint: ```/status/database/daftar/{id}```
+- Controller: ```StatusDaftarController@destroy```
+- Deskripsi: Menghapus status daftar.
+
+##### - Delete Status Registrasi
+
+- File: ```routes/web.php```
+- Method: ```DELETE```
+- Endpoint: ```/status/database/registrasi/{id}```
+- Controller: ```StatusRegistrasiController@destroy```
+- Deskripsi: Menghapus status register.
+
+##### - Import Data Aplikan
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/import/applicants```
+- Controller: ```ApplicantController@import```
+- Deskripsi: Mengimport data aplikan dari Spreadsheet.
+
+##### - Check Data Spreadsheet
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/import/check-spreadsheet/{sheet}```
+- Controller: ```ApplicantController@check_spreadsheet```
+- Deskripsi: Memeriksa jumlah data dari Spreadsheet.
+
+##### - Export Data Spreadsheet
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/applicants/export/{dateStart?}/{dateEnd?}/{yearGrad?}/{schoolVal?}/{birthdayVal?}/{pmbVal?}/{sourceVal?}/{statusVal?}```
+- Controller: ```ApplicantController@export```
+- Deskripsi: Export data ke format excel.
+
+##### - GET Database Beasiswa
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/get/databasesbeasiswa```
+- Controller: ```ApplicantController@get_beasiswa```
+- Deskripsi: GET database berdasarkan beasiswa to output JSON.
+
+##### - Set Is Applicant
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/isapplicant/{identity?}```
+- Controller: ```ApplicantController@is_applicant```
+- Deskripsi: Update set status is applicant.
+
+##### - Set Is Scholarship
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/isschoolarship/{identity?}```
+- Controller: ```ApplicantController@is_schoolarship```
+- Deskripsi: Update set status is scholarship.
+
+##### - Chat
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/chat/{identity?}```
+- Controller: ```ApplicantController@chats```
+- Deskripsi: GET riwayat chats.
+
+##### - File
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/file/{identity?}```
+- Controller: ```ApplicantController@files```
+- Deskripsi: GET riwayat berkas.
+
+##### - Achievement
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/achievement/{identity?}```
+- Controller: ```ApplicantController@achievements```
+- Deskripsi: GET riwayat prestasi.
+
+##### - Organization
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/organization/{identity?}```
+- Controller: ```ApplicantController@organizations```
+- Deskripsi: GET riwayat organisasi.
+
+##### - Scholarship
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/scholarship/{identity?}```
+- Controller: ```ApplicantController@scholarships```
+- Deskripsi: GET riwayat hasil tes beasiswa.
+
+##### - Print
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/print/database/{id}```
+- Controller: ```ApplicantController@print```
+- Deskripsi: GET print out.
+
+#### Presenter
+
+> Mengelola presenter.
+
+##### - CRUD Resource Presenter
+
+- File: ```routes/web.php```
+- Endpoint: ```/presenters```
+- Controller: ```PresenterController```
+- Deskripsi: Mengelola operasi CRUD untuk presenters.
+
+##### - GET Data JSON
+
+- File: ```routes/web.php```
+- Method: ```GET```
+- Endpoint: ```/get/presenters```
+- Controller: ```ApplicantController@get_all```
+- Deskripsi: GET presenter to output JSON.

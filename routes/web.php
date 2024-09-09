@@ -85,7 +85,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 /* Route School */
 Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::resource('schools', SchoolController::class);
-    Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get');
+    // Route::get('get/schools', [SchoolController::class, 'get_all'])->name('schools.get');
     Route::post('import/schools', [SchoolController::class, 'import'])->name('school.import');
     Route::get('get/schools/setting', [SchoolController::class, 'setting'])->name('schools.setting');
     Route::post('migration/schools', [SchoolController::class, 'migration'])->name('school.migration');
@@ -181,7 +181,6 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
 
 /* Route Payment */
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
-    Route::resource('payment', PaymentController::class);
     Route::resource('payment', PaymentController::class);
 });
 

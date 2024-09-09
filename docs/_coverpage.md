@@ -1,12 +1,14 @@
-![](/images/lp3i.png ':size=230')
+<img src="images/lp3i.png" alt="logo" width="200">
 
-# E-PMB docsify <small>3.5</small>
+# PMB Online <small>V2</small>
 
-> Web Apps & API Integration
+> Documentations for PMB Online Web Apps.
 
-Aplikasi PMB Online adalah sebuah platform yang dirancang untuk memfasilitasi proses penerimaan mahasiswa baru.<br/>Aplikasi ini memiliki beberapa halaman utama yang ditujukan untuk siswa, presenter, dan admin dengan berbagai fitur yang lengkap.
+- Technical Documentation
+- User Documentation
+- Documentation Apps
 
-Management Database | Integration Scholarship | Integration Upload File | Integration History Chat
-
-[Author](https://kanglerian.github.io)
+[GitHub](https://github.com/kanglerian)
 [Get Started](https://pmb.politekniklp3i-tasikmalaya.ac.id)
+
+![color](#f0f0f0)
