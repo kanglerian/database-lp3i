@@ -158,7 +158,7 @@ class ApplicantController extends Controller
             $currentDate = new DateTime();
             $currentYear = $currentDate->format('Y');
             $currentMonth = $currentDate->format('m');
-            return $currentMonth >= 9 ? $currentYear + 1 : $currentYear;
+            return $currentMonth >= 10 ? $currentYear + 1 : $currentYear;
         }
 
         $pmbValue = getYearPMB();
@@ -1195,6 +1195,7 @@ class ApplicantController extends Controller
 
     public function studentsHandle($person, $identityUser, $start, $end)
     {
+
         $response = Http::get('https://script.google.com/macros/s/AKfycbyq8NzlVbO2n8kRrkRYMDmZNjRb4aNmV0clLvAKOa5ej-XgZzTA2VL35X2VM7BMl5Br/exec?person=' . $person);
 
         $applicants = $response->json();
@@ -1210,7 +1211,7 @@ class ApplicantController extends Controller
                 }
             }
 
-            $come = null;
+            $come = 0;
             if (strcasecmp($applicants[$i][19], 'SUDAH') === 0) {
                 $come = 1;
             } elseif (strcasecmp($applicants[$i][19], 'BELUM') === 0) {
@@ -1358,19 +1359,26 @@ class ApplicantController extends Controller
 
     public function import()
     {
-        if (Auth::user()->role == 'P' && Auth::user()->sheet) {
-            $start = request('start', 'all');
-            $end = request('end', 'all');
+        try {
+            if (Auth::user()->role == 'P' && Auth::user()->sheet) {
+                $start = request('start', 'all');
+                $end = request('end', 'all');
+                $this->studentsHandle(Auth::user()->sheet, Auth::user()->identity, $start, $end);
 
-            $this->studentsHandle(Auth::user()->sheet, Auth::user()->identity, $start, $end);
-
+                return response()->json([
+                    'message' => 'Data ' . Auth::user()->name . ' berhasil disinkronisasi dari Spreadsheet',
+                ]);
+                // } else {
+                //     return response()->json([
+                //         'message' => 'Presenter / Sheet tidak ditemukan.',
+                //     ]);
+            }
+        } catch (\Throwable $th) {
             return response()->json([
-                'message' => 'Data ' . Auth::user()->name . ' berhasil disinkronisasi dari Spreadsheet',
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Presenter / Sheet tidak ditemukan.',
-            ]);
+                'message' => 'Terjadi error saat sinkronisasi',
+                'error' => $th->getMessage(), // Ini akan memberikan pesan error yang lebih deskriptif
+                'trace' => $th->getTraceAsString(), // Ini akan menampilkan jejak stack trace dari error
+            ], 500);
         }
     }
 

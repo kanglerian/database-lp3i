@@ -47,14 +47,14 @@ class CreateApplicantsTable extends Migration
             $table->string('identity_user', 50)->nullable();
             $table->string('program', 255)->nullable();
             $table->string('program_second', 255)->nullable();
-            $table->boolean('isread')->default(false);
-            $table->boolean('come')->default(false);
+            $table->char('isread', 1)->nullable();
+            $table->char('come',1)->nullable();
 
             $table->boolean('is_applicant')->default(false);
             $table->boolean('is_daftar')->default(false);
             $table->boolean('is_register')->default(false);
 
-            $table->boolean('known')->default(false);
+            $table->char('known', 1)->nullable();
             $table->text('planning')->nullable();
             $table->text('other_campus')->nullable();
             $table->string('income_parent')->nullable();

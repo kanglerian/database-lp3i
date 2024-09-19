@@ -221,7 +221,7 @@
             const currentDate = new Date();
             const currentYear = currentDate.getFullYear();
             const currentMonth = currentDate.getMonth();
-            const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+            const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
             document.getElementById('pmb').value = startYear;
         }
         getYearPMB();

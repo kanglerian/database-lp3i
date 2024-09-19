@@ -85,10 +85,10 @@
                     <a href="{{ route('database.create') }}"
                         class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                             class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
-                    <div class="flex gap-2">
+                    <div class="flex items-center gap-2">
                         @if (Auth::user()->role == 'P' && Auth::user()->sheet)
-                            <button onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
-                                class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-sm space-x-1">
+                            <button type="button" onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
+                                class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-xs space-x-1">
                                 <i class="fa-solid fa-rotate"></i>
                             </button>
                         @endif
@@ -444,7 +444,7 @@
                 const currentDate = new Date();
                 const currentYear = currentDate.getFullYear();
                 const currentMonth = currentDate.getMonth();
-                const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+                const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
                 document.getElementById('change_pmb').value = startYear;
                 document.getElementById('change_pmb_quick').value = startYear;
             }
@@ -875,7 +875,7 @@
                 const currentDate = new Date();
                 const currentYear = currentDate.getFullYear();
                 const currentMonth = currentDate.getMonth();
-                const startYear = currentMonth >= 9 ? currentYear + 1 : currentYear;
+                const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
                 if (queryStringStart === -1) {

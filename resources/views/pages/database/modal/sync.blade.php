@@ -40,9 +40,12 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-center text-gray-700">Yuk, sinkronisasi data! Rekomendasi kami adalah untuk tidak lebih dari <span id="max-count">0</span> data yang akan disinkronkan. Sekarang, berapa banyak data yang akan Anda sinkronkan? <span class="font-bold text-green-700"
+                    <p class="text-sm text-center text-gray-700">Yuk, sinkronisasi data! Rekomendasi kami adalah untuk
+                        tidak lebih dari <span id="max-count">0</span> data yang akan disinkronkan. Sekarang, berapa
+                        banyak data yang akan Anda sinkronkan? <span class="font-bold text-green-700"
                             id="count-sync"></span>.</p>
-                    <p class="text-xs text-center text-gray-700">Jika bingung, tak perlu ragu untuk langsung klik tombol sinkronisasi.</p>
+                    <p class="text-xs text-center text-gray-700">Jika bingung, tak perlu ragu untuk langsung klik tombol
+                        sinkronisasi.</p>
                     <button onclick="syncNow()" id="button-sync"
                         class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center">Sinkronisasi
                         Sekarang!</button>
@@ -58,7 +61,7 @@
     const syncSpreadsheet = async (sheet) => {
         showLoadingAnimation();
         try {
-            const response = await axios.get(`import/check-spreadsheet/${sheet}`);
+            const response = await axios.get(`/import/check-spreadsheet/${sheet}`);
             const maxCount = 1000;
             total = response.data.applicants;
             standart = total > maxCount ? maxCount : 1;
@@ -102,13 +105,19 @@
         showLoadingAnimation();
         let start = document.getElementById('start').value;
         let end = document.getElementById('end').value;
-        await axios.get(`import/applicants?start=${start}&end=${end}`)
+        await axios.get(`/import/applicants?start=${start}&end=${end}`)
             .then((response) => {
-                alert(response.data.message);
+                // console.log(response.data.message);
+                console.log(response);
                 hideLoadingAnimation();
             })
             .catch((error) => {
-                alert(error.message);
+                if (error.response) {
+                    console.log('Error response data:', error.response.data);
+                    console.log('Error response status:', error.response.status);
+                } else {
+                    console.log('Error message:', error.message);
+                }
                 hideLoadingAnimation();
             });
         document.getElementById('modal-sync').classList.toggle('hidden');

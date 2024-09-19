@@ -59,7 +59,7 @@ class AuthController extends Controller
             $currentDate = new DateTime();
             $currentYear = $currentDate->format('Y');
             $currentMonth = $currentDate->format('m');
-            return $currentMonth >= 9 ? $currentYear + 1 : $currentYear;
+            return $currentMonth >= 10 ? $currentYear + 1 : $currentYear;
         }
 
         $pmbValue = getYearPMB();
