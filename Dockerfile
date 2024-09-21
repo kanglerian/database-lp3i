@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd zip \
     && docker-php-ext-install pdo pdo_mysql
 
+# Instalasi Node.js dan npm
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+apt-get install -y nodejs
+
 # Menyalin file composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
