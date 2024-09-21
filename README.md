@@ -72,3 +72,5 @@ php artisan db:seed
 ## License
 
 Aplikasi ini adalah perangkat lunak berpemilik dan tidak bersifat open source. Semua hak dilindungi. [kanglerian@gmail.com](mailto:kanglerian@gmail.com).
+
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
