@@ -12,7 +12,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/.env
+.env
 
 # Ini ketika sudah ada di cPanel maka jangan dikomentar. Jika belum ada maka komentari.
 /public/api
