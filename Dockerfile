@@ -25,7 +25,13 @@ COPY . .
 COPY .env ./
 
 # Menginstal dependensi Laravel
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install
+
+# Menginstal dependensi npm
+RUN npm install
+
+# Menjalankan build untuk frontend
+RUN npm run development
 
 # Mengatur hak akses untuk storage dan bootstrap/cache
 RUN chown -R www-data:www-data storage bootstrap/cache
