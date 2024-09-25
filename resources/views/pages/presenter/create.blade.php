@@ -22,7 +22,7 @@
                 <div class="p-8 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('presenters.store') }}">
                         @csrf
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-4">
                             <div class="relative z-0 w-full group">
                                 <x-label for="name" :value="__('Nama lengkap')" />
                                 <x-input id="name" type="text" name="name" maxlength="50" :value="old('name')"
@@ -39,9 +39,7 @@
                                     <option value="0">Perempuan</option>
                                 </x-select>
                             </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full group mb-4">
+                            <div class="relative z-0 w-full group">
                                 <x-label for="phone" :value="__('No. Telpon (Whatsapp)')" />
                                 <x-input id="phone" type="number" name="phone" maxlength="14" :value="old('phone')"
                                     placeholder="Tulis no. telpon / whatsapp disini..." required />
@@ -57,9 +55,15 @@
                                     <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
                                 </p>
                             </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 md:gap-6 mb-4 lg:mb-0">
-                            <div class="relative z-0 w-full group mb-4">
+                            <div class="relative z-0 w-full group">
+                                <x-label for="sheet" :value="__('Sheet')" />
+                                <x-input id="sheet" type="text" name="sheet" maxlength="50"  :value="old('sheet')"
+                                    placeholder="Sheet Spreadsheet" required />
+                                <p class="mt-2 text-xs text-gray-500">
+                                    <span class="text-red-500 text-xs">{{ $errors->first('sheet') }}</span>
+                                </p>
+                            </div>
+                            <div class="relative z-0 w-full group">
                                 <x-label for="password" :value="__('Password')" />
                                 <x-input id="password" type="password" name="password" :value="old('password')"
                                     placeholder="Tulis password disini..." required />

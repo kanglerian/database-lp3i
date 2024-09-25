@@ -34,13 +34,21 @@
                     <form method="POST" class="space-y-2" action="{{ route('presenters.update', $presenter->id) }}">
                         @csrf
                         @method('PATCH')
-                        <div class="grid grid-cols-1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="relative z-0 w-full group">
                                 <x-label for="name" :value="__('Nama lengkap')" />
                                 <x-input id="name" type="text" name="name" maxlength="50" value="{{ $presenter->name }}"
                                     placeholder="Tulis nama lengkap disini..." required />
                                 <p class="mt-2 text-xs text-gray-500">
                                     <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
+                                </p>
+                            </div>
+                            <div class="relative z-0 w-full group">
+                                <x-label for="sheet" :value="__('Sheet')" />
+                                <x-input id="sheet" type="text" name="sheet" maxlength="50" value="{{ $presenter->sheet }}"
+                                    placeholder="Sheet Spreadsheet" required />
+                                <p class="mt-2 text-xs text-gray-500">
+                                    <span class="text-red-500 text-xs">{{ $errors->first('sheet') }}</span>
                                 </p>
                             </div>
                         </div>
