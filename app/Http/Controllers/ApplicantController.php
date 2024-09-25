@@ -1292,7 +1292,7 @@ class ApplicantController extends Controller
             $create_mother = [
                 'identity_user' => $applicants[$i][1],
                 'name' => $applicants[$i][22] ?? null,
-                'gender' => 0,,
+                'gender' => 0,
                 'job' => $applicants[$i][25] ?? null,
             ];
 
