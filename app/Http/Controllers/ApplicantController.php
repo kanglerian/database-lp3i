@@ -1137,12 +1137,23 @@ class ApplicantController extends Controller
             'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
         ];
 
+        $create_father = [
+            'identity_user' => $applicants[$i][1],
+            'name' => $applicants[$i][21] ?? null,
+            'phone' => $applicants[$i][23] ?? null,
+            'gender' => 1,
+            'job' => $applicants[$i][24] ?? null,
+        ];
+
         $data_father = [
-            'job' => null,
+            'name' => $applicants[$i][21] ?? null,
+            'phone' => $applicants[$i][23] ?? null,
+            'job' => $applicants[$i][24] ?? null,
         ];
 
         $data_mother = [
-            'job' => null,
+            'name' => $applicants[$i][22] ?? null,
+            'job' => $applicants[$i][25] ?? null,
         ];
 
         $applicantFather = ApplicantFamily::where(['identity_user' => $student->identity, 'gender' => 1])->first();
