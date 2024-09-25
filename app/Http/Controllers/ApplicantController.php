@@ -1147,7 +1147,7 @@ class ApplicantController extends Controller
 
         $data_father = [
             'name' => $applicants[$i][21] ?? null,
-            'phone' => $applicants[$i][23] ?? null,
+            'phone' => strval($applicants[$i][23] ?? ''),
             'job' => $applicants[$i][24] ?? null,
         ];
 
@@ -1296,7 +1296,7 @@ class ApplicantController extends Controller
             $create_father = [
                 'identity_user' => $applicants[$i][1],
                 'name' => $applicants[$i][21] ?? null,
-                'phone' => $applicants[$i][23] ?? null,
+                'phone' => strval($applicants[$i][23] ?? ''),
                 'gender' => 1,
                 'job' => $applicants[$i][24] ?? null,
             ];
