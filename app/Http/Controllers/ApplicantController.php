@@ -1284,13 +1284,16 @@ class ApplicantController extends Controller
 
             $create_father = [
                 'identity_user' => $applicants[$i][1],
+                'name' => $applicants[$i][21] ?? null,
+                'phone' => $applicants[$i][23] ?? null,
                 'gender' => 1,
-                'job' => null,
+                'job' => $applicants[$i][24] ?? null,
             ];
             $create_mother = [
                 'identity_user' => $applicants[$i][1],
-                'gender' => 0,
-                'job' => null,
+                'name' => $applicants[$i][22] ?? null,
+                'gender' => 0,,
+                'job' => $applicants[$i][25] ?? null,
             ];
 
             if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {
