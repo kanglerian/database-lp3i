@@ -1128,13 +1128,13 @@ class ApplicantController extends Controller
             'come' => $come,
             'achievement' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
             'kip' => $kip,
-            'relation' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+            'relation' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
             'known' => $known,
-            'planning' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
+            'planning' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
             'program' => $program,
-            'other_campus' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
-            'income_parent' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
-            'social_media' => !empty($applicants[$i][30]) ? $applicants[$i][30] : null,
+            'other_campus' => !empty($applicants[$i][31]) ? $applicants[$i][31] : null,
+            'income_parent' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
+            'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
         ];
 
         $data_father = [
@@ -1179,13 +1179,13 @@ class ApplicantController extends Controller
             'come' => $come,
             'achievement' => !empty($applicants[$i][20]) ? $applicants[$i][20] : null,
             'kip' => $kip,
-            'relation' => !empty($applicants[$i][25]) ? $applicants[$i][25] : null,
+            'relation' => !empty($applicants[$i][27]) ? $applicants[$i][27] : null,
             'known' => $known,
-            'planning' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
+            'planning' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
             'program' => $program,
-            'other_campus' => !empty($applicants[$i][28]) ? $applicants[$i][28] : null,
-            'income_parent' => !empty($applicants[$i][29]) ? $applicants[$i][29] : null,
-            'social_media' => !empty($applicants[$i][30]) ? $applicants[$i][30] : null,
+            'other_campus' => !empty($applicants[$i][31]) ? $applicants[$i][31] : null,
+            'income_parent' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
+            'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
         ];
 
         ApplicantFamily::create($create_father);
@@ -1193,10 +1193,10 @@ class ApplicantController extends Controller
         Applicant::create($data_applicant);
     }
 
-    public function studentsHandle($person, $identityUser, $start, $end)
+    public function studentsHandle($person, $identityUser, $start, $end, $macro)
     {
 
-        $response = Http::get('https://script.google.com/macros/s/AKfycbyq8NzlVbO2n8kRrkRYMDmZNjRb4aNmV0clLvAKOa5ej-XgZzTA2VL35X2VM7BMl5Br/exec?person=' . $person);
+        $response = Http::get('https://script.google.com/macros/s/' . $macro . '/exec?person=' . $person);
 
         $applicants = $response->json();
 
@@ -1219,17 +1219,12 @@ class ApplicantController extends Controller
             }
 
             $kip = null;
-            if (strcasecmp($applicants[$i][24], 'YA') === 0) {
-                $kip = 1;
-            } elseif (strcasecmp($applicants[$i][24], 'TIDAK') === 0) {
-                $kip = 0;
-            }
 
             $known = null;
 
-            if (strcasecmp($applicants[$i][26], 'YA') === 0) {
+            if (strcasecmp($applicants[$i][28], 'YA') === 0) {
                 $known = 1;
-            } elseif (strcasecmp($applicants[$i][26], 'TIDAK') === 0) {
+            } elseif (strcasecmp($applicants[$i][28], 'TIDAK') === 0) {
                 $known = 0;
             }
 
@@ -1265,8 +1260,8 @@ class ApplicantController extends Controller
 
             $program = null;
 
-            if (!empty($applicants[$i][27])) {
-                switch ($applicants[$i][27]) {
+            if (!empty($applicants[$i][30])) {
+                switch ($applicants[$i][30]) {
                     case 'AB':
                         $program = 'D3 Administrasi Bisnis';
                         break;
@@ -1343,11 +1338,10 @@ class ApplicantController extends Controller
         }
     }
 
-    public function check_spreadsheet($sheet)
+    public function check_spreadsheet($sheet, $macro)
     {
         try {
-            $response = Http::get('https://script.google.com/macros/s/AKfycbyq8NzlVbO2n8kRrkRYMDmZNjRb4aNmV0clLvAKOa5ej-XgZzTA2VL35X2VM7BMl5Br/exec?person=' . $sheet);
-
+            $response = Http::get('https://script.google.com/macros/s/' . $macro . '/exec?person=' . $sheet);
             $applicants = $response->json();
             return response()->json([
                 'applicants' => count($applicants)
@@ -1363,15 +1357,16 @@ class ApplicantController extends Controller
             if (Auth::user()->role == 'P' && Auth::user()->sheet) {
                 $start = request('start', 'all');
                 $end = request('end', 'all');
-                $this->studentsHandle(Auth::user()->sheet, Auth::user()->identity, $start, $end);
+                $macro = request('macro');
+                $this->studentsHandle(Auth::user()->sheet, Auth::user()->identity, $start, $end, $macro);
 
                 return response()->json([
                     'message' => 'Data ' . Auth::user()->name . ' berhasil disinkronisasi dari Spreadsheet',
                 ]);
-                // } else {
-                //     return response()->json([
-                //         'message' => 'Presenter / Sheet tidak ditemukan.',
-                //     ]);
+            } else {
+                return response()->json([
+                    'message' => 'Presenter / Sheet tidak ditemukan.',
+                ]);
             }
         } catch (\Throwable $th) {
             return response()->json([

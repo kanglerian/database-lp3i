@@ -46,7 +46,7 @@
                             id="count-sync"></span>.</p>
                     <p class="text-xs text-center text-gray-700">Jika bingung, tak perlu ragu untuk langsung klik tombol
                         sinkronisasi.</p>
-                    <button onclick="syncNow()" id="button-sync"
+                    <button type="button" onclick="syncNow()" id="button-sync"
                         class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center">Sinkronisasi
                         Sekarang!</button>
                 </div>
@@ -61,7 +61,10 @@
     const syncSpreadsheet = async (sheet) => {
         showLoadingAnimation();
         try {
-            const response = await axios.get(`/import/check-spreadsheet/${sheet}`);
+            /* Macro untuk mengambil database dari Spreadsheet*/
+            const macro = 'AKfycbx0TyUKAqB7ckgyLX_l-cfXQJD8JhxnopnD3GUjFc8Rp_5SN7N_FRXnyzBTU7uP8mE5';
+            /* End Macro */
+            const response = await axios.get(`/import/check-spreadsheet/${sheet}/${macro}`);
             const maxCount = 1000;
             total = response.data.applicants;
             standart = total > maxCount ? maxCount : 1;
@@ -103,11 +106,13 @@
 
     const syncNow = async () => {
         showLoadingAnimation();
+        /* Macro untuk mengambil database dari Spreadsheet*/
+        const macro = 'AKfycbx0TyUKAqB7ckgyLX_l-cfXQJD8JhxnopnD3GUjFc8Rp_5SN7N_FRXnyzBTU7uP8mE5';
+        /* End Macro */
         let start = document.getElementById('start').value;
         let end = document.getElementById('end').value;
-        await axios.get(`/import/applicants?start=${start}&end=${end}`)
+        await axios.get(`/import/applicants?start=${start}&end=${end}&macro=${macro}`)
             .then((response) => {
-                // console.log(response.data.message);
                 console.log(response);
                 hideLoadingAnimation();
             })

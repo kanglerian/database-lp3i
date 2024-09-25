@@ -6,7 +6,7 @@
                     {{ __('Daftar Sekolah') }}
                 </h2>
             </div>
-            <div class="flex flex-wrap justify-center gap-3 px-2 text-gray-600">
+            <div class="flex flex-wrap justify-center gap-1 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
                     <h2 id="count_filter">0</h2>
@@ -15,6 +15,10 @@
                     class="flex bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-gear"></i>
                 </a>
+                <button type="button" onclick="getSchools()"
+                    class="flex bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 text-sm rounded-xl items-center gap-2">
+                    <i class="fa-solid fa-download"></i>
+                </button>
             </div>
         </div>
     </x-slot>
@@ -32,8 +36,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
-                    role="alert">
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-reguler">
                         {{ session('error') }}
@@ -288,9 +291,53 @@
 
     @include('utilities.pmb')
     @include('pages.schools.modals.school')
+
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="{{ asset('js/exceljs.min.js') }}"></script>
     <script>
         function submitForm() {
             document.getElementById('searchForm').submit();
+        }
+
+        const getSchools = async () => {
+            try {
+                const responseSchools = await axios.get('api/school/getall');
+                const workbook = new ExcelJS.Workbook();
+                const worksheet = workbook.addWorksheet('Data');
+                let header = ['Nama Sekolah', 'Wilayah'];
+                let dataExcel = [
+                    header,
+                ];
+                responseSchools.data.schools.forEach((school, index) => {
+                    let schoolBucket = [];
+                    schoolBucket.push(
+                        `${school.name ? school.name : 'Tidak diketahui'}`,
+                        `${school.region ? school.region : 'Tidak diketahui'}`,
+                    );
+                    dataExcel.push(schoolBucket);
+                });
+                let dateTime = new Date();
+                const day = dateTime.getDate();
+                const month = dateTime.getMonth();
+                const year = dateTime.getFullYear();
+                const hours = dateTime.getHours();
+                const minutes = dateTime.getMinutes();
+                const seconds = dateTime.getSeconds();
+                const formattedDate = `export_schools_${hours}${minutes}${seconds}${day}${month}${year}`;
+                worksheet.addRows(dataExcel);
+                const blob = await workbook.xlsx.writeBuffer();
+                const blobData = new Blob([blob], {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blobData);
+                link.download = `${formattedDate}.xlsx`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         function getUrlParams() {
