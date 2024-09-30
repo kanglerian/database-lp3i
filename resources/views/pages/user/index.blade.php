@@ -87,15 +87,21 @@
                                                 @case('A')
                                                     Administrator
                                                 @break
-
                                                 @case('P')
                                                     Presenter
                                                 @break
-
                                                 @case('S')
                                                     Siswa
                                                 @break
-
+                                                @case('K')
+                                                    Kepala Kampus
+                                                @break
+                                                @case('E')
+                                                    Pendidikan
+                                                @break
+                                                @case('C')
+                                                    C&P
+                                                @break
                                                 @default
                                                     Unknown
                                             @endswitch
