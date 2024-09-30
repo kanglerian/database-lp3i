@@ -103,9 +103,8 @@ class UserController extends Controller
             'role' => $request->input('role'),
             'status' => $request->input('status'),
         ];
-        dd($data);
-        // User::create($data);
-        // return back()->with('message', 'Akun berhasil ditambahkan!');
+        User::create($data);
+        return back()->with('message', 'Akun berhasil ditambahkan!');
     }
 
     /**
