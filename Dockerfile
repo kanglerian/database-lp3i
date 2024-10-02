@@ -17,7 +17,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
 apt-get install -y nodejs
 
 # Menyalin file composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 # Menetapkan direktori kerja
 WORKDIR /var/www
