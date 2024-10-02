@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
+    ports:
+      - "9000:9000"
     networks:
       - laravel
 
