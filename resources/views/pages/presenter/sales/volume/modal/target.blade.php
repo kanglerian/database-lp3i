@@ -63,7 +63,7 @@
     const getYearPMB = () => {
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
+        const currentMonth = currentDate.getMonth() + 1;
         const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
         document.getElementById('pmb').value = startYear;
         document.getElementById('change_pmb').value = startYear;

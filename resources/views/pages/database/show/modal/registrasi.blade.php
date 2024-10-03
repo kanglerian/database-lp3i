@@ -1111,8 +1111,8 @@
                 const currentMonth = currentDate.getMonth() + 1;
 
                 const currentYear = currentDate.getFullYear();
-                const currentMonths = currentDate.getMonth();
-                const startYear = currentMonths >= 9 ? currentYear + 1 : currentYear;
+                const currentMonths = currentDate.getMonth() + 1;
+                const startYear = currentMonths >= 10 ? currentYear + 1 : currentYear;
 
                 let session = 'all';
 

@@ -443,7 +443,7 @@
             const getYearPMB = () => {
                 const currentDate = new Date();
                 const currentYear = currentDate.getFullYear();
-                const currentMonth = currentDate.getMonth();
+                const currentMonth = currentDate.getMonth() + 1;
                 const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
                 document.getElementById('change_pmb').value = startYear;
                 document.getElementById('change_pmb_quick').value = startYear;
@@ -874,7 +874,7 @@
             const started = () => {
                 const currentDate = new Date();
                 const currentYear = currentDate.getFullYear();
-                const currentMonth = currentDate.getMonth();
+                const currentMonth = currentDate.getMonth() + 1;
                 const startYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
                 const url = window.location.href;
                 const queryStringStart = url.indexOf('?');
