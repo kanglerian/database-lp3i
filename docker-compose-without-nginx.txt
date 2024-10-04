@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: pmbonline_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
