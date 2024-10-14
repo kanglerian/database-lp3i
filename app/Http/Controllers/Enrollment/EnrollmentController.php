@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Enrollment;
 
+use DateTime;
 use App\Http\Controllers\Controller;
 use App\Mail\EnrollmentConfirmationMail;
 use App\Models\Applicant;
@@ -20,44 +21,52 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
+        function getYearPMB()
+        {
+            $currentDate = new DateTime();
+            $currentYear = $currentDate->format("Y");
+            $currentMonth = $currentDate->format("m");
+            return $currentMonth >= 10 ? $currentYear + 1 : $currentYear;
+        }
+
         $total = StatusApplicantsEnrollment::count();
         $enrollmentQuery = StatusApplicantsEnrollment::query();
-        $enrollmentQuery->with('applicant');
+        $enrollmentQuery->with("applicant");
 
-        $date = request('date');
-        $pmb = request('pmb');
-        $repayment = request('repayment');
-        $register = request('register', 'all');
-        $register_end = request('register_end', 'all');
+        $date = request("date", "all");
+        $pmb = request("pmb", getYearPMB());
+        $repayment = request("repayment");
+        $register = request("register", "all");
+        $register_end = request("register_end", "all");
 
         $appends = [];
 
-        if ($date) {
-            $enrollmentQuery->where('date', $date);
-            $appends['date'] = $date;
+        if ($date !== "all") {
+            $enrollmentQuery->where("date", $date);
+            $appends["date"] = $date;
         }
         if ($pmb) {
-            $enrollmentQuery->where('pmb', $pmb);
-            $appends['pmb'] = $pmb;
+            $enrollmentQuery->where("pmb", $pmb);
+            $appends["pmb"] = $pmb;
         }
         if ($repayment) {
-            $enrollmentQuery->where('repayment', $repayment);
-            $appends['repayment'] = $repayment;
+            $enrollmentQuery->where("repayment", $repayment);
+            $appends["repayment"] = $repayment;
         }
-        if ($register !== 'all') {
-            $enrollmentQuery->where('register', $register);
-            $appends['register'] = $register;
+        if ($register !== "all") {
+            $enrollmentQuery->where("register", $register);
+            $appends["register"] = $register;
         }
-        if ($register_end !== 'all') {
-            $enrollmentQuery->where('register_end', $register_end);
-            $appends['register_end'] = $register_end;
+        if ($register_end !== "all") {
+            $enrollmentQuery->where("register_end", $register_end);
+            $appends["register_end"] = $register_end;
         }
 
-        $enrollments = $enrollmentQuery->orderByDesc('created_at')->paginate(5);
+        $enrollments = $enrollmentQuery->orderByDesc("created_at")->paginate(5);
         $enrollments->appends($appends);
-        return view('pages.payment.enrollment.index')->with([
-            'total' => $total,
-            'enrollments' => $enrollments
+        return view("pages.payment.enrollment.index")->with([
+            "total" => $total,
+            "enrollments" => $enrollments,
         ]);
     }
 
@@ -74,33 +83,33 @@ class EnrollmentController extends Controller
     public function get_all()
     {
         $enrollmentQuery = StatusApplicantsEnrollment::query();
-        $enrollmentQuery->with('applicant');
+        $enrollmentQuery->with("applicant");
 
-        $dateVal = request('date', 'all');
-        $pmbVal = request('pmbVal', 'all');
-        $repaymentVal = request('repaymentVal', 'all');
-        $registerVal = request('registerVal', 'all');
-        $registerEndVal = request('registerEndVal', 'all');
+        $dateVal = request("date", "all");
+        $pmbVal = request("pmbVal", "all");
+        $repaymentVal = request("repaymentVal", "all");
+        $registerVal = request("registerVal", "all");
+        $registerEndVal = request("registerEndVal", "all");
 
-        if ($dateVal !== 'all') {
-            $enrollmentQuery->where('date', $dateVal);
+        if ($dateVal !== "all") {
+            $enrollmentQuery->where("date", $dateVal);
         }
-        if ($pmbVal !== 'all') {
-            $enrollmentQuery->where('pmb', $pmbVal);
+        if ($pmbVal !== "all") {
+            $enrollmentQuery->where("pmb", $pmbVal);
         }
-        if ($repaymentVal !== 'all') {
-            $enrollmentQuery->where('repayment', $repaymentVal);
+        if ($repaymentVal !== "all") {
+            $enrollmentQuery->where("repayment", $repaymentVal);
         }
-        if ($registerVal !== 'all') {
-            $enrollmentQuery->where('register', $registerVal);
+        if ($registerVal !== "all") {
+            $enrollmentQuery->where("register", $registerVal);
         }
-        if ($registerEndVal !== 'all') {
-            $enrollmentQuery->where('register_end', $registerEndVal);
+        if ($registerEndVal !== "all") {
+            $enrollmentQuery->where("register_end", $registerEndVal);
         }
 
-        $enrollments = $enrollmentQuery->orderByDesc('created_at')->get();
+        $enrollments = $enrollmentQuery->orderByDesc("created_at")->get();
 
-        return response()->json(['enrollments' => $enrollments]);
+        return response()->json(["enrollments" => $enrollments]);
     }
 
     /**
@@ -111,61 +120,84 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'pmb' => ['required'],
-            'date' => ['required'],
-            'identity_user' => ['required'],
-            'receipt' => ['required', 'min:5', 'max:10', 'unique:status_applicants_enrollment'],
-            'register' => ['required'],
-            'register_end' => ['required'],
-            'nominal' => ['required'],
-            'session' => ['required']
-        ], [
-            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
-            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
-            'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
-            'receipt.min' => 'No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!',
-            'receipt.max' => 'No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!',
-            'receipt.unique' => 'Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.',
-            'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
-            'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
-            'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
-            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
-        ]);
+        $request->validate(
+            [
+                "pmb" => ["required"],
+                "date" => ["required"],
+                "identity_user" => ["required"],
+                "receipt" => [
+                    "required",
+                    "min:5",
+                    "max:10",
+                    "unique:status_applicants_enrollment",
+                ],
+                "register" => ["required"],
+                "register_end" => ["required"],
+                "nominal" => ["required"],
+                "session" => ["required"],
+            ],
+            [
+                "pmb.required" => "Oops! Kolom PMB gak boleh kosong.",
+                "date.required" => "Oops! Kolom Tanggal gak boleh kosong,",
+                "receipt.required" =>
+                    "Oops! Kolom No. Kwitansi gak boleh kosong,",
+                "receipt.min" =>
+                    "No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!",
+                "receipt.max" =>
+                    "No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!",
+                "receipt.unique" =>
+                    "Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.",
+                "register.required" =>
+                    "Oops! Kolom Keterangan gak boleh kosong.",
+                "register_end.required" =>
+                    "Oops! Kolom Keterangan Daftar gak boleh kosong.",
+                "nominal.required" =>
+                    "Oops! Kolom Nominal Daftar gak boleh kosong.",
+                "session.required" => "Oops! Kolom Gelombang gak boleh kosong.",
+            ]
+        );
 
         $data_enrollment = [
-            'pmb' => $request->input('pmb'),
-            'date' => $request->input('date'),
-            'identity_user' => $request->input('identity_user'),
-            'receipt' => $request->input('receipt'),
-            'register' => $request->input('register'),
-            'register_end' => $request->input('register_end'),
-            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
-            'repayment' => $request->input('repayment'),
-            'debit' => (int) str_replace('.', '', $request->input('debit')),
-            'session' => $request->input('session'),
+            "pmb" => $request->input("pmb"),
+            "date" => $request->input("date"),
+            "identity_user" => $request->input("identity_user"),
+            "receipt" => $request->input("receipt"),
+            "register" => $request->input("register"),
+            "register_end" => $request->input("register_end"),
+            "nominal" => (int) str_replace(".", "", $request->input("nominal")),
+            "repayment" => $request->input("repayment"),
+            "debit" => (int) str_replace(".", "", $request->input("debit")),
+            "session" => $request->input("session"),
         ];
 
-        $applicant = Applicant::where('identity', $request->input('identity_user'))->first();
+        $applicant = Applicant::where(
+            "identity",
+            $request->input("identity_user")
+        )->first();
         $data_applicant = [
-            'is_daftar' => 1,
+            "is_daftar" => 1,
         ];
 
         $applicant->update($data_applicant);
 
         StatusApplicantsEnrollment::create($data_enrollment);
         $data = [
-            'receipt' => $request->input('receipt'),
-            'name' => $applicant->name,
-            'school' => $applicant->schoolapplicant->name,
-            'major' => $applicant->major,
-            'year' => $applicant->year,
-            'phone' => $applicant->phone,
-            'email' => $applicant->email,
-            'presenter' => $applicant->presenter->name,
+            "receipt" => $request->input("receipt"),
+            "name" => $applicant->name,
+            "school" => $applicant->schoolapplicant->name,
+            "major" => $applicant->major,
+            "year" => $applicant->year,
+            "phone" => $applicant->phone,
+            "email" => $applicant->email,
+            "presenter" => $applicant->presenter->name,
         ];
-        Mail::to($applicant->email)->send(new EnrollmentConfirmationMail($data));
-        return back()->with('message', 'Data daftar berhasil ditambahkan, notifikasi email sudah terkirim!');
+        Mail::to($applicant->email)->send(
+            new EnrollmentConfirmationMail($data)
+        );
+        return back()->with(
+            "message",
+            "Data daftar berhasil ditambahkan, notifikasi email sudah terkirim!"
+        );
     }
 
     /**
@@ -199,51 +231,64 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'pmb' => ['required'],
-            'date' => ['required'],
-            'identity_user' => ['required'],
-            'receipt' => [
-                'required',
-                'min:5',
-                'max:10',
-                Rule::unique('status_applicants_enrollment')->ignore($id, 'id'),
+        $request->validate(
+            [
+                "pmb" => ["required"],
+                "date" => ["required"],
+                "identity_user" => ["required"],
+                "receipt" => [
+                    "required",
+                    "min:5",
+                    "max:10",
+                    Rule::unique("status_applicants_enrollment")->ignore(
+                        $id,
+                        "id"
+                    ),
+                ],
+                "register" => ["required"],
+                "register_end" => ["required"],
+                "nominal" => ["required"],
+                "session" => ["required"],
             ],
-            'register' => ['required'],
-            'register_end' => ['required'],
-            'nominal' => ['required'],
-            'session' => ['required']
-        ], [
-            'pmb.required' => 'Oops! Kolom PMB gak boleh kosong.',
-            'date.required' => 'Oops! Kolom Tanggal gak boleh kosong,',
-            'receipt.required' => 'Oops! Kolom No. Kwitansi gak boleh kosong,',
-            'receipt.min' => 'No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!',
-            'receipt.max' => 'No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!',
-            'receipt.unique' => 'Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.',
-            'register.required' => 'Oops! Kolom Keterangan gak boleh kosong.',
-            'register_end.required' => 'Oops! Kolom Keterangan Daftar gak boleh kosong.',
-            'nominal.required' => 'Oops! Kolom Nominal Daftar gak boleh kosong.',
-            'session.required' => 'Oops! Kolom Gelombang gak boleh kosong.',
-        ]);
+            [
+                "pmb.required" => "Oops! Kolom PMB gak boleh kosong.",
+                "date.required" => "Oops! Kolom Tanggal gak boleh kosong,",
+                "receipt.required" =>
+                    "Oops! Kolom No. Kwitansi gak boleh kosong,",
+                "receipt.min" =>
+                    "No. Kwitansi harus memiliki setidaknya :min karakter. Nambahin dikit dong datanya!",
+                "receipt.max" =>
+                    "No. Kwitansi gak boleh lebih dari :max karakter. Coba dikit lagi ya, jangan kebanyakan!",
+                "receipt.unique" =>
+                    "Oops! No. Kwitansi ini udah dipake yang lain, coba pake yang beda ya.",
+                "register.required" =>
+                    "Oops! Kolom Keterangan gak boleh kosong.",
+                "register_end.required" =>
+                    "Oops! Kolom Keterangan Daftar gak boleh kosong.",
+                "nominal.required" =>
+                    "Oops! Kolom Nominal Daftar gak boleh kosong.",
+                "session.required" => "Oops! Kolom Gelombang gak boleh kosong.",
+            ]
+        );
 
         $enrollment = StatusApplicantsEnrollment::findOrFail($id);
 
         $data_enrollment = [
-            'pmb' => $request->input('pmb'),
-            'date' => $request->input('date'),
-            'identity_user' => $request->input('identity_user'),
-            'receipt' => $request->input('receipt'),
-            'register' => $request->input('register'),
-            'register_end' => $request->input('register_end'),
-            'nominal' => (int) str_replace('.', '', $request->input('nominal')),
-            'repayment' => $request->input('repayment'),
-            'debit' => (int) str_replace('.', '', $request->input('debit')),
-            'session' => $request->input('session'),
+            "pmb" => $request->input("pmb"),
+            "date" => $request->input("date"),
+            "identity_user" => $request->input("identity_user"),
+            "receipt" => $request->input("receipt"),
+            "register" => $request->input("register"),
+            "register_end" => $request->input("register_end"),
+            "nominal" => (int) str_replace(".", "", $request->input("nominal")),
+            "repayment" => $request->input("repayment"),
+            "debit" => (int) str_replace(".", "", $request->input("debit")),
+            "session" => $request->input("session"),
         ];
 
         $enrollment->update($data_enrollment);
 
-        return back()->with('message', 'Data daftar berhasil diubah!');
+        return back()->with("message", "Data daftar berhasil diubah!");
     }
 
     /**
@@ -255,25 +300,31 @@ class EnrollmentController extends Controller
     public function destroy($id)
     {
         $enrollment = StatusApplicantsEnrollment::findOrFail($id);
-        $registration = StatusApplicantsRegistration::where('identity_user', $enrollment->identity_user)->first();
+        $registration = StatusApplicantsRegistration::where(
+            "identity_user",
+            $enrollment->identity_user
+        )->first();
         if (!$registration) {
             $data = [
-                'is_daftar' => 0,
+                "is_daftar" => 0,
             ];
-            $applicant = Applicant::where('identity', $enrollment->identity_user)->first();
+            $applicant = Applicant::where(
+                "identity",
+                $enrollment->identity_user
+            )->first();
             $applicant->update($data);
             $enrollment->delete();
             $message = [
-                'status' => 'message',
-                'message' => 'Data pendaftaran berhasil dihapus!'
+                "status" => "message",
+                "message" => "Data pendaftaran berhasil dihapus!",
             ];
         } else {
-
             $message = [
-                'status' => 'error',
-                'message' => 'Tidak bisa menghapus pendaftaran. Hapus data registrasi terlebih dahulu!'
+                "status" => "error",
+                "message" =>
+                    "Tidak bisa menghapus pendaftaran. Hapus data registrasi terlebih dahulu!",
             ];
         }
-        return back()->with($message['status'], $message['message']);
+        return back()->with($message["status"], $message["message"]);
     }
 }
