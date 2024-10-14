@@ -74,7 +74,7 @@
                             <select id="school_from" name="school_from"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 js-example-input-one">
                                 @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->nama }} (Jumlah: {{ $school->jumlah }})</option>
+                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah: {{ $school->jumlah }} | {{ $school->pmb }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -84,7 +84,7 @@
                             <select id="school_to" name="school_to"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 js-example-input-two">
                                 @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->nama }} (Jumlah: {{ $school->jumlah }})</option>
+                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah: {{ $school->jumlah }} | {{ $school->pmb }}</option>
                                 @endforeach
                             </select>
                         </div>
