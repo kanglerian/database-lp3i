@@ -23,7 +23,7 @@
         </div>
     </x-slot>
 
-    <main class="max-w-7xl mx-auto">
+    <main>
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">
@@ -113,7 +113,7 @@
                             <label for="change_pmb" class="block mb-2 text-sm font-medium text-gray-900">Periode
                                 PMB</label>
                             <input type="number" id="change_pmb" name="pmb"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 px-5"
                                 placeholder="PMB" required />
                         </div>
                         <div class="w-full">
@@ -121,7 +121,7 @@
                                 Wilayah
                             </label>
                             <select id="region" name="region"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 px-5">
                                 <option value="all">Pilih wilayah</option>
                                 @foreach ($schools_by_region as $region)
                                     <option value="{{ $region->region }}">{{ $region->region }}</option>
@@ -143,143 +143,138 @@
             </div>
         </section>
 
-        <section>
-            <div class="bg-gray-50 overflow-hidden border rounded-3xl">
-                <div class="p-8 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto sm:rounded-xl">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        No.
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Wilayah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Nama Sekolah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Total
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-emerald-50">
-                                        Valid
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-red-50">
-                                        Non Valid
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Jumlah Kelas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Presentasi
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Daftar Online
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Website
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Beasiswa
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Sosial Media
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Grab Data
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        MGM
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Sekolah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Jadwal Datang
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Guru BK
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Psikotes
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($schools as $key => $school)
-                                    <tr class="border-b border-gray-200">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $schools->perPage() * ($schools->currentPage() - 1) + $key + 1 }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ $school->wilayah }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            <a href="{{ route('schools.show', $school->id) }}"
-                                                class="underline font-bold text-gray-700">
-                                                {{ $school->nama }}
-                                            </a>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->jumlah }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-emerald-50">
-                                            {{ $school->valid }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-red-50">
-                                            {{ $school->nonvalid }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->kelas }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->presentasi }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->daftaronline }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->website }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->beasiswa }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->sosmed }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->grab }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->mgm }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->sekolah }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->jadwaldatang }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ $school->gurubk }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $school->psikotes }}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="18" class="px-6 py-4 text-center">Data tidak ditemukan</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        <div class="p-1">
-                            {{ $schools->links() }}
-                        </div>
-                    </div>
-                </div>
+
+        <section class="relative overflow-x-auto border border-gray-200 rounded-3xl">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            No.
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Wilayah
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Nama Sekolah
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Total
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-emerald-50">
+                            Valid
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-red-50">
+                            Non Valid
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Jumlah Kelas
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Presentasi
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Daftar Online
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Website
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Beasiswa
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Sosial Media
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Grab Data
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            MGM
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Sekolah
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Jadwal Datang
+                        </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-50">
+                            Guru BK
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Psikotes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($schools as $key => $school)
+                        <tr class="border-b border-gray-200">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                {{ $schools->perPage() * ($schools->currentPage() - 1) + $key + 1 }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $school->wilayah }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                <a href="{{ route('schools.show', $school->id) }}"
+                                    class="underline font-bold text-gray-700">
+                                    {{ $school->nama }}
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->jumlah }}
+                            </td>
+                            <td class="px-6 py-4 bg-emerald-50">
+                                {{ $school->valid }}
+                            </td>
+                            <td class="px-6 py-4 bg-red-50">
+                                {{ $school->nonvalid }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->kelas }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->presentasi }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->daftaronline }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->website }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->beasiswa }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->sosmed }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->grab }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->mgm }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->sekolah }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->jadwaldatang }}
+                            </td>
+                            <td class="px-6 py-4 bg-gray-50">
+                                {{ $school->gurubk }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $school->psikotes }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="18" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            <div class="p-5 bg-gray-50">
+                {{ $schools->links() }}
             </div>
         </section>
     </main>

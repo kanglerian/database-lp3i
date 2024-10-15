@@ -125,7 +125,6 @@
                 </div>
             </div>
         </section>
-        </section>
 
         <script>
             function getUrlParams() {
