@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                 {{ __('Pembayaran') }}
             </h2>
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-3 py-10">
+    <main class="max-w-7xl mx-auto">
         <form method="GET" action="{{ route('payment.index') }}"
             class="w-full flex flex-col md:flex-row justify-between items-center md:items-end gap-5 px-2 pb-5">
             <div class="w-full md:w-1/4 relative">
@@ -71,7 +71,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </main>
     @include('utilities.pmb')
 
     <script>

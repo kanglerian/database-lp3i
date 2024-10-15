@@ -1,36 +1,34 @@
-<div class="max-w-7xl px-5 mx-auto">
-    <section class="bg-gray-50 rounded-3xl border border-gray-200 space-y-5">
-        <header class="px-6 pt-5 space-y-1">
-            <h1 class="flex items-center gap-2 font-bold text-gray-700">
-                <span>Registrasi: Berdasarkan Program Studi</span>
-            </h1>
-            <p class="text-gray-600 text-sm">Berikut ini adalah registrasi berdasarkan program studi yang terdaftar.</p>
-        </header>
-        <hr>
-        <div class="relative overflow-x-auto px-6 pb-4">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-register-program">
-                <thead class="text-xs text-gray-700 uppercase">
-                    <tr>
-                        <th scope="col" class="px-6 py-4 text-center">No</th>
-                        <th scope="col" class="px-6 py-4 text-center">Program Studi</th>
-                        <th scope="col" class="px-6 py-4 text-center">Reguler</th>
-                        <th scope="col" class="px-6 py-4 text-center">Non Reguler</th>
-                        <th scope="col" class="px-6 py-4 text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2" class="font-bold">Total</td>
-                        <td id="register_reguler">0</td>
-                        <td id="register_nonreguler">0</td>
-                        <td id="register_total">0</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </section>
-</div>
+<section class="bg-gray-50 rounded-3xl border border-gray-200 space-y-5">
+    <header class="px-6 pt-5 space-y-1">
+        <h1 class="flex items-center gap-2 font-bold text-gray-700">
+            <span>Registrasi: Berdasarkan Program Studi</span>
+        </h1>
+        <p class="text-gray-600 text-sm">Berikut ini adalah registrasi berdasarkan program studi yang terdaftar.</p>
+    </header>
+    <hr>
+    <div class="relative overflow-x-auto px-6 pb-4">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-register-program">
+            <thead class="text-xs text-gray-700 uppercase">
+                <tr>
+                    <th scope="col" class="px-6 py-4 text-center">No</th>
+                    <th scope="col" class="px-6 py-4 text-center">Program Studi</th>
+                    <th scope="col" class="px-6 py-4 text-center">Reguler</th>
+                    <th scope="col" class="px-6 py-4 text-center">Non Reguler</th>
+                    <th scope="col" class="px-6 py-4 text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" class="font-bold">Total</td>
+                    <td id="register_reguler">0</td>
+                    <td id="register_nonreguler">0</td>
+                    <td id="register_total">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
 
 @push('scripts')
     <script>
@@ -87,7 +85,8 @@
 
                     document.getElementById('register_reguler').innerText = totalReguler;
                     document.getElementById('register_nonreguler').innerText = totalNonReguler;
-                    document.getElementById('register_total').innerText = totalReguler + totalNonReguler;
+                    document.getElementById('register_total').innerText = totalReguler +
+                    totalNonReguler;
 
                     let columnConfigs = [{
                             data: 'pmb',
@@ -119,7 +118,8 @@
                                 register_nonreguler: 'register_nonreguler',
                             },
                             render: (data, type, row, meta) => {
-                                let result = parseInt(data.register_reguler) + parseInt(data.register_nonreguler);
+                                let result = parseInt(data.register_reguler) + parseInt(data
+                                    .register_nonreguler);
                                 return result;
                             }
                         },

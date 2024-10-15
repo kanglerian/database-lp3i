@@ -28,7 +28,7 @@
         </nav>
     </x-slot>
 
-    <main class="max-w-7xl w-full mx-auto py-10">
+    <main>
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">

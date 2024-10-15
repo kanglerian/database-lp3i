@@ -1,35 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center py-3">
-            <nav class="flex">
-                <ol class="inline-flex items-center space-x-2 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <a href="{{ route('presenters.index') }}"
-                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
-                            <i class="fa-solid fa-users mr-2"></i>
-                            Presenter
-                        </a>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
-                            <a href="{{ route('presenters.show', $presenter->id) }}"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ $presenter->name }}</a>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Target Database</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-        </div>
+        <nav class="flex">
+            <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{{ route('presenters.index') }}"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <i class="fa-solid fa-users mr-2"></i>
+                        Presenter
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
+                        <a href="{{ route('presenters.show', $presenter->id) }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{ $presenter->name }}</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-gray-300 mr-1"></i>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Target Database</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
     </x-slot>
 
-    <div class="py-5">
-        <div class="max-w-7xl mx-auto px-5 md:p-0">
+
+        <main class="max-w-7xl mx-auto">
             @if (session('message'))
                 <div id="alert" class="mx-2 mb-4 flex items-center p-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                     role="alert">
@@ -70,7 +68,9 @@
                             <h2 class="text-white text-xl" id="result_count">0</h2>
                             <p class="text-white text-sm">Sisa Target</p>
                             <div class="hidden absolute top-[-40px] right-[-40px]" id="animate">
-                                <dotlottie-player src="{{ asset('animations/win.lottie') }}" background="transparent" speed="1" style="width: 150px; height: 150px" direction="1" mode="normal" loop autoplay></dotlottie-player>
+                                <dotlottie-player src="{{ asset('animations/win.lottie') }}" background="transparent"
+                                    speed="1" style="width: 150px; height: 150px" direction="1" mode="normal"
+                                    loop autoplay></dotlottie-player>
                             </div>
                         </div>
                     </div>
@@ -99,8 +99,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </main>
     @include('pages.presenter.sales.database.modal.target')
     @include('pages.presenter.sales.database.modal.edit-target')
 </x-app-layout>
@@ -113,24 +112,24 @@
 <script>
     const getRegistrations = async () => {
         await axios.get(urlData)
-        .then((res) => {
-            let dataTargets = res.data.targets;
-            let targets = 0;
-            dataTargets.forEach(data => {
-                targets += parseInt(data.total);
+            .then((res) => {
+                let dataTargets = res.data.targets;
+                let targets = 0;
+                dataTargets.forEach(data => {
+                    targets += parseInt(data.total);
+                });
+                document.getElementById('register_count').innerText = parseInt(res.data.applicants);
+                document.getElementById('target_count').innerText = targets;
+                document.getElementById('result_count').innerText = targets - parseInt(res.data.applicants);
+                if (targets - parseInt(res.data.applicants) <= 0) {
+                    document.getElementById('animate').classList.remove('hidden');
+                    document.getElementById('container-animate').classList.remove('bg-red-500');
+                    document.getElementById('container-animate').classList.add('bg-yellow-500');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
             });
-            document.getElementById('register_count').innerText = parseInt(res.data.applicants);
-            document.getElementById('target_count').innerText = targets;
-            document.getElementById('result_count').innerText = targets - parseInt(res.data.applicants);
-            if(targets - parseInt(res.data.applicants) <= 0){
-                document.getElementById('animate').classList.remove('hidden');
-                document.getElementById('container-animate').classList.remove('bg-red-500');
-                document.getElementById('container-animate').classList.add('bg-yellow-500');
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
     }
     getRegistrations();
 </script>
@@ -144,8 +143,7 @@
             order: [
                 [0, 'desc']
             ],
-            columnDefs: [
-                {
+            columnDefs: [{
                     width: 100,
                     target: 0
                 },
@@ -158,8 +156,7 @@
                     target: 2
                 },
             ],
-            columns: [
-                {
+            columns: [{
                     data: 'pmb'
                 },
                 {
@@ -192,7 +189,7 @@
             dataTableInitialized = true;
         } catch (error) {
             console.error("Error fetching data:", error);
-            
+
         }
     }
 

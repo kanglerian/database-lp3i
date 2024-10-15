@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
+    <main>
         @if (session('error'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -28,9 +28,85 @@
                 </div>
             </div>
         @endif
-    </div>
+        <section id="content" class="flex flex-col md:flex-row gap-5">
+            <div class="w-full mx-auto space-y-5">
+                <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
+                    <header>
+                        <h2 class="text-lg font-bold text-gray-900">
+                            Berkas {{ $user->name }}
+                        </h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            Tabel di bawah ini berisi berkas yang diunggah oleh pemilik akun.
+                        </p>
+                        <hr class="my-3">
+                        <div class="relative h-[535px] overflow-y-auto overflow-x-auto rounded-3xl">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr class="flex justify-between items-center">
+                                        <th scope="col" class="px-6 py-3">
+                                            Nama Berkas
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Aksi
+                                        </th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($userupload as $suc)
+                                        <tr class="bg-gray-50 border-b flex justify-between items-center">
+                                            <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
+                                            <td class="px-6 py-4">
+                                                <button
+                                                    class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
+                                                        class="fa-solid fa-circle-check"></i></button>
+                                                <a href="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
+                                                    class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
+                                                        class="fa-solid fa-download"></i></a>
+                                                <button
+                                                    onclick="event.preventDefault(); deleteBerkas('{{ $suc->id }}','{{ $suc->fileupload->namefile }}', '{{ $suc->typefile }}', '{{ $suc->identity_user }}')"
+                                                    class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @foreach ($fileupload as $upload)
+                                        <tr class="bg-gray-50 border-b flex justify-between items-center">
+                                            <td class="px-6 py-4">{{ $upload->name }}</td>
+                                            <td class="loading-form px-6 py-4" colspan="2"
+                                                id="loading-form-{{ $upload->namefile }}">
+                                                <form action="javascript:void(0)" enctype="multipart/form-data"
+                                                    class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
+                                                    @csrf
+                                                    <div>
+                                                        <input type="hidden" name="fileupload_id"
+                                                            value="{{ $upload->id }}">
+                                                        <input type="hidden" name="namefile"
+                                                            value="{{ $upload->namefile }}">
+                                                        <input type="file" name="berkas"
+                                                            onchange="notifButton('{{ $upload->namefile }}')"
+                                                            id="berkas-{{ $upload->namefile }}" class="text-sm"
+                                                            accept="{{ $upload->accept }}">
+                                                        <button id="button-{{ $upload->namefile }}"
+                                                            onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $user->identity }}')"
+                                                            class="hidden inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
+                                                            <i class="fa-solid fa-upload"></i>
+                                                        </button>
+                                                    </div>
+                                                    <small>Maks: 1MB</small>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </header>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+    <section id="forbidden" class="hidden flex flex-col items-center gap-5">
         <div class="w-full flex flex-col items-center justify-center">
             <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
                 style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
@@ -40,83 +116,6 @@
             <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
                 Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
                 Terima kasih atas kesabaran Anda!</p>
-        </div>
-    </section>
-
-    <section id="content" class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 px-3 lg:px-8 gap-5">
-        <div class="w-full mx-auto space-y-5">
-            <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
-                <header>
-                    <h2 class="text-lg font-bold text-gray-900">
-                        Berkas {{ $user->name }}
-                    </h2>
-                    <p class="mt-1 text-sm text-gray-600">
-                        Tabel di bawah ini berisi berkas yang diunggah oleh pemilik akun.
-                    </p>
-                    <hr class="my-3">
-                    <div class="relative h-[535px] overflow-y-auto overflow-x-auto rounded-3xl">
-                        <table class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr class="flex justify-between items-center">
-                                    <th scope="col" class="px-6 py-3">
-                                        Nama Berkas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Aksi
-                                    </th>
-                            </thead>
-                            <tbody>
-                                @foreach ($userupload as $suc)
-                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $suc->fileupload->name }}</td>
-                                        <td class="px-6 py-4">
-                                            <button
-                                                class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
-                                                    class="fa-solid fa-circle-check"></i></button>
-                                            <a href="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
-                                                class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
-                                                    class="fa-solid fa-download"></i></a>
-                                            <button
-                                                onclick="event.preventDefault(); deleteBerkas('{{ $suc->id }}','{{ $suc->fileupload->namefile }}', '{{ $suc->typefile }}', '{{ $suc->identity_user }}')"
-                                                class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach ($fileupload as $upload)
-                                    <tr class="bg-gray-50 border-b flex justify-between items-center">
-                                        <td class="px-6 py-4">{{ $upload->name }}</td>
-                                        <td class="loading-form px-6 py-4" colspan="2"
-                                            id="loading-form-{{ $upload->namefile }}">
-                                            <form action="javascript:void(0)" enctype="multipart/form-data"
-                                                class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
-                                                @csrf
-                                                <div>
-                                                    <input type="hidden" name="fileupload_id"
-                                                        value="{{ $upload->id }}">
-                                                    <input type="hidden" name="namefile"
-                                                        value="{{ $upload->namefile }}">
-                                                    <input type="file" name="berkas"
-                                                        onchange="notifButton('{{ $upload->namefile }}')"
-                                                        id="berkas-{{ $upload->namefile }}" class="text-sm"
-                                                        accept="{{ $upload->accept }}">
-                                                    <button id="button-{{ $upload->namefile }}"
-                                                        onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $user->identity }}')"
-                                                        class="hidden inline-block bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
-                                                        <i class="fa-solid fa-upload"></i>
-                                                    </button>
-                                                </div>
-                                                <small>Maks: 1MB</small>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </header>
-            </div>
         </div>
     </section>
 

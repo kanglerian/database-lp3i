@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div
-            class="flex flex-col md:flex-row justify-center md:justify-between items-center gap-5 pb-3">
+            class="flex flex-col md:flex-row justify-center md:justify-between items-center gap-5">
             @if (!$account)
                 @if (Auth::user()->role == 'S')
                     <h2 class="font-bold text-xl text-gray-800 leading-tight">Registrasi Pembayaran</h2>
@@ -21,11 +21,10 @@
         </div>
     </x-slot>
 
-    <section class="space-y-5 py-10">
+    <section class="space-y-5">
         @if (Auth::user()->role == 'S')
             <div class="py-10">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+                <div>
                     @if (session('error'))
                         <div id="alert"
                             class="mb-3 flex items-center px-5 py-4 bg-red-500 text-white rounded-2xl"
@@ -128,7 +127,7 @@
         @endif
 
         @if (Auth::user()->role != 'S')
-            <div class="max-w-7xl px-5 mx-auto">
+            <div>
                 <div class="flex flex-col md:flex-row justify-between items-center gap-3">
                     <div
                         class="flex justify-center items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3 order-2 md:order-none">
@@ -159,7 +158,7 @@
             @include('pages.dashboard.database.scripts')
 
             @if ($slepets > 0)
-                <section class="max-w-7xl px-5 mx-auto">
+                <section>
                     <div class="px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
                         <div class="flex items-center">
                             <i class="fa-solid fa-circle-info mr-2"></i>
@@ -193,7 +192,7 @@
                 </section>
             @endif
 
-            <section class="max-w-7xl px-5 mx-auto">
+            <section>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <a href="{{ route('dashboard.rekapitulasi_database') }}"
                         class="relative bg-lp3i-200 hover:bg-lp3i-300 text-white cursor-pointer px-6 py-5 rounded-3xl">

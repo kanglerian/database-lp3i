@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-gray-50 py-2">
+<nav x-data="{ open: false }" class="bg-gray-50 py-3">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-7xl mx-auto px-5 md:px-0">
         <div class="flex items-center justify-between h-16 py-3">
             <div class="flex">
                 <!-- Logo -->
@@ -78,6 +78,7 @@
                             'presenters.show',
                             'presenters.sales_volume',
                             'presenters.sales_revenue',
+                            'presenters.sales_database',
                         ])">
                             {{ __('Presenters') }}
                         </x-nav-link>

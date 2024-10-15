@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+    <main>
         @if (session('error'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -29,9 +29,32 @@
                 </div>
             </div>
         @endif
-    </div>
 
-    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+        <section id="content">
+            <div id="phone" data-phone="{{ $user->phone }}" class="flex flex-col md:flex-row gap-5" id="riwayat">
+                <div class="w-full">
+                    <div class="flex flex-wrap items-center gap-4 px-4">
+                        <button type="button" onclick="modalFunction('add')"
+                            class="bg-lp3i-100 hover:bg-lp3i-200 px-5 py-2.5 text-sm rounded-xl text-white"><i
+                                class="fa-solid fa-circle-plus"></i> Tambah Data</button>
+                    </div>
+    
+                    <div class="p-6">
+                        <ol class="relative border-l border-gray-200" id="histories">
+                            <li class="mb-10 ml-4">
+                                <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-900">Chat</h3>
+                                <p class="mb-4 text-base font-normal text-gray-500">Pesan tidak ada...</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="forbidden" class="hidden flex flex-col items-center gap-5">
         <div class="w-full flex flex-col items-center justify-center">
             <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
                 style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
@@ -44,31 +67,7 @@
         </div>
     </section>
 
-    <section id="content">
-        <div id="phone" data-phone="{{ $user->phone }}"
-            class="max-w-7xl mx-auto flex flex-col md:flex-row py-4 px-3 lg:px-8 gap-5 mt-3" id="riwayat">
-            <div class="w-full">
-                <div class="flex flex-wrap items-center gap-4 gap-3 px-4">
-                    <button type="button" onclick="modalFunction('add')"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-lg text-white"><i
-                            class="fa-solid fa-circle-plus"></i> Tambah Data</button>
-                </div>
-
-                <div class="p-6">
-                    <ol class="relative border-l border-gray-200" id="histories">
-                        <li class="mb-10 ml-4">
-                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">Chat</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500">Pesan tidak ada...</p>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
+    <section class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
         <div class="fixed inset-0 bg-black opacity-50"></div>
         <div class="fixed inset-0 flex items-center justify-center">
             <div class="w-full md:w-1/2 relative bg-white rounded-3xl shadow mx-5">
@@ -119,7 +118,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     @push('scripts')
         <script src="{{ asset('js/axios.min.js') }}"></script>
         <script>

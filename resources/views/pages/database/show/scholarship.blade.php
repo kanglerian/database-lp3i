@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
+    <main>
         @if (session('error'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -13,19 +13,27 @@
             </div>
         @endif
         @if (session('message'))
-            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
-                role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
                 </div>
             </div>
         @endif
-    </div>
+
+        <section id="content" class="w-full mx-auto">
+            <div class="grid grid-cols-2 mx-auto text-center gap-3" id="score_container">
+                <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
+                <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
+            </div>
+
+            <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
+        </section>
+    </main>
 
     <input type="hidden" value="{{ $user->identity }}" id="identity_val">
 
-    <section id="forbidden" class="hidden max-w-5xl mx-auto flex flex-col items-center py-10 sm:px-6 lg:px-8 gap-5">
+    <section id="forbidden" class="hidden flex flex-col items-center gap-5">
         <div class="w-full flex flex-col items-center justify-center">
             <lottie-player src="{{ asset('animations/underconstruct.json') }}" background="Transparent" speed="1"
                 style="width: 250px; height: 250px" direction="1" mode="normal" loop autoplay></lottie-player>
@@ -35,21 +43,6 @@
             <p class="text-gray-700">Maaf, server kami sedang mengalami masalah dan tidak dapat memproses permintaan
                 Anda saat ini. Kami sedang bekerja keras untuk memperbaikinya. Silakan coba lagi dalam beberapa menit.
                 Terima kasih atas kesabaran Anda!</p>
-        </div>
-    </section>
-
-    <section id="content">
-        <div class="max-w-7xl mx-auto px-5">
-            <div class="w-full mx-auto">
-                <div class="grid grid-cols-2 mx-auto text-center gap-3" id="score_container">
-                    <span id="total_true" class="p-6 bg-sky-500 text-sm text-white rounded-lg"></span>
-                    <span id="average_score" class="p-6 bg-emerald-500 text-sm text-white rounded-lg"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row py-10 sm:px-6 lg:px-8 gap-5">
-            <div class="w-full mx-auto space-y-5 px-5" id="result"></div>
         </div>
     </section>
 
@@ -191,7 +184,9 @@
                 if (message) {
                     const input = prompt(`Silahkan ketik: ${identityUser}`)
                     if (input == identityUser) {
-                        await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories/${identityUser}/${idCategory}`)
+                        await axios.delete(
+                                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories/${identityUser}/${idCategory}`
+                            )
                             .then((response) => {
                                 alert(response.data.message);
                                 location.reload();

@@ -18,7 +18,7 @@
         </style>
     @endpush
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -39,33 +39,27 @@
         </div>
 
     </x-slot>
-
-    <section class="space-y-5 py-5">
-
-        <section class="max-w-7xl mx-auto">
-            @if (session('message'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('message') }}
-                    </div>
+    <main class="max-w-7xl mx-auto">
+        @if (session('message'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('message') }}
                 </div>
-            @endif
-            @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('error') }}
-                    </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('error') }}
                 </div>
-            @endif
-        </section>
-
-        <section class="max-w-7xl mx-auto">
+            </div>
+        @endif
+        <section>
             <div class="flex items-center justify-between">
-                <div class="w-full md:w-4/6 p-3">
+                <div class="w-full md:w-4/6">
                     <form action="{{ route('school.migration') }}" class="max-w-sm space-y-5" method="POST">
                         @csrf
                         <div>
@@ -74,7 +68,8 @@
                             <select id="school_from" name="school_from"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 js-example-input-one">
                                 @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah: {{ $school->jumlah }} | {{ $school->pmb }}</option>
+                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah:
+                                        {{ $school->jumlah }} | {{ $school->pmb }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -84,19 +79,20 @@
                             <select id="school_to" name="school_to"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 js-example-input-two">
                                 @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah: {{ $school->jumlah }} | {{ $school->pmb }}</option>
+                                    <option value="{{ $school->id }}">{{ $school->nama }} | Jumlah:
+                                        {{ $school->jumlah }} | {{ $school->pmb }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5">Migrasi</button>
+                            <button type="submit"
+                                class="text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5">Migrasi</button>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
-
-    </section>
+    </main>
 
     @push('scripts')
         <script src="{{ asset('js/indonesia.js') }}"></script>

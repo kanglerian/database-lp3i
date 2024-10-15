@@ -35,7 +35,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <ul class="flex items-center gap-6">
                 <li>
                     <a href="{{ route('database.index') }}"
@@ -55,28 +55,26 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
-            @if (session('message'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('message') }}
-                    </div>
+    <main class="max-w-7xl mx-auto space-y-5">
+        @if (session('message'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('message') }}
                 </div>
-            @endif
-            @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-medium">
-                        {{ session('error') }}
-                    </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-medium">
+                    {{ session('error') }}
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
 
-        <div class="max-w-7xl mx-auto px-3 lg:px-8 space-y-4">
+        <section class="space-y-4">
             <form method="GET" action="{{ route('recommendation.index') }}"
                 class="w-full grid grid-cols-1 md:grid-cols-6 bg-gray-50 rounded-2xl border overflow-x-auto border-gray-200 text-gray-500 p-5 gap-3">
                 @if (Auth::user()->role == 'A')
@@ -260,43 +258,44 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                            <div class="p-1">
-                                {{ $recommendations->links() }}
-                            </div>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div class="p-1">
+                            {{ $recommendations->links() }}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-            function getUrlParams() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const identity = urlParams.get('identity') || 'all';
-                const school = urlParams.get('school') || 'all';
-                const source = urlParams.get('source') || 'all';
-                const year = urlParams.get('year');
-                const reference = urlParams.get('reference');
-                document.getElementById('identity').value = identity;
-                document.getElementById('school').value = school;
-                document.getElementById('source').value = source;
-                document.getElementById('year').value = year;
-                document.getElementById('reference').value = reference;
-            }
-            getUrlParams();
+        </section>
+    </main>
 
-            function confirmDelete() {
-                return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
-            }
-        </script>
+    <script>
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const identity = urlParams.get('identity') || 'all';
+            const school = urlParams.get('school') || 'all';
+            const source = urlParams.get('source') || 'all';
+            const year = urlParams.get('year');
+            const reference = urlParams.get('reference');
+            document.getElementById('identity').value = identity;
+            document.getElementById('school').value = school;
+            document.getElementById('source').value = source;
+            document.getElementById('year').value = year;
+            document.getElementById('reference').value = reference;
+        }
+        getUrlParams();
 
-        {{-- @push('scripts')
+        function confirmDelete() {
+            return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
+        }
+    </script>
+
+    {{-- @push('scripts')
         <script src="{{ asset('js/exceljs.min.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -603,4 +602,4 @@
         </script>
     @endpush --}}
 
-    </x-app-layout>
+</x-app-layout>

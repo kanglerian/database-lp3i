@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -21,120 +21,118 @@
             <div class="flex flex-wrap justify-center items-center gap-2 px-2 text-gray-600">
                 <div class="flex bg-gray-200 px-4 py-2 text-sm rounded-xl items-center gap-2">
                     <i class="fa-solid fa-database"></i>
-                    {{-- <h2 id="count_filter">{{ $total }}</h2> --}}
+                    <h2 id="count_filter">{{ $total }}</h2>
                 </div>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto px-5 md:p-0 space-y-5">
-            @if (session('message'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('message') }}
-                    </div>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div id="alert" class="mx-2 mb-3 flex items-center p-4 mb-3 bg-red-500 text-white rounded-xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('error') }}
-                    </div>
-                </div>
-            @endif
-
-            <div class="flex justify-between items-center gap-3 mx-2 py-2">
-                <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                        <input type="number" id="change_pmb" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
-                            placeholder="Tahun PMB">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="date" class="text-xs">Tanggal:</label>
-                        <input type="date" id="date" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="repayment" class="text-xs">Pengembalian BK:</label>
-                        <input type="date" id="repayment" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="register" class="text-xs">Keterangan:</label>
-                        <select id="register" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="Daftar Kampus">Daftar Kampus</option>
-                            <option value="Daftar BK">Daftar BK</option>
-                            <option value="Daftar TF Kampus">Daftar TF Kampus</option>
-                        </select>
-                    </div>
-                    <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
-                        <label for="register_end" class="text-xs">Keterangan Daftar:</label>
-                        <select id="register_end" onchange="changeFilter()"
-                            class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
-                            <option value="all">Pilih</option>
-                            <option value="Daftar Kampus">Daftar Kampus</option>
-                            <option value="Daftar BK">Daftar BK</option>
-                            <option value="Daftar TF Kampus">Daftar TF Kampus</option>
-                        </select>
-                    </div>
+    <main class="max-w-7xl mx-auto space-y-5">
+        @if (session('message'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('message') }}
                 </div>
             </div>
+        @endif
 
-            <div class="bg-white overflow-hidden border rounded-3xl">
-                <div class="p-8 bg-white border-b border-gray-200">
-                    <div class="relative overflow-x-auto">
-                        <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 rounded-l-xl">
-                                        Tanggal
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Gelombang
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Nama Lengkap
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Keterangan
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Daftar
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Nominal Daftar
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Pengembalian BK
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Debit
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Kas
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 rounded-r-xl">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+        @if (session('error'))
+            <div id="alert" class="mx-2 mb-3 flex items-center p-4 mb-3 bg-red-500 text-white rounded-xl"
+                role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
+        <div class="flex justify-between items-center gap-3 mx-2 py-2">
+            <div class="flex items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+                <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                    <input type="number" id="change_pmb" onchange="changeFilter()"
+                        class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800"
+                        placeholder="Tahun PMB">
+                </div>
+                <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="date" class="text-xs">Tanggal:</label>
+                    <input type="date" id="date" onchange="changeFilter()"
+                        class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                </div>
+                <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="repayment" class="text-xs">Pengembalian BK:</label>
+                    <input type="date" id="repayment" onchange="changeFilter()"
+                        class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                </div>
+                <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="register" class="text-xs">Keterangan:</label>
+                    <select id="register" onchange="changeFilter()"
+                        class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        <option value="all">Pilih</option>
+                        <option value="Daftar Kampus">Daftar Kampus</option>
+                        <option value="Daftar BK">Daftar BK</option>
+                        <option value="Daftar TF Kampus">Daftar TF Kampus</option>
+                    </select>
+                </div>
+                <div class="inline-block flex flex-col space-y-1 p-1 md:p-0">
+                    <label for="register_end" class="text-xs">Keterangan Daftar:</label>
+                    <select id="register_end" onchange="changeFilter()"
+                        class="w-full md:w-[150px] bg-white border border-gray-300 px-3 py-2 text-xs rounded-xl text-gray-800">
+                        <option value="all">Pilih</option>
+                        <option value="Daftar Kampus">Daftar Kampus</option>
+                        <option value="Daftar BK">Daftar BK</option>
+                        <option value="Daftar TF Kampus">Daftar TF Kampus</option>
+                    </select>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="bg-white overflow-hidden border rounded-3xl">
+            <div class="p-8 bg-white border-b border-gray-200">
+                <div class="relative overflow-x-auto">
+                    <table id="myTable" class="w-full text-sm text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 rounded-l-xl">
+                                    Tanggal
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Gelombang
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama Lengkap
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Keterangan
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Daftar
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nominal Daftar
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Pengembalian BK
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Debit
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kas
+                                </th>
+                                <th scope="col" class="px-6 py-3 rounded-r-xl">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
 
 </x-app-layout>
 
@@ -153,7 +151,7 @@
                 [0, 'desc']
             ],
             rowCallback: function(row, data, index) {
-                if(index % 2 != 0){
+                if (index % 2 != 0) {
                     $(row).css('background-color', '#f9fafb');
                 }
             },
@@ -272,7 +270,7 @@
             dataTableInitialized = true;
         } catch (error) {
             console.error("Error fetching data:", error);
-            
+
         }
     }
 

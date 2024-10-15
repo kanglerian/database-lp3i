@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row items-center justify-between gap-5 pb-3">
+<div class="flex flex-col md:flex-row items-center justify-between gap-5">
     <nav class="flex">
         <ol class="inline-flex items-center space-x-2 md:space-x-3">
             <li class="inline-flex items-center">

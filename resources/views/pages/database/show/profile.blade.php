@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto px-5 md:px-0 mt-5">
+    <main>
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 bg-emerald-500 text-emerald-50 rounded-2xl" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
@@ -28,11 +28,11 @@
                 </div>
             </div>
         @endif
-    </div>
+    </main>
 
     <div id="identity_user" class="hidden">{{ $user->identity }}</div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row px-5 md:px-0 gap-5 mt-5">
+    <main class="flex flex-col md:flex-row px-5 md:px-0 gap-5">
         <div class="w-full md:w-4/6">
             <div class="p-8 bg-gray-50 border border-gray-100 rounded-3xl">
                 <div class="w-full">
@@ -616,7 +616,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     @include('pages.database.show.modal.account')
     @include('pages.database.show.modal.aplikan')
     @include('pages.database.show.modal.daftar')

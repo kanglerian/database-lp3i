@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-5 py-10">
+    <main>
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">
@@ -13,16 +13,14 @@
                 </div>
             </div>
         @endif
-        <div class="px-2">
-            <button type="button" onclick="modalFunction('add')"
-                class="bg-lp3i-100 hover:bg-lp3i-200 px-3 py-2 text-sm rounded-xl text-white"><i
-                    class="fa-solid fa-circle-plus"></i> Tambah Data</button>
-        </div>
+        <button type="button" onclick="modalFunction('add')"
+            class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2.5 mb-4 text-sm rounded-xl text-white"><i
+                class="fa-solid fa-circle-plus"></i> Tambah Data</button>
         <div class="bg-white overflow-hidden border rounded-3xl">
             <div class="p-8 bg-gray-50 border-b border-gray-200">
                 <div class="relative overflow-x-auto">
                     <table id="tableAchievement" data-user="{{ $user->identity }}"
-                        class="w-full text-sm text-sm text-left text-gray-500">
+                        class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 rounded-t-lg">
@@ -46,9 +44,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
+    <section class="fixed inset-0 flex items-center justify-center z-50 hidden" id="modalChat">
         <div class="fixed inset-0 bg-black opacity-50"></div>
         <div class="fixed inset-0 flex items-center justify-center">
             <div class="w-full md:w-1/2 relative bg-white rounded-3xl shadow mx-5">
@@ -94,7 +92,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 </x-app-layout>
 

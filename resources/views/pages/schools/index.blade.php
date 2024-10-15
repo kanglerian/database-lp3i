@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <div class="flex items-center gap-10">
                 <h2 class="font-bold text-xl text-gray-800 leading-tight">
                     {{ __('Daftar Sekolah') }}
@@ -23,30 +23,26 @@
         </div>
     </x-slot>
 
-    <div class="space-y-5 py-10">
-
-        <div class="max-w-7xl px-5 mx-auto">
-            @if (session('message'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('message') }}
-                    </div>
+    <main class="max-w-7xl mx-auto">
+        @if (session('message'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('message') }}
                 </div>
-            @endif
-            @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('error') }}
-                    </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('error') }}
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
 
-
-        <section class="max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-5 px-5 mx-auto">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
             @if ($slepets > 0)
                 <div
                     class="flex flex-col justify-between px-6 py-5 mb-4 text-red-800 rounded-3xl bg-red-50 border border-red-200">
@@ -108,8 +104,7 @@
                 </div>
             @endif
         </section>
-
-        <div class="max-w-7xl px-5 mx-auto">
+        <section class="my-5">
             <div class="flex flex-col md:flex-row justify-between items-center gap-3">
                 <form method="GET" id="searchForm" action="{{ route('schools.index') }}"
                     class="w-full flex flex-col md:flex-row justify-between items-center md:items-end gap-5">
@@ -146,9 +141,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
 
-        <div class="max-w-7xl px-5 mx-auto">
+        <section>
             <div class="bg-gray-50 overflow-hidden border rounded-3xl">
                 <div class="p-8 bg-white border-b border-gray-200">
                     <div class="relative overflow-x-auto sm:rounded-xl">
@@ -286,8 +281,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     @include('utilities.pmb')
     @include('pages.schools.modals.school')

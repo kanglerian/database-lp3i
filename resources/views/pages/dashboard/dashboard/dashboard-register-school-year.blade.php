@@ -1,4 +1,4 @@
-<section class="space-y-5 py-10">
+<section class="space-y-5">
     <header class="px-6 pt-5 space-y-1 text-center">
         <h1 class="flex flex-col text-xl items-center gap-2 font-bold text-gray-700">
             <span>Peta Sebaran Registrasi Berdasarkan Sekolah dan Tahun Lulus</span>

@@ -19,7 +19,7 @@
         </nav>
     </x-slot>
 
-    <main class="max-w-7xl w-full mx-auto py-10">
+    <main>
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">
@@ -37,36 +37,36 @@
                 </div>
             </div>
         @endif
-        <section class="border border-gray-100 rounded-3xl p-8 space-y-4">
+        <section class="space-y-4">
           <a href="{{ route('fileupload.create') }}" class="inline-block text-white bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5">Tambah data</a>
-            <div class="relative overflow-x-auto">
+            <div class="relative overflow-x-auto border rounded-3xl">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <thead class="text-xs text-gray-700 uppercase">
                         <tr>
-                            <th scope="col" class="px-6 py-4 rounded-tl-xl">
+                            <th scope="col" class="px-6 py-4 bg-gray-50">
                                 No.
                             </th>
                             <th scope="col" class="px-6 py-4">
                                 Nama
                             </th>
-                            <th scope="col" class="px-6 py-4">
+                            <th scope="col" class="px-6 py-4 bg-gray-50">
                                 Accept
                             </th>
-                            <th scope="col" class="px-6 py-4 rounded-tr-xl">
+                            <th scope="col" class="px-6 py-4">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($files as $key => $file)
-                            <tr class="bg-white border-b hover:bg-gray-50 transition-all ease-in-out">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <tr class="border-b border-gray-200">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                     {{ $files->perPage() * ($files->currentPage() - 1) + $key + 1 }}
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ $file->name }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 bg-gray-50">
                                     {{ $file->accept }}
                                 </td>
                                 <td class="px-6 py-4">
@@ -92,7 +92,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                <div class="p-1">
+                <div class="p-5 bg-gray-50">
                     {{ $files->links() }}
                 </div>
             </div>

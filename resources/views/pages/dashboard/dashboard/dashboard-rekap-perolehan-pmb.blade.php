@@ -1,40 +1,38 @@
-<div class="max-w-7xl px-5 mx-auto">
-    <section class="bg-gray-50 rounded-3xl border border-gray-200 space-y-5">
-        <header class="px-6 pt-5 space-y-1">
-            <h1 class="flex items-center gap-2 font-bold text-gray-700">
-                <span>Rekapitulasi: Perolehan PMB</span>
-            </h1>
-            <p class="text-gray-600 text-sm">Berikut ini adalah rekapitulasi perolehan PMB.</p>
-        </header>
-        <hr>
-        <div class="relative overflow-x-auto px-6 pb-4">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-rekapitulasi">
-                <thead class="text-xs text-gray-700 uppercase">
-                    <tr>
-                        <th scope="col" class="px-6 py-4 text-center">No</th>
-                        <th scope="col" class="px-6 py-4 text-center">Presenter</th>
-                        <th scope="col" class="px-6 py-4 text-center">Aplikan</th>
-                        <th scope="col" class="px-6 py-4 text-center">Daftar</th>
-                        <th scope="col" class="px-6 py-4 text-center">Total Register</th>
-                        <th scope="col" class="px-6 py-4 text-center">Total Omset</th>
-                        <th scope="col" class="px-6 py-4 text-center">Harga Jual Rata-Rata</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2" class="font-bold">Total</td>
-                        <td id="rekapitulasi_applicant">0</td>
-                        <td id="rekapitulasi_enrollment">0</td>
-                        <td id="rekapitulasi_registration">0</td>
-                        <td id="rekapitulasi_omzet">0</td>
-                        <td id="rekapitulasi_price">0</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </section>
-</div>
+<section class="bg-gray-50 rounded-3xl border border-gray-200 space-y-5">
+    <header class="px-6 pt-5 space-y-1">
+        <h1 class="flex items-center gap-2 font-bold text-gray-700">
+            <span>Rekapitulasi: Perolehan PMB</span>
+        </h1>
+        <p class="text-gray-600 text-sm">Berikut ini adalah rekapitulasi perolehan PMB.</p>
+    </header>
+    <hr>
+    <div class="relative overflow-x-auto px-6 pb-4">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-report-rekapitulasi">
+            <thead class="text-xs text-gray-700 uppercase">
+                <tr>
+                    <th scope="col" class="px-6 py-4 text-center">No</th>
+                    <th scope="col" class="px-6 py-4 text-center">Presenter</th>
+                    <th scope="col" class="px-6 py-4 text-center">Aplikan</th>
+                    <th scope="col" class="px-6 py-4 text-center">Daftar</th>
+                    <th scope="col" class="px-6 py-4 text-center">Total Register</th>
+                    <th scope="col" class="px-6 py-4 text-center">Total Omset</th>
+                    <th scope="col" class="px-6 py-4 text-center">Harga Jual Rata-Rata</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" class="font-bold">Total</td>
+                    <td id="rekapitulasi_applicant">0</td>
+                    <td id="rekapitulasi_enrollment">0</td>
+                    <td id="rekapitulasi_registration">0</td>
+                    <td id="rekapitulasi_omzet">0</td>
+                    <td id="rekapitulasi_price">0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
 
 @push('scripts')
     <script>
@@ -97,8 +95,10 @@
                     document.getElementById('rekapitulasi_applicant').innerText = totalApplicant;
                     document.getElementById('rekapitulasi_enrollment').innerText = totalEnrollment;
                     document.getElementById('rekapitulasi_registration').innerText = totalRegistration;
-                    document.getElementById('rekapitulasi_omzet').innerText = `Rp${totalOmzet.toLocaleString('id-ID')}`;
-                    document.getElementById('rekapitulasi_price').innerText = `Rp${(totalOmzet / totalRegistration).toLocaleString('id-ID')}`;
+                    document.getElementById('rekapitulasi_omzet').innerText =
+                        `Rp${totalOmzet.toLocaleString('id-ID')}`;
+                    document.getElementById('rekapitulasi_price').innerText =
+                        `Rp${(totalOmzet / totalRegistration).toLocaleString('id-ID')}`;
 
                     let columnConfigs = [{
                             data: 'identity',

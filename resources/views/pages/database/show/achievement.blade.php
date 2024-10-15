@@ -3,7 +3,7 @@
         @include('pages.database.components.navigation')
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10 space-y-5">
+    <main class="space-y-5">
         @if (session('message'))
             <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
                 role="alert">
@@ -22,7 +22,7 @@
             <div class="p-8 bg-gray-50 border-b border-gray-200">
                 <div class="relative overflow-x-auto">
                     <table id="tableAchievement" data-user="{{ $user->identity }}"
-                        class="w-full text-sm text-sm text-left text-gray-500">
+                        class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 rounded-t-lg">

@@ -18,7 +18,7 @@
         </style>
     @endpush
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <ul class="flex items-center gap-6">
                 <li>
                     <a href="{{ route('database.index') }}"
@@ -59,306 +59,305 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto px-5 md:px-0 space-y-3">
-            @if (session('message'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('message') }}
-                    </div>
+    <main class="max-w-7xl mx-auto space-y-3">
+        @if (session('message'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('message') }}
                 </div>
-            @endif
-            @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-2xl"
-                    role="alert">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div class="ml-3 text-sm font-reguler">
-                        {{ session('error') }}
-                    </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-2xl" role="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="ml-3 text-sm font-reguler">
+                    {{ session('error') }}
                 </div>
-            @endif
+            </div>
+        @endif
 
-            <form method="GET" action="{{ route('database.index') }}" class="space-y-3">
-                <div class="flex justify-between items-center gap-3 px-3">
-                    <a href="{{ route('database.create') }}"
-                        class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
-                            class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
-                    <div class="flex items-center gap-2">
-                        @if (Auth::user()->role == 'P' && Auth::user()->sheet)
-                            <button type="button" onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
-                                class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-xs space-x-1">
-                                <i class="fa-solid fa-rotate"></i>
-                            </button>
-                        @endif
-                        <button type="submit"
-                            class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
-                            <i class="fa-solid fa-filter"></i>
+        <form method="GET" action="{{ route('database.index') }}" class="space-y-3">
+            <div class="flex justify-between items-center gap-3 px-3">
+                <a href="{{ route('database.create') }}"
+                    class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
+                        class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
+                <div class="flex items-center gap-2">
+                    @if (Auth::user()->role == 'P' && Auth::user()->sheet)
+                        <button type="button" onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
+                            class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-xs space-x-1">
+                            <i class="fa-solid fa-rotate"></i>
                         </button>
-                        <a href="{{ route('database.index') }}"
-                            class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
-                            <i class="fa-solid fa-filter-circle-xmark"></i>
-                        </a>
+                    @endif
+                    <button type="submit"
+                        class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-xs rounded-xl text-white">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <a href="{{ route('database.index') }}"
+                        class="bg-red-500 hover:bg-red-600 px-4 py-2 text-xs rounded-xl text-white">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <section class="flex flex-col justify-center gap-3">
+                <div
+                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_pmb" class="text-xs">Periode PMB:</label>
+                        <input type="number" id="change_pmb" name="pmb" onkeyup="changePMBQuick()"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Tahun PMB">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_applicant" class="text-xs">Status Aplikan</label>
+                        <select id="change_applicant" name="applicantstatus"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="database">Database</option>
+                            <option value="aplikan">Aplikan</option>
+                            <option value="daftar">Daftar</option>
+                            <option value="registrasi">Registrasi</option>
+                            <option value="schoolarship">Beasiswa</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_source_daftar" class="text-xs">Sumber Informasi:</label>
+                        <select id="change_source_daftar" name="sourcedaftar"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Sumber</option>
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">{{ $source->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_source" class="text-xs">Sumber Database:</label>
+                        <select id="change_source" name="source"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Sumber</option>
+                            @foreach ($sources as $source)
+                                <option value="{{ $source->id }}">{{ $source->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_status" class="text-xs">Status Database:</label>
+                        <select id="change_status" name="status"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Status</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if (Auth::user()->role == 'A')
+                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                            <label for="identity_user" class="text-xs">Presenter:</label>
+                            <select id="identity_user" name="presenter"
+                                class="js-example-basic-single bg-white border border-gray-200 w-full md:w-[150px] px-3 py-2 text-xs rounded-xl text-gray-800">
+                                <option value="all">Pilih presenter</option>
+                                <option value="6281313608558">Administrator</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->identity }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
+                    @endif
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="date_start" class="text-xs">Tanggal awal:</label>
+                        <input type="date" id="date_start" name="datestart"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="date_end" class="text-xs">Tanggal akhir:</label>
+                        <input type="date" id="date_end" name="dateend"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_follow" class="text-xs">Ket. Follow Up:</label>
+                        <select id="change_follow" name="follow"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Keterangan</option>
+                            @foreach ($follows as $follow)
+                                <option value="{{ $follow->id }}">{{ $follow->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+                <div
+                    class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="school" class="text-xs">Asal sekolah:</label>
+                        <select id="school" name="school"
+                            class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih sekolah</option>
+                            <option value="0">Tidak diketahui</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_major" class="text-xs">Jurusan:</label>
+                        <input type="text" id="change_major" name="major"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Jurusan">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="year_grad" class="text-xs">Tahun lulus:</label>
+                        <input type="number" id="year_grad" name="year"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Tahun lulus">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="birthday" class="text-xs">Tanggal lahir:</label>
+                        <input type="date" id="birthday" name="dateofbirth"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Tanggal Lahir">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_phone" class="text-xs">No. Telpon:</label>
+                        <select id="change_phone" name="phone"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Valid</option>
+                            <option value="0">Tidak Valid</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_achievement" class="text-xs">Prestasi:</label>
+                        <input type="text" id="change_achievement" name="achievement"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Prestasi">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_relation" class="text-xs">Relasi:</label>
+                        <input type="text" id="change_relation" name="relation"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Relasi">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_jobfather" class="text-xs">Pekerjaan Ayah:</label>
+                        <input type="text" id="change_jobfather" name="jobfather"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Pekerjaan Ayah">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_jobmother" class="text-xs">Pekerjaan Ibu:</label>
+                        <input type="text" id="change_jobmother" name="jobmother"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
+                            placeholder="Pekerjaan Ibu">
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_plan" class="text-xs">Rencana Aplikan</label>
+                        <select id="change_plan" name="plan"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="Kuliah">Kuliah</option>
+                            <option value="Kerja">Kerja</option>
+                            <option value="Bisnis">Bisnis</option>
+                            <option value="Nikah">Nikah</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_come" class="text-xs">Datang ke LP3I</label>
+                        <select id="change_come" name="come"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_income" class="text-xs">Penghasilan Orang Tua</label>
+                        <select id="change_income" name="incomeparent"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="Rp1.000.000">
+                                < Rp1.000.000</option>
+                            <option value="Rp1.000.000 - Rp2.000.000">Rp1.000.000 - Rp2.000.000</option>
+                            <option value="Rp2.000.000 - Rp4.000.000">Rp2.000.000 - Rp4.000.000</option>
+                            <option value="Rp5.000.000">> Rp5.000.000</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
+                        <label for="change_kip" class="text-xs">KIP</label>
+                        <select id="change_kip" name="kip"
+                            class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
+                            <option value="all">Pilih</option>
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </form>
 
-                <section class="flex flex-col justify-center gap-3">
-                    <div
-                        class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-5 md:gap-3">
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_pmb" class="text-xs">Periode PMB:</label>
-                            <input type="number" id="change_pmb" name="pmb" onkeyup="changePMBQuick()"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Tahun PMB">
+        <section class="overflow-hidden border rounded-3xl">
+            <section class="px-6 py-4">
+                <div class="bg-white">
+                    <label for="table-search" class="sr-only">Search</label>
+                    <form method="GET" action="{{ route('database.index') }}" class="relative mt-1">
+                        <div
+                            class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <i class="fa-solid fa-search text-gray-400"></i>
                         </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_applicant" class="text-xs">Status Aplikan</label>
-                            <select id="change_applicant" name="applicantstatus"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="database">Database</option>
-                                <option value="aplikan">Aplikan</option>
-                                <option value="daftar">Daftar</option>
-                                <option value="registrasi">Registrasi</option>
-                                <option value="schoolarship">Beasiswa</option>
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_source_daftar" class="text-xs">Sumber Informasi:</label>
-                            <select id="change_source_daftar" name="sourcedaftar"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Sumber</option>
-                                @foreach ($sources as $source)
-                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_source" class="text-xs">Sumber Database:</label>
-                            <select id="change_source" name="source"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Sumber</option>
-                                @foreach ($sources as $source)
-                                    <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_status" class="text-xs">Status Database:</label>
-                            <select id="change_status" name="status"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Status</option>
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @if (Auth::user()->role == 'A')
-                            <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                                <label for="identity_user" class="text-xs">Presenter:</label>
-                                <select id="identity_user" name="presenter"
-                                    class="js-example-basic-single bg-white border border-gray-200 w-full md:w-[150px] px-3 py-2 text-xs rounded-xl text-gray-800">
-                                    <option value="all">Pilih presenter</option>
-                                    <option value="6281313608558">Administrator</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->identity }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @else
-                            <input type="hidden" id="identity_user" value="{{ Auth::user()->identity }}">
-                        @endif
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="date_start" class="text-xs">Tanggal awal:</label>
-                            <input type="date" id="date_start" name="datestart"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="date_end" class="text-xs">Tanggal akhir:</label>
-                            <input type="date" id="date_end" name="dateend"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_follow" class="text-xs">Ket. Follow Up:</label>
-                            <select id="change_follow" name="follow"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Keterangan</option>
-                                @foreach ($follows as $follow)
-                                    <option value="{{ $follow->id }}">{{ $follow->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div
-                        class="w-full bg-gray-50 rounded-3xl border flex flex-wrap md:flex-nowrap overflow-x-auto border-gray-200 text-gray-500 p-4 md:gap-3">
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="school" class="text-xs">Asal sekolah:</label>
-                            <select id="school" name="school"
-                                class="js-example-basic-single w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih sekolah</option>
-                                <option value="0">Tidak diketahui</option>
-                                @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_major" class="text-xs">Jurusan:</label>
-                            <input type="text" id="change_major" name="major"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Jurusan">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="year_grad" class="text-xs">Tahun lulus:</label>
-                            <input type="number" id="year_grad" name="year"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Tahun lulus">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="birthday" class="text-xs">Tanggal lahir:</label>
-                            <input type="date" id="birthday" name="dateofbirth"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Tanggal Lahir">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_phone" class="text-xs">No. Telpon:</label>
-                            <select id="change_phone" name="phone"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="1">Valid</option>
-                                <option value="0">Tidak Valid</option>
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_achievement" class="text-xs">Prestasi:</label>
-                            <input type="text" id="change_achievement" name="achievement"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Prestasi">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_relation" class="text-xs">Relasi:</label>
-                            <input type="text" id="change_relation" name="relation"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Relasi">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_jobfather" class="text-xs">Pekerjaan Ayah:</label>
-                            <input type="text" id="change_jobfather" name="jobfather"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Pekerjaan Ayah">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_jobmother" class="text-xs">Pekerjaan Ibu:</label>
-                            <input type="text" id="change_jobmother" name="jobmother"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800"
-                                placeholder="Pekerjaan Ibu">
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_plan" class="text-xs">Rencana Aplikan</label>
-                            <select id="change_plan" name="plan"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="Kuliah">Kuliah</option>
-                                <option value="Kerja">Kerja</option>
-                                <option value="Bisnis">Bisnis</option>
-                                <option value="Nikah">Nikah</option>
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_come" class="text-xs">Datang ke LP3I</label>
-                            <select id="change_come" name="come"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_income" class="text-xs">Penghasilan Orang Tua</label>
-                            <select id="change_income" name="incomeparent"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="Rp1.000.000">< Rp1.000.000</option>
-                                <option value="Rp1.000.000 - Rp2.000.000">Rp1.000.000 - Rp2.000.000</option>
-                                <option value="Rp2.000.000 - Rp4.000.000">Rp2.000.000 - Rp4.000.000</option>
-                                <option value="Rp5.000.000">> Rp5.000.000</option>
-                            </select>
-                        </div>
-                        <div class="w-1/2 md:w-full flex flex-col space-y-1 p-1 md:p-0">
-                            <label for="change_kip" class="text-xs">KIP</label>
-                            <select id="change_kip" name="kip"
-                                class="w-full md:w-[150px] bg-white border border-gray-200 px-3 py-2 text-xs rounded-xl text-gray-800">
-                                <option value="all">Pilih</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-            </form>
-
-            <section class="overflow-hidden border rounded-3xl">
-                <section class="px-6 py-4">
-                    <div class="bg-white">
-                        <label for="table-search" class="sr-only">Search</label>
-                        <form method="GET" action="{{ route('database.index') }}" class="relative mt-1">
-                            <div
-                                class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <i class="fa-solid fa-search text-gray-400"></i>
-                            </div>
-                            <input type="hidden" name="pmbVal" id="change_pmb_quick">
-                            <input type="text" name="name"
-                                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Cari nama disini..." autofocus required>
-                        </form>
-                    </div>
-                </section>
-                <div class="p-6 bg-gray-50">
-                    <div class="relative overflow-x-auto sm:rounded-lg">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase">
+                        <input type="hidden" name="pmbVal" id="change_pmb_quick">
+                        <input type="text" name="name"
+                            class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Cari nama disini..." autofocus required>
+                    </form>
+                </div>
+            </section>
+            <div class="p-6 bg-gray-50">
+                <div class="relative overflow-x-auto sm:rounded-lg">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase">
+                            <tr class="border-b border-gray-100">
+                                <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
+                                    <i class="fa-solid fa-user"></i>
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-white text-center">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
+                                    Tanggal
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-white text-center">
+                                    Sumber Database
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
+                                    Nama lengkap
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-white text-center">
+                                    No. Telpon (Whatsapp)
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
+                                    Presenter
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-white text-center">
+                                    Asal sekolah
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
+                                    Jurusan
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-white text-center">
+                                    Tahun lulus
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($applicants as $applicant)
                                 <tr class="border-b border-gray-100">
-                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
-                                        <i class="fa-solid fa-user"></i>
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-white text-center">
-                                        Status
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
-                                        Tanggal
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-white text-center">
-                                        Sumber Database
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
-                                        Nama lengkap
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-white text-center">
-                                        No. Telpon (Whatsapp)
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
-                                        Presenter
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-white text-center">
-                                        Asal sekolah
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-100 text-center">
-                                        Jurusan
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-white text-center">
-                                        Tahun lulus
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($applicants as $applicant)
-                                    <tr class="border-b border-gray-100">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
-                                            <button type="button"
-                                                class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white"
-                                                onclick="copyRecord(
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center">
+                                        <button type="button"
+                                            class="bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-lg text-xs text-white"
+                                            onclick="copyRecord(
                                                 `{{ $applicant->name }}`,
                                                 `{{ $applicant->phone }}`,
                                                 `{{ $applicant->schoolapplicant ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}`,
@@ -369,67 +368,66 @@
                                                 `{{ $applicant->programtype ? $applicant->programtype->name : 'Tidak diketahui' }}`,
                                                 `{{ $applicant->applicantstatus ? $applicant->applicantstatus->name : 'Tidak diketahui' }}`,
                                                 );">
-                                                <i class="fa-solid fa-copy"></i>
-                                            </button>
-                                        </th>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            <div class="flex gap-2">
-                                                <span
-                                                    class="text-sm {{ $applicant->is_applicant ? 'text-yellow-500' : 'text-gray-300' }}"><i
-                                                        class="fa-solid fa-file-lines"></i></span>
-                                                <span
-                                                    class="text-sm {{ $applicant->is_daftar ? 'text-sky-500' : 'text-gray-300' }}"><i
-                                                        class="fa-solid fa-id-badge"></i></span>
-                                                <span
-                                                    class="text-sm {{ $applicant->is_register ? 'text-emerald-500' : 'text-gray-300' }}"><i
-                                                        class="fa-solid fa-user-check"></i></span>
-                                                <span
-                                                    class="text-sm {{ $applicant->schoolarship ? 'text-cyan-500' : 'text-gray-300' }}"><i
-                                                        class="fa-solid fa-graduation-cap"></i></span>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->created_at->format('M j, Y g:i A') }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->sourcesetting->name }}
-                                        </td>
-                                        <td
-                                            class="px-6 py-4 bg-gray-50 text-center  {{ $applicant->identity_user == '6281313608558' ? 'text-red-500' : 'text-gray-600' }}">
-                                            <a href="{{ route('database.show', $applicant->identity) }}"
-                                                class="font-bold underline">{{ $applicant->name }}</a>
-                                        </td>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->phone ?? 'Tidak diketahui' }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->identity_user ? $applicant->presenter->name : 'Tidak diketahui' }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->school ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50 text-center">
-                                            {{ $applicant->major ?? 'Tidak diketahui' }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-white text-center">
-                                            {{ $applicant->year ?? 'Tidak diketahui' }}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        <div class="p-1">
-                            {{ $applicants->links() }}
-                        </div>
+                                            <i class="fa-solid fa-copy"></i>
+                                        </button>
+                                    </th>
+                                    <td class="px-6 py-4 bg-white text-center">
+                                        <div class="flex gap-2">
+                                            <span
+                                                class="text-sm {{ $applicant->is_applicant ? 'text-yellow-500' : 'text-gray-300' }}"><i
+                                                    class="fa-solid fa-file-lines"></i></span>
+                                            <span
+                                                class="text-sm {{ $applicant->is_daftar ? 'text-sky-500' : 'text-gray-300' }}"><i
+                                                    class="fa-solid fa-id-badge"></i></span>
+                                            <span
+                                                class="text-sm {{ $applicant->is_register ? 'text-emerald-500' : 'text-gray-300' }}"><i
+                                                    class="fa-solid fa-user-check"></i></span>
+                                            <span
+                                                class="text-sm {{ $applicant->schoolarship ? 'text-cyan-500' : 'text-gray-300' }}"><i
+                                                    class="fa-solid fa-graduation-cap"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50 text-center">
+                                        {{ $applicant->created_at->format('M j, Y g:i A') }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-white text-center">
+                                        {{ $applicant->sourcesetting->name }}
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 bg-gray-50 text-center  {{ $applicant->identity_user == '6281313608558' ? 'text-red-500' : 'text-gray-600' }}">
+                                        <a href="{{ route('database.show', $applicant->identity) }}"
+                                            class="font-bold underline">{{ $applicant->name }}</a>
+                                    </td>
+                                    <td class="px-6 py-4 bg-white text-center">
+                                        {{ $applicant->phone ?? 'Tidak diketahui' }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50 text-center">
+                                        {{ $applicant->identity_user ? $applicant->presenter->name : 'Tidak diketahui' }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-white text-center">
+                                        {{ $applicant->school ? $applicant->schoolapplicant->name : 'Tidak diketahui' }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50 text-center">
+                                        {{ $applicant->major ?? 'Tidak diketahui' }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-white text-center">
+                                        {{ $applicant->year ?? 'Tidak diketahui' }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    <div class="p-1">
+                        {{ $applicants->links() }}
                     </div>
                 </div>
-            </section>
-        </div>
-    </div>
+            </div>
+        </section>
+    </main>
 
     @if (Auth::user()->role == 'P' && Auth::user()->sheet)
         @include('pages.database.modal.sync')
