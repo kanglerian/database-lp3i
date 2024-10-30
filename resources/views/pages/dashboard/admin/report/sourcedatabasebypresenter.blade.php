@@ -1,77 +1,75 @@
-<section>
-    <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-database-presenter">
-            <thead class="text-xs text-gray-700 uppercase">
-                <tr>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        No
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Nama Presenter
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Total
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Valid
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Non Valid
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Presentasi
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Grab Data
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Daftar Online
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Website
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Beasiswa
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Sosial Media
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        MGM
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Sekolah
-                    </th>
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Jadwal
-                    <th scope="col" class="px-6 py-4 text-center">
-                        Guru BK
-                    </th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-            <tfoot>
-                <tr>
-                    <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
-                        Total Database
-                    </th>
-                    <td scope="col" id="presenter_jumlah" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_valid" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_nonvalid" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_presentasi" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_grab" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_daftaronline" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_website" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_beasiswa" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_sosmed" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_mgm" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_sekolah" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_jadwaldatang" class="px-6 py-4 text-center"></td>
-                    <td scope="col" id="presenter_gurubk" class="px-6 py-4 text-center"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+<section class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="table-database-presenter">
+        <thead class="text-xs text-gray-700 uppercase">
+            <tr>
+                <th scope="col" class="px-6 py-4 text-center">
+                    No
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Nama Presenter
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Total
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Valid
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Non Valid
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Presentasi
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Grab Data
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Daftar Online
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Website
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Beasiswa
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Sosial Media
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    MGM
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Sekolah
+                </th>
+                <th scope="col" class="px-6 py-4 text-center">
+                    Jadwal
+                <th scope="col" class="px-6 py-4 text-center">
+                    Guru BK
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th scope="col" colspan="2" class="px-6 py-4 text-center text-gray-700">
+                    Total Database
+                </th>
+                <td scope="col" id="presenter_jumlah" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_valid" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_nonvalid" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_presentasi" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_grab" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_daftaronline" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_website" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_beasiswa" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_sosmed" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_mgm" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_sekolah" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_jadwaldatang" class="px-6 py-4 text-center"></td>
+                <td scope="col" id="presenter_gurubk" class="px-6 py-4 text-center"></td>
+            </tr>
+        </tfoot>
+    </table>
 </section>
 
 @push('scripts')
@@ -163,8 +161,7 @@
                     document.getElementById('presenter_jadwaldatang').innerText = jadwaldatang;
                     document.getElementById('presenter_gurubk').innerText = gurubk;
 
-                    let columnConfigs = [
-                        {
+                    let columnConfigs = [{
                             data: 'presenter',
                             render: (data, type, row, meta) => {
                                 return meta.row + 1;

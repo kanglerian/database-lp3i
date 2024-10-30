@@ -1,11 +1,11 @@
 @push('styles')
-    <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/select2-input.css') }}" rel="stylesheet"/>
 @endpush
 <x-guest-layout>
     <x-auth-card-register>
         @if (session('error'))
             <div id="alert" class="flex items-center p-4 mb-3 bg-red-500 text-white rounded-lg"
-                role="alert">
+                 role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
@@ -20,11 +20,11 @@
             @csrf
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="programtype_id" :value="__('Program Kuliah')" />
+                    <x-label for="programtype_id" :value="__('Program Kuliah')"/>
                     <x-select id="programtype_id" onchange="filterProgram()" name="programtype_id" required>
                         <option value="0">Pilih program</option>
                         @forelse ($programtypes as $programtype)
-                            <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
+                            <option value="{{ $programtype->code }}">{{ $programtype->name }}</option>
                         @empty
                             <option value="Reguler">Reguler</option>
                         @endforelse
@@ -38,7 +38,7 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="program" :value="__('Program')" />
+                    <x-label for="program" :value="__('Program')"/>
                     <x-select id="program" name="program" required disabled>
                         <option value="0">Pilih Program Studi</option>
                     </x-select>
@@ -59,9 +59,9 @@
 
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="name" :value="__('Nama Lengkap')" />
+                    <x-label for="name" :value="__('Nama Lengkap')"/>
                     <x-input id="name" type="text" name="name" maxlength="50" :value="old('name')"
-                        placeholder="Nama lengkap disini.." required />
+                             placeholder="Nama lengkap disini.." required/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('name'))
                             <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
@@ -71,7 +71,7 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="gender" :value="__('Jenis Kelamin')" />
+                    <x-label for="gender" :value="__('Jenis Kelamin')"/>
                     <x-select id="gender" name="gender" required>
                         <option value="null">Pilih jenis kelamin</option>
                         <option value="1">Laki-laki</option>
@@ -89,9 +89,10 @@
 
             <div class="grid md:grid-cols-3 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
-                    <x-input id="place_of_birth" type="text" name="place_of_birth" maxlength="50" :value="old('place_of_birth')"
-                        placeholder="Tulis tempat lahir disini..." />
+                    <x-label for="place_of_birth" :value="__('Tempat Lahir')"/>
+                    <x-input id="place_of_birth" type="text" name="place_of_birth" maxlength="50"
+                             :value="old('place_of_birth')"
+                             placeholder="Tulis tempat lahir disini..."/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('place_of_birth'))
                             <span class="text-red-500 text-xs">{{ $errors->first('place_of_birth') }}</span>
@@ -101,9 +102,9 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="date_of_birth" :value="__('Tanggal Lahir')" />
+                    <x-label for="date_of_birth" :value="__('Tanggal Lahir')"/>
                     <x-input id="date_of_birth" type="date" name="date_of_birth" :value="old('date_of_birth')"
-                        placeholder="Tulis tempat lahir disini..." />
+                             placeholder="Tulis tempat lahir disini..."/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('date_of_birth'))
                             <span class="text-red-500 text-xs">{{ $errors->first('date_of_birth') }}</span>
@@ -113,7 +114,7 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="religion" :value="__('Agama')" />
+                    <x-label for="religion" :value="__('Agama')"/>
                     <x-select id="religion" name="religion">
                         <option value="Islam">Islam</option>
                         <option value="Kristen">Kristen</option>
@@ -133,7 +134,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="school" class="mb-[3px]" :value="__('Sekolah')" />
+                    <x-label for="school" class="mb-[3px]" :value="__('Sekolah')"/>
                     <x-select id="school" name="school" class="js-example-input-single">
                         <option>Pilih Sekolah</option>
                         @foreach ($schools as $school)
@@ -149,9 +150,9 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="year" :value="__('Tahun Lulus')" />
+                    <x-label for="year" :value="__('Tahun Lulus')"/>
                     <x-input type="number" min="1945" max="3000" name="year" id="year"
-                        :value="old('year')" placeholder="Tulis tahun lulus disini..." required />
+                             :value="old('year')" placeholder="Tulis tahun lulus disini..." required/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('year'))
                             <span class="text-red-500 text-xs">{{ $errors->first('year') }}</span>
@@ -164,9 +165,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="major" :value="__('Jurusan')" />
+                    <x-label for="major" :value="__('Jurusan')"/>
                     <x-input id="major" type="text" name="major" maxlength="100" :value="old('major')"
-                        placeholder="Tulis jurusan disini..." />
+                             placeholder="Tulis jurusan disini..."/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('major'))
                             <span class="text-red-500 text-xs">{{ $errors->first('major') }}</span>
@@ -176,9 +177,9 @@
                     </p>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="class" :value="__('Kelas')" />
+                    <x-label for="class" :value="__('Kelas')"/>
                     <x-input id="class" type="text" name="class" :value="old('class')"
-                        placeholder="Tulis kelas disini..." />
+                             placeholder="Tulis kelas disini..."/>
                     <p class="mt-2 text-xs text-gray-500">
                         @if ($errors->has('class'))
                             <span class="text-red-500 text-xs">{{ $errors->first('class') }}</span>
@@ -192,13 +193,13 @@
             <div id="address-container" class="hidden">
                 <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                     <div class="relative z-0 w-full group mb-3">
-                        <x-label for="provinces" :value="__('Provinsi')" />
+                        <x-label for="provinces" :value="__('Provinsi')"/>
                         <x-select id="provinces" name="provinces">
                             <option value="">Pilih Provinsi</option>
                         </x-select>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="regencies" :value="__('Kota')" />
+                        <x-label for="regencies" :value="__('Kota')"/>
                         <x-select id="regencies" name="regencies">
                             <option value="">Pilih Kota / Kabupaten</option>
                         </x-select>
@@ -206,13 +207,13 @@
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                     <div class="relative z-0 w-full group mb-3">
-                        <x-label for="districts" :value="__('Kecamatan')" />
+                        <x-label for="districts" :value="__('Kecamatan')"/>
                         <x-select id="districts" name="districts">
                             <option value="">Pilih Kecamatan</option>
                         </x-select>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="villages" :value="__('Kelurahan')" />
+                        <x-label for="villages" :value="__('Kelurahan')"/>
                         <x-select id="villages" name="villages">
                             <option value="">Pilih Desa / Kelurahan</option>
                         </x-select>
@@ -220,25 +221,26 @@
                 </div>
                 <div class="grid md:grid-cols-3 md:gap-6 mb-3 lg:mb-0">
                     <div class="relative z-0 w-full group mb-3">
-                        <x-label for="rt" :value="__('RT')" />
+                        <x-label for="rt" :value="__('RT')"/>
                         <x-input id="rt" type="text" name="rt" maxlength="2" :value="old('rt')"
-                            placeholder="Tulis RT disini..." />
+                                 placeholder="Tulis RT disini..."/>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('rt') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group mb-3">
-                        <x-label for="rw" :value="__('RW')" />
+                        <x-label for="rw" :value="__('RW')"/>
                         <x-input id="rw" type="number" name="rw" maxlength="2" :value="old('rw')"
-                            placeholder="Tulis RW disini..." />
+                                 placeholder="Tulis RW disini..."/>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('rw') }}</span>
                         </p>
                     </div>
                     <div class="relative z-0 w-full group">
-                        <x-label for="postal_code" :value="__('Kode Pos')" />
-                        <x-input id="postal_code" type="number" name="postal_code" maxlength="7" :value="old('postal_code')"
-                            placeholder="Tulis kode pos disini..." />
+                        <x-label for="postal_code" :value="__('Kode Pos')"/>
+                        <x-input id="postal_code" type="number" name="postal_code" maxlength="7"
+                                 :value="old('postal_code')"
+                                 placeholder="Tulis kode pos disini..."/>
                         <p class="mt-2 text-xs text-gray-500">
                             <span class="text-red-500 text-xs">{{ $errors->first('postal_code') }}</span>
                         </p>
@@ -254,9 +256,9 @@
 
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="email" :value="__('Email')" />
+                    <x-label for="email" :value="__('Email')"/>
                     <x-input id="email" class="block mt-1 w-full text-sm" type="email" name="email" maxlength="50"
-                        :value="old('email')" placeholder="Masukkan Alamat Email Anda" required />
+                             :value="old('email')" placeholder="Masukkan Alamat Email Anda" required/>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('email'))
@@ -268,9 +270,9 @@
                     </div>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="phone" :value="__('No. Whatsapp')" />
+                    <x-label for="phone" :value="__('No. Whatsapp')"/>
                     <x-input id="phone" class="block mt-1 w-full text-sm" type="number" name="phone" maxlength="14"
-                        :value="old('phone')" placeholder="Masukkan Nomor WhatsApp Anda" required />
+                             :value="old('phone')" placeholder="Masukkan Nomor WhatsApp Anda" required/>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('phone'))
@@ -285,12 +287,12 @@
 
             <div class="grid md:grid-cols-2 md:gap-6 mb-3 lg:mb-0">
                 <div class="relative z-0 w-full group mb-3">
-                    <x-label for="password" :value="__('Password')" />
+                    <x-label for="password" :value="__('Password')"/>
                     <div class="flex items-center gap-3 relative">
                         <x-input id="password" class="block mt-1 w-full text-sm" type="password" name="password"
-                            required autocomplete="new-password" placeholder="Masukkan Password Anda" required />
+                                 required autocomplete="new-password" placeholder="Masukkan Password Anda" required/>
                         <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password"
-                            onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
+                                onclick="seePassword()"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
@@ -303,12 +305,13 @@
                     </div>
                 </div>
                 <div class="relative z-0 w-full group">
-                    <x-label for="password_confirmation" :value="__('Konfirmasi password')" />
+                    <x-label for="password_confirmation" :value="__('Konfirmasi password')"/>
                     <div class="flex items-center gap-3 relative">
                         <x-input id="password_confirmation" class="block mt-1 w-full text-sm" type="password"
-                            name="password_confirmation" placeholder="Konfirmasi Password Anda" required />
-                        <button type="button" class="absolute right-3 top-[18px] text-gray-300" id="see-password-confirmation"
-                            onclick="seePasswordConfirmation()"><i class="fa-solid fa-eye"></i></button>
+                                 name="password_confirmation" placeholder="Konfirmasi Password Anda" required/>
+                        <button type="button" class="absolute right-3 top-[18px] text-gray-300"
+                                id="see-password-confirmation"
+                                onclick="seePasswordConfirmation()"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <div class="text-xs text-red-700 mt-3">
                         <p class="mt-2 text-xs text-gray-500">
@@ -324,7 +327,8 @@
 
             <input type="hidden" name="pmb" maxlength="4" id="pmb" value="">
 
-            <button type="submit" class="w-full text-white bg-lp3i-100 hover:bg-lp3i-200 font-medium rounded-xl text-sm mt-4 px-5 py-2.5 focus:outline-none">
+            <button type="submit"
+                    class="w-full text-white bg-lp3i-100 hover:bg-lp3i-200 font-medium rounded-xl text-sm mt-4 px-5 py-2.5 focus:outline-none">
                 {{ __('Daftar') }}
             </button>
 
@@ -339,25 +343,30 @@
 <script src="{{ asset('js/indonesia.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.js-example-input-single').select2({
             tags: true,
         });
     });
 
     const filterProgram = async () => {
-        let programType = document.getElementById('programtype_id').value;
-        await axios.get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs')
+        let programTypeElement = document.getElementById('programtype_id');
+        let selectedOption = programTypeElement.options[programTypeElement.selectedIndex];
+        let programType = selectedOption.getAttribute('data-code');
+        await axios.get('https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/programs')
             .then((res) => {
                 let programs = res.data;
                 var results;
                 let bucket = '';
                 switch (programType) {
-                    case "1":
-                        results = programs.filter(program => program.regular === "1");
+                    case "R":
+                        results = programs.filter(program => program.type === "R");
                         break;
-                    case "2":
-                        results = programs.filter(program => program.employee === "1");
+                    case "N":
+                        results = programs.filter(program => program.type === "N");
+                        break;
+                    case "RPL":
+                        results = programs.filter(program => program.type === "RPL");
                         break;
                     default:
                         document.getElementById('program').innerHTML =
@@ -365,21 +374,27 @@
                         document.getElementById('program').disabled = true;
                         break
                 }
-                if (programType != 0 && programType != 3) {
-                    results.map((result) => {
-                        console.log(result);
-                        let option = '';
-                        result.interest.map((inter, index) => {
-                            option +=
-                                `<option value="${result.level} ${result.title}">${inter.name}</option>`;
-                        })
-                        bucket += `
-                    <optgroup label="${result.level} ${result.title} (${result.campus})">
-                        ${option}
-                    </optgroup>`;
-                    });
-                    document.getElementById('program').innerHTML = bucket;
-                    document.getElementById('program').disabled = false;
+                if (programType !== 'NONE') {
+                    if (results.length > 0) {
+                        results.map((result) => {
+                            let option = '';
+                            result.interests.map((inter, index) => {
+                                option +=
+                                    `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                            })
+                            bucket += `
+                            <optgroup label="${result.level} ${result.title} (${result.campus})">
+                                ${option}
+                            </optgroup>`;
+                        });
+                        document.getElementById('program').innerHTML = bucket;
+                        document.getElementById('program').disabled = false;
+                    } else {
+                        bucket = `<option value="0">Program Studi tidak tersedia</option>`;
+                        document.getElementById('program').innerHTML = bucket;
+                        document.getElementById('program').disabled = true;
+                    }
+
                 }
             })
             .catch((err) => {
@@ -423,7 +438,7 @@
     }
     getYearPMB();
     let phoneInput = document.getElementById('phone');
-    phoneInput.addEventListener('input', function() {
+    phoneInput.addEventListener('input', function () {
         let phone = phoneInput.value;
 
         if (phone.startsWith("62")) {

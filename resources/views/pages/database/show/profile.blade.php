@@ -62,7 +62,8 @@
                                     class="inline-block bg-yellow-500 hover:bg-yellow-600 px-4 py-1 rounded-lg text-sm text-yellow-50"><i
                                         class="fa-regular fa-pen-to-square"></i></a>
                                 @if (!$user->is_daftar && !$user->is_register)
-                                    <form action="{{ route('database.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                    <form action="{{ route('database.destroy', $user->id) }}" method="POST"
+                                        onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -758,23 +759,29 @@
                 };
 
                 let bucket = [data, headers];
-                await axios.post(`${URL_API_LP3I}/misil/integration`, bucket)
-                    .then(async (response) => {
-                        alert(response.data.message);
-                        await axios.post(`/integration`, {
-                                identity_user: identity,
-                                platform: 'misil',
-                            })
-                            .then((response) => {
-                                location.reload();
-                            })
-                            .catch((error) => {
-                                console.log(error.message);
-                            });
-                    })
-                    .catch((error) => {
-                        console.log(error.message);
+
+                try {
+                    const misilResponse = await axios.post(`${URL_API_LP3I}/misil/integration`, bucket);
+                    alert(misilResponse.data.message);
+
+                    await axios.post(`/integration`, {
+                        identity_user: identity,
+                        platform: 'misil',
                     });
+                    const responseSiakad = await axios.post("https://sie.politekniklp3i-tasikmalaya.ac.id/api/integration/pmb", {
+                        identity_user: data.identity_user,
+                        name: data.nama_lengkap,
+                        major: data.kode_jurusan,
+                        place_of_birth: data.tempat_lahir,
+                        date_of_birth: data.tgl_lahir,
+                        email: data.email,
+                        phone: data.no_hp,
+                        pmb: data.pmb,
+                    });
+                    location.reload();
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
             const getTokenMisil = async () => {
@@ -797,7 +804,6 @@
                                 `${result.level} ${result.title}` == program_studi)
                             const addressParts = database.data.user.address.split(',');
                             const addressRtRw = addressParts[1].split(' ');
-
                             const data = {
                                 // Aplikan datang
                                 method: 'simpan',
@@ -846,6 +852,9 @@
                                 sumber_daftar: database.data.user.source_daftar_setting.name,
                                 keterangan: database.data.enrollment.register,
                                 ket_daftar: database.data.enrollment.register_end,
+                                // SIAKAD
+                                identity_user: database.data.user.identity,
+                                pmb: database.data.user.pmb,
                             };
 
                             if (!(data.nik).length == 16) {

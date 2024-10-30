@@ -27,21 +27,21 @@ class RegisteredUserController extends Controller
     public function create()
     {
         try {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+//            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $users = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
             $statuses = ApplicantStatus::all();
             $programtypes = ProgramType::where('status', 1)->get();
             $schools = School::all();
 
-            if ($response->successful()) {
-                $programs = $response->json();
-            } else {
-                $programs = null;
-            }
+//            if ($response->successful()) {
+//                $programs = $response->json();
+//            } else {
+//                $programs = null;
+//            }
 
             return view('auth.register')->with([
-                'programs' => $programs,
+//                'programs' => $programs,
                 'statuses' => $statuses,
                 'programtypes' => $programtypes,
                 'sources' => $sources,

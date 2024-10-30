@@ -31,7 +31,7 @@
                         <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
                             <option value="0">Pilih program</option>
                             @forelse ($programtypes as $programtype)
-                                <option value="{{ $programtype->id }}">{{ $programtype->name }}</option>
+                                <option value="{{ $programtype->id }}" data-code="{{ $programtype->code  }}">{{ $programtype->name }}</option>
                             @empty
                                 <option value="Reguler Pagi">Reguler Pagi</option>
                             @endforelse
@@ -171,18 +171,23 @@
 @push('scripts')
     <script>
         const filterProgram = async () => {
-            let programType = document.getElementById('programtype_id').value;
-            await axios.get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs')
+            let programTypeElement = document.getElementById('programtype_id');
+            let selectedOption = programTypeElement.options[programTypeElement.selectedIndex];
+            let programType = selectedOption.getAttribute('data-code');
+            await axios.get('https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/programs')
                 .then((res) => {
                     let programs = res.data;
                     var results;
                     let bucket = '';
                     switch (programType) {
-                        case "1":
-                            results = programs.filter(program => program.regular === "1");
+                        case "R":
+                            results = programs.filter(program => program.type === "R");
                             break;
-                        case "2":
-                            results = programs.filter(program => program.employee === "1");
+                        case "N":
+                            results = programs.filter(program => program.type === "N");
+                            break;
+                        case "RPL":
+                            results = programs.filter(program => program.type === "RPL");
                             break;
                         default:
                             document.getElementById('program').innerHTML = `<option value="0">Pilih Program Studi</option>`;
@@ -191,23 +196,30 @@
                             document.getElementById('program_second').disabled = true;
                             break;
                     }
-                    if (programType != 0) {
-                        results.map((result) => {
-                            console.log(result);
-                            let option = '';
-                            result.interest.map((inter, index) => {
-                                option +=
-                                    `<option value="${result.level} ${result.title}">${inter.name}</option>`;
-                            })
-                            bucket += `
-                    <optgroup label="${result.level} ${result.title} (${result.campus})">
-                        ${option}
-                    </optgroup>`;
-                        });
-                        document.getElementById('program').innerHTML = bucket;
-                        document.getElementById('program').disabled = false;
-                        document.getElementById('program_second').innerHTML = bucket;
-                        document.getElementById('program_second').disabled = false;
+                    if (programType !== 'NONE') {
+                        if (results.length > 0) {
+                            results.map((result) => {
+                                let option = '';
+                                result.interests.map((inter, index) => {
+                                    option +=
+                                        `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                                })
+                                bucket += `
+                            <optgroup label="${result.level} ${result.title} (${result.campus})">
+                                ${option}
+                            </optgroup>`;
+                            });
+                            document.getElementById('program').innerHTML = bucket;
+                            document.getElementById('program').disabled = false;
+                            document.getElementById('program_second').innerHTML = bucket;
+                            document.getElementById('program_second').disabled = false;
+                        } else {
+                            bucket = `<option value="0">Program Studi tidak tersedia</option>`;
+                            document.getElementById('program').innerHTML = bucket;
+                            document.getElementById('program').disabled = true;
+                            document.getElementById('program_second').innerHTML = bucket;
+                            document.getElementById('program_second').disabled = true;
+                        }
                     }
                 })
                 .catch((err) => {

@@ -16,6 +16,7 @@ class CreateProgramTypeTable extends Migration
         Schema::create('program_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->char('code',10);
             $table->boolean('status');
             $table->timestamps();
         });

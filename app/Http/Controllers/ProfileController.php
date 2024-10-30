@@ -94,7 +94,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
 
         if ($user->id == Auth::user()->id || Auth::user()->role == 'A') {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+//            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
             $applicant = Applicant::where('identity', $user->identity)->first();
 
             if ($user->role == 'S') {
@@ -105,18 +105,18 @@ class ProfileController extends Controller
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $schools = School::all();
 
-            if ($response->successful()) {
-                $programs = $response->json();
-            } else {
-                $programs = null;
-            }
+//            if ($response->successful()) {
+//                $programs = $response->json();
+//            } else {
+//                $programs = null;
+//            }
 
             if ($user->role == 'S') {
                 $data = [
                     'user' => $user,
                     'applicant' => $applicant,
                     'presenters' => $presenters,
-                    'programs' => $programs,
+//                    'programs' => $programs,
                     'father' => $father,
                     'mother' => $mother,
                     'schools' => $schools

@@ -584,7 +584,7 @@ class ApplicantController extends Controller
 
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
-                $errorMessage = 'Terjadi duplikat data.';
+                $errorMessage = 'Ada kesalahan disisi server, hubungi admin.';
                 return back()->with('error', $errorMessage);
             }
         }
@@ -798,7 +798,7 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::findOrFail($id);
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
-            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+//            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
@@ -810,16 +810,16 @@ class ApplicantController extends Controller
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
 
-            if ($response->successful()) {
-                $programs = $response->json();
-            } else {
-                $programs = null;
-            }
+//            if ($response->successful()) {
+//                $programs = $response->json();
+//            } else {
+//                $programs = null;
+//            }
 
             $applicant = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting'])->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
-                'programs' => $programs,
+//                'programs' => $programs,
                 'presenters' => $presenters,
                 'programtypes' => $programtypes,
                 'account' => $account,

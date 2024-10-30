@@ -127,7 +127,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+//        $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
         $applicant = Applicant::where('identity', $user->identity)->first();
         $schools = School::all();
 
@@ -138,17 +138,17 @@ class UserController extends Controller
 
         $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
 
-        if ($response->successful()) {
-            $programs = $response->json();
-        } else {
-            $programs = null;
-        }
+//        if ($response->successful()) {
+//            $programs = $response->json();
+//        } else {
+//            $programs = null;
+//        }
 
         if ($user->role == 'S') {
             $data = [
                 'user' => $user,
                 'applicant' => $applicant,
-                'programs' => $programs,
+//                'programs' => $programs,
                 'presenters' => $presenters,
                 'father' => $father,
                 'mother' => $mother,
