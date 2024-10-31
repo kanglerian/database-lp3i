@@ -585,7 +585,7 @@ class ApplicantController extends Controller
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
                 $errorMessage = 'Ada kesalahan disisi server, hubungi admin.';
-                return back()->with('error', $errorMessage);
+                return back()->with('error', $exception->getMessage());
             }
         }
     }
