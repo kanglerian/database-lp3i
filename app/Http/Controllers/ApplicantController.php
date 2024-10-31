@@ -584,7 +584,7 @@ class ApplicantController extends Controller
 
         } catch (QueryException $exception) {
             if ($exception->getCode() == 23000) {
-                $errorMessage = 'Ada kesalahan disisi server, hubungi admin.';
+                $errorMessage = 'Terjadi duplikat data, silahkan periksa ke bagian admin.';
                 return back()->with('error', $errorMessage);
             }
         }

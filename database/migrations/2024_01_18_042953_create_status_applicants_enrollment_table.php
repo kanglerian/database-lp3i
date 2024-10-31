@@ -25,6 +25,8 @@ class CreateStatusApplicantsEnrollmentTable extends Migration
             $table->date('repayment')->nullable();
             $table->integer('debit')->nullable();
             $table->tinyInteger('session');
+            $table->boolean('approve')->default(0);
+            $table->string('identity_user_approve', 50)->nullable();
             $table->timestamps();
         });
     }

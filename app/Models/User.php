@@ -87,4 +87,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(TargetVolume::class, 'identity_user', 'identity');
     }
+
+    public function enrollment()
+    {
+        return $this->hasOne(StatusApplicantsEnrollment::class, 'identity_user_approve', 'identity');
+    }
 }

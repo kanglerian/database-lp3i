@@ -43,4 +43,8 @@ class StatusApplicantsEnrollment extends Model
     public function applicant(){
         return $this->belongsTo(Applicant::class,'identity_user','identity');
     }
+
+    public function approve(){
+        return $this->belongsTo(User::class,'identity_user_approve','identity');
+    }
 }
