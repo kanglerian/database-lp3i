@@ -305,11 +305,11 @@
                                             @endif
                                             @if ($user->is_applicant && $status_applicant)
                                                 <div class="flex items-center gap-3 mt-1">
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                     <button onclick="modalEditAplikan()">
                                                         <i
-                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                                class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                     </button>
-                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                 </div>
                                             @endif
                                         </div>
@@ -331,11 +331,16 @@
                                                     </label>
                                                 </form>
                                                 <div class="flex items-center gap-3 mt-1">
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                    @if($enrollment->approve)
+                                                        <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                    @else
+                                                        <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                                                    @endif
                                                     <button onclick="modalEditDaftar()">
                                                         <i
-                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                                class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                     </button>
-                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                 </div>
                                             @else
                                                 <div>
@@ -356,7 +361,10 @@
                                             @endif
                                         </div>
                                     @endif
-                                    @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $account > 0)
+                                    @if(!$enrollment->approve)
+                                        <p class="text-[11px] text-red-500 text-center">Belum bisa di registrasikan karena pendaftaran belum disetujui.<br/>Silahkan hubungi Admin bagian Approval.</p>
+                                    @endif
+                                    @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $enrollment->approve && $account > 0)
                                         <div class="flex justify-between items-center gap-2">
                                             @if ($user->is_register && $registration)
                                                 <form

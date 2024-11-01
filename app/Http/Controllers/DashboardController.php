@@ -9,6 +9,7 @@ use App\Models\ProgramType;
 use App\Models\Report\RegisterBySchool;
 use App\Models\Report\RegisterBySchoolYear;
 use App\Models\Report\RegisterBySource;
+use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,7 @@ class DashboardController extends Controller
         $schoolarshipQuery = Applicant::query();
         $sourcesIdQuery = ApplicantBySourceId::query();
         $sourcesIdEnrollmentQuery = ApplicantBySourceDaftarId::query();
+        $approvalQuery = StatusApplicantsEnrollment::query();
 
         $account = false;
         $applicant = false;
@@ -63,6 +65,7 @@ class DashboardController extends Controller
             $registrasiQuery->where('identity_user', Auth::user()->identity);
             $schoolarshipQuery->where('identity_user', Auth::user()->identity);
         }
+
         $sourcesIdEnrollmentQuery->where('source_daftar_id', '!=', null);
 
         $databaseCount = $databaseQuery->count();
@@ -86,6 +89,11 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
+        $approvalQuery->with(['applicant']);
+        $approvalQuery->where('approve', 0);
+        $approval_count = $approvalQuery->count();
+        $approval = $approvalQuery->get();
+
         return view('pages.dashboard.index')->with([
             'userupload' => $userupload,
             'fileupload' => $fileupload,
@@ -104,7 +112,9 @@ class DashboardController extends Controller
             'slepets' => $slepets,
             // Account
             'account' => $account,
-            'applicant' => $applicant
+            'applicant' => $applicant,
+            'approval_count' => $approval_count,
+            'approval' => $approval,
         ]);
     }
     /**

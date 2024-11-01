@@ -23,8 +23,6 @@ class StatusApplicantsRegistration extends Model
         'discount',
         'desc_discount',
         'session',
-        'approve',
-        'identity_user_approve',
     ];
 
 

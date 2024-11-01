@@ -24,7 +24,9 @@ class StatusApplicantsEnrollment extends Model
         'nominal',
         'repayment',
         'debit',
-        'session'
+        'session',
+        'approve',
+        'identity_user_approve',
     ];
 
 

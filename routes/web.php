@@ -158,6 +158,7 @@ Route::middleware(['auth', 'status:1'])->group(function () {
 Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::resource('enrollment', EnrollmentController::class);
     Route::get('get/enrollments', [EnrollmentController::class, 'get_all'])->name('enrollment.get');
+    Route::patch('approve/enrollment/{id}', [EnrollmentController::class, 'approve'])->name('enrollment.approve');
 });
 
 /* Route Registration */

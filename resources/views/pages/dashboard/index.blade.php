@@ -269,7 +269,8 @@
             @include('pages.dashboard.utilities.pmb')
 
             @if (Auth::user()->role != 'P')
-                @include('pages.dashboard.dashboard.dashboard-sales')
+                    @include('pages.dashboard.dashboard.dashboard-sales')
+                    @include('pages.dashboard.approval-enrollment.enrollment')
             @endif
 
             @include('pages.dashboard.target.target')

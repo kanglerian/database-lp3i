@@ -140,6 +140,12 @@
                                     Kas
                                 </th>
                                 <th scope="col" class="px-6 py-3 bg-gray-50">
+                                    Disetujui
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Penyetuju
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Aksi
                                 </th>
                             </tr>
@@ -167,16 +173,22 @@
                                         {{ $enrollment->register_end }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
-                                        {{ $enrollment->nominal }}
+                                        Rp{{ number_format($enrollment->nominal, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $enrollment->repayment ?? 'Tidak ada' }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
-                                        {{ $enrollment->debit ?? 'Tidak ada' }}
+                                        Rp{{ number_format($enrollment->debit, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $enrollment->nominal - $enrollment->debit }}
+                                        Rp{{ number_format($enrollment->nominal - $enrollment->debit, 2, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50 text-center">
+                                        {!! $enrollment->approve ? '<i class="fa fa-check-circle text-emerald-500"></i>' : '<i class="fa fa-times-circle text-red-500"></i>' !!}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $enrollment->identity_user_approve }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
                                         <form action="{{ route('enrollment.destroy', $enrollment->id) }}"

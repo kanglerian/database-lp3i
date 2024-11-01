@@ -153,16 +153,16 @@
                                         {{ $registration->applicant->name }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
-                                        {{ $registration->nominal }}
+                                        Rp{{ number_format($registration->nominal, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $registration->deal }}
+                                        Rp{{ number_format($registration->deal, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
-                                        {{ $registration->nominal }}
+                                        Rp{{ number_format($registration->discount, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $registration->discount }}
+                                        {{ $registration->desc_discount }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
                                         @php

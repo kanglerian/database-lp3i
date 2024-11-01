@@ -9,6 +9,7 @@ use App\Models\Applicant;
 use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
@@ -326,5 +327,23 @@ class EnrollmentController extends Controller
             ];
         }
         return back()->with($message["status"], $message["message"]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function approve($id)
+    {
+        $enrollment = StatusApplicantsEnrollment::findOrFail($id);
+        $data = [
+            "approve" => 1,
+            "identity_user_approve" => Auth::user()->name,
+        ];
+        $enrollment->update($data);
+        return back()->with("message", "Data pendaftaran berhasil disetujui!");
     }
 }
