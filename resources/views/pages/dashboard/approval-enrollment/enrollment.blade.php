@@ -56,7 +56,7 @@
                                 {{ $approve->date }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('database.show', $approve->identity_user) }}" target="_blank" class="underline">
+                                <a href="{{ route('database.show', $approve->identity_user) }}" target="_blank" class="font-bold underline">
                                     {{ $approve->applicant ? $approve->applicant->name : 'Belum diketahui' }}
                                 </a>
                             </td>
