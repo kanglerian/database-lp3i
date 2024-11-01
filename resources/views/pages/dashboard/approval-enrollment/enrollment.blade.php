@@ -44,7 +44,7 @@
                                 {{ $number + 1 }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $approve->applicant->pmb }}
+                                {{ $approve->applicant ? $approve->applicant->pmb : 'Belum diketahui' }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $approve->receipt }}
