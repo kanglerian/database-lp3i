@@ -63,7 +63,7 @@ class EnrollmentController extends Controller
             $appends["register_end"] = $register_end;
         }
 
-        $enrollments = $enrollmentQuery->orderByDesc("created_at")->paginate(5);
+        $enrollments = $enrollmentQuery->orderByDesc("created_at")->paginate(10);
         $enrollments->appends($appends);
         return view("pages.payment.enrollment.index")->with([
             "total" => $total,

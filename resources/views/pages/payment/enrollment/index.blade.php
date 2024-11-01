@@ -113,39 +113,42 @@
                                     No.
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    No. Kwitansi
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Tanggal
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Gelombang
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Nama Lengkap
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Keterangan
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Daftar
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Nominal Daftar
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Pengembalian BK
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Debit
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Kas
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Disetujui
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Penyetuju
                                 </th>
-                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                <th scope="col" class="px-6 py-3">
                                     Aksi
                                 </th>
                             </tr>
@@ -158,39 +161,42 @@
                                         {{ $enrollments->perPage() * ($enrollments->currentPage() - 1) + $key + 1 }}
                                     </th>
                                     <td class="px-6 py-4">
+                                        {{ $enrollment->receipt }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50">
                                         {{ $enrollment->date }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50">
+                                    <td class="px-6 py-4">
                                         {{ $enrollment->session }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 bg-gray-50">
                                         {{ $enrollment->applicant->name }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50">
+                                    <td class="px-6 py-4">
                                         {{ $enrollment->register }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 bg-gray-50">
                                         {{ $enrollment->register_end }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50">
+                                    <td class="px-6 py-4">
                                         Rp{{ number_format($enrollment->nominal, 2, ',', '.') }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 bg-gray-50">
                                         {{ $enrollment->repayment ?? 'Tidak ada' }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50">
+                                    <td class="px-6 py-4">
                                         Rp{{ number_format($enrollment->debit, 2, ',', '.') }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 bg-gray-50">
                                         Rp{{ number_format($enrollment->nominal - $enrollment->debit, 2, ',', '.') }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50 text-center">
+                                    <td class="px-6 py-4 text-center">
                                         {!! $enrollment->approve ? '<i class="fa fa-check-circle text-emerald-500"></i>' : '<i class="fa fa-times-circle text-red-500"></i>' !!}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 bg-gray-50">
                                         {{ $enrollment->identity_user_approve }}
                                     </td>
-                                    <td class="px-6 py-4 bg-gray-50">
+                                    <td class="px-6 py-4">
                                         <form action="{{ route('enrollment.destroy', $enrollment->id) }}"
                                             method="post" class="inline-block" onsubmit="return confirmDelete()">
                                             @csrf
@@ -204,7 +210,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10" class="px-6 py-4 text-center">Data tidak ditemukan</td>
+                                    <td colspan="11" class="px-6 py-4 text-center">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
                         </tbody>
