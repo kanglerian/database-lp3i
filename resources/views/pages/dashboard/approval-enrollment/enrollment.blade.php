@@ -56,7 +56,9 @@
                                 {{ $approve->date }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('database.show', $approve->identity_user) }}" target="_blank" class="underline">{{ $approve->applicant->name }}</a>
+                                <a href="{{ route('database.show', $approve->identity_user) }}" target="_blank" class="underline">
+                                    {{ $approve->applicant ? $approve->applicant->name : 'Belum diketahui' }}
+                                </a>
                             </td>
                             <td class="px-6 py-4">
                                 <form action="{{ route('enrollment.approve', $approve->id) }}" method="post" class="inline-block">
