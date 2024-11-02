@@ -37,6 +37,7 @@ class EnrollmentController extends Controller
         $date = request("date", "all");
         $pmb = request("pmb", getYearPMB());
         $repayment = request("repayment");
+        $receipt = request("receipt");
         $register = request("register", "all");
         $register_end = request("register_end", "all");
 
@@ -53,6 +54,10 @@ class EnrollmentController extends Controller
         if ($repayment) {
             $enrollmentQuery->where("repayment", $repayment);
             $appends["repayment"] = $repayment;
+        }
+        if ($receipt) {
+            $enrollmentQuery->where("receipt", $receipt);
+            $appends["receipt"] = $receipt;
         }
         if ($register !== "all") {
             $enrollmentQuery->where("register", $register);

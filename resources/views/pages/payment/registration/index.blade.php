@@ -150,7 +150,9 @@
                                         {{ $registration->session }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $registration->applicant->name }}
+                                        <a href="{{ route('database.show', $registration->identity_user) }}" target="_blank" class="underline font-bold">
+                                            {{ $registration->applicant ? $registration->applicant->name : 'Belum diketahui' }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
                                         Rp{{ number_format($registration->nominal, 2, ',', '.') }}
@@ -162,7 +164,7 @@
                                         Rp{{ number_format($registration->discount, 2, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $registration->desc_discount }}
+                                        {{ $registration->desc_discount ?? 'Tidak ada keterangan' }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
                                         @php

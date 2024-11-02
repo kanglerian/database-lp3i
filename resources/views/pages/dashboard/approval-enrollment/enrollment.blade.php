@@ -1,4 +1,5 @@
 @if (Auth::user()->role !== 'S' && Auth::user()->role !== 'K')
+    @if($approval_count > 0)
     <div class="grid grid-cols-1 gap-4">
         <div class="bg-gray-50 relative overflow-x-auto border border-gray-200 rounded-3xl">
             <header class="px-6 py-5 space-y-1">
@@ -81,4 +82,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endif

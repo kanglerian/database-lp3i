@@ -18,7 +18,10 @@
                     class="block w-full py-4 px-10 ps-12 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Periode PMB" autofocus />
                 <button type="submit"
-                    class="text-white absolute end-2.5 bottom-2.5 bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-4 py-2">Cari</button>
+                    class="text-white absolute end-2.5 bottom-2.5 bg-lp3i-100 hover:bg-lp3i-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-xs px-4 py-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Cari</span>
+                </button>
             </div>
         </form>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">

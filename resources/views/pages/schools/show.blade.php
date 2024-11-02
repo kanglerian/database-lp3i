@@ -18,7 +18,7 @@
     </style>
 @endpush
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-5 pb-3">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-5">
             <nav class="flex">
                 <ol class="inline-flex items-center space-x-2 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -40,7 +40,7 @@
 
     </x-slot>
 
-    <section class="space-y-5 py-5">
+    <div class="space-y-5">
 
         <section class="max-w-7xl mx-auto">
             @if (session('message'))
@@ -65,7 +65,7 @@
 
         <section class="max-w-7xl mx-auto">
             <div class="flex items-center justify-between">
-                <div class="w-full md:w-4/6 p-3">
+                <div class="w-full md:w-4/6">
                     <div class="bg-white border border-gray-100 rounded-3xl space-y-3 p-8">
                         <form action="{{ route('schools.update', $school->id) }}" class="space-y-3" id="school-form"
                             method="POST">
@@ -200,7 +200,7 @@
             </div>
         </section>
 
-    </section>
+    </div>
 
     @push('scripts')
         <script src="{{ asset('js/indonesia.js') }}"></script>

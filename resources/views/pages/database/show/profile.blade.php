@@ -5,7 +5,7 @@
 
     <main>
         @if (session('message'))
-            <div id="alert" class="flex items-center p-4 bg-emerald-500 text-emerald-50 rounded-2xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
@@ -13,7 +13,7 @@
             </div>
         @endif
         @if (session('error'))
-            <div id="alert" class="flex items-center p-4 bg-red-500 text-red-50 rounded-2xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-2xl" role="alert">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('error') }}
@@ -381,11 +381,11 @@
                                                     </label>
                                                 </form>
                                                 <div class="flex items-center gap-3">
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                     <button onclick="modalEditRegistrasi()">
                                                         <i
                                                             class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                     </button>
-                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                 </div>
                                             @else
                                                 <div>

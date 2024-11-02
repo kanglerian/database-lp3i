@@ -55,6 +55,12 @@
                         placeholder="Tahun PMB" required />
                 </div>
                 <div class="w-full">
+                    <label for="receipt" class="block mb-2 text-xs font-medium text-gray-900">Cari No. Kwitansi</label>
+                    <input type="number" name="receipt" id="receipt"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5"
+                           placeholder="No. Kwitansi" />
+                </div>
+                <div class="w-full">
                     <label for="date" class="block mb-2 text-xs font-medium text-gray-900">Tanggal</label>
                     <input type="date" name="date" id="date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5" />
@@ -170,7 +176,9 @@
                                         {{ $enrollment->session }}
                                     </td>
                                     <td class="px-6 py-4 bg-gray-50">
-                                        {{ $enrollment->applicant->name }}
+                                        <a href="{{ route('database.show', $enrollment->identity_user) }}" target="_blank" class="underline font-bold">
+                                            {{ $enrollment->applicant ? $enrollment->applicant->name : 'Belum diketahui' }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $enrollment->register }}
