@@ -151,6 +151,9 @@
                         totalRealizationVolume += parseInt(sales.realization_volume);
                     });
 
+                    console.log(sales);
+                    console.log(databases);
+
                     document.getElementById('target_revenue').innerText =
                         `Rp${totalTargetRevenue.toLocaleString('id-ID')}`;
                     document.getElementById('realization_revenue').innerText =
@@ -159,7 +162,7 @@
                         `${(totalRealizationRevenue / totalTargetRevenue * 100).toFixed()}%`;
 
                     document.getElementById('target_volume').innerText = totalTargetVolume;
-                    document.getElementById('realization_volume').innerText = parseInt(totalRealizationVolume);
+                    document.getElementById('realization_volume').innerText = totalRealizationVolume;
                     document.getElementById('percent_volume').innerText =
                         `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
 
