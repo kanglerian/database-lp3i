@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-users"></i>
                     <span>Sales Volume</span>
                 </h2>
-                <p class="text-sm">Lihat data volume penjualan untuk memahami tren dan meningkatkan strategi penjualan.</p>
+                <p class="text-xs">Lihat data volume penjualan untuk memahami tren dan meningkatkan strategi penjualan.</p>
                 <i class="absolute opacity-10 z-1 bottom-5 right-5 fa-solid fa-hand-pointer fa-3x -rotate-45"></i>
             </a>
             <a href="{{ route('presenters.sales_revenue', $presenter->id) }}"
