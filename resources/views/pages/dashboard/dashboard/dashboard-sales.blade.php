@@ -159,7 +159,7 @@
                         `${(totalRealizationRevenue / totalTargetRevenue * 100).toFixed()}%`;
 
                     document.getElementById('target_volume').innerText = totalTargetVolume;
-                    document.getElementById('realization_volume').innerText = totalRealizationVolume;
+                    document.getElementById('realization_volume').innerText = parseInt(totalRealizationVolume);
                     document.getElementById('percent_volume').innerText =
                         `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
 
