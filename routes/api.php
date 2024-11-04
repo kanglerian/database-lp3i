@@ -138,5 +138,3 @@ Route::post('/resetpassword', [ResetPasswordController::class, 'reset']);
 Route::prefix('beasiswa-ppo')->group(function(){
     Route::post('/check', [ValidationController::class,'check_validation'])->name('beasiswa-ppo.check_validation');
 });
-
-Route::get('/lee', [CobaController::class,'index']);

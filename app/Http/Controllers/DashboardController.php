@@ -180,7 +180,7 @@ class DashboardController extends Controller
     {
         $presenters = [];
         if (Auth::user()->role == 'A') {
-            $presenters = User::where('role', 'P')->get();
+            $presenters = User::where(['role' => 'P','status' => 1])->get();
         } elseif (Auth::user()->role == 'P') {
             $presenters = User::where('identity', Auth::user()->identity)->get();
         } elseif (Auth::user()->role == 'K') {
