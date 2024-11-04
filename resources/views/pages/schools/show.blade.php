@@ -186,7 +186,7 @@
                                 <select id="districts" hidden></select>
                                 <select id="villages" hidden></select>
                             </div>
-                            <div class="flex items-center justify-between">
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-2">
                                 <button type="button" onclick="updateSchool()"
                                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>

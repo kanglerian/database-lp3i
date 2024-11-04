@@ -44,6 +44,13 @@
                 </div>
                 <i class="fa-solid fa-gear absolute z-50 fa-3x top-1/2 right-10 transform -translate-y-1/2  opacity-10"></i>
             </a>
+            <a href="{{ route('programstudi.index') }}" class="relative bg-lp3i-100 hover:bg-lp3i-200 transition-all ease-in-out text-white p-8 rounded-3xl">
+                <div class="space-y-1">
+                    <h2 class="font-bold">Master Program Studi</h2>
+                    <p class="text-sm">Ini adalah halaman master untuk API Program Studi.</p>
+                </div>
+                <i class="fa-solid fa-circle-nodes absolute z-50 fa-3x top-1/2 right-10 transform -translate-y-1/2  opacity-10"></i>
+            </a>
         </section>
     </main>
 </x-app-layout>
