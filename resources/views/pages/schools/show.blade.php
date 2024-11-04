@@ -186,13 +186,17 @@
                                 <select id="districts" hidden></select>
                                 <select id="villages" hidden></select>
                             </div>
-                            <div>
+                            <div class="flex items-center justify-between">
                                 <button type="button" onclick="updateSchool()"
                                     class="bg-lp3i-100 hover:bg-lp3i-200 text-white px-5 py-2 rounded-xl text-sm">
                                     <i class="fa-regular fa-floppy-disk"></i> Simpan Perubahan</button>
-                                <button type="button" onclick="deleteSchool('{{ $school->id }}')"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
-                                        class="fa-regular fa-trash-can"></i> Hapus</button>
+                                <div>
+                                    <button type="button" onclick="deleteSchool('{{ $school->id }}')"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm"><i
+                                                class="fa-regular fa-trash-can"></i> Hapus</button>
+                                    <button type="button" onclick="makeNullSchool('{{ $school->id }}')"
+                                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-2 rounded-xl text-sm"><i class="fa-solid fa-rotate-left"></i> Kosongkan Aplikan</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -213,11 +217,10 @@
                 });
                 const maxLength = 2;
                 $(document).on('keydown', '.select2-search__field', function() {
-                    // if (this.value.length > maxLength) {
-                    //     this.value = this.value.substring(0, maxLength);
-                    //     alert('Maximum length of school name is ' + maxLength + ' characters.');
-                    // }
-                    alert('oey');
+                    if (this.value.length > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        alert('Maximum length of school name is ' + maxLength + ' characters.');
+                    }
                 });
             });
 
@@ -236,6 +239,32 @@
                                 'X-CSRF-TOKEN': csrfToken,
                             }
                         })
+                        .then((response) => {
+                            if (!response.ok) {
+                                alert('Network response was not ok.')
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            alert(data.message);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            }
+            const makeNullSchool = (id) => {
+                let deleteConfirm = prompt('Apakah anda yakin akan mengosongkan aplikan? Ketik: "Kosongkan"');
+                if (deleteConfirm) {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+                    fetch(`/makenull/schools/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ allow: deleteConfirm })
+                    })
                         .then((response) => {
                             if (!response.ok) {
                                 alert('Network response was not ok.')

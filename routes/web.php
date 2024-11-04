@@ -90,6 +90,8 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
     Route::get('get/schools/setting', [SchoolController::class, 'setting'])->name('schools.setting');
     Route::post('migration/schools', [SchoolController::class, 'migration'])->name('school.migration');
     Route::post('clear/schools', [SchoolController::class, 'clear'])->name('school.clear');
+    Route::post('clear/schools', [SchoolController::class, 'clear'])->name('school.clear');
+    Route::post('makenull/schools/{id}', [SchoolController::class, 'make_null'])->name('school.makenull');
 });
 
 /* Route Database  */

@@ -265,4 +265,20 @@ class SchoolController extends Controller
             "Sekolah dengan data 0 berhasil dihapus!"
         );
     }
+
+    public function make_null(Request $request, $id)
+    {
+        if ($request->input("allow") == "Kosongkan"){
+            Applicant::where('school', $id)->update([
+                'school' => null
+            ]);
+            return response()->json([
+                "message" => "Data sekolah berhasil dikosongkan dari aplikan!",
+            ]);
+        } else {
+            return response()->json([
+                "message" => "Tidak diizinkan!",
+            ], JsonResponse::HTTP_BAD_REQUEST);
+        }
+    }
 }
