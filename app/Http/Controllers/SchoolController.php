@@ -53,7 +53,7 @@ class SchoolController extends Controller
             $appends["problem"] = $problem;
         }
 
-        if ($pmb !== "all") {
+        if ($pmb !== "all" && $problem !== false) {
             $schoolsQuery->where("pmb", $pmb);
             $appends["pmb"] = $pmb;
         }
