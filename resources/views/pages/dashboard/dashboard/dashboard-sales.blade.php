@@ -155,8 +155,6 @@
                         totalRealizationDatabase += parseInt(database.realization);
                     });
 
-                    console.log(databases);
-
                     document.getElementById('target_revenue').innerText =
                         `Rp${totalTargetRevenue.toLocaleString('id-ID')}`;
                     document.getElementById('realization_revenue').innerText =
