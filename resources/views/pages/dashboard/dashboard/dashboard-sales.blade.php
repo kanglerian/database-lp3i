@@ -162,13 +162,13 @@
                     document.getElementById('percent_revenue').innerText =
                         `${(totalRealizationRevenue / totalTargetRevenue * 100).toFixed()}%`;
 
-                    document.getElementById('target_volume').innerText = totalTargetVolume;
-                    document.getElementById('realization_volume').innerText = totalRealizationVolume;
+                    document.getElementById('target_volume').innerText = totalTargetVolume.toLocaleString('id-ID');
+                    document.getElementById('realization_volume').innerText = totalRealizationVolume.toLocaleString('id-ID');
                     document.getElementById('percent_volume').innerText =
                         `${(totalRealizationVolume / totalTargetVolume * 100).toFixed()}%`;
 
-                    document.getElementById('target_database').innerText = totalTargetDatabase;
-                    document.getElementById('realization_database').innerText = totalRealizationDatabase;
+                    document.getElementById('target_database').innerText = totalTargetDatabase.toLocaleString('id-ID');
+                    document.getElementById('realization_database').innerText = totalRealizationDatabase.toLocaleString('id-ID');
                     document.getElementById('percent_database').innerText =
                         `${(totalRealizationDatabase / totalTargetDatabase * 100).toFixed()}%`;
                 })
