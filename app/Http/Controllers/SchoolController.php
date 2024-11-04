@@ -36,6 +36,7 @@ class SchoolController extends Controller
 
         $total = School::count();
         $useless = SchoolBySourceAll::where("jumlah", 0)->count();
+        dd($useless);
         $schools_by_region = School::select("region")->groupBy("region")->get();
         $slepets = School::where(["region" => "TIDAK DIKETAHUI"])->count();
 
