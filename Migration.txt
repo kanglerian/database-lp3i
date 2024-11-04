@@ -1,0 +1,68 @@
+CREATE OR REPLACE VIEW `dashboard_sales` AS
+        SELECT
+            users.identity COLLATE utf8mb4_general_ci AS identity,
+            target_volume.pmb COLLATE utf8mb4_general_ci AS pmb_volume,
+            target_revenue.pmb COLLATE utf8mb4_general_ci AS pmb_revenue,
+            users.name COLLATE utf8mb4_general_ci AS name,
+            COALESCE(target_volume.total, 0) AS target_volume,
+            COALESCE(COUNT(status_applicants_registration.id), 0) AS realization_volume,
+            COALESCE(target_revenue.total, 0) AS target_revenue,
+            COALESCE(SUM(status_applicants_registration.deal), 0) AS realization_revenue
+        FROM
+            users
+            LEFT JOIN target_volume ON target_volume.identity_user = users.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN applicants ON applicants.identity_user = users.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN status_applicants_registration ON status_applicants_registration.identity_user = applicants.identity COLLATE utf8mb4_general_ci
+            LEFT JOIN target_revenue ON target_revenue.identity_user = users.identity COLLATE utf8mb4_general_ci
+        WHERE
+            users.role = "P"
+        GROUP BY
+            identity,
+            pmb_volume,
+            pmb_revenue;
+
+
+SELECT
+	status_applicants_registration.pmb AS pmb,
+    users.identity AS identity_user,
+    users.name AS name,
+    COUNT(status_applicants_registration.identity_user) AS total
+FROM
+	status_applicants_registration
+LEFT JOIN applicants ON applicants.identity = status_applicants_registration.identity_user
+LEFT JOIN users ON users.identity = applicants.identity_user
+WHERE
+	users.role = "P"
+GROUP BY
+	pmb, identity_user;
+
+
+SELECT
+    target_volume.pmb AS pmb,
+    target_volume.identity_user AS identity_user,
+    users.name AS name,
+    SUM(target_volume.total) AS total
+FROM
+    users
+LEFT JOIN target_volume ON target_volume.identity_user = users.identity
+WHERE
+    users.role = "P"
+GROUP BY
+    users.identity, target_volume.pmb;
+
+SELECT
+     target_volume_by_presenter.pmb AS pmb,
+     target_volume_by_presenter.identity_user AS identity_user,
+            target_volume_by_presenter.name AS name,
+            target_volume_by_presenter.total AS target,
+            COALESCE(registration_by_presenter.total, 0) AS realization
+        FROM
+            target_volume_by_presenter
+        LEFT JOIN registration_by_presenter
+            ON registration_by_presenter.identity_user = target_volume_by_presenter.identity_user
+            AND registration_by_presenter.pmb = target_volume_by_presenter.pmb
+        GROUP BY
+            target_volume_by_presenter.pmb,
+            target_volume_by_presenter.identity_user,
+            target_volume_by_presenter.name,
+            target_volume_by_presenter.total;

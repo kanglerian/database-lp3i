@@ -127,32 +127,33 @@
         const getDataSales = async () => {
             await axios.get(urlSales)
                 .then((response) => {
-                    let sales = response.data.sales;
-                    let databases = response.data.databases;
-
-                    let totalTargetDatabase = 0;
-                    let totalRealizationDatabase = 0;
-
-                    let totalTargetRevenue = 0;
-                    let totalRealizationRevenue = 0;
+                    const salesVolume = response.data.sales_volume;
+                    const salesRevenue = response.data.sales_revenue;
+                    const databases = response.data.database;
 
                     let totalTargetVolume = 0;
                     let totalRealizationVolume = 0;
 
+                    let totalTargetRevenue = 0;
+                    let totalRealizationRevenue = 0;
+
+                    let totalTargetDatabase = 0;
+                    let totalRealizationDatabase = 0;
+
+                    salesVolume.forEach(sale => {
+                        totalTargetVolume += parseInt(sale.target);
+                        totalRealizationVolume += parseInt(sale.realization);
+                    });
+
+                    salesRevenue.forEach(sale => {
+                        totalTargetRevenue += parseInt(sale.target);
+                        totalRealizationRevenue += parseInt(sale.realization);
+                    });
+
                     databases.forEach(database => {
-                        totalTargetDatabase += parseInt(database.total);
+                        totalTargetDatabase += parseInt(database.target);
                         totalRealizationDatabase += parseInt(database.realization);
                     });
-
-                    sales.forEach(sales => {
-                        totalTargetRevenue += parseInt(sales.target_revenue);
-                        totalRealizationRevenue += parseInt(sales.realization_revenue);
-                        totalTargetVolume += parseInt(sales.target_volume);
-                        totalRealizationVolume += parseInt(sales.realization_volume);
-                    });
-
-                    console.log(sales);
-                    console.log(databases);
 
                     document.getElementById('target_revenue').innerText =
                         `Rp${totalTargetRevenue.toLocaleString('id-ID')}`;

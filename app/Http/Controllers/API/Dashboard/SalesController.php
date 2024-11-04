@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dashboard\Database;
 use App\Models\Dashboard\Sales;
+use App\Models\Dashboard\SalesRevenue;
+use App\Models\Dashboard\SalesVolume;
 use App\Models\Report\TargetDatabase;
 use Illuminate\Http\Request;
 
@@ -11,23 +14,26 @@ class SalesController extends Controller
 {
     public function get_all()
     {
-        $saleQuery = Sales::query();
-        $databaseQuery = TargetDatabase::query();
+        $sales_volume_query = SalesVolume::query();
+        $sales_revenue_query = SalesRevenue::query();
+        $database_query = Database::query();
 
         $pmbVal = request('pmbVal', 'all');
 
         if ($pmbVal !== 'all') {
-            $saleQuery->where('pmb_volume', $pmbVal);
-            $saleQuery->where('pmb_revenue', $pmbVal);
-            $databaseQuery->where('pmb', $pmbVal);
+            $sales_volume_query->where('pmb', $pmbVal);
+            $sales_revenue_query->where('pmb', $pmbVal);
+            $database_query->where('pmb', $pmbVal);
         }
 
-        $sales = $saleQuery->get();
-        $databases = $databaseQuery->get();
+        $sales_volume = $sales_volume_query->get();
+        $sales_revenue = $sales_revenue_query->get();
+        $database = $database_query->get();
 
         return response()->json([
-            'sales' => $sales,
-            'databases' => $databases,
+            'sales_volume' => $sales_volume,
+            'sales_revenue' => $sales_revenue,
+            'database' => $database,
         ]);
     }
 }

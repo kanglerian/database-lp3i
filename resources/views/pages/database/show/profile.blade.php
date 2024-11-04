@@ -361,7 +361,7 @@
                                             @endif
                                         </div>
                                     @endif
-                                    @if(!$enrollment->approve)
+                                    @if($enrollment && !$enrollment->approve)
                                         <p class="text-[11px] text-red-500 text-center">Belum bisa di registrasikan karena pendaftaran belum disetujui.<br/>Silahkan hubungi Admin bagian Approval.</p>
                                     @endif
                                     @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $enrollment->approve && $account > 0)
