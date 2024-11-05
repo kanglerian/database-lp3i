@@ -1191,7 +1191,7 @@ class ApplicantController extends Controller
 
     }
 
-    public function update_data_duplicate($student, $applicants, $i)
+    public function update_data_duplicate($student, $applicants, $i, $identityUser)
     {
         $scholarship = 0;
         if (!empty($applicants[$i][33])) {
@@ -1203,6 +1203,7 @@ class ApplicantController extends Controller
         $data_applicant = [
             'pmb' => $applicants[$i][2],
             'email' => $student->phone . "@lp3i.ac.id",
+            'identity_user' => $identityUser,
             'year' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
             'schoolarship' => $scholarship,
             'is_applicant' => $scholarship == 1 ? 1 : 0,
@@ -1429,7 +1430,7 @@ class ApplicantController extends Controller
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
                             if ($studentPhoneDup) {
                                 $samePhone = true;
-                                $this->update_data_duplicate($studentPhoneDup, $applicants, $i);
+                                $this->update_data_duplicate($studentPhoneDup, $applicants, $i, $identityUser);
                             } else {
                                 $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother);
                             }
