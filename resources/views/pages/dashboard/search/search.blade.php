@@ -46,6 +46,12 @@
                                 Presenter
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Phone
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Sumber Database
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -125,6 +131,16 @@
                         data: 'presenter',
                         render: (data) => {
                             return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
+                        }
+                    }, {
+                        data: 'email',
+                        render: (data) => {
+                            return data ? data : 'Tidak diketahui';
+                        }
+                    }, {
+                        data: 'phone',
+                        render: (data) => {
+                            return data ? data : 'Tidak diketahui';
                         }
                     }, {
                         data: 'source_setting',
