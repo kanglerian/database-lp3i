@@ -84,7 +84,8 @@
                     class="bg-lp3i-100 hover:bg-lp3i-200 px-4 py-2 text-sm rounded-xl text-white"><i
                         class="fa-solid fa-circle-plus mr-1"></i> Tambah Data</a>
                 <div class="flex items-center gap-2">
-                    @if (Auth::user()->role == 'P' && Auth::user()->sheet)
+                    {{-- @if (Auth::user()->role == 'P' && Auth::user()->sheet) --}}
+                    @if(Auth::user()->identity == '6282211780631')
                         <button type="button" onclick="syncSpreadsheet(`{{ Auth::user()->sheet }}`)"
                             class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-xl text-xs space-x-1">
                             <i class="fa-solid fa-rotate"></i>
