@@ -1310,7 +1310,7 @@ class ApplicantController extends Controller
             ];
 
             if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {
-                if ($phone && $applicants[$i][9]) {
+                if ($phone) {
                     $studentDataPhone = Applicant::where(['identity' => $applicants[$i][1], 'phone' => $phone])->first();
                     if ($studentDataPhone) {
                         if ($studentDataPhone->is_applicant == 0) {
