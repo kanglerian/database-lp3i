@@ -1174,7 +1174,7 @@ class ApplicantController extends Controller
         $student->update($data_applicant);
 
         if ($scholarship == 1) {
-            $account = User::where('identity', $student->identity)->count();
+            $account = User::where(['identity' => $student->identity, 'phone' => $student->phone])->count();
             if ($account == 0) {
                 User::create([
                     'identity' => $student->identity,
@@ -1213,7 +1213,7 @@ class ApplicantController extends Controller
         $student->update($data_applicant);
 
         if ($scholarship == 1) {
-            $account = User::where('identity', $student->identity)->count();
+            $account = User::where(['identity' => $student->identity, 'phone' => $student->phone])->count();
             if ($account == 0) {
                 User::create([
                     'identity' => $student->identity,
@@ -1278,7 +1278,7 @@ class ApplicantController extends Controller
         $student = Applicant::create($data_applicant);
 
         if ($scholarship == 1) {
-            $account = User::where('identity', $student->identity)->count();
+            $account = User::where(['identity' => $student->identity, 'phone' => $student->phone])->count();
             if ($account == 0) {
                 User::create([
                     'identity' => $student->identity,
