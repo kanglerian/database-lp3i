@@ -7,6 +7,7 @@ use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use DateTime;
 
@@ -798,7 +799,7 @@ class ApplicantController extends Controller
     {
         $applicant = Applicant::findOrFail($id);
         if (Auth::user()->identity == $applicant->identity_user || Auth::user()->role == 'A') {
-//            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
+            //            $response = Http::get('https://dashboard.politekniklp3i-tasikmalaya.ac.id/api/programs');
 
             $presenters = User::where(['status' => '1', 'role' => 'P'])->get();
             $sources = SourceSetting::all();
@@ -810,7 +811,7 @@ class ApplicantController extends Controller
             $father = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 1])->first();
             $mother = ApplicantFamily::where(['identity_user' => $applicant->identity, 'gender' => 0])->first();
 
-//            if ($response->successful()) {
+            //            if ($response->successful()) {
 //                $programs = $response->json();
 //            } else {
 //                $programs = null;
@@ -819,7 +820,7 @@ class ApplicantController extends Controller
             $applicant = Applicant::with(['SchoolApplicant', 'SourceSetting', 'sourceDaftarSetting'])->findOrFail($id);
             return view('pages.database.edit')->with([
                 'applicant' => $applicant,
-//                'programs' => $programs,
+                //                'programs' => $programs,
                 'presenters' => $presenters,
                 'programtypes' => $programtypes,
                 'account' => $account,
@@ -1161,6 +1162,18 @@ class ApplicantController extends Controller
         $student->update($data_applicant);
     }
 
+    public function update_data_duplicate($student, $applicants, $i)
+    {
+        $data_applicant = [
+            'pmb' => $applicants[$i][2],
+            'email' => $applicants[$i][9],
+            'year' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+            'note' => 'Duplicate entry detected (Error Code: 1062)',
+        ];
+
+        $student->update($data_applicant);
+    }
+
     public function create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone = null)
     {
         $data_applicant = [
@@ -1254,14 +1267,19 @@ class ApplicantController extends Controller
                 if ($schoolNameCheck) {
                     $school = $schoolNameCheck->id;
                 } else {
-                    $dataSchool = [
-                        'name' => strtoupper($schoolName),
-                        'region' => 'TIDAK DIKETAHUI',
-                    ];
-                    $schoolCreate = School::create($dataSchool);
-                    $school = $schoolCreate->id;
+                    if (!empty($schoolName)) {
+                        $dataSchool = [
+                            'name' => strtoupper($schoolName),
+                            'region' => 'TIDAK DIKETAHUI',
+                        ];
+                        $schoolCreate = School::create($dataSchool);
+                        $school = $schoolCreate->id;
+                    } else {
+                        $school = null;
+                    }
                 }
             }
+            
 
             $program = null;
 
@@ -1306,7 +1324,7 @@ class ApplicantController extends Controller
                     $studentDataPhone = Applicant::where(['identity' => $applicants[$i][1], 'phone' => $phone])->first();
                     if ($studentDataPhone) {
                         if ($studentDataPhone->is_applicant == 0) {
-                            $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother);
+                            $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
                         }
                     } else {
                         $studentData = Applicant::where('identity', $applicants[$i][1])->first();
@@ -1316,17 +1334,17 @@ class ApplicantController extends Controller
                                 if ($studentPhone) {
                                     if ($studentPhone->is_applicant == 0 && $studentPhone->is_daftar == 0 && $studentPhone->is_register == 0 && $studentPhone->schoolarship == 0) {
                                         $samePhone = true;
-                                        $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone);
+                                        $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $samePhone);
                                     }
                                 } else {
-                                    $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother);
+                                    $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program,);
                                 }
                             }
                         } else {
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
                             if ($studentPhoneDup) {
                                 $samePhone = true;
-                                $this->update_data($studentPhoneDup, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone);
+                                $this->update_data_duplicate($studentPhoneDup,$applicants, $i);
                             } else {
                                 $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother);
                             }
@@ -1336,7 +1354,7 @@ class ApplicantController extends Controller
                     $studentData = Applicant::where('identity', $applicants[$i][1])->first();
                     if ($studentData) {
                         $samePhone = true;
-                        $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone);
+                        $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $samePhone);
                     } else {
                         $samePhone = true;
                         $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone);

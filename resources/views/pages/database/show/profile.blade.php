@@ -126,6 +126,12 @@
                                             {{ $user->phone == null ? '___' : $user->phone }}
                                         </span>
                                     </li>
+                                    <li class="space-x-2">
+                                        <span>Catatan:</span>
+                                        <span class="border-b">
+                                            {{ $user->note == null ? '___' : $user->note }}
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="space-y-2">

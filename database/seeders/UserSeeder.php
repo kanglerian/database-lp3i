@@ -126,7 +126,7 @@ class UserSeeder extends Seeder
                 'code' => 'PR011',
                 'name' => 'Arip Budiman, S.T., M.Pd',
                 'email' => 'arip.lp3i@gmail.com',
-                'password' => Hash::make('lp3itasik123'),
+                'password' => Hash::make('arip12345'),
                 'sheet' => 'ARIP',
                 'phone' => '6282213099124',
                 'role' => 'P',
