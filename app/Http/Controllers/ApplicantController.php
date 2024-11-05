@@ -1426,8 +1426,9 @@ class ApplicantController extends Controller
                                 } else {
                                     $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, );
                                 }
-                            } else if ($studentDataPhone->is_applicant == 1 && $studentDataPhone->schoolarship == 1) {
-                                $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
+                            } else {
+
+                                $this->update_data_duplicate($studentData, $applicants, $i, $identityUser);
                             }
                         } else {
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
