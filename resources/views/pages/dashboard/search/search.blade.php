@@ -64,7 +64,7 @@
                     </thead>
                     <tbody id="result-quicksearch">
                         <tr class="border-b border-t">
-                            <td colspan="8" class="px-6 py-4 text-center">
+                            <td colspan="10" class="px-6 py-4 text-center">
                                 Silahkan untuk isi kolom pencarian.
                             </td>
                         </tr>
