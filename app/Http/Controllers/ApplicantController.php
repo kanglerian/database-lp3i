@@ -1113,6 +1113,7 @@ class ApplicantController extends Controller
             'pmb' => $applicants[$i][2],
             'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
             'phone' => $samePhone == null ? $phone : null,
+            'note' => $applicants[$i][9],
             'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school,
             'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
@@ -1175,6 +1176,7 @@ class ApplicantController extends Controller
             'pmb' => $applicants[$i][2],
             'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
             'phone' => $samePhone == null ? $phone : null,
+            'note' => $applicants[$i][9],
             'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school,
             'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
@@ -1308,7 +1310,7 @@ class ApplicantController extends Controller
             ];
 
             if (!empty($applicants[$i][0]) && !empty($applicants[$i][1]) && !empty($applicants[$i][2]) && !empty($applicants[$i][3])) {
-                if ($phone) {
+                if ($phone && $applicants[$i][9]) {
                     $studentDataPhone = Applicant::where(['identity' => $applicants[$i][1], 'phone' => $phone])->first();
                     if ($studentDataPhone) {
                         if ($studentDataPhone->is_applicant == 0) {
