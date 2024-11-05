@@ -1149,6 +1149,7 @@ class ApplicantController extends Controller
             'schoolarship' => $scholarship,
             'is_applicant' => $scholarship == 1 ? 1 : 0,
             'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
+            'note' => 'Data berhasil diimport dari file excel',
         ];
 
         $data_father = [
