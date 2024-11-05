@@ -1144,12 +1144,12 @@ class ApplicantController extends Controller
             'other_campus' => !empty($applicants[$i][31]) ? $applicants[$i][31] : null,
             'income_parent' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
             'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
+            'note' => 'Data berhasil diimport dari file excel',
 
             /* Scholarship */
             'schoolarship' => $scholarship,
             'is_applicant' => $scholarship == 1 ? 1 : 0,
             'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
-            'note' => 'Data berhasil diimport dari file excel',
         ];
 
         $data_father = [
@@ -1426,9 +1426,6 @@ class ApplicantController extends Controller
                                 } else {
                                     $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, );
                                 }
-                            } else {
-
-                                $this->update_data_duplicate($studentData, $applicants, $i, $identityUser);
                             }
                         } else {
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
