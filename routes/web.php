@@ -143,7 +143,7 @@ Route::middleware(['auth', 'status:1', 'role:A'])->group(function () {
 
 /* Route Profile */
 Route::middleware(['auth', 'status:1'])->group(function () {
-    Route::resource('profile', ProfileController::class);
+Route::resource('profile', ProfileController::class);
     Route::patch('profile/update_account/{id}', [ProfileController::class, 'update_account'])->name('profile.update_account');
     Route::patch('profile/change_password/{id}', [ProfileController::class, 'change_password'])->name('profile.change_password');
 });

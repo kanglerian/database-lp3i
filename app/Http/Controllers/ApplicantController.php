@@ -7,7 +7,7 @@ use App\Models\StatusApplicantsEnrollment;
 use App\Models\StatusApplicantsRegistration;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use DateTime;
 
@@ -1110,11 +1110,18 @@ class ApplicantController extends Controller
 
     public function update_data($student, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $samePhone = null)
     {
+        $scholarship = 0;
+        if (!empty($applicants[$i][33])) {
+            if ($applicants[$i][33] == 'YA') {
+                $scholarship = 1;
+            }
+        }
+
         $data_applicant = [
             'pmb' => $applicants[$i][2],
             'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
             'phone' => $samePhone == null ? $phone : null,
-            'email' => $samePhone == null ? $applicants[$i][9] : null,
+            'email' => $samePhone == null ? $phone . "@lp3i.ac.id" : null,
             'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school,
             'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
@@ -1137,6 +1144,11 @@ class ApplicantController extends Controller
             'other_campus' => !empty($applicants[$i][31]) ? $applicants[$i][31] : null,
             'income_parent' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
             'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
+
+            /* Scholarship */
+            'schoolarship' => $scholarship,
+            'is_applicant' => $scholarship == 1 ? 1 : 0,
+            'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
         ];
 
         $data_father = [
@@ -1160,28 +1172,78 @@ class ApplicantController extends Controller
             $applicantMother->update($data_mother);
         }
         $student->update($data_applicant);
+
+        if ($scholarship == 1) {
+            $account = User::where('identity', $student->identity)->count();
+            if ($account == 0) {
+                User::create([
+                    'identity' => $student->identity,
+                    'name' => ucwords(strtolower($student->name)),
+                    'gender' => $student->gender ? 1 : 0,
+                    'email' => $student->phone . "@lp3i.ac.id",
+                    'password' => Hash::make($student->phone),
+                    'phone' => $student->phone,
+                    'role' => 'S',
+                    'status' => 1,
+                ]);
+            }
+        }
+
     }
 
     public function update_data_duplicate($student, $applicants, $i)
     {
+        $scholarship = 0;
+        if (!empty($applicants[$i][33])) {
+            if ($applicants[$i][33] == 'YA') {
+                $scholarship = 1;
+            }
+        }
+
         $data_applicant = [
             'pmb' => $applicants[$i][2],
-            'email' => $applicants[$i][9],
+            'email' => $student->phone . "@lp3i.ac.id",
             'year' => !empty($applicants[$i][10]) ? $applicants[$i][10] : null,
+            'schoolarship' => $scholarship,
+            'is_applicant' => $scholarship == 1 ? 1 : 0,
+            'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
             'note' => 'Duplicate entry detected (Error Code: 1062)',
         ];
 
         $student->update($data_applicant);
+
+        if ($scholarship == 1) {
+            $account = User::where('identity', $student->identity)->count();
+            if ($account == 0) {
+                User::create([
+                    'identity' => $student->identity,
+                    'name' => ucwords(strtolower($student->name)),
+                    'gender' => $student->gender ? 1 : 0,
+                    'email' => $student->phone . "@lp3i.ac.id",
+                    'password' => Hash::make($student->phone),
+                    'phone' => $student->phone,
+                    'role' => 'S',
+                    'status' => 1,
+                ]);
+            }
+        }
     }
 
     public function create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother, $samePhone = null)
     {
+        $scholarship = 0;
+        if (!empty($applicants[$i][33])) {
+            if ($applicants[$i][33] == 'YA') {
+                $scholarship = 1;
+            }
+        }
+
         $data_applicant = [
             'identity' => $applicants[$i][1],
             'pmb' => $applicants[$i][2],
             'name' => !empty($applicants[$i][3]) ? ucwords(strtolower($applicants[$i][3])) : null,
             'phone' => $samePhone == null ? $phone : null,
-            'email' => $samePhone == null ? $applicants[$i][9] : null,
+            'email' => $samePhone == null ? $phone . "@lp3i.ac.id" : null,
             'education' => !empty($applicants[$i][6]) ? $applicants[$i][6] : null,
             'school' => $school,
             'major' => !empty($applicants[$i][8]) ? $applicants[$i][8] : null,
@@ -1204,11 +1266,32 @@ class ApplicantController extends Controller
             'other_campus' => !empty($applicants[$i][31]) ? $applicants[$i][31] : null,
             'income_parent' => !empty($applicants[$i][26]) ? $applicants[$i][26] : null,
             'social_media' => !empty($applicants[$i][32]) ? $applicants[$i][32] : null,
+
+            /* Scholarship */
+            'schoolarship' => $scholarship,
+            'is_applicant' => $scholarship == 1 ? 1 : 0,
+            'scholarship_date' => Carbon::now()->setTimezone('Asia/Jakarta'),
         ];
 
         ApplicantFamily::create($create_father);
         ApplicantFamily::create($create_mother);
-        Applicant::create($data_applicant);
+        $student = Applicant::create($data_applicant);
+
+        if ($scholarship == 1) {
+            $account = User::where('identity', $student->identity)->count();
+            if ($account == 0) {
+                User::create([
+                    'identity' => $student->identity,
+                    'name' => ucwords(strtolower($student->name)),
+                    'gender' => $student->gender ? 1 : 0,
+                    'email' => $student->phone . '@lp3i.ac.id',
+                    'password' => Hash::make($student->phone),
+                    'phone' => $student->phone,
+                    'role' => 'S',
+                    'status' => 1,
+                ]);
+            }
+        }
     }
 
     public function studentsHandle($person, $identityUser, $start, $end, $macro)
@@ -1221,7 +1304,7 @@ class ApplicantController extends Controller
         for ($i = $start; $i < $end; $i++) {
             $phone = null;
 
-            if (!empty($applicants[$i][4]) && strlen($applicants[$i][4]) > 9) {
+            if (!empty($applicants[$i][4]) && strlen($applicants[$i][4]) > 8) {
                 if (substr($applicants[$i][4], 0, 1) === '0') {
                     $phone = '62' . substr($applicants[$i][4], 1);
                 } else {
@@ -1279,7 +1362,7 @@ class ApplicantController extends Controller
                     }
                 }
             }
-            
+
 
             $program = null;
 
@@ -1325,6 +1408,8 @@ class ApplicantController extends Controller
                     if ($studentDataPhone) {
                         if ($studentDataPhone->is_applicant == 0) {
                             $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
+                        } else if ($studentDataPhone->is_applicant == 1 && $studentDataPhone->schoolarship == 1) {
+                            $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
                         }
                     } else {
                         $studentData = Applicant::where('identity', $applicants[$i][1])->first();
@@ -1337,14 +1422,14 @@ class ApplicantController extends Controller
                                         $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $samePhone);
                                     }
                                 } else {
-                                    $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program,);
+                                    $this->update_data($studentData, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, );
                                 }
                             }
                         } else {
                             $studentPhoneDup = Applicant::where('phone', $phone)->first();
                             if ($studentPhoneDup) {
                                 $samePhone = true;
-                                $this->update_data_duplicate($studentPhoneDup,$applicants, $i);
+                                $this->update_data_duplicate($studentPhoneDup, $applicants, $i);
                             } else {
                                 $this->create_data($applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program, $create_father, $create_mother);
                             }
