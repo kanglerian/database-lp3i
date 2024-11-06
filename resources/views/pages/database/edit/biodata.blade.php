@@ -275,8 +275,6 @@
                             @if ($applicant->school)
                                 <option value="{{ $applicant->school }}">
                                     {{ $applicant->schoolapplicant->name }}</option>
-                            @else
-                                <option>Pilih Sekolah</option>
                             @endif
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
