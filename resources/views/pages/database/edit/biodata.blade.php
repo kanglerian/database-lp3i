@@ -44,8 +44,8 @@
                             </div>
                         </div>
                         <x-label for="nik" :value="__('Nomor Induk Kependudukan')" />
-                        <x-input id="nik" type="number" name="nik" maxlength="16" maxlength="16" value="{{ old('nik', $applicant->nik) }}"
-                            placeholder="Nomor Induk Kependudukan" />
+                        <x-input id="nik" type="number" name="nik" maxlength="16" maxlength="16"
+                            value="{{ old('nik', $applicant->nik) }}" placeholder="Nomor Induk Kependudukan" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if (Auth::user()->role == 'S')
                                 @if ($errors->has('nik'))
@@ -192,7 +192,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="place_of_birth" :value="__('Tempat Lahir')" />
-                        <x-input id="place_of_birth" type="text"  name="place_of_birth" maxlength="50"
+                        <x-input id="place_of_birth" type="text" name="place_of_birth" maxlength="50"
                             value="{{ old('place_of_birth', $applicant->place_of_birth) }}"
                             placeholder="Tulis tempat lahir disini..." />
                         <p class="mt-2 text-xs text-gray-500">
@@ -275,6 +275,8 @@
                             @if ($applicant->school)
                                 <option value="{{ $applicant->school }}">
                                     {{ $applicant->schoolapplicant->name }}</option>
+                            @else
+                                <option value="" disabled selected>Pilih Sekolah</option>
                             @endif
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
@@ -360,15 +362,18 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <div class="relative z-0 w-full group">
                             <x-label for="place" :value="__('Jl/Kp/Perum')" />
-                            <x-input id="place" type="text" name="place" maxlength="100" placeholder="Jl. / Kp. / Perum"/>
+                            <x-input id="place" type="text" name="place" maxlength="100"
+                                placeholder="Jl. / Kp. / Perum" />
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="rt" :value="__('RT')" />
-                            <x-input id="rt" type="text" maxlength="2" name="rt" placeholder="RT."/>
+                            <x-input id="rt" type="text" maxlength="2" name="rt"
+                                placeholder="RT." />
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="rw" :value="__('RW')" />
-                            <x-input id="rw" type="text" maxlength="2" name="rw" placeholder="RW."/>
+                            <x-input id="rw" type="text" maxlength="2" name="rw"
+                                placeholder="RW." />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -398,7 +403,8 @@
                         </div>
                         <div class="relative z-0 w-full group">
                             <x-label for="postal_code" :value="__('Kode Pos')" />
-                            <x-input id="postal_code" type="text"  name="postal_code" maxlength="7" placeholder="Kode Pos"/>
+                            <x-input id="postal_code" type="text" name="postal_code" maxlength="7"
+                                placeholder="Kode Pos" />
                         </div>
                     </div>
                 </div>

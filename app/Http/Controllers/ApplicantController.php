@@ -928,8 +928,14 @@ class ApplicantController extends Controller
 
         $address_applicant = $place . $rt . $rw . $kel . $kec . $reg . $prov . $postal;
 
-        $schoolCheck = School::where('id', $request->input('school'))->first();
-        $schoolNameCheck = School::where('name', $request->input('school'))->first();
+        $schoolInput = $request->input('school');
+
+        if (empty($schoolInput)) {
+            $schoolInput = null;
+        }
+
+        $schoolCheck = School::where('id', $schoolInput)->first();
+        $schoolNameCheck = School::where('name', $schoolInput)->first();
 
         if ($schoolCheck) {
             $school = $schoolCheck->id;
@@ -938,7 +944,7 @@ class ApplicantController extends Controller
                 $school = $schoolNameCheck->id;
             } else {
                 $dataSchool = [
-                    'name' => strtoupper($request->input('school')),
+                    'name' => strtoupper($schoolInput),
                     'region' => 'TIDAK DIKETAHUI',
                 ];
                 $schoolCreate = School::create($dataSchool);
