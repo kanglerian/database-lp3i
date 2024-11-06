@@ -35,7 +35,7 @@
             </div>
         </div>
     </x-slot>
-    <div class="py-10">
+    <section>
         @include('pages.database.edit.message')
         <form action="{{ route('database.update', $applicant->id) }}" method="POST" id="formChanges">
             @csrf
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </section>
 </x-app-layout>
 
 <script src="{{ asset('js/axios.min.js') }}"></script>
