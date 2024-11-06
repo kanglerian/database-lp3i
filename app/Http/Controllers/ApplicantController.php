@@ -1412,9 +1412,6 @@ class ApplicantController extends Controller
                             $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
                         } else if ($studentDataPhone->is_applicant == 1 && $studentDataPhone->schoolarship == 1) {
                             $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
-                        } else {
-                            $this->update_data($studentDataPhone, $applicants, $i, $phone, $school, $gender, $identityUser, $come, $kip, $known, $program);
-
                         }
                     } else {
                         $studentData = Applicant::where('identity', $applicants[$i][1])->first();
