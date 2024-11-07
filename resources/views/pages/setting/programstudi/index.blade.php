@@ -69,9 +69,10 @@
     @push('scripts')
         <script>
             const getDataTableRegisterProgram = async () => {
+                console.log(URL_API_LP3I);
                 return new Promise(async (resolve, reject) => {
                     try {
-                        const response = await axios.get(`${URL_API_LP3I}/dashboard/programs`);
+                        const response = await axios.get(`${URL_API_LP3I}/dashboard/programs/all`);
                         const programs = response.data;
                         console.log(programs);
 
