@@ -32,7 +32,6 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\DataController;
 use App\Http\Controlllers\API\ApplicantController as APIA;
-use \App\Http\Controllers\API\ProgramStudiController;
 
 use App\Http\Controllers\MailController;
 
@@ -196,7 +195,6 @@ Route::middleware(['auth', 'status:1', 'role:A'])->prefix('setting')->group(func
     Route::resource('fileupload', FileUploadController::class);
     Route::resource('applicantstatus', ApplicantStatusController::class);
     Route::resource('followup', FollowUpController::class);
-    Route::get('/programstudi', [ProgramStudiController::class, 'index'])->name('programstudi.index');
 });
 
 /* Route Scholarship */
