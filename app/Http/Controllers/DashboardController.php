@@ -162,7 +162,7 @@ class DashboardController extends Controller
             $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
             return response()->json([
-                // 'database_phone' => $databasePhone,
+                'database_phone' => $databasePhone,
                 'database_count' => $databaseCount,
                 'schoolarship_count' => $schoolarshipCount,
                 'applicant_count' => $applicantCount,
