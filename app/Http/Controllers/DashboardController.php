@@ -126,49 +126,50 @@ class DashboardController extends Controller
     public function get_all()
     {
         try {
-            $databasePhone = Applicant::query();
-            $databaseQuery = Applicant::query();
-            $applicantQuery = Applicant::query();
-            $enrollmentQuery = Applicant::query();
-            $registrasiQuery = Applicant::query();
-            $schoolarshipQuery = Applicant::query();
+            // $databasePhone = Applicant::query();
+            // $databaseQuery = Applicant::query();
+            // $applicantQuery = Applicant::query();
+            // $enrollmentQuery = Applicant::query();
+            // $registrasiQuery = Applicant::query();
+            // $schoolarshipQuery = Applicant::query();
 
-            $identityVal = request('identityVal', 'all');
-            $pmbVal = request('pmbVal', 'all');
+            // $identityVal = request('identityVal', 'all');
+            // $pmbVal = request('pmbVal', 'all');
 
-            if (Auth::user()->role === 'P') {
-                $databasePhone->where('identity_user', $identityVal);
-                $databaseQuery->where('identity_user', $identityVal);
-                $applicantQuery->where('identity_user', $identityVal);
-                $enrollmentQuery->where('identity_user', $identityVal);
-                $registrasiQuery->where('identity_user', $identityVal);
-                $schoolarshipQuery->where('identity_user', $identityVal);
-            }
+            // if (Auth::user()->role === 'P') {
+            //     $databasePhone->where('identity_user', $identityVal);
+            //     $databaseQuery->where('identity_user', $identityVal);
+            //     $applicantQuery->where('identity_user', $identityVal);
+            //     $enrollmentQuery->where('identity_user', $identityVal);
+            //     $registrasiQuery->where('identity_user', $identityVal);
+            //     $schoolarshipQuery->where('identity_user', $identityVal);
+            // }
 
-            if ($pmbVal !== 'all') {
-                $databasePhone->where('pmb', $pmbVal);
-                $databaseQuery->where('pmb', $pmbVal);
-                $applicantQuery->where('pmb', $pmbVal);
-                $enrollmentQuery->where('pmb', $pmbVal);
-                $registrasiQuery->where('pmb', $pmbVal);
-                $schoolarshipQuery->where('pmb', $pmbVal);
-            }
+            // if ($pmbVal !== 'all') {
+            //     $databasePhone->where('pmb', $pmbVal);
+            //     $databaseQuery->where('pmb', $pmbVal);
+            //     $applicantQuery->where('pmb', $pmbVal);
+            //     $enrollmentQuery->where('pmb', $pmbVal);
+            //     $registrasiQuery->where('pmb', $pmbVal);
+            //     $schoolarshipQuery->where('pmb', $pmbVal);
+            // }
 
-            $databasePhone = $databaseQuery->get();
-            $databaseCount = $databaseQuery->count();
-            $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
-            $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
-            $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
-            $registrationCount = $registrasiQuery->where('is_register', 1)->count();
+            // $databasePhone = $databaseQuery->get();
+            // $databaseCount = $databaseQuery->count();
+            // $applicantCount = $applicantQuery->where('is_applicant', 1)->count();
+            // $schoolarshipCount = $schoolarshipQuery->where('schoolarship', 1)->count();
+            // $enrollmentCount = $enrollmentQuery->where('is_daftar', 1)->count();
+            // $registrationCount = $registrasiQuery->where('is_register', 1)->count();
 
-            return response()->json([
-                'database_phone' => $databasePhone,
-                'database_count' => $databaseCount,
-                'schoolarship_count' => $schoolarshipCount,
-                'applicant_count' => $applicantCount,
-                'enrollment_count' => $enrollmentCount,
-                'registration_count' => $registrationCount,
-            ]);
+            // return response()->json([
+            //     'database_phone' => $databasePhone,
+            //     'database_count' => $databaseCount,
+            //     'schoolarship_count' => $schoolarshipCount,
+            //     'applicant_count' => $applicantCount,
+            //     'enrollment_count' => $enrollmentCount,
+            //     'registration_count' => $registrationCount,
+            // ]);
+            return response()->json(['message' => 'oey']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
