@@ -163,9 +163,9 @@ class DashboardController extends Controller
 
             return response()->json([
                 // 'database_phone' => $databasePhone,
-                // 'database_count' => $databaseCount,
-                // 'schoolarship_count' => $schoolarshipCount,
-                // 'applicant_count' => $applicantCount,
+                'database_count' => $databaseCount,
+                'schoolarship_count' => $schoolarshipCount,
+                'applicant_count' => $applicantCount,
                 'enrollment_count' => $enrollmentCount,
                 'registration_count' => $registrationCount,
             ]);
