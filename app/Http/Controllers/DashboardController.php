@@ -166,7 +166,7 @@ class DashboardController extends Controller
                 // 'database_count' => $databaseCount,
                 // 'schoolarship_count' => $schoolarshipCount,
                 // 'applicant_count' => $applicantCount,
-                // 'enrollment_count' => $enrollmentCount,
+                'enrollment_count' => $enrollmentCount,
                 'registration_count' => $registrationCount,
             ]);
         } catch (\Exception $e) {
