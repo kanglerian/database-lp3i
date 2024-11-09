@@ -931,24 +931,23 @@ class ApplicantController extends Controller
         $schoolInput = $request->input('school');
 
         if (empty($schoolInput)) {
-            $schoolInput = null;
-        }
-
-        $schoolCheck = School::where('id', $schoolInput)->first();
-        $schoolNameCheck = School::where('name', $schoolInput)->first();
-
-        if ($schoolCheck) {
-            $school = $schoolCheck->id;
+            $school = null;
         } else {
-            if ($schoolNameCheck) {
-                $school = $schoolNameCheck->id;
+            $schoolCheck = School::where('id', $schoolInput)->first();
+            $schoolNameCheck = School::where('name', $schoolInput)->first();
+            if ($schoolCheck) {
+                $school = $schoolCheck->id;
             } else {
-                $dataSchool = [
-                    'name' => strtoupper($schoolInput),
-                    'region' => 'TIDAK DIKETAHUI',
-                ];
-                $schoolCreate = School::create($dataSchool);
-                $school = $schoolCreate->id;
+                if ($schoolNameCheck) {
+                    $school = $schoolNameCheck->id;
+                } else {
+                    $dataSchool = [
+                        'name' => strtoupper($schoolInput),
+                        'region' => 'TIDAK DIKETAHUI',
+                    ];
+                    $schoolCreate = School::create($dataSchool);
+                    $school = $schoolCreate->id;
+                }
             }
         }
 
@@ -1368,7 +1367,6 @@ class ApplicantController extends Controller
                     }
                 }
             }
-
 
             $program = null;
 
