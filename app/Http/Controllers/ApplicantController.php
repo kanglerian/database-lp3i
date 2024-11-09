@@ -1347,24 +1347,24 @@ class ApplicantController extends Controller
 
             $schoolName = $applicants[$i][7];
 
-            $schoolCheck = School::where('id', $schoolName)->first();
-            $schoolNameCheck = School::where('name', $schoolName)->first();
-
-            if ($schoolCheck) {
-                $school = $schoolCheck->id;
+            if (empty($schoolName)) {
+                $school = null;
             } else {
-                if ($schoolNameCheck) {
-                    $school = $schoolNameCheck->id;
+                $schoolCheck = School::where('id', $schoolName)->first();
+                $schoolNameCheck = School::where('name', $schoolName)->first();
+            
+                if ($schoolCheck) {
+                    $school = $schoolCheck->id;
                 } else {
-                    if (!empty($schoolName)) {
+                    if ($schoolNameCheck) {
+                        $school = $schoolNameCheck->id;
+                    } else {
                         $dataSchool = [
                             'name' => strtoupper($schoolName),
                             'region' => 'TIDAK DIKETAHUI',
                         ];
                         $schoolCreate = School::create($dataSchool);
                         $school = $schoolCreate->id;
-                    } else {
-                        $school = null;
                     }
                 }
             }
