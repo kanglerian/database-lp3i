@@ -772,12 +772,13 @@
                     'Content-Type': 'application/json',
                 };
 
-                let bucket = [data, headers];
-
                 try {
-                    const misilResponse = await axios.post(`${URL_API_LP3I}/misil/integration`, bucket);
+                    const misilResponse = await axios.post(`https://backend-misilv4.politekniklp3i-tasikmalaya.ac.id/service/integration/marketing/save-aplikan`, data, {
+                        headers: headers
+                    });
+                    
                     alert(misilResponse.data.message);
-
+                    
                     await axios.post(`/integration`, {
                         identity_user: identity,
                         platform: 'misil',
@@ -806,7 +807,7 @@
                     const database = axios.get(`/api/database/${identityVal}`);
                     const programs = axios.get(`${URL_API_LP3I}/dashboard/programs`);
                     const misilAuth = axios.post(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/misil/token`, {
+                        `https://backend-misilv4.politekniklp3i-tasikmalaya.ac.id/service/auth/sign-in`, {
                             namaUser: "integrasi",
                             kataSandi: "IntegrasiMisil311"
                         });
