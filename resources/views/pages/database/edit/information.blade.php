@@ -396,15 +396,16 @@
                             results = programs.filter(program => program.type === "RPL");
                             break;
                         default:
+                            results = [];
+                            break;
                             document.getElementById('program').innerHTML =
                                 `<option value="0">Pilih Program Studi</option>`;
                             document.getElementById('program').disabled = true;
                             document.getElementById('program_second').innerHTML =
                                 `<option value="0">Pilih Program Studi</option>`;
                             document.getElementById('program_second').disabled = true;
-                            break;
                     }
-                    console.log(programs);
+                    console.log(results);
                     // if (programType !== 'NONE') {
                     //     if (results.length > 0) {
                     //         results.map((result) => {
