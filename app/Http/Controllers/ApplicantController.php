@@ -1507,6 +1507,8 @@ class ApplicantController extends Controller
             'session' => ['required'],
         ]);
 
+        dd($request->all());
+
         $applicant = Applicant::findOrFail($id);
         $data_applicant = [
             'is_applicant' => 1,
