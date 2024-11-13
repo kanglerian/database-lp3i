@@ -666,6 +666,7 @@
                     }
 
                     document.getElementById('session_aplikan').value = session;
+                    console.log(session);
                 }
 
                 aplikanSetting();
