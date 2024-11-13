@@ -47,7 +47,7 @@
                                 <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
                                     <option>Pilih program</option>
                                     @foreach ($programtypes as $programtype)
-                                        <option value="{{ $programtype->id }}">
+                                        <option value="{{ $programtype->id }}" data-code="{{ $programtype->code  }}">
                                             {{ $programtype->name }}
                                         </option>
                                     @endforeach
