@@ -404,7 +404,7 @@
                             document.getElementById('program_second').disabled = true;
                             break;
                     }
-                    console.log(results);
+                    console.log(programs);
                     // if (programType !== 'NONE') {
                     //     if (results.length > 0) {
                     //         results.map((result) => {
