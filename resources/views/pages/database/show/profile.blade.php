@@ -647,6 +647,7 @@
                 return confirm('Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.');
             }
         </script>
+        @dd($user->is_applicant, $status_applicant);
         @if (!$user->is_applicant && !$status_applicant)
             <script>
                 const aplikanSetting = () => {
