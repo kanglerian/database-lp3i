@@ -405,7 +405,7 @@
                                 `<option value="0">Pilih Program Studi</option>`;
                             document.getElementById('program_second').disabled = true;
                     }
-                    console.log(results);
+                    console.log(programType);
                     // if (programType !== 'NONE') {
                     //     if (results.length > 0) {
                     //         results.map((result) => {
