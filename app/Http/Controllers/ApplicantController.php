@@ -1502,8 +1502,6 @@ class ApplicantController extends Controller
     public function is_applicant(Request $request, $id)
     {
 
-        dd($request->all());
-        
         $request->validate([
             'change_pmb' => ['required'],
             'identity_user' => ['required'],
