@@ -404,31 +404,32 @@
                             document.getElementById('program_second').disabled = true;
                             break;
                     }
-                    if (programType !== 'NONE') {
-                        if (results.length > 0) {
-                            results.map((result) => {
-                                let option = '';
-                                result.interests.map((inter, index) => {
-                                    option +=
-                                        `<option value="${result.level} ${result.title}">${inter.name}</option>`;
-                                })
-                                bucket += `
-                            <optgroup label="${result.level} ${result.title} (${result.campus})">
-                                ${option}
-                            </optgroup>`;
-                            });
-                            document.getElementById('program').innerHTML = bucket;
-                            document.getElementById('program').disabled = false;
-                            document.getElementById('program_second').innerHTML = bucket;
-                            document.getElementById('program_second').disabled = false;
-                        } else {
-                            bucket = `<option value="0">Program Studi tidak tersedia</option>`;
-                            document.getElementById('program').innerHTML = bucket;
-                            document.getElementById('program').disabled = true;
-                            document.getElementById('program_second').innerHTML = bucket;
-                            document.getElementById('program_second').disabled = true;
-                        }
-                    }
+                    console.log(results);
+                    // if (programType !== 'NONE') {
+                    //     if (results.length > 0) {
+                    //         results.map((result) => {
+                    //             let option = '';
+                    //             result.interests.map((inter, index) => {
+                    //                 option +=
+                    //                     `<option value="${result.level} ${result.title}">${inter.name}</option>`;
+                    //             })
+                    //             bucket += `
+                    //         <optgroup label="${result.level} ${result.title} (${result.campus})">
+                    //             ${option}
+                    //         </optgroup>`;
+                    //         });
+                    //         document.getElementById('program').innerHTML = bucket;
+                    //         document.getElementById('program').disabled = false;
+                    //         document.getElementById('program_second').innerHTML = bucket;
+                    //         document.getElementById('program_second').disabled = false;
+                    //     } else {
+                    //         bucket = `<option value="0">Program Studi tidak tersedia</option>`;
+                    //         document.getElementById('program').innerHTML = bucket;
+                    //         document.getElementById('program').disabled = true;
+                    //         document.getElementById('program_second').innerHTML = bucket;
+                    //         document.getElementById('program_second').disabled = true;
+                    //     }
+                    // }
                 })
                 .catch((err) => {
                     console.log(err.message);
