@@ -24,7 +24,7 @@
                     <x-select id="programtype_id" onchange="filterProgram()" name="programtype_id" required>
                         <option value="0">Pilih program</option>
                         @forelse ($programtypes as $programtype)
-                            <option value="{{ $programtype->code }}" data-code="{{ $programtype->code }}">{{ $programtype->name }}</option>
+                            <option value="{{ $programtype->id }}" data-code="{{ $programtype->code }}">{{ $programtype->name }}</option>
                         @empty
                             <option value="Reguler">Reguler</option>
                         @endforelse
