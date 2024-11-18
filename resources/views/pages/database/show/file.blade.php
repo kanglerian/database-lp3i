@@ -33,7 +33,7 @@
                 <div class="p-8 sm:p-8 bg-gray-50 border border-gray-200 rounded-3xl">
                     <header>
                         <h2 class="text-lg font-bold text-gray-900">
-                            Berkass {{ $user->name }}
+                            Berkas {{ $user->name }}
                         </h2>
                         <p class="mt-1 text-sm text-gray-600">
                             Tabel di bawah ini berisi berkas yang diunggah oleh pemilik akun.
