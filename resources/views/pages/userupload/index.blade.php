@@ -215,7 +215,7 @@
                 namefile: namefile,
                 typefile: typefile,
             }
-            await axios.delete(`${URL_API_LP3I}/pmbonline/delete`, {
+            await axios.delete(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id/delete`, {
                     params: data
                 })
                 .then((res) => {
@@ -256,7 +256,7 @@
 @push('scripts')
 <script>
     const checkServer = async () => {
-        await axios.get(`${URL_API_LP3I}/pmbonline`)
+        await axios.get(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id`)
             .then((response) => {
                 console.log(response.data);
                 if (response.status == 200) {
