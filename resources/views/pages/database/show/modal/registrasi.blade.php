@@ -62,7 +62,7 @@
                     <section class="flex flex-col md:flex-row justify-between gap-5" id="page-1">
                         @if ($profile->avatar)
                             <div class="flex flex-col items-center w-full md:w-1/4 space-y-2">
-                                <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
+                                <img src="https://uploadhub.politekniklp3i-tasikmalaya.ac.id/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
                                     alt="Avatar" width="100%" height="100%" class="items-right rounded-xl">
                             </div>
                         @else
@@ -614,7 +614,7 @@
                     <section class="flex flex-col md:flex-row justify-between gap-5" id="page-1">
                         @if ($profile->avatar)
                             <div class="flex flex-col items-center w-full md:w-1/4 space-y-2">
-                                <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
+                                <img src="https://uploadhub.politekniklp3i-tasikmalaya.ac.id/download?identity={{ $profile->identity }}&filename={{ $profile->identity }}-{{ $profile->avatar }}"
                                     alt="Avatar" width="100%" height="100%" class="items-right rounded-xl">
                             </div>
                         @else

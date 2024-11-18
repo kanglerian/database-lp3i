@@ -137,7 +137,7 @@
                         <button
                             class="flex overflow-hidden gap-3 rounded-lg items-center text-sm font-medium text-gray-500 focus:outline-none transition duration-150 ease-in-out">
                             @if (Auth::user()->avatar)
-                                <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
+                                <img src="https://uploadhub.politekniklp3i-tasikmalaya.ac.id/download?identity={{ Auth::user()->identity }}&filename={{ Auth::user()->identity }}-{{ Auth::user()->avatar }}"
                                     alt="Avatar" class="h-10 rounded-full">
                             @else
                                 @if (Auth::user()->gender)

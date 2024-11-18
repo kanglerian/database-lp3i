@@ -58,7 +58,7 @@
                                                 <button
                                                     class="inline-block bg-green-500 hover:bg-green-600 px-3 py-1 rounded-md text-xs text-white"><i
                                                         class="fa-solid fa-circle-check"></i></button>
-                                                <a href="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
+                                                <a href="https://uploadhub.politekniklp3i-tasikmalaya.ac.id/download?identity={{ $suc->identity_user }}&filename={{ $suc->identity_user }}-{{ $suc->fileupload->namefile }}.{{ $suc->typefile }}"
                                                     class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                         class="fa-solid fa-download"></i></a>
                                                 <button

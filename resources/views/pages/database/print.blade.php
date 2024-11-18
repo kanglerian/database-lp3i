@@ -133,7 +133,7 @@
                     <p>Program Studi {{ $applicant->program == null ? '_______________' : $applicant->program }}</p>
                 </div>
                 @if ($user->avatar)
-                    <img src="{{ env('API_LP3I') }}/pmbonline/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
+                    <img src="https://uploadhub.politekniklp3i-tasikmalaya.ac.id/download?identity={{ $user->identity }}&filename={{ $user->identity }}-{{ $user->avatar }}"
                         alt="Avatar" width="110px">
                 @else
                     <div
