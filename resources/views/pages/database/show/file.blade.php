@@ -233,6 +233,10 @@
                 }
                 await axios.delete(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id/delete`, {
                         params: data
+                    },{
+                        headers: {
+                            'lp3i-api-key': 'cdbdb5ea29b98565'
+                        }
                     })
                     .then((res) => {
                         alert('Berhasil dihapus!');
