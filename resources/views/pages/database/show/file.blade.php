@@ -75,7 +75,8 @@
                                             <td class="loading-form px-6 py-4" colspan="2"
                                                 id="loading-form-{{ $upload->namefile }}">
                                                 <form action="javascript:void(0)" enctype="multipart/form-data"
-                                                    class="inline-block" id="form-{{ $upload->namefile }}" method="POST">
+                                                    class="inline-block" id="form-{{ $upload->namefile }}"
+                                                    method="POST">
                                                     @csrf
                                                     <div>
                                                         <input type="hidden" name="fileupload_id"
@@ -180,10 +181,10 @@
                     }
 
                     await axios.post(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id/upload`, data, {
-                        headers: {
-                            'lp3i-api-key': 'cdbdb5ea29b98565'
-                        }
-                    })
+                            headers: {
+                                'lp3i-api-key': 'cdbdb5ea29b98565'
+                            }
+                        })
                         .then((res) => {
                             alert('Berhasil diupload!');
                             loadingForm.removeChild(loadingElement);
@@ -232,11 +233,10 @@
                     typefile: typefile,
                 }
                 await axios.delete(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id/delete`, {
-                        params: data
-                    },{
                         headers: {
                             'lp3i-api-key': 'cdbdb5ea29b98565'
-                        }
+                        },
+                        params: data
                     })
                     .then((res) => {
                         alert('Berhasil dihapus!');
