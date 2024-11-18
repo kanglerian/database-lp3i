@@ -179,7 +179,11 @@
                         typefile: berkas.name.split('.').pop(),
                     }
 
-                    await axios.post(`${URL_API_LP3I}/pmbonline/upload`, data)
+                    await axios.post(`https://uploadhub.politekniklp3i-tasikmalaya.ac.id/upload`, data, {
+                        headers: {
+                            'lp3i-api-key': 'cdbdb5ea29b98565'
+                        }
+                    })
                         .then((res) => {
                             alert('Berhasil diupload!');
                             loadingForm.removeChild(loadingElement);
