@@ -61,7 +61,7 @@
                                                 class="bg-sky-500 px-3 py-1 rounded-md text-xs text-white""><i
                                                     class="fa-solid fa-download"></i></a>
                                             @if (!$applicant->is_register)
-                                                <button
+                                                <button type="button"
                                                     onclick="event.preventDefault(); deleteBerkas('{{ $suc->id }}','{{ $suc->fileupload->namefile }}', '{{ $suc->typefile }}', '{{ $suc->identity_user }}')"
                                                     class="inline-block bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-xs text-white">
                                                     <i class="fa-solid fa-trash"></i>
@@ -86,9 +86,9 @@
                                                         value="{{ $upload->namefile }}">
                                                     <input type="file" name="berkas"
                                                         onchange="notifButton('{{ $upload->namefile }}')"
-                                                        id="berkas-{{ $upload->namefile }}" class="text-sm"
+                                                        id="berkas-{{ $upload->namefile }}" class="text-xs"
                                                         accept="{{ $upload->accept }}">
-                                                    <button id="button-{{ $upload->namefile }}"
+                                                    <button id="button-{{ $upload->namefile }}" type="button"
                                                         onclick="uploadBerkas('{{ $upload->id }}','{{ $upload->namefile }}','{{ $identity }}')"
                                                         class="hidden bg-sky-500 hover:bg-sky-600 px-3 py-1 rounded-md text-xs text-white">
                                                         <i class="fa-solid fa-upload"></i>
