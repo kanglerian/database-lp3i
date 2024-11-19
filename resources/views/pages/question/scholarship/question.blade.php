@@ -14,7 +14,8 @@
                         <div class="flex items-center">
                             <i class="fa-solid fa-chevron-right text-gray-300 mr-2"></i>
                             <a href="{{ route('scholarship.index') }}"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">SBPMB Online</a>
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">SBPMB
+                                Online</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -46,8 +47,7 @@
                 </div>
             @endif
             @if (session('error'))
-                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl"
-                    role="alert">
+                <div id="alert" class="flex items-center p-4 mb-4 bg-red-500 text-red-50 rounded-xl" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <div class="ml-3 text-sm font-medium">
                         {{ session('error') }}
@@ -102,7 +102,11 @@
 
 <script>
     const showAnswers = async (question) => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers/question/${question}`)
+        await axios.get(`https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/answers/question/${question}`, {
+                headers: {
+                    'lp3i-api-key': '5070de3b8c238dc6'
+                }
+            })
             .then((response) => {
                 let message = '';
                 const answers = response.data;
@@ -138,13 +142,17 @@
 </script>
 
 <script>
-    var urlData = `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`;
+    var urlData = `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/questions`;
     var dataTableInitialized = false;
     var dataTableInstance;
 
     const getDataTable = async () => {
         try {
-            const response = await axios.get(urlData);
+            const response = await axios.get(urlData, {
+                headers: {
+                    'lp3i-api-key': '5070de3b8c238dc6'
+                }
+            });
             const data = response.data;
             document.getElementById('count_questions').innerText = data.length;
             const manualColumns = [{
@@ -205,7 +213,11 @@
     const deleteRecord = async (id) => {
         const confirmation = confirm('Apakah anda yakin untuk menghapus pertanyaan ini?');
         if (confirmation) {
-            await axios.delete(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions/${id}`)
+            await axios.delete(`https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/questions/${id}`, {
+                    headers: {
+                        'lp3i-api-key': '5070de3b8c238dc6'
+                    }
+                })
                 .then((response) => {
                     getDataTable();
                 })

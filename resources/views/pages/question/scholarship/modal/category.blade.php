@@ -43,8 +43,12 @@
         e.preventDefault();
         const categoryInput = e.target.elements.category;
         if (categoryInput.value) {
-            await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`, {
+            await axios.post(`https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/categories`, {
                     name: categoryInput.value,
+                }, {
+                    headers: {
+                        'lp3i-api-key': '5070de3b8c238dc6'
+                    }
                 })
                 .then((response) => {
                     alert(response.data.message);

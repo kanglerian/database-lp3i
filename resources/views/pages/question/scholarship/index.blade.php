@@ -56,7 +56,8 @@
             @endif
 
             <div class="flex justify-start items-center gap-3 mx-2 py-2">
-                <div class="flex justify-center md:justify-start items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
+                <div
+                    class="flex justify-center md:justify-start items-end flex-wrap md:flex-nowrap text-gray-500 md:gap-3">
                     <div class="flex flex-col space-y-1 p-1 md:p-0">
                         <label for="change_pmb" class="text-xs">Periode PMB:</label>
                         <input type="number" id="change_pmb"
@@ -186,8 +187,18 @@
                 return new Promise(async (resolve, reject) => {
                     try {
                         const [responseHistories, responseCategories] = await Promise.all([
-                            axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories`),
-                            axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`)
+                            axios.get(
+                                `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/histories`, {
+                                    headers: {
+                                        'lp3i-api-key': '5070de3b8c238dc6'
+                                    }
+                                }),
+                            axios.get(
+                                `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/categories`, {
+                                    headers: {
+                                        'lp3i-api-key': '5070de3b8c238dc6'
+                                    }
+                                })
                         ]);
 
                         const responseApplicants = await axios.get(url);
@@ -295,7 +306,7 @@
 
                         resolve(results);
                     } catch (error) {
-                        
+
                         reject(error)
                     }
                 });
@@ -327,9 +338,19 @@
                 try {
                     const [responseRecords, responseQuestions] = await Promise.all([
                         axios.get(
-                            `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                            `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/records?identity_user=${history.identity_user}&category=${history.category_id}`, {
+                                headers: {
+                                    'lp3i-api-key': '5070de3b8c238dc6'
+                                }
+                            }
                         ),
-                        axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`)
+                        axios.get(
+                            `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/questions?category=${history.category_id}`, {
+                                headers: {
+                                    'lp3i-api-key': '5070de3b8c238dc6'
+                                }
+                            }
+                        )
                     ]);
 
                     let identity = history.identity_user;

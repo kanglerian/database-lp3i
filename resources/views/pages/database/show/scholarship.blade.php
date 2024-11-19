@@ -67,11 +67,19 @@
                 try {
                     let identity = document.getElementById('identity_val').value;
                     const responseHistories = await axios.get(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories?identity_user=${identity}`
+                        `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/histories?identity_user=${identity}`, {
+                            headers: {
+                                'lp3i-api-key': '5070de3b8c238dc6'
+                            }
+                        }
                     );
 
                     const responseCategories = await axios.get(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`
+                        `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/categories`, {
+                            headers: {
+                                'lp3i-api-key': '5070de3b8c238dc6'
+                            }
+                        }
                     );
                     let histories = responseHistories.data;
                     let categories = responseCategories.data;
@@ -141,10 +149,18 @@
             const getRecords = async (history) => {
                 try {
                     const responseRecords = await axios.get(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/records?identity_user=${history.identity_user}&category=${history.category_id}`
+                        `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/records?identity_user=${history.identity_user}&category=${history.category_id}`, {
+                            headers: {
+                                'lp3i-api-key': '5070de3b8c238dc6'
+                            }
+                        }
                     );
                     const responseQuestions = await axios.get(
-                        `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions?category=${history.category_id}`
+                        `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/questions?category=${history.category_id}`, {
+                            headers: {
+                                'lp3i-api-key': '5070de3b8c238dc6'
+                            }
+                        }
                     );
 
                     let category = history.category.name;
@@ -185,7 +201,11 @@
                     const input = prompt(`Silahkan ketik: ${identityUser}`)
                     if (input == identityUser) {
                         await axios.delete(
-                                `https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/histories/${identityUser}/${idCategory}`
+                                `https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/histories/${identityUser}/${idCategory}`, {
+                                    headers: {
+                                        'lp3i-api-key': '5070de3b8c238dc6'
+                                    }
+                                }
                             )
                             .then((response) => {
                                 alert(response.data.message);

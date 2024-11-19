@@ -161,7 +161,11 @@
 
 <script>
     const getCategories = async () => {
-        await axios.get(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/categories`)
+        await axios.get(`https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/categories`, {
+                headers: {
+                    'lp3i-api-key': '5070de3b8c238dc6'
+                }
+            })
             .then((response) => {
                 let bucket = '';
                 let categories = response.data;
@@ -205,7 +209,11 @@
                 category_id: target[0].value,
                 question: question,
             }
-            await axios.post(`https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/questions`, dataQuestion)
+            await axios.post(`https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/questions`, dataQuestion, {
+                    headers: {
+                        'lp3i-api-key': '5070de3b8c238dc6'
+                    }
+                })
                 .then(async (response) => {
                     let id = response.data.id;
                     let answers = [{
@@ -230,10 +238,13 @@
                         answers.map(async (answer) => {
                             try {
                                 const response = await axios.post(
-                                    'https://api.politekniklp3i-tasikmalaya.ac.id/scholarship/answers',
-                                    answer
+                                    'https://sbpmb-backend.politekniklp3i-tasikmalaya.ac.id/answers',
+                                    answer, {
+                                        headers: {
+                                            'lp3i-api-key': '5070de3b8c238dc6'
+                                        }
+                                    }
                                 );
-                                console.log(response.data);
                                 let modal = document.getElementById(
                                     'modal-add-test-scholarship');
                                 modal.classList.add('hidden');
