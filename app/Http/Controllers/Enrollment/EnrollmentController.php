@@ -197,9 +197,9 @@ class EnrollmentController extends Controller
             "email" => $applicant->email,
             "presenter" => $applicant->presenter->name,
         ];
-        Mail::to($applicant->email)->send(
-            new EnrollmentConfirmationMail($data)
-        );
+        // Mail::to($applicant->email)->send(
+        //     new EnrollmentConfirmationMail($data)
+        // );
         return back()->with(
             "message",
             "Data daftar berhasil ditambahkan, notifikasi email sudah terkirim!"

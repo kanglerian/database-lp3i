@@ -185,9 +185,9 @@ class RegistrationController extends Controller
             "password" => $applicant->phone,
             "presenter" => $applicant->presenter->name,
         ];
-        Mail::to($applicant->email)->send(
-            new RegistrationConfirmationMail($data)
-        );
+        // Mail::to($applicant->email)->send(
+        //     new RegistrationConfirmationMail($data)
+        // );
         return back()->with(
             "message",
             "Data registrasi berhasil ditambahkan, notifikasi email sudah terkirim!"
