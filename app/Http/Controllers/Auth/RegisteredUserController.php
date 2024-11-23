@@ -104,7 +104,7 @@ class RegisteredUserController extends Controller {
                 'phone.string' => 'Nomor Telepon harus berupa string, nih!',
                 'phone.min' => 'Nomor Telepon harus memiliki setidaknya 10 digit, pastikan benar ya!',
                 'phone.max' => 'Nomor Telepon tidak boleh lebih dari 15 digit, pastikan benar ya!',
-                'phone.unique' => 'Nomor Telepon sudah terdaftar, gunakan nomor lain ya!',
+                'phone.unique' => 'Nomor Telepon sudah terdaftar, butuh bantuan? klik tombol bantuan ya!',
                 'password.required' => 'Password jangan sampai kosong, ya!',
                 'password.confirmed' => 'Konfirmasi password tidak sesuai, cek lagi ya!',
             ],
