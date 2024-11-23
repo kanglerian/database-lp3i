@@ -30,7 +30,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                    {{ __('Lupa password?') }}
+                    {{ __('Lupa kata sandi?') }}
                 </a>
             </div>
 
@@ -39,9 +39,12 @@
                 <span>{{ __('Masuk') }}</span>
             </button>
 
-            <div class="text-center mt-3">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-5 mt-5">
+                <a class="underline text-sm text-gray-600 hover:text-gray-700" href="{{ route('register') }}">
                     {{ __('Belum memiliki akun?') }}
+                </a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-700" target="_blank" href="https://politekniklp3i-tasikmalaya.ac.id/conflict-register">
+                    {{ __('Bantuan?') }}
                 </a>
             </div>
         </form>
