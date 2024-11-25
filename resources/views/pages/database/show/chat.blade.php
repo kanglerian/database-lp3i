@@ -13,8 +13,7 @@
             </div>
         @endif
         @if (session('message'))
-            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg"
-                role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-400 text-white rounded-lg" role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
@@ -38,11 +37,12 @@
                             class="bg-lp3i-100 hover:bg-lp3i-200 px-5 py-2.5 text-sm rounded-xl text-white"><i
                                 class="fa-solid fa-circle-plus"></i> Tambah Data</button>
                     </div>
-    
+
                     <div class="p-6">
                         <ol class="relative border-l border-gray-200" id="histories">
                             <li class="mb-10 ml-4">
-                                <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
+                                <div
+                                    class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white">
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-900">Chat</h3>
                                 <p class="mb-4 text-base font-normal text-gray-500">Pesan tidak ada...</p>
@@ -123,7 +123,11 @@
         <script src="{{ asset('js/axios.min.js') }}"></script>
         <script>
             const checkServer = async () => {
-                await axios.get(`${URL_API_LP3I}/history`)
+                await axios.get(`https://history-chat.politekniklp3i-tasikmalaya.ac.id`, {
+                        headers: {
+                            'lp3i-api-key': '8137cd04674735e5',
+                        },
+                    })
                     .then((response) => {
                         if (response.status == 200) {
                             $('#content').show();
@@ -181,7 +185,11 @@
 
                 switch (type) {
                     case 'Simpan':
-                        await axios.post(`${URL_API_LP3I}/history/store`, formData)
+                        await axios.post(`https://history-chat.politekniklp3i-tasikmalaya.ac.id/store`, formData, {
+                                headers: {
+                                    'lp3i-api-key': '8137cd04674735e5',
+                                },
+                            })
                             .then((res) => {
                                 alert('Berhasil disimpan!');
                                 location.reload();
@@ -192,7 +200,12 @@
                         break;
                     case 'Simpan Perubahan':
                         const id = document.getElementById('id').value;
-                        await axios.post(`${URL_API_LP3I}/history/update/${id}`, formData)
+                        await axios.post(`https://history-chat.politekniklp3i-tasikmalaya.ac.id/update/${id}`,
+                                formData, {
+                                    headers: {
+                                        'lp3i-api-key': '8137cd04674735e5',
+                                    },
+                                })
                             .then((res) => {
                                 alert('Berhasil diupdate!');
                                 location.reload();
@@ -208,7 +221,11 @@
             const deleteChat = async (id) => {
                 let confirmed = confirm('Apakah yakin akan dihapus?');
                 if (confirmed) {
-                    await axios.post(`${URL_API_LP3I}/history/delete/${id}`)
+                    await axios.post(`https://history-chat.politekniklp3i-tasikmalaya.ac.id/delete/${id}`, {
+                            headers: {
+                                'lp3i-api-key': '8137cd04674735e5',
+                            },
+                        })
                         .then((res) => {
                             alert('Berhasil dihapus!');
                             location.reload();
@@ -223,7 +240,11 @@
                 let phone = document.getElementById('phone').getAttribute('data-phone');
                 if (phone) {
                     let bucket = '';
-                    await axios.get(`${URL_API_LP3I}/history/phone/${phone}`)
+                    await axios.get(`https://history-chat.politekniklp3i-tasikmalaya.ac.id/phone/${phone}`, {
+                            headers: {
+                                'lp3i-api-key': '8137cd04674735e5',
+                            },
+                        })
                         .then((response) => {
                             let histories = response.data;
                             if (histories.length > 0) {

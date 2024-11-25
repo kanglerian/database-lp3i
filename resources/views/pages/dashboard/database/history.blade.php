@@ -108,7 +108,11 @@
     </script>
     <script>
         const checkServer = async () => {
-            await axios.get(`${URL_API_LP3I}/history`)
+            await axios.get(`https://history-chat.politekniklp3i-tasikmalaya.ac.id`, {
+                    headers: {
+                        'lp3i-api-key': '8137cd04674735e5',
+                    },
+                })
                 .then((response) => {
                     if (response.status == 200) {
                         $('#content').show();
@@ -167,7 +171,11 @@
                 for (let i = 0; i < presenters.length; i++) {
 
                     const responseHistories = await axios.get(
-                        `${URL_API_LP3I}/history/detail/${pmbVal}/${presenters[i].identity}`
+                        `https://history-chat.politekniklp3i-tasikmalaya.ac.id/detail/${pmbVal}/${presenters[i].identity}`, {
+                            headers: {
+                                'lp3i-api-key': '8137cd04674735e5',
+                            },
+                        }
                     );
                     const databasesPhone = responseDatabase.data.database_phone;
                     const databasesCount = responseDatabase.data.database_count;

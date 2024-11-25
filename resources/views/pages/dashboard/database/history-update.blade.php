@@ -9,7 +9,13 @@
                     identity: identity,
                     pmb: 2024
                 }
-                await axios.patch(`${URL_API_LP3I}/history/update/${database[i].phone}`, data)
+                await axios.patch(
+                        `https://history-chat.politekniklp3i-tasikmalaya.ac.id/update/${database[i].phone}`,
+                        data, {
+                            headers: {
+                                'lp3i-api-key': '8137cd04674735e5',
+                            },
+                        })
                     .then((response) => {
                         console.log(response.data.message);
                     })
