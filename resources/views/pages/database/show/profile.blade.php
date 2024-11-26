@@ -293,11 +293,11 @@
                                             @else
                                                 <form action="{{ route('database.is_applicant', $user->id) }}"
                                                     method="GET">
-                                                    <input type="hidden" name="change_pmb"
+                                                    <input type="text" name="change_pmb"
                                                         value="{{ $user->pmb }}">
-                                                    <input type="hidden" id="session_aplikan" maxlength="1"
+                                                    <input type="text" id="session_aplikan" maxlength="1"
                                                         name="session">
-                                                    <input type="hidden" name="identity_user"
+                                                    <input type="text" name="identity_user"
                                                         value="{{ $user->identity }}">
                                                     <label class="relative inline-flex items-center cursor-pointer">
                                                         <input type="checkbox" class="sr-only peer">
