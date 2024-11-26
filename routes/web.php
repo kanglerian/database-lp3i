@@ -111,6 +111,7 @@ Route::middleware(['auth', 'status:1', 'role:P'])->group(function () {
     Route::get('get/databases', [ApplicantController::class, 'get_all'])->name('database.get');
     Route::get('get/databasesbeasiswa', [ApplicantController::class, 'get_beasiswa'])->name('database.getbeasiswa');
     Route::get('isapplicant/{identity?}', [ApplicantController::class, 'is_applicant'])->name('database.is_applicant');
+    Route::delete('isapplicant/{identity?}', [ApplicantController::class, 'delete_is_applicant'])->name('database.delete_is_applicant');
     Route::get('isschoolarship/{identity?}', [ApplicantController::class, 'is_schoolarship'])->name('database.is_schoolarship');
     Route::get('chat/{identity?}', [ApplicantController::class, 'chats'])->name('database.chat');
     Route::get('file/{identity?}', [ApplicantController::class, 'files'])->name('database.file');

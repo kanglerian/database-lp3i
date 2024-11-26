@@ -1524,6 +1524,18 @@ class ApplicantController extends Controller
         return back()->with('message', 'Data aplikan berhasil diupdate');
     }
 
+    public function delete_is_applicant($id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $data_applicant = [
+            'is_applicant' => 0,
+        ];
+        $status_applicant = StatusApplicantsApplicant::where('identity_user', $applicant->identity)->firstOrFail();
+        $applicant->update($data_applicant);
+        $status_applicant->delete();
+        return back()->with('message', 'Data aplikan berhasil dihapus');
+    }
+
     /**
      * Update the specified resource in storage.
      *

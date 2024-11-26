@@ -274,14 +274,11 @@ class RegistrationController extends Controller
      */
     public function destroy($id)
     {
-        $registration = StatusApplicantsRegistration::findOrFail($id);
+        $applicant = Applicant::findOrFail($id)->firstOrFail();
+        $registration = StatusApplicantsRegistration::where('identity_user', $applicant->identity)->firstOrFail();
         $data = [
             "is_register" => 0,
         ];
-        $applicant = Applicant::where(
-            "identity",
-            $registration->identity_user
-        )->first();
         $applicant->update($data);
         $registration->delete();
         return back()->with("message", "Data registrasi berhasil dihapus!");

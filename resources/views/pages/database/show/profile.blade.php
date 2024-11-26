@@ -493,22 +493,34 @@
                         <hr>
                         <section class="flex flex-col gap-3">
                             @if ($user->is_applicant && $status_applicant)
-                                <div class="space-y-2">
-                                    <h2 class="text-sm font-semibold text-gray-900">Aplikan:</h2>
-                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
-                                            <span class="inline-block mr-2">Tanggal:
-                                                <span class="underline">{{ $status_applicant->date }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-timeline text-gray-400"></i>
-                                            <span class="inline-block mr-2">Gelombang:
-                                                <span class="underline">{{ $status_applicant->session }}</span>
-                                            </span>
-                                        </li>
-                                    </ul>
+                                <div class="flex justify-between items-end">
+                                    <div class="space-y-2">
+                                        <h2 class="text-sm font-semibold text-gray-900">Aplikan:</h2>
+                                        <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                                <span class="inline-block mr-2">Tanggal:
+                                                    <span class="underline">{{ $status_applicant->date }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-solid fa-timeline text-gray-400"></i>
+                                                <span class="inline-block mr-2">Gelombang:
+                                                    <span class="underline">{{ $status_applicant->session }}</span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @if ($status_applicant && !$enrollment)
+                                    <form action="{{ route('database.delete_is_applicant', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                    @endif
                                 </div>
                             @else
                                 <p class="text-sm text-gray-600">
@@ -517,6 +529,7 @@
                                 </p>
                             @endif
                             @if ($enrollment)
+                            <div class="flex justify-between items-end">
                                 <div class="space-y-2">
                                     <h2 class="text-sm font-semibold text-gray-900">Daftar:</h2>
                                     <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
@@ -581,6 +594,17 @@
                                         </li>
                                     </ul>
                                 </div>
+                                @if ($status_applicant && $enrollment && !$registration)
+                                <form action="{{ route('enrollment.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                                @endif
+                            </div>
                             @else
                                 <p class="text-sm text-gray-600">
                                     <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
@@ -588,6 +612,7 @@
                                 </p>
                             @endif
                             @if ($registration)
+                            <div class="flex justify-between items-end">
                                 <div class="space-y-2">
                                     <h2 class="text-sm font-semibold text-gray-900">Registrasi:</h2>
                                     <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
@@ -620,6 +645,15 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <form action="{{ route('registration.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
                             @else
                                 <p class="text-sm text-gray-600">
                                     <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
