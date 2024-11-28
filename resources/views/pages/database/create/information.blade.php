@@ -31,7 +31,8 @@
                         <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
                             <option value="0">Pilih program</option>
                             @forelse ($programtypes as $programtype)
-                                <option value="{{ $programtype->id }}" data-code="{{ $programtype->code  }}">{{ $programtype->name }}</option>
+                                <option value="{{ $programtype->id }}" data-code="{{ $programtype->code }}">
+                                    {{ $programtype->name }}</option>
                             @empty
                                 <option value="Reguler Pagi">Reguler Pagi</option>
                             @endforelse
@@ -174,7 +175,11 @@
             let programTypeElement = document.getElementById('programtype_id');
             let selectedOption = programTypeElement.options[programTypeElement.selectedIndex];
             let programType = selectedOption.getAttribute('data-code');
-            await axios.get('https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/programs')
+            await axios.get('https://endpoint.politekniklp3i-tasikmalaya.ac.id/programs', {
+                    headers: {
+                        'lp3i-api-key': 'b35e0a901904d293'
+                    }
+                })
                 .then((res) => {
                     let programs = res.data;
                     var results;
@@ -190,9 +195,11 @@
                             results = programs.filter(program => program.type === "RPL");
                             break;
                         default:
-                            document.getElementById('program').innerHTML = `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program').innerHTML =
+                                `<option value="0">Pilih Program Studi</option>`;
                             document.getElementById('program').disabled = true;
-                            document.getElementById('program_second').innerHTML = `<option value="0">Pilih Program Studi</option>`;
+                            document.getElementById('program_second').innerHTML =
+                                `<option value="0">Pilih Program Studi</option>`;
                             document.getElementById('program_second').disabled = true;
                             break;
                     }

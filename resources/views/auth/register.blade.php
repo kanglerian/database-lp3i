@@ -287,7 +287,11 @@
         let programTypeElement = document.getElementById('programtype_id');
         let selectedOption = programTypeElement.options[programTypeElement.selectedIndex];
         let programType = selectedOption.getAttribute('data-code');
-        await axios.get('https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/programs')
+        await axios.get('https://endpoint.politekniklp3i-tasikmalaya.ac.id/programs',{
+            headers: {
+                'lp3i-api-key': 'b35e0a901904d293'
+            }
+        })
             .then((res) => {
                 let programs = res.data;
                 var results;

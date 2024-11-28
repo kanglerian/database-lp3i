@@ -17,8 +17,12 @@
                     <header>
                         <ul class="text-sm text-gray-800 space-y-1 list-disc ml-4">
                             <li>Tipe: <span class="underline font-bold">{{ $applicant->programType->name }}</span></li>
-                            <li>Prodi 1: <span class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span></li>
-                            <li>Prodi 2: <span class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span></li>
+                            <li>Prodi 1: <span
+                                    class="underline font-bold">{{ $applicant->program ?? 'Belum diketahui' }}</span>
+                            </li>
+                            <li>Prodi 2: <span
+                                    class="underline font-bold">{{ $applicant->program_second ?? 'Belum diketahui' }}</span>
+                            </li>
                         </ul>
                         <button onclick="majorSetting()" type="button"
                             class="mt-2 text-xs text-white bg-yellow-500 hover:bg-yellow-600 px-5 py-1 rounded-lg">Ubah</button>
@@ -35,10 +39,11 @@
                         <div class="relative z-0 w-full group">
                             <x-label for="programtype_id" :value="__('Program Kuliah')" />
                             @if ($applicant->programtype_id && $applicant->program && $applicant->program_second)
-                                <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required disabled>
+                                <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required
+                                    disabled>
                                     <option>Pilih program</option>
                                     @foreach ($programtypes as $programtype)
-                                        <option value="{{ $programtype->id }}" data-code="{{ $programtype->code  }}">
+                                        <option value="{{ $programtype->id }}" data-code="{{ $programtype->code }}">
                                             {{ $programtype->name }}
                                         </option>
                                     @endforeach
@@ -47,7 +52,7 @@
                                 <x-select id="programtype_id" name="programtype_id" onchange="filterProgram()" required>
                                     <option>Pilih program</option>
                                     @foreach ($programtypes as $programtype)
-                                        <option value="{{ $programtype->id }}" data-code="{{ $programtype->code  }}">
+                                        <option value="{{ $programtype->id }}" data-code="{{ $programtype->code }}">
                                             {{ $programtype->name }}
                                         </option>
                                     @endforeach
@@ -131,8 +136,8 @@
                     @endif
                     <div class="relative z-0 w-full group">
                         <x-label for="pmb" :value="__('Tahun Akademik')" />
-                        <x-input id="pmb" type="number" name="pmb" maxlength="4" value="{{ $applicant->pmb }}"
-                            placeholder="Tahun Akademik" required />
+                        <x-input id="pmb" type="number" name="pmb" maxlength="4"
+                            value="{{ $applicant->pmb }}" placeholder="Tahun Akademik" required />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('pmb'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('pmb') }}</span>
@@ -240,8 +245,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="relative z-0 w-full group">
                         <x-label for="email" :value="__('Email')" />
-                        <x-input id="email" type="email" name="email" maxlength="50"  value="{{ $applicant->email }}"
-                            placeholder="Email" />
+                        <x-input id="email" type="email" name="email" maxlength="50"
+                            value="{{ $applicant->email }}" placeholder="Email" />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('email'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('email') }}</span>
@@ -252,8 +257,8 @@
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-label for="phone" :value="__('No. Whatsapp')" />
-                        <x-input id="phone" type="number"  name="phone" maxlength="14" value="{{ $applicant->phone }}"
-                            placeholder="Tulis no. Whatsapp disini..." />
+                        <x-input id="phone" type="number" name="phone" maxlength="14"
+                            value="{{ $applicant->phone }}" placeholder="Tulis no. Whatsapp disini..." />
                         <p class="mt-2 text-xs text-gray-500">
                             @if ($errors->has('phone'))
                                 <span class="text-red-500 text-xs">{{ $errors->first('phone') }}</span>
@@ -380,7 +385,11 @@
             let programTypeElement = document.getElementById('programtype_id');
             let selectedOption = programTypeElement.options[programTypeElement.selectedIndex];
             let programType = selectedOption.getAttribute('data-code');
-            await axios.get('https://api.politekniklp3i-tasikmalaya.ac.id/dashboard/programs')
+            await axios.get('https://endpoint.politekniklp3i-tasikmalaya.ac.id/programs', {
+                    headers: {
+                        'lp3i-api-key': 'b35e0a901904d293'
+                    }
+                })
                 .then((res) => {
                     let programs = res.data;
                     var results;
