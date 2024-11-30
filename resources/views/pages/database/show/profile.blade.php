@@ -5,7 +5,8 @@
 
     <main>
         @if (session('message'))
-            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl" role="alert">
+            <div id="alert" class="flex items-center p-4 mb-4 bg-emerald-500 text-emerald-50 rounded-2xl"
+                role="alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="ml-3 text-sm font-reguler">
                     {{ session('message') }}
@@ -314,7 +315,7 @@
                                                     <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                     <button onclick="modalEditAplikan()">
                                                         <i
-                                                                class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                     </button>
                                                 </div>
                                             @endif
@@ -338,14 +339,14 @@
                                                 </form>
                                                 <div class="flex items-center gap-3 mt-1">
                                                     <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                                                    @if($enrollment->approve)
+                                                    @if ($enrollment->approve)
                                                         <i class="fa-solid fa-circle-check text-emerald-500"></i>
                                                     @else
                                                         <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                                     @endif
                                                     <button onclick="modalEditDaftar()">
                                                         <i
-                                                                class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
+                                                            class="fa-solid fa-pen-to-square text-yellow-500 hover:text-yellow-600"></i>
                                                     </button>
                                                 </div>
                                             @else
@@ -367,8 +368,10 @@
                                             @endif
                                         </div>
                                     @endif
-                                    @if($enrollment && !$enrollment->approve)
-                                        <p class="text-[11px] text-red-500 text-center">Belum bisa di registrasikan karena pendaftaran belum disetujui.<br/>Silahkan hubungi Admin bagian Approval.</p>
+                                    @if ($enrollment && !$enrollment->approve)
+                                        <p class="text-[11px] text-red-500 text-center">Belum bisa di registrasikan
+                                            karena pendaftaran belum disetujui.<br />Silahkan hubungi Admin bagian
+                                            Approval.</p>
                                     @endif
                                     @if ($user->is_applicant == 1 && $user->is_daftar == 1 && $enrollment->approve && $account > 0)
                                         <div class="flex justify-between items-center gap-2">
@@ -512,14 +515,15 @@
                                         </ul>
                                     </div>
                                     @if ($status_applicant && !$enrollment)
-                                    <form action="{{ route('database.delete_is_applicant', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    </form>
+                                        <form action="{{ route('database.delete_is_applicant', $user->id) }}"
+                                            method="POST" onsubmit="return confirmDelete()">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
                             @else
@@ -529,82 +533,83 @@
                                 </p>
                             @endif
                             @if ($enrollment)
-                            <div class="flex justify-between items-end">
-                                <div class="space-y-2">
-                                    <h2 class="text-sm font-semibold text-gray-900">Daftar:</h2>
-                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-receipt text-gray-400"></i>
-                                            <span class="inline-block mr-2">No. Kwitansi:
-                                                <span class="underline">{{ $enrollment->receipt }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
-                                            <span class="inline-block mr-2">Tanggal:
-                                                <span class="underline">{{ $enrollment->date }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-timeline text-gray-400"></i>
-                                            <span class="inline-block mr-2">Gelombang:
-                                                <span class="underline">{{ $enrollment->session }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="fa-regular fa-note-sticky block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Keterangan:
-                                                <span class="underline">{{ $enrollment->register }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="fa-regular fa-note-sticky block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Keterangan Daftar:
-                                                <span class="underline">{{ $enrollment->register_end }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="fa-solid fa-coins block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Nominal:
-                                                <span
-                                                    class="underline">Rp{{ number_format($enrollment->nominal, 0, ',', '.') }}</span>
-                                            </span>
-                                        </li>
-                                        @if ($enrollment->repayment)
+                                <div class="flex justify-between items-end">
+                                    <div class="space-y-2">
+                                        <h2 class="text-sm font-semibold text-gray-900">Daftar:</h2>
+                                        <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-solid fa-receipt text-gray-400"></i>
+                                                <span class="inline-block mr-2">No. Kwitansi:
+                                                    <span class="underline">{{ $enrollment->receipt }}</span>
+                                                </span>
+                                            </li>
                                             <li class="flex items-center space-x-2">
                                                 <i class="block fa-regular fa-calendar text-gray-400"></i>
-                                                <span class="inline-block mr-2">Pengembalian BK:
-                                                    <span class="underline">{{ $enrollment->repayment }}</span>
+                                                <span class="inline-block mr-2">Tanggal:
+                                                    <span class="underline">{{ $enrollment->date }}</span>
                                                 </span>
                                             </li>
                                             <li class="flex items-center space-x-2">
-                                                <i class="fa-solid fa-money-bill-transfer block text-gray-400"></i>
-                                                <span class="inline-block mr-2">Debit:
-                                                    <span
-                                                        class="underline">Rp{{ number_format($enrollment->debit, 0, ',', '.') }}</span>
+                                                <i class="block fa-solid fa-timeline text-gray-400"></i>
+                                                <span class="inline-block mr-2">Gelombang:
+                                                    <span class="underline">{{ $enrollment->session }}</span>
                                                 </span>
                                             </li>
-                                        @endif
-                                        <li class="flex items-center space-x-2">
-                                            <i class="fa-regular fa-credit-card block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Kas Pendaftaran:
-                                                <span
-                                                    class="underline">Rp{{ number_format($enrollment->nominal - $enrollment->debit, 0, ',', '.') }}</span>
-                                            </span>
-                                        </li>
-                                    </ul>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Keterangan:
+                                                    <span class="underline">{{ $enrollment->register }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-regular fa-note-sticky block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Keterangan Daftar:
+                                                    <span class="underline">{{ $enrollment->register_end }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-solid fa-coins block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Nominal:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($enrollment->nominal, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                            @if ($enrollment->repayment)
+                                                <li class="flex items-center space-x-2">
+                                                    <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                                    <span class="inline-block mr-2">Pengembalian BK:
+                                                        <span class="underline">{{ $enrollment->repayment }}</span>
+                                                    </span>
+                                                </li>
+                                                <li class="flex items-center space-x-2">
+                                                    <i class="fa-solid fa-money-bill-transfer block text-gray-400"></i>
+                                                    <span class="inline-block mr-2">Debit:
+                                                        <span
+                                                            class="underline">Rp{{ number_format($enrollment->debit, 0, ',', '.') }}</span>
+                                                    </span>
+                                                </li>
+                                            @endif
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-regular fa-credit-card block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Kas Pendaftaran:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($enrollment->nominal - $enrollment->debit, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    @if ($status_applicant && $enrollment && !$registration)
+                                        <form action="{{ route('enrollment.destroy', $user->id) }}" method="POST"
+                                            onsubmit="return confirmDelete()">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
-                                @if ($status_applicant && $enrollment && !$registration)
-                                <form action="{{ route('enrollment.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </form>
-                                @endif
-                            </div>
                             @else
                                 <p class="text-sm text-gray-600">
                                     <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
@@ -612,48 +617,49 @@
                                 </p>
                             @endif
                             @if ($registration)
-                            <div class="flex justify-between items-end">
-                                <div class="space-y-2">
-                                    <h2 class="text-sm font-semibold text-gray-900">Registrasi:</h2>
-                                    <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-regular fa-calendar text-gray-400"></i>
-                                            <span class="inline-block mr-2">Tanggal:
-                                                <span class="underline">{{ $registration->date }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="fa-solid fa-coins block text-gray-400"></i>
-                                            <span class="inline-block mr-2">Nominal:
-                                                <span
-                                                    class="underline">Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-money-bills text-gray-400"></i>
-                                            <span class="inline-block mr-2">Harga Deal:
-                                                <span
-                                                    class="underline">Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
-                                            </span>
-                                        </li>
-                                        <li class="flex items-center space-x-2">
-                                            <i class="block fa-solid fa-percent text-gray-400"></i>
-                                            <span class="inline-block mr-2">Potongan:
-                                                <span
-                                                    class="underline">Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
-                                            </span>
-                                        </li>
-                                    </ul>
+                                <div class="flex justify-between items-end">
+                                    <div class="space-y-2">
+                                        <h2 class="text-sm font-semibold text-gray-900">Registrasi:</h2>
+                                        <ul class="max-w-md space-y-1 text-sm text-gray-500 list-inside">
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-regular fa-calendar text-gray-400"></i>
+                                                <span class="inline-block mr-2">Tanggal:
+                                                    <span class="underline">{{ $registration->date }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="fa-solid fa-coins block text-gray-400"></i>
+                                                <span class="inline-block mr-2">Nominal:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($registration->nominal, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-solid fa-money-bills text-gray-400"></i>
+                                                <span class="inline-block mr-2">Harga Deal:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($registration->deal, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                            <li class="flex items-center space-x-2">
+                                                <i class="block fa-solid fa-percent text-gray-400"></i>
+                                                <span class="inline-block mr-2">Potongan:
+                                                    <span
+                                                        class="underline">Rp{{ number_format($registration->discount, 0, ',', '.') }}</span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <form action="{{ route('registration.destroy', $user->id) }}" method="POST"
+                                        onsubmit="return confirmDelete()">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                                <form action="{{ route('registration.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete()">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-5 py-2.5 rounded-xl transition-all ease-in-out">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </form>
-                            </div>
                             @else
                                 <p class="text-sm text-gray-600">
                                     <i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>
@@ -809,26 +815,29 @@
                 };
 
                 try {
-                    const misilResponse = await axios.post(`https://backend-misilv4.politekniklp3i-tasikmalaya.ac.id/service/integration/marketing/save-aplikan`, data, {
-                        headers: headers
-                    });
-                    
+                    const misilResponse = await axios.post(
+                        `https://backend-misilv4.politekniklp3i-tasikmalaya.ac.id/service/integration/marketing/save-aplikan`,
+                        data, {
+                            headers: headers
+                        });
+
                     alert(misilResponse.data.message);
-                    
+
                     await axios.post(`/integration`, {
                         identity_user: identity,
                         platform: 'misil',
                     });
-                    const responseSiakad = await axios.post("https://sie.politekniklp3i-tasikmalaya.ac.id/api/integration/pmb", {
-                        identity_user: data.identity_user,
-                        name: data.nama_lengkap,
-                        major: data.kode_jurusan,
-                        place_of_birth: data.tempat_lahir,
-                        date_of_birth: data.tgl_lahir,
-                        email: data.email,
-                        phone: data.no_hp,
-                        pmb: data.pmb,
-                    });
+                    const responseSiakad = await axios.post(
+                        "https://sie.politekniklp3i-tasikmalaya.ac.id/api/integration/pmb", {
+                            identity_user: data.identity_user,
+                            name: data.nama_lengkap,
+                            major: data.kode_jurusan,
+                            place_of_birth: data.tempat_lahir,
+                            date_of_birth: data.tgl_lahir,
+                            email: data.email,
+                            phone: data.no_hp,
+                            pmb: data.pmb,
+                        });
                     location.reload();
                 } catch (error) {
                     console.log(error);
@@ -841,7 +850,11 @@
                 loadingMisil.classList.toggle('hidden');
                 try {
                     const database = axios.get(`/api/database/${identityVal}`);
-                    const programs = axios.get(`${URL_API_LP3I}/dashboard/programs`);
+                    const programs = axios.get(`https://endpoint.politekniklp3i-tasikmalaya.ac.id/programs`, {
+                        headers: {
+                            'lp3i-api-key': 'b35e0a901904d293'
+                        }
+                    });
                     const misilAuth = axios.post(
                         `https://backend-misilv4.politekniklp3i-tasikmalaya.ac.id/service/auth/sign-in`, {
                             namaUser: "integrasi",
