@@ -109,6 +109,7 @@ return array(
     'App\\Models\\ApplicantFamily' => $baseDir . '/app/Models/ApplicantFamily.php',
     'App\\Models\\ApplicantHistory' => $baseDir . '/app/Models/ApplicantHistory.php',
     'App\\Models\\ApplicantStatus' => $baseDir . '/app/Models/ApplicantStatus.php',
+    'App\\Models\\Dashboard\\Database' => $baseDir . '/app/Models/Dashboard/Database.php',
     'App\\Models\\Dashboard\\RegisterByProgram' => $baseDir . '/app/Models/Dashboard/RegisterByProgram.php',
     'App\\Models\\Dashboard\\RekapitulasiPerolehanPMB' => $baseDir . '/app/Models/Dashboard/RekapitulasiPerolehanPMB.php',
     'App\\Models\\Dashboard\\SalesRevenue' => $baseDir . '/app/Models/Dashboard/SalesRevenue.php',
