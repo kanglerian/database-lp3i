@@ -456,10 +456,8 @@
                                         </span>
                                     </button>
                                     @if ($integration_misil)
-                                        <p class="text-xs text-center text-gray-500">Aplikan sudah
-                                            terintegrasi.<br />Jika
-                                            ada
-                                            perubahan boleh klik lagi!</p>
+                                        <p class="text-xs text-center text-red-500">Aplikan sudah
+                                            terintegrasi.<br />Jika terjadi <b>perubahan data</b>, silahkan <b>klik kembali</b> Integrasi.</p>
                                     @endif
                                 @endif
                             @else
