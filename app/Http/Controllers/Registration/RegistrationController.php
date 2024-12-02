@@ -274,7 +274,7 @@ class RegistrationController extends Controller
      */
     public function destroy($id)
     {
-        $applicant = Applicant::findOrFail($id)->firstOrFail();
+        $applicant = Applicant::findOrFail($id);
         $registration = StatusApplicantsRegistration::where('identity_user', $applicant->identity)->firstOrFail();
         $data = [
             "is_register" => 0,
