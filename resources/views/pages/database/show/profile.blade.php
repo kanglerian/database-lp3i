@@ -439,7 +439,7 @@
                                     <button type="button" id="button-misil" onclick="getTokenMisil()"
                                         class="flex justify-center items-center gap-2 cursor-pointer text-center text-xs bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl">
                                         <span>
-                                            <i class="fa-solid fa-circle-nodes"></i> Integrasi dengan MISIL
+                                            <i class="fa-solid fa-circle-nodes"></i> Integrasi MISIL & SIAKAD Tasik
                                         </span>
                                         <span id="loading-misil" class="hidden">
                                             <svg aria-hidden="true"
