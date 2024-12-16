@@ -868,10 +868,21 @@
                             const addressParts = database.data.user.address.split(',');
                             const addressRtRw = addressParts[1].split(' ');
                             if (!program) {
-                                alert('Program studi tidak ditemukan. Silakan perbarui jurusan di bagian Edit Profil melalui akun Presenter.');
+                                alert(
+                                    'Program studi tidak ditemukan. Silakan perbarui jurusan di bagian Edit Profil melalui akun Presenter.');
                                 window.location.href = `/database/${database.data.user.id}/edit`;
                                 loadingMisil.classList.toggle('hidden');
                                 return;
+                            } else {
+                                const confirmed = confirm(
+                                    `Program studi yang dipilih adalah ${program.title} dengan kode jurusan ${program.code}. Apakah data sudah benar?`
+                                    );
+                                if (!confirmed) {
+                                    alert('Jika ini salah, maka silakan perbarui jurusan di bagian Edit Profil melalui akun Presenter.');
+                                    window.location.href = `/database/${database.data.user.id}/edit`;
+                                    loadingMisil.classList.toggle('hidden');
+                                    return;
+                                }
                             }
                             const data = {
                                 // Aplikan datang
