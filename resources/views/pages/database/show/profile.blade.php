@@ -457,7 +457,8 @@
                                     </button>
                                     @if ($integration_misil)
                                         <p class="text-xs text-center text-red-500">Aplikan sudah
-                                            terintegrasi.<br />Jika terjadi <b>perubahan data</b>, silahkan <b>klik kembali</b> Integrasi.</p>
+                                            terintegrasi.<br />Jika terjadi <b>perubahan data</b>, silahkan <b>klik
+                                                kembali</b> Integrasi.</p>
                                     @endif
                                 @endif
                             @else
@@ -866,6 +867,12 @@
                                 `${result.level} ${result.title}` == program_studi)
                             const addressParts = database.data.user.address.split(',');
                             const addressRtRw = addressParts[1].split(' ');
+                            if (!program) {
+                                alert('Program studi tidak ditemukan. Silakan perbarui jurusan di bagian Edit Profil melalui akun Presenter.');
+                                window.location.href = `/database/${database.data.user.id}/edit`;
+                                loadingMisil.classList.toggle('hidden');
+                                return;
+                            }
                             const data = {
                                 // Aplikan datang
                                 method: 'simpan',
