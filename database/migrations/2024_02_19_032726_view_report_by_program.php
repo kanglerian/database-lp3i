@@ -17,7 +17,7 @@ class ViewReportByProgram extends Migration
             CREATE VIEW `report_register_by_program` AS
             SELECT
             applicants.pmb AS pmb,
-                applicants.identity_user AS identity_user,
+            applicants.identity_user AS identity_user,
             applicants.program AS program,
                 SUM(CASE WHEN
                     applicants.is_register = 1 AND

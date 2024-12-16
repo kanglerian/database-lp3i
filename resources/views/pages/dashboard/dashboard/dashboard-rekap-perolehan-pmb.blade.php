@@ -19,7 +19,11 @@
                     <th scope="col" class="px-6 py-4 text-center">Harga Jual Rata-Rata</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                    <td colspan="7" class="text-center">Loading...</td>
+                </tr>
+            </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2" class="font-bold">Total</td>
