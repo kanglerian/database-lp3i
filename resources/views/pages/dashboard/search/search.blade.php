@@ -229,6 +229,16 @@
                         return typeof(data) == 'object' ? data.name : 'Tidak diketahui';
                     }
                 }, {
+                    data: 'email',
+                    render: (data) => {
+                        return data ? data : 'Tidak diketahui';
+                    }
+                }, {
+                    data: 'phone',
+                    render: (data) => {
+                        return data ? data : 'Tidak diketahui';
+                    }
+                }, {
                     data: 'source_setting',
                     render: (data, type, row) => {
                         return data.name;
